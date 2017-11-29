@@ -15,7 +15,7 @@
 
 #import "WJGoodsDataModel.h"
 
-//#import <MJExtension.h>
+#import <MJExtension.h>
 
 
 @interface WJHomeMainClassViewController ()
@@ -109,7 +109,7 @@
             UICollectionReusableView *common = [self.collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"common" forIndexPath:indexPath];
             
             UIView *v = ViewInit(0, 0, kMSScreenWith, 40);
-            v.backgroundColor = [UIColor clearColor];
+            v.backgroundColor = [UIColor whiteColor];
             [common addSubview:v];
 
             UIView *line = ViewInit(kMSScreenWith/4, 20, kMSScreenWith/2, 1);
@@ -130,8 +130,8 @@
         {
             UICollectionReusableView *TOP = [self.collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"TOP" forIndexPath:indexPath];
             
-            UIView *v = ViewInit(0, 0, kMSScreenWith, 30);
-            v.backgroundColor = [UIColor clearColor];
+            UIView *v = ViewInit(0, 0, kMSScreenWith, 40);
+            v.backgroundColor = [UIColor whiteColor];
             [TOP addSubview:v];
 
             UIView *line = ViewInit(kMSScreenWith/4, 20, kMSScreenWith/2, 1);
@@ -158,7 +158,7 @@
 }
 -(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 10;
+    return 5;
 
 }
 

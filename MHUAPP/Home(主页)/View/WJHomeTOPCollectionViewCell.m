@@ -58,7 +58,7 @@
 
     [_grayView mas_makeConstraints:^(MASConstraintMaker *make) {
         [make.top.mas_equalTo(self)setOffset:DCMargin];
-        make.size.mas_equalTo(CGSizeMake(kMSScreenWith-20, self.height-5));
+        make.size.mas_equalTo(CGSizeMake(kMSScreenWith-20, self.height-4));
         make.centerX.mas_equalTo(self);
     }];
 
