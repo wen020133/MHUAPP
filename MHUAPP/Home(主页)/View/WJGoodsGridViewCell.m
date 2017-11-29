@@ -9,7 +9,12 @@
 #import "WJGoodsGridViewCell.h"
 #import <UIImageView+WebCache.h>
 #import "UIView+UIViewFrame.h"
-
+// 指示器高度
+#define kIndicatorH 5
+// 指示器宽度
+#define kIndicatorW 16
+// 指示器背景宽度
+#define kIndicatorBackViewW 48
 
 @interface WJGoodsGridViewCell()
 /** 个数 */
@@ -19,6 +24,10 @@
 /** 列数 */
 @property (assign, nonatomic) NSInteger columnNumber;
 
+/** 指示器背景 */
+@property (strong, nonatomic) UIView *indicatorBackView;
+/** 指示器 */
+@property (strong, nonatomic) UIView *indicatorView;
 
 @end
 
@@ -43,6 +52,7 @@
 - (UIScrollView *)scrollView {
     if (!_scrollView) {
         _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
+        _scrollView.backgroundColor = [UIColor whiteColor];
         _scrollView.pagingEnabled = YES;
         _scrollView.showsVerticalScrollIndicator = NO;
         _scrollView.showsHorizontalScrollIndicator = NO;
@@ -51,6 +61,24 @@
     }
     return _scrollView;
 }
+- (UIView *)indicatorBackView {
+    if (!_indicatorBackView) {
+        _indicatorBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kIndicatorBackViewW, kIndicatorH)];
+        _indicatorBackView.backgroundColor = [UIColor whiteColor];
+        _indicatorBackView.layer.borderWidth = 1;
+        _indicatorBackView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    }
+    return _indicatorBackView;
+}
+
+- (UIView *)indicatorView {
+    if (!_indicatorView) {
+        _indicatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kIndicatorW, kIndicatorH)];
+        _indicatorView.backgroundColor = [UIColor redColor];
+    }
+    return _indicatorView;
+}
+
 - (void)setUpUI
 {
     for (UIView *view in self.scrollView.subviews) {
@@ -58,6 +86,11 @@
     }
     [self addSubview:self.scrollView];
 
+    [self addSubview:self.indicatorBackView];
+    self.indicatorBackView.center = CGPointMake(self.center.x, CGRectGetMaxY(self.scrollView.frame) - 5);
+    
+    [self.indicatorBackView addSubview:self.indicatorView];
+    
     CGFloat width = 40;
      NSInteger pageCount = ceilf((CGFloat)self.itemCounts / (self.lineNumber * self.columnNumber));
     self.scrollView.contentSize = CGSizeMake(self.frame.size.width * pageCount, self.frame.size.height);
@@ -102,7 +135,16 @@
             }
         }
 }
+#pragma mark -
+#pragma mark -- UIScrollViewDelegate
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    CGRect frame = self.indicatorView.frame;
+    frame.origin.x = scrollView.contentOffset.x * (kIndicatorBackViewW -  kIndicatorW) / (scrollView.contentSize.width - self.frame.size.width);
+    self.indicatorView.frame = frame;
+    
+}
 - (void)toJump:(UIButton *)sender
 {
 

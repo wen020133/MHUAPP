@@ -5,7 +5,7 @@
 #define meijiaPrinter_Constants_h
 
 
-#define DCMargin 10
+#define DCMargin 8
 
 #define PFR [[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0 ? @"PingFangSC-Regular" : @"PingFang SC"
 
@@ -31,7 +31,7 @@
 #define BASEPINK                @"#FF7A9A"  //程序基础粉色
 #define BASELITTLEBLACKCOLOR    @"#9E9E9E"  //最浅的黑色
 
-
+#define Font(F) [UIFont systemFontOfSize:F]
 
 #define kMSViewBackColor         [UIColor colorWithRed:237/255.0 green:237/255.0 blue:237/255.0 alpha:1]
 

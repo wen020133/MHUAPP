@@ -35,7 +35,7 @@
     self.headImageArr = [NSArray arrayWithObjects:@"da", nil];
     [self.view addSubview:self.menuScrollView];
     [self.view addSubview:self.collectionV];
-//    self.headImageArr = [WJGoodsDataModel mj_objectArrayWithFilename:@"HomeHighGoods.plist"]
+    self.headImageArr = [WJGoodsDataModel mj_objectArrayWithFilename:@"HomeHighGoods.plist"];
 
     //返回顶部
     CGRect loginImageViewRect = CGRectMake(kMSScreenWith - 40,kMSScreenHeight-kMSNaviHight - 100 , 27, 27);
@@ -75,7 +75,7 @@
 {
     if (!_collectionV) {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-        _collectionV = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 44, kMSScreenWith, kMSScreenHeight-kMSNaviHight-44) collectionViewLayout:layout];
+        _collectionV = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 44, kMSScreenWith, kMSScreenHeight-kMSNaviHight-44-49) collectionViewLayout:layout];
         
         _collectionV.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
         _collectionV.delegate = self;
@@ -86,7 +86,7 @@
          [_collectionV registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"common"];
         [_collectionV registerClass:[WJGoodsGridViewCell class] forCellWithReuseIdentifier:@"WJGoodsGridViewCell"];
         [_collectionV registerClass:[WJHomeTOPCollectionViewCell class] forCellWithReuseIdentifier:@"WJHomeTOPCollectionViewCell"];
-
+       [_collectionV registerClass:[WJHomeRecommendCollectionViewCell class] forCellWithReuseIdentifier:@"WJHomeRecommendCollectionViewCell"];
     }
     return _collectionV;
 }
@@ -109,7 +109,7 @@
             UICollectionReusableView *common = [self.collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"common" forIndexPath:indexPath];
             
             UIView *v = ViewInit(0, 0, kMSScreenWith, 40);
-            v.backgroundColor = [UIColor whiteColor];
+            v.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
             [common addSubview:v];
 
             UIView *line = ViewInit(kMSScreenWith/4, 20, kMSScreenWith/2, 1);
@@ -118,7 +118,7 @@
 
             UILabel *more = LabelInit(kMSScreenWith/2-40, 0, 80, 40);
             more.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
-            more.backgroundColor = [UIColor whiteColor];
+            more.backgroundColor =[RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
             more.text = @"为你推荐";
             more.textAlignment = NSTextAlignmentCenter;
             [common addSubview:more];
@@ -131,7 +131,7 @@
             UICollectionReusableView *TOP = [self.collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"TOP" forIndexPath:indexPath];
             
             UIView *v = ViewInit(0, 0, kMSScreenWith, 40);
-            v.backgroundColor = [UIColor whiteColor];
+            v.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
             [TOP addSubview:v];
 
             UIView *line = ViewInit(kMSScreenWith/4, 20, kMSScreenWith/2, 1);
@@ -140,7 +140,7 @@
 
             UILabel *more = LabelInit(kMSScreenWith/2-24, 0, 48, 40);
             more.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
-            more.backgroundColor = [UIColor whiteColor];
+            more.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
             more.text = @"TOP";
             more.textAlignment = NSTextAlignmentCenter;
             [TOP addSubview:more];
@@ -158,7 +158,7 @@
 }
 -(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 5;
+    return 6;
 
 }
 
@@ -187,10 +187,10 @@
     }
     else if (section==1)
     {
-        return 5;
+        return self.headImageArr.count;
     }
     else
-        return 13;
+        return self.headImageArr.count;
 }
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -215,9 +215,16 @@
             return cell;
      
     }
-    else
+    else if (indexPath.section == 1)
     {
         WJHomeTOPCollectionViewCell *cell = [self.collectionV dequeueReusableCellWithReuseIdentifier:@"WJHomeTOPCollectionViewCell" forIndexPath:indexPath];
+        cell.model = self.headImageArr[indexPath.row];
+        return cell;
+    }
+    else
+    {
+        WJHomeRecommendCollectionViewCell *cell = [self.collectionV dequeueReusableCellWithReuseIdentifier:@"WJHomeRecommendCollectionViewCell" forIndexPath:indexPath];
+        cell.model = self.headImageArr[indexPath.row];
         return cell;
     }
 }

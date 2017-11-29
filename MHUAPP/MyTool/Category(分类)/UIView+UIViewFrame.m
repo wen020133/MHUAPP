@@ -86,6 +86,16 @@
 - (CGPoint)origin {
     return self.frame.origin;
 }
+- (CGFloat) Bottom
+{
+    return self.frame.origin.y + self.frame.size.height;
+}
 
+- (void) setBottom: (CGFloat) newbottom
+{
+    CGRect newframe = self.frame;
+    newframe.origin.y = newbottom - self.frame.size.height;
+    self.frame = newframe;
+}
 
 @end

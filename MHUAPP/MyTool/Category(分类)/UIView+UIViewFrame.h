@@ -42,4 +42,6 @@
 /** * 获取origin */
 - (CGPoint)origin;
 
+
+- (CGFloat)Bottom;
 @end
