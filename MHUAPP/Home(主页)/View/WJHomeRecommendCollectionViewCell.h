@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WJGoodsDataModel.h"
 
 @interface WJHomeRecommendCollectionViewCell : UICollectionViewCell
 

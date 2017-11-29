@@ -13,6 +13,11 @@
 #import "WJHomeTOPCollectionViewCell.h"
 #import "WJHomeRecommendCollectionViewCell.h"
 
+#import "WJGoodsDataModel.h"
+
+//#import <MJExtension.h>
+
+
 @interface WJHomeMainClassViewController ()
 
 @property (strong, nonatomic) NSArray *arr_Type;
@@ -30,6 +35,7 @@
     self.headImageArr = [NSArray arrayWithObjects:@"da", nil];
     [self.view addSubview:self.menuScrollView];
     [self.view addSubview:self.collectionV];
+//    self.headImageArr = [WJGoodsDataModel mj_objectArrayWithFilename:@"HomeHighGoods.plist"]
 
     //返回顶部
     CGRect loginImageViewRect = CGRectMake(kMSScreenWith - 40,kMSScreenHeight-kMSNaviHight - 100 , 27, 27);

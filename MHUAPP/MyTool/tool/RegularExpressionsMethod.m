@@ -153,18 +153,7 @@
                            alpha:1.0f];
 }
 
-+ (NSString *)decodeFromPercentEscapeString: (NSString *) input
-{
-    NSMutableString *outputStr = [NSMutableString stringWithString:input];
-    [outputStr replaceOccurrencesOfString:@"+"
-                               withString:@" "
-                                  options:NSLiteralSearch
-                                    range:NSMakeRange(0,
-                                                      [outputStr length])];
-    
-    return
-    [outputStr stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-}
+
 +(NSString *)hiddenAccountMiddleRange:(NSString*)accountString
 {
     NSString *outputStr = @"";
@@ -188,5 +177,12 @@
     ch = size.height;
     return ch;
     
+}
+//计算字符串宽度
++(CGFloat)widthOfString:(NSString *)string font:(UIFont *)font height:(CGFloat)height
+{
+    NSDictionary * dict=[NSDictionary dictionaryWithObject: font forKey:NSFontAttributeName];
+    CGRect rect=[string boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, height) options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil];
+    return rect.size.width;
 }
 @end

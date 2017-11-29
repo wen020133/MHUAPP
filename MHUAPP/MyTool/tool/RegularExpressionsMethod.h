@@ -18,4 +18,7 @@
 +(NSString *)hiddenAccountMiddleRange:(NSString*)accountString;     //影藏中间部分
 
 +(UIColor *)ColorWithHexString: (NSString *) stringToConvert; //16进制
+
+//计算字符串宽度
++(CGFloat)widthOfString:(NSString *)string font:(UIFont *)font height:(CGFloat)height;
 @end
