@@ -23,26 +23,18 @@
 	
 	 if (leftImageName) {
 	UIButton *firstButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	
 	firstButton.frame = CGRectMake(0, 0, 44, 44);
 	UIImage *leftImage = [UIImage imageNamed:leftImageName];
 	[firstButton setImage:leftImage forState:UIControlStateNormal];
 	
 	 [firstButton addTarget:self action:@selector(showleft) forControlEvents:UIControlEventTouchUpInside];
-	
-	
-	
+
 	if ([[[UIDevice currentDevice] systemVersion] floatValue]>10) {
-		
 		firstButton.contentHorizontalAlignment =UIControlContentHorizontalAlignmentLeft;
-		
 		[firstButton setImageEdgeInsets:UIEdgeInsetsMake(0, -5 *kMSScreenWith /375.0,0,0)];
 		
 	}
-	
 	UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:firstButton];
-	
-	
 	self.navigationItem.leftBarButtonItem = leftBarButtonItem;
     }
     

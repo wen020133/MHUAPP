@@ -24,11 +24,13 @@
 
 - (void)setUpUI
 {
-    self.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.1];
+    self.backgroundColor = [[UIColor whiteColor]colorWithAlphaComponent:0.99];
 
     _placeholdLabel = [[UILabel alloc]initWithFrame:CGRectZero];
     _placeholdLabel.font = PFR14Font;
-    _placeholdLabel.textColor = [UIColor whiteColor];
+    _placeholdLabel.textColor = [UIColor lightGrayColor];
+    _placeholdLabel.layer.cornerRadius = 4;
+    _placeholdLabel.layer.masksToBounds = YES;
     [self addSubview:_placeholdLabel];
 
 }

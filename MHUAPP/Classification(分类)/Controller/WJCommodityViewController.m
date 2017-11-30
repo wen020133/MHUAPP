@@ -14,11 +14,14 @@
 
 #import "WJNavSearchBarView.h"
 
-
+#import "WJSearchViewController.h"
 
 
 @interface WJCommodityViewController ()
-
+{
+    NSInteger _selectIndex;
+    BOOL _isScrollDown;
+}
 @end
 
 @implementation WJCommodityViewController
@@ -30,14 +33,17 @@
     [self setUpTab];
 
      [self setUpData];
+
+    _selectIndex = 0;
+    _isScrollDown = YES;
     // Do any additional setup after loading the view.
 }
 #pragma mark - initizlize
 - (void)setUpTab
 {
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
-    self.tableView.backgroundColor = [UIColor whiteColor];
-    self.collectionView.backgroundColor = [UIColor whiteColor];
+    self.tableView.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
+    self.collectionView.backgroundColor = [UIColor clearColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
 }
 #pragma mark - 设置导航条
@@ -50,6 +56,10 @@
 
     searchBarVc.searchViewBlock = ^{
         NSLog(@"搜索");
+        WJSearchViewController *ddc = [[WJSearchViewController alloc]init];
+        self.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:ddc animated:YES];
+        self.hidesBottomBarWhenPushed = NO;
     };
 
     self.navigationItem.titleView = searchBarVc;
@@ -60,7 +70,7 @@
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.frame = CGRectMake(0, 0, tableViewW, kMSScreenHeight  - 49);
+        _tableView.frame = CGRectMake(0, 0, tableViewW, kMSScreenHeight  - 49-kMSNaviHight);
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.showsVerticalScrollIndicator = NO;
@@ -84,7 +94,7 @@
         _collectionView.showsVerticalScrollIndicator = NO;
         _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.alwaysBounceVertical = YES;
-        _collectionView.frame = CGRectMake(tableViewW, 0, kMSScreenWith - tableViewW, kMSScreenHeight  - 49);
+        _collectionView.frame = CGRectMake(tableViewW, 0, kMSScreenWith - tableViewW, kMSScreenHeight -kMSNaviHight - 49);
         //注册Cell
         [_collectionView registerClass:[WJGoodsSortCell class] forCellWithReuseIdentifier:@"WJGoodsSortCell"];
         //注册Header
@@ -122,8 +132,34 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    CGFloat offsetX = indexPath.row*50 - (kMSScreenHeight-113) * 0.5;
+    if (offsetX < 0) { //最小
+        offsetX = 0;
+    }
+    CGFloat offsetMax = self.tableView.contentSize.height - (kMSScreenHeight-113);
+    if (offsetX > offsetMax) { //最大
+        offsetX = offsetMax;
+    }
+        [self.tableView setContentOffset:CGPointMake(0, offsetX) animated:YES];
+      _selectIndex = indexPath.row;
+     [self scrollToTopOfSection:_selectIndex animated:YES];
 }
+#pragma mark - 解决点击 TableView 后 CollectionView 的 Header 遮挡问题
+
+- (void)scrollToTopOfSection:(NSInteger)section animated:(BOOL)animated
+{
+    CGRect headerRect = [self frameForHeaderForSection:section];
+    CGPoint topOfHeader = CGPointMake(0, headerRect.origin.y - _collectionView.contentInset.top);
+    [self.collectionView setContentOffset:topOfHeader animated:animated];
+}
+
+- (CGRect)frameForHeaderForSection:(NSInteger)section
+{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:section];
+    UICollectionViewLayoutAttributes *attributes = [self.collectionView.collectionViewLayout layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader atIndexPath:indexPath];
+    return attributes.frame;
+}
+
 
 #pragma mark - <UICollectionDataSource>
 - (NSInteger) numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -173,6 +209,48 @@
 {
     return UIStatusBarStyleLightContent;
 }
+// CollectionView分区标题即将展示
+- (void)collectionView:(UICollectionView *)collectionView willDisplaySupplementaryView:(UICollectionReusableView *)view forElementKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath
+{
+    // 当前CollectionView滚动的方向向上，CollectionView是用户拖拽而产生滚动的（主要是判断CollectionView是用户拖拽而滚动的，还是点击TableView而滚动的）
+    if (!_isScrollDown && (collectionView.dragging || collectionView.decelerating))
+    {
+        [self selectRowAtIndexPath:indexPath.section];
+    }
+}
+
+// CollectionView分区标题展示结束
+- (void)collectionView:(UICollectionView *)collectionView didEndDisplayingSupplementaryView:(nonnull UICollectionReusableView *)view forElementOfKind:(nonnull NSString *)elementKind atIndexPath:(nonnull NSIndexPath *)indexPath
+{
+    // 当前CollectionView滚动的方向向下，CollectionView是用户拖拽而产生滚动的（主要是判断CollectionView是用户拖拽而滚动的，还是点击TableView而滚动的）
+    if (_isScrollDown && (collectionView.dragging || collectionView.decelerating))
+    {
+        [self selectRowAtIndexPath:indexPath.section + 1];
+    }
+}
+
+// 当拖动CollectionView的时候，处理TableView
+- (void)selectRowAtIndexPath:(NSInteger)index
+{
+    if (index<_titleItem.count) {
+         [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] animated:YES scrollPosition:UITableViewScrollPositionMiddle];
+    }
+
+}
+
+#pragma mark - UIScrollView Delegate
+// 标记一下CollectionView的滚动方向，是向上还是向下
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    static float lastOffsetY = 0;
+
+    if (self.collectionView == scrollView)
+    {
+        _isScrollDown = lastOffsetY < scrollView.contentOffset.y;
+        lastOffsetY = scrollView.contentOffset.y;
+    }
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

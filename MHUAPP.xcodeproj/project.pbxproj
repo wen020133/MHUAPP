@@ -46,6 +46,8 @@
 		34287B481FCFA5BD00C7AE5F /* ClassiftyGoods01.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34287B471FCFA5BD00C7AE5F /* ClassiftyGoods01.plist */; };
 		34287B4B1FCFB5CE00C7AE5F /* WJBrandsSortHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34287B4A1FCFB5CE00C7AE5F /* WJBrandsSortHeadView.m */; };
 		34287B4D1FCFB9FA00C7AE5F /* HomeHighGoods.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34287B4C1FCFB9FA00C7AE5F /* HomeHighGoods.plist */; };
+		34287B541FCFF52700C7AE5F /* WJSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34287B531FCFF52700C7AE5F /* WJSearchViewController.m */; };
+		34287B581FCFF56800C7AE5F /* HXSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 34287B561FCFF56800C7AE5F /* HXSearchBar.m */; };
 		346564751FCD561100448C40 /* img_btn_theme@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3465646F1FCD561100448C40 /* img_btn_theme@2x.png */; };
 		346564761FCD561100448C40 /* img_btn_shiping@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 346564701FCD561100448C40 /* img_btn_shiping@2x.png */; };
 		346564771FCD561100448C40 /* img_btn_chongzhi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 346564711FCD561100448C40 /* img_btn_chongzhi@2x.png */; };
@@ -126,6 +128,10 @@
 		34287B491FCFB5CE00C7AE5F /* WJBrandsSortHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJBrandsSortHeadView.h; sourceTree = "<group>"; };
 		34287B4A1FCFB5CE00C7AE5F /* WJBrandsSortHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJBrandsSortHeadView.m; sourceTree = "<group>"; };
 		34287B4C1FCFB9FA00C7AE5F /* HomeHighGoods.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = HomeHighGoods.plist; path = "../../../../CDDStore-master/CDDStoreDemo/CDDStoreDemo/Classes/Resource/Plist/首页Plist/HomeHighGoods.plist"; sourceTree = "<group>"; };
+		34287B521FCFF52700C7AE5F /* WJSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJSearchViewController.h; sourceTree = "<group>"; };
+		34287B531FCFF52700C7AE5F /* WJSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJSearchViewController.m; sourceTree = "<group>"; };
+		34287B561FCFF56800C7AE5F /* HXSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXSearchBar.m; sourceTree = "<group>"; };
+		34287B571FCFF56800C7AE5F /* HXSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXSearchBar.h; sourceTree = "<group>"; };
 		3465646F1FCD561100448C40 /* img_btn_theme@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img_btn_theme@2x.png"; sourceTree = "<group>"; };
 		346564701FCD561100448C40 /* img_btn_shiping@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img_btn_shiping@2x.png"; sourceTree = "<group>"; };
 		346564711FCD561100448C40 /* img_btn_chongzhi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img_btn_chongzhi@2x.png"; sourceTree = "<group>"; };
@@ -274,6 +280,8 @@
 			children = (
 				17DF7C0E1FCD048E00FBD9DC /* WJCommodityViewController.h */,
 				17DF7C0F1FCD048E00FBD9DC /* WJCommodityViewController.m */,
+				34287B521FCFF52700C7AE5F /* WJSearchViewController.h */,
+				34287B531FCFF52700C7AE5F /* WJSearchViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -376,6 +384,7 @@
 				17DF7BE31FCCFEE800FBD9DC /* other */,
 				17DF7BE21FCCE7F800FBD9DC /* MainPage */,
 				17DF7BF61FCD00EE00FBD9DC /* Home(主页) */,
+				34287B4E1FCFEC2F00C7AE5F /* Details(商品详情) */,
 				17DF7BE11FCCE7F500FBD9DC /* Classification(分类) */,
 				17DF7C1B1FCD099A00FBD9DC /* ShopCart */,
 				17DF7BE01FCCE7F200FBD9DC /* Message */,
@@ -418,6 +427,7 @@
 		34287B301FCF85BF00C7AE5F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				34287B551FCFF53C00C7AE5F /* search */,
 				34287B3B1FCF9E7900C7AE5F /* tableView */,
 				34287B3A1FCF9E7600C7AE5F /* collectionView */,
 				34287B421FCFA15400C7AE5F /* WJNavSearchBarView.h */,
@@ -444,6 +454,47 @@
 				34287B3D1FCF9EB300C7AE5F /* WJClassCategoryCell.m */,
 			);
 			path = tableView;
+			sourceTree = "<group>";
+		};
+		34287B4E1FCFEC2F00C7AE5F /* Details(商品详情) */ = {
+			isa = PBXGroup;
+			children = (
+				34287B511FCFF00A00C7AE5F /* Controller */,
+				34287B501FCFF00200C7AE5F /* View */,
+				34287B4F1FCFEFFD00C7AE5F /* Model */,
+			);
+			path = "Details(商品详情)";
+			sourceTree = "<group>";
+		};
+		34287B4F1FCFEFFD00C7AE5F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		34287B501FCFF00200C7AE5F /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			path = "New Group/View";
+			sourceTree = "<group>";
+		};
+		34287B511FCFF00A00C7AE5F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		34287B551FCFF53C00C7AE5F /* search */ = {
+			isa = PBXGroup;
+			children = (
+				34287B571FCFF56800C7AE5F /* HXSearchBar.h */,
+				34287B561FCFF56800C7AE5F /* HXSearchBar.m */,
+			);
+			path = search;
 			sourceTree = "<group>";
 		};
 		346564691FCD4E9200448C40 /* third */ = {
@@ -637,6 +688,7 @@
 				171410D81FCD7FA900F500A9 /* WJHeadScrModel.m in Sources */,
 				34287B361FCF968400C7AE5F /* WJClassGoodsItem.m in Sources */,
 				17DF7C0D1FCD045700FBD9DC /* WJHomeMainClassViewController.m in Sources */,
+				34287B541FCFF52700C7AE5F /* WJSearchViewController.m in Sources */,
 				34287B411FCF9F3D00C7AE5F /* WJGoodsSortCell.m in Sources */,
 				17DF7BFD1FCD01A600FBD9DC /* WJMainTabBarViewController.m in Sources */,
 				34287B2A1FCE9E8400C7AE5F /* WJGoodsDataModel.m in Sources */,
@@ -650,6 +702,7 @@
 				34287B3E1FCF9EB300C7AE5F /* WJClassCategoryCell.m in Sources */,
 				17DF7C101FCD048E00FBD9DC /* WJCommodityViewController.m in Sources */,
 				17F9F15E1FCC527300C71820 /* AppDelegate.m in Sources */,
+				34287B581FCFF56800C7AE5F /* HXSearchBar.m in Sources */,
 				17DF7BF01FCCFFAE00FBD9DC /* UIViewController+BarExtension.m in Sources */,
 				34287B4B1FCFB5CE00C7AE5F /* WJBrandsSortHeadView.m in Sources */,
 				34287B391FCF96C300C7AE5F /* WJClassMainGoodTypeModel.m in Sources */,

@@ -64,9 +64,9 @@
 #define iPhone5PrintHeght ([[UIScreen mainScreen] bounds].size.height>500? 30 : 20 )
 #define iPhone5HeghtFrame ([[UIScreen mainScreen] bounds].size.height>500? 0 : 60 )
 #define kMSScreenHeight CGRectGetHeight([UIScreen mainScreen].bounds)
-#define IOS_7 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0 ? YES : NO)
 
-#define kMSNaviHight ((IOS_7) ? 64 : 44)
+
+#define kMSNaviHight  64
 #define startOriginY ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0 ? 20:0)
 
 #define _TencentAppid_  @"1105002914"
