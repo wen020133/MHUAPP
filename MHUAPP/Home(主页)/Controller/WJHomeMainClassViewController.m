@@ -15,7 +15,6 @@
 
 #import "WJGoodsDataModel.h"
 
-#import <MJExtension.h>
 
 
 @interface WJHomeMainClassViewController ()

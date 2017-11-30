@@ -37,6 +37,15 @@
 		34287B2A1FCE9E8400C7AE5F /* WJGoodsDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 34287B291FCE9E8400C7AE5F /* WJGoodsDataModel.m */; };
 		34287B2C1FCEA30C00C7AE5F /* placeholder.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 34287B2B1FCEA30C00C7AE5F /* placeholder.jpg */; };
 		34287B2E1FCEA42700C7AE5F /* HomeHighGoods.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34287B2D1FCEA42700C7AE5F /* HomeHighGoods.plist */; };
+		34287B361FCF968400C7AE5F /* WJClassGoodsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 34287B351FCF968400C7AE5F /* WJClassGoodsItem.m */; };
+		34287B391FCF96C300C7AE5F /* WJClassMainGoodTypeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 34287B381FCF96C300C7AE5F /* WJClassMainGoodTypeModel.m */; };
+		34287B3E1FCF9EB300C7AE5F /* WJClassCategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34287B3D1FCF9EB300C7AE5F /* WJClassCategoryCell.m */; };
+		34287B411FCF9F3D00C7AE5F /* WJGoodsSortCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34287B401FCF9F3D00C7AE5F /* WJGoodsSortCell.m */; };
+		34287B441FCFA15400C7AE5F /* WJNavSearchBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34287B431FCFA15400C7AE5F /* WJNavSearchBarView.m */; };
+		34287B461FCFA5AE00C7AE5F /* ClassifyTitles.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34287B451FCFA5AE00C7AE5F /* ClassifyTitles.plist */; };
+		34287B481FCFA5BD00C7AE5F /* ClassiftyGoods01.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34287B471FCFA5BD00C7AE5F /* ClassiftyGoods01.plist */; };
+		34287B4B1FCFB5CE00C7AE5F /* WJBrandsSortHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34287B4A1FCFB5CE00C7AE5F /* WJBrandsSortHeadView.m */; };
+		34287B4D1FCFB9FA00C7AE5F /* HomeHighGoods.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34287B4C1FCFB9FA00C7AE5F /* HomeHighGoods.plist */; };
 		346564751FCD561100448C40 /* img_btn_theme@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3465646F1FCD561100448C40 /* img_btn_theme@2x.png */; };
 		346564761FCD561100448C40 /* img_btn_shiping@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 346564701FCD561100448C40 /* img_btn_shiping@2x.png */; };
 		346564771FCD561100448C40 /* img_btn_chongzhi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 346564711FCD561100448C40 /* img_btn_chongzhi@2x.png */; };
@@ -102,6 +111,21 @@
 		34287B291FCE9E8400C7AE5F /* WJGoodsDataModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJGoodsDataModel.m; sourceTree = "<group>"; };
 		34287B2B1FCEA30C00C7AE5F /* placeholder.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = placeholder.jpg; sourceTree = "<group>"; };
 		34287B2D1FCEA42700C7AE5F /* HomeHighGoods.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = HomeHighGoods.plist; sourceTree = "<group>"; };
+		34287B341FCF968400C7AE5F /* WJClassGoodsItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJClassGoodsItem.h; sourceTree = "<group>"; };
+		34287B351FCF968400C7AE5F /* WJClassGoodsItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJClassGoodsItem.m; sourceTree = "<group>"; };
+		34287B371FCF96C300C7AE5F /* WJClassMainGoodTypeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJClassMainGoodTypeModel.h; sourceTree = "<group>"; };
+		34287B381FCF96C300C7AE5F /* WJClassMainGoodTypeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJClassMainGoodTypeModel.m; sourceTree = "<group>"; };
+		34287B3C1FCF9EB300C7AE5F /* WJClassCategoryCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJClassCategoryCell.h; sourceTree = "<group>"; };
+		34287B3D1FCF9EB300C7AE5F /* WJClassCategoryCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJClassCategoryCell.m; sourceTree = "<group>"; };
+		34287B3F1FCF9F3D00C7AE5F /* WJGoodsSortCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJGoodsSortCell.h; sourceTree = "<group>"; };
+		34287B401FCF9F3D00C7AE5F /* WJGoodsSortCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJGoodsSortCell.m; sourceTree = "<group>"; };
+		34287B421FCFA15400C7AE5F /* WJNavSearchBarView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJNavSearchBarView.h; sourceTree = "<group>"; };
+		34287B431FCFA15400C7AE5F /* WJNavSearchBarView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJNavSearchBarView.m; sourceTree = "<group>"; };
+		34287B451FCFA5AE00C7AE5F /* ClassifyTitles.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ClassifyTitles.plist; sourceTree = "<group>"; };
+		34287B471FCFA5BD00C7AE5F /* ClassiftyGoods01.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ClassiftyGoods01.plist; sourceTree = "<group>"; };
+		34287B491FCFB5CE00C7AE5F /* WJBrandsSortHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJBrandsSortHeadView.h; sourceTree = "<group>"; };
+		34287B4A1FCFB5CE00C7AE5F /* WJBrandsSortHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJBrandsSortHeadView.m; sourceTree = "<group>"; };
+		34287B4C1FCFB9FA00C7AE5F /* HomeHighGoods.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = HomeHighGoods.plist; path = "../../../../CDDStore-master/CDDStoreDemo/CDDStoreDemo/Classes/Resource/Plist/首页Plist/HomeHighGoods.plist"; sourceTree = "<group>"; };
 		3465646F1FCD561100448C40 /* img_btn_theme@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img_btn_theme@2x.png"; sourceTree = "<group>"; };
 		346564701FCD561100448C40 /* img_btn_shiping@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img_btn_shiping@2x.png"; sourceTree = "<group>"; };
 		346564711FCD561100448C40 /* img_btn_chongzhi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img_btn_chongzhi@2x.png"; sourceTree = "<group>"; };
@@ -154,6 +178,8 @@
 			isa = PBXGroup;
 			children = (
 				17DF7BF81FCD012F00FBD9DC /* Controller */,
+				34287B301FCF85BF00C7AE5F /* View */,
+				34287B2F1FCF85BD00C7AE5F /* Model */,
 			);
 			path = "Classification(分类)";
 			sourceTree = "<group>";
@@ -378,9 +404,54 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		34287B2F1FCF85BD00C7AE5F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				34287B341FCF968400C7AE5F /* WJClassGoodsItem.h */,
+				34287B351FCF968400C7AE5F /* WJClassGoodsItem.m */,
+				34287B371FCF96C300C7AE5F /* WJClassMainGoodTypeModel.h */,
+				34287B381FCF96C300C7AE5F /* WJClassMainGoodTypeModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		34287B301FCF85BF00C7AE5F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				34287B3B1FCF9E7900C7AE5F /* tableView */,
+				34287B3A1FCF9E7600C7AE5F /* collectionView */,
+				34287B421FCFA15400C7AE5F /* WJNavSearchBarView.h */,
+				34287B431FCFA15400C7AE5F /* WJNavSearchBarView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		34287B3A1FCF9E7600C7AE5F /* collectionView */ = {
+			isa = PBXGroup;
+			children = (
+				34287B3F1FCF9F3D00C7AE5F /* WJGoodsSortCell.h */,
+				34287B401FCF9F3D00C7AE5F /* WJGoodsSortCell.m */,
+				34287B491FCFB5CE00C7AE5F /* WJBrandsSortHeadView.h */,
+				34287B4A1FCFB5CE00C7AE5F /* WJBrandsSortHeadView.m */,
+			);
+			path = collectionView;
+			sourceTree = "<group>";
+		};
+		34287B3B1FCF9E7900C7AE5F /* tableView */ = {
+			isa = PBXGroup;
+			children = (
+				34287B3C1FCF9EB300C7AE5F /* WJClassCategoryCell.h */,
+				34287B3D1FCF9EB300C7AE5F /* WJClassCategoryCell.m */,
+			);
+			path = tableView;
+			sourceTree = "<group>";
+		};
 		346564691FCD4E9200448C40 /* third */ = {
 			isa = PBXGroup;
 			children = (
+				34287B471FCFA5BD00C7AE5F /* ClassiftyGoods01.plist */,
+				34287B4C1FCFB9FA00C7AE5F /* HomeHighGoods.plist */,
+				34287B451FCFA5AE00C7AE5F /* ClassifyTitles.plist */,
 				34287B2D1FCEA42700C7AE5F /* HomeHighGoods.plist */,
 			);
 			path = third;
@@ -479,11 +550,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				17DF7C0A1FCD040C00FBD9DC /* Default@2x.png in Resources */,
+				34287B461FCFA5AE00C7AE5F /* ClassifyTitles.plist in Resources */,
+				34287B481FCFA5BD00C7AE5F /* ClassiftyGoods01.plist in Resources */,
 				346564791FCD561100448C40 /* img_btn_jipiao@2x.png in Resources */,
 				346564751FCD561100448C40 /* img_btn_theme@2x.png in Resources */,
 				346564781FCD561100448C40 /* img_btn_wuliu@2x.png in Resources */,
 				17DF7C071FCD040C00FBD9DC /* Default-375w-812h@3x.png in Resources */,
 				17DF7C081FCD040C00FBD9DC /* Default-414w-736h@3x.png in Resources */,
+				34287B4D1FCFB9FA00C7AE5F /* HomeHighGoods.plist in Resources */,
 				346564761FCD561100448C40 /* img_btn_shiping@2x.png in Resources */,
 				346564771FCD561100448C40 /* img_btn_chongzhi@2x.png in Resources */,
 				34287B2E1FCEA42700C7AE5F /* HomeHighGoods.plist in Resources */,
@@ -561,18 +635,24 @@
 				17DF7C161FCD04BC00FBD9DC /* WJPersonalCenterViewController.m in Sources */,
 				171410DE1FCD96AA00F500A9 /* WJHomeRecommendCollectionViewCell.m in Sources */,
 				171410D81FCD7FA900F500A9 /* WJHeadScrModel.m in Sources */,
+				34287B361FCF968400C7AE5F /* WJClassGoodsItem.m in Sources */,
 				17DF7C0D1FCD045700FBD9DC /* WJHomeMainClassViewController.m in Sources */,
+				34287B411FCF9F3D00C7AE5F /* WJGoodsSortCell.m in Sources */,
 				17DF7BFD1FCD01A600FBD9DC /* WJMainTabBarViewController.m in Sources */,
 				34287B2A1FCE9E8400C7AE5F /* WJGoodsDataModel.m in Sources */,
 				17DF7C1A1FCD069500FBD9DC /* RegularExpressionsMethod.m in Sources */,
 				17DF7C1F1FCD09D300FBD9DC /* WJShopCartClassViewController.m in Sources */,
 				17DF7BE91FCCFF7100FBD9DC /* UIButton+LZCategory.m in Sources */,
+				34287B441FCFA15400C7AE5F /* WJNavSearchBarView.m in Sources */,
 				17F9F16C1FCC527300C71820 /* main.m in Sources */,
 				17DF7C2D1FCD430500FBD9DC /* WJGoodsGridModel.m in Sources */,
 				17DF7C271FCD3BAE00FBD9DC /* WJHomeScrollAdHeadView.m in Sources */,
+				34287B3E1FCF9EB300C7AE5F /* WJClassCategoryCell.m in Sources */,
 				17DF7C101FCD048E00FBD9DC /* WJCommodityViewController.m in Sources */,
 				17F9F15E1FCC527300C71820 /* AppDelegate.m in Sources */,
 				17DF7BF01FCCFFAE00FBD9DC /* UIViewController+BarExtension.m in Sources */,
+				34287B4B1FCFB5CE00C7AE5F /* WJBrandsSortHeadView.m in Sources */,
+				34287B391FCF96C300C7AE5F /* WJClassMainGoodTypeModel.m in Sources */,
 				17DF7BF11FCCFFAE00FBD9DC /* UINavigationBar+MSExtension.m in Sources */,
 				17DF7BE81FCCFF7100FBD9DC /* UIView+UIViewFrame.m in Sources */,
 				17DF7C221FCD30F200FBD9DC /* MenuScrollView.m in Sources */,
