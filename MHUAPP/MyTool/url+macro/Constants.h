@@ -4,6 +4,8 @@
 #ifndef meijiaPrinter_Constants_h
 #define meijiaPrinter_Constants_h
 
+/** 弱引用 */
+#define WEAKSELF __weak typeof(self) weakSelf = self;
 
 #define DCMargin 8
 

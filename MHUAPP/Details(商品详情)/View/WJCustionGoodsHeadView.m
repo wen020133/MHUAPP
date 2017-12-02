@@ -8,6 +8,7 @@
 
 #import "WJCustionGoodsHeadView.h"
 #import "UIView+UIViewFrame.h"
+#import "UIButton+LZCategory.h"
 
 @interface WJCustionGoodsHeadView ()
 
@@ -35,8 +36,8 @@
 
 - (void)setUpUI
 {
-    self.backgroundColor = [UIColor whiteColor];
-    NSArray *titles = @[@"推荐",@"价格",@"销量",@"筛选"];
+    self.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
+    NSArray *titles = @[@"推荐 ",@"价格",@"销量",@"筛选 "];
     NSArray *noImage = @[@"icon_Arrow2",@"",@"",@"icon_shaixuan"];
     CGFloat btnW = self.width / titles.count;
     CGFloat btnH = self.height;
@@ -54,6 +55,9 @@
         if (i == 0) {
             [self buttonClick:button]; //默认选择第一个
         }
+        if (i==0||i==titles.count-1) {
+            [button setbuttonType:LZCategoryTypeLeft];
+        }
     }
 
     [RegularExpressionsMethod dc_setUpAcrossPartingLineWith:self WithColor:[[UIColor lightGrayColor]colorWithAlphaComponent:0.4]];
@@ -63,7 +67,7 @@
 - (void)buttonClick:(UIButton *)button
 {
     if (button.tag == 3 + 100) { //筛选
-        !_filtrateClickBlock ? : _filtrateClickBlock();
+        !_filtrateClickBlock ? : _filtrateClickBlock(button.tag);
     }else{
         _selectBottomRedView.hidden = YES;
         [_selectBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
@@ -80,7 +84,7 @@
 
         _selectBtn = button;
         _selectBottomRedView = bottomRedView;
-         !_filtrateClickBlock ? : _filtrateClickBlock();
+         !_filtrateClickBlock ? : _filtrateClickBlock(button.tag);
     }
 }
 

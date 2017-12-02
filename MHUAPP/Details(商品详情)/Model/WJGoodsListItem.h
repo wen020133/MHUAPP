@@ -24,5 +24,6 @@
 
 /* 头部轮播 */
 @property (copy , nonatomic , readonly)NSArray *images;
-
+/** 销售数量 */
+@property (nonatomic, copy ,readonly) NSString *sale_count;
 @end

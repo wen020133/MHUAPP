@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface WJCustionGoodsHeadView : UICollectionReusableView
+
 /** 筛选点击回调 */
-@property (nonatomic, copy) dispatch_block_t filtrateClickBlock;
+@property (nonatomic , copy) void(^filtrateClickBlock)(NSInteger selectTag);
 
 @end

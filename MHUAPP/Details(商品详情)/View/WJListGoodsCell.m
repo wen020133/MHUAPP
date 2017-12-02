@@ -31,10 +31,6 @@
     _freeSuitImageView.image = [UIImage imageNamed:@"taozhuang_tag"];
     [self addSubview:_freeSuitImageView];
 
-    _autotrophyImageView = [[UIImageView alloc] init];
-    [self addSubview:_autotrophyImageView];
-    _autotrophyImageView.image = [UIImage imageNamed:@"detail_title_ziying_tag"];
-
     _gridImageView = [[UIImageView alloc] init];
     _gridImageView.contentMode = UIViewContentModeScaleAspectFill;
     [self addSubview:_gridImageView];
@@ -52,8 +48,6 @@
 
 
     _commentNumLabel = [[UILabel alloc] init];
-    NSInteger pNum = arc4random() % 10000;
-    _commentNumLabel.text = [NSString stringWithFormat:@"%zd人已评价",pNum];
     _commentNumLabel.font = PFR10Font;
     _commentNumLabel.textColor = [UIColor darkGrayColor];
     [self addSubview:_commentNumLabel];
@@ -69,10 +63,7 @@
         make.size.mas_equalTo(CGSizeMake(90, 90));
     }];
 
-    [_autotrophyImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        [make.left.mas_equalTo(_gridImageView.mas_right)setOffset:DCMargin];
-        make.top.mas_equalTo(_gridImageView);
-    }];
+
 
     [_gridLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         [make.left.mas_equalTo(_gridImageView.mas_right)setOffset:DCMargin];
@@ -82,17 +73,17 @@
 
 
     [_freeSuitImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(_autotrophyImageView);
+        make.left.mas_equalTo(_gridImageView.mas_right);
         [make.top.mas_equalTo(_gridLabel.mas_bottom)setOffset:2];
     }];
 
     [_priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(_autotrophyImageView);
+        make.left.mas_equalTo(_gridImageView.mas_right);
         [make.top.mas_equalTo(_freeSuitImageView.mas_bottom)setOffset:2];
     }];
 
     [_commentNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(_autotrophyImageView);
+        make.left.mas_equalTo(_gridImageView.mas_right);
         [make.top.mas_equalTo(_priceLabel.mas_bottom)setOffset:2];
     }];
 }
@@ -101,6 +92,8 @@
     _goodsItem = goodsItem;
     [_gridImageView sd_setImageWithURL:[NSURL URLWithString:_goodsItem.image_url]];
     _priceLabel.text = [NSString stringWithFormat:@"¥ %.2f",[_goodsItem.price floatValue]];
+     _commentNumLabel.text = [NSString stringWithFormat:@"已售%@件",_goodsItem.sale_count];
+
     _gridLabel.text = _goodsItem.main_title;
 }
 @end

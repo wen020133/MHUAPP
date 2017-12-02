@@ -31,17 +31,13 @@
     _freeSuitImageView.image = [UIImage imageNamed:@"taozhuang_tag"];
     [self addSubview:_freeSuitImageView];
 
-    _autotrophyImageView = [[UIImageView alloc] init];
-    [self addSubview:_autotrophyImageView];
-    _autotrophyImageView.image = [UIImage imageNamed:@"detail_title_ziying_tag"];
-
     _gridImageView = [[UIImageView alloc] init];
     _gridImageView.contentMode = UIViewContentModeScaleAspectFill;
     [self addSubview:_gridImageView];
 
     _gridLabel = [[UILabel alloc] init];
     _gridLabel.font = PFR14Font;
-    _gridLabel.numberOfLines = 1;
+    _gridLabel.numberOfLines = 2;
     [self addSubview:_gridLabel];
 
     _priceLabel = [[UILabel alloc] init];
@@ -50,8 +46,6 @@
     [self addSubview:_priceLabel];
 
     _commentNumLabel = [[UILabel alloc] init];
-    NSInteger pNum = arc4random() % 10000;
-    _commentNumLabel.text = [NSString stringWithFormat:@"%zd人已评价",pNum];
     _commentNumLabel.font = PFR10Font;
     _commentNumLabel.textColor = [UIColor darkGrayColor];
     [self addSubview:_commentNumLabel];
@@ -67,29 +61,25 @@
         make.size.mas_equalTo(CGSizeMake(self.width * 0.8, self.width * 0.8));
     }];
 
-    [_autotrophyImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        [make.left.mas_equalTo(self)setOffset:DCMargin];
-        [make.top.mas_equalTo(_gridImageView.mas_bottom)setOffset:DCMargin];
-    }];
 
     [_gridLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self);
-        make.centerY.mas_equalTo(_autotrophyImageView);
-        [make.right.mas_equalTo(self)setOffset:-DCMargin];
+        [make.left.mas_equalTo(self) setOffset:2];
+        [make.top.mas_equalTo(_gridImageView.mas_bottom) setOffset:2];
+        [make.right.mas_equalTo(self)setOffset:2];
     }];
 
     [_freeSuitImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(_autotrophyImageView);
+        [make.left.mas_equalTo(self) setOffset:2];
         [make.top.mas_equalTo(_gridLabel.mas_bottom)setOffset:2];
     }];
 
     [_priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(_autotrophyImageView);
+       [make.left.mas_equalTo(self) setOffset:2];
         [make.top.mas_equalTo(_freeSuitImageView.mas_bottom)setOffset:2];
     }];
 
     [_commentNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(_autotrophyImageView);
+        [make.left.mas_equalTo(self) setOffset:2];
         [make.top.mas_equalTo(_priceLabel.mas_bottom)setOffset:2];
     }];
 
@@ -101,6 +91,7 @@
     _goodsItem = goodsItem;
     [_gridImageView sd_setImageWithURL:[NSURL URLWithString:_goodsItem.image_url]];
     _priceLabel.text = [NSString stringWithFormat:@"¥ %.2f",[_goodsItem.price floatValue]];
+     _commentNumLabel.text = [NSString stringWithFormat:@"已售%@件",_goodsItem.sale_count];
     _gridLabel.text = _goodsItem.main_title;
 }
 

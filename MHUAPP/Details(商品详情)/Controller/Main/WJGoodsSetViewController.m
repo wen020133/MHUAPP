@@ -14,6 +14,7 @@
 #import "WJGoodsListItem.h"
 
 #import "WJHoverFlowLayout.h"
+#import "WJSildeBarView.h"
 
 @interface WJGoodsSetViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 @property (strong , nonatomic)UICollectionView *collectionView;
@@ -103,12 +104,13 @@ static CGFloat _lastContentOffset;
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (_isSwitchGrid) {
         WJListGoodsCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"WJListGoodsCell" forIndexPath:indexPath];
+        cell.goodsItem = self.setItem[indexPath.row];
         return cell;
     }
     else
     {
         WJSwitchGridCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"WJSwitchGridCell" forIndexPath:indexPath];
-        //        cell.model = self.headImageArr[indexPath.row];
+        cell.goodsItem = self.setItem[indexPath.row];
         return cell;
 
     }
@@ -121,8 +123,9 @@ static CGFloat _lastContentOffset;
     if (kind == UICollectionElementKindSectionHeader){
 
         WJCustionGoodsHeadView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJCustionGoodsHeadView" forIndexPath:indexPath];
-        headerView.filtrateClickBlock = ^{//点击了筛选
-            [self filtrateButtonClick];
+
+        headerView.filtrateClickBlock = ^(NSInteger selectTag){//点击了筛选
+            [self filtrateButtonClick:selectTag];
         };
         reusableview = headerView;
     }
@@ -130,7 +133,7 @@ static CGFloat _lastContentOffset;
 }
 #pragma mark - item宽高
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return (_isSwitchGrid) ? CGSizeMake(kMSScreenWith, 120) : CGSizeMake((kMSScreenWith - 4)/2, (kMSScreenWith - 4)/2 + 60);//列表、网格Cell
+    return (_isSwitchGrid) ? CGSizeMake(kMSScreenWith, 100) : CGSizeMake((kMSScreenWith - 4)/2, (kMSScreenWith - 4)/2 + 60);//列表、网格Cell
 }
 
 #pragma mark - head宽高
@@ -179,7 +182,7 @@ static CGFloat _lastContentOffset;
         self.collectionView.frame = CGRectMake(0, 20, kMSScreenWith, kMSScreenHeight - 20);
     }else{
         [self.navigationController setNavigationBarHidden:NO animated:YES];
-        self.collectionView.frame = CGRectMake(0, kMSNaviHight, kMSScreenWith, kMSScreenHeight-kMSNaviHight);
+        self.collectionView.frame = CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight);
     }
 }
 
@@ -189,8 +192,11 @@ static CGFloat _lastContentOffset;
     //判断回到顶部按钮是否隐藏
     _backTopButton.hidden = (scrollView.contentOffset.y > kMSScreenHeight) ? NO : YES;
 }
--(void)filtrateButtonClick
+-(void)filtrateButtonClick:(NSInteger)tag
 {
+    if (tag==103) {
+        [WJSildeBarView dc_showSildBarViewController];
+    }
 
 }
 

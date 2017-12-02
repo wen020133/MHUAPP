@@ -20,8 +20,6 @@
 @property (strong , nonatomic)UIImageView *gridImageView;
 /* 商品标题 */
 @property (strong , nonatomic)UILabel *gridLabel;
-/* 自营 */
-@property (strong , nonatomic)UIImageView *autotrophyImageView;
 /* 价格 */
 @property (strong , nonatomic)UILabel *priceLabel;
 /* 评价数量 */
