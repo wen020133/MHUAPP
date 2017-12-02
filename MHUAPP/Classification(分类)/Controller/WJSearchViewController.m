@@ -36,6 +36,14 @@
     //TextField
     searchBar.searchBarTextField.layer.cornerRadius = 4;
     searchBar.searchBarTextField.layer.masksToBounds = YES;
+    if (@available(iOS 11.0, *))
+    {
+        [searchBar.heightAnchor constraintLessThanOrEqualToConstant:kEVNScreenNavigationBarHeight].active = YES;
+    }
+    else
+    {
+
+    }
     //清除按钮图标
     searchBar.clearButtonImage = [UIImage imageNamed:@"demand_delete"];
     self.navigationItem.titleView = searchBar;
@@ -43,7 +51,7 @@
     UIButton *cancleButton = [UIButton buttonWithType:UIButtonTypeCustom];
     cancleButton.backgroundColor = [UIColor clearColor];
     [cancleButton setTitle:@"取消" forState:UIControlStateNormal];
-    [cancleButton setTitleColor:[RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR] forState:UIControlStateNormal];
+//    [cancleButton setTitleColor:[RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR] forState:UIControlStateNormal];
     cancleButton.titleLabel.font = [UIFont systemFontOfSize:19];
      [cancleButton addTarget:self action:@selector(HiddenSerVCrightAction) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* rightButtonItem = [[UIBarButtonItem alloc] init];
@@ -51,6 +59,7 @@
     self.navigationItem.rightBarButtonItem = rightButtonItem;
 
 }
+
 -(void)HiddenSerVCrightAction
 {
     [self.navigationController popViewControllerAnimated:NO];
@@ -60,7 +69,7 @@
 
 //已经开始编辑时的回调
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-
+     NSLog(@"searchText开始");
 }
 
 //编辑文字改变的回调
@@ -70,7 +79,7 @@
 
 //搜索按钮
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-
+      NSLog(@"searchText开始了");
 }
 
 

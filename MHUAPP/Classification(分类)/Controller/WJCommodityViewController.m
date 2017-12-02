@@ -15,7 +15,7 @@
 #import "WJNavSearchBarView.h"
 
 #import "WJSearchViewController.h"
-
+#import "WJGoodsSetViewController.h"
 
 @interface WJCommodityViewController ()
 {
@@ -202,6 +202,11 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"点击了个第%zd分组第%zd几个Item",indexPath.section,indexPath.row);
+    self.hidesBottomBarWhenPushed = YES;
+    WJGoodsSetViewController *dcVc = [[WJGoodsSetViewController alloc] init];
+    dcVc.goodTypeName = _mainmodel[indexPath.row].goods_title;
+    [self.navigationController pushViewController:dcVc animated:YES];
+    self.hidesBottomBarWhenPushed = NO;
 }
 
 #pragma 设置StatusBar为白色

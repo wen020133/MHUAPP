@@ -48,7 +48,12 @@
     }
 }
 
-
+- (void)setHideSearchBarBackgroundImage:(BOOL)hideSearchBarBackgroundImage {
+    if (hideSearchBarBackgroundImage) {
+        _hideSearchBarBackgroundImage = hideSearchBarBackgroundImage;
+        self.backgroundImage = [[UIImage alloc] init];
+    }
+}
 
 
 @end

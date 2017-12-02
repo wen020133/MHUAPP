@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HXSearchBar : UIView<UITextFieldDelegate>
+@interface HXSearchBar : UISearchBar
 
 @property (nonatomic,strong) UIColor *cursorColor;//光标颜色
 @property (nonatomic,strong) UITextField *searchBarTextField;//搜索框TextField
 @property (nonatomic,strong) UIImage *clearButtonImage;//输入框清除按钮图片
+@property (nonatomic,assign) BOOL hideSearchBarBackgroundImage;//隐藏SearchBar背景灰色部分 默认显示
+
 
 @end

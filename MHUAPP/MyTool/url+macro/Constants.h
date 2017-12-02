@@ -21,7 +21,10 @@
 
 
 #define IOS7 [[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0
-#define iOS7AddStatusHeight     (IOS7?20:0)
+
+#define kEVNScreenNavigationBarHeight 44.f
+
+
 #define D_LocalizedCardString(s) [[NSBundle mainBundle] localizedStringForKey:s value:nil table:@"CardToolLanguage"]
 #define D_Main_Appdelegate (AppDelegate *)[UIApplication sharedApplication].delegate
 

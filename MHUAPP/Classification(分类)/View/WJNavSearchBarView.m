@@ -11,6 +11,7 @@
 
 
 @implementation WJNavSearchBarView
+
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
 
@@ -25,12 +26,12 @@
 - (void)setUpUI
 {
     self.backgroundColor = [[UIColor whiteColor]colorWithAlphaComponent:0.99];
-
+    self.layer.cornerRadius = 8;
+    self.layer.masksToBounds = YES;
     _placeholdLabel = [[UILabel alloc]initWithFrame:CGRectZero];
     _placeholdLabel.font = PFR14Font;
     _placeholdLabel.textColor = [UIColor lightGrayColor];
-    _placeholdLabel.layer.cornerRadius = 4;
-    _placeholdLabel.layer.masksToBounds = YES;
+
     [self addSubview:_placeholdLabel];
 
 }
@@ -39,14 +40,6 @@
 {
     [super layoutSubviews];
     _placeholdLabel.frame = CGRectMake(DCMargin, 0, self.width - 50, self.height);
-
-    [_placeholdLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        [make.left.equalTo(self)setOffset:DCMargin];
-        make.top.equalTo(self);
-        make.height.equalTo(self);
-
-    }];
-
     //设置边角
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight | UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(2, 2)];
     CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];

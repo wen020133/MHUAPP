@@ -69,7 +69,7 @@
     label.textColor = kMSViewTitleColor;
     label.textAlignment = NSTextAlignmentCenter;
     label.center = CGPointMake(kMSScreenWith/2, kMSNaviHight/2);
-    UIFont *font = PFR18Font;
+    UIFont *font = PFR20Font;
     label.font = font;
     label.text = titleName;
     self.navigationItem.titleView = label;

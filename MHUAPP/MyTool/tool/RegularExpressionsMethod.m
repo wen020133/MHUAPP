@@ -7,6 +7,7 @@
 //
 
 #import "RegularExpressionsMethod.h"
+#import "UIView+UIViewFrame.h"
 
 @implementation RegularExpressionsMethod
 
@@ -184,5 +185,22 @@
     NSDictionary * dict=[NSDictionary dictionaryWithObject: font forKey:NSFontAttributeName];
     CGRect rect=[string boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, height) options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil];
     return rect.size.width;
+}
+
+#pragma mark - 下划线
++ (void)dc_setUpAcrossPartingLineWith:(UIView *)view WithColor:(UIColor *)color
+{
+    UIView *cellAcrossPartingLine = [[UIView alloc] init];
+    cellAcrossPartingLine.backgroundColor = color;
+    [view addSubview:cellAcrossPartingLine];
+
+    [cellAcrossPartingLine mas_makeConstraints:^(MASConstraintMaker *make) {
+
+        make.left.mas_equalTo(view);
+        make.bottom.mas_equalTo(view);
+        make.size.mas_equalTo(CGSizeMake(view.width, 1));
+
+    }];
+
 }
 @end
