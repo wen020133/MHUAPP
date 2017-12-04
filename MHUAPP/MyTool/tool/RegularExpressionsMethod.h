@@ -23,4 +23,9 @@
 
 //下划线
 + (void)dc_setUpAcrossPartingLineWith:(UIView *)view WithColor:(UIColor *)color;
+
+#pragma mark - 竖线
++ (void)dc_setUpLongLineWith:(UIView *)view WithColor:(UIColor *)color WithHightRatio:(CGFloat)ratio;
+
+
 @end

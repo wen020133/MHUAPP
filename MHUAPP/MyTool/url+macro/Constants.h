@@ -38,24 +38,13 @@
 
 #define Font(F) [UIFont systemFontOfSize:F]
 
-#define kMSViewBackColor         [UIColor colorWithRed:237/255.0 green:237/255.0 blue:237/255.0 alpha:1]
-
-
-#define kMSCellLableColor [UIColor colorWithRed:85/255.0 green:85/255.0 blue:85/255.0 alpha:1]
-
-#define kMSNavBarBackColor [UIColor colorWithRed:253/255.0 green:56/255.0 blue:115/255.0 alpha:1]
-#define kMSViewTitleColor    [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1]
-
+#define kMSCellSubtitleLableColor [UIColor colorWithRed:233/255.0 green:35/255.0 blue:46/255.0 alpha:1]
 #define kMSLabelTextColor [UIColor colorWithRed:90/255.0 green:90/255.0 blue:90/255.0 alpha:1]
+#define kMSButtonBackColor [UIColor colorWithRed:249/255.0 green:125/255.0 blue:10/255.0 alpha:1]
+#define kMSNavBarBackColor [UIColor colorWithRed:253/255.0 green:56/255.0 blue:115/255.0 alpha:1]
 
-#define kMSTextFiledColor [[UIColor colorWithRed:213/255.0 green:224/255.0 blue:238/255.0 alpha:1] CGColor]
+#define kMSViewTitleColor [UIColor whiteColor]
 
-#define kMSViewBorderColor [[UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1] CGColor]
-#define kMSViewLineColor [UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1] 
-#define kMSButtonBackColor [UIColor colorWithRed:255/255.0 green:55/255.0 blue:115/255.0 alpha:1]
-
-#define kMSCBButtonColor [UIColor colorWithRed:33/255.0 green:255/255.0 blue:255/255.0 alpha:1]
-#define IOS_7 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0 ? YES : NO)
 
 #define kMSScreenWith CGRectGetWidth([UIScreen mainScreen].bounds)
 

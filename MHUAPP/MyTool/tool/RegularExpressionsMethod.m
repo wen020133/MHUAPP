@@ -203,4 +203,24 @@
     }];
 
 }
+
+#pragma mark - 竖线
++ (void)dc_setUpLongLineWith:(UIView *)view WithColor:(UIColor *)color WithHightRatio:(CGFloat)ratio;
+{
+    if (ratio == 0) { // 默认1
+        ratio = 1;
+    }
+    UIView *cellLongLine = [[UIView alloc] init];
+    cellLongLine.backgroundColor = color;
+    [view addSubview:cellLongLine];
+
+    [cellLongLine mas_makeConstraints:^(MASConstraintMaker *make) {
+
+        make.right.mas_equalTo(view);
+        make.centerY.mas_equalTo(view);
+        make.size.mas_equalTo(CGSizeMake(1, view.height * ratio));
+
+    }];
+}
+
 @end

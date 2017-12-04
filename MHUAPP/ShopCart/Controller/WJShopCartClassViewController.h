@@ -10,4 +10,7 @@
 
 @interface WJShopCartClassViewController : UIViewController
 
+/** 判断当前界面是否存在tabBar */
+@property (nonatomic,assign)BOOL isTabBar;
+
 @end

@@ -98,4 +98,15 @@
     self.frame = newframe;
 }
 
+-(CGFloat)dc_centerX{
+
+    return self.center.x;
+}
+
+-(void)setDc_centerX:(CGFloat)dc_centerX{
+
+    CGPoint dcFrmae = self.center;
+    dcFrmae.x = dc_centerX;
+    self.center = dcFrmae;
+}
 @end
