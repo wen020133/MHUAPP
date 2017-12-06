@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WJDetailShowTypeCell.h"
 
-@interface WJShowTypeCouponCell : UICollectionViewCell
+@interface WJShowTypeCouponCell : WJDetailShowTypeCell
 /* 优惠券 */
 @end

@@ -36,6 +36,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    [self setUpChildViewControllers];
+
+    [self setUpInit];
+
+    [self setUpNav];
+
+    [self setUpTopButtonView];
+
+    [self addChildViewController];
+
+    [self setUpBottomButton];
+
+    [self acceptanceNote];
     // Do any additional setup after loading the view.
 }
 
@@ -83,8 +97,6 @@
 - (void)topBottonClick:(UIButton *)button
 {
     button.selected = !button.selected;
-    [_selectBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
 
     _selectBtn = button;
 
@@ -118,7 +130,8 @@
 
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setTitle:titles[i] forState:0];
-        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         button.tag = i;
         button.titleLabel.font = PFR16Font;
         [button addTarget:self action:@selector(topBottonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -203,7 +216,7 @@
     NSArray *imagesSel = @[@"tabr_07shoucang_down",@"tabr_08gouwuche"];
     CGFloat buttonW = kMSScreenWith * 0.2;
     CGFloat buttonH = 50;
-    CGFloat buttonY = kMSScreenHeight - buttonH;
+    CGFloat buttonY = kMSScreenHeight -kMSNaviHight- buttonH;
 
     for (NSInteger i = 0; i < imagesNor.count; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -224,7 +237,7 @@
     NSArray *titles = @[@"加入购物车",@"立即购买"];
     CGFloat buttonW = kMSScreenWith * 0.6 * 0.5;
     CGFloat buttonH = 50;
-    CGFloat buttonY = kMSScreenHeight - buttonH;
+    CGFloat buttonY = kMSScreenHeight -kMSNaviHight- buttonH;
     for (NSInteger i = 0; i < titles.count; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.titleLabel.font = PFR16Font;
@@ -258,6 +271,17 @@
 #pragma mark - 导航栏设置
 - (void)setUpNav
 {
+    UIButton *btnLeft = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btnLeft setImage:[UIImage imageNamed:@"ic_back.png"] forState:UIControlStateNormal];
+    [btnLeft setImage:[UIImage imageNamed:@"ic_back.png"] forState:UIControlStateHighlighted];
+    [btnLeft sizeToFit];
+
+    [btnLeft addTarget:self action:@selector(showleft) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem* leftButtonItem = [[UIBarButtonItem alloc] init];
+    leftButtonItem.customView = btnLeft;
+    self.navigationItem.leftBarButtonItem = leftButtonItem;
+
+
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn setImage:[UIImage imageNamed:@"Details_Btn_More_normal"] forState:UIControlStateNormal];
     [btn setImage:[UIImage imageNamed:@"Details_Btn_More_normal"] forState:UIControlStateHighlighted];
@@ -269,7 +293,10 @@
     self.navigationItem.rightBarButtonItem = rightButtonItem;
 }
 
-
+-(void)showleft
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 #pragma mark - 点击工具条
 - (void)toolItemClick
 {

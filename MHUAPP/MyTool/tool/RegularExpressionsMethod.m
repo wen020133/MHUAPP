@@ -223,4 +223,24 @@
     }];
 }
 
+#pragma mark - 首行缩进
++ (void)dc_setUpLabel:(UILabel *)label Content:(NSString *)content IndentationFortheFirstLineWith:(CGFloat)emptylen
+{
+    NSMutableParagraphStyle *paraStyle01 = [[NSMutableParagraphStyle alloc] init];
+    paraStyle01.firstLineHeadIndent = emptylen;//首行缩进
+    NSAttributedString *attrText = [[NSAttributedString alloc] initWithString:content attributes:@{NSParagraphStyleAttributeName:paraStyle01}];
+
+    label.attributedText = attrText;
+}
+
+#pragma mark -  根据传入字体大小计算字体宽高
++ (CGSize)dc_calculateTextSizeWithText : (NSString *)text WithTextFont: (NSInteger)textFont WithMaxW : (CGFloat)maxW {
+
+    CGFloat textMaxW = maxW;
+    CGSize textMaxSize = CGSizeMake(textMaxW, MAXFLOAT);
+
+    CGSize textSize = [text boundingRectWithSize:textMaxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont fontWithName:PFR size:textFont]} context:nil].size;
+
+    return textSize;
+}
 @end

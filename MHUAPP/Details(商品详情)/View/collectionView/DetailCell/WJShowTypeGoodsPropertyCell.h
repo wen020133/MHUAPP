@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WJDetailShowTypeCell.h"
 
-@interface WJShowTypeGoodsPropertyCell : UICollectionViewCell
+@interface WJShowTypeGoodsPropertyCell : WJDetailShowTypeCell
 
 @end

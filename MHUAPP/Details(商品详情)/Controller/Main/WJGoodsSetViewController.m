@@ -10,6 +10,7 @@
 #import "WJCustionGoodsHeadView.h"
 #import "WJListGoodsCell.h"
 #import "WJSwitchGridCell.h"
+#import "WJGoodDetailViewController.h"
 
 #import "WJGoodsListItem.h"
 
@@ -45,7 +46,7 @@ static CGFloat _lastContentOffset;
     [self initSendReplyWithTitle:self.goodTypeName andLeftButtonName:@"ic_back.png" andRightButtonName:@"nav_btn_jiugongge" andTitleLeftOrRight:YES];
 
     _isSwitchGrid = NO;
-    _setItem = [WJGoodsListItem mj_objectArrayWithFilename:@"HomeHighGoods.plist"];
+    _setItem = [WJGoodsListItem mj_objectArrayWithFilename:@"ClasiftyGoods.plist"];
     [self.view addSubview:self.collectionView];
 
     [self setUpSuspendView];
@@ -155,6 +156,14 @@ static CGFloat _lastContentOffset;
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"点击了商品第%zd",indexPath.row);
+    WJGoodDetailViewController *dcVc = [[WJGoodDetailViewController alloc] init];
+    dcVc.goodTitle = _setItem[indexPath.row].main_title;
+    dcVc.goodPrice = _setItem[indexPath.row].price;
+    dcVc.goodSubtitle = _setItem[indexPath.row].goods_title;
+    dcVc.shufflingArray = _setItem[indexPath.row].images;
+    dcVc.goodImageView = _setItem[indexPath.row].image_url;
+    self.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:dcVc animated:YES];
 }
 
 

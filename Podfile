@@ -2,6 +2,7 @@ platform :ios, ‘9.0’
 
 target “MHUAPP” do
 pod 'MJRefresh'
+pod 'SVProgressHUD'
 pod 'MJExtension'
 pod 'AFNetworking'
 pod 'Masonry'

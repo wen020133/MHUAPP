@@ -60,7 +60,7 @@
     [_goodTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         [make.left.mas_equalTo(self)setOffset:DCMargin];
         [make.top.mas_equalTo(self)setOffset:DCMargin];
-        [make.right.mas_equalTo(self)setOffset:-DCMargin * 2];
+        [make.right.mas_equalTo(self)setOffset:-DCMargin];
     }];
 
 

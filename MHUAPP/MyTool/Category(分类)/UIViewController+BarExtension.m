@@ -17,26 +17,25 @@
 
 - (void)initSendReplyWithTitle:(NSString *)titleName andLeftButtonName:(NSString *)leftImageName andRightButtonName:(NSString *)rightImageName andTitleLeftOrRight:(BOOL)yesOrNo
 {
-	UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0,0,44,44)];
-	
-	view.backgroundColor = [UIColor clearColor];
+
 	
 	 if (leftImageName) {
-	UIButton *firstButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	firstButton.frame = CGRectMake(0, 0, 44, 44);
-	UIImage *leftImage = [UIImage imageNamed:leftImageName];
-	[firstButton setImage:leftImage forState:UIControlStateNormal];
-	
-	 [firstButton addTarget:self action:@selector(showleft) forControlEvents:UIControlEventTouchUpInside];
+         UIButton *btnLeft = [UIButton buttonWithType:UIButtonTypeCustom];
+         [btnLeft setImage:[UIImage imageNamed:leftImageName] forState:UIControlStateNormal];
+         [btnLeft sizeToFit];
 
-	if ([[[UIDevice currentDevice] systemVersion] floatValue]>10) {
-		firstButton.contentHorizontalAlignment =UIControlContentHorizontalAlignmentLeft;
-		[firstButton setImageEdgeInsets:UIEdgeInsetsMake(0, -5 *kMSScreenWith /375.0,0,0)];
-		
+         [btnLeft addTarget:self action:@selector(showleft) forControlEvents:UIControlEventTouchUpInside];
+         UIBarButtonItem* leftButtonItem = [[UIBarButtonItem alloc] init];
+         leftButtonItem.customView = btnLeft;
+         self.navigationItem.leftBarButtonItem = leftButtonItem;
 	}
-	UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:firstButton];
-	self.navigationItem.leftBarButtonItem = leftBarButtonItem;
+    else
+    {
+        self.navigationItem.hidesBackButton = YES;
+        self.navigationItem.leftBarButtonItem.customView.hidden=YES;
     }
+
+
     
     // right button
     if(rightImageName)

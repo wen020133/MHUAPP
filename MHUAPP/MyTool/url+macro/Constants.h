@@ -44,7 +44,7 @@
 #define kMSNavBarBackColor [UIColor colorWithRed:253/255.0 green:56/255.0 blue:115/255.0 alpha:1]
 
 #define kMSViewTitleColor [UIColor whiteColor]
-
+#define kMSCellBackColor [UIColor whiteColor]
 
 #define kMSScreenWith CGRectGetWidth([UIScreen mainScreen].bounds)
 

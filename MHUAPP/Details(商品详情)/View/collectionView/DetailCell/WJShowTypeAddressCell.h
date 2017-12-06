@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WJDetailShowTypeCell.h"
 
-@interface WJShowTypeAddressCell : UICollectionViewCell
+
+@interface WJShowTypeAddressCell : WJDetailShowTypeCell
 
 @end
