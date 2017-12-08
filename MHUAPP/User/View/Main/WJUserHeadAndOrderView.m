@@ -15,4 +15,7 @@
     // Initialization code
 }
 
+- (IBAction)touchUserHeadImageView:(UIButton *)sender {
+    !_touchClickBlock ? : _touchClickBlock();
+}
 @end

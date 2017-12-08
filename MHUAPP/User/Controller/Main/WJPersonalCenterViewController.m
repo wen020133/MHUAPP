@@ -13,6 +13,8 @@
 #import "WJFlowItem.h"
 
 #import "WJUserSettingMainViewController.h"
+#import "WJLoginClassViewController.h"
+
 
 @interface WJPersonalCenterViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
@@ -43,6 +45,8 @@
 -(void)showright
 {
     WJUserSettingMainViewController *userSettingVC = [[WJUserSettingMainViewController alloc]init];
+    userSettingVC.str_name = @"userName";
+    userSettingVC.str_profile = @"用户简介";
     self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:userSettingVC animated:YES];
     self.hidesBottomBarWhenPushed = NO;
@@ -117,6 +121,9 @@
     if (kind == UICollectionElementKindSectionHeader) {
         if (indexPath.section == 0) {
         WJUserHeadAndOrderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJUserHeadAndOrderView" forIndexPath:indexPath];
+            headerView.touchClickBlock = ^{
+                [self changeUserHeard];
+            };
            return headerView;
     }
         else
@@ -172,7 +179,68 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(void)changeUserHeard
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 
+    NSString *loginState = [userDefaults objectForKey:@"loginState"];
+    if([loginState isEqualToString:@"1"])
+    {
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"选择图片" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+
+        UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"相册选取" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary])
+            {
+                NSUInteger sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                UIImagePickerController *picker=[[UIImagePickerController alloc] init];
+                picker.delegate=self;
+                picker.allowsEditing=NO;
+                sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                picker.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
+                [self presentViewController:picker animated:YES completion:^{}];
+            }
+            else
+            {
+                [SVProgressHUD showErrorWithStatus:@"请在设置-隐私-照片对APP授权"];
+            }
+        }];
+        UIAlertAction *archiveAction = [UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            UIImagePickerController *picker=[[UIImagePickerController alloc] init];
+            picker.delegate=self;
+            picker.allowsEditing=NO;
+            NSUInteger sourceType = UIImagePickerControllerSourceTypeCamera;
+            // 判断是否支持相机
+            if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+            {
+                sourceType = UIImagePickerControllerSourceTypeCamera;
+                picker.sourceType=UIImagePickerControllerSourceTypeCamera;
+                [self presentViewController:picker animated:YES completion:^{}];
+            }
+            else
+            {
+               [SVProgressHUD showErrorWithStatus:@"请在设置-隐私-照片对APP授权"];
+            }
+
+        }];
+
+        [alertVC addAction:cancelAction];
+        [alertVC addAction:deleteAction];
+        if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+        {
+            [alertVC addAction:archiveAction];
+        }
+        [self presentViewController:alertVC animated:YES completion:nil];
+    }
+    else
+    {
+        WJLoginClassViewController *loginVC = [[WJLoginClassViewController alloc]init];
+        self.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:loginVC animated:YES];
+        self.hidesBottomBarWhenPushed = NO;
+
+    }
+}
 /*
 #pragma mark - Navigation
 

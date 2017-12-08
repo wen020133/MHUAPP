@@ -8,6 +8,7 @@
 
 #import "RegularExpressionsMethod.h"
 #import "UIView+UIViewFrame.h"
+#import "JXTAlertController.h"
 
 @implementation RegularExpressionsMethod
 
@@ -243,4 +244,6 @@
 
     return textSize;
 }
+
+
 @end

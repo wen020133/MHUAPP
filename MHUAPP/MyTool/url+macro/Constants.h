@@ -45,6 +45,8 @@
 
 #define kMSViewTitleColor [UIColor whiteColor]
 #define kMSCellBackColor [UIColor whiteColor]
+#define kMSViewBackColor [UIColor whiteColor]
+
 
 #define kMSScreenWith CGRectGetWidth([UIScreen mainScreen].bounds)
 

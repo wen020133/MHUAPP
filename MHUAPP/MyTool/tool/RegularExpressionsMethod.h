@@ -33,4 +33,5 @@
 
 #pragma mark -  根据传入字体大小计算字体宽高
 + (CGSize)dc_calculateTextSizeWithText : (NSString *)text WithTextFont: (NSInteger)textFont WithMaxW : (CGFloat)maxW ;
+
 @end

@@ -37,6 +37,13 @@
 		17F9F16C1FCC527300C71820 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F9F16B1FCC527300C71820 /* main.m */; };
 		340017591FD22BA3009A027A /* WJHoverFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 340017581FD22BA3009A027A /* WJHoverFlowLayout.m */; };
 		3400175F1FD24600009A027A /* WJFiltrateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3400175E1FD24600009A027A /* WJFiltrateViewController.m */; };
+		34133C201FDA158000C95CA4 /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 34133C1E1FDA158000C95CA4 /* KeychainItemWrapper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		34133C211FDA158000C95CA4 /* XYMKeyChain.m in Sources */ = {isa = PBXBuildFile; fileRef = 34133C1F1FDA158000C95CA4 /* XYMKeyChain.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		34133C261FDA16FA00C95CA4 /* NSString+WJExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 34133C251FDA16FA00C95CA4 /* NSString+WJExtensions.m */; };
+		34133C2D1FDA1B8F00C95CA4 /* JXTAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34133C2C1FDA1B8F00C95CA4 /* JXTAlertController.m */; };
+		34133C311FDA39E100C95CA4 /* BaseNetworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34133C2F1FDA39E100C95CA4 /* BaseNetworkViewController.m */; };
+		34133C341FDA3CB400C95CA4 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 34133C331FDA3CB400C95CA4 /* Reachability.m */; };
+		34133C381FDA3D4500C95CA4 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 34133C371FDA3D4500C95CA4 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		3418782C1FD4D7B800D3F860 /* WJGoodDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3418782B1FD4D7B800D3F860 /* WJGoodDetailViewController.m */; };
 		3418782F1FD4F0DA00D3F860 /* WJGoodBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3418782E1FD4F0DA00D3F860 /* WJGoodBaseViewController.m */; };
 		341878321FD4F10500D3F860 /* WJGoodParticularsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 341878311FD4F10500D3F860 /* WJGoodParticularsViewController.m */; };
@@ -137,6 +144,15 @@
 		34E223721FD12E4E003C0F34 /* WJListGoodsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34E223711FD12E4E003C0F34 /* WJListGoodsCell.m */; };
 		34E223751FD12E73003C0F34 /* WJSwitchGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34E223741FD12E73003C0F34 /* WJSwitchGridCell.m */; };
 		34E2237E1FD14E94003C0F34 /* WJSildeBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34E2237D1FD14E94003C0F34 /* WJSildeBarView.m */; };
+		34EEB5FD1FD8C45600B4BE0A /* WJSetHeadTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34EEB5FC1FD8C45600B4BE0A /* WJSetHeadTableCell.m */; };
+		34EEB6021FD9376E00B4BE0A /* WJLoginClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34EEB6011FD9376E00B4BE0A /* WJLoginClassViewController.m */; };
+		34EEB6091FD93E4F00B4BE0A /* ForgetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34EEB6041FD93E4D00B4BE0A /* ForgetPasswordViewController.m */; };
+		34EEB60A1FD93E4F00B4BE0A /* RigisterClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34EEB6051FD93E4E00B4BE0A /* RigisterClassViewController.m */; };
+		34EEB60B1FD93E4F00B4BE0A /* RigisterClassViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34EEB6061FD93E4E00B4BE0A /* RigisterClassViewController.xib */; };
+		34EEB60C1FD93E4F00B4BE0A /* ForgetPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34EEB6071FD93E4E00B4BE0A /* ForgetPasswordViewController.xib */; };
+		34EEB6141FD9415600B4BE0A /* UIButton+CountDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 34EEB60E1FD9415500B4BE0A /* UIButton+CountDown.m */; };
+		34EEB6151FD9415600B4BE0A /* MJCountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 34EEB6111FD9415500B4BE0A /* MJCountDownButton.m */; };
+		34EEB6161FD9415600B4BE0A /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 34EEB6131FD9415600B4BE0A /* UIImage+Color.m */; };
 		34F1D3811FD61C770080EE3D /* WJDetailShowTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F1D3801FD61C770080EE3D /* WJDetailShowTypeCell.m */; };
 		34F1D3841FD625BE0080EE3D /* WJShowTypeFreightCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F1D3831FD625BE0080EE3D /* WJShowTypeFreightCell.m */; };
 		34F1D3881FD629480080EE3D /* WJDetailPartCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F1D3871FD629480080EE3D /* WJDetailPartCommentCell.m */; };
@@ -207,6 +223,20 @@
 		340017581FD22BA3009A027A /* WJHoverFlowLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJHoverFlowLayout.m; sourceTree = "<group>"; };
 		3400175D1FD24600009A027A /* WJFiltrateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJFiltrateViewController.h; sourceTree = "<group>"; };
 		3400175E1FD24600009A027A /* WJFiltrateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJFiltrateViewController.m; sourceTree = "<group>"; };
+		34133C1C1FDA157F00C95CA4 /* XYMKeyChain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYMKeyChain.h; sourceTree = "<group>"; };
+		34133C1D1FDA157F00C95CA4 /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
+		34133C1E1FDA158000C95CA4 /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
+		34133C1F1FDA158000C95CA4 /* XYMKeyChain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYMKeyChain.m; sourceTree = "<group>"; };
+		34133C241FDA16FA00C95CA4 /* NSString+WJExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+WJExtensions.h"; sourceTree = "<group>"; };
+		34133C251FDA16FA00C95CA4 /* NSString+WJExtensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+WJExtensions.m"; sourceTree = "<group>"; };
+		34133C2B1FDA1B8F00C95CA4 /* JXTAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXTAlertController.h; sourceTree = "<group>"; };
+		34133C2C1FDA1B8F00C95CA4 /* JXTAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXTAlertController.m; sourceTree = "<group>"; };
+		34133C2F1FDA39E100C95CA4 /* BaseNetworkViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseNetworkViewController.m; sourceTree = "<group>"; };
+		34133C301FDA39E100C95CA4 /* BaseNetworkViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseNetworkViewController.h; sourceTree = "<group>"; };
+		34133C321FDA3CB300C95CA4 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		34133C331FDA3CB400C95CA4 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		34133C361FDA3D4400C95CA4 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		34133C371FDA3D4500C95CA4 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		3418782A1FD4D7B800D3F860 /* WJGoodDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJGoodDetailViewController.h; sourceTree = "<group>"; };
 		3418782B1FD4D7B800D3F860 /* WJGoodDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJGoodDetailViewController.m; sourceTree = "<group>"; };
 		3418782D1FD4F0DA00D3F860 /* WJGoodBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJGoodBaseViewController.h; sourceTree = "<group>"; };
@@ -368,6 +398,22 @@
 		34E223741FD12E73003C0F34 /* WJSwitchGridCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJSwitchGridCell.m; sourceTree = "<group>"; };
 		34E2237C1FD14E94003C0F34 /* WJSildeBarView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJSildeBarView.h; sourceTree = "<group>"; };
 		34E2237D1FD14E94003C0F34 /* WJSildeBarView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJSildeBarView.m; sourceTree = "<group>"; };
+		34EEB5FB1FD8C45600B4BE0A /* WJSetHeadTableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJSetHeadTableCell.h; sourceTree = "<group>"; };
+		34EEB5FC1FD8C45600B4BE0A /* WJSetHeadTableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJSetHeadTableCell.m; sourceTree = "<group>"; };
+		34EEB6001FD9376E00B4BE0A /* WJLoginClassViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJLoginClassViewController.h; sourceTree = "<group>"; };
+		34EEB6011FD9376E00B4BE0A /* WJLoginClassViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJLoginClassViewController.m; sourceTree = "<group>"; };
+		34EEB6031FD93E4D00B4BE0A /* RigisterClassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RigisterClassViewController.h; sourceTree = "<group>"; };
+		34EEB6041FD93E4D00B4BE0A /* ForgetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgetPasswordViewController.m; sourceTree = "<group>"; };
+		34EEB6051FD93E4E00B4BE0A /* RigisterClassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RigisterClassViewController.m; sourceTree = "<group>"; };
+		34EEB6061FD93E4E00B4BE0A /* RigisterClassViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RigisterClassViewController.xib; sourceTree = "<group>"; };
+		34EEB6071FD93E4E00B4BE0A /* ForgetPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForgetPasswordViewController.xib; sourceTree = "<group>"; };
+		34EEB6081FD93E4E00B4BE0A /* ForgetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgetPasswordViewController.h; sourceTree = "<group>"; };
+		34EEB60E1FD9415500B4BE0A /* UIButton+CountDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+CountDown.m"; sourceTree = "<group>"; };
+		34EEB60F1FD9415500B4BE0A /* UIImage+Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Color.h"; sourceTree = "<group>"; };
+		34EEB6101FD9415500B4BE0A /* MJCountDownButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJCountDownButton.h; sourceTree = "<group>"; };
+		34EEB6111FD9415500B4BE0A /* MJCountDownButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJCountDownButton.m; sourceTree = "<group>"; };
+		34EEB6121FD9415600B4BE0A /* UIButton+CountDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+CountDown.h"; sourceTree = "<group>"; };
+		34EEB6131FD9415600B4BE0A /* UIImage+Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Color.m"; sourceTree = "<group>"; };
 		34F1D37F1FD61C770080EE3D /* WJDetailShowTypeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJDetailShowTypeCell.h; sourceTree = "<group>"; };
 		34F1D3801FD61C770080EE3D /* WJDetailShowTypeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJDetailShowTypeCell.m; sourceTree = "<group>"; };
 		34F1D3821FD625BE0080EE3D /* WJShowTypeFreightCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJShowTypeFreightCell.h; sourceTree = "<group>"; };
@@ -493,6 +539,8 @@
 				17DF7BEE1FCCFFAD00FBD9DC /* UINavigationBar+MSExtension.m */,
 				17DF7BEF1FCCFFAE00FBD9DC /* UIViewController+BarExtension.h */,
 				17DF7BED1FCCFFAD00FBD9DC /* UIViewController+BarExtension.m */,
+				34133C241FDA16FA00C95CA4 /* NSString+WJExtensions.h */,
+				34133C251FDA16FA00C95CA4 /* NSString+WJExtensions.m */,
 			);
 			path = "Category(分类)";
 			sourceTree = "<group>";
@@ -524,6 +572,8 @@
 			children = (
 				17DF7BFB1FCD01A600FBD9DC /* WJMainTabBarViewController.h */,
 				17DF7BFC1FCD01A600FBD9DC /* WJMainTabBarViewController.m */,
+				34133C301FDA39E100C95CA4 /* BaseNetworkViewController.h */,
+				34133C2F1FDA39E100C95CA4 /* BaseNetworkViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -578,6 +628,8 @@
 		17DF7C171FCD062200FBD9DC /* tool */ = {
 			isa = PBXGroup;
 			children = (
+				34133C321FDA3CB300C95CA4 /* Reachability.h */,
+				34133C331FDA3CB400C95CA4 /* Reachability.m */,
 				34F1D3901FD62BCD0080EE3D /* DCLIRLButton.h */,
 				34F1D38F1FD62BCD0080EE3D /* DCLIRLButton.m */,
 				17DF7C201FCD30F200FBD9DC /* MenuScrollView.h */,
@@ -662,6 +714,7 @@
 				17DF7C1B1FCD099A00FBD9DC /* ShopCart */,
 				17DF7BE01FCCE7F200FBD9DC /* Message */,
 				17DF7BDF1FCCE7F000FBD9DC /* User */,
+				34EEB5FF1FD9201C00B4BE0A /* Login */,
 				17DF7BDE1FCCE7D400FBD9DC /* MyTool */,
 				17F9F1651FCC527300C71820 /* Assets.xcassets */,
 				3465646D1FCD552800448C40 /* Images */,
@@ -707,6 +760,35 @@
 				3400175E1FD24600009A027A /* WJFiltrateViewController.m */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		34133C1B1FDA157000C95CA4 /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				34133C1D1FDA157F00C95CA4 /* KeychainItemWrapper.h */,
+				34133C1E1FDA158000C95CA4 /* KeychainItemWrapper.m */,
+				34133C1C1FDA157F00C95CA4 /* XYMKeyChain.h */,
+				34133C1F1FDA158000C95CA4 /* XYMKeyChain.m */,
+			);
+			path = Keychain;
+			sourceTree = "<group>";
+		};
+		34133C271FDA1B6900C95CA4 /* JXTAlertManager */ = {
+			isa = PBXGroup;
+			children = (
+				34133C2B1FDA1B8F00C95CA4 /* JXTAlertController.h */,
+				34133C2C1FDA1B8F00C95CA4 /* JXTAlertController.m */,
+			);
+			path = JXTAlertManager;
+			sourceTree = "<group>";
+		};
+		34133C351FDA3D3200C95CA4 /* jsonkit */ = {
+			isa = PBXGroup;
+			children = (
+				34133C361FDA3D4400C95CA4 /* JSONKit.h */,
+				34133C371FDA3D4500C95CA4 /* JSONKit.m */,
+			);
+			path = jsonkit;
 			sourceTree = "<group>";
 		};
 		341878531FD519C600D3F860 /* XWTransition */ = {
@@ -996,6 +1078,8 @@
 		3456C1C01FD7E8DF00B5AEB8 /* set */ = {
 			isa = PBXGroup;
 			children = (
+				34EEB5FB1FD8C45600B4BE0A /* WJSetHeadTableCell.h */,
+				34EEB5FC1FD8C45600B4BE0A /* WJSetHeadTableCell.m */,
 			);
 			path = set;
 			sourceTree = "<group>";
@@ -1003,6 +1087,10 @@
 		346564691FCD4E9200448C40 /* third */ = {
 			isa = PBXGroup;
 			children = (
+				34133C351FDA3D3200C95CA4 /* jsonkit */,
+				34133C271FDA1B6900C95CA4 /* JXTAlertManager */,
+				34133C1B1FDA157000C95CA4 /* Keychain */,
+				34EEB60D1FD9414700B4BE0A /* MJCountDownButton */,
 				341878C21FD51D4B00D3F860 /* AddressManager */,
 				341878531FD519C600D3F860 /* XWTransition */,
 				341878C01FD51A2F00D3F860 /* HomeHighGoods.plist */,
@@ -1108,6 +1196,34 @@
 				34E223661FD0FC8B003C0F34 /* WJGoodsSetViewController.m */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		34EEB5FF1FD9201C00B4BE0A /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				34EEB6001FD9376E00B4BE0A /* WJLoginClassViewController.h */,
+				34EEB6011FD9376E00B4BE0A /* WJLoginClassViewController.m */,
+				34EEB6081FD93E4E00B4BE0A /* ForgetPasswordViewController.h */,
+				34EEB6041FD93E4D00B4BE0A /* ForgetPasswordViewController.m */,
+				34EEB6071FD93E4E00B4BE0A /* ForgetPasswordViewController.xib */,
+				34EEB6031FD93E4D00B4BE0A /* RigisterClassViewController.h */,
+				34EEB6051FD93E4E00B4BE0A /* RigisterClassViewController.m */,
+				34EEB6061FD93E4E00B4BE0A /* RigisterClassViewController.xib */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		34EEB60D1FD9414700B4BE0A /* MJCountDownButton */ = {
+			isa = PBXGroup;
+			children = (
+				34EEB6101FD9415500B4BE0A /* MJCountDownButton.h */,
+				34EEB6111FD9415500B4BE0A /* MJCountDownButton.m */,
+				34EEB6121FD9415600B4BE0A /* UIButton+CountDown.h */,
+				34EEB60E1FD9415500B4BE0A /* UIButton+CountDown.m */,
+				34EEB60F1FD9415500B4BE0A /* UIImage+Color.h */,
+				34EEB6131FD9415600B4BE0A /* UIImage+Color.m */,
+			);
+			path = MJCountDownButton;
 			sourceTree = "<group>";
 		};
 		34F1D3851FD629200080EE3D /* 评论cell */ = {
@@ -1270,7 +1386,9 @@
 				34287B241FCE4B1100C7AE5F /* img_backTop.png in Resources */,
 				3456C1B01FD79F1D00B5AEB8 /* WJUserHeadAndOrderView.xib in Resources */,
 				3456C1851FD7730100B5AEB8 /* UserCommitFlow.plist in Resources */,
+				34EEB60C1FD93E4F00B4BE0A /* ForgetPasswordViewController.xib in Resources */,
 				3456C1941FD77DC300B5AEB8 /* user_icon_wodeshoucang.png in Resources */,
+				34EEB60B1FD93E4F00B4BE0A /* RigisterClassViewController.xib in Resources */,
 				3456C1951FD77DC300B5AEB8 /* user_icon_youhuiquan.png in Resources */,
 				17F9F1661FCC527300C71820 /* Assets.xcassets in Resources */,
 				3456C18D1FD775F400B5AEB8 /* user_icon_daipingjia.png in Resources */,
@@ -1312,6 +1430,8 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-MHUAPP/Pods-MHUAPP-resources.sh",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
+				"${PODS_ROOT}/UMengUShare/UShareSDK/UMSocialSDK/UMSocialSDKPromptResources.bundle",
+				"${PODS_ROOT}/UMengUShare/UShareSDK/UMSocialUI/UMSocialSDKResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -1350,7 +1470,9 @@
 				341878CF1FD5313A00D3F860 /* WJDeatilCustomHeadView.m in Sources */,
 				17DF7C161FCD04BC00FBD9DC /* WJPersonalCenterViewController.m in Sources */,
 				341878AB1FD519C600D3F860 /* XWCoolAnimator+XWLines.m in Sources */,
+				34EEB60A1FD93E4F00B4BE0A /* RigisterClassViewController.m in Sources */,
 				171410DE1FCD96AA00F500A9 /* WJHomeRecommendCollectionViewCell.m in Sources */,
+				34EEB6151FD9415600B4BE0A /* MJCountDownButton.m in Sources */,
 				341878B31FD519C600D3F860 /* XWFilterAnimator+XWBoxBlur.m in Sources */,
 				171410D81FCD7FA900F500A9 /* WJHeadScrModel.m in Sources */,
 				341878B21FD519C600D3F860 /* XWFilterAnimator+XWBarSwipe.m in Sources */,
@@ -1361,11 +1483,13 @@
 				341878351FD4F19E00D3F860 /* WJGoodCommentViewController.m in Sources */,
 				341878AD1FD519C600D3F860 /* XWCoolAnimator+XWPageFlip.m in Sources */,
 				341878B11FD519C600D3F860 /* XWDrawerAnimator.m in Sources */,
+				34133C341FDA3CB400C95CA4 /* Reachability.m in Sources */,
 				34287B361FCF968400C7AE5F /* WJClassGoodsItem.m in Sources */,
 				3456C1AF1FD79F1D00B5AEB8 /* WJUserHeadAndOrderView.m in Sources */,
 				17DF7C0D1FCD045700FBD9DC /* WJHomeMainClassViewController.m in Sources */,
 				341878B51FD519C600D3F860 /* XWFilterAnimator+XWFlash.m in Sources */,
 				341878AA1FD519C600D3F860 /* XWCoolAnimator+XWFold.m in Sources */,
+				34EEB6161FD9415600B4BE0A /* UIImage+Color.m in Sources */,
 				34287B541FCFF52700C7AE5F /* WJSearchViewController.m in Sources */,
 				34E223751FD12E73003C0F34 /* WJSwitchGridCell.m in Sources */,
 				3400175F1FD24600009A027A /* WJFiltrateViewController.m in Sources */,
@@ -1374,6 +1498,7 @@
 				179D82651FD6AA5E00CC4AA2 /* WJFlowItem.m in Sources */,
 				341878BA1FD519C600D3F860 /* XWFilterAnimator+XWSwipe.m in Sources */,
 				34E2236A1FD109AC003C0F34 /* WJCustionGoodsHeadView.m in Sources */,
+				34133C211FDA158000C95CA4 /* XYMKeyChain.m in Sources */,
 				17DF7BFD1FCD01A600FBD9DC /* WJMainTabBarViewController.m in Sources */,
 				341878B41FD519C600D3F860 /* XWFilterAnimator+XWCopyMachine.m in Sources */,
 				341878A01FD519C600D3F860 /* XWInteractiveTransition.m in Sources */,
@@ -1388,6 +1513,7 @@
 				17F9F16C1FCC527300C71820 /* main.m in Sources */,
 				340017591FD22BA3009A027A /* WJHoverFlowLayout.m in Sources */,
 				341878A81FD519C600D3F860 /* XWCircleSpreadAnimator.m in Sources */,
+				34133C381FDA3D4500C95CA4 /* JSONKit.m in Sources */,
 				341878B01FD519C600D3F860 /* XWCoolAnimator.m in Sources */,
 				341878DA1FD545D100D3F860 /* WJShowTypeGoodsPropertyCell.m in Sources */,
 				17DF7C2D1FCD430500FBD9DC /* WJGoodsGridModel.m in Sources */,
@@ -1396,16 +1522,19 @@
 				34F1D3811FD61C770080EE3D /* WJDetailShowTypeCell.m in Sources */,
 				341878A51FD519C600D3F860 /* SDBrowserImageView.m in Sources */,
 				341878A71FD519C600D3F860 /* SDWaitingView.m in Sources */,
+				34133C2D1FDA1B8F00C95CA4 /* JXTAlertController.m in Sources */,
 				34287B3E1FCF9EB300C7AE5F /* WJClassCategoryCell.m in Sources */,
 				341878DD1FD546BB00D3F860 /* WJShowTypeAddressCell.m in Sources */,
 				17DF7C101FCD048E00FBD9DC /* WJCommodityViewController.m in Sources */,
 				17F9F15E1FCC527300C71820 /* AppDelegate.m in Sources */,
 				3418782C1FD4D7B800D3F860 /* WJGoodDetailViewController.m in Sources */,
+				34EEB5FD1FD8C45600B4BE0A /* WJSetHeadTableCell.m in Sources */,
 				341878B71FD519C600D3F860 /* XWFilterAnimator+XWMod.m in Sources */,
 				34E2236D1FD12BB3003C0F34 /* WJGoodsListItem.m in Sources */,
 				341878AC1FD519C600D3F860 /* XWCoolAnimator+XWMiddlePageFlip.m in Sources */,
 				34E223671FD0FC8B003C0F34 /* WJGoodsSetViewController.m in Sources */,
 				34E223631FD0F4FE003C0F34 /* HXSearchBar.m in Sources */,
+				34EEB6021FD9376E00B4BE0A /* WJLoginClassViewController.m in Sources */,
 				17DF7BF01FCCFFAE00FBD9DC /* UIViewController+BarExtension.m in Sources */,
 				34287B4B1FCFB5CE00C7AE5F /* WJBrandsSortHeadView.m in Sources */,
 				34287B391FCF96C300C7AE5F /* WJClassMainGoodTypeModel.m in Sources */,
@@ -1421,13 +1550,16 @@
 				341878BD1FD519C600D3F860 /* XWMagicMoveAnimator.m in Sources */,
 				341878BB1FD519C600D3F860 /* XWFilterAnimator.m in Sources */,
 				17DF7C221FCD30F200FBD9DC /* MenuScrollView.m in Sources */,
+				34133C201FDA158000C95CA4 /* KeychainItemWrapper.m in Sources */,
 				17DF7C2A1FCD42D800FBD9DC /* WJGoodsGridViewCell.m in Sources */,
 				341878B81FD519C600D3F860 /* XWFilterAnimator+XWPageCurl.m in Sources */,
 				341878B61FD519C600D3F860 /* XWFilterAnimator+XWMask.m in Sources */,
 				179D82621FD6A90A00CC4AA2 /* WJFlowAttributeCell.m in Sources */,
+				34133C311FDA39E100C95CA4 /* BaseNetworkViewController.m in Sources */,
 				341878B91FD519C600D3F860 /* XWFilterAnimator+XWRipple.m in Sources */,
 				341878321FD4F10500D3F860 /* WJGoodParticularsViewController.m in Sources */,
 				171410DB1FCD95D100F500A9 /* WJHomeTOPCollectionViewCell.m in Sources */,
+				34133C261FDA16FA00C95CA4 /* NSString+WJExtensions.m in Sources */,
 				341878A61FD519C600D3F860 /* SDPhotoBrowser.m in Sources */,
 				17DF7C131FCD04A100FBD9DC /* WJMessageClassViewController.m in Sources */,
 				3418789D1FD519C600D3F860 /* UINavigationController+XWTransition.m in Sources */,
@@ -1435,6 +1567,8 @@
 				3418784D1FD5169300D3F860 /* WJToolsViewController.m in Sources */,
 				3456C1981FD787CD00B5AEB8 /* WJUserMainTabelCell.m in Sources */,
 				341878D71FD5452800D3F860 /* WJShowTypeCouponCell.m in Sources */,
+				34EEB6141FD9415600B4BE0A /* UIButton+CountDown.m in Sources */,
+				34EEB6091FD93E4F00B4BE0A /* ForgetPasswordViewController.m in Sources */,
 				341878A11FD519C600D3F860 /* XWTransitionAnimator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -12,8 +12,19 @@
 
 @property (strong, nonatomic) UITableView *infoTableView;
 @property (strong, nonatomic) UIButton   *deleteBtn;
-@property (strong, nonatomic) NSString   *str_Hearurl;
-@property (strong, nonatomic) NSArray   *arr_typeName;
-@property (strong, nonatomic) NSArray   *arr_content;
 
+@property (strong, nonatomic) NSArray   *arr_typeName;
+
+@property (strong, nonatomic) UIView *view_head;
+@property (strong, nonatomic) UIView *view_foot;
+/* 图片 */
+@property (strong , nonatomic) UIImageView *headImageView;
+/* 名字 */
+@property (strong , nonatomic) UILabel *userNameLabel;
+/* 签名 */
+@property (strong , nonatomic) UILabel *profileLabel;
+
+@property (strong, nonatomic) NSString   *str_Hearurl;
+@property (nonatomic, strong) NSString *str_name;
+@property (nonatomic, strong) NSString *str_profile;
 @end

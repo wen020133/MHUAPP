@@ -17,7 +17,7 @@
 @property (strong , nonatomic)UILabel *flowTextLabel;
 /* count */
 @property (strong , nonatomic) UILabel *countLabel;
-/* 图片 */
+/* 箭头图片 */
 @property (strong , nonatomic) UIImageView *actionImageView;
 /* 数据 */
 @property (strong , nonatomic) WJFlowItem *flowItem;
