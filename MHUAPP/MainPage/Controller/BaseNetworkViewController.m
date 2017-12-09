@@ -36,7 +36,7 @@
         NSTimeInterval a=[dat timeIntervalSince1970];  //  *1000 是精确到毫秒，不乘就是精确到秒
         NSString *timeString = [NSString stringWithFormat:@"%.0f",a ]; //转为字符型
         
-        [infos setValue:[[NSString stringWithFormat:@"beck_%@_beck",[timeString md5]] md5] forKey:@"token"];
+        [infos setValue:[[NSString stringWithFormat:@"jinri_%@_jinri",[timeString md5]] md5] forKey:@"token"];
         [infos setValue:timeString forKey:@"time"];
         NSLog(@"parameters====%@",infos);
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];

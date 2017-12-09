@@ -19,7 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
-    [self initSendReplyWithTitle:@"注册" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
+    [self initSendReplyWithTitle:@"账户注册" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
     self.scr_rigisterCon.frame = CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight);
      self.scr_rigisterCon.contentSize = CGSizeMake(kMSScreenWith, kMSScreenHeight+60);
     [self.view addSubview:self.scr_rigisterCon];

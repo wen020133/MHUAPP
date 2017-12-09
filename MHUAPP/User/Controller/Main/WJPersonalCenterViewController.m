@@ -14,7 +14,7 @@
 
 #import "WJUserSettingMainViewController.h"
 #import "WJLoginClassViewController.h"
-
+#import "JXTAlertController.h"
 
 @interface WJPersonalCenterViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
@@ -63,7 +63,7 @@
         _collectionView.frame = CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight - kMSNaviHight -49);
          _collectionView.alwaysBounceVertical = YES;
         //头部
-          [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([WJUserHeadAndOrderView class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJUserHeadAndOrderView"];
+        [_collectionView registerClass:[WJUserHeadAndOrderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJUserHeadAndOrderView"];
         //cell
         [_collectionView registerClass:[WJFlowAttributeCell class] forCellWithReuseIdentifier:@"WJFlowAttributeCell"];
         [_collectionView registerClass:[WJUserMainTabelCell class] forCellWithReuseIdentifier:@"WJUserMainTabelCell"];
@@ -121,8 +121,12 @@
     if (kind == UICollectionElementKindSectionHeader) {
         if (indexPath.section == 0) {
         WJUserHeadAndOrderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJUserHeadAndOrderView" forIndexPath:indexPath];
+            WEAKSELF
             headerView.touchClickBlock = ^{
-                [self changeUserHeard];
+                [weakSelf changeUserHeard];
+            };
+            headerView.goToOrderClickBlock  = ^{
+                [weakSelf goToOrderVC];
             };
            return headerView;
     }
@@ -186,51 +190,53 @@
     NSString *loginState = [userDefaults objectForKey:@"loginState"];
     if([loginState isEqualToString:@"1"])
     {
-        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"选择图片" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        [self jxt_showActionSheetWithTitle:@"选择图片" message:@"" appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
+            alertMaker.
+            addActionCancelTitle(@"取消").
+            addActionDestructiveTitle(@"相册选取").
+            addActionDefaultTitle(@"拍照");
+        } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, JXTAlertController * _Nonnull alertSelf) {
 
-        UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"相册选取" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary])
-            {
-                NSUInteger sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            if ([action.title isEqualToString:@"取消"]) {
+                NSLog(@"cancel");
+            }
+            else if ([action.title isEqualToString:@"相册选取"]) {
+                if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary])
+                {
+                    NSUInteger sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                    UIImagePickerController *picker=[[UIImagePickerController alloc] init];
+                    picker.delegate=self;
+                    picker.allowsEditing=NO;
+                    sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                    picker.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
+                    [self presentViewController:picker animated:YES completion:^{}];
+                }
+                else
+                {
+                    [SVProgressHUD showErrorWithStatus:@"请在设置-隐私-照片对APP授权"];
+                }
+            }
+            else if ([action.title isEqualToString:@"拍照"]) {
+                NSLog(@"拍照");
                 UIImagePickerController *picker=[[UIImagePickerController alloc] init];
                 picker.delegate=self;
                 picker.allowsEditing=NO;
-                sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-                picker.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
-                [self presentViewController:picker animated:YES completion:^{}];
-            }
-            else
-            {
-                [SVProgressHUD showErrorWithStatus:@"请在设置-隐私-照片对APP授权"];
-            }
-        }];
-        UIAlertAction *archiveAction = [UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            UIImagePickerController *picker=[[UIImagePickerController alloc] init];
-            picker.delegate=self;
-            picker.allowsEditing=NO;
-            NSUInteger sourceType = UIImagePickerControllerSourceTypeCamera;
-            // 判断是否支持相机
-            if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
-            {
-                sourceType = UIImagePickerControllerSourceTypeCamera;
-                picker.sourceType=UIImagePickerControllerSourceTypeCamera;
-                [self presentViewController:picker animated:YES completion:^{}];
-            }
-            else
-            {
-               [SVProgressHUD showErrorWithStatus:@"请在设置-隐私-照片对APP授权"];
+                NSUInteger sourceType = UIImagePickerControllerSourceTypeCamera;
+                // 判断是否支持相机
+                if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+                {
+                    sourceType = UIImagePickerControllerSourceTypeCamera;
+                    picker.sourceType=UIImagePickerControllerSourceTypeCamera;
+                    [self presentViewController:picker animated:YES completion:^{}];
+                }
+                else
+                {
+                    [SVProgressHUD showErrorWithStatus:@"请在设置-隐私-照片对APP授权"];
+                }
             }
 
         }];
 
-        [alertVC addAction:cancelAction];
-        [alertVC addAction:deleteAction];
-        if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
-        {
-            [alertVC addAction:archiveAction];
-        }
-        [self presentViewController:alertVC animated:YES completion:nil];
     }
     else
     {
@@ -240,6 +246,10 @@
         self.hidesBottomBarWhenPushed = NO;
 
     }
+}
+-(void)goToOrderVC
+{
+    NSLog(@"跳转到订单");
 }
 /*
 #pragma mark - Navigation

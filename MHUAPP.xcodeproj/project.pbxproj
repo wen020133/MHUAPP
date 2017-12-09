@@ -121,7 +121,6 @@
 		3456C1A41FD78D8F00B5AEB8 /* user_icon_jifen.png in Resources */ = {isa = PBXBuildFile; fileRef = 3456C1A31FD78D8F00B5AEB8 /* user_icon_jifen.png */; };
 		3456C1A61FD7940000B5AEB8 /* user_action_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 3456C1A51FD7940000B5AEB8 /* user_action_right.png */; };
 		3456C1AF1FD79F1D00B5AEB8 /* WJUserHeadAndOrderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3456C1AD1FD79F1D00B5AEB8 /* WJUserHeadAndOrderView.m */; };
-		3456C1B01FD79F1D00B5AEB8 /* WJUserHeadAndOrderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3456C1AE1FD79F1D00B5AEB8 /* WJUserHeadAndOrderView.xib */; };
 		3456C1B21FD79F9F00B5AEB8 /* user_backImageHead.png in Resources */ = {isa = PBXBuildFile; fileRef = 3456C1B11FD79F9F00B5AEB8 /* user_backImageHead.png */; };
 		3456C1B51FD7A04700B5AEB8 /* user_headBC.png in Resources */ = {isa = PBXBuildFile; fileRef = 3456C1B41FD7A04700B5AEB8 /* user_headBC.png */; };
 		3456C1B71FD7C33800B5AEB8 /* ic_no_heardPic.png in Resources */ = {isa = PBXBuildFile; fileRef = 3456C1B61FD7C33800B5AEB8 /* ic_no_heardPic.png */; };
@@ -136,6 +135,12 @@
 		346564781FCD561100448C40 /* img_btn_wuliu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 346564721FCD561100448C40 /* img_btn_wuliu@2x.png */; };
 		346564791FCD561100448C40 /* img_btn_jipiao@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 346564731FCD561100448C40 /* img_btn_jipiao@2x.png */; };
 		3465647A1FCD561100448C40 /* img_btn_zhuanti@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 346564741FCD561100448C40 /* img_btn_zhuanti@2x.png */; };
+		34D507571FDB79DC00EA1AC5 /* login_mobile.png in Resources */ = {isa = PBXBuildFile; fileRef = 34D507561FDB79DC00EA1AC5 /* login_mobile.png */; };
+		34D5075C1FDB7E5A00EA1AC5 /* login_mima.png in Resources */ = {isa = PBXBuildFile; fileRef = 34D507581FDB7E5A00EA1AC5 /* login_mima.png */; };
+		34D5075D1FDB7E5A00EA1AC5 /* login_qq.png in Resources */ = {isa = PBXBuildFile; fileRef = 34D507591FDB7E5A00EA1AC5 /* login_qq.png */; };
+		34D5075E1FDB7E5A00EA1AC5 /* login_weixin.png in Resources */ = {isa = PBXBuildFile; fileRef = 34D5075A1FDB7E5A00EA1AC5 /* login_weixin.png */; };
+		34D5075F1FDB7E5A00EA1AC5 /* login_weibo.png in Resources */ = {isa = PBXBuildFile; fileRef = 34D5075B1FDB7E5A00EA1AC5 /* login_weibo.png */; };
+		34D507651FDB8E4700EA1AC5 /* RigisterProtocolV.m in Sources */ = {isa = PBXBuildFile; fileRef = 34D507641FDB8E4700EA1AC5 /* RigisterProtocolV.m */; };
 		34E223631FD0F4FE003C0F34 /* HXSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 34E223621FD0F4FE003C0F34 /* HXSearchBar.m */; };
 		34E223671FD0FC8B003C0F34 /* WJGoodsSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34E223661FD0FC8B003C0F34 /* WJGoodsSetViewController.m */; };
 		34E2236A1FD109AC003C0F34 /* WJCustionGoodsHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34E223691FD109AC003C0F34 /* WJCustionGoodsHeadView.m */; };
@@ -148,7 +153,6 @@
 		34EEB6021FD9376E00B4BE0A /* WJLoginClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34EEB6011FD9376E00B4BE0A /* WJLoginClassViewController.m */; };
 		34EEB6091FD93E4F00B4BE0A /* ForgetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34EEB6041FD93E4D00B4BE0A /* ForgetPasswordViewController.m */; };
 		34EEB60A1FD93E4F00B4BE0A /* RigisterClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34EEB6051FD93E4E00B4BE0A /* RigisterClassViewController.m */; };
-		34EEB60B1FD93E4F00B4BE0A /* RigisterClassViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34EEB6061FD93E4E00B4BE0A /* RigisterClassViewController.xib */; };
 		34EEB60C1FD93E4F00B4BE0A /* ForgetPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34EEB6071FD93E4E00B4BE0A /* ForgetPasswordViewController.xib */; };
 		34EEB6141FD9415600B4BE0A /* UIButton+CountDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 34EEB60E1FD9415500B4BE0A /* UIButton+CountDown.m */; };
 		34EEB6151FD9415600B4BE0A /* MJCountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 34EEB6111FD9415500B4BE0A /* MJCountDownButton.m */; };
@@ -370,7 +374,6 @@
 		3456C1A51FD7940000B5AEB8 /* user_action_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user_action_right.png; sourceTree = "<group>"; };
 		3456C1AC1FD79F1D00B5AEB8 /* WJUserHeadAndOrderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJUserHeadAndOrderView.h; sourceTree = "<group>"; };
 		3456C1AD1FD79F1D00B5AEB8 /* WJUserHeadAndOrderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJUserHeadAndOrderView.m; sourceTree = "<group>"; };
-		3456C1AE1FD79F1D00B5AEB8 /* WJUserHeadAndOrderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WJUserHeadAndOrderView.xib; sourceTree = "<group>"; };
 		3456C1B11FD79F9F00B5AEB8 /* user_backImageHead.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user_backImageHead.png; sourceTree = "<group>"; };
 		3456C1B41FD7A04700B5AEB8 /* user_headBC.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user_headBC.png; sourceTree = "<group>"; };
 		3456C1B61FD7C33800B5AEB8 /* ic_no_heardPic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_no_heardPic.png; sourceTree = "<group>"; };
@@ -383,6 +386,14 @@
 		346564721FCD561100448C40 /* img_btn_wuliu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img_btn_wuliu@2x.png"; sourceTree = "<group>"; };
 		346564731FCD561100448C40 /* img_btn_jipiao@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img_btn_jipiao@2x.png"; sourceTree = "<group>"; };
 		346564741FCD561100448C40 /* img_btn_zhuanti@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img_btn_zhuanti@2x.png"; sourceTree = "<group>"; };
+		34D507561FDB79DC00EA1AC5 /* login_mobile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_mobile.png; sourceTree = "<group>"; };
+		34D507581FDB7E5A00EA1AC5 /* login_mima.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_mima.png; sourceTree = "<group>"; };
+		34D507591FDB7E5A00EA1AC5 /* login_qq.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_qq.png; sourceTree = "<group>"; };
+		34D5075A1FDB7E5A00EA1AC5 /* login_weixin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_weixin.png; sourceTree = "<group>"; };
+		34D5075B1FDB7E5A00EA1AC5 /* login_weibo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_weibo.png; sourceTree = "<group>"; };
+		34D507601FDB893900EA1AC5 /* MHUURL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MHUURL.h; sourceTree = "<group>"; };
+		34D507631FDB8E4700EA1AC5 /* RigisterProtocolV.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RigisterProtocolV.h; sourceTree = "<group>"; };
+		34D507641FDB8E4700EA1AC5 /* RigisterProtocolV.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RigisterProtocolV.m; sourceTree = "<group>"; };
 		34E223611FD0F4FD003C0F34 /* HXSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXSearchBar.h; sourceTree = "<group>"; };
 		34E223621FD0F4FE003C0F34 /* HXSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXSearchBar.m; sourceTree = "<group>"; };
 		34E223651FD0FC8B003C0F34 /* WJGoodsSetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJGoodsSetViewController.h; sourceTree = "<group>"; };
@@ -405,7 +416,6 @@
 		34EEB6031FD93E4D00B4BE0A /* RigisterClassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RigisterClassViewController.h; sourceTree = "<group>"; };
 		34EEB6041FD93E4D00B4BE0A /* ForgetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgetPasswordViewController.m; sourceTree = "<group>"; };
 		34EEB6051FD93E4E00B4BE0A /* RigisterClassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RigisterClassViewController.m; sourceTree = "<group>"; };
-		34EEB6061FD93E4E00B4BE0A /* RigisterClassViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RigisterClassViewController.xib; sourceTree = "<group>"; };
 		34EEB6071FD93E4E00B4BE0A /* ForgetPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForgetPasswordViewController.xib; sourceTree = "<group>"; };
 		34EEB6081FD93E4E00B4BE0A /* ForgetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgetPasswordViewController.h; sourceTree = "<group>"; };
 		34EEB60E1FD9415500B4BE0A /* UIButton+CountDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+CountDown.m"; sourceTree = "<group>"; };
@@ -465,7 +475,6 @@
 				3456C1971FD787CD00B5AEB8 /* WJUserMainTabelCell.m */,
 				3456C1AC1FD79F1D00B5AEB8 /* WJUserHeadAndOrderView.h */,
 				3456C1AD1FD79F1D00B5AEB8 /* WJUserHeadAndOrderView.m */,
-				3456C1AE1FD79F1D00B5AEB8 /* WJUserHeadAndOrderView.xib */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -549,6 +558,7 @@
 			isa = PBXGroup;
 			children = (
 				17DF7BEB1FCCFF9400FBD9DC /* Constants.h */,
+				34D507601FDB893900EA1AC5 /* MHUURL.h */,
 			);
 			path = "url+macro";
 			sourceTree = "<group>";
@@ -1127,6 +1137,29 @@
 			path = main;
 			sourceTree = "<group>";
 		};
+		34D507611FDB8CB000EA1AC5 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				34EEB6001FD9376E00B4BE0A /* WJLoginClassViewController.h */,
+				34EEB6011FD9376E00B4BE0A /* WJLoginClassViewController.m */,
+				34EEB6081FD93E4E00B4BE0A /* ForgetPasswordViewController.h */,
+				34EEB6041FD93E4D00B4BE0A /* ForgetPasswordViewController.m */,
+				34EEB6071FD93E4E00B4BE0A /* ForgetPasswordViewController.xib */,
+				34EEB6031FD93E4D00B4BE0A /* RigisterClassViewController.h */,
+				34EEB6051FD93E4E00B4BE0A /* RigisterClassViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		34D507621FDB8CC700EA1AC5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				34D507631FDB8E4700EA1AC5 /* RigisterProtocolV.h */,
+				34D507641FDB8E4700EA1AC5 /* RigisterProtocolV.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		34E223641FD0FB72003C0F34 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1201,14 +1234,8 @@
 		34EEB5FF1FD9201C00B4BE0A /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				34EEB6001FD9376E00B4BE0A /* WJLoginClassViewController.h */,
-				34EEB6011FD9376E00B4BE0A /* WJLoginClassViewController.m */,
-				34EEB6081FD93E4E00B4BE0A /* ForgetPasswordViewController.h */,
-				34EEB6041FD93E4D00B4BE0A /* ForgetPasswordViewController.m */,
-				34EEB6071FD93E4E00B4BE0A /* ForgetPasswordViewController.xib */,
-				34EEB6031FD93E4D00B4BE0A /* RigisterClassViewController.h */,
-				34EEB6051FD93E4E00B4BE0A /* RigisterClassViewController.m */,
-				34EEB6061FD93E4E00B4BE0A /* RigisterClassViewController.xib */,
+				34D507621FDB8CC700EA1AC5 /* View */,
+				34D507611FDB8CB000EA1AC5 /* Controller */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -1258,6 +1285,11 @@
 		34F1D3961FD686C70080EE3D /* User */ = {
 			isa = PBXGroup;
 			children = (
+				34D507581FDB7E5A00EA1AC5 /* login_mima.png */,
+				34D507591FDB7E5A00EA1AC5 /* login_qq.png */,
+				34D5075B1FDB7E5A00EA1AC5 /* login_weibo.png */,
+				34D5075A1FDB7E5A00EA1AC5 /* login_weixin.png */,
+				34D507561FDB79DC00EA1AC5 /* login_mobile.png */,
 				3456C1BE1FD7E66D00B5AEB8 /* print_chick_bg.png */,
 				3456C1B61FD7C33800B5AEB8 /* ic_no_heardPic.png */,
 				3456C1B41FD7A04700B5AEB8 /* user_headBC.png */,
@@ -1350,6 +1382,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34D5075E1FDB7E5A00EA1AC5 /* login_weixin.png in Resources */,
+				34D5075D1FDB7E5A00EA1AC5 /* login_qq.png in Resources */,
 				3456C1A61FD7940000B5AEB8 /* user_action_right.png in Resources */,
 				3456C1A21FD78D7200B5AEB8 /* user_icon_zuji.png in Resources */,
 				17DF7C0A1FCD040C00FBD9DC /* Default@2x.png in Resources */,
@@ -1361,6 +1395,7 @@
 				341878BF1FD51A2900D3F860 /* HomeHighGoods.plist in Resources */,
 				3456C1B81FD7C3A800B5AEB8 /* HomeHighGoods.plist in Resources */,
 				34F1D3981FD687340080EE3D /* user_set.png in Resources */,
+				34D507571FDB79DC00EA1AC5 /* login_mobile.png in Resources */,
 				3456C1BF1FD7E66E00B5AEB8 /* print_chick_bg.png in Resources */,
 				3456C19E1FD78D3600B5AEB8 /* user_icon_youhuihuodong.png in Resources */,
 				34287B461FCFA5AE00C7AE5F /* ClassifyTitles.plist in Resources */,
@@ -1375,6 +1410,8 @@
 				341878C71FD51D5900D3F860 /* addressData.plist in Resources */,
 				346564781FCD561100448C40 /* img_btn_wuliu@2x.png in Resources */,
 				3456C1B91FD7C3B200B5AEB8 /* MyBuyFlow.plist in Resources */,
+				34D5075F1FDB7E5A00EA1AC5 /* login_weibo.png in Resources */,
+				34D5075C1FDB7E5A00EA1AC5 /* login_mima.png in Resources */,
 				17DF7C071FCD040C00FBD9DC /* Default-375w-812h@3x.png in Resources */,
 				3456C18F1FD775F400B5AEB8 /* user_icon_daifahuo.png in Resources */,
 				17DF7C081FCD040C00FBD9DC /* Default-414w-736h@3x.png in Resources */,
@@ -1384,11 +1421,9 @@
 				34F1D3931FD64B240080EE3D /* ClasiftyGoods.plist in Resources */,
 				341878A21FD519C600D3F860 /* line.png in Resources */,
 				34287B241FCE4B1100C7AE5F /* img_backTop.png in Resources */,
-				3456C1B01FD79F1D00B5AEB8 /* WJUserHeadAndOrderView.xib in Resources */,
 				3456C1851FD7730100B5AEB8 /* UserCommitFlow.plist in Resources */,
 				34EEB60C1FD93E4F00B4BE0A /* ForgetPasswordViewController.xib in Resources */,
 				3456C1941FD77DC300B5AEB8 /* user_icon_wodeshoucang.png in Resources */,
-				34EEB60B1FD93E4F00B4BE0A /* RigisterClassViewController.xib in Resources */,
 				3456C1951FD77DC300B5AEB8 /* user_icon_youhuiquan.png in Resources */,
 				17F9F1661FCC527300C71820 /* Assets.xcassets in Resources */,
 				3456C18D1FD775F400B5AEB8 /* user_icon_daipingjia.png in Resources */,
@@ -1498,6 +1533,7 @@
 				179D82651FD6AA5E00CC4AA2 /* WJFlowItem.m in Sources */,
 				341878BA1FD519C600D3F860 /* XWFilterAnimator+XWSwipe.m in Sources */,
 				34E2236A1FD109AC003C0F34 /* WJCustionGoodsHeadView.m in Sources */,
+				34D507651FDB8E4700EA1AC5 /* RigisterProtocolV.m in Sources */,
 				34133C211FDA158000C95CA4 /* XYMKeyChain.m in Sources */,
 				17DF7BFD1FCD01A600FBD9DC /* WJMainTabBarViewController.m in Sources */,
 				341878B41FD519C600D3F860 /* XWFilterAnimator+XWCopyMachine.m in Sources */,
