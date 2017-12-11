@@ -161,7 +161,9 @@
 
 -(void)gotoRigisterVC
 {
-
+    RigisterClassViewController *rigisterVC = [[RigisterClassViewController alloc]init];
+    self.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:rigisterVC animated:YES];
 }
 
 -(void)LoginServiceRequest

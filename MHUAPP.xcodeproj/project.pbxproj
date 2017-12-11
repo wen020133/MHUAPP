@@ -37,6 +37,7 @@
 		17F9F16C1FCC527300C71820 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F9F16B1FCC527300C71820 /* main.m */; };
 		340017591FD22BA3009A027A /* WJHoverFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 340017581FD22BA3009A027A /* WJHoverFlowLayout.m */; };
 		3400175F1FD24600009A027A /* WJFiltrateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3400175E1FD24600009A027A /* WJFiltrateViewController.m */; };
+		340625EF1FDE085800F52953 /* HomeHighGoods.plist in Resources */ = {isa = PBXBuildFile; fileRef = 340625EE1FDE085800F52953 /* HomeHighGoods.plist */; };
 		34133C201FDA158000C95CA4 /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 34133C1E1FDA158000C95CA4 /* KeychainItemWrapper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		34133C211FDA158000C95CA4 /* XYMKeyChain.m in Sources */ = {isa = PBXBuildFile; fileRef = 34133C1F1FDA158000C95CA4 /* XYMKeyChain.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		34133C261FDA16FA00C95CA4 /* NSString+WJExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 34133C251FDA16FA00C95CA4 /* NSString+WJExtensions.m */; };
@@ -83,7 +84,6 @@
 		341878BB1FD519C600D3F860 /* XWFilterAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 341878971FD519C600D3F860 /* XWFilterAnimator.m */; };
 		341878BC1FD519C600D3F860 /* XWFilterTransitionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 341878991FD519C600D3F860 /* XWFilterTransitionView.m */; };
 		341878BD1FD519C600D3F860 /* XWMagicMoveAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3418789C1FD519C600D3F860 /* XWMagicMoveAnimator.m */; };
-		341878BF1FD51A2900D3F860 /* HomeHighGoods.plist in Resources */ = {isa = PBXBuildFile; fileRef = 341878BE1FD51A2900D3F860 /* HomeHighGoods.plist */; };
 		341878C61FD51D5900D3F860 /* AddressPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 341878C41FD51D5900D3F860 /* AddressPickerView.m */; };
 		341878C71FD51D5900D3F860 /* addressData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 341878C51FD51D5900D3F860 /* addressData.plist */; };
 		341878CC1FD527B600D3F860 /* WJDetailShufflingHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 341878CB1FD527B600D3F860 /* WJDetailShufflingHeadView.m */; };
@@ -124,7 +124,6 @@
 		3456C1B21FD79F9F00B5AEB8 /* user_backImageHead.png in Resources */ = {isa = PBXBuildFile; fileRef = 3456C1B11FD79F9F00B5AEB8 /* user_backImageHead.png */; };
 		3456C1B51FD7A04700B5AEB8 /* user_headBC.png in Resources */ = {isa = PBXBuildFile; fileRef = 3456C1B41FD7A04700B5AEB8 /* user_headBC.png */; };
 		3456C1B71FD7C33800B5AEB8 /* ic_no_heardPic.png in Resources */ = {isa = PBXBuildFile; fileRef = 3456C1B61FD7C33800B5AEB8 /* ic_no_heardPic.png */; };
-		3456C1B81FD7C3A800B5AEB8 /* HomeHighGoods.plist in Resources */ = {isa = PBXBuildFile; fileRef = 341878C01FD51A2F00D3F860 /* HomeHighGoods.plist */; };
 		3456C1B91FD7C3B200B5AEB8 /* MyBuyFlow.plist in Resources */ = {isa = PBXBuildFile; fileRef = 179D82661FD6E1AB00CC4AA2 /* MyBuyFlow.plist */; };
 		3456C1BA1FD7C43C00B5AEB8 /* UserTableFlow.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3456C1991FD78BC700B5AEB8 /* UserTableFlow.plist */; };
 		3456C1BD1FD7DB7D00B5AEB8 /* WJUserSettingMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3456C1BC1FD7DB7D00B5AEB8 /* WJUserSettingMainViewController.m */; };
@@ -227,6 +226,8 @@
 		340017581FD22BA3009A027A /* WJHoverFlowLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJHoverFlowLayout.m; sourceTree = "<group>"; };
 		3400175D1FD24600009A027A /* WJFiltrateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJFiltrateViewController.h; sourceTree = "<group>"; };
 		3400175E1FD24600009A027A /* WJFiltrateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJFiltrateViewController.m; sourceTree = "<group>"; };
+		340625EE1FDE085800F52953 /* HomeHighGoods.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = HomeHighGoods.plist; sourceTree = "<group>"; };
+		340625F01FDE086900F52953 /* HomeHighGoods.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = HomeHighGoods.plist; sourceTree = "<group>"; };
 		34133C1C1FDA157F00C95CA4 /* XYMKeyChain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYMKeyChain.h; sourceTree = "<group>"; };
 		34133C1D1FDA157F00C95CA4 /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
 		34133C1E1FDA158000C95CA4 /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
@@ -316,9 +317,6 @@
 		341878991FD519C600D3F860 /* XWFilterTransitionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWFilterTransitionView.m; sourceTree = "<group>"; };
 		3418789B1FD519C600D3F860 /* XWMagicMoveAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWMagicMoveAnimator.h; sourceTree = "<group>"; };
 		3418789C1FD519C600D3F860 /* XWMagicMoveAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWMagicMoveAnimator.m; sourceTree = "<group>"; };
-		341878BE1FD51A2900D3F860 /* HomeHighGoods.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = HomeHighGoods.plist; sourceTree = "<group>"; };
-		341878C01FD51A2F00D3F860 /* HomeHighGoods.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = HomeHighGoods.plist; sourceTree = "<group>"; };
-		341878C11FD51A3300D3F860 /* HomeHighGoods.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = HomeHighGoods.plist; path = MHUAPP/other/third/HomeHighGoods.plist; sourceTree = SOURCE_ROOT; };
 		341878C31FD51D5900D3F860 /* AddressPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressPickerView.h; sourceTree = "<group>"; };
 		341878C41FD51D5900D3F860 /* AddressPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressPickerView.m; sourceTree = "<group>"; };
 		341878C51FD51D5900D3F860 /* addressData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = addressData.plist; sourceTree = "<group>"; };
@@ -804,8 +802,7 @@
 		341878531FD519C600D3F860 /* XWTransition */ = {
 			isa = PBXGroup;
 			children = (
-				341878BE1FD51A2900D3F860 /* HomeHighGoods.plist */,
-				341878C11FD51A3300D3F860 /* HomeHighGoods.plist */,
+				340625EE1FDE085800F52953 /* HomeHighGoods.plist */,
 				341878541FD519C600D3F860 /* Category */,
 				3418785B1FD519C600D3F860 /* Main */,
 				341878601FD519C600D3F860 /* Resoures */,
@@ -1103,9 +1100,9 @@
 				34EEB60D1FD9414700B4BE0A /* MJCountDownButton */,
 				341878C21FD51D4B00D3F860 /* AddressManager */,
 				341878531FD519C600D3F860 /* XWTransition */,
-				341878C01FD51A2F00D3F860 /* HomeHighGoods.plist */,
 				34F1D3921FD64B230080EE3D /* ClasiftyGoods.plist */,
 				34287B471FCFA5BD00C7AE5F /* ClassiftyGoods01.plist */,
+				340625F01FDE086900F52953 /* HomeHighGoods.plist */,
 				34287B451FCFA5AE00C7AE5F /* ClassifyTitles.plist */,
 			);
 			path = third;
@@ -1384,6 +1381,7 @@
 			files = (
 				34D5075E1FDB7E5A00EA1AC5 /* login_weixin.png in Resources */,
 				34D5075D1FDB7E5A00EA1AC5 /* login_qq.png in Resources */,
+				340625EF1FDE085800F52953 /* HomeHighGoods.plist in Resources */,
 				3456C1A61FD7940000B5AEB8 /* user_action_right.png in Resources */,
 				3456C1A21FD78D7200B5AEB8 /* user_icon_zuji.png in Resources */,
 				17DF7C0A1FCD040C00FBD9DC /* Default@2x.png in Resources */,
@@ -1392,8 +1390,6 @@
 				3456C1BA1FD7C43C00B5AEB8 /* UserTableFlow.plist in Resources */,
 				341878A41FD519C600D3F860 /* restrictedshine.tiff in Resources */,
 				3456C1931FD77DC300B5AEB8 /* user_icon_wodeguanzhu.png in Resources */,
-				341878BF1FD51A2900D3F860 /* HomeHighGoods.plist in Resources */,
-				3456C1B81FD7C3A800B5AEB8 /* HomeHighGoods.plist in Resources */,
 				34F1D3981FD687340080EE3D /* user_set.png in Resources */,
 				34D507571FDB79DC00EA1AC5 /* login_mobile.png in Resources */,
 				3456C1BF1FD7E66E00B5AEB8 /* print_chick_bg.png in Resources */,

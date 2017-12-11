@@ -11,7 +11,6 @@
 #import "MJCountDownButton.h"
 
 @interface RigisterClassViewController : UIViewController
-@property (strong, nonatomic)  UIScrollView *scr_rigisterCon;
 
 @property (strong, nonatomic)  MJCountDownButton *cBtn;
 

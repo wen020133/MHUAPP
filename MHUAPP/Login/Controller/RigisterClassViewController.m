@@ -8,10 +8,10 @@
 
 #import "RigisterClassViewController.h"
 #import "XYMKeyChain.h"
-
+#import "RigisterProtocolV.h"
 
 @interface RigisterClassViewController ()
-
+@property (nonatomic, strong) RigisterProtocolV *rigisterWebView;
 @end
 
 @implementation RigisterClassViewController
@@ -20,11 +20,12 @@
     [super viewDidLoad];
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     [self initSendReplyWithTitle:@"账户注册" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
-    self.scr_rigisterCon.frame = CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight);
-     self.scr_rigisterCon.contentSize = CGSizeMake(kMSScreenWith, kMSScreenHeight+60);
-    [self.view addSubview:self.scr_rigisterCon];
-//    self.text_moblieNumber.text = @"690692059@qq.com";
-//    self.text_moblieNumber.text = @"15875511956";
+
+
+
+//    _rigisterWebView = [[RigisterProtocolV alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight-kMSNaviHight)];
+//    [self.view addSubview:_rigisterWebView];
+
     // Do any additional setup after loading the view from its nib.
 }
 

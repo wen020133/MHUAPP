@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RigisterProtocolV : UIView
+@interface RigisterProtocolV : UIView<UIWebViewDelegate>
+
+@property (nonatomic, strong) UIWebView *str_web;
+
+/** 取消 */
+@property (nonatomic, copy) dispatch_block_t cancelVieBlock;
+
+/** 确定 */
+@property (nonatomic, copy) dispatch_block_t confirmVieBlock;
 
 @end

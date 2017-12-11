@@ -36,6 +36,8 @@
 #define BASEPINK                @"#FF7A9A"  //程序基础粉色
 #define BASELITTLEBLACKCOLOR    @"#9E9E9E"  //最浅的黑色
 
+#define SDPhotoBrowserBackgrounColor [UIColor colorWithRed:0 green:0 blue:0 alpha:0.95]               // browser背景颜色
+
 #define Font(F) [UIFont systemFontOfSize:F]
 
 #define kMSCellSubtitleLableColor [UIColor colorWithRed:233/255.0 green:35/255.0 blue:46/255.0 alpha:1]
