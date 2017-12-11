@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseNetworkViewController.h"
 
 @protocol LoginClassViewStateDelegate <NSObject>
 - (void)didComeBackToClassWithTypeFrom;
 @end
 
-@interface WJLoginClassViewController : UIViewController<UITextFieldDelegate>
+@interface WJLoginClassViewController : BaseNetworkViewController<UITextFieldDelegate>
 
 @property NSInteger regType; // 0普通登陆 ； 1 QQ ； 2微信； 3新浪微博
 @property (strong, nonatomic)  UITextField *text_mobileNumber;

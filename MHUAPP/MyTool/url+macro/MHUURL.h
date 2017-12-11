@@ -15,7 +15,7 @@
 #define   kMSBaseLargeCollectionPortURL              @"http://192.168.2.249:249/api"                // 端口
 
 //验证码
-#define   kMSBaseCodePortURL              @"code/get_code"                // 验证码端口
+#define   kMSBaseCodePortURL              @"/code/get_code"                // 验证码端口
 
 
 /*用户相关*/
@@ -30,8 +30,8 @@
 #define   kMSUserGetcollect             @"/user/get_collect"              //获取个人收藏列表
 
 
-/*视频*/
-#define   kMSVideoType             @"/video/video_type"                 //获取分类id
+/*商品分类*/
+#define   kMSGetGoodsClassType             @"/goods/get_goods_class"                 //获取分类
 #define   kMSVideoTypeSum             @"/video/sum_video"                 //获取分类总条数
 #define   kMSVideoList             @"/video/port_video"                 //视屏列表
 #define   kMSUserCollect             @"/user/user_collect"                 //收藏列表

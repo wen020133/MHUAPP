@@ -131,12 +131,12 @@
 
 }
 - (void)loginoutState {
-//    NSDictionary *dic = [NSDictionary dictionary];
-//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-//    [userDefaults setObject:dic forKey:@"userList"];
-//
-//    [userDefaults setObject:@"0" forKey:@"loginState"];
-//    [userDefaults synchronize];
+    NSDictionary *dic = [NSDictionary dictionary];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:dic forKey:@"userList"];
+
+    [userDefaults setObject:@"0" forKey:@"loginState"];
+    [userDefaults synchronize];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

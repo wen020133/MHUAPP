@@ -77,32 +77,34 @@
     [infos setObject:self.text_phoneNumber.text forKey:@"user_name"];
     [infos setObject:[self.text_password.text md5] forKey:@"user_pwd"];
     [infos setObject:self.text_code.text  forKey:@"code"];
-//    [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSFind_pwdURL] andInfos:infos];
+    [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSFind_pwdURL] andInfos:infos];
 }
-//-(void)processData
-//{
-//    if([[self.results objectForKey:@"code"] integerValue] == 200)
-//    {
-//        NSLog(@"responseObject====%@",[self.results objectForKey:@"msg"]);
-//        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"修改密码成功" message:nil preferredStyle:UIAlertControllerStyleAlert];
-//        UIAlertAction *serviceAction = [UIAlertAction actionWithTitle:@"登录" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//
-//            NSMutableDictionary *infodic = [NSMutableDictionary dictionary];
-//            [infodic setValue:self.text_phoneNumber.text forKey:@"account"];
-//            [infodic setValue:self.text_password.text forKey:@"password"];
-//            [[NSNotificationCenter defaultCenter] postNotificationName:@"poptoUserClassVC" object:self userInfo:infodic];
-//            [self.navigationController popViewControllerAnimated:YES];
-//
-//        }];
-//        [alertVC addAction:serviceAction];
-//        [self presentViewController:alertVC animated:YES completion:nil];
-//    }
-//    else
-//    {
-//        [RegularExpressionsMethod alrtTitle:@"消息提示" AndMessage:[self
-//                                                                .results objectForKey:@"msg"]];
-//    }
-//}
+-(void)processData
+{
+    [SVProgressHUD dismiss];
+    if([[self.results objectForKey:@"code"] integerValue] == 200)
+    {
+        NSLog(@"responseObject====%@",[self.results objectForKey:@"msg"]);
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"修改密码成功" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *serviceAction = [UIAlertAction actionWithTitle:@"登录" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+
+            NSMutableDictionary *infodic = [NSMutableDictionary dictionary];
+            [infodic setValue:self.text_phoneNumber.text forKey:@"account"];
+            [infodic setValue:self.text_password.text forKey:@"password"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"poptoUserClassVC" object:self userInfo:infodic];
+            [self.navigationController popViewControllerAnimated:YES];
+
+        }];
+        [alertVC addAction:serviceAction];
+        [self presentViewController:alertVC animated:YES completion:nil];
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:[self
+                                            .results objectForKey:@"msg"]];
+        return;
+    }
+}
 
 - (IBAction)GetCode:(UIButton *)sender {
     if(self.text_phoneNumber.text.length<1)
@@ -113,26 +115,6 @@
     [_btn_code countDownFromTime:60 unitTitle:@"s" completion:^(MJCountDownButton *countDownButton) {
         [countDownButton setTitle:@"获取验证码" forState:UIControlStateNormal];
     }];
-    NSDate* dat = [NSDate dateWithTimeIntervalSinceNow:0];
-    NSTimeInterval a=[dat timeIntervalSince1970];  //  *1000 是精确到毫秒，不乘就是精确到秒
-    NSString *timeString = [NSString stringWithFormat:@"%.0f",a ]; //转为字符型
-    
-//    NSString *token= [[NSString stringWithFormat:@"beck_%@_beck",[timeString md5]] md5] ;
 
-//    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-//    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/xml",@"text/plain", nil ];
-//    [manager GET:[NSString stringWithFormat:@"%@%@/%@/%@/%@",kMSBaseCodePortURL,timeString,token,self.text_phoneNumber.text,@"1"] parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
-//        NSLog(@"JSON: %@", responseObject);
-//        if ([responseObject isKindOfClass:[NSDictionary class]]) {
-//            NSDictionary *dic = responseObject;
-//            NSString *str=[dic objectForKey:@"msg"];
-//        
-//            [RegularExpressionsMethod alrtTitle:@"消息提示" AndMessage:str];
-//            
-//        }
-//        
-//    } failure:^(NSURLSessionTask *operation, NSError *error) {
-//        NSLog(@"Error: %@", error);
-//    }];
 }
 @end

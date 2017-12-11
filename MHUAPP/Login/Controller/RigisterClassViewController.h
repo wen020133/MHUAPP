@@ -7,15 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UIButton+CountDown.h"
-#import "MJCountDownButton.h"
 
-@interface RigisterClassViewController : UIViewController
 
-@property (strong, nonatomic)  MJCountDownButton *cBtn;
+@interface RigisterClassViewController : UIViewController<UITextFieldDelegate>
 
-@property (strong, nonatomic)  UITextField *text_code;
-@property (strong, nonatomic)  UITextField *text_moblieNumber;
-@property (strong, nonatomic)  UITextField *text_passwod;
-@property (strong, nonatomic)  UITextField *text_PasswordAgain;
+@property (weak, nonatomic) IBOutlet UITextField *text_moblieNumber;
+@property (weak, nonatomic) IBOutlet UILabel *lab_country;
+- (IBAction)changeCountryNum:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *lab_countryNum;
+- (IBAction)theNextStep:(id)sender;
+
 @end

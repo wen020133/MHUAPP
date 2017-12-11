@@ -34,7 +34,7 @@
 {
     self.text_mobileNumber.text = [notification.userInfo objectForKey:@"account"];
     self.textF_password.text = [notification.userInfo objectForKey:@"password"];
-//    [self LoginToafrica];
+    [self LoginServiceRequest];
 
 }
 
@@ -168,7 +168,114 @@
 
 -(void)LoginServiceRequest
 {
+    [self.text_mobileNumber resignFirstResponder];
+    [self.textF_password resignFirstResponder];
+    if (self.text_mobileNumber.text.length<6) {
 
+         [SVProgressHUD showErrorWithStatus:@"请输入6位以上的账号"];
+        return;
+    }
+    else if (self.textF_password.text.length<6)
+    {
+        [SVProgressHUD showErrorWithStatus:@"请输入6位以上密码"];
+        return;
+    }
+    self.regType = 0;
+   [SVProgressHUD showWithStatus:@"正在登录..."];
+    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+    [infos setObject:self.text_mobileNumber.text forKey:@"user_name"];
+    [infos setObject:[self.textF_password.text md5] forKey:@"user_password"];
+    [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSLoginURL] andInfos:infos];
+}
+
+-(void)processData
+{
+    [SVProgressHUD dismiss];
+    if([[self.results objectForKey:@"code"] integerValue] == 200)
+    {
+        NSLog(@"responseObject====%@",[self.results objectForKey:@"msg"]);
+        switch (_regType) {
+            case 0:
+            {
+                [XYMKeyChain deleteKeyChainItemWithKey:KEY_KEYCHAINITEM];
+                // Save some stuffs
+                NSMutableDictionary *userinfo = [NSMutableDictionary dictionary];
+                [userinfo setObject:self.text_mobileNumber.text forKey:KEY_USERNAME];
+                [userinfo setObject:self.textF_password.text forKey:KEY_PASSWORD];
+                [XYMKeyChain saveKeyChainItemWithKey:KEY_KEYCHAINITEM item:userinfo];
+
+                NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+                [dic setValue:[[self.results objectForKey:@"data"] objectForKey:@"id" ] forKey:@"uid"];
+                [dic setValue:[[self.results objectForKey:@"data"] objectForKey:@"user_name" ] forKey:@"username"];
+                [dic setValue:ConvertNullString([[self.results objectForKey:@"data"] objectForKey:@"user_mobile" ]) forKey:@"phone"];
+                NSString *logo_img =ConvertNullString([[self.results objectForKey:@"data"] objectForKey:@"user_icon" ]);
+                if (logo_img.length>0) {
+                    logo_img =  [logo_img stringByReplacingOccurrencesOfString:@".." withString:@""];
+                    [dic setValue: [NSString stringWithFormat:@"%@%@",kMSBaseLargeCollectionPortURL,  logo_img] forKey:@"user_icon"];
+                }else
+                {
+                    [dic setValue:@"null" forKey:@"user_icon"];
+                }
+
+                [dic setValue:ConvertNullString([[self.results objectForKey:@"data"] objectForKey:@"user_email" ]) forKey:@"email"];
+                [dic setValue:ConvertNullString([[self.results objectForKey:@"data"] objectForKey:@"user_nickname" ]) forKey:@"nickname"];
+                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                [userDefaults setObject:dic forKey:@"userList"];
+                [userDefaults setObject:@"1" forKey:@"loginState"];
+                [userDefaults synchronize];
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+                break;
+            case 1:
+            {
+                id data = [self.results objectForKey:@"data"];
+                if ([data isKindOfClass:[NSDictionary class]] ) {
+                    [XYMKeyChain deleteKeyChainItemWithKey:KEY_KEYCHAINITEM];
+                    // Save some stuffs
+                    NSMutableDictionary *userinfo = [NSMutableDictionary dictionary];
+                    [userinfo setObject:@"" forKey:KEY_USERNAME];
+                    [userinfo setObject:@"" forKey:KEY_PASSWORD];
+                    [XYMKeyChain saveKeyChainItemWithKey:KEY_KEYCHAINITEM item:userinfo];
+
+                    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+
+                    [dic setValue:[NSString stringWithFormat:@"%@",[[self.results objectForKey:@"data"] objectForKey:@"user_id"]] forKey:@"uid"];
+                    [dic setValue:ConvertNullString([[[self.results objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"usid"]) forKey:@"other_uid"];
+                    [dic setValue:ConvertNullString([[[self.results objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"user_name" ]) forKey:@"username"];
+                    [dic setValue:ConvertNullString([[[self.results objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"user_mobile" ]) forKey:@"phone"];
+                    NSString *logo_img =ConvertNullString([[[self.results objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"user_icon" ]);
+                    if (logo_img.length>0) {
+                        [dic setValue:logo_img forKey:@"user_icon"];
+                    }else
+                    {
+                        [dic setValue:@"null" forKey:@"user_icon"];
+                    }
+                    [dic setValue:ConvertNullString([[[self.results objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"usid"]) forKey:@"other_uid"];
+                    [dic setValue:ConvertNullString([[[self.results objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"email" ]) forKey:@"email"];
+                    [dic setValue:ConvertNullString([[[self.results objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"user_nickname" ]) forKey:@"nickname"];
+                    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                    [userDefaults setObject:dic forKey:@"userList"];
+                    [userDefaults setObject:@"1" forKey:@"loginState"];
+                    [userDefaults synchronize];
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+                else
+                {
+                    [SVProgressHUD showErrorWithStatus:@"获取数据失败"];
+                }
+
+            }
+                break;
+            default:
+                break;
+        }
+
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"msg"]];
+        return;
+    }
 }
 
 -(void)hiddenTextfiledView
@@ -205,6 +312,10 @@
         }
     }];
 }
+-(void)sendAuthRequestWX
+{
+
+}
 -(void)backAction
 {
     [self.navigationController popViewControllerAnimated:YES];
@@ -239,7 +350,7 @@
         [infos setObject:outNickName forKey:@"user_nickname"];
         [infos setObject:outSex forKey:@"sex"];
         [infos setObject:outHeadUrl forKey:@"user_icon"];
-//        [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSLoginqq] andInfos:infos];
+        [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSLoginqq] andInfos:infos];
     }
     else
     {
@@ -248,6 +359,7 @@
     }
 
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -47,27 +47,19 @@
     WJShopCartClassViewController *buyCar = [[WJShopCartClassViewController alloc] init];
     WJPersonalCenterViewController *me = [[WJPersonalCenterViewController alloc]init];
     
-    [self setUpChildController:mainPage title:@"首页" image:@"img_btn_mainpage_normal.png" selectedImage:@"img_btn_mainpage_select.png"];
+    [self setUpChildController:mainPage title:@"首页" image:@"img_btn_mainpage_normal" selectedImage:@"img_btn_mainpage_select"];
     
     [self setUpChildController:departClass title:@"分类" image:@"img_btn_class_normal" selectedImage:@"img_btn_class_select"];
     
     [self setUpChildController:message title:@"消息" image:@"img_btn_message_normal" selectedImage:@"img_btn_message_select"];
 
-    [self setUpChildController:buyCar title:@"购物车" image:@"img_btn_message_normal" selectedImage:@"img_btn_message_select"];
+    [self setUpChildController:buyCar title:@"购物车" image:@"img_btn_shop_normal" selectedImage:@"img_btn_shop_select"];
     
     [self setUpChildController:me title:@"我" image:@"img_btn_me_normal" selectedImage:@"img_btn_me_select"];
     
     self.selectedIndex = 0;
     
-    // 矫正TabBar图片位置，使之垂直居中显示
-    CGFloat offset = 3.0;
-    for (UITabBarItem *item in self.tabBar.items) {
-        item.imageInsets = UIEdgeInsetsMake(offset, 0, -offset, 0);
-        if([item.title isEqualToString:@""])
-        {
-            item.imageInsets = UIEdgeInsetsMake(7, 0, -7, 0);
-        }
-    }
+   
     // Do any additional setup after loading the view.
 }
 - (void)setUpChildController:(UIViewController *)childController title:(NSString *)title image:(NSString *)image  selectedImage:(NSString *)selectedImage
