@@ -44,6 +44,7 @@
 #define kMSLabelTextColor [UIColor colorWithRed:90/255.0 green:90/255.0 blue:90/255.0 alpha:1]
 #define kMSButtonBackColor [UIColor colorWithRed:249/255.0 green:125/255.0 blue:10/255.0 alpha:1]
 #define kMSNavBarBackColor [UIColor colorWithRed:253/255.0 green:56/255.0 blue:115/255.0 alpha:1]
+#define kMSViewBorderColor [[UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1] CGColor]
 
 #define kMSViewTitleColor [UIColor whiteColor]
 #define kMSCellBackColor [UIColor whiteColor]

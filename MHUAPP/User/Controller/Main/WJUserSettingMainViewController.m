@@ -8,6 +8,8 @@
 
 #import "WJUserSettingMainViewController.h"
 #import "WJSetHeadTableCell.h"
+#import "WJManageUserInfoViewController.h"
+#import "AddAddressViewController.h"
 
 @interface WJUserSettingMainViewController ()
 

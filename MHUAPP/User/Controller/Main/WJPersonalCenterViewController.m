@@ -26,10 +26,17 @@
 @property (strong , nonatomic)NSMutableArray<WJFlowItem *> *recreationFlowItem;
 /* table属性 */
 @property (strong , nonatomic)NSMutableArray<WJFlowItem *> *tableFlowItem;
+
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 @end
 
 @implementation WJPersonalCenterViewController
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self.collectionView reloadData];
+    [super viewWillAppear:YES];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
@@ -39,7 +46,9 @@
      [self setUpData];
     [self.view addSubview:_collectionView];
 
-
+    _refreshControl = [[UIRefreshControl alloc] init];
+    [_refreshControl addTarget:self action:@selector(refreshClick:) forControlEvents:UIControlEventValueChanged];
+    [self.collectionView addSubview:_refreshControl];
     // Do any additional setup after loading the view.
 }
 -(void)showright
@@ -121,6 +130,61 @@
     if (kind == UICollectionElementKindSectionHeader) {
         if (indexPath.section == 0) {
         WJUserHeadAndOrderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJUserHeadAndOrderView" forIndexPath:indexPath];
+
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            NSLog(@"userlist=%@",[userDefaults objectForKey:@"userList"] );
+            NSString *loginState = [userDefaults objectForKey:@"loginState"];
+            NSString *str_logo_img = [[userDefaults objectForKey:@"userList"] objectForKey:@"user_icon"];
+            NSString *str_nickname = [[userDefaults objectForKey:@"userList"] objectForKey:@"nickname"];
+            NSString *str_username = [[userDefaults objectForKey:@"userList"] objectForKey:@"username"];
+            if([loginState isEqualToString:@"1"])
+            {
+                if (str_logo_img&&str_logo_img.length>10) {
+                    //以便在block中使用
+                    __block UIImage *image = [[UIImage alloc] init];
+                    //图片下载链接
+                    NSURL *imageDownloadURL = [NSURL URLWithString:str_logo_img];
+
+                    //将图片下载在异步线程进行
+                    //创建异步线程执行队列
+                    dispatch_queue_t asynchronousQueue = dispatch_queue_create("imageDownloadQueue", NULL);
+                    //创建异步线程
+                    dispatch_async(asynchronousQueue, ^{
+                        //网络下载图片  NSData格式
+                        NSError *error;
+                        NSData *imageData = [NSData dataWithContentsOfURL:imageDownloadURL options:NSDataReadingMappedIfSafe error:&error];
+                        if (imageData) {
+                            image = [UIImage imageWithData:imageData];
+                        }
+                        //回到主线程更新UI
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [headerView.headImageView setImage:image];
+
+                        });
+                    });
+                }
+                else
+                {
+                    [headerView.headImageView setImage:[UIImage imageNamed:@"ic_no_heardPic.png"]];
+                }
+
+
+               headerView.userNameLabel.text = str_username;
+                if (str_nickname.length>0) {
+
+                    headerView.profileLabel.text = str_nickname;
+                }
+                else
+                {
+                     headerView.profileLabel.text = @"";
+                }
+            }
+            else
+            {
+                [headerView.headImageView setImage:[UIImage imageNamed:@"ic_no_heardPic.png"] ];
+                headerView.userNameLabel.text = @"请登录";
+                headerView.profileLabel.text = @"";
+            }
             WEAKSELF
             headerView.touchClickBlock = ^{
                 [weakSelf changeUserHeard];
@@ -178,7 +242,15 @@
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
     return  0;
 }
-
+- (void)setupRefresh {
+    NSLog(@"setupRefresh -- 下拉刷新");
+    [self refreshClick:_refreshControl];
+}
+// 下拉刷新触发，在此获取数据
+- (void)refreshClick:(UIRefreshControl *)refreshControl {
+    NSLog(@"refreshClick: -- 刷新触发");
+    [refreshControl endRefreshing];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
