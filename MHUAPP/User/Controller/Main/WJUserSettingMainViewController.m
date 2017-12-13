@@ -10,6 +10,7 @@
 #import "WJSetHeadTableCell.h"
 #import "WJManageUserInfoViewController.h"
 #import "AddAddressViewController.h"
+#import <UIImageView+WebCache.h>
 
 @interface WJUserSettingMainViewController ()
 
@@ -43,6 +44,11 @@
 }
 -(UIView *)view_head
 {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSLog(@"userlist=%@",[userDefaults objectForKey:@"userList"] );
+    NSString *str_logo_img = [[userDefaults objectForKey:@"userList"] objectForKey:@"user_icon"];
+    NSString *str_nickname = [[userDefaults objectForKey:@"userList"] objectForKey:@"nickname"];
+    NSString *str_username = [[userDefaults objectForKey:@"userList"] objectForKey:@"username"];
     if (!_view_head) {
         _view_head = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 170)];
         UIImageView *backV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"user_backImageHead.png"]];
@@ -51,7 +57,13 @@
 
         _headImageView = [[UIImageView alloc] init];
         _headImageView.contentMode = UIViewContentModeScaleAspectFit;
-        _headImageView.image = [UIImage imageNamed:@"ic_no_heardPic.png"];
+        _headImageView.userInteractionEnabled = YES;
+        _headImageView.layer.masksToBounds = YES;
+        _headImageView.layer.cornerRadius = 33;
+        // 单击图片
+        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gotoInfoClick:)];
+        [_headImageView addGestureRecognizer:singleTap];
+        [_headImageView sd_setImageWithURL:[NSURL URLWithString:str_logo_img] placeholderImage:[UIImage imageNamed:@"ic_no_heardPic.png"]];
         [_view_head addSubview:_headImageView];
         [_headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             [make.top.mas_equalTo(_view_head.mas_top)setOffset:10];
@@ -63,7 +75,7 @@
         _userNameLabel = [[UILabel alloc] init];
         _userNameLabel.font = PFR15Font;
         _userNameLabel.textColor = kMSViewTitleColor;
-        _userNameLabel.text = self.str_name;
+        _userNameLabel.text = str_username;
         _userNameLabel.textAlignment = NSTextAlignmentCenter;
         [_view_head addSubview:_userNameLabel];
         [_userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -77,7 +89,7 @@
         _profileLabel.font = PFR15Font;
         _profileLabel.textColor = kMSViewTitleColor;
         _profileLabel.textAlignment = NSTextAlignmentCenter;
-        _profileLabel.text = _str_profile;
+        _profileLabel.text = str_nickname;
         [_view_head addSubview:_profileLabel];
         [_profileLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             [make.top.mas_equalTo(_userNameLabel.mas_bottom)setOffset:5];
@@ -89,7 +101,12 @@
     return _view_head;
     
 }
-
+- (void)gotoInfoClick:(UITapGestureRecognizer *)recognizer
+{
+    WJManageUserInfoViewController  *userSettingVC = [[WJManageUserInfoViewController alloc]init];
+    self.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:userSettingVC animated:YES];
+}
 -(UIView *)view_foot
 {
     if (!_view_foot) {

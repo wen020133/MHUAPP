@@ -13,7 +13,7 @@
 
 //#define   kMSBaseLargeCollectionPortURL              @"http://api.snryid.top"                // 端口
 #define   kMSBaseLargeCollectionPortURL              @"http://192.168.2.249:249/api"                // 端口
-
+#define   kMSBaseUserHeadPortURL              @"http://192.168.2.249:249"                // 头像端口
 //验证码
 #define   kMSBaseCodePortURL              @"/code/get_code"                // 验证码端口
 
@@ -24,7 +24,7 @@
 #define   kMSLoginqq             @"/user/qq"                 //第三方登陆
 
 #define   kMSFind_pwdURL             @"/user/find_pwd"                 //找回密码
-#define   kMSUpLoadIcon             @"/user/icon"                 //上传头像
+#define   kMSUpLoadIcon             @"/user/upload_icon"                 //上传头像
 #define   kMSUserNickName             @"/user/nickname"              //修改昵称
 #define   kMSUserBindUsername             @"/user/bind_username"              //修改手机号邮箱
 #define   kMSUserGetcollect             @"/user/get_collect"              //获取个人收藏列表

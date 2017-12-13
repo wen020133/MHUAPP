@@ -30,7 +30,6 @@
 - (void)rigister
 {
 
-//    [SVProgressHUD showWithStatus:@"正在注册..."];
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
     [infos setObject:self.str_phone forKey:@"user_name"];
     [infos setObject:@"0" forKey:@"is_exist"];

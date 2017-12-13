@@ -53,12 +53,7 @@
 }
 -(void)showright
 {
-    WJUserSettingMainViewController *userSettingVC = [[WJUserSettingMainViewController alloc]init];
-    userSettingVC.str_name = @"userName";
-    userSettingVC.str_profile = @"用户简介";
-    self.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:userSettingVC animated:YES];
-    self.hidesBottomBarWhenPushed = NO;
+    [self changeUserHeard];
 }
 #pragma mark - LazyLoad
 - (UICollectionView *)collectionView
@@ -249,6 +244,7 @@
 // 下拉刷新触发，在此获取数据
 - (void)refreshClick:(UIRefreshControl *)refreshControl {
     NSLog(@"refreshClick: -- 刷新触发");
+    [self.collectionView reloadData];
     [refreshControl endRefreshing];
 }
 - (void)didReceiveMemoryWarning {
@@ -262,53 +258,10 @@
     NSString *loginState = [userDefaults objectForKey:@"loginState"];
     if([loginState isEqualToString:@"1"])
     {
-        [self jxt_showActionSheetWithTitle:@"选择图片" message:@"" appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
-            alertMaker.
-            addActionCancelTitle(@"取消").
-            addActionDestructiveTitle(@"相册选取").
-            addActionDefaultTitle(@"拍照");
-        } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, JXTAlertController * _Nonnull alertSelf) {
-
-            if ([action.title isEqualToString:@"取消"]) {
-                NSLog(@"cancel");
-            }
-            else if ([action.title isEqualToString:@"相册选取"]) {
-                if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary])
-                {
-                    NSUInteger sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-                    UIImagePickerController *picker=[[UIImagePickerController alloc] init];
-                    picker.delegate=self;
-                    picker.allowsEditing=NO;
-                    sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-                    picker.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
-                    [self presentViewController:picker animated:YES completion:^{}];
-                }
-                else
-                {
-                    [SVProgressHUD showErrorWithStatus:@"请在设置-隐私-照片对APP授权"];
-                }
-            }
-            else if ([action.title isEqualToString:@"拍照"]) {
-                NSLog(@"拍照");
-                UIImagePickerController *picker=[[UIImagePickerController alloc] init];
-                picker.delegate=self;
-                picker.allowsEditing=NO;
-                NSUInteger sourceType = UIImagePickerControllerSourceTypeCamera;
-                // 判断是否支持相机
-                if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
-                {
-                    sourceType = UIImagePickerControllerSourceTypeCamera;
-                    picker.sourceType=UIImagePickerControllerSourceTypeCamera;
-                    [self presentViewController:picker animated:YES completion:^{}];
-                }
-                else
-                {
-                    [SVProgressHUD showErrorWithStatus:@"请在设置-隐私-照片对APP授权"];
-                }
-            }
-
-        }];
-
+        WJUserSettingMainViewController *userSettingVC = [[WJUserSettingMainViewController alloc]init];
+        self.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:userSettingVC animated:YES];
+        self.hidesBottomBarWhenPushed = NO;
     }
     else
     {

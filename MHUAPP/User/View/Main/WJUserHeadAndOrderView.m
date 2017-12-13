@@ -29,21 +29,21 @@
     [self addSubview:_view_head];
 
     UIImageView *backV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"user_backImageHead.png"]];
-    backV.userInteractionEnabled = YES;
-    UITapGestureRecognizer *tapGesture=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(changeHeadClick)];
-    [backV addGestureRecognizer:tapGesture];
-
     backV.frame = _view_head.frame;
     [_view_head addSubview:backV];
 
     _headBackView = [[UIImageView alloc] init];
     _headBackView.contentMode = UIViewContentModeScaleAspectFit;
+    _headBackView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapGesture=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(changeHeadClick)];
+    [_headBackView addGestureRecognizer:tapGesture];
     _headBackView.image = [UIImage imageNamed:@"user_headBC.png"];
     [_view_head addSubview:_headBackView];
 
     _headImageView = [[UIImageView alloc] init];
     _headImageView.contentMode = UIViewContentModeScaleAspectFit;
-    _headImageView.image = [UIImage imageNamed:@"ic_no_heardPic.png"];
+    _headImageView.layer.masksToBounds = YES;
+    _headImageView.layer.cornerRadius = 33;
     [_view_head addSubview:_headImageView];
 
 

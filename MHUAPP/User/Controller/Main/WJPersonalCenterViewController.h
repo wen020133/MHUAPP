@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WJPersonalCenterViewController : UIViewController<UIImagePickerControllerDelegate,UIPrintInteractionControllerDelegate,UINavigationControllerDelegate>
+@interface WJPersonalCenterViewController : UIViewController
 
 @end

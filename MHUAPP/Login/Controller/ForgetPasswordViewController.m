@@ -67,12 +67,13 @@
         [SVProgressHUD showErrorWithStatus:@"两次输入的密码不一致！"];
         return;
     }
-    else if (self.text_code.text.length<1)
+    else if (self.text_code.text.length!=6)
     {
         [SVProgressHUD showErrorWithStatus:@"请输入正确的验证码！"];
         return;
     }
-    [SVProgressHUD showWithStatus:@"正在注册..."];
+    _serverType = 2;
+    [SVProgressHUD showWithStatus:@"..."];
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
     [infos setObject:self.text_phoneNumber.text forKey:@"user_name"];
     [infos setObject:[self.text_password.text md5] forKey:@"user_pwd"];
@@ -84,19 +85,37 @@
     [SVProgressHUD dismiss];
     if([[self.results objectForKey:@"code"] integerValue] == 200)
     {
+        switch (_serverType) {
+            case KGetCodeServer:
+                {
+                    NSString *msgadsasd = [self.results objectForKey:@"msg"];
+                    NSLog(@"JSON: %@", self.results);
+                    [self jxt_showAlertWithTitle:@"消息提示" message:msgadsasd appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
+                        alertMaker.toastStyleDuration = 2;
+                    } actionsBlock:NULL];
+                }
+                break;
+            case KChangePassword:
+            {
+                UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"修改密码成功" message:nil preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *serviceAction = [UIAlertAction actionWithTitle:@"登录" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+
+                    NSMutableDictionary *infodic = [NSMutableDictionary dictionary];
+                    [infodic setValue:self.text_phoneNumber.text forKey:@"account"];
+                    [infodic setValue:self.text_password.text forKey:@"password"];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"poptoUserClassVC" object:self userInfo:infodic];
+                    [self.navigationController popViewControllerAnimated:YES];
+
+                }];
+                [alertVC addAction:serviceAction];
+                [self presentViewController:alertVC animated:YES completion:nil];
+            }
+                break;
+            default:
+                break;
+        }
         NSLog(@"responseObject====%@",[self.results objectForKey:@"msg"]);
-        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"修改密码成功" message:nil preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *serviceAction = [UIAlertAction actionWithTitle:@"登录" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
 
-            NSMutableDictionary *infodic = [NSMutableDictionary dictionary];
-            [infodic setValue:self.text_phoneNumber.text forKey:@"account"];
-            [infodic setValue:self.text_password.text forKey:@"password"];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"poptoUserClassVC" object:self userInfo:infodic];
-            [self.navigationController popViewControllerAnimated:YES];
-
-        }];
-        [alertVC addAction:serviceAction];
-        [self presentViewController:alertVC animated:YES completion:nil];
     }
     else
     {
@@ -107,7 +126,8 @@
 }
 
 - (IBAction)GetCode:(UIButton *)sender {
-    if(self.text_phoneNumber.text.length<1)
+
+    if([RegularExpressionsMethod validateMobile:self.text_phoneNumber.text])
     {
         [SVProgressHUD showErrorWithStatus:@"请输入账号"];
         return;
@@ -115,6 +135,10 @@
     [_btn_code countDownFromTime:60 unitTitle:@"s" completion:^(MJCountDownButton *countDownButton) {
         [countDownButton setTitle:@"获取验证码" forState:UIControlStateNormal];
     }];
-
+    _serverType = 1;
+    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+    [infos setObject:self.text_phoneNumber.text forKey:@"user_name"];
+    [infos setObject:@"1" forKey:@"is_exist"];
+    [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSBaseCodePortURL] andInfos:infos];
 }
 @end

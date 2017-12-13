@@ -32,7 +32,7 @@
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     self.arr_Type = [NSArray arrayWithObjects:@"首页",@"吹风机",@"直发器",@"电动牙刷",@"个护",@"其他", nil];
     self.headImageArr = [NSArray arrayWithObjects:@"da", nil];
-    [self.view addSubview:self.menuScrollView];
+//    [self.view addSubview:self.menuScrollView];
     [self.view addSubview:self.collectionV];
     self.headImageArr = [WJGoodsDataModel mj_objectArrayWithFilename:@"HomeHighGoods.plist"];
 
@@ -60,21 +60,21 @@
     //判断回到顶部按钮是否隐藏
     _backTopImageView.hidden = (scrollView.contentOffset.y > 250) ? NO : YES;
 }
--(MenuScrollView *)menuScrollView
-{
-    if (!_menuScrollView) {
-        _menuScrollView = [[MenuScrollView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 44) withTitles:self.arr_Type withScrollViewWidth:kMSScreenWith];
-        _menuScrollView.delegate = self;
-        [self.view addSubview:_menuScrollView];
-    }
-    return _menuScrollView;
-}
+//-(MenuScrollView *)menuScrollView
+//{
+//    if (!_menuScrollView) {
+//        _menuScrollView = [[MenuScrollView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 44) withTitles:self.arr_Type withScrollViewWidth:kMSScreenWith];
+//        _menuScrollView.delegate = self;
+//        [self.view addSubview:_menuScrollView];
+//    }
+//    return _menuScrollView;
+//}
 
 -(UICollectionView *)collectionV
 {
     if (!_collectionV) {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-        _collectionV = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 44, kMSScreenWith, kMSScreenHeight-kMSNaviHight-44-49) collectionViewLayout:layout];
+        _collectionV = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight-kMSNaviHight-49) collectionViewLayout:layout];
         
         _collectionV.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
         _collectionV.delegate = self;

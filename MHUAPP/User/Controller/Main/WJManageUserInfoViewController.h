@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseNetworkViewController.h"
 
-@interface WJManageUserInfoViewController : UIViewController
+@interface WJManageUserInfoViewController : BaseNetworkViewController<UITableViewDelegate,UITableViewDataSource>
 
+@property (strong, nonatomic) UITableView *infoTableView;
+@property (strong, nonatomic) UIView *view_head;
+@property (strong, nonatomic) NSArray   *arr_typeName;
+/* 图片 */
+@property (strong , nonatomic) UIImageView *headImageView;
 @end

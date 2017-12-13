@@ -205,20 +205,20 @@
                 [XYMKeyChain saveKeyChainItemWithKey:KEY_KEYCHAINITEM item:userinfo];
 
                 NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-                [dic setValue:[[self.results objectForKey:@"data"] objectForKey:@"id" ] forKey:@"uid"];
+                [dic setValue:[[self.results objectForKey:@"data"] objectForKey:@"uid" ] forKey:@"uid"];
                 [dic setValue:[[self.results objectForKey:@"data"] objectForKey:@"user_name" ] forKey:@"username"];
-                [dic setValue:ConvertNullString([[self.results objectForKey:@"data"] objectForKey:@"user_mobile" ]) forKey:@"phone"];
-                NSString *logo_img =ConvertNullString([[self.results objectForKey:@"data"] objectForKey:@"user_icon" ]);
+                [dic setValue:ConvertNullString([[self.results objectForKey:@"data"] objectForKey:@"user_tel" ]) forKey:@"phone"];
+                NSString *logo_img =ConvertNullString([[self.results objectForKey:@"data"] objectForKey:@"user_headimg" ]);
                 if (logo_img.length>0) {
                     logo_img =  [logo_img stringByReplacingOccurrencesOfString:@".." withString:@""];
-                    [dic setValue: [NSString stringWithFormat:@"%@%@",kMSBaseLargeCollectionPortURL,  logo_img] forKey:@"user_icon"];
+                    [dic setValue: [NSString stringWithFormat:@"%@%@",kMSBaseUserHeadPortURL,  logo_img] forKey:@"user_icon"];
                 }else
                 {
                     [dic setValue:@"null" forKey:@"user_icon"];
                 }
 
                 [dic setValue:ConvertNullString([[self.results objectForKey:@"data"] objectForKey:@"user_email" ]) forKey:@"email"];
-                [dic setValue:ConvertNullString([[self.results objectForKey:@"data"] objectForKey:@"user_nickname" ]) forKey:@"nickname"];
+                [dic setValue:ConvertNullString([[self.results objectForKey:@"data"] objectForKey:@"nick_name" ]) forKey:@"nickname"];
                 NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
                 [userDefaults setObject:dic forKey:@"userList"];
                 [userDefaults setObject:@"1" forKey:@"loginState"];
@@ -239,11 +239,11 @@
 
                     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
 
-                    [dic setValue:[NSString stringWithFormat:@"%@",[[self.results objectForKey:@"data"] objectForKey:@"user_id"]] forKey:@"uid"];
+                    [dic setValue:[NSString stringWithFormat:@"%@",[[self.results objectForKey:@"data"] objectForKey:@"uid"]] forKey:@"uid"];
                     [dic setValue:ConvertNullString([[[self.results objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"usid"]) forKey:@"other_uid"];
                     [dic setValue:ConvertNullString([[[self.results objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"user_name" ]) forKey:@"username"];
-                    [dic setValue:ConvertNullString([[[self.results objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"user_mobile" ]) forKey:@"phone"];
-                    NSString *logo_img =ConvertNullString([[[self.results objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"user_icon" ]);
+                    [dic setValue:ConvertNullString([[[self.results objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"user_tel" ]) forKey:@"phone"];
+                    NSString *logo_img =ConvertNullString([[[self.results objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"user_headimg" ]);
                     if (logo_img.length>0) {
                         [dic setValue:logo_img forKey:@"user_icon"];
                     }else

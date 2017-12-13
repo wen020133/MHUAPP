@@ -11,7 +11,7 @@
 
 @interface WJHomeMainClassViewController : UIViewController<MenuBtnDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource>
 
-@property (strong, nonatomic) MenuScrollView *menuScrollView; //分类ScrollView
+//@property (strong, nonatomic) MenuScrollView *menuScrollView; //分类ScrollView
 
 @property (strong, nonatomic) UICollectionView *collectionV;
 

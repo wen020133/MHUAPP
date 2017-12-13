@@ -10,6 +10,13 @@
 #import "MJCountDownButton.h"
 #import "BaseNetworkViewController.h"
 
+
+typedef NS_ENUM(NSInteger, KGetPassWordServerType) {
+    KGetCodeServer = 1 ,//获取验证码
+    KChangePassword = 2 ,//修改密码
+};
+
+
 @interface ForgetPasswordViewController : BaseNetworkViewController
 @property (weak, nonatomic) IBOutlet UIScrollView *scr_content;
 - (IBAction)forGotPassword:(id)sender;
@@ -20,4 +27,7 @@
 - (IBAction)GetCode:(UIButton *)sender;
 @property (weak, nonatomic) IBOutlet UITextField *text_password;
 @property (weak, nonatomic) IBOutlet UITextField *text_passwordAgain;
+
+@property (assign, nonatomic) KGetPassWordServerType serverType;
+
 @end

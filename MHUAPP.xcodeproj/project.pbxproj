@@ -70,6 +70,7 @@
 		34133C311FDA39E100C95CA4 /* BaseNetworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34133C2F1FDA39E100C95CA4 /* BaseNetworkViewController.m */; };
 		34133C341FDA3CB400C95CA4 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 34133C331FDA3CB400C95CA4 /* Reachability.m */; };
 		34133C381FDA3D4500C95CA4 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 34133C371FDA3D4500C95CA4 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		3416C2AC1FE110560006169D /* WJUserInfoListCel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3416C2AB1FE110560006169D /* WJUserInfoListCel.m */; };
 		3418782C1FD4D7B800D3F860 /* WJGoodDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3418782B1FD4D7B800D3F860 /* WJGoodDetailViewController.m */; };
 		3418782F1FD4F0DA00D3F860 /* WJGoodBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3418782E1FD4F0DA00D3F860 /* WJGoodBaseViewController.m */; };
 		341878321FD4F10500D3F860 /* WJGoodParticularsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 341878311FD4F10500D3F860 /* WJGoodParticularsViewController.m */; };
@@ -300,6 +301,8 @@
 		34133C331FDA3CB400C95CA4 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		34133C361FDA3D4400C95CA4 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		34133C371FDA3D4500C95CA4 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		3416C2AA1FE110560006169D /* WJUserInfoListCel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJUserInfoListCel.h; sourceTree = "<group>"; };
+		3416C2AB1FE110560006169D /* WJUserInfoListCel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJUserInfoListCel.m; sourceTree = "<group>"; };
 		3418782A1FD4D7B800D3F860 /* WJGoodDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJGoodDetailViewController.h; sourceTree = "<group>"; };
 		3418782B1FD4D7B800D3F860 /* WJGoodDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJGoodDetailViewController.m; sourceTree = "<group>"; };
 		3418782D1FD4F0DA00D3F860 /* WJGoodBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJGoodBaseViewController.h; sourceTree = "<group>"; };
@@ -1182,6 +1185,8 @@
 			children = (
 				34EEB5FB1FD8C45600B4BE0A /* WJSetHeadTableCell.h */,
 				34EEB5FC1FD8C45600B4BE0A /* WJSetHeadTableCell.m */,
+				3416C2AA1FE110560006169D /* WJUserInfoListCel.h */,
+				3416C2AB1FE110560006169D /* WJUserInfoListCel.m */,
 			);
 			path = set;
 			sourceTree = "<group>";
@@ -1691,6 +1696,7 @@
 				34E2236D1FD12BB3003C0F34 /* WJGoodsListItem.m in Sources */,
 				341878AC1FD519C600D3F860 /* XWCoolAnimator+XWMiddlePageFlip.m in Sources */,
 				34E223671FD0FC8B003C0F34 /* WJGoodsSetViewController.m in Sources */,
+				3416C2AC1FE110560006169D /* WJUserInfoListCel.m in Sources */,
 				34E223631FD0F4FE003C0F34 /* HXSearchBar.m in Sources */,
 				34EEB6021FD9376E00B4BE0A /* WJLoginClassViewController.m in Sources */,
 				17DF7BF01FCCFFAE00FBD9DC /* UIViewController+BarExtension.m in Sources */,

@@ -24,7 +24,5 @@
 /* 签名 */
 @property (strong , nonatomic) UILabel *profileLabel;
 
-@property (strong, nonatomic) NSString   *str_Hearurl;
-@property (nonatomic, strong) NSString *str_name;
-@property (nonatomic, strong) NSString *str_profile;
+
 @end
