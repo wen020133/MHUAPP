@@ -22,6 +22,7 @@
 #define   kMSUserRegister         @"/user/register"              //注册
 #define   kMSLoginURL             @"/user/login"                 //登陆
 #define   kMSLoginqq             @"/user/qq"                 //第三方登陆
+#define   kMSAddressGetsite            @"/address/get_site"                 //第三方登陆
 
 #define   kMSFind_pwdURL             @"/user/find_pwd"                 //找回密码
 #define   kMSUpLoadIcon             @"/user/upload_icon"                 //上传头像

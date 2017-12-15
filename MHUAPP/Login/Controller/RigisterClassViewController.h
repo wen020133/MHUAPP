@@ -12,8 +12,6 @@
 @interface RigisterClassViewController : UIViewController<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *text_moblieNumber;
-@property (weak, nonatomic) IBOutlet UILabel *lab_country;
-- (IBAction)changeCountryNum:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *lab_countryNum;
 - (IBAction)theNextStep:(id)sender;
 

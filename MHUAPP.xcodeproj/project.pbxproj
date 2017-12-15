@@ -130,6 +130,8 @@
 		34287B481FCFA5BD00C7AE5F /* ClassiftyGoods01.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34287B471FCFA5BD00C7AE5F /* ClassiftyGoods01.plist */; };
 		34287B4B1FCFB5CE00C7AE5F /* WJBrandsSortHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34287B4A1FCFB5CE00C7AE5F /* WJBrandsSortHeadView.m */; };
 		34287B541FCFF52700C7AE5F /* WJSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34287B531FCFF52700C7AE5F /* WJSearchViewController.m */; };
+		342CDEEE1FE35F8500625F23 /* noMore_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 342CDEED1FE35F8400625F23 /* noMore_bg.png */; };
+		342CDEF11FE3610500625F23 /* WJAddressItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 342CDEF01FE3610500625F23 /* WJAddressItem.m */; };
 		3456C1851FD7730100B5AEB8 /* UserCommitFlow.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3456C1841FD7730100B5AEB8 /* UserCommitFlow.plist */; };
 		3456C18B1FD775F400B5AEB8 /* user_icon_shouhoutuikuan.png in Resources */ = {isa = PBXBuildFile; fileRef = 3456C1861FD775F300B5AEB8 /* user_icon_shouhoutuikuan.png */; };
 		3456C18C1FD775F400B5AEB8 /* user_icon_daishouhuo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3456C1871FD775F300B5AEB8 /* user_icon_daishouhuo.png */; };
@@ -413,6 +415,9 @@
 		34287B4A1FCFB5CE00C7AE5F /* WJBrandsSortHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJBrandsSortHeadView.m; sourceTree = "<group>"; };
 		34287B521FCFF52700C7AE5F /* WJSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJSearchViewController.h; sourceTree = "<group>"; };
 		34287B531FCFF52700C7AE5F /* WJSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJSearchViewController.m; sourceTree = "<group>"; };
+		342CDEED1FE35F8400625F23 /* noMore_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noMore_bg.png; sourceTree = "<group>"; };
+		342CDEEF1FE3610500625F23 /* WJAddressItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJAddressItem.h; sourceTree = "<group>"; };
+		342CDEF01FE3610500625F23 /* WJAddressItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJAddressItem.m; sourceTree = "<group>"; };
 		3456C1841FD7730100B5AEB8 /* UserCommitFlow.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = UserCommitFlow.plist; sourceTree = "<group>"; };
 		3456C1861FD775F300B5AEB8 /* user_icon_shouhoutuikuan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user_icon_shouhoutuikuan.png; sourceTree = "<group>"; };
 		3456C1871FD775F300B5AEB8 /* user_icon_daishouhuo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user_icon_daishouhuo.png; sourceTree = "<group>"; };
@@ -868,6 +873,13 @@
 			path = address;
 			sourceTree = "<group>";
 		};
+		340B672D1FE20EAF0097B475 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		34133C1B1FDA157000C95CA4 /* Keychain */ = {
 			isa = PBXGroup;
 			children = (
@@ -1221,6 +1233,7 @@
 		3465646E1FCD553400448C40 /* main */ = {
 			isa = PBXGroup;
 			children = (
+				342CDEED1FE35F8400625F23 /* noMore_bg.png */,
 				341878361FD4FC1400D3F860 /* Details_Btn_More_normal@2x.png */,
 				34E2236E1FD12CDF003C0F34 /* ic_back.png */,
 				34287B2B1FCEA30C00C7AE5F /* placeholder.jpg */,
@@ -1339,6 +1352,7 @@
 		34EEB5FF1FD9201C00B4BE0A /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				340B672D1FE20EAF0097B475 /* Model */,
 				34D507621FDB8CC700EA1AC5 /* View */,
 				34D507611FDB8CB000EA1AC5 /* Controller */,
 			);
@@ -1374,6 +1388,8 @@
 			children = (
 				179D82631FD6AA5E00CC4AA2 /* WJFlowItem.h */,
 				179D82641FD6AA5E00CC4AA2 /* WJFlowItem.m */,
+				342CDEEF1FE3610500625F23 /* WJAddressItem.h */,
+				342CDEF01FE3610500625F23 /* WJAddressItem.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1537,6 +1553,7 @@
 				340625FC1FDE28A900F52953 /* RigisterClassViewController.xib in Resources */,
 				346564761FCD561100448C40 /* img_btn_shiping@2x.png in Resources */,
 				341878A31FD519C600D3F860 /* mask.jpg in Resources */,
+				342CDEEE1FE35F8500625F23 /* noMore_bg.png in Resources */,
 				346564771FCD561100448C40 /* img_btn_chongzhi@2x.png in Resources */,
 				34F1D3931FD64B240080EE3D /* ClasiftyGoods.plist in Resources */,
 				341878A21FD519C600D3F860 /* line.png in Resources */,
@@ -1667,6 +1684,7 @@
 				341878A01FD519C600D3F860 /* XWInteractiveTransition.m in Sources */,
 				34287B2A1FCE9E8400C7AE5F /* WJGoodsDataModel.m in Sources */,
 				17DF7C1A1FCD069500FBD9DC /* RegularExpressionsMethod.m in Sources */,
+				342CDEF11FE3610500625F23 /* WJAddressItem.m in Sources */,
 				17DF7C1F1FCD09D300FBD9DC /* WJShopCartClassViewController.m in Sources */,
 				341878BC1FD519C600D3F860 /* XWFilterTransitionView.m in Sources */,
 				17DF7BE91FCCFF7100FBD9DC /* UIButton+LZCategory.m in Sources */,

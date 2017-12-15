@@ -39,8 +39,6 @@
 
 
 
-- (IBAction)changeCountryNum:(id)sender {
-}
 - (IBAction)theNextStep:(id)sender {
     if ([_lab_countryNum.text isEqualToString: @"+86"]&& ![RegularExpressionsMethod validateMobile:self.text_moblieNumber.text]) {
         [SVProgressHUD showErrorWithStatus:@"请输入正确的手机号码！"];

@@ -8,10 +8,13 @@
 #import "AddAddressViewController.h"
 #import "DeliveryAddressViewController.h"
 #import "AddressCell.h"
+#import "WJAddressItem.h"
+
 #import "UITableView+FDTemplateLayoutCell.h"
 
 @interface AddAddressViewController ()
-
+// The response from server
+@property (strong , nonatomic) NSMutableArray <WJAddressItem *> *records;
 @end
 
 @implementation AddAddressViewController
@@ -26,12 +29,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationController.navigationBarHidden = NO;
-    self.view.backgroundColor = kMSViewBackColor;
+    self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     [self initSendReplyWithTitle:@"地址管理" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
     
     self.infoTableView =[[UITableView alloc]initWithFrame: CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight-kMSNaviHight)];
     self.infoTableView.delegate = self;
     self.infoTableView.dataSource = self;
+      self.infoTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.infoTableView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.infoTableView];
     self.selectedState = NO;
@@ -52,12 +56,14 @@
 -(void)gotodelivreyVC
 {
     DeliveryAddressViewController *deliverVC = [[DeliveryAddressViewController alloc]init];
+    self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:deliverVC animated:YES];
 }
 
 -(void)showright
 {
     DeliveryAddressViewController *deliverVC = [[DeliveryAddressViewController alloc]init];
+    self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:deliverVC animated:YES];
 }
 
@@ -65,7 +71,12 @@
 -(void)addInitList
 {
     self.regType = 0;
-   
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
+    [userDefaults synchronize];
+    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+    [infos setValue:uid forKey:@"uid"];
+    [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSAddressGetsite] andInfos:infos];
 }
 - (void)refreshTableView
 {
@@ -81,10 +92,37 @@
     
 }
 
+-(void)processData
+{
+    if([[self.results objectForKey:@"code"] integerValue] == 200)
+    {
+        
+        NSArray *arr = [self.results objectForKey:@"data"];
+        if (arr&&arr.count>0) {
+
+             self.records = [WJAddressItem mj_objectArrayWithKeyValuesArray:arr];
+            [self.noMoreView hide];
+            [self.infoTableView reloadData];
+        }
+        else
+        {
+            self.records = nil ;
+            self.noMoreView = [[NOMoreDataView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 300) withContent:@"暂无地址" withNODataImage:@"noMore_bg.png"];
+            self.infoTableView.tableHeaderView.hidden = NO;
+            [self.infoTableView addSubview:self.noMoreView];
+        }
+
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:[self
+                                            .results objectForKey:@"msg"]];
+    }
+}
 #pragma mark - UITableViewDelegate UITableViewDataSource Methods
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    return self.records.count;
 }
 
 
@@ -103,22 +141,18 @@
         cell = [[[NSBundle mainBundle]loadNibNamed:@"AddressCell" owner:self options:nil] lastObject];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//    cell.lab_Name.text = [NSString stringWithFormat:@"%@",[[self.records objectAtIndex:indexPath.row] objectForKey:@"consignee"]];
-//     cell.lab_telephone.text = [NSString stringWithFormat:@"%@",[[self.records objectAtIndex:indexPath.row] objectForKey:@"mobile"]];
-//    NSString *address = [NSString stringWithFormat:@"%@ %@ %@ %@",[[self.records objectAtIndex:indexPath.row] objectForKey:@"countryName"],[[self.records objectAtIndex:indexPath.row] objectForKey:@"provinceName"],[[self.records objectAtIndex:indexPath.row] objectForKey:@"cityName"],[[self.records objectAtIndex:indexPath.row] objectForKey:@"address"]];
-
+    cell.addressItem = self.records[indexPath.row];
     [cell.btn_edit.layer setBorderWidth:1];
     [cell.btn_edit.layer setBorderColor:kMSViewBorderColor];
     cell.btn_edit.tag = indexPath.row;
     [cell.btn_edit addTarget:self action:@selector(editAddressBookForCell:) forControlEvents:UIControlEventTouchUpInside];
-    
-    
-    
+
     [cell.btn_Delete.layer setBorderWidth:1];
      [cell.btn_Delete.layer setBorderColor:kMSViewBorderColor];
     cell.btn_Delete.tag = indexPath.row;
     [cell.btn_Delete addTarget:self action:@selector(deleteCellIndexpathAddress:) forControlEvents:UIControlEventTouchUpInside];
-    if(indexPath.row==0)
+
+    if( [self.records[indexPath.row].is_default integerValue]==1)
     {
         [cell.btn_setting setImage:[UIImage imageNamed:@"shipcart_seleHigh.png"] forState:UIControlStateNormal];
     }
@@ -169,7 +203,7 @@
         else if (buttonIndex == 1) {
             self.regType = 1;
             NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-            [infos setValue:[NSString stringWithFormat:@"%@",[[self.records objectAtIndex:sender.tag] objectForKey:@"id"]] forKey:@"id"];
+            [infos setValue:[NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].site_id] forKey:@"id"];
         }
         NSLog(@"%@--%@", action.title, action);
     }];
@@ -197,15 +231,14 @@
 -(void)editAddressBookForCell:(UIButton *)sender
 {
     DeliveryAddressViewController *deliverVC = [[DeliveryAddressViewController alloc]init];
-    deliverVC.str_provinceName = [NSString stringWithFormat:@"%@",[[self.records objectAtIndex:sender.tag] objectForKey:@"provinceName"]];
-    deliverVC.str_provinceId = [NSString stringWithFormat:@"%@",[[self.records objectAtIndex:sender.tag] objectForKey:@"provinceId"]];
-    deliverVC.str_address = [NSString stringWithFormat:@"%@",[[self.records objectAtIndex:sender.tag] objectForKey:@"address"]];
-    deliverVC.str_id = [NSString stringWithFormat:@"%@",[[self.records objectAtIndex:sender.tag] objectForKey:@"id"]];
-    deliverVC.str_postCode = [NSString stringWithFormat:@"%@",[[self.records objectAtIndex:sender.tag] objectForKey:@"postCode"]];
-    deliverVC.str_mobile = [NSString stringWithFormat:@"%@",[[self.records objectAtIndex:sender.tag] objectForKey:@"mobile"]];
-    deliverVC.str_consignee = [NSString stringWithFormat:@"%@",[[self.records objectAtIndex:sender.tag] objectForKey:@"consignee"]];
-    deliverVC.str_cityId = [NSString stringWithFormat:@"%@",[[self.records objectAtIndex:sender.tag] objectForKey:@"cityId"]];
-    deliverVC.str_cityName = [NSString stringWithFormat:@"%@",[[self.records objectAtIndex:sender.tag] objectForKey:@"cityName"]];
+    deliverVC.str_provinceName = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].province];
+    deliverVC.str_cityName = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].city];
+    deliverVC.str_district = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].district];
+    deliverVC.str_address = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].address];
+    deliverVC.str_id = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].site_id];
+    deliverVC.str_postCode = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].zip_code];
+    deliverVC.str_mobile = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].mobile];
+    deliverVC.str_consignee = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].consigner];
     deliverVC.ADDorChange = YES;
     [self.navigationController pushViewController:deliverVC animated:YES];
     

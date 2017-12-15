@@ -24,6 +24,7 @@
 @property NSInteger regType;
 @property NSInteger selectprovinceOrCity;
 @property BOOL ADDorChange;
+
 @property (retain, nonatomic) NSString *str_consignee;
 @property (retain, nonatomic) NSString *str_mobile;
 @property (retain, nonatomic) NSString *str_provinceName;
@@ -32,6 +33,7 @@
 @property (retain, nonatomic) NSString *str_country;
 @property (retain, nonatomic) NSString *str_cityId;
 @property (retain, nonatomic) NSString *str_address;
+@property (retain, nonatomic) NSString *str_district;   //县（区）
 @property (retain, nonatomic) NSString *str_id;
 @property (retain, nonatomic) NSString *str_postCode;
 

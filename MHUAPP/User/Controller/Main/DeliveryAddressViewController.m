@@ -17,7 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = kMSViewBackColor;
+    self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     [self initSendReplyWithTitle:@"编辑收货地址" andLeftButtonName:@"ic_back.png" andRightButtonName:@"保存" andTitleLeftOrRight:NO];
     self.scr_content = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight-kMSNaviHight)];
     self.scr_content.backgroundColor = [UIColor clearColor];
