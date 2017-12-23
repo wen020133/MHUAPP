@@ -7,9 +7,13 @@
 //
 
 #import "DeliveryAddressViewController.h"
+#import "JXTAlertController.h"
+
 #define TextViewBackHight 50
 
 @interface DeliveryAddressViewController ()
+//省市县
+@property (strong , nonatomic) NSArray *arr_siteList;
 
 @end
 
@@ -18,7 +22,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
-    [self initSendReplyWithTitle:@"编辑收货地址" andLeftButtonName:@"ic_back.png" andRightButtonName:@"保存" andTitleLeftOrRight:NO];
+    if (_ADDorChange) {
+      [self initSendReplyWithTitle:@"编辑地址" andLeftButtonName:@"ic_back.png" andRightButtonName:@"保存" andTitleLeftOrRight:NO];
+    }
+    else
+    {
+      [self initSendReplyWithTitle:@"新建地址" andLeftButtonName:@"ic_back.png" andRightButtonName:@"保存" andTitleLeftOrRight:NO];
+    }
     self.scr_content = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight-kMSNaviHight)];
     self.scr_content.backgroundColor = [UIColor clearColor];
     NSArray *arrtitle = [NSArray arrayWithObjects:@"收货人姓名:", @"手机号:",@"省、市、区:",@"邮编:",nil];
@@ -58,7 +68,7 @@
     [self.scr_content addSubview:province];
     
     UIImageView *img_province = [[UIImageView alloc]initWithFrame:CGRectMake(kMSScreenWith-20, 32+(TextViewBackHight+2)*2, 5, 9)];
-    img_province.image = [UIImage imageNamed:@"right_arrow.png"];
+    img_province.image = [UIImage imageNamed:@"user_action_right"];
     [self.scr_content addSubview:img_province];
     
     self.lab_province = [[UILabel alloc]initWithFrame:CGRectMake(90, 12+(TextViewBackHight+2)*2, kMSScreenWith-140, TextViewBackHight-2)];
@@ -94,77 +104,79 @@
     self.scr_content.contentSize = CGSizeMake(kMSScreenWith, 52*arrtitle.count+20);
     [self.view addSubview:self.scr_content];
     
-    [self investListRequest];
+    [self getServiceAddressList];
     // Do any additional setup after loading the view.
 }
--(void)selectcountry
+
+
+-(void)getServiceAddressList
 {
-  
+    NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;
+    NSString *fileName = [path stringByAppendingPathComponent:@ "address.plist" ];
+    NSArray *result = [NSArray arrayWithContentsOfFile:fileName];
+    if (result&&result.count>1) {
+        self.arr_siteList = result;
+    }
+    else
+    {
+        self.regType = 0;
+        NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+        [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSAddressSiteList] andInfos:infos];
+    }
 }
-- (void)checkCountry:(NSString *)country phonePrefix:(NSString*)phonePrefix countryLogo:(NSString*)countryLogo countryCode:(NSString *)countryCode countryid:(NSString *)countryid
+
+-(void)processData
 {
-    self.str_country = country;
-    self.countryID = countryid;
-    [self investListRequest];
-}
--(void)investListRequest
-{
-    self.regType = 0;
-    
+    if([[self.results objectForKey:@"code"] integerValue] == 200)
+    {
+        if (self.regType==0) {
+            id arr = [self.results objectForKey:@"data"];
+            if([arr isKindOfClass:[NSArray class]])
+            {
+                NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;
+                NSString *fileName = [path stringByAppendingPathComponent:@ "address.plist" ];
+                [arr writeToFile:fileName atomically:YES];//执行此行代码时默认新创建一个plist文件
+                self.arr_siteList = arr;
+            }
+        }
+        else
+        {
+             NSString *msgadsasd = [self.results objectForKey:@"msg"];
+            [self jxt_showAlertWithTitle:@"消息提示" message:msgadsasd appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
+                alertMaker.toastStyleDuration = 1;
+                [self.navigationController popViewControllerAnimated:YES];
+
+            }actionsBlock:NULL];
+        }
+
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:[self
+                                            .results objectForKey:@"msg"]];
+    }
 }
 
 -(void)selectprovice
 {
-    
     [self hiddenTextView];
     [_pickerView removeFromSuperview];
-    _pickerView = [[WJMYPickerView alloc]initWithFrame:CGRectMake(0, kMSNaviHight, kMSScreenWith, kMSScreenHeight-44)];
+    _pickerView = [[WJMYPickerView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight-44)];
     _pickerView.delegate = self;
     [_pickerView initView];
-//    NSMutableArray *arr = [NSMutableArray array];
-//    for (int kkk=0; kkk<self.arr_country.count; kkk++) {
-//        [arr addObject:[NSString stringWithFormat:@"%@", [[self.arr_country objectAtIndex:kkk] objectForKey:@"regionNameEn"]]];
-//    }
-//    self.selectprovinceOrCity=1;
-//    if(self.arr_country.count>0)
-//    {
-//        _pickerView.arrays = arr;
-//        [self.view addSubview:_pickerView];
-//        [_pickerView show];
-//    }
+    _pickerView.allProvinces = self.arr_siteList;
+    [self.view addSubview:_pickerView];
 }
--(void)selectcity
+-(void) selectPickerViewRow:(NSString *)province provinceID:(NSString *)provinceID city:(NSString *)city cityID:(NSString *)cityID area:(NSString *)area areaID:(NSString *)areaID
 {
-    [self hiddenTextView];
-    [_pickerView removeFromSuperview];
-    NSLog(@"---%@",self.arr_city );
-    _pickerView = [[WJMYPickerView alloc]initWithFrame:CGRectMake(0, kMSNaviHight, kMSScreenWith, kMSScreenHeight-44)];
-    _pickerView.delegate = self;
-    [_pickerView initView];
-    NSMutableArray *arr = [NSMutableArray array];
-    for (int kkk=0; kkk<self.arr_city.count; kkk++) {
-        [arr addObject:[NSString stringWithFormat:@"%@", [[self.arr_city objectAtIndex:kkk] objectForKey:@"regionNameEn"]]];
-    }
-    self.selectprovinceOrCity=2;
-    if(self.arr_city.count>0)
-    {
-        _pickerView.arrays = arr;
-        [self.view addSubview:_pickerView];
-        [_pickerView show];
-    }
-}
-- (void)selectPickerViewRow:(NSInteger)row andName:(NSString *)str
-{
-    if(self.selectprovinceOrCity==1)
-    {
-        self.lab_province.text = str;
-        self.str_cityId = nil;
-            self.regType =4;
-    }
-    else
-    {
-        self.str_cityId = [[self.arr_city objectAtIndex:row] objectForKey:@"id"];
-    }
+    self.str_provinceName = province;
+    self.str_provinceId = provinceID;
+    self.str_cityName = city;
+    self.str_cityId = cityID;
+    self.str_district = area;
+    self.str_districtId = areaID;
+    self.lab_province.text = [NSString stringWithFormat:@"%@ %@ %@",province,city,area];
+
 }
 -(void)showright
 {
@@ -179,16 +191,6 @@
         [SVProgressHUD showErrorWithStatus:@"请输入手机号"];
         return;
     }
-    if(self.text_postalCode.text.length==0)
-    {
-        [SVProgressHUD showErrorWithStatus:@"请输入邮政编码"];
-        return;
-    }
-    if(!self.countryID)
-    {
-        [SVProgressHUD showErrorWithStatus:@"请选择城市"];
-        return;
-    }
 
     if(self.texV_address.text.length==0)
     {
@@ -196,7 +198,29 @@
         return;
     }
     [self hiddenTextView];
-   
+    NSString *type = _ADDorChange ? @"add" : @"update";
+    self.regType = 2;
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
+    [userDefaults synchronize];
+    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+    [infos setValue:uid forKey:@"uid"];
+    [infos setValue:type forKey:@"type"];
+    [infos setObject:self.texf_ContactName.text forKey:@"name"];
+    [infos setObject:self.texf_mobile.text forKey:@"mobile"];
+    [infos setObject:self.text_postalCode.text forKey:@"zip_code"];
+    [infos setObject:self.str_provinceId forKey:@"province"];
+    [infos setObject:self.str_cityId forKey:@"city"];
+    [infos setObject:self.str_districtId forKey:@"district"];
+    [infos setObject:self.texV_address.text forKey:@"address"];
+    if (_ADDorChange) {
+
+    }
+    else
+    {
+        [infos setObject:self.str_id forKey:@"site_id"];
+     }
+    [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSAddressChangeType] andInfos:infos];
    
 }
 - (void)textFieldDidBeginEditing:(UITextField *)textField

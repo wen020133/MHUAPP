@@ -45,12 +45,6 @@
         NSLog(@"JSON: %@", self.results);
         [self jxt_showAlertWithTitle:@"消息提示" message:msgadsasd appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
             alertMaker.toastStyleDuration = 2;
-            [alertMaker setAlertDidShown:^{
-                [self logMsg:@"alertDidShown"];//不用担心循环引用
-            }];
-            alertMaker.alertDidDismiss = ^{
-                [self logMsg:@"alertDidDismiss"];
-            };
         } actionsBlock:NULL];
     }
     else

@@ -6,6 +6,7 @@
 //  Copyright © 2017年 wenchengjun. All rights reserved.
 //
 
+
 #import <UIKit/UIKit.h>
 #import "WJClassGoodsItem.h"
 #import "WJClassMainGoodTypeModel.h"

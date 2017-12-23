@@ -63,6 +63,12 @@
 		340626321FDFABCC00F52953 /* WJMYPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 340626311FDFABCC00F52953 /* WJMYPickerView.m */; };
 		340626341FDFAC5800F52953 /* ship_info_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 340626331FDFAC5800F52953 /* ship_info_bg.png */; };
 		340626361FDFADF300F52953 /* shipcart_seleHigh.png in Resources */ = {isa = PBXBuildFile; fileRef = 340626351FDFADF300F52953 /* shipcart_seleHigh.png */; };
+		340CED7C1FECAA62001707EA /* WJOrderShangjiaNameModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 340CED7B1FECAA62001707EA /* WJOrderShangjiaNameModel.m */; };
+		340CED7F1FECBA92001707EA /* WJOrderListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 340CED7E1FECBA92001707EA /* WJOrderListCell.m */; };
+		340CED821FECFD61001707EA /* WJOrderListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 340CED811FECFD61001707EA /* WJOrderListItem.m */; };
+		340CED851FED0251001707EA /* WJOrderListFootModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 340CED841FED0251001707EA /* WJOrderListFootModel.m */; };
+		340DB1B51FEB9C1E003D5A19 /* WJOrderHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 340DB1B41FEB9C1E003D5A19 /* WJOrderHeader.m */; };
+		340DB1B81FEB9C41003D5A19 /* WJOrderFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 340DB1B71FEB9C41003D5A19 /* WJOrderFooter.m */; };
 		34133C201FDA158000C95CA4 /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 34133C1E1FDA158000C95CA4 /* KeychainItemWrapper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		34133C211FDA158000C95CA4 /* XYMKeyChain.m in Sources */ = {isa = PBXBuildFile; fileRef = 34133C1F1FDA158000C95CA4 /* XYMKeyChain.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		34133C261FDA16FA00C95CA4 /* NSString+WJExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 34133C251FDA16FA00C95CA4 /* NSString+WJExtensions.m */; };
@@ -132,6 +138,7 @@
 		34287B541FCFF52700C7AE5F /* WJSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34287B531FCFF52700C7AE5F /* WJSearchViewController.m */; };
 		342CDEEE1FE35F8500625F23 /* noMore_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 342CDEED1FE35F8400625F23 /* noMore_bg.png */; };
 		342CDEF11FE3610500625F23 /* WJAddressItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 342CDEF01FE3610500625F23 /* WJAddressItem.m */; };
+		343A8F3A1FE7B65C0017171A /* WJOrderMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 343A8F391FE7B65C0017171A /* WJOrderMainViewController.m */; };
 		3456C1851FD7730100B5AEB8 /* UserCommitFlow.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3456C1841FD7730100B5AEB8 /* UserCommitFlow.plist */; };
 		3456C18B1FD775F400B5AEB8 /* user_icon_shouhoutuikuan.png in Resources */ = {isa = PBXBuildFile; fileRef = 3456C1861FD775F300B5AEB8 /* user_icon_shouhoutuikuan.png */; };
 		3456C18C1FD775F400B5AEB8 /* user_icon_daishouhuo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3456C1871FD775F300B5AEB8 /* user_icon_daishouhuo.png */; };
@@ -176,6 +183,7 @@
 		34E223721FD12E4E003C0F34 /* WJListGoodsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34E223711FD12E4E003C0F34 /* WJListGoodsCell.m */; };
 		34E223751FD12E73003C0F34 /* WJSwitchGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34E223741FD12E73003C0F34 /* WJSwitchGridCell.m */; };
 		34E2237E1FD14E94003C0F34 /* WJSildeBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34E2237D1FD14E94003C0F34 /* WJSildeBarView.m */; };
+		34E3D2451FE89DFE005C7B2B /* WJOderListClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34E3D2441FE89DFE005C7B2B /* WJOderListClassViewController.m */; };
 		34EEB5FD1FD8C45600B4BE0A /* WJSetHeadTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34EEB5FC1FD8C45600B4BE0A /* WJSetHeadTableCell.m */; };
 		34EEB6021FD9376E00B4BE0A /* WJLoginClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34EEB6011FD9376E00B4BE0A /* WJLoginClassViewController.m */; };
 		34EEB6091FD93E4F00B4BE0A /* ForgetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34EEB6041FD93E4D00B4BE0A /* ForgetPasswordViewController.m */; };
@@ -289,6 +297,18 @@
 		340626311FDFABCC00F52953 /* WJMYPickerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJMYPickerView.m; sourceTree = "<group>"; };
 		340626331FDFAC5800F52953 /* ship_info_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ship_info_bg.png; sourceTree = "<group>"; };
 		340626351FDFADF300F52953 /* shipcart_seleHigh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shipcart_seleHigh.png; sourceTree = "<group>"; };
+		340CED7A1FECAA62001707EA /* WJOrderShangjiaNameModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJOrderShangjiaNameModel.h; sourceTree = "<group>"; };
+		340CED7B1FECAA62001707EA /* WJOrderShangjiaNameModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJOrderShangjiaNameModel.m; sourceTree = "<group>"; };
+		340CED7D1FECBA92001707EA /* WJOrderListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJOrderListCell.h; sourceTree = "<group>"; };
+		340CED7E1FECBA92001707EA /* WJOrderListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJOrderListCell.m; sourceTree = "<group>"; };
+		340CED801FECFD61001707EA /* WJOrderListItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJOrderListItem.h; sourceTree = "<group>"; };
+		340CED811FECFD61001707EA /* WJOrderListItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJOrderListItem.m; sourceTree = "<group>"; };
+		340CED831FED0251001707EA /* WJOrderListFootModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJOrderListFootModel.h; sourceTree = "<group>"; };
+		340CED841FED0251001707EA /* WJOrderListFootModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJOrderListFootModel.m; sourceTree = "<group>"; };
+		340DB1B31FEB9C1E003D5A19 /* WJOrderHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJOrderHeader.h; sourceTree = "<group>"; };
+		340DB1B41FEB9C1E003D5A19 /* WJOrderHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJOrderHeader.m; sourceTree = "<group>"; };
+		340DB1B61FEB9C41003D5A19 /* WJOrderFooter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJOrderFooter.h; sourceTree = "<group>"; };
+		340DB1B71FEB9C41003D5A19 /* WJOrderFooter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJOrderFooter.m; sourceTree = "<group>"; };
 		34133C1C1FDA157F00C95CA4 /* XYMKeyChain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYMKeyChain.h; sourceTree = "<group>"; };
 		34133C1D1FDA157F00C95CA4 /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
 		34133C1E1FDA158000C95CA4 /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
@@ -418,6 +438,8 @@
 		342CDEED1FE35F8400625F23 /* noMore_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noMore_bg.png; sourceTree = "<group>"; };
 		342CDEEF1FE3610500625F23 /* WJAddressItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJAddressItem.h; sourceTree = "<group>"; };
 		342CDEF01FE3610500625F23 /* WJAddressItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJAddressItem.m; sourceTree = "<group>"; };
+		343A8F381FE7B65C0017171A /* WJOrderMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJOrderMainViewController.h; sourceTree = "<group>"; };
+		343A8F391FE7B65C0017171A /* WJOrderMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJOrderMainViewController.m; sourceTree = "<group>"; };
 		3456C1841FD7730100B5AEB8 /* UserCommitFlow.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = UserCommitFlow.plist; sourceTree = "<group>"; };
 		3456C1861FD775F300B5AEB8 /* user_icon_shouhoutuikuan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user_icon_shouhoutuikuan.png; sourceTree = "<group>"; };
 		3456C1871FD775F300B5AEB8 /* user_icon_daishouhuo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user_icon_daishouhuo.png; sourceTree = "<group>"; };
@@ -473,6 +495,8 @@
 		34E223741FD12E73003C0F34 /* WJSwitchGridCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJSwitchGridCell.m; sourceTree = "<group>"; };
 		34E2237C1FD14E94003C0F34 /* WJSildeBarView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJSildeBarView.h; sourceTree = "<group>"; };
 		34E2237D1FD14E94003C0F34 /* WJSildeBarView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJSildeBarView.m; sourceTree = "<group>"; };
+		34E3D2431FE89DFE005C7B2B /* WJOderListClassViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJOderListClassViewController.h; sourceTree = "<group>"; };
+		34E3D2441FE89DFE005C7B2B /* WJOderListClassViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJOderListClassViewController.m; sourceTree = "<group>"; };
 		34EEB5FB1FD8C45600B4BE0A /* WJSetHeadTableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJSetHeadTableCell.h; sourceTree = "<group>"; };
 		34EEB5FC1FD8C45600B4BE0A /* WJSetHeadTableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJSetHeadTableCell.m; sourceTree = "<group>"; };
 		34EEB6001FD9376E00B4BE0A /* WJLoginClassViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJLoginClassViewController.h; sourceTree = "<group>"; };
@@ -700,6 +724,7 @@
 		17DF7BFA1FCD013A00FBD9DC /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				343A8F371FE7B5700017171A /* Order */,
 				179D825E1FD6A88700CC4AA2 /* Main */,
 			);
 			path = Controller;
@@ -1192,6 +1217,17 @@
 			path = search;
 			sourceTree = "<group>";
 		};
+		343A8F371FE7B5700017171A /* Order */ = {
+			isa = PBXGroup;
+			children = (
+				343A8F381FE7B65C0017171A /* WJOrderMainViewController.h */,
+				343A8F391FE7B65C0017171A /* WJOrderMainViewController.m */,
+				34E3D2431FE89DFE005C7B2B /* WJOderListClassViewController.h */,
+				34E3D2441FE89DFE005C7B2B /* WJOderListClassViewController.m */,
+			);
+			path = Order;
+			sourceTree = "<group>";
+		};
 		3456C1C01FD7E8DF00B5AEB8 /* set */ = {
 			isa = PBXGroup;
 			children = (
@@ -1349,6 +1385,19 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
+		34E3D2461FE8E80B005C7B2B /* Order */ = {
+			isa = PBXGroup;
+			children = (
+				340DB1B31FEB9C1E003D5A19 /* WJOrderHeader.h */,
+				340DB1B41FEB9C1E003D5A19 /* WJOrderHeader.m */,
+				340DB1B61FEB9C41003D5A19 /* WJOrderFooter.h */,
+				340DB1B71FEB9C41003D5A19 /* WJOrderFooter.m */,
+				340CED7D1FECBA92001707EA /* WJOrderListCell.h */,
+				340CED7E1FECBA92001707EA /* WJOrderListCell.m */,
+			);
+			path = Order;
+			sourceTree = "<group>";
+		};
 		34EEB5FF1FD9201C00B4BE0A /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -1390,6 +1439,12 @@
 				179D82641FD6AA5E00CC4AA2 /* WJFlowItem.m */,
 				342CDEEF1FE3610500625F23 /* WJAddressItem.h */,
 				342CDEF01FE3610500625F23 /* WJAddressItem.m */,
+				340CED7A1FECAA62001707EA /* WJOrderShangjiaNameModel.h */,
+				340CED7B1FECAA62001707EA /* WJOrderShangjiaNameModel.m */,
+				340CED801FECFD61001707EA /* WJOrderListItem.h */,
+				340CED811FECFD61001707EA /* WJOrderListItem.m */,
+				340CED831FED0251001707EA /* WJOrderListFootModel.h */,
+				340CED841FED0251001707EA /* WJOrderListFootModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1397,6 +1452,7 @@
 		34F1D3951FD6797B0080EE3D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				34E3D2461FE8E80B005C7B2B /* Order */,
 				3406262A1FDFA58200F52953 /* address */,
 				3456C1C01FD7E8DF00B5AEB8 /* set */,
 				179D825F1FD6A8A100CC4AA2 /* Main */,
@@ -1645,6 +1701,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				341878CF1FD5313A00D3F860 /* WJDeatilCustomHeadView.m in Sources */,
+				343A8F3A1FE7B65C0017171A /* WJOrderMainViewController.m in Sources */,
 				17DF7C161FCD04BC00FBD9DC /* WJPersonalCenterViewController.m in Sources */,
 				341878AB1FD519C600D3F860 /* XWCoolAnimator+XWLines.m in Sources */,
 				34EEB60A1FD93E4F00B4BE0A /* RigisterClassViewController.m in Sources */,
@@ -1652,6 +1709,7 @@
 				34EEB6151FD9415600B4BE0A /* MJCountDownButton.m in Sources */,
 				340626051FDE32C000F52953 /* WJPushPasswordViewController.m in Sources */,
 				341878B31FD519C600D3F860 /* XWFilterAnimator+XWBoxBlur.m in Sources */,
+				340CED7C1FECAA62001707EA /* WJOrderShangjiaNameModel.m in Sources */,
 				171410D81FCD7FA900F500A9 /* WJHeadScrModel.m in Sources */,
 				341878B21FD519C600D3F860 /* XWFilterAnimator+XWBarSwipe.m in Sources */,
 				34E2237E1FD14E94003C0F34 /* WJSildeBarView.m in Sources */,
@@ -1677,6 +1735,7 @@
 				179D82651FD6AA5E00CC4AA2 /* WJFlowItem.m in Sources */,
 				341878BA1FD519C600D3F860 /* XWFilterAnimator+XWSwipe.m in Sources */,
 				34E2236A1FD109AC003C0F34 /* WJCustionGoodsHeadView.m in Sources */,
+				340CED821FECFD61001707EA /* WJOrderListItem.m in Sources */,
 				34D507651FDB8E4700EA1AC5 /* RigisterProtocolV.m in Sources */,
 				34133C211FDA158000C95CA4 /* XYMKeyChain.m in Sources */,
 				17DF7BFD1FCD01A600FBD9DC /* WJMainTabBarViewController.m in Sources */,
@@ -1703,8 +1762,10 @@
 				34F1D3811FD61C770080EE3D /* WJDetailShowTypeCell.m in Sources */,
 				341878A51FD519C600D3F860 /* SDBrowserImageView.m in Sources */,
 				341878A71FD519C600D3F860 /* SDWaitingView.m in Sources */,
+				340CED7F1FECBA92001707EA /* WJOrderListCell.m in Sources */,
 				34133C2D1FDA1B8F00C95CA4 /* JXTAlertController.m in Sources */,
 				34287B3E1FCF9EB300C7AE5F /* WJClassCategoryCell.m in Sources */,
+				34E3D2451FE89DFE005C7B2B /* WJOderListClassViewController.m in Sources */,
 				341878DD1FD546BB00D3F860 /* WJShowTypeAddressCell.m in Sources */,
 				17DF7C101FCD048E00FBD9DC /* WJCommodityViewController.m in Sources */,
 				17F9F15E1FCC527300C71820 /* AppDelegate.m in Sources */,
@@ -1715,6 +1776,7 @@
 				341878AC1FD519C600D3F860 /* XWCoolAnimator+XWMiddlePageFlip.m in Sources */,
 				34E223671FD0FC8B003C0F34 /* WJGoodsSetViewController.m in Sources */,
 				3416C2AC1FE110560006169D /* WJUserInfoListCel.m in Sources */,
+				340DB1B81FEB9C41003D5A19 /* WJOrderFooter.m in Sources */,
 				34E223631FD0F4FE003C0F34 /* HXSearchBar.m in Sources */,
 				34EEB6021FD9376E00B4BE0A /* WJLoginClassViewController.m in Sources */,
 				17DF7BF01FCCFFAE00FBD9DC /* UIViewController+BarExtension.m in Sources */,
@@ -1729,6 +1791,7 @@
 				3418789F1FD519C600D3F860 /* UIViewController+XWTransition.m in Sources */,
 				3418782F1FD4F0DA00D3F860 /* WJGoodBaseViewController.m in Sources */,
 				17DF7BE81FCCFF7100FBD9DC /* UIView+UIViewFrame.m in Sources */,
+				340CED851FED0251001707EA /* WJOrderListFootModel.m in Sources */,
 				341878BD1FD519C600D3F860 /* XWMagicMoveAnimator.m in Sources */,
 				341878BB1FD519C600D3F860 /* XWFilterAnimator.m in Sources */,
 				17DF7C221FCD30F200FBD9DC /* MenuScrollView.m in Sources */,
@@ -1741,6 +1804,7 @@
 				179D82621FD6A90A00CC4AA2 /* WJFlowAttributeCell.m in Sources */,
 				340626211FDFA56200F52953 /* AddAddressViewController.m in Sources */,
 				34133C311FDA39E100C95CA4 /* BaseNetworkViewController.m in Sources */,
+				340DB1B51FEB9C1E003D5A19 /* WJOrderHeader.m in Sources */,
 				341878B91FD519C600D3F860 /* XWFilterAnimator+XWRipple.m in Sources */,
 				340626001FDE314100F52953 /* WJPushCodeViewController.m in Sources */,
 				341878321FD4F10500D3F860 /* WJGoodParticularsViewController.m in Sources */,

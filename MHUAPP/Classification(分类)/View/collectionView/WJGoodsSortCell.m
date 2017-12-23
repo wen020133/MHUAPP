@@ -59,11 +59,8 @@
 -(void)setModel:(WJClassMainGoodTypeModel *)model
 {
     _model = model;
-    if ([_model.image_url containsString:@"http"]) {
-        [_goodsImageView sd_setImageWithURL:[NSURL URLWithString:_model.image_url]];
-    }else{
-        _goodsImageView.image = [UIImage imageNamed:_model.image_url];
-    }
-    _goodsTitleLabel.text = _model.goods_title;
+        [_goodsImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",kMSBaseUserHeadPortURL,model.category_pic]]];
+
+    _goodsTitleLabel.text = _model.category_name;
 }
 @end

@@ -51,6 +51,8 @@
     _commentNumLabel.font = PFR10Font;
     _commentNumLabel.textColor = [UIColor darkGrayColor];
     [self addSubview:_commentNumLabel];
+
+    [RegularExpressionsMethod dc_setUpAcrossPartingLineWith:self WithColor:[[UIColor lightGrayColor]colorWithAlphaComponent:0.4]];
 }
 
 - (void)layoutSubviews

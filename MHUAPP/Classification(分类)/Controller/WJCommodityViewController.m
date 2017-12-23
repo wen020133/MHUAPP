@@ -106,10 +106,27 @@
 #pragma mark - 加载数据
 - (void)setUpData
 {
-    _titleItem = [WJClassGoodsItem mj_objectArrayWithFilename:@"ClassifyTitles.plist"];
-    _mainmodel = [WJClassMainGoodTypeModel mj_objectArrayWithFilename:@"HomeHighGoods.plist"];
-    //默认选择第一行（注意一定要在加载完数据之后）
-    [_tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+    [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSGetGoodsClassType] andInfos:infos];
+}
+-(void)processData
+{
+    if([[self.results objectForKey:@"code"] integerValue] == 200)
+    {
+        id arr = [self.results objectForKey:@"data"];
+        if([arr isKindOfClass:[NSArray class]])
+        {
+             self.titleItem = [WJClassGoodsItem mj_objectArrayWithKeyValuesArray:arr];
+            [self.tableView reloadData];
+            [self.collectionView reloadData];
+        }
+
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:[self
+                                            .results objectForKey:@"msg"]];
+    }
 }
 #pragma mark - <UITableViewDataSource>
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -140,6 +157,7 @@
     if (offsetX > offsetMax) { //最大
         offsetX = offsetMax;
     }
+    if(indexPath.row*50>kMSScreenHeight-113)
         [self.tableView setContentOffset:CGPointMake(0, offsetX) animated:YES];
       _selectIndex = indexPath.row;
      [self scrollToTopOfSection:_selectIndex animated:YES];
@@ -167,12 +185,14 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return _mainmodel.count;
+    NSArray *arr = [[[self.results objectForKey:@"data"] objectAtIndex:section] objectForKey:@"children"];
+    return arr.count;
 }
 #pragma mark - <UICollectionViewDelegate>
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 
     WJGoodsSortCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJGoodsSortCell" forIndexPath:indexPath];
+    _mainmodel = [WJClassGoodsItem mj_objectArrayWithKeyValuesArray:[[[self.results objectForKey:@"data"] objectAtIndex:indexPath.section] objectForKey:@"children"]];
     cell.model = _mainmodel[indexPath.row];
     return cell;
 }
@@ -204,7 +224,8 @@
     NSLog(@"点击了个第%zd分组第%zd几个Item",indexPath.section,indexPath.row);
     self.hidesBottomBarWhenPushed = YES;
     WJGoodsSetViewController *dcVc = [[WJGoodsSetViewController alloc] init];
-    dcVc.goodTypeName = _mainmodel[indexPath.row].goods_title;
+     _mainmodel = [WJClassGoodsItem mj_objectArrayWithKeyValuesArray:[[[self.results objectForKey:@"data"] objectAtIndex:indexPath.section] objectForKey:@"children"]];
+    dcVc.goodTypeName = _mainmodel[indexPath.row].category_name;
     [self.navigationController pushViewController:dcVc animated:YES];
     self.hidesBottomBarWhenPushed = NO;
 }

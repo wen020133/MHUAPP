@@ -35,7 +35,7 @@
 -(void)setTitleItem:(WJClassGoodsItem *)titleItem
 {
     _titleItem = titleItem;
-    _headLabel.text = titleItem.title;
+    _headLabel.text = titleItem.category_name;
 }
 
 @end

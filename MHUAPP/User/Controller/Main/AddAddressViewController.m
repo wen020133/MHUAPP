@@ -15,6 +15,7 @@
 @interface AddAddressViewController ()
 // The response from server
 @property (strong , nonatomic) NSMutableArray <WJAddressItem *> *records;
+
 @end
 
 @implementation AddAddressViewController
@@ -43,7 +44,7 @@
     UIButton *buttonAdd = [[UIButton alloc]initWithFrame:CGRectMake(0, kMSScreenHeight-kMSNaviHight-49, kMSScreenWith, 49)];
     buttonAdd.backgroundColor = kMSButtonBackColor;
     buttonAdd.titleLabel.textColor = [UIColor whiteColor];
-    [buttonAdd setTitle:@"新建新地址" forState:UIControlStateNormal] ;
+    [buttonAdd setTitle:@"新建地址" forState:UIControlStateNormal] ;
     [buttonAdd addTarget:self action:@selector(gotodelivreyVC) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:buttonAdd];
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -51,18 +52,13 @@
                                              selector:@selector(addInitList)
                                                  name:@"addInitList"
                                                object:nil];
+
     // Do any additional setup after loading the view.
 }
 -(void)gotodelivreyVC
 {
     DeliveryAddressViewController *deliverVC = [[DeliveryAddressViewController alloc]init];
-    self.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:deliverVC animated:YES];
-}
-
--(void)showright
-{
-    DeliveryAddressViewController *deliverVC = [[DeliveryAddressViewController alloc]init];
+    deliverVC.ADDorChange = YES;
     self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:deliverVC animated:YES];
 }
@@ -96,20 +92,33 @@
 {
     if([[self.results objectForKey:@"code"] integerValue] == 200)
     {
-        
-        NSArray *arr = [self.results objectForKey:@"data"];
-        if (arr&&arr.count>0) {
-
-             self.records = [WJAddressItem mj_objectArrayWithKeyValuesArray:arr];
-            [self.noMoreView hide];
-            [self.infoTableView reloadData];
+        if (self.regType==0) {
+             NSArray *arr = [self.results objectForKey:@"data"];
+            if (arr&&arr.count>0) {
+                [self.records removeAllObjects];
+                self.records = [WJAddressItem mj_objectArrayWithKeyValuesArray:arr];
+                [self.noMoreView hide];
+                [self.infoTableView reloadData];
+            }
+            else
+            {
+                self.records = nil ;
+                self.noMoreView = [[NOMoreDataView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 300) withContent:@"暂无地址" withNODataImage:@"noMore_bg.png"];
+                self.infoTableView.tableHeaderView.hidden = NO;
+                [self.infoTableView addSubview:self.noMoreView];
+            }
         }
-        else
+     else if(self.regType==1)
+     {
+         [self addInitList];
+      }
+        else if(self.regType==2)
         {
-            self.records = nil ;
-            self.noMoreView = [[NOMoreDataView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 300) withContent:@"暂无地址" withNODataImage:@"noMore_bg.png"];
-            self.infoTableView.tableHeaderView.hidden = NO;
-            [self.infoTableView addSubview:self.noMoreView];
+             [self addInitList];
+            [self jxt_showAlertWithTitle:@"消息提示" message:@"删除成功" appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
+                alertMaker.toastStyleDuration = 1;
+            } actionsBlock:NULL];
+
         }
 
     }
@@ -174,20 +183,28 @@
     
     else
     {
-        for (int kkk=0; kkk<4; kkk++) {
-            
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:kkk inSection:0];
-            AddressCell* cell = (AddressCell*)[self.infoTableView cellForRowAtIndexPath:indexPath];
-            if(kkk==sender.tag)
-            {
-                [sender setImage:[UIImage imageNamed:@"shipcart_seleHigh.png"] forState:UIControlStateNormal];
-            }
-            else
-            {
-            [cell.btn_setting setImage:[UIImage imageNamed:@"user_weigouxuan.png"] forState:UIControlStateNormal];
-            }
-        }
-    
+        self.regType = 1;
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
+        [userDefaults synchronize];
+        NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+        [infos setValue:uid forKey:@"uid"];
+        [infos setValue:[self.records objectAtIndex:sender.tag].site_id forKey:@"site_id"];
+        [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSAddressChangeDefault] andInfos:infos];
+//        for (int kkk=0; kkk<4; kkk++) {
+//
+//            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:kkk inSection:0];
+//            AddressCell* cell = (AddressCell*)[self.infoTableView cellForRowAtIndexPath:indexPath];
+//            if(kkk==sender.tag)
+//            {
+//                [sender setImage:[UIImage imageNamed:@"shipcart_seleHigh.png"] forState:UIControlStateNormal];
+//            }
+//            else
+//            {
+//            [cell.btn_setting setImage:[UIImage imageNamed:@"user_weigouxuan.png"] forState:UIControlStateNormal];
+//            }
+//        }
+
     }
 }
 -(void)deleteCellIndexpathAddress:(UIButton *)sender
@@ -201,9 +218,15 @@
             NSLog(@"cancel");
         }
         else if (buttonIndex == 1) {
-            self.regType = 1;
+            self.regType = 2;
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
+            [userDefaults synchronize];
             NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-            [infos setValue:[NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].site_id] forKey:@"id"];
+            [infos setValue:uid forKey:@"uid"];
+            [infos setValue:[self.records objectAtIndex:sender.tag].site_id forKey:@"site_id"];
+            [infos setValue:@"delete" forKey:@"type"];
+            [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSAddressChangeType] andInfos:infos];
         }
         NSLog(@"%@--%@", action.title, action);
     }];
@@ -239,7 +262,7 @@
     deliverVC.str_postCode = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].zip_code];
     deliverVC.str_mobile = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].mobile];
     deliverVC.str_consignee = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].consigner];
-    deliverVC.ADDorChange = YES;
+    deliverVC.ADDorChange = NO;
     [self.navigationController pushViewController:deliverVC animated:YES];
     
 }
