@@ -68,9 +68,8 @@
 #define kMSNaviHight  64
 #define startOriginY ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0 ? 20:0)
 
-#define _TencentAppid_  @"1105002914"
-#define UmengAppkey @"57b16a5ee0f55acfa0002b1f"
-#define kAppKey         @"3304591780"
+#define _TencentAppid_  @"1106528553"
+#define UmengAppkey @"5a40c52cf43e482d4d000032"
 #define kAppIDWeixin         @"wxcd6d759365bd725a"
 #define kAppSecret         @"0a650997bb7a8da403999bf63993a13f"
 #define kRedirectURI    @"https://itunes.apple.com/cn/app/omynail/id1115575145?mt=8"

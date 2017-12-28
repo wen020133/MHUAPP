@@ -12,8 +12,8 @@
 
 
 //#define   kMSBaseLargeCollectionPortURL              @"http://api.snryid.top"                // 端口
-#define   kMSBaseLargeCollectionPortURL              @"http://192.168.2.249:249/api"                // 端口
-#define   kMSBaseUserHeadPortURL              @"http://192.168.2.249:249"                // 头像端口
+#define   kMSBaseLargeCollectionPortURL              @"http://192.168.2.152/api"                // 端口
+#define   kMSBaseUserHeadPortURL              @"http://192.168.2.152"                // 头像端口
 
 
 //验证码

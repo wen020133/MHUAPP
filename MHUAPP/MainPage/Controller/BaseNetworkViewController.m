@@ -52,11 +52,12 @@
            
          } success:^(NSURLSessionDataTask * _Nonnull task, id _Nullable responseObject) { // 成功，关闭网络指示器
              NSLog(@"responseObject====%@",responseObject);
+             [SVProgressHUD dismiss];
              self.results = responseObject;
              [self processData];
          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) { // 失败，关闭网络指示器
              NSLog(@"ada===%@",error);
-             NSString *adasa = [NSString stringWithFormat:@"%@", error];
+             [SVProgressHUD dismiss];
              [self requestFailed];
 
                   }];

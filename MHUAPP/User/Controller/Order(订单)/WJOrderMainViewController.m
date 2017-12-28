@@ -26,7 +26,7 @@
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     self.arr_Type = [NSArray arrayWithObjects:@"全部",@"待付款",@"待发货",@"待收货",@"待评价", nil];
      [self addInformationSegmentedControlView];
-
+    [self addPageVC];
     // Do any additional setup after loading the view.
 }
 -(void)addInformationSegmentedControlView

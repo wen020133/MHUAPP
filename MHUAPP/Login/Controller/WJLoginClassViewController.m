@@ -288,6 +288,7 @@
 {
     [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_QQ currentViewController:nil completion:^(id result, NSError *error) {
         if (error) {
+            NSLog(@"%@",[NSString stringWithFormat:@"%@",[error localizedDescription]]);
             [SVProgressHUD showErrorWithStatus:@"QQ登录失败！"];
         } else {
             UMSocialUserInfoResponse *resp = result;

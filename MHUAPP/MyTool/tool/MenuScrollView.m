@@ -23,8 +23,8 @@
 
 - (void)initScrollView:(float)scrwidth
 {
-    self.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
-    
+//    self.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
+    self.backgroundColor = kMSViewBackColor;
     _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, scrwidth, 44)];
     self.scrollView.backgroundColor = [UIColor clearColor];
     self.scrollView.showsHorizontalScrollIndicator = NO;

@@ -13,8 +13,9 @@
 @end
 
 @interface MenuScrollView : UIView<UIScrollViewDelegate>
-{
-}
+
+
+
 @property (retain, nonatomic) UIScrollView  *scrollView;
 @property (retain, nonatomic) UIView        *indicatorImage;
 

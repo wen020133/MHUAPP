@@ -15,6 +15,9 @@
 #import "WJUserSettingMainViewController.h"
 #import "WJLoginClassViewController.h"
 #import "JXTAlertController.h"
+#import "WJOrderMainViewController.h"
+#import "WJCouponsClassViewController.h"
+
 
 @interface WJPersonalCenterViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
@@ -204,6 +207,33 @@
     return reusableview;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+     if(indexPath.section==0)
+     {
+         WJOrderMainViewController *dcVc = [[WJOrderMainViewController alloc] init];
+         self.hidesBottomBarWhenPushed = YES;
+         [self.navigationController pushViewController:dcVc animated:YES];
+         self.hidesBottomBarWhenPushed = NO;
+     }
+    else if (indexPath.section ==1)
+    {
+        switch (indexPath.row) {
+            case 0:
+                {
+                    WJCouponsClassViewController *dcVc = [[WJCouponsClassViewController alloc] init];
+                    self.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:dcVc animated:YES];
+                    self.hidesBottomBarWhenPushed = NO;
+                }
+                break;
+
+            default:
+                break;
+        }
+
+    }
+}
 #pragma mark - item宽高
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0 ) {//属性
@@ -217,6 +247,7 @@
     }
     return CGSizeZero;
 }
+
 #pragma mark - head宽高
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
 

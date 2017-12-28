@@ -8,11 +8,11 @@
 
 #import "RigisterClassViewController.h"
 #import "XYMKeyChain.h"
-#import "RigisterProtocolV.h"
+#import "RigisterProtocolViewController.h"
 #import "WJPushCodeViewController.h"
 
 @interface RigisterClassViewController ()
-@property (nonatomic, strong) RigisterProtocolV *rigisterWebView;
+
 @end
 
 @implementation RigisterClassViewController
@@ -24,12 +24,28 @@
 
     [self.text_moblieNumber becomeFirstResponder];
 
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:@"注册即代表阅读并同意用户协议"];
+    [str addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(10,4)];
+    [str addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"HelveticaNeue-Bold"size:16] range:NSMakeRange(10, 4)];
+    //加下划线
+    [str addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:NSMakeRange(10, 4)];
+    self.lab_protocol.userInteractionEnabled = YES;
+    self.lab_protocol.attributedText = str;
+
+    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickStr)];
+    [self.lab_protocol addGestureRecognizer:tap];
+
 //    _rigisterWebView = [[RigisterProtocolV alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight-kMSNaviHight)];
 //    [self.view addSubview:_rigisterWebView];
 
     // Do any additional setup after loading the view from its nib.
 }
-
+-(void)clickStr
+{
+    RigisterProtocolViewController *rigisterPr = [[RigisterProtocolViewController alloc]init];
+    self.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:rigisterPr animated:YES];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

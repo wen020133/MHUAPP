@@ -124,6 +124,8 @@
 		341878D71FD5452800D3F860 /* WJShowTypeCouponCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 341878D61FD5452800D3F860 /* WJShowTypeCouponCell.m */; };
 		341878DA1FD545D100D3F860 /* WJShowTypeGoodsPropertyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 341878D91FD545D100D3F860 /* WJShowTypeGoodsPropertyCell.m */; };
 		341878DD1FD546BB00D3F860 /* WJShowTypeAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 341878DC1FD546BB00D3F860 /* WJShowTypeAddressCell.m */; };
+		3421BCE91FF1DC5000263FE9 /* RigisterProtocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3421BCE81FF1DC5000263FE9 /* RigisterProtocolViewController.m */; };
+		3421BCED1FF2485D00263FE9 /* WJCouponsClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3421BCEC1FF2485D00263FE9 /* WJCouponsClassViewController.m */; };
 		34287B241FCE4B1100C7AE5F /* img_backTop.png in Resources */ = {isa = PBXBuildFile; fileRef = 34287B231FCE4B1100C7AE5F /* img_backTop.png */; };
 		34287B2A1FCE9E8400C7AE5F /* WJGoodsDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 34287B291FCE9E8400C7AE5F /* WJGoodsDataModel.m */; };
 		34287B2C1FCEA30C00C7AE5F /* placeholder.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 34287B2B1FCEA30C00C7AE5F /* placeholder.jpg */; };
@@ -169,12 +171,15 @@
 		346564781FCD561100448C40 /* img_btn_wuliu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 346564721FCD561100448C40 /* img_btn_wuliu@2x.png */; };
 		346564791FCD561100448C40 /* img_btn_jipiao@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 346564731FCD561100448C40 /* img_btn_jipiao@2x.png */; };
 		3465647A1FCD561100448C40 /* img_btn_zhuanti@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 346564741FCD561100448C40 /* img_btn_zhuanti@2x.png */; };
+		3498E8831FF33E25007453DF /* WJCouponsMunuScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3498E8821FF33E25007453DF /* WJCouponsMunuScrollView.m */; };
+		3498E8861FF34B4B007453DF /* WJCouponsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3498E8851FF34B4B007453DF /* WJCouponsListViewController.m */; };
+		3498E8891FF34E2B007453DF /* WJCouponsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3498E8881FF34E2B007453DF /* WJCouponsListCell.m */; };
+		3498E88C1FF39D3F007453DF /* WJCouponsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3498E88B1FF39D3F007453DF /* WJCouponsItem.m */; };
 		34D507571FDB79DC00EA1AC5 /* login_mobile.png in Resources */ = {isa = PBXBuildFile; fileRef = 34D507561FDB79DC00EA1AC5 /* login_mobile.png */; };
 		34D5075C1FDB7E5A00EA1AC5 /* login_mima.png in Resources */ = {isa = PBXBuildFile; fileRef = 34D507581FDB7E5A00EA1AC5 /* login_mima.png */; };
 		34D5075D1FDB7E5A00EA1AC5 /* login_qq.png in Resources */ = {isa = PBXBuildFile; fileRef = 34D507591FDB7E5A00EA1AC5 /* login_qq.png */; };
 		34D5075E1FDB7E5A00EA1AC5 /* login_weixin.png in Resources */ = {isa = PBXBuildFile; fileRef = 34D5075A1FDB7E5A00EA1AC5 /* login_weixin.png */; };
 		34D5075F1FDB7E5A00EA1AC5 /* login_weibo.png in Resources */ = {isa = PBXBuildFile; fileRef = 34D5075B1FDB7E5A00EA1AC5 /* login_weibo.png */; };
-		34D507651FDB8E4700EA1AC5 /* RigisterProtocolV.m in Sources */ = {isa = PBXBuildFile; fileRef = 34D507641FDB8E4700EA1AC5 /* RigisterProtocolV.m */; };
 		34E223631FD0F4FE003C0F34 /* HXSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 34E223621FD0F4FE003C0F34 /* HXSearchBar.m */; };
 		34E223671FD0FC8B003C0F34 /* WJGoodsSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34E223661FD0FC8B003C0F34 /* WJGoodsSetViewController.m */; };
 		34E2236A1FD109AC003C0F34 /* WJCustionGoodsHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34E223691FD109AC003C0F34 /* WJCustionGoodsHeadView.m */; };
@@ -415,6 +420,10 @@
 		341878D91FD545D100D3F860 /* WJShowTypeGoodsPropertyCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJShowTypeGoodsPropertyCell.m; sourceTree = "<group>"; };
 		341878DB1FD546BB00D3F860 /* WJShowTypeAddressCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJShowTypeAddressCell.h; sourceTree = "<group>"; };
 		341878DC1FD546BB00D3F860 /* WJShowTypeAddressCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJShowTypeAddressCell.m; sourceTree = "<group>"; };
+		3421BCE71FF1DC5000263FE9 /* RigisterProtocolViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RigisterProtocolViewController.h; sourceTree = "<group>"; };
+		3421BCE81FF1DC5000263FE9 /* RigisterProtocolViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RigisterProtocolViewController.m; sourceTree = "<group>"; };
+		3421BCEB1FF2485D00263FE9 /* WJCouponsClassViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJCouponsClassViewController.h; sourceTree = "<group>"; };
+		3421BCEC1FF2485D00263FE9 /* WJCouponsClassViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJCouponsClassViewController.m; sourceTree = "<group>"; };
 		34287B231FCE4B1100C7AE5F /* img_backTop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img_backTop.png; sourceTree = "<group>"; };
 		34287B281FCE9E8400C7AE5F /* WJGoodsDataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJGoodsDataModel.h; sourceTree = "<group>"; };
 		34287B291FCE9E8400C7AE5F /* WJGoodsDataModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJGoodsDataModel.m; sourceTree = "<group>"; };
@@ -472,14 +481,20 @@
 		346564721FCD561100448C40 /* img_btn_wuliu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img_btn_wuliu@2x.png"; sourceTree = "<group>"; };
 		346564731FCD561100448C40 /* img_btn_jipiao@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img_btn_jipiao@2x.png"; sourceTree = "<group>"; };
 		346564741FCD561100448C40 /* img_btn_zhuanti@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img_btn_zhuanti@2x.png"; sourceTree = "<group>"; };
+		3498E8811FF33E25007453DF /* WJCouponsMunuScrollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJCouponsMunuScrollView.h; sourceTree = "<group>"; };
+		3498E8821FF33E25007453DF /* WJCouponsMunuScrollView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJCouponsMunuScrollView.m; sourceTree = "<group>"; };
+		3498E8841FF34B4B007453DF /* WJCouponsListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJCouponsListViewController.h; sourceTree = "<group>"; };
+		3498E8851FF34B4B007453DF /* WJCouponsListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJCouponsListViewController.m; sourceTree = "<group>"; };
+		3498E8871FF34E2B007453DF /* WJCouponsListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJCouponsListCell.h; sourceTree = "<group>"; };
+		3498E8881FF34E2B007453DF /* WJCouponsListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJCouponsListCell.m; sourceTree = "<group>"; };
+		3498E88A1FF39D3F007453DF /* WJCouponsItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJCouponsItem.h; sourceTree = "<group>"; };
+		3498E88B1FF39D3F007453DF /* WJCouponsItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJCouponsItem.m; sourceTree = "<group>"; };
 		34D507561FDB79DC00EA1AC5 /* login_mobile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_mobile.png; sourceTree = "<group>"; };
 		34D507581FDB7E5A00EA1AC5 /* login_mima.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_mima.png; sourceTree = "<group>"; };
 		34D507591FDB7E5A00EA1AC5 /* login_qq.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_qq.png; sourceTree = "<group>"; };
 		34D5075A1FDB7E5A00EA1AC5 /* login_weixin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_weixin.png; sourceTree = "<group>"; };
 		34D5075B1FDB7E5A00EA1AC5 /* login_weibo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_weibo.png; sourceTree = "<group>"; };
 		34D507601FDB893900EA1AC5 /* MHUURL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MHUURL.h; sourceTree = "<group>"; };
-		34D507631FDB8E4700EA1AC5 /* RigisterProtocolV.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RigisterProtocolV.h; sourceTree = "<group>"; };
-		34D507641FDB8E4700EA1AC5 /* RigisterProtocolV.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RigisterProtocolV.m; sourceTree = "<group>"; };
 		34E223611FD0F4FD003C0F34 /* HXSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXSearchBar.h; sourceTree = "<group>"; };
 		34E223621FD0F4FE003C0F34 /* HXSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXSearchBar.m; sourceTree = "<group>"; };
 		34E223651FD0FC8B003C0F34 /* WJGoodsSetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJGoodsSetViewController.h; sourceTree = "<group>"; };
@@ -724,7 +739,8 @@
 		17DF7BFA1FCD013A00FBD9DC /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				343A8F371FE7B5700017171A /* Order */,
+				3421BCEA1FF2476200263FE9 /* Coupons(优惠券) */,
+				343A8F371FE7B5700017171A /* Order(订单) */,
 				179D825E1FD6A88700CC4AA2 /* Main */,
 			);
 			path = Controller;
@@ -1137,6 +1153,17 @@
 			path = DetailCell;
 			sourceTree = "<group>";
 		};
+		3421BCEA1FF2476200263FE9 /* Coupons(优惠券) */ = {
+			isa = PBXGroup;
+			children = (
+				3421BCEB1FF2485D00263FE9 /* WJCouponsClassViewController.h */,
+				3421BCEC1FF2485D00263FE9 /* WJCouponsClassViewController.m */,
+				3498E8841FF34B4B007453DF /* WJCouponsListViewController.h */,
+				3498E8851FF34B4B007453DF /* WJCouponsListViewController.m */,
+			);
+			path = "Coupons(优惠券)";
+			sourceTree = "<group>";
+		};
 		34287B2F1FCF85BD00C7AE5F /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1217,7 +1244,7 @@
 			path = search;
 			sourceTree = "<group>";
 		};
-		343A8F371FE7B5700017171A /* Order */ = {
+		343A8F371FE7B5700017171A /* Order(订单) */ = {
 			isa = PBXGroup;
 			children = (
 				343A8F381FE7B65C0017171A /* WJOrderMainViewController.h */,
@@ -1225,7 +1252,7 @@
 				34E3D2431FE89DFE005C7B2B /* WJOderListClassViewController.h */,
 				34E3D2441FE89DFE005C7B2B /* WJOderListClassViewController.m */,
 			);
-			path = Order;
+			path = "Order(订单)";
 			sourceTree = "<group>";
 		};
 		3456C1C01FD7E8DF00B5AEB8 /* set */ = {
@@ -1284,6 +1311,17 @@
 			path = main;
 			sourceTree = "<group>";
 		};
+		3498E8801FF33D7F007453DF /* Coupons */ = {
+			isa = PBXGroup;
+			children = (
+				3498E8811FF33E25007453DF /* WJCouponsMunuScrollView.h */,
+				3498E8821FF33E25007453DF /* WJCouponsMunuScrollView.m */,
+				3498E8871FF34E2B007453DF /* WJCouponsListCell.h */,
+				3498E8881FF34E2B007453DF /* WJCouponsListCell.m */,
+			);
+			path = Coupons;
+			sourceTree = "<group>";
+		};
 		34D507611FDB8CB000EA1AC5 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -1308,8 +1346,8 @@
 		34D507621FDB8CC700EA1AC5 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				34D507631FDB8E4700EA1AC5 /* RigisterProtocolV.h */,
-				34D507641FDB8E4700EA1AC5 /* RigisterProtocolV.m */,
+				3421BCE71FF1DC5000263FE9 /* RigisterProtocolViewController.h */,
+				3421BCE81FF1DC5000263FE9 /* RigisterProtocolViewController.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1445,6 +1483,8 @@
 				340CED811FECFD61001707EA /* WJOrderListItem.m */,
 				340CED831FED0251001707EA /* WJOrderListFootModel.h */,
 				340CED841FED0251001707EA /* WJOrderListFootModel.m */,
+				3498E88A1FF39D3F007453DF /* WJCouponsItem.h */,
+				3498E88B1FF39D3F007453DF /* WJCouponsItem.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1452,6 +1492,7 @@
 		34F1D3951FD6797B0080EE3D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3498E8801FF33D7F007453DF /* Coupons */,
 				34E3D2461FE8E80B005C7B2B /* Order */,
 				3406262A1FDFA58200F52953 /* address */,
 				3456C1C01FD7E8DF00B5AEB8 /* set */,
@@ -1708,6 +1749,7 @@
 				171410DE1FCD96AA00F500A9 /* WJHomeRecommendCollectionViewCell.m in Sources */,
 				34EEB6151FD9415600B4BE0A /* MJCountDownButton.m in Sources */,
 				340626051FDE32C000F52953 /* WJPushPasswordViewController.m in Sources */,
+				3421BCE91FF1DC5000263FE9 /* RigisterProtocolViewController.m in Sources */,
 				341878B31FD519C600D3F860 /* XWFilterAnimator+XWBoxBlur.m in Sources */,
 				340CED7C1FECAA62001707EA /* WJOrderShangjiaNameModel.m in Sources */,
 				171410D81FCD7FA900F500A9 /* WJHeadScrModel.m in Sources */,
@@ -1718,6 +1760,7 @@
 				3418789E1FD519C600D3F860 /* UIView+Snapshot.m in Sources */,
 				341878351FD4F19E00D3F860 /* WJGoodCommentViewController.m in Sources */,
 				3406262F1FDFAB6500F52953 /* NOMoreDataView.m in Sources */,
+				3498E8861FF34B4B007453DF /* WJCouponsListViewController.m in Sources */,
 				341878AD1FD519C600D3F860 /* XWCoolAnimator+XWPageFlip.m in Sources */,
 				341878B11FD519C600D3F860 /* XWDrawerAnimator.m in Sources */,
 				34133C341FDA3CB400C95CA4 /* Reachability.m in Sources */,
@@ -1736,9 +1779,9 @@
 				341878BA1FD519C600D3F860 /* XWFilterAnimator+XWSwipe.m in Sources */,
 				34E2236A1FD109AC003C0F34 /* WJCustionGoodsHeadView.m in Sources */,
 				340CED821FECFD61001707EA /* WJOrderListItem.m in Sources */,
-				34D507651FDB8E4700EA1AC5 /* RigisterProtocolV.m in Sources */,
 				34133C211FDA158000C95CA4 /* XYMKeyChain.m in Sources */,
 				17DF7BFD1FCD01A600FBD9DC /* WJMainTabBarViewController.m in Sources */,
+				3498E8891FF34E2B007453DF /* WJCouponsListCell.m in Sources */,
 				341878B41FD519C600D3F860 /* XWFilterAnimator+XWCopyMachine.m in Sources */,
 				341878A01FD519C600D3F860 /* XWInteractiveTransition.m in Sources */,
 				34287B2A1FCE9E8400C7AE5F /* WJGoodsDataModel.m in Sources */,
@@ -1754,8 +1797,10 @@
 				340017591FD22BA3009A027A /* WJHoverFlowLayout.m in Sources */,
 				341878A81FD519C600D3F860 /* XWCircleSpreadAnimator.m in Sources */,
 				34133C381FDA3D4500C95CA4 /* JSONKit.m in Sources */,
+				3498E88C1FF39D3F007453DF /* WJCouponsItem.m in Sources */,
 				341878B01FD519C600D3F860 /* XWCoolAnimator.m in Sources */,
 				341878DA1FD545D100D3F860 /* WJShowTypeGoodsPropertyCell.m in Sources */,
+				3421BCED1FF2485D00263FE9 /* WJCouponsClassViewController.m in Sources */,
 				17DF7C2D1FCD430500FBD9DC /* WJGoodsGridModel.m in Sources */,
 				3456C1BD1FD7DB7D00B5AEB8 /* WJUserSettingMainViewController.m in Sources */,
 				17DF7C271FCD3BAE00FBD9DC /* WJHomeScrollAdHeadView.m in Sources */,
@@ -1794,6 +1839,7 @@
 				340CED851FED0251001707EA /* WJOrderListFootModel.m in Sources */,
 				341878BD1FD519C600D3F860 /* XWMagicMoveAnimator.m in Sources */,
 				341878BB1FD519C600D3F860 /* XWFilterAnimator.m in Sources */,
+				3498E8831FF33E25007453DF /* WJCouponsMunuScrollView.m in Sources */,
 				17DF7C221FCD30F200FBD9DC /* MenuScrollView.m in Sources */,
 				34133C201FDA158000C95CA4 /* KeychainItemWrapper.m in Sources */,
 				3406261E1FDF8B2A00F52953 /* WJManageUserInfoViewController.m in Sources */,

@@ -77,7 +77,9 @@
     NSString *oldprice = [NSString stringWithFormat:@"￥%@",_listModel.oldPrice];
     CGFloat oldwidth = [RegularExpressionsMethod widthOfString:oldprice font:Font(15) height:20];
     _oldprice.frame = CGRectMake(self.contentView.width-oldwidth-10, _price.Bottom+10, oldwidth, 20);
-    _oldprice.text = oldprice;
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:oldprice
+                                                                                attributes:@{NSStrikethroughStyleAttributeName : @(NSUnderlineStyleSingle)}];
+    _oldprice.attributedText = attrStr;
 
     _title.text = _listModel.title;
     CGSize sizeTitle =  [RegularExpressionsMethod dc_calculateTextSizeWithText:_listModel.title WithTextFont:16 WithMaxW:self.contentView.width - DCMargin * 4-self.contentView.height-oldwidth];

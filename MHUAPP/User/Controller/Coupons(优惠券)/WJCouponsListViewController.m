@@ -1,51 +1,35 @@
 //
-//  WJOderListClassViewController.m
+//  WJCouponsListViewController.m
 //  MHUAPP
 //
-//  Created by jinri on 2017/12/19.
+//  Created by jinri on 2017/12/27.
 //  Copyright © 2017年 wenchengjun. All rights reserved.
 //
 
-#import "WJOderListClassViewController.h"
+#import "WJCouponsListViewController.h"
 #import "MJRefresh.h"
-#import "WJOrderListCell.h"
-#import "WJOrderHeader.h"
-#import "WJOrderFooter.h"
+#import "WJCouponsListCell.h"
 
-#import "WJOrderShangjiaNameModel.h"
-#import "WJOrderListItem.h"
-#import "WJOrderListFootModel.h"
+@interface WJCouponsListViewController ()
 
-
-
-@interface WJOderListClassViewController ()
-
-/* 商家名字数组 */
-@property (strong , nonatomic) NSMutableArray<WJOrderShangjiaNameModel *> *arr_nameModel;
-/* 单品列表数组 */
-@property (strong , nonatomic) NSMutableArray<WJOrderListItem *> *arr_listItem;
-/* 商家名字数组 */
-@property (strong , nonatomic) NSMutableArray<WJOrderListFootModel *> *arr_footModel;
 @end
 
-@implementation WJOderListClassViewController
+@implementation WJCouponsListViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
-
 -(UITableView *)mainTableView
 {
-    if (_mainTableView) {
+    if (!_mainTableView) {
 
-        self.mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44, kMSScreenWith, kMSScreenHeight-kMSNaviHight-44)];
+        self.mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight-kMSNaviHight-44)];
         self.mainTableView.backgroundColor = [UIColor clearColor];
         self.mainTableView.delegate = self;
         self.mainTableView.dataSource = self;
-        [self.mainTableView registerClass:[WJOrderListCell class] forCellReuseIdentifier:@"WJOrderListCell"];
+        [self.mainTableView registerClass:[WJCouponsListCell class] forCellReuseIdentifier:@"WJCouponsListCell"];
         self.mainTableView.alwaysBounceVertical = YES;
-        [self.view addSubview:self.mainTableView];
 
         // 下拉刷新
         self.mainTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRereshing)];
@@ -55,6 +39,10 @@
         self.mainTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
     }
     return _mainTableView;
+}
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 #pragma mark 开始进入刷新状态
 - (void)headerRereshing
@@ -71,17 +59,11 @@
     [self addPhotoListData];
 
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 //加载数据
 - (void)loadData
 {
-    _serverType = 1;
-    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-    [infos setValue:_str_imgTypeId forKey:@"type_id"];
-    [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSImageTypeSum] andInfos:infos];
+
 }
 
 -(void)addPhotoListData
@@ -99,7 +81,7 @@
     {
         NSLog(@"responseObject====%@",[self.results objectForKey:@"msg"]);
         switch (_serverType) {
-            case KGetOrderServerSumList:
+            case KGetCouponsServerSumList:
             {
                 self.totleCount = [[self.results objectForKey:@"data"]  integerValue];
                 if (self.totleCount>0) {
@@ -107,7 +89,7 @@
                 }
             }
                 break;
-            case KOrderTypePortList:
+            case KGetCouponsTypePortList:
             {
                 [self.mainTableView.mj_header endRefreshing];
                 [self.mainTableView.mj_footer endRefreshing];
@@ -146,6 +128,35 @@
     }
 }
 
+
+#pragma mark TableViewDelegate
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+
+    return 2;
+}
+
+
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 100;
+}
+
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    WJCouponsListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WJCouponsListCell" forIndexPath:indexPath];
+//    cell.listModel = self.dataArr[indexPath.row];
+    return cell;
+}
 
 - (void)firstLoadViewRefresh
 {

@@ -14,5 +14,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *text_moblieNumber;
 @property (weak, nonatomic) IBOutlet UILabel *lab_countryNum;
 - (IBAction)theNextStep:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *lab_protocol;
 
 @end
