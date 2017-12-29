@@ -140,6 +140,9 @@
 		34287B541FCFF52700C7AE5F /* WJSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34287B531FCFF52700C7AE5F /* WJSearchViewController.m */; };
 		342CDEEE1FE35F8500625F23 /* noMore_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 342CDEED1FE35F8400625F23 /* noMore_bg.png */; };
 		342CDEF11FE3610500625F23 /* WJAddressItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 342CDEF01FE3610500625F23 /* WJAddressItem.m */; };
+		34387BEB1FF5E92500398913 /* WJUserCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34387BEA1FF5E92500398913 /* WJUserCollectionViewController.m */; };
+		34387BF01FF5F22A00398913 /* WJCollectionTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34387BEE1FF5F22A00398913 /* WJCollectionTabCell.m */; };
+		34387BF41FF5F2D100398913 /* WJCollectionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 34387BF31FF5F2D100398913 /* WJCollectionItem.m */; };
 		343A8F3A1FE7B65C0017171A /* WJOrderMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 343A8F391FE7B65C0017171A /* WJOrderMainViewController.m */; };
 		3456C1851FD7730100B5AEB8 /* UserCommitFlow.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3456C1841FD7730100B5AEB8 /* UserCommitFlow.plist */; };
 		3456C18B1FD775F400B5AEB8 /* user_icon_shouhoutuikuan.png in Resources */ = {isa = PBXBuildFile; fileRef = 3456C1861FD775F300B5AEB8 /* user_icon_shouhoutuikuan.png */; };
@@ -447,6 +450,12 @@
 		342CDEED1FE35F8400625F23 /* noMore_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noMore_bg.png; sourceTree = "<group>"; };
 		342CDEEF1FE3610500625F23 /* WJAddressItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJAddressItem.h; sourceTree = "<group>"; };
 		342CDEF01FE3610500625F23 /* WJAddressItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJAddressItem.m; sourceTree = "<group>"; };
+		34387BE91FF5E92500398913 /* WJUserCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJUserCollectionViewController.h; sourceTree = "<group>"; };
+		34387BEA1FF5E92500398913 /* WJUserCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJUserCollectionViewController.m; sourceTree = "<group>"; };
+		34387BED1FF5F22A00398913 /* WJCollectionTabCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJCollectionTabCell.h; sourceTree = "<group>"; };
+		34387BEE1FF5F22A00398913 /* WJCollectionTabCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJCollectionTabCell.m; sourceTree = "<group>"; };
+		34387BF21FF5F2D100398913 /* WJCollectionItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJCollectionItem.h; sourceTree = "<group>"; };
+		34387BF31FF5F2D100398913 /* WJCollectionItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJCollectionItem.m; sourceTree = "<group>"; };
 		343A8F381FE7B65C0017171A /* WJOrderMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJOrderMainViewController.h; sourceTree = "<group>"; };
 		343A8F391FE7B65C0017171A /* WJOrderMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJOrderMainViewController.m; sourceTree = "<group>"; };
 		3456C1841FD7730100B5AEB8 /* UserCommitFlow.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = UserCommitFlow.plist; sourceTree = "<group>"; };
@@ -739,6 +748,7 @@
 		17DF7BFA1FCD013A00FBD9DC /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				34387BE81FF5E88700398913 /* MyCollection(我的收藏) */,
 				3421BCEA1FF2476200263FE9 /* Coupons(优惠券) */,
 				343A8F371FE7B5700017171A /* Order(订单) */,
 				179D825E1FD6A88700CC4AA2 /* Main */,
@@ -1244,6 +1254,24 @@
 			path = search;
 			sourceTree = "<group>";
 		};
+		34387BE81FF5E88700398913 /* MyCollection(我的收藏) */ = {
+			isa = PBXGroup;
+			children = (
+				34387BE91FF5E92500398913 /* WJUserCollectionViewController.h */,
+				34387BEA1FF5E92500398913 /* WJUserCollectionViewController.m */,
+			);
+			path = "MyCollection(我的收藏)";
+			sourceTree = "<group>";
+		};
+		34387BEC1FF5F13500398913 /* 收藏 */ = {
+			isa = PBXGroup;
+			children = (
+				34387BED1FF5F22A00398913 /* WJCollectionTabCell.h */,
+				34387BEE1FF5F22A00398913 /* WJCollectionTabCell.m */,
+			);
+			path = "收藏";
+			sourceTree = "<group>";
+		};
 		343A8F371FE7B5700017171A /* Order(订单) */ = {
 			isa = PBXGroup;
 			children = (
@@ -1485,6 +1513,8 @@
 				340CED841FED0251001707EA /* WJOrderListFootModel.m */,
 				3498E88A1FF39D3F007453DF /* WJCouponsItem.h */,
 				3498E88B1FF39D3F007453DF /* WJCouponsItem.m */,
+				34387BF21FF5F2D100398913 /* WJCollectionItem.h */,
+				34387BF31FF5F2D100398913 /* WJCollectionItem.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1492,6 +1522,7 @@
 		34F1D3951FD6797B0080EE3D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				34387BEC1FF5F13500398913 /* 收藏 */,
 				3498E8801FF33D7F007453DF /* Coupons */,
 				34E3D2461FE8E80B005C7B2B /* Order */,
 				3406262A1FDFA58200F52953 /* address */,
@@ -1753,6 +1784,7 @@
 				341878B31FD519C600D3F860 /* XWFilterAnimator+XWBoxBlur.m in Sources */,
 				340CED7C1FECAA62001707EA /* WJOrderShangjiaNameModel.m in Sources */,
 				171410D81FCD7FA900F500A9 /* WJHeadScrModel.m in Sources */,
+				34387BEB1FF5E92500398913 /* WJUserCollectionViewController.m in Sources */,
 				341878B21FD519C600D3F860 /* XWFilterAnimator+XWBarSwipe.m in Sources */,
 				34E2237E1FD14E94003C0F34 /* WJSildeBarView.m in Sources */,
 				341878CC1FD527B600D3F860 /* WJDetailShufflingHeadView.m in Sources */,
@@ -1831,6 +1863,7 @@
 				17DF7BF11FCCFFAE00FBD9DC /* UINavigationBar+MSExtension.m in Sources */,
 				34E223721FD12E4E003C0F34 /* WJListGoodsCell.m in Sources */,
 				341878C61FD51D5900D3F860 /* AddressPickerView.m in Sources */,
+				34387BF41FF5F2D100398913 /* WJCollectionItem.m in Sources */,
 				341878AF1FD519C600D3F860 /* XWCoolAnimator+XWScanning.m in Sources */,
 				341878AE1FD519C600D3F860 /* XWCoolAnimator+XWPortal.m in Sources */,
 				3418789F1FD519C600D3F860 /* UIViewController+XWTransition.m in Sources */,
@@ -1846,6 +1879,7 @@
 				17DF7C2A1FCD42D800FBD9DC /* WJGoodsGridViewCell.m in Sources */,
 				341878B81FD519C600D3F860 /* XWFilterAnimator+XWPageCurl.m in Sources */,
 				341878B61FD519C600D3F860 /* XWFilterAnimator+XWMask.m in Sources */,
+				34387BF01FF5F22A00398913 /* WJCollectionTabCell.m in Sources */,
 				340626321FDFABCC00F52953 /* WJMYPickerView.m in Sources */,
 				179D82621FD6A90A00CC4AA2 /* WJFlowAttributeCell.m in Sources */,
 				340626211FDFA56200F52953 /* AddAddressViewController.m in Sources */,

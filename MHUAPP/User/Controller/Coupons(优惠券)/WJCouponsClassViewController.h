@@ -10,11 +10,9 @@
 #import "WJCouponsMunuScrollView.h"
 
 @interface WJCouponsClassViewController : UIViewController<CouponDelegate,UIPageViewControllerDataSource,UIPageViewControllerDelegate>
-{
-    UIPageViewController *_pageViewCtrl;
-    NSMutableArray *_viewControllers;
-}
+
 
 @property (strong, nonatomic) WJCouponsMunuScrollView *menuScrollView; //分类ScrollView
-
+@property (strong, nonatomic) UIPageViewController *pageCouponsViewCtrl;
+@property (strong, nonatomic) NSMutableArray *viewControllers;
 @end

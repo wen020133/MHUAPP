@@ -28,17 +28,23 @@
 #pragma mark - UI
 - (void)setUpUI
 {
-    self.contentView.backgroundColor = kMSViewBackColor;
-    _contentImg = [[UIImageView alloc] initWithFrame:CGRectMake(10, 5, self.contentView.height, self.contentView.height-10)];
+    NSLog(@"%f",self.height);
+    self.contentView.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
+    UIImageView *imgV = [[UIImageView alloc]initWithFrame:CGRectMake(0, 2, kMSScreenWith, 95)];
+    imgV.backgroundColor = kMSViewBackColor;
+    [self.contentView addSubview:imgV];
+    
+    _contentImg = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 120, 80)];
+    _contentImg.backgroundColor = [UIColor redColor];
     [self.contentView addSubview:_contentImg];
 
-    _lab_couponsPrice = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, self.contentView.height, 35)];
-    _lab_couponsPrice.backgroundColor = kMSViewTitleColor;
+    _lab_couponsPrice = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 120, 35)];
+    _lab_couponsPrice.textColor = kMSViewTitleColor;
     _lab_couponsPrice.textAlignment = NSTextAlignmentCenter;
     _lab_couponsPrice.font = Font(25);
     [self.contentView addSubview:_lab_couponsPrice];
 
-    _lab_highPrice = [[UILabel alloc] initWithFrame:CGRectMake(15, 50, self.contentView.height-10, 35)];
+    _lab_highPrice = [[UILabel alloc] initWithFrame:CGRectMake(20, 50, 110, 35)];
     _lab_highPrice.textAlignment = NSTextAlignmentRight;
     _lab_highPrice.textColor = kMSViewTitleColor;
     _lab_highPrice.font = Font(14);
@@ -58,10 +64,10 @@
     [self.contentView addSubview:_lab_date];
 
     _btn_use = [UIButton buttonWithType:UIButtonTypeCustom];
-    _btn_use.frame = CGRectMake(kMSScreenWith-100, 60, 90, 36);
+    _btn_use.frame = CGRectMake(kMSScreenWith-100, 63, 90, 30);
     _btn_use.layer.borderColor = [[UIColor redColor] CGColor];
     _btn_use.layer.borderWidth = 1.0f;
-    _btn_use.layer.cornerRadius = 4.0f;
+    _btn_use.layer.cornerRadius = 14.0f;
     _btn_use.layer.masksToBounds = YES;
     [self.contentView addSubview:_btn_use];
 }

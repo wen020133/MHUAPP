@@ -1,47 +1,48 @@
 //
-//  WJCouponsListViewController.m
+//  WJUserCollectionViewController.m
 //  MHUAPP
 //
-//  Created by jinri on 2017/12/27.
+//  Created by jinri on 2017/12/29.
 //  Copyright © 2017年 wenchengjun. All rights reserved.
 //
 
-#import "WJCouponsListViewController.h"
+#import "WJUserCollectionViewController.h"
 #import "MJRefresh.h"
-#import "WJCouponsListCell.h"
+#import "WJCollectionTabCell.h"
 
-@interface WJCouponsListViewController ()
+@interface WJUserCollectionViewController ()
 
 @end
 
-@implementation WJCouponsListViewController
+@implementation WJUserCollectionViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
-    [self.view addSubview:self.mainTableView];
+    [self initSendReplyWithTitle:@"我的收藏" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
+    self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
+    [self.view addSubview:self.tab_collectionView];
     // Do any additional setup after loading the view.
 }
--(UITableView *)mainTableView
+-(UITableView *)tab_collectionView
 {
-    if (!_mainTableView) {
+    if (!_tab_collectionView) {
 
-        self.mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight-kMSNaviHight-44)];
-        self.mainTableView.backgroundColor = [UIColor clearColor];
-        self.mainTableView.delegate = self;
-        self.mainTableView.dataSource = self;
-        self.mainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        [self.mainTableView registerClass:[WJCouponsListCell class] forCellReuseIdentifier:@"WJCouponsListCell"];
-        self.mainTableView.alwaysBounceVertical = YES;
+        self.tab_collectionView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight-kMSNaviHight)];
+        self.tab_collectionView.backgroundColor = [UIColor clearColor];
+        self.tab_collectionView.delegate = self;
+        self.tab_collectionView.dataSource = self;
+        self.tab_collectionView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        [self.tab_collectionView registerClass:[WJCollectionTabCell class] forCellReuseIdentifier:@"WJCollectionTabCell"];
+        self.tab_collectionView.alwaysBounceVertical = YES;
 
         // 下拉刷新
-        self.mainTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRereshing)];
-        [self.mainTableView.mj_header beginRefreshing];
+        self.tab_collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRereshing)];
+        [self.tab_collectionView.mj_header beginRefreshing];
 
         // 上拉刷新
-        self.mainTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
+        self.tab_collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
     }
-    return _mainTableView;
+    return _tab_collectionView;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -50,8 +51,8 @@
 #pragma mark 开始进入刷新状态
 - (void)headerRereshing
 {
-    [self.mainTableView.mj_header endRefreshing];
-    [self.mainTableView.mj_footer endRefreshing];
+    [self.tab_collectionView.mj_header endRefreshing];
+    [self.tab_collectionView.mj_footer endRefreshing];
     _page = 1;
     [self loadData];
 }
@@ -74,7 +75,6 @@
     _serverType = 2;
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
     [infos setValue:kMSPULLtableViewCellNumber forKey:@"img_sum"];
-    [infos setValue:_str_imgTypeId forKey:@"type_id"];
     [infos setValue:[NSString stringWithFormat:@"%ld",_page] forKey:@"img_page"];
     [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSImageTypeGet] andInfos:infos];
 }
@@ -84,7 +84,7 @@
     {
         NSLog(@"responseObject====%@",[self.results objectForKey:@"msg"]);
         switch (_serverType) {
-            case KGetCouponsServerSumList:
+            case KGetCollectionServerSumList:
             {
                 self.totleCount = [[self.results objectForKey:@"data"]  integerValue];
                 if (self.totleCount>0) {
@@ -92,10 +92,10 @@
                 }
             }
                 break;
-            case KGetCouponsTypePortList:
+            case KGetCollectionTypePortList:
             {
-                [self.mainTableView.mj_header endRefreshing];
-                [self.mainTableView.mj_footer endRefreshing];
+                [self.tab_collectionView.mj_header endRefreshing];
+                [self.tab_collectionView.mj_footer endRefreshing];
                 NSMutableArray *arr_Datalist = [NSMutableArray array];
                 arr_Datalist =  [self.results objectForKey:@"data"];
 
@@ -112,9 +112,9 @@
 
                     if (self.page*10 >= self.totleCount)
                     {
-                        [self.mainTableView.mj_footer endRefreshingWithNoMoreData];
+                        [self.tab_collectionView.mj_footer endRefreshingWithNoMoreData];
                     }
-                    [self.mainTableView reloadData];
+                    [self.tab_collectionView reloadData];
                 }
             }
             default:
@@ -126,8 +126,8 @@
     else
     {
 
-        [self.mainTableView.mj_header endRefreshing];
-        [self.mainTableView.mj_footer endRefreshing];
+        [self.tab_collectionView.mj_header endRefreshing];
+        [self.tab_collectionView.mj_footer endRefreshing];
     }
 }
 
@@ -156,19 +156,21 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    WJCouponsListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WJCouponsListCell" forIndexPath:indexPath];
-//    cell.listModel = self.dataArr[indexPath.row];
+    WJCollectionTabCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WJCollectionTabCell" forIndexPath:indexPath];
+    //    cell.listModel = self.dataArr[indexPath.row];
     return cell;
 }
 
 - (void)firstLoadViewRefresh
 {
-    [self.mainTableView.mj_footer endRefreshing];
+    [self.tab_collectionView.mj_footer endRefreshing];
 }
+
+
 /*
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation befre navigation
+// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.

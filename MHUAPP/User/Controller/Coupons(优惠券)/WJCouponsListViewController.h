@@ -20,7 +20,8 @@ typedef NS_ENUM(NSInteger, KGetCouponsServerType) {
 
 @property (strong, nonatomic)  UITableView *mainTableView;
 @property (nonatomic,strong) NSString *str_imgTypeId;
-@property (nonatomic,strong)  NSMutableArray *dataArr;
+
+@property (nonatomic,strong)  NSMutableArray<WJCouponsItem *> *dataArr;
 @property NSInteger totleCount;
 
 @property (assign, nonatomic) KGetCouponsServerType serverType;
