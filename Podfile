@@ -9,6 +9,7 @@ pod 'Masonry'
 pod 'SDCycleScrollView'
 pod 'UITableView+FDTemplateLayoutCell', '~> 1.5.beta'
 pod 'SVProgressHUD'
+pod 'zhPopupController', '~> 1.0.2'
 pod 'SDWebImage' ,"3.8.2"
 pod ‘UMengUShare/UI’
 pod ‘UMengUShare/Social/ReducedWeChat'

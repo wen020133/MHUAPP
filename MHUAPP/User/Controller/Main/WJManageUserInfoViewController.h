@@ -14,6 +14,7 @@
 @property (strong, nonatomic) UITableView *infoTableView;
 @property (strong, nonatomic) UIView *view_head;
 @property (strong, nonatomic) NSArray   *arr_typeName;
+@property (strong, nonatomic) NSArray   *arr_content;
 /* 图片 */
 @property (strong , nonatomic) UIImageView *headImageView;
 @end

@@ -98,7 +98,7 @@
 
     UIButton *btn_login = [UIButton buttonWithType:UIButtonTypeSystem];
     [btn_login setFrame:CGRectMake(40, AccountInitHeightY+88+60, kMSScreenWith-80, 44)];
-    [btn_login setBackgroundImage:[UIImage imageNamed:@"print_chick_bg.png"] forState:UIControlStateNormal];
+    [btn_login setBackgroundColor:[UIColor redColor]];
     [btn_login setTitle:@"登  录" forState:UIControlStateNormal];
     btn_login.titleLabel.font = [UIFont systemFontOfSize:18];
     [btn_login setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -106,7 +106,7 @@
     [contrVC addSubview:btn_login];
 
     UIButton *btn_qq = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btn_qq setBackgroundImage:[UIImage imageNamed:@"login_qq.png"] forState:UIControlStateNormal];
+    [btn_qq setBackgroundImage:[UIImage imageNamed:@"login_qq"] forState:UIControlStateNormal];
 
     if ( [[UMSocialManager defaultManager] isInstall:UMSocialPlatformType_WechatSession]) {
         [btn_qq setFrame:CGRectMake(kMSScreenWith/3-22, AccountInitHeightY+290, 44, 44)];

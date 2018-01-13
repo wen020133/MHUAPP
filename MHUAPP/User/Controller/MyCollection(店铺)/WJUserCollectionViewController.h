@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseNetworkViewController.h"
+#import <zhPopupController/zhPopupController.h>
+#import "zhWallView.h"
 
 typedef NS_ENUM(NSInteger, KGetCollectionServerType) {
     KGetCollectionServerSumList = 1 ,//获取总条数
@@ -22,4 +24,10 @@ typedef NS_ENUM(NSInteger, KGetCollectionServerType) {
 
 @property (assign, nonatomic) KGetCollectionServerType serverType;
 
+
+
+@property (nonatomic, strong) zhPopupController *zh_popupController;
+- (zhWallView *)wallView;
+
+- (NSArray *)wallModels;
 @end

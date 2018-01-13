@@ -199,7 +199,7 @@
 
         make.left.mas_equalTo(view);
         make.bottom.mas_equalTo(view);
-        make.size.mas_equalTo(CGSizeMake(view.width, 1));
+        make.size.mas_equalTo(CGSizeMake(kMSScreenWith, 1));
 
     }];
 
@@ -245,5 +245,14 @@
     return textSize;
 }
 
++(id)dc_chageControlCircularWith:(id)anyControl AndSetCornerRadius:(NSInteger)radius SetBorderWidth:(NSInteger)width SetBorderColor:(UIColor *)borderColor canMasksToBounds:(BOOL)can
+{
+    CALayer *icon_layer=[anyControl layer];
+    [icon_layer setCornerRadius:radius];
+    [icon_layer setBorderWidth:width];
+    [icon_layer setBorderColor:[borderColor CGColor]];
+    [icon_layer setMasksToBounds:can];
 
+    return anyControl;
+}
 @end

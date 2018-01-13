@@ -43,6 +43,7 @@
 -(void)clickStr
 {
     RigisterProtocolViewController *rigisterPr = [[RigisterProtocolViewController alloc]init];
+    rigisterPr.str_urlHttp = @"https://www.baidu.com/";
     self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:rigisterPr animated:YES];
 }

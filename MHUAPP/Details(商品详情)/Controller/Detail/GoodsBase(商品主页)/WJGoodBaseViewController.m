@@ -17,10 +17,9 @@
 #import "WJShowTypeAddressCell.h"
 #import "WJShowTypeFreightCell.h"
 #import "WJDetailPartCommentCell.h"
-
+#import "WJFeatureSelectionViewController.h"
 #import "WJDetailOverFooterView.h"
 
-#import "AddressPickerView.h"
 #import "XWDrawerAnimator.h"
 #import "UIViewController+XWTransition.h"
 #import <WebKit/WebKit.h>
@@ -28,13 +27,14 @@
 #import "DCLIRLButton.h"
 #import <MJRefresh.h>
 
+
 @interface WJGoodBaseViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,WKNavigationDelegate>
 
 @property (strong, nonatomic) UIScrollView *scrollerView;
 @property (strong, nonatomic) UICollectionView *collectionView;
 @property (strong, nonatomic) WKWebView *webView;
-/* 选择地址弹框 */
-@property (strong , nonatomic) AddressPickerView *adPickerView;
+//省市县
+@property (strong , nonatomic) NSArray *arr_siteList;
 /* 滚回顶部按钮 */
 @property (strong , nonatomic)UIButton *backTopButton;
 /* 通知 */
@@ -276,7 +276,16 @@ static NSArray *lastSeleArray_;
         }else{
             if (indexPath.row == 0) {
                 WJShowTypeAddressCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJShowTypeAddressCell" forIndexPath:indexPath];
-                cell.contentLabel.text = @"地址"; //地址
+                NSString *address;
+                if (self.str_provinceName.length>1) {
+                    address= [NSString stringWithFormat:@"%@ %@ %@",self.str_provinceName,self.str_cityName,self.str_district];
+                }
+                else
+                {
+                    address = @"请选择收货地址";
+                }
+
+                cell.contentLabel.text = address; //地址
                 gridcell = cell;
             }else{
                 WJShowTypeFreightCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJShowTypeFreightCell" forIndexPath:indexPath];
@@ -355,24 +364,37 @@ static NSArray *lastSeleArray_;
     }else if (indexPath.section == 2 && indexPath.row == 0) {
         [self chageUserAdress]; //跟换地址
     }else if (indexPath.section == 1){ //属性选择
-//        DCFeatureSelectionViewController *dcFeaVc = [DCFeatureSelectionViewController new];
-//        dcFeaVc.lastNum = lastNum_;
-//        dcFeaVc.lastSeleArray = [NSMutableArray arrayWithArray:lastSeleArray_];
-//        dcFeaVc.goodImageView = _goodImageView;
-//        [self setUpAlterViewControllerWith:dcFeaVc WithDistance:ScreenH * 0.8 WithDirection:XWDrawerAnimatorDirectionBottom WithParallaxEnable:YES WithFlipEnable:YES];
+        WJFeatureSelectionViewController *dcFeaVc = [WJFeatureSelectionViewController new];
+        dcFeaVc.lastNum = lastNum_;
+        dcFeaVc.lastSeleArray = [NSMutableArray arrayWithArray:lastSeleArray_];
+        dcFeaVc.goodImageView = _goodImageView;
+        [self setUpAlterViewControllerWith:dcFeaVc WithDistance:kMSScreenHeight * 0.8 WithDirection:XWDrawerAnimatorDirectionBottom WithParallaxEnable:YES WithFlipEnable:YES];
     }
 }
 
 - (void)chageUserAdress
 {
-    _adPickerView = [AddressPickerView shareInstance];
-    [_adPickerView showAddressPickView];
-    [self.view addSubview:_adPickerView];
+    _pickerView = [[WJMYPickerView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight)];
+    _pickerView.delegate = self;
+    [_pickerView initView];
+    _pickerView.allProvinces = self.arr_siteList;
+    [[UIApplication sharedApplication].keyWindow addSubview:self.pickerView];
 
-    WEAKSELF
-    _adPickerView.block = ^(NSString *province,NSString *city,NSString *district) {
-        [weakSelf.collectionView reloadData];
-    };
+}
+
+
+
+
+-(void) selectPickerViewRow:(NSString *)province provinceID:(NSString *)provinceID city:(NSString *)city cityID:(NSString *)cityID area:(NSString *)area areaID:(NSString *)areaID
+{
+    self.str_provinceName = province;
+    self.str_provinceId = provinceID;
+    self.str_cityName = city;
+    self.str_cityId = cityID;
+    self.str_district = area;
+    self.str_districtId = areaID;
+    NSLog(@"%@ %@ %@",province,city,area);
+    [self.collectionView reloadData];
 }
 
 #pragma mark - 滚动到详情页面

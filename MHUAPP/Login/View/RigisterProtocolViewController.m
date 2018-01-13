@@ -24,9 +24,10 @@
     self.mWebView.scalesPageToFit = YES;
 //    self.mWebView.delegate = self;
     [self.view addSubview:self.mWebView];
+    [self.mWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.str_urlHttp]]];
 //    self.str_urlHttp = [self.str_urlHttp stringByReplacingOccurrencesOfString:@"amp;" withString:@""];
 
-    [self.mWebView loadHTMLString:self.str_content baseURL:[NSURL URLWithString:kMSBaseLargeCollectionPortURL]];
+//    [self.mWebView loadHTMLString:self.str_content baseURL:[NSURL URLWithString:kMSBaseLargeCollectionPortURL]];
     // Do any additional setup after loading the view.
 }
 //开始加载数据

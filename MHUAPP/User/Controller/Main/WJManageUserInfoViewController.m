@@ -10,6 +10,10 @@
 #import "WJUserInfoListCel.h"
 #import <UIImageView+WebCache.h>
 
+#import "WJNickNameChangeViewController.h"
+#import "WJGenderChangeViewController.h"
+
+
 @interface WJManageUserInfoViewController ()<UIImagePickerControllerDelegate,UIPrintInteractionControllerDelegate,UINavigationControllerDelegate>
 
 @end
@@ -22,6 +26,14 @@
     [self initSendReplyWithTitle:@"个人信息" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
     self.arr_typeName = [NSArray arrayWithObjects:@"用户名", @"昵称",@"性别",@"出生日期",@"邮箱",nil];
     [self.view addSubview:self.infoTableView];
+
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *str_username = [[userDefaults objectForKey:@"userList"] objectForKey:@"username"];
+    NSString *str_nickname = [[userDefaults objectForKey:@"userList"] objectForKey:@"nickname"];
+    NSString *str_gender = [[userDefaults objectForKey:@"userList"] objectForKey:@"gender"];
+    NSString *str_email = [[userDefaults objectForKey:@"userList"] objectForKey:@"email"];
+    NSString *str_birthday = [[userDefaults objectForKey:@"userList"] objectForKey:@"birthday"];
+    self.arr_content = [NSArray arrayWithObjects:!str_username ?@"":str_username ,!str_nickname ?@"":str_nickname,!str_gender ?@"":str_gender,!str_birthday ?@"":str_birthday,!str_email ?@"":str_email, nil];
     // Do any additional setup after loading the view.
 }
 -(UITableView *)infoTableView
@@ -51,7 +63,7 @@
 
 
         _headImageView = [[UIImageView alloc] init];
-        _headImageView.contentMode = UIViewContentModeScaleAspectFit;
+        _headImageView.contentMode = UIViewContentModeScaleAspectFill;
         _headImageView.layer.masksToBounds = YES;
         _headImageView.layer.cornerRadius = 33;
         _headImageView.userInteractionEnabled = YES;
@@ -82,8 +94,8 @@
     [RegularExpressionsMethod dc_setUpAcrossPartingLineWith:_view_head WithColor:[[UIColor lightGrayColor]colorWithAlphaComponent:0.15]];
     }
     return _view_head;
-
 }
+
 -(void)changeUserIcon:(UITapGestureRecognizer *)recognizer
 {
     [self jxt_showActionSheetWithTitle:@"选择图片" message:@"" appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
@@ -224,13 +236,36 @@
     }
 
     cell.nameLabel.text = self.arr_typeName[indexPath.row];
-    cell.contentLabel.text = @"content";
+    cell.contentLabel.text = self.arr_content[indexPath.row];
 
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    switch (indexPath.row) {
+        case 0:
+        {
+
+        }
+            break;
+            case 1:
+        {
+            WJNickNameChangeViewController *AddressVC = [[WJNickNameChangeViewController alloc]init];
+            self.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:AddressVC animated:YES];
+        }
+            break;
+        case 2:
+        {
+            WJGenderChangeViewController *AddressVC = [[WJGenderChangeViewController alloc]init];
+            self.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:AddressVC animated:YES];
+        }
+            break;
+        default:
+            break;
+    }
 
 }
 

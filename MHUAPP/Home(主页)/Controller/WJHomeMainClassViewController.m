@@ -14,7 +14,7 @@
 #import "WJHomeRecommendCollectionViewCell.h"
 
 #import "WJGoodsDataModel.h"
-
+#import "WJSecondsKillViewController.h"
 
 
 @interface WJHomeMainClassViewController ()
@@ -211,6 +211,9 @@
         
             WJGoodsGridViewCell *cell = [self.collectionV dequeueReusableCellWithReuseIdentifier:@"WJGoodsGridViewCell" forIndexPath:indexPath];
 //                cell.defaultImgArr = self.headImageArr;
+        cell.goToALLTypeAction = ^(NSInteger typeID){//点击了筛选
+            [self gotoTypeClassWithID:typeID];
+        };
             return cell;
      
     }
@@ -225,6 +228,23 @@
         WJHomeRecommendCollectionViewCell *cell = [self.collectionV dequeueReusableCellWithReuseIdentifier:@"WJHomeRecommendCollectionViewCell" forIndexPath:indexPath];
         cell.model = self.headImageArr[indexPath.row];
         return cell;
+    }
+}
+
+-(void)gotoTypeClassWithID:(NSInteger)tag
+{
+    switch (tag) {
+        case 1000:
+            {
+                self.hidesBottomBarWhenPushed = YES;
+                WJSecondsKillViewController *dcVc = [[WJSecondsKillViewController alloc] init];
+                [self.navigationController pushViewController:dcVc animated:YES];
+                self.hidesBottomBarWhenPushed = NO;
+            }
+            break;
+
+        default:
+            break;
     }
 }
 - (void)didReceiveMemoryWarning {

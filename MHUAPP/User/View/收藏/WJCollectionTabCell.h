@@ -18,4 +18,6 @@
 
 @property (strong , nonatomic) WJCollectionItem *listModel;
 
+/** 筛选点击回调 */
+@property (nonatomic, copy) dispatch_block_t moreShareCanceBlock;
 @end

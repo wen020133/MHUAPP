@@ -1,24 +1,25 @@
 //
-//  WJUserCollectionViewController.m
+//  WJUserCollectionShopViewController.m
 //  MHUAPP
 //
-//  Created by jinri on 2017/12/29.
-//  Copyright © 2017年 wenchengjun. All rights reserved.
+//  Created by jinri on 2018/1/3.
+//  Copyright © 2018年 wenchengjun. All rights reserved.
 //
 
-#import "WJUserCollectionViewController.h"
+#import "WJUserCollectionShopViewController.h"
 #import "MJRefresh.h"
 #import "WJCollectionTabCell.h"
 
-@interface WJUserCollectionViewController ()
+
+@interface WJUserCollectionShopViewController ()
 
 @end
 
-@implementation WJUserCollectionViewController
+@implementation WJUserCollectionShopViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initSendReplyWithTitle:@"我的收藏" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
+    [self initSendReplyWithTitle:@"商品" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     [self.view addSubview:self.tab_collectionView];
     // Do any additional setup after loading the view.
@@ -157,8 +158,74 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     WJCollectionTabCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WJCollectionTabCell" forIndexPath:indexPath];
-    //    cell.listModel = self.dataArr[indexPath.row];
+    cell.moreShareCanceBlock  = ^{
+        [self moreClickShareAndCancel:indexPath.row];
+    };
     return cell;
+}
+
+-(void)moreClickShareAndCancel:(NSInteger )tag
+{
+    //创建分享消息对象
+    UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+
+    //设置文本
+    messageObject.text = ConvertString(@"标题");
+
+    //创建图片内容对象
+    UMShareImageObject *shareObject = [[UMShareImageObject alloc] init];
+    //如果有缩略图，则设置缩略图
+    shareObject.thumbImage = [UIImage imageNamed:@"icon"];
+//    [shareObject setShareImage:self.img_pho];
+
+    //分享消息对象设置分享内容对象
+    messageObject.shareObject = shareObject;
+
+    [UMSocialUIManager setPreDefinePlatforms:@[@(UMSocialPlatformType_QQ),@(UMSocialPlatformType_WechatSession)]];
+    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+        // 根据获取的platformType确定所选平台进行下一步操作
+        //调用分享接口
+        [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+            if (error) {
+                NSLog(@"************Share fail with error %@*********",error);
+            }else{
+                NSLog(@"response data is %@",data);
+            }
+        }];
+    }];
+}
+
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+-(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return @"取消收藏";
+}
+-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleDelete;
+}
+//进入编辑模式，按下出现的编辑按钮后
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+
+{
+    [tableView setEditing:NO animated:YES];
+
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+
+
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"你确定删除该消息？" preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+
+        }]];
+
+        [self presentViewController:alertController animated:YES completion:nil];
+
+    }
+
 }
 
 - (void)firstLoadViewRefresh

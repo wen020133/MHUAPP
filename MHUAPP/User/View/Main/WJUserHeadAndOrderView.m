@@ -33,7 +33,7 @@
     [_view_head addSubview:backV];
 
     _headBackView = [[UIImageView alloc] init];
-    _headBackView.contentMode = UIViewContentModeScaleAspectFit;
+    _headBackView.contentMode = UIViewContentModeScaleAspectFill;
     _headBackView.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapGesture=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(changeHeadClick)];
     [_headBackView addGestureRecognizer:tapGesture];

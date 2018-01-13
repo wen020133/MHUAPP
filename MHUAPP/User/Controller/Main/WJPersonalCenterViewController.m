@@ -17,7 +17,7 @@
 #import "JXTAlertController.h"
 #import "WJOrderMainViewController.h"
 #import "WJCouponsClassViewController.h"
-
+#import "WJUserCollectionViewController.h"
 
 @interface WJPersonalCenterViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
@@ -227,7 +227,14 @@
                     self.hidesBottomBarWhenPushed = NO;
                 }
                 break;
-
+            case 1:
+            {
+                WJUserCollectionViewController *dcVc = [[WJUserCollectionViewController alloc] init];
+                self.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:dcVc animated:YES];
+                self.hidesBottomBarWhenPushed = NO;
+            }
+                break;
             default:
                 break;
         }

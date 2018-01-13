@@ -16,4 +16,6 @@
 /** 主题图片 */
 @property (nonatomic,strong) NSArray *defaultImgArr;
 
+/** 去各活动 */
+@property (nonatomic , copy) void(^goToALLTypeAction)(NSInteger typeID);
 @end

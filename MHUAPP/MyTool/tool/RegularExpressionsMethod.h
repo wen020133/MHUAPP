@@ -34,4 +34,15 @@
 #pragma mark -  根据传入字体大小计算字体宽高
 + (CGSize)dc_calculateTextSizeWithText : (NSString *)text WithTextFont: (NSInteger)textFont WithMaxW : (CGFloat)maxW ;
 
+/**
+ 设置按钮的圆角
+
+ @param anyControl 控件
+ @param radius 圆角度
+ @param width 边宽度
+ @param borderColor 边线颜色
+ @param can 是否裁剪
+ @return 控件
+ */
++(id)dc_chageControlCircularWith:(id)anyControl AndSetCornerRadius:(NSInteger)radius SetBorderWidth:(NSInteger)width SetBorderColor:(UIColor *)borderColor canMasksToBounds:(BOOL)can;
 @end

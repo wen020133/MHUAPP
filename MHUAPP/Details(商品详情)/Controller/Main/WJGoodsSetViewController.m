@@ -125,7 +125,7 @@ static CGFloat _lastContentOffset;
 
         WJCustionGoodsHeadView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJCustionGoodsHeadView" forIndexPath:indexPath];
 
-        headerView.filtrateClickBlock = ^(NSInteger selectTag){//点击了筛选
+        headerView.filtrateClickBlock = ^(NSInteger selectTag){
             [self filtrateButtonClick:selectTag];
         };
         reusableview = headerView;

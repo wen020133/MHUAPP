@@ -54,18 +54,20 @@
 
     _btn_use = [UIButton buttonWithType:UIButtonTypeCustom];
     _btn_use.frame = CGRectMake(kMSScreenWith-100, 63, 90, 30);
-    _btn_use.layer.borderColor = [[UIColor redColor] CGColor];
-    _btn_use.layer.borderWidth = 1.0f;
-    _btn_use.layer.cornerRadius = 14.0f;
-    _btn_use.layer.masksToBounds = YES;
+    [_btn_use setTitle:@"..." forState:UIControlStateNormal];
+    [_btn_use addTarget:self action:@selector(showAlertViewClass) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:_btn_use];
 }
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
 }
-
+-(void)showAlertViewClass
+{
+    !_moreShareCanceBlock ? : _moreShareCanceBlock();
+}
 -(void)setListModel:(WJCollectionItem *)listModel
 {
     _lab_title.text = [NSString stringWithFormat:@"￥%@",@"20"];

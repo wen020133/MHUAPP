@@ -122,7 +122,7 @@
                 [self.scrollView addSubview:titleLabel];
 
                 UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-                btn.frame = CGRectMake(page * kMSScreenWith + y*kMSScreenWith/_columnNumber,  self.height/2, kMSScreenWith/_columnNumber, self.height/2);
+                btn.frame = CGRectMake(page * kMSScreenWith + y*kMSScreenWith/_columnNumber,  x *self.height/2, kMSScreenWith/_columnNumber, self.height/2);
                 btn.tag = countNumber+1000;
                 btn.backgroundColor = [UIColor clearColor];
                 [btn addTarget:self action:@selector(toJump:) forControlEvents:UIControlEventTouchUpInside];
@@ -147,7 +147,7 @@
 }
 - (void)toJump:(UIButton *)sender
 {
-
+    !_goToALLTypeAction ? : _goToALLTypeAction(sender.tag);
 }
 
 @end

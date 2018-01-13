@@ -115,7 +115,7 @@
 
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.frame = CGRectMake(kMSScreenWith/4, 78, kMSScreenWith/2, 44);
-        [btn setBackgroundImage:[UIImage imageNamed:@"print_chick_bg.png"] forState:UIControlStateNormal];
+        [btn setBackgroundColor:[UIColor redColor]];
         [btn setTitle:@"安全退出" forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         btn.titleLabel.font = PFR18Font;
