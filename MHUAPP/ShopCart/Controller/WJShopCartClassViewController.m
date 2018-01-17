@@ -25,7 +25,7 @@
     {
         [self initSendReplyWithTitle:@"购物车" andLeftButtonName:nil andRightButtonName:@"编辑" andTitleLeftOrRight:NO];
     }
-
+    [self.navigationController.tabBarItem setBadgeValue:@"99"];
     self.arr_state = [NSMutableArray array];
     self.selectedState = NO;
     self.IshighBack = NO;

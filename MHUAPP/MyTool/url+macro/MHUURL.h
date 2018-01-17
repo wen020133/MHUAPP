@@ -12,12 +12,12 @@
 
 
 //#define   kMSBaseLargeCollectionPortURL              @"http://api.snryid.top"                // 端口
-#define   kMSBaseLargeCollectionPortURL              @"http://192.168.2.152/api"                // 端口
-#define   kMSBaseUserHeadPortURL              @"http://192.168.2.152"                // 头像端口
+#define   kMSBaseLargeCollectionPortURL              @"http://api.mhuapp.com"                // 端口
+#define   kMSBaseUserHeadPortURL              @"http://api.mhuapp.com"                // 头像端口
 
 
 //验证码
-#define   kMSBaseCodePortURL              @"/code/get_code"                // 验证码端口
+#define   kMSBaseCodePortURL              @"http://api.mhuapp.com/code"                // 验证码端口
 
 
 /*用户相关*/

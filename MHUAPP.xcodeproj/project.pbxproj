@@ -63,6 +63,7 @@
 		340626321FDFABCC00F52953 /* WJMYPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 340626311FDFABCC00F52953 /* WJMYPickerView.m */; };
 		340626341FDFAC5800F52953 /* ship_info_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 340626331FDFAC5800F52953 /* ship_info_bg.png */; };
 		340626361FDFADF300F52953 /* shipcart_seleHigh.png in Resources */ = {isa = PBXBuildFile; fileRef = 340626351FDFADF300F52953 /* shipcart_seleHigh.png */; };
+		34071271200A03AF00AF9D4A /* WJDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 34071270200A03AF00AF9D4A /* WJDatePicker.m */; };
 		3407234520059B16002E6058 /* WJFeatureChoseTopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3407234420059B16002E6058 /* WJFeatureChoseTopCell.m */; };
 		340723472005A003002E6058 /* icon_cha@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 340723462005A003002E6058 /* icon_cha@2x.png */; };
 		3407234B2005AEA9002E6058 /* PPNumberButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3407234A2005AEA9002E6058 /* PPNumberButton.m */; };
@@ -332,6 +333,8 @@
 		340626311FDFABCC00F52953 /* WJMYPickerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJMYPickerView.m; sourceTree = "<group>"; };
 		340626331FDFAC5800F52953 /* ship_info_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ship_info_bg.png; sourceTree = "<group>"; };
 		340626351FDFADF300F52953 /* shipcart_seleHigh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shipcart_seleHigh.png; sourceTree = "<group>"; };
+		3407126F200A03AF00AF9D4A /* WJDatePicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJDatePicker.h; sourceTree = "<group>"; };
+		34071270200A03AF00AF9D4A /* WJDatePicker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJDatePicker.m; sourceTree = "<group>"; };
 		3407234320059B16002E6058 /* WJFeatureChoseTopCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJFeatureChoseTopCell.h; sourceTree = "<group>"; };
 		3407234420059B16002E6058 /* WJFeatureChoseTopCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJFeatureChoseTopCell.m; sourceTree = "<group>"; };
 		340723462005A003002E6058 /* icon_cha@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_cha@2x.png"; sourceTree = "<group>"; };
@@ -673,6 +676,8 @@
 				3456C1971FD787CD00B5AEB8 /* WJUserMainTabelCell.m */,
 				3456C1AC1FD79F1D00B5AEB8 /* WJUserHeadAndOrderView.h */,
 				3456C1AD1FD79F1D00B5AEB8 /* WJUserHeadAndOrderView.m */,
+				3407126F200A03AF00AF9D4A /* WJDatePicker.h */,
+				34071270200A03AF00AF9D4A /* WJDatePicker.m */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -2063,6 +2068,7 @@
 				34E2236D1FD12BB3003C0F34 /* WJGoodsListItem.m in Sources */,
 				341878AC1FD519C600D3F860 /* XWCoolAnimator+XWMiddlePageFlip.m in Sources */,
 				342C82611FFDDD2C00F1ECCC /* WJTimeLabel.m in Sources */,
+				34071271200A03AF00AF9D4A /* WJDatePicker.m in Sources */,
 				3407234520059B16002E6058 /* WJFeatureChoseTopCell.m in Sources */,
 				34E223671FD0FC8B003C0F34 /* WJGoodsSetViewController.m in Sources */,
 				3416C2AC1FE110560006169D /* WJUserInfoListCel.m in Sources */,

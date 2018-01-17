@@ -12,6 +12,7 @@
 
 #import "WJNickNameChangeViewController.h"
 #import "WJGenderChangeViewController.h"
+#import "WJDatePicker.h"
 
 
 @interface WJManageUserInfoViewController ()<UIImagePickerControllerDelegate,UIPrintInteractionControllerDelegate,UINavigationControllerDelegate>
@@ -33,7 +34,7 @@
     NSString *str_gender = [[userDefaults objectForKey:@"userList"] objectForKey:@"gender"];
     NSString *str_email = [[userDefaults objectForKey:@"userList"] objectForKey:@"email"];
     NSString *str_birthday = [[userDefaults objectForKey:@"userList"] objectForKey:@"birthday"];
-    self.arr_content = [NSArray arrayWithObjects:!str_username ?@"":str_username ,!str_nickname ?@"":str_nickname,!str_gender ?@"":str_gender,!str_birthday ?@"":str_birthday,!str_email ?@"":str_email, nil];
+    self.arr_content = [NSMutableArray arrayWithObjects:!str_username ?@"":str_username ,!str_nickname ?@"":str_nickname,!str_gender ?@"":str_gender,!str_birthday ?@"":str_birthday,!str_email ?@"":str_email, nil];
     // Do any additional setup after loading the view.
 }
 -(UITableView *)infoTableView
@@ -261,6 +262,15 @@
             WJGenderChangeViewController *AddressVC = [[WJGenderChangeViewController alloc]init];
             self.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:AddressVC animated:YES];
+        }
+            break;
+            case 3:
+        {
+            [WJDatePicker showDateDetermineChooseInView:self.view determineChoose:^(NSString *dateString) {
+                NSLog(@"%@",dateString);
+                [self.arr_content insertObject:dateString atIndex:3];
+                [self.infoTableView reloadData];
+            }];
         }
             break;
         default:

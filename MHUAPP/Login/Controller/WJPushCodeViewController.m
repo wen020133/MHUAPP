@@ -30,10 +30,44 @@
 - (void)rigister
 {
 
-    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-    [infos setObject:self.str_phone forKey:@"user_name"];
-    [infos setObject:@"0" forKey:@"is_exist"];
-    [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSBaseCodePortURL] andInfos:infos];
+    NSDate* dat = [NSDate dateWithTimeIntervalSinceNow:0];
+    NSTimeInterval a=[dat timeIntervalSince1970];  //  *1000 是精确到毫秒，不乘就是精确到秒
+    NSString *timeString = [NSString stringWithFormat:@"%.0f",a ]; //转为字符型
+
+    NSString *token= [[NSString stringWithFormat:@"jinri_%@_jinri",[timeString md5]] md5] ;
+
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/html",@"text/plain", nil ];
+    [manager GET:[NSString stringWithFormat:@"%@/%@/%@/%@/%@",kMSBaseCodePortURL,timeString,token,self.str_phone,@"0"] parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+        if ([responseObject isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dic = responseObject;
+            NSString *str=[dic objectForKey:@"msg"];
+            if([[dic objectForKey:@"code"] integerValue] == 200)
+            {
+
+                [self jxt_showAlertWithTitle:@"消息提示" message:str appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
+                    alertMaker.toastStyleDuration = 2;
+                } actionsBlock:NULL];
+            }
+            else
+            {
+                 NSLog(@"JSON: %@", responseObject);
+                [SVProgressHUD showErrorWithStatus:[responseObject objectForKey:@"msg"]];
+                return;
+            }
+
+        }
+
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+         NSString *adasa = [NSString stringWithFormat:@"%@", error];
+        [SVProgressHUD showErrorWithStatus:adasa];
+        return;
+    }];
+//    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+//    [infos setObject:self.str_phone forKey:@"user_name"];
+//    [infos setObject:@"0" forKey:@"is_exist"];
+//    [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSBaseCodePortURL] andInfos:infos];
 
 }
 -(void)processData
