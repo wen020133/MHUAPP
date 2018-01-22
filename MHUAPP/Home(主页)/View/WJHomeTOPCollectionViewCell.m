@@ -20,11 +20,13 @@
         _grayView.backgroundColor = [UIColor whiteColor];
         [self.contentView addSubview:_grayView];
 
-        _img_content = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, _grayView.width, _grayView.height-60)];
+        _img_content = [[UIImageView alloc]initWithFrame:CGRectMake(0, 2, _grayView.width, _grayView.height-70)];
+        _img_content.backgroundColor = kMSCellBackColor;
+        _img_content.contentMode = UIViewContentModeScaleAspectFit;
         [_grayView addSubview:_img_content];
         
-        _title = [[UILabel alloc]initWithFrame:CGRectMake(10, _grayView.height-61, _grayView.width-20, 40)];
-        _title.font = PFR13Font;
+        _title = [[UILabel alloc]initWithFrame:CGRectMake(10, _grayView.height-69, _grayView.width-20, 40)];
+        _title.font = PFR14Font;
         _title.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
         _title.textAlignment = NSTextAlignmentLeft;
         _title.numberOfLines = 2;
@@ -43,7 +45,7 @@
         [_grayView addSubview:_lab_count];
 
         _btn_gou = [UIButton buttonWithType:UIButtonTypeCustom];
-        _btn_gou.frame = CGRectMake(_grayView.width-90, _grayView.height-30, 80, 30);
+        _btn_gou.frame = CGRectMake(_grayView.width-90, _grayView.height-40, 80, 30);
         _btn_gou.backgroundColor =[UIColor redColor];
         _btn_gou.titleLabel.textColor = [UIColor whiteColor];
         [_btn_gou setTitle:@"加入购物车" forState:UIControlStateNormal];

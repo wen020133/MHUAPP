@@ -199,10 +199,10 @@
         
         else if(indexPath.section == 1)
         {
-            return CGSizeMake(kMSScreenWith, 180);
+            return CGSizeMake(kMSScreenWith, 200);
         }
         else
-        return CGSizeMake(kMSScreenWith/2, 180);
+        return CGSizeMake(kMSScreenWith/2, 200);
       
 }
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath

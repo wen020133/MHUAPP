@@ -45,4 +45,7 @@
  @return 控件
  */
 +(id)dc_chageControlCircularWith:(id)anyControl AndSetCornerRadius:(NSInteger)radius SetBorderWidth:(NSInteger)width SetBorderColor:(UIColor *)borderColor canMasksToBounds:(BOOL)can;
+
+#pragma mark - 账号以字母开头，字母或者数字组合，6到12位
++(BOOL)regularAccount:(NSString *)account;
 @end

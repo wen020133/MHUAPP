@@ -35,7 +35,7 @@
     NSString *timeString = [NSString stringWithFormat:@"%.0f",a ]; //转为字符型
 
     NSString *token= [[NSString stringWithFormat:@"jinri_%@_jinri",[timeString md5]] md5] ;
-
+    NSLog(@"NSString stringWithFo===%@/%@/%@/%@/%@",kMSBaseCodePortURL,timeString,token,self.str_phone,@"0");
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/html",@"text/plain", nil ];
     [manager GET:[NSString stringWithFormat:@"%@/%@/%@/%@/%@",kMSBaseCodePortURL,timeString,token,self.str_phone,@"0"] parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
@@ -60,8 +60,7 @@
         }
 
     } failure:^(NSURLSessionTask *operation, NSError *error) {
-         NSString *adasa = [NSString stringWithFormat:@"%@", error];
-        [SVProgressHUD showErrorWithStatus:adasa];
+        [SVProgressHUD showErrorWithStatus:[error localizedDescription]];
         return;
     }];
 //    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
@@ -118,5 +117,8 @@
     codeVc.str_phone = self.str_phone;
     codeVc.str_code = self.text_code.text;
     [self.navigationController pushViewController:codeVc animated:YES];
+}
+- (IBAction)getCodeAgain:(id)sender {
+    [self rigister];
 }
 @end

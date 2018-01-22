@@ -87,7 +87,7 @@
     [self addSubview:self.scrollView];
 
     [self addSubview:self.indicatorBackView];
-    self.indicatorBackView.center = CGPointMake(self.center.x, CGRectGetMaxY(self.scrollView.frame) - 5);
+    self.indicatorBackView.center = CGPointMake(self.center.x, CGRectGetMaxY(self.scrollView.frame) - 9);
     
     [self.indicatorBackView addSubview:self.indicatorView];
     

@@ -252,7 +252,13 @@
     [icon_layer setBorderWidth:width];
     [icon_layer setBorderColor:[borderColor CGColor]];
     [icon_layer setMasksToBounds:can];
-
     return anyControl;
 }
+
++(BOOL)regularAccount:(NSString *)account
+{
+    NSString *regex = @"^[a-zA-Z][a-zA-Z0-9]{5,11}$";
+    return [self regularAccount:regex];
+}
+
 @end

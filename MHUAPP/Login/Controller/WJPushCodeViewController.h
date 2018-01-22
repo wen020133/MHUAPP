@@ -18,4 +18,5 @@
 @property (strong , nonatomic) NSString *str_phone;
 - (IBAction)toPasswordWC:(id)sender;
 @property (weak, nonatomic) IBOutlet UITextField *text_code;
+- (IBAction)getCodeAgain:(id)sender;
 @end
