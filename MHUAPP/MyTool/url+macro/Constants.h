@@ -37,6 +37,8 @@
 #define BASELITTLEBLACKCOLOR    @"#9E9E9E"  //最浅的黑色
 
 #define SDPhotoBrowserBackgrounColor [UIColor colorWithRed:0 green:0 blue:0 alpha:0.95]               // browser背景颜色
+//R G B 颜色
+#define kMSColorFromRGB(r,g,b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1]
 
 #define Font(F) [UIFont systemFontOfSize:F]
 

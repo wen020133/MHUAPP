@@ -33,7 +33,6 @@
     [_view_head addSubview:backV];
 
     _headBackView = [[UIImageView alloc] init];
-    _headBackView.contentMode = UIViewContentModeScaleAspectFill;
     _headBackView.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapGesture=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(changeHeadClick)];
     [_headBackView addGestureRecognizer:tapGesture];
@@ -41,9 +40,9 @@
     [_view_head addSubview:_headBackView];
 
     _headImageView = [[UIImageView alloc] init];
-    _headImageView.contentMode = UIViewContentModeScaleAspectFit;
+    _headImageView.contentMode = UIViewContentModeScaleAspectFill;
     _headImageView.layer.masksToBounds = YES;
-    _headImageView.layer.cornerRadius = 33;
+    _headImageView.layer.cornerRadius = 34;
     [_view_head addSubview:_headImageView];
 
 
@@ -55,12 +54,12 @@
     [_view_head addSubview:_userNameLabel];
 
 
-    _profileLabel = [[UILabel alloc] init];
-    _profileLabel.font = PFR15Font;
-    _profileLabel.textColor = kMSViewTitleColor;
-    _profileLabel.textAlignment = NSTextAlignmentCenter;
-    _profileLabel.text = @"签名";
-    [_view_head addSubview:_profileLabel];
+//    _profileLabel = [[UILabel alloc] init];
+//    _profileLabel.font = PFR15Font;
+//    _profileLabel.textColor = kMSViewTitleColor;
+//    _profileLabel.textAlignment = NSTextAlignmentCenter;
+//    _profileLabel.text = @"签名";
+//    [_view_head addSubview:_profileLabel];
 
     UILabel *labMyOrder = [[UILabel alloc] initWithFrame:CGRectMake(DCMargin, self.height-33, 150, 26)];
     labMyOrder.font = PFR18Font;
@@ -99,7 +98,7 @@
 
     }];
     [_headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(CGSizeMake(67, 67));
+        make.size.mas_equalTo(CGSizeMake(68, 68));
          make.center.mas_equalTo(_headBackView);
     }];
 
@@ -110,12 +109,12 @@
         make.size.mas_equalTo(CGSizeMake(200, 20));
 
     }];
-    [_profileLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        [make.top.mas_equalTo(_userNameLabel.mas_bottom)setOffset:2];
-        make.centerX.mas_equalTo(_view_head.mas_centerX);
-        make.size.mas_equalTo(CGSizeMake(200, 20));
-
-    }];
+//    [_profileLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        [make.top.mas_equalTo(_userNameLabel.mas_bottom)setOffset:2];
+//        make.centerX.mas_equalTo(_view_head.mas_centerX);
+//        make.size.mas_equalTo(CGSizeMake(200, 20));
+//
+//    }];
     [_actionImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         [make.left.mas_equalTo(self.mas_right)setOffset:-25];
         [make.bottom.mas_equalTo(self.mas_bottom) setOffset:-12];

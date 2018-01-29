@@ -44,7 +44,7 @@
 
 
 @property (nonatomic , assign) CGFloat Bottom;
-
+@property (nonatomic , assign) CGFloat Right;
 @property (nonatomic , assign) CGFloat dc_centerX;
 
 @end

@@ -14,6 +14,7 @@
 #import "WJGenderChangeViewController.h"
 #import "WJDatePicker.h"
 
+#import "WJEmailChangeViewController.h"
 
 @interface WJManageUserInfoViewController ()<UIImagePickerControllerDelegate,UIPrintInteractionControllerDelegate,UINavigationControllerDelegate>
 
@@ -30,11 +31,11 @@
 
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *str_username = [[userDefaults objectForKey:@"userList"] objectForKey:@"username"];
-    NSString *str_nickname = [[userDefaults objectForKey:@"userList"] objectForKey:@"nickname"];
+    NSString *str_phone = [[userDefaults objectForKey:@"userList"] objectForKey:@"phone"];
     NSString *str_gender = [[userDefaults objectForKey:@"userList"] objectForKey:@"gender"];
     NSString *str_email = [[userDefaults objectForKey:@"userList"] objectForKey:@"email"];
     NSString *str_birthday = [[userDefaults objectForKey:@"userList"] objectForKey:@"birthday"];
-    self.arr_content = [NSMutableArray arrayWithObjects:!str_username ?@"":str_username ,!str_nickname ?@"":str_nickname,!str_gender ?@"":str_gender,!str_birthday ?@"":str_birthday,!str_email ?@"":str_email, nil];
+    self.arr_content = [NSMutableArray arrayWithObjects:!str_phone ?@"":str_phone,!str_username ?@"":str_username ,!str_gender ?@"":str_gender,!str_birthday ?@"":str_birthday,!str_email ?@"":str_email, nil];
     // Do any additional setup after loading the view.
 }
 -(UITableView *)infoTableView
@@ -182,7 +183,7 @@
     [userDefaults synchronize];
     NSArray *arr= [NSArray arrayWithObject:data];
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-    [infos setObject:uid forKey:@"id"];
+    [infos setObject:uid forKey:@"user_id"];
     [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSUpLoadIcon] andInfos:infos andImageDataArr:arr andImageName:@"user_icon"];
 }
 -(void)processData
@@ -271,6 +272,13 @@
                 [self.arr_content insertObject:dateString atIndex:3];
                 [self.infoTableView reloadData];
             }];
+        }
+            break;
+            case 4:
+        {
+            WJEmailChangeViewController *AddressVC = [[WJEmailChangeViewController alloc]init];
+            self.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:AddressVC animated:YES];
         }
             break;
         default:

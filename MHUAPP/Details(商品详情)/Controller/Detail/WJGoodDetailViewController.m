@@ -311,8 +311,8 @@
     }else if(button.tag == 1){
         NSLog(@"购物车");
         WJShopCartClassViewController *shopCarVc = [[WJShopCartClassViewController alloc] init];
-        shopCarVc.isTabBar = YES;
-        shopCarVc.title = @"购物车";
+        shopCarVc.isHasTabBarController = NO;
+        shopCarVc.isHasNavitationController = YES;
         [self.navigationController pushViewController:shopCarVc animated:YES];
     }else  if (button.tag == 2 || button.tag == 3) { //父控制器的加入购物车和立即购买
         //异步发通知

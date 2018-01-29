@@ -23,6 +23,7 @@ typedef NS_ENUM(NSInteger, KGetPassWordServerType) {
 @property (weak, nonatomic) IBOutlet UITextField *text_code;
 @property (weak, nonatomic) IBOutlet UITextField *text_phoneNumber;
 @property (weak, nonatomic) IBOutlet MJCountDownButton *btn_code;
+@property (weak, nonatomic) IBOutlet UIButton *btn_again;
 
 - (IBAction)GetCode:(UIButton *)sender;
 @property (weak, nonatomic) IBOutlet UITextField *text_password;

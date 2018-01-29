@@ -90,6 +90,9 @@
 {
     return self.frame.origin.y + self.frame.size.height;
 }
+- (CGFloat)Right {
+    return self.frame.origin.x + self.width;
+}
 
 - (void) setBottom: (CGFloat) newbottom
 {

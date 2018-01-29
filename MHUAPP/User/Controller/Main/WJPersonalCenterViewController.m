@@ -18,6 +18,8 @@
 #import "WJOrderMainViewController.h"
 #import "WJCouponsClassViewController.h"
 #import "WJUserCollectionViewController.h"
+#import <UIImageView+WebCache.h>
+
 
 @interface WJPersonalCenterViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
@@ -133,55 +135,27 @@
             NSLog(@"userlist=%@",[userDefaults objectForKey:@"userList"] );
             NSString *loginState = [userDefaults objectForKey:@"loginState"];
             NSString *str_logo_img = [[userDefaults objectForKey:@"userList"] objectForKey:@"user_icon"];
-            NSString *str_nickname = [[userDefaults objectForKey:@"userList"] objectForKey:@"nickname"];
             NSString *str_username = [[userDefaults objectForKey:@"userList"] objectForKey:@"username"];
             if([loginState isEqualToString:@"1"])
             {
-                if (str_logo_img&&str_logo_img.length>10) {
-                    //以便在block中使用
-                    __block UIImage *image = [[UIImage alloc] init];
-                    //图片下载链接
-                    NSURL *imageDownloadURL = [NSURL URLWithString:str_logo_img];
-
-                    //将图片下载在异步线程进行
-                    //创建异步线程执行队列
-                    dispatch_queue_t asynchronousQueue = dispatch_queue_create("imageDownloadQueue", NULL);
-                    //创建异步线程
-                    dispatch_async(asynchronousQueue, ^{
-                        //网络下载图片  NSData格式
-                        NSError *error;
-                        NSData *imageData = [NSData dataWithContentsOfURL:imageDownloadURL options:NSDataReadingMappedIfSafe error:&error];
-                        if (imageData) {
-                            image = [UIImage imageWithData:imageData];
-                        }
-                        //回到主线程更新UI
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [headerView.headImageView setImage:image];
-
-                        });
-                    });
-                }
-                else
-                {
-                    [headerView.headImageView setImage:[UIImage imageNamed:@"ic_no_heardPic.png"]];
-                }
+                 [headerView.headImageView sd_setImageWithURL:[NSURL URLWithString:str_logo_img] placeholderImage:[UIImage imageNamed:@"ic_no_heardPic.png"]];
 
 
                headerView.userNameLabel.text = str_username;
-                if (str_nickname.length>0) {
-
-                    headerView.profileLabel.text = str_nickname;
-                }
-                else
-                {
-                     headerView.profileLabel.text = @"";
-                }
+//                if (str_username.length>0) {
+//
+//                    headerView.profileLabel.text = str_username;
+//                }
+//                else
+//                {
+//                     headerView.profileLabel.text = @"";
+//                }
             }
             else
             {
                 [headerView.headImageView setImage:[UIImage imageNamed:@"ic_no_heardPic.png"] ];
                 headerView.userNameLabel.text = @"请登录";
-                headerView.profileLabel.text = @"";
+//                headerView.profileLabel.text = @"";
             }
             WEAKSELF
             headerView.touchClickBlock = ^{

@@ -45,6 +45,8 @@
     WJMessageClassViewController *message = [[WJMessageClassViewController alloc]init];
     
     WJShopCartClassViewController *buyCar = [[WJShopCartClassViewController alloc] init];
+    buyCar.isHasTabBarController = YES;
+    buyCar.isHasNavitationController = NO;
     WJPersonalCenterViewController *me = [[WJPersonalCenterViewController alloc]init];
     
     [self setUpChildController:mainPage title:@"首页" image:@"img_btn_mainpage_normal" selectedImage:@"img_btn_mainpage_select"];

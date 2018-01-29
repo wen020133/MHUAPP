@@ -8,7 +8,7 @@
 
 #import "ForgetPasswordViewController.h"
 #import "XYMKeyChain.h"
-
+#import "UIView+UIViewFrame.h"
 
 @interface ForgetPasswordViewController ()
 
@@ -34,6 +34,7 @@
     [self initSendReplyWithTitle:@"找回密码" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
     self.scr_content.frame = CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight);
     self.scr_content.contentSize = CGSizeMake(kMSScreenWith, kMSScreenHeight+60);
+    self.btn_again.frame = CGRectMake(kMSScreenWith/2-150, self.text_passwordAgain.Bottom+50, 300, 50);
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -76,7 +77,7 @@
     [SVProgressHUD showWithStatus:@"..."];
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
     [infos setObject:self.text_phoneNumber.text forKey:@"user_name"];
-    [infos setObject:[self.text_password.text md5] forKey:@"user_pwd"];
+    [infos setObject:[self.text_password.text md5] forKey:@"password"];
     [infos setObject:self.text_code.text  forKey:@"code"];
     [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSFind_pwdURL] andInfos:infos];
 }
@@ -135,60 +136,60 @@
     [_btn_code countDownFromTime:60 unitTitle:@"s" completion:^(MJCountDownButton *countDownButton) {
         [countDownButton setTitle:@"获取验证码" forState:UIControlStateNormal];
     }];
-//    _serverType = 1;
-//    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-//    [infos setObject:self.text_phoneNumber.text forKey:@"user_name"];
-//    [infos setObject:@"1" forKey:@"is_exist"];
-//    [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSBaseCodePortURL] andInfos:infos];
-    NSDate* dat = [NSDate dateWithTimeIntervalSinceNow:0];
-    NSTimeInterval a=[dat timeIntervalSince1970];  //  *1000 是精确到毫秒，不乘就是精确到秒
-    NSString *timeString = [NSString stringWithFormat:@"%.0f",a ]; //转为字符型
-
-    NSString *token= [[NSString stringWithFormat:@"jinri_%@_jinri",[timeString md5]] md5] ;
-    NSLog(@"NSString stringWithFo===%@/%@/%@/%@/%@",kMSBaseCodePortURL,timeString,token,self.text_phoneNumber.text,@"1");
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/html",@"text/plain", nil ];
-    [manager GET:[NSString stringWithFormat:@"%@/%@/%@/%@/%@",kMSBaseCodePortURL,timeString,token,self.text_phoneNumber.text,@"1"] parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
-        NSLog(@"JSON: %@", responseObject);
-        if ([responseObject isKindOfClass:[NSDictionary class]]) {
-            NSDictionary *dic = responseObject;
-            NSString *str=[dic objectForKey:@"msg"];
-            if([[dic objectForKey:@"code"] integerValue] == 200)
-            {
-
-                [self jxt_showAlertWithTitle:@"消息提示" message:str appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
-                    alertMaker.toastStyleDuration = 2;
-                } actionsBlock:NULL];
-            }
-            else
-            {
-                [self jxt_showAlertWithTitle:@"消息提示" message:[responseObject objectForKey:@"msg"] appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
-                    alertMaker.
-                    addActionCancelTitle(@"确定");
-                } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, JXTAlertController * _Nonnull alertSelf) {
-                    if (buttonIndex == 0) {
-                        NSLog(@"cancel");
-                    }
-
-                    NSLog(@"%@--%@", action.title, action);
-                }];
-            }
-
-        }
-
-    } failure:^(NSURLSessionTask *operation, NSError *error) {
-        NSLog(@"error==%@",error);
-        [self jxt_showAlertWithTitle:@"消息提示" message:[error localizedDescription] appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
-            alertMaker.
-            addActionCancelTitle(@"确定");
-        } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, JXTAlertController * _Nonnull alertSelf) {
-            if (buttonIndex == 0) {
-                NSLog(@"cancel");
-            }
-
-            NSLog(@"%@--%@", action.title, action);
-        }];
-        return;
-    }];
+    _serverType = 1;
+    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+    [infos setObject:self.text_phoneNumber.text forKey:@"user_name"];
+    [infos setObject:@"1" forKey:@"is_exist"];
+    [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSBaseCodePortURL] andInfos:infos];
+//    NSDate* dat = [NSDate dateWithTimeIntervalSinceNow:0];
+//    NSTimeInterval a=[dat timeIntervalSince1970];  //  *1000 是精确到毫秒，不乘就是精确到秒
+//    NSString *timeString = [NSString stringWithFormat:@"%.0f",a ]; //转为字符型
+//
+//    NSString *token= [[NSString stringWithFormat:@"jinri_%@_jinri",[timeString md5]] md5] ;
+//    NSLog(@"NSString stringWithFo===%@/%@/%@/%@/%@",kMSBaseCodePortURL,timeString,token,self.text_phoneNumber.text,@"1");
+//    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+//    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/html",@"text/plain", nil ];
+//    [manager GET:[NSString stringWithFormat:@"%@/%@/%@/%@/%@",kMSBaseCodePortURL,timeString,token,self.text_phoneNumber.text,@"1"] parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+//        NSLog(@"JSON: %@", responseObject);
+//        if ([responseObject isKindOfClass:[NSDictionary class]]) {
+//            NSDictionary *dic = responseObject;
+//            NSString *str=[dic objectForKey:@"msg"];
+//            if([[dic objectForKey:@"code"] integerValue] == 200)
+//            {
+//
+//                [self jxt_showAlertWithTitle:@"消息提示" message:str appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
+//                    alertMaker.toastStyleDuration = 2;
+//                } actionsBlock:NULL];
+//            }
+//            else
+//            {
+//                [self jxt_showAlertWithTitle:@"消息提示" message:[responseObject objectForKey:@"msg"] appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
+//                    alertMaker.
+//                    addActionCancelTitle(@"确定");
+//                } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, JXTAlertController * _Nonnull alertSelf) {
+//                    if (buttonIndex == 0) {
+//                        NSLog(@"cancel");
+//                    }
+//
+//                    NSLog(@"%@--%@", action.title, action);
+//                }];
+//            }
+//
+//        }
+//
+//    } failure:^(NSURLSessionTask *operation, NSError *error) {
+//        NSLog(@"error==%@",error);
+//        [self jxt_showAlertWithTitle:@"消息提示" message:[error localizedDescription] appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
+//            alertMaker.
+//            addActionCancelTitle(@"确定");
+//        } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, JXTAlertController * _Nonnull alertSelf) {
+//            if (buttonIndex == 0) {
+//                NSLog(@"cancel");
+//            }
+//
+//            NSLog(@"%@--%@", action.title, action);
+//        }];
+//        return;
+//    }];
 }
 @end

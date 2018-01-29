@@ -18,6 +18,12 @@
 
 @implementation WJUserSettingMainViewController
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self.infoTableView reloadData];
+    [super viewWillAppear:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
@@ -47,7 +53,6 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSLog(@"userlist=%@",[userDefaults objectForKey:@"userList"] );
     NSString *str_logo_img = [[userDefaults objectForKey:@"userList"] objectForKey:@"user_icon"];
-    NSString *str_nickname = [[userDefaults objectForKey:@"userList"] objectForKey:@"nickname"];
     NSString *str_username = [[userDefaults objectForKey:@"userList"] objectForKey:@"username"];
     if (!_view_head) {
         _view_head = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 170)];
@@ -56,7 +61,7 @@
         [_view_head addSubview:backV];
 
         _headImageView = [[UIImageView alloc] init];
-        _headImageView.contentMode = UIViewContentModeScaleAspectFit;
+        _headImageView.contentMode = UIViewContentModeScaleAspectFill;
         _headImageView.userInteractionEnabled = YES;
         _headImageView.layer.masksToBounds = YES;
         _headImageView.layer.cornerRadius = 33;
@@ -80,19 +85,6 @@
         [_view_head addSubview:_userNameLabel];
         [_userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             [make.top.mas_equalTo(_headImageView.mas_bottom)setOffset:8];
-            make.centerX.mas_equalTo(_view_head.mas_centerX);
-            make.size.mas_equalTo(CGSizeMake(200, 20));
-
-        }];
-
-        _profileLabel = [[UILabel alloc] init];
-        _profileLabel.font = PFR15Font;
-        _profileLabel.textColor = kMSViewTitleColor;
-        _profileLabel.textAlignment = NSTextAlignmentCenter;
-        _profileLabel.text = str_nickname;
-        [_view_head addSubview:_profileLabel];
-        [_profileLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            [make.top.mas_equalTo(_userNameLabel.mas_bottom)setOffset:5];
             make.centerX.mas_equalTo(_view_head.mas_centerX);
             make.size.mas_equalTo(CGSizeMake(200, 20));
 

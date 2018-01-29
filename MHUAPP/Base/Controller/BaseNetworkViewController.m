@@ -56,9 +56,10 @@
              self.results = responseObject;
              [self processData];
          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) { // 失败，关闭网络指示器
-             NSLog(@"ada===%@",error);
+             NSLog(@"ada===%@",[error localizedDescription]);
+             NSString *str_error = [error localizedDescription];
              [SVProgressHUD dismiss];
-             [self requestFailed];
+             [self requestFailed:str_error];
 
                   }];
        
@@ -71,9 +72,20 @@
 }
 
 // Connected failed
-- (void)requestFailed
+- (void)requestFailed:(NSString *)error
 {
-    
+    [SVProgressHUD dismiss];
+    [self jxt_showAlertWithTitle:@"消息提示" message:error appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
+        alertMaker.
+        addActionCancelTitle(@"确定");
+    } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, JXTAlertController * _Nonnull alertSelf) {
+        if (buttonIndex == 0) {
+            NSLog(@"cancel");
+        }
+
+        NSLog(@"%@--%@", action.title, action);
+    }];
+
 }
 - (void)requestAPIWithServe:(NSString *)service andInfos:(NSDictionary *)infos andImageDataArr:(NSArray *)imageDataArr andImageName:(NSString *)imagenName
 {
@@ -87,7 +99,7 @@
         NSTimeInterval a=[dat timeIntervalSince1970];  //  *1000 是精确到毫秒，不乘就是精确到秒
         NSString *timeString = [NSString stringWithFormat:@"%.0f",a ]; //转为字符型
         
-        [infos setValue:[[NSString stringWithFormat:@"beck_%@_beck",[timeString md5]] md5] forKey:@"token"];
+        [infos setValue:[[NSString stringWithFormat:@"mhupro_%@_mhupro",[timeString md5]] md5] forKey:@"token"];
         [infos setValue:timeString forKey:@"time"];
         NSLog(@"parameters====%@",infos);
 		AFSecurityPolicy *securityPolicy = [[AFSecurityPolicy alloc] init];
@@ -118,7 +130,7 @@
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) { // 失败，关闭网络指示器
             NSLog(@"ada===%@",error);
             NSString *adasa = [NSString stringWithFormat:@"%@", error];
-            [self requestFailed];
+            [self requestFailed:adasa];
             
         }];
         

@@ -21,8 +21,6 @@
 @property (strong , nonatomic)UIImageView *headImageView;
 /* 名字 */
 @property (strong , nonatomic)UILabel *userNameLabel;
-/* 简介 */
-@property (strong , nonatomic) UILabel *profileLabel;
 
 /* 查看全部 */
 @property (strong , nonatomic) UIButton *btnSeeAll;

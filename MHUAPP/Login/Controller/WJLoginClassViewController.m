@@ -205,20 +205,18 @@
                 [XYMKeyChain saveKeyChainItemWithKey:KEY_KEYCHAINITEM item:userinfo];
 
                 NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-                [dic setValue:[[self.results objectForKey:@"data"] objectForKey:@"uid" ] forKey:@"uid"];
+                [dic setValue:[[self.results objectForKey:@"data"] objectForKey:@"user_id" ] forKey:@"uid"];
                 [dic setValue:[[self.results objectForKey:@"data"] objectForKey:@"user_name" ] forKey:@"username"];
-                [dic setValue:ConvertNullString([[self.results objectForKey:@"data"] objectForKey:@"user_tel" ]) forKey:@"phone"];
-                NSString *logo_img =ConvertNullString([[self.results objectForKey:@"data"] objectForKey:@"user_headimg" ]);
+                [dic setValue:ConvertNullString([[self.results objectForKey:@"data"] objectForKey:@"mobile_phone" ]) forKey:@"phone"];
+                NSString *logo_img =ConvertNullString([[self.results objectForKey:@"data"] objectForKey:@"headimg" ]);
                 if (logo_img.length>0) {
-                    logo_img =  [logo_img stringByReplacingOccurrencesOfString:@".." withString:@""];
                     [dic setValue: [NSString stringWithFormat:@"%@%@",kMSBaseUserHeadPortURL,  logo_img] forKey:@"user_icon"];
                 }else
                 {
                     [dic setValue:@"null" forKey:@"user_icon"];
                 }
 
-                [dic setValue:ConvertNullString([[self.results objectForKey:@"data"] objectForKey:@"user_email" ]) forKey:@"email"];
-                [dic setValue:ConvertNullString([[self.results objectForKey:@"data"] objectForKey:@"nick_name" ]) forKey:@"nickname"];
+                [dic setValue:ConvertNullString([[self.results objectForKey:@"data"] objectForKey:@"email" ]) forKey:@"email"];
                 NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
                 [userDefaults setObject:dic forKey:@"userList"];
                 [userDefaults setObject:@"1" forKey:@"loginState"];
@@ -239,7 +237,7 @@
 
                     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
 
-                    [dic setValue:[NSString stringWithFormat:@"%@",[[self.results objectForKey:@"data"] objectForKey:@"uid"]] forKey:@"uid"];
+                    [dic setValue:[NSString stringWithFormat:@"%@",[[self.results objectForKey:@"data"] objectForKey:@"user_id"]] forKey:@"uid"];
                     [dic setValue:ConvertNullString([[[self.results objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"usid"]) forKey:@"other_uid"];
                     [dic setValue:ConvertNullString([[[self.results objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"user_name" ]) forKey:@"username"];
                     [dic setValue:ConvertNullString([[[self.results objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"user_tel" ]) forKey:@"phone"];
@@ -348,7 +346,7 @@
         [SVProgressHUD showWithStatus:@"正在登录..."];
         NSMutableDictionary *infos = [NSMutableDictionary dictionary];
         [infos setObject:outUserId forKey:@"usid"];
-        [infos setObject:outNickName forKey:@"user_nickname"];
+        [infos setObject:outNickName forKey:@"user_name"];
         [infos setObject:outSex forKey:@"sex"];
         [infos setObject:outHeadUrl forKey:@"user_icon"];
         [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSLoginqq] andInfos:infos];
