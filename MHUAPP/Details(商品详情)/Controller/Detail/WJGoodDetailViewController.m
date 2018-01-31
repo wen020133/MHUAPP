@@ -326,6 +326,7 @@
 - (void)setUpAlterViewControllerWith:(UIViewController *)vc WithDistance:(CGFloat)distance WithDirection:(XWDrawerAnimatorDirection)vcDirection WithParallaxEnable:(BOOL)parallaxEnable WithFlipEnable:(BOOL)flipEnable
 {
 
+    [self dismissViewControllerAnimated:YES completion:nil]; 
     XWDrawerAnimatorDirection direction = vcDirection;
     XWDrawerAnimator *animator = [XWDrawerAnimator xw_animatorWithDirection:direction moveDistance:distance];
     animator.parallaxEnable = parallaxEnable;

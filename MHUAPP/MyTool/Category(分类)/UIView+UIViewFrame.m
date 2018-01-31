@@ -112,4 +112,16 @@
     dcFrmae.x = dc_centerX;
     self.center = dcFrmae;
 }
+
+-(CGFloat)dc_centerY{
+
+    return self.center.y;
+}
+
+-(void)setDc_centerY:(CGFloat)dc_centerY{
+
+    CGPoint dcFrmae = self.center;
+    dcFrmae.y = dc_centerY;
+    self.center = dcFrmae;
+}
 @end

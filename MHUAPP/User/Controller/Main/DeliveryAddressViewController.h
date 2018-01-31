@@ -7,11 +7,10 @@
 // 添加或者修改收货地址
 
 #import <UIKit/UIKit.h>
-#import "WJMYPickerView.h"
 #import "BaseNetworkViewController.h"
 
 
-@interface DeliveryAddressViewController : BaseNetworkViewController<UITextFieldDelegate,SelectPickerViewDelegate,UIAlertViewDelegate,UITextViewDelegate>
+@interface DeliveryAddressViewController : BaseNetworkViewController<UITextFieldDelegate,UIAlertViewDelegate,UITextViewDelegate>
 @property (retain, nonatomic) UITextField *texf_ContactName;
 @property (retain, nonatomic) UITextField *texf_mobile;
 @property (retain, nonatomic) UITextField *text_postalCode;
@@ -21,7 +20,6 @@
 //@property (retain, nonatomic) NSString *countryID;
 //@property (retain, nonatomic) NSString *countryCode;
 @property (retain, nonatomic) UIScrollView *scr_content;
-@property (retain, nonatomic)  WJMYPickerView *pickerView;
 
 @property NSInteger regType;
 @property BOOL ADDorChange;

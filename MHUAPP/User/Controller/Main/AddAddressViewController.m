@@ -60,6 +60,7 @@
     DeliveryAddressViewController *deliverVC = [[DeliveryAddressViewController alloc]init];
     deliverVC.ADDorChange = YES;
     self.hidesBottomBarWhenPushed = YES;
+    [SVProgressHUD dismiss];
     [self.navigationController pushViewController:deliverVC animated:YES];
 }
 
@@ -71,7 +72,7 @@
     NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
     [userDefaults synchronize];
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-    [infos setValue:uid forKey:@"uid"];
+    [infos setValue:uid forKey:@"user_id"];
     [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSAddressGetsite] andInfos:infos];
 }
 - (void)refreshTableView
@@ -188,8 +189,8 @@
         NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
         [userDefaults synchronize];
         NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-        [infos setValue:uid forKey:@"uid"];
-        [infos setValue:[self.records objectAtIndex:sender.tag].site_id forKey:@"site_id"];
+        [infos setValue:uid forKey:@"user_id"];
+        [infos setValue:[self.records objectAtIndex:sender.tag].region_id forKey:@"site_id"];
         [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSAddressChangeDefault] andInfos:infos];
 //        for (int kkk=0; kkk<4; kkk++) {
 //
@@ -224,7 +225,7 @@
             [userDefaults synchronize];
             NSMutableDictionary *infos = [NSMutableDictionary dictionary];
             [infos setValue:uid forKey:@"uid"];
-            [infos setValue:[self.records objectAtIndex:sender.tag].site_id forKey:@"site_id"];
+            [infos setValue:[self.records objectAtIndex:sender.tag].region_id forKey:@"site_id"];
             [infos setValue:@"delete" forKey:@"type"];
             [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSAddressChangeType] andInfos:infos];
         }
@@ -258,11 +259,12 @@
     deliverVC.str_cityName = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].city];
     deliverVC.str_district = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].district];
     deliverVC.str_address = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].address];
-    deliverVC.str_id = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].site_id];
+    deliverVC.str_id = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].region_id];
     deliverVC.str_postCode = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].zip_code];
     deliverVC.str_mobile = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].mobile];
     deliverVC.str_consignee = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].consigner];
     deliverVC.ADDorChange = NO;
+    [SVProgressHUD dismiss];
     [self.navigationController pushViewController:deliverVC animated:YES];
     
 }

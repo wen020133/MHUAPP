@@ -8,7 +8,9 @@
 
 #import "DeliveryAddressViewController.h"
 #import "JXTAlertController.h"
-
+#import "XWDrawerAnimator.h"
+#import "UIViewController+XWTransition.h"
+#import "WJChooseLocationViewController.h"
 #define TextViewBackHight 50
 
 @interface DeliveryAddressViewController ()
@@ -111,18 +113,7 @@
 
 -(void)getServiceAddressList
 {
-    NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;
-    NSString *fileName = [path stringByAppendingPathComponent:@ "address.plist" ];
-    NSArray *result = [NSArray arrayWithContentsOfFile:fileName];
-    if (result&&result.count>1) {
-        self.arr_siteList = result;
-    }
-    else
-    {
-        self.regType = 0;
-        NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-        [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSAddressSiteList] andInfos:infos];
-    }
+    
 }
 
 -(void)processData
@@ -159,13 +150,34 @@
 
 -(void)selectprovice
 {
-    [self hiddenTextView];
-    [_pickerView removeFromSuperview];
-    _pickerView = [[WJMYPickerView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight-44)];
-    _pickerView.delegate = self;
-    [_pickerView initView];
-    _pickerView.allProvinces = self.arr_siteList;
-    [self.view addSubview:_pickerView];
+//    [self hiddenTextView];
+    WJChooseLocationViewController *dcFeaVc = [WJChooseLocationViewController new];
+
+    [self setUpAlterViewControllerWith:dcFeaVc WithDistance:kMSScreenHeight * 0.8 WithDirection:XWDrawerAnimatorDirectionBottom WithParallaxEnable:YES WithFlipEnable:YES];
+}
+#pragma mark - 转场动画弹出控制器
+- (void)setUpAlterViewControllerWith:(UIViewController *)vc WithDistance:(CGFloat)distance WithDirection:(XWDrawerAnimatorDirection)vcDirection WithParallaxEnable:(BOOL)parallaxEnable WithFlipEnable:(BOOL)flipEnable
+{
+
+     [self dismissViewControllerAnimated:YES completion:nil];
+    XWDrawerAnimatorDirection direction = vcDirection;
+    XWDrawerAnimator *animator = [XWDrawerAnimator xw_animatorWithDirection:direction moveDistance:distance];
+    animator.parallaxEnable = parallaxEnable;
+    animator.flipEnable = flipEnable;
+    [self xw_presentViewController:vc withAnimator:animator];
+    WEAKSELF
+    [animator xw_enableEdgeGestureAndBackTapWithConfig:^{
+        [weakSelf selfaddAlterViewback];
+    }];
+
+
+}
+
+#pragma 退出界面
+- (void)selfaddAlterViewback{
+
+    [self dismissViewControllerAnimated:YES completion:nil];
+
 }
 -(void) selectPickerViewRow:(NSString *)province provinceID:(NSString *)provinceID city:(NSString *)city cityID:(NSString *)cityID area:(NSString *)area areaID:(NSString *)areaID
 {
