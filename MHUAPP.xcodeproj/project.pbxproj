@@ -160,7 +160,6 @@
 		34287B391FCF96C300C7AE5F /* WJClassMainGoodTypeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 34287B381FCF96C300C7AE5F /* WJClassMainGoodTypeModel.m */; };
 		34287B3E1FCF9EB300C7AE5F /* WJClassCategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34287B3D1FCF9EB300C7AE5F /* WJClassCategoryCell.m */; };
 		34287B411FCF9F3D00C7AE5F /* WJGoodsSortCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34287B401FCF9F3D00C7AE5F /* WJGoodsSortCell.m */; };
-		34287B441FCFA15400C7AE5F /* WJNavSearchBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34287B431FCFA15400C7AE5F /* WJNavSearchBarView.m */; };
 		34287B481FCFA5BD00C7AE5F /* ClassiftyGoods01.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34287B471FCFA5BD00C7AE5F /* ClassiftyGoods01.plist */; };
 		34287B4B1FCFB5CE00C7AE5F /* WJBrandsSortHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34287B4A1FCFB5CE00C7AE5F /* WJBrandsSortHeadView.m */; };
 		34287B541FCFF52700C7AE5F /* WJSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34287B531FCFF52700C7AE5F /* WJSearchViewController.m */; };
@@ -224,6 +223,8 @@
 		34D5075D1FDB7E5A00EA1AC5 /* login_qq.png in Resources */ = {isa = PBXBuildFile; fileRef = 34D507591FDB7E5A00EA1AC5 /* login_qq.png */; };
 		34D5075E1FDB7E5A00EA1AC5 /* login_weixin.png in Resources */ = {isa = PBXBuildFile; fileRef = 34D5075A1FDB7E5A00EA1AC5 /* login_weixin.png */; };
 		34D5075F1FDB7E5A00EA1AC5 /* login_weibo.png in Resources */ = {isa = PBXBuildFile; fileRef = 34D5075B1FDB7E5A00EA1AC5 /* login_weibo.png */; };
+		34D6C53E20293949006C4310 /* WJHomeNavTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34D6C53D20293949006C4310 /* WJHomeNavTopView.m */; };
+		34D6C5442029AA47006C4310 /* JXButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 34D6C5432029AA47006C4310 /* JXButton.m */; };
 		34E223631FD0F4FE003C0F34 /* HXSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 34E223621FD0F4FE003C0F34 /* HXSearchBar.m */; };
 		34E223671FD0FC8B003C0F34 /* WJGoodsSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34E223661FD0FC8B003C0F34 /* WJGoodsSetViewController.m */; };
 		34E2236A1FD109AC003C0F34 /* WJCustionGoodsHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34E223691FD109AC003C0F34 /* WJCustionGoodsHeadView.m */; };
@@ -523,8 +524,6 @@
 		34287B3D1FCF9EB300C7AE5F /* WJClassCategoryCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJClassCategoryCell.m; sourceTree = "<group>"; };
 		34287B3F1FCF9F3D00C7AE5F /* WJGoodsSortCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJGoodsSortCell.h; sourceTree = "<group>"; };
 		34287B401FCF9F3D00C7AE5F /* WJGoodsSortCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJGoodsSortCell.m; sourceTree = "<group>"; };
-		34287B421FCFA15400C7AE5F /* WJNavSearchBarView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJNavSearchBarView.h; sourceTree = "<group>"; };
-		34287B431FCFA15400C7AE5F /* WJNavSearchBarView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJNavSearchBarView.m; sourceTree = "<group>"; };
 		34287B471FCFA5BD00C7AE5F /* ClassiftyGoods01.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ClassiftyGoods01.plist; sourceTree = "<group>"; };
 		34287B491FCFB5CE00C7AE5F /* WJBrandsSortHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJBrandsSortHeadView.h; sourceTree = "<group>"; };
 		34287B4A1FCFB5CE00C7AE5F /* WJBrandsSortHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJBrandsSortHeadView.m; sourceTree = "<group>"; };
@@ -612,6 +611,10 @@
 		34D5075A1FDB7E5A00EA1AC5 /* login_weixin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_weixin.png; sourceTree = "<group>"; };
 		34D5075B1FDB7E5A00EA1AC5 /* login_weibo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_weibo.png; sourceTree = "<group>"; };
 		34D507601FDB893900EA1AC5 /* MHUURL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MHUURL.h; sourceTree = "<group>"; };
+		34D6C53C20293949006C4310 /* WJHomeNavTopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJHomeNavTopView.h; sourceTree = "<group>"; };
+		34D6C53D20293949006C4310 /* WJHomeNavTopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJHomeNavTopView.m; sourceTree = "<group>"; };
+		34D6C5422029AA47006C4310 /* JXButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXButton.h; sourceTree = "<group>"; };
+		34D6C5432029AA47006C4310 /* JXButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXButton.m; sourceTree = "<group>"; };
 		34E223611FD0F4FD003C0F34 /* HXSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXSearchBar.h; sourceTree = "<group>"; };
 		34E223621FD0F4FE003C0F34 /* HXSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXSearchBar.m; sourceTree = "<group>"; };
 		34E223651FD0FC8B003C0F34 /* WJGoodsSetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJGoodsSetViewController.h; sourceTree = "<group>"; };
@@ -775,6 +778,8 @@
 		17DF7BE41FCCFF4B00FBD9DC /* Category(分类) */ = {
 			isa = PBXGroup;
 			children = (
+				34D6C5422029AA47006C4310 /* JXButton.h */,
+				34D6C5432029AA47006C4310 /* JXButton.m */,
 				17DF7BE51FCCFF7100FBD9DC /* UIButton+LZCategory.h */,
 				17DF7BE71FCCFF7100FBD9DC /* UIButton+LZCategory.m */,
 				17DF7BEA1FCCFF7D00FBD9DC /* UIView+UIViewFrame.h */,
@@ -936,6 +941,8 @@
 				171410DA1FCD95D100F500A9 /* WJHomeTOPCollectionViewCell.m */,
 				171410DC1FCD96AA00F500A9 /* WJHomeRecommendCollectionViewCell.h */,
 				171410DD1FCD96AA00F500A9 /* WJHomeRecommendCollectionViewCell.m */,
+				34D6C53C20293949006C4310 /* WJHomeNavTopView.h */,
+				34D6C53D20293949006C4310 /* WJHomeNavTopView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1363,8 +1370,6 @@
 				34287B551FCFF53C00C7AE5F /* search */,
 				34287B3B1FCF9E7900C7AE5F /* tableView */,
 				34287B3A1FCF9E7600C7AE5F /* collectionView */,
-				34287B421FCFA15400C7AE5F /* WJNavSearchBarView.h */,
-				34287B431FCFA15400C7AE5F /* WJNavSearchBarView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2099,7 +2104,6 @@
 				17DF7BE91FCCFF7100FBD9DC /* UIButton+LZCategory.m in Sources */,
 				34F1D3881FD629480080EE3D /* WJDetailPartCommentCell.m in Sources */,
 				341878A91FD519C600D3F860 /* XWCoolAnimator+XWExplode.m in Sources */,
-				34287B441FCFA15400C7AE5F /* WJNavSearchBarView.m in Sources */,
 				341039BC2006F4D400895309 /* WJFeatureTitleItem.m in Sources */,
 				3452FA301FFF2A0F009F60AE /* WJSecondsKillItem.m in Sources */,
 				17F9F16C1FCC527300C71820 /* main.m in Sources */,
@@ -2143,6 +2147,7 @@
 				340DB1B81FEB9C41003D5A19 /* WJOrderFooter.m in Sources */,
 				34E223631FD0F4FE003C0F34 /* HXSearchBar.m in Sources */,
 				34EEB6021FD9376E00B4BE0A /* WJLoginClassViewController.m in Sources */,
+				34D6C53E20293949006C4310 /* WJHomeNavTopView.m in Sources */,
 				17DF7BF01FCCFFAE00FBD9DC /* UIViewController+BarExtension.m in Sources */,
 				34287B4B1FCFB5CE00C7AE5F /* WJBrandsSortHeadView.m in Sources */,
 				3407234E2005B272002E6058 /* DCCollectionHeaderLayout.m in Sources */,
@@ -2152,6 +2157,7 @@
 				17DF7BF11FCCFFAE00FBD9DC /* UINavigationBar+MSExtension.m in Sources */,
 				34273C581FFC61FB0075A1B0 /* zhWallViewConfig.m in Sources */,
 				3435D7B32004A63A00F2FE46 /* WJFeatureList.m in Sources */,
+				34D6C5442029AA47006C4310 /* JXButton.m in Sources */,
 				34E223721FD12E4E003C0F34 /* WJListGoodsCell.m in Sources */,
 				3435D7B02004A28800F2FE46 /* WJFeatureItemCell.m in Sources */,
 				342C82661FFE252D00F1ECCC /* WJButtonNewlineScrollView.m in Sources */,

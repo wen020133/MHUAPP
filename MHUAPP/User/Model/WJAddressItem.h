@@ -23,7 +23,7 @@
 /** 是否默认 */
 @property (nonatomic, strong) NSString *is_default;
 /** 收件人 */
-@property (nonatomic, strong) NSString *consigner;
+@property (nonatomic, strong) NSString *consignee;
 
 
 @property (nonatomic,copy) NSString * province;

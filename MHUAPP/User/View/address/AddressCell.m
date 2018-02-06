@@ -22,7 +22,7 @@
 -(void)setAddressItem:(WJAddressItem *)addressItem
 {
     _addressItem = addressItem;
-    _lab_Name.text = ConvertNullString(addressItem.consigner);
+    _lab_Name.text = ConvertNullString(addressItem.consignee);
     _lab_address.text = ConvertNullString(addressItem.assemble_site);
     _lab_telephone.text = ConvertNullString(addressItem.mobile);
 }

@@ -262,7 +262,7 @@
     deliverVC.str_id = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].region_id];
     deliverVC.str_postCode = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].zip_code];
     deliverVC.str_mobile = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].mobile];
-    deliverVC.str_consignee = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].consigner];
+    deliverVC.str_consignee = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].consignee];
     deliverVC.ADDorChange = NO;
     [SVProgressHUD dismiss];
     [self.navigationController pushViewController:deliverVC animated:YES];

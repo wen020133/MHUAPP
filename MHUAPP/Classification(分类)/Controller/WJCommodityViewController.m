@@ -12,7 +12,7 @@
 #import "WJClassCategoryCell.h"
 #import "WJBrandsSortHeadView.h"
 
-#import "WJNavSearchBarView.h"
+#import "WJHomeNavTopView.h"
 
 #import "WJSearchViewController.h"
 #import "WJGoodsSetViewController.h"
@@ -25,6 +25,21 @@
 @end
 
 @implementation WJCommodityViewController
+
+#pragma mark - LifeCyle
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -50,19 +65,29 @@
 - (void)setUpNav
 {
 
-    WJNavSearchBarView *searchBarVc = [[WJNavSearchBarView alloc] init];
-    searchBarVc.placeholdLabel.text = @"快速查找商品";
-    searchBarVc.frame = CGRectMake(20, 25, kMSScreenWith * 0.88, 35);
-
-    searchBarVc.searchViewBlock = ^{
-        NSLog(@"搜索");
+    WJHomeNavTopView *searchBarVc = [[WJHomeNavTopView alloc] initWithFrame:CGRectMake(0, 0, kMSScreenWith, 64)];
+    searchBarVc.leftItemClickBlock = ^{
+    };
+    searchBarVc.rightItemClickBlock = ^{
+    };
+    searchBarVc.searchButtonClickBlock = ^{
+        NSLog(@"点击了搜索");
         WJSearchViewController *ddc = [[WJSearchViewController alloc]init];
         self.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:ddc animated:YES];
         self.hidesBottomBarWhenPushed = NO;
-    };
 
-    self.navigationItem.titleView = searchBarVc;
+    };
+    [self.view addSubview:searchBarVc];
+
+//    searchBarVc.searchViewBlock = ^{
+//        NSLog(@"搜索");
+//        WJSearchViewController *ddc = [[WJSearchViewController alloc]init];
+//        self.hidesBottomBarWhenPushed = YES;
+//        [self.navigationController pushViewController:ddc animated:YES];
+//        self.hidesBottomBarWhenPushed = NO;
+//    };
+//    self.navigationItem.titleView = searchBarVc;
 }
 #pragma mark - LazyLoad
 - (UITableView *)tableView
@@ -70,7 +95,7 @@
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.frame = CGRectMake(0, 0, tableViewW, kMSScreenHeight  - 49-kMSNaviHight);
+        _tableView.frame = CGRectMake(0, 64, tableViewW, kMSScreenHeight  - 49-64);
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.showsVerticalScrollIndicator = NO;
@@ -94,7 +119,7 @@
         _collectionView.showsVerticalScrollIndicator = NO;
         _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.alwaysBounceVertical = YES;
-        _collectionView.frame = CGRectMake(tableViewW, 0, kMSScreenWith - tableViewW, kMSScreenHeight -kMSNaviHight - 49);
+        _collectionView.frame = CGRectMake(tableViewW, 64, kMSScreenWith - tableViewW, kMSScreenHeight -64 - 49);
         //注册Cell
         [_collectionView registerClass:[WJGoodsSortCell class] forCellWithReuseIdentifier:@"WJGoodsSortCell"];
         //注册Header
@@ -225,7 +250,7 @@
     self.hidesBottomBarWhenPushed = YES;
     WJGoodsSetViewController *dcVc = [[WJGoodsSetViewController alloc] init];
      _mainmodel = [WJClassGoodsItem mj_objectArrayWithKeyValuesArray:[[[self.results objectForKey:@"data"] objectAtIndex:indexPath.section] objectForKey:@"children"]];
-    dcVc.goodTypeName = _mainmodel[indexPath.row].category_name;
+    dcVc.goodTypeName = _mainmodel[indexPath.row].cat_name;
     [self.navigationController pushViewController:dcVc animated:YES];
     self.hidesBottomBarWhenPushed = NO;
 }

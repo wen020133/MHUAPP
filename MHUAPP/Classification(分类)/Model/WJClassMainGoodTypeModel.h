@@ -11,12 +11,12 @@
 @interface WJClassMainGoodTypeModel : NSObject
 
 /** 商品类题  */
-@property (nonatomic, copy ,readonly) NSString *category_name;
+@property (nonatomic, copy ,readonly) NSString *cat_name;
 
 /** 商品图片  */
 @property (nonatomic, copy ,readonly) NSString *category_pic;
 /** 分类ID  */
-@property (nonatomic, copy ,readonly) NSString *category_id;
+@property (nonatomic, copy ,readonly) NSString *cat_id;
 
 
 @end

@@ -39,10 +39,14 @@
 
 
 /*商品分类*/
+
+
+
 #define   kMSGetGoodsClassType             @"/goods/get_goods_class"                 //获取分类
 #define   kMSVideoTypeSum             @"/video/sum_video"                 //获取分类总条数
 #define   kMSVideoList             @"/video/port_video"                 //视屏列表
 #define   kMSUserCollect             @"/user/user_collect"                 //收藏列表
+#define   kMSGoodsfuzzyquery             @"/goods/fuzzy_query"                 //搜索
 
 
 /*交流圈 */

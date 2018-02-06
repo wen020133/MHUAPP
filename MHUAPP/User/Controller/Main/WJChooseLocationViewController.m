@@ -44,23 +44,12 @@ static  CGFloat  const  kHYTopTabbarHeight = 30; //地址标签栏的高度
 #pragma mark - 弹出弹框
 - (void)setUpFeatureAlterView
 {
-    XWInteractiveTransitionGestureDirection direction = XWInteractiveTransitionGestureDirectionDown;
-    WEAKSELF
-    [self xw_registerBackInteractiveTransitionWithDirection:direction transitonBlock:^(CGPoint startPoint){
-        [weakSelf dismissViewControllerAnimated:YES completion:^{
-            [weakSelf dismissFeatureViewControllerWithTag:100];
-        }];
-    } edgeSpacing:0];
-}
-
-#pragma mark - 退出当前界面
-- (void)dismissFeatureViewControllerWithTag:(NSInteger)tag
-{
-
-    WEAKSELF
-    [weakSelf dismissViewControllerAnimated:YES completion:^{
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self.delegate selectAddressRow:self.currentProvince provinceID:self.currentProvinceID city:self.currentCity cityID:self.currentCityID area:self.currentArea areaID:self.currentAreaID];
     }];
+
 }
+
 -(void)getAddressArrayData
 {
     self.regType = 0;
@@ -89,7 +78,17 @@ static  CGFloat  const  kHYTopTabbarHeight = 30; //地址标签栏的高度
                 if([arr isKindOfClass:[NSArray class]])
                 {
                     self.currentCityArray =   [WJAddressItem mj_objectArrayWithKeyValuesArray:arr];
-//                    [[self.tableViews objectAtIndex:1] reloadData];
+                    [[self.tableViews objectAtIndex:1] reloadData];
+                }
+            }
+                break;
+            case 2:
+            {
+                id arr = [self.results objectForKey:@"data"];
+                if([arr isKindOfClass:[NSArray class]])
+                {
+                    self.currentAreaArray =   [WJAddressItem mj_objectArrayWithKeyValuesArray:arr];
+                    [[self.tableViews objectAtIndex:2] reloadData];
                 }
             }
                 break;
@@ -199,99 +198,16 @@ static  CGFloat  const  kHYTopTabbarHeight = 30; //地址标签栏的高度
         item = self.currentCityArray[indexPath.row];
         //县级别
     }else if ([self.tableViews indexOfObject:tableView] == 2){
-        item = self.currentCityArray[indexPath.row];
+        item = self.currentAreaArray[indexPath.row];
     }
     cell.item = item;
     return cell;
 }
 
-#pragma mark - TableViewDelegate
-- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
-    if([self.tableViews indexOfObject:tableView] == 0){
-
-        // 重置当前城市数组
-        self.provinceIndex = indexPath.row;
-        [self resetCityArray];
-        WJAddressItem * provinceItem = self.allProvinces[indexPath.row];
-
-        if(self.currentCityArray.count == 0){
-            for (int i = 0; i < self.tableViews.count && self.tableViews.count != 1; i++) {
-                [self removeLastItem];
-            }
-            [self setUpAddress:provinceItem.region_name];
-            return indexPath;
-        }
-        //1.1 判断是否是第一次选择,不是,则重新选择省,切换省.
-        NSIndexPath * indexPath0 = [tableView indexPathForSelectedRow];
-
-        if ([indexPath0 compare:indexPath] != NSOrderedSame && indexPath0) {
-
-            for (int i = 0; i < self.tableViews.count && self.tableViews.count != 1; i++) {
-                [self removeLastItem];
-            }
-            [self addTopBarItem];
-            [self addTableView];
-            [self scrollToNextItem:provinceItem.region_name];
-            return indexPath;
-
-        }else if ([indexPath0 compare:indexPath] == NSOrderedSame && indexPath0){
-
-            for (int i = 0; i < self.tableViews.count && self.tableViews.count != 1 ; i++) {
-                [self removeLastItem];
-            }
-            [self addTopBarItem];
-            [self addTableView];
-            [self scrollToNextItem:provinceItem.region_name];
-            return indexPath;
-        }
-
-        //之前未选中省，第一次选择省
-        [self addTopBarItem];
-        [self addTableView];
-        WJAddressItem * item = self.allProvinces[indexPath.row];
-        [self scrollToNextItem:item.region_name ];
-
-    }else if ([self.tableViews indexOfObject:tableView] == 1){
-
-
-        self.cityIndex = indexPath.row;
-        [self resetAreaArray];
-        WJAddressItem * cityItem = self.currentCityArray[indexPath.row];
-        NSIndexPath * indexPath0 = [tableView indexPathForSelectedRow];
-
-        if ([indexPath0 compare:indexPath] != NSOrderedSame && indexPath0) {
-
-            for (int i = 0; i < self.tableViews.count - 1; i++) {
-                [self removeLastItem];
-            }
-            [self addTopBarItem];
-            [self addTableView];
-            [self scrollToNextItem:cityItem.region_name];
-            return indexPath;
-
-        }else if ([indexPath0 compare:indexPath] == NSOrderedSame && indexPath0){
-
-            [self scrollToNextItem:cityItem.region_name];
-            return indexPath;
-        }
-
-        [self addTopBarItem];
-        [self addTableView];
-        WJAddressItem * item = self.currentCityArray[indexPath.row];
-        [self scrollToNextItem:item.region_name];
-
-    }else if ([self.tableViews indexOfObject:tableView] == 2){
-
-        WJAddressItem * item = self.currentAreaArray[indexPath.row];
-        [self setUpAddress:item.region_name];
-    }
-    return indexPath;
-}
 /** 获取当前省 的市数组 */
 -(void)resetCityArray{
     [self.currentCityArray removeAllObjects];
-
+    [self.currentAreaArray removeAllObjects];
     self.regType = 1;
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
     [infos setValue:self.allProvinces[self.provinceIndex].region_id forKey:@"region_id"];
@@ -302,9 +218,11 @@ static  CGFloat  const  kHYTopTabbarHeight = 30; //地址标签栏的高度
 /** 根据当前城市编号 获取区数组 */
 -(void)resetAreaArray{
     [self.currentAreaArray removeAllObjects];
-    NSDictionary *currentDistrict = self.currentCityArray[_cityIndex];
-    // 重置区数组
-    self.currentAreaArray = [currentDistrict objectForKey:@"district"];
+
+    self.regType = 2;
+    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+    [infos setValue:self.currentCityArray[self.cityIndex].region_id forKey:@"region_id"];
+    [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSAddressSiteList] andInfos:infos];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -312,28 +230,45 @@ static  CGFloat  const  kHYTopTabbarHeight = 30; //地址标签栏的高度
     WJAddressItem * item;
     if([self.tableViews indexOfObject:tableView] == 0){
         item = self.allProvinces[indexPath.row];
+
+        for (int i = 0; i < self.tableViews.count && self.tableViews.count != 1; i++) {
+            [self removeLastItem];
+        }
+
+        //之前未选中省，第一次选择省
+        [self addTopBarItem];
+        [self addTableView];
+        [self scrollToNextItem:self.allProvinces[indexPath.row].region_name ];
+        // 重置当前城市数组
+        self.provinceIndex = indexPath.row;
+        [self resetCityArray];
+
+        _currentProvince = _allProvinces[indexPath.row].region_name;
+        _currentProvinceID = _allProvinces[indexPath.row].region_id;
+
     }else if ([self.tableViews indexOfObject:tableView] == 1){
         item = self.currentCityArray[indexPath.row];
+
+        [self addTopBarItem];
+        [self addTableView];
+        [self scrollToNextItem:self.currentCityArray[indexPath.row].region_name ];
+        // 重置当前城市数组
+        self.cityIndex = indexPath.row;
+        [self resetAreaArray];
+
+        _currentCity = _currentCityArray[indexPath.row].region_name;
+        _currentCityID = _currentCityArray[indexPath.row].region_id;
+
     }else if ([self.tableViews indexOfObject:tableView] == 2){
         item = self.currentAreaArray[indexPath.row];
+        _currentArea = _currentAreaArray[indexPath.row].region_name;
+        _currentAreaID = _currentAreaArray[indexPath.row].region_id;
+        [self setUpAddress:self.currentAreaArray[indexPath.row].region_name];
+
     }
     item.isSelected = YES;
     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-}
-
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
-
-    WJAddressItem * item;
-    if([self.tableViews indexOfObject:tableView] == 0){
-        item = self.allProvinces[indexPath.row];
-    }else if ([self.tableViews indexOfObject:tableView] == 1){
-        item = self.currentCityArray[indexPath.row];
-    }else if ([self.tableViews indexOfObject:tableView] == 2){
-        item = self.currentAreaArray[indexPath.row];
-    }
-    item.isSelected = NO;
-    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 
 }
 
@@ -371,32 +306,21 @@ static  CGFloat  const  kHYTopTabbarHeight = 30; //地址标签栏的高度
     [btn sizeToFit];
     [_topTabbar layoutIfNeeded];
     [self changeUnderLineFrame:btn];
-    NSMutableString * addressStr = [[NSMutableString alloc] init];
-    for (UIButton * btn  in self.topTabbarItems) {
-        if ([btn.currentTitle isEqualToString:@"县"] || [btn.currentTitle isEqualToString:@"市辖区"] ) {
-            continue;
-        }
-        [addressStr appendString:btn.currentTitle];
-        [addressStr appendString:@" "];
-    }
-    self.address = addressStr;
+   
 
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         self.view.hidden = YES;
-        if (self.chooseFinish) {
-            self.chooseFinish();
-        }
-    });
+            [self setUpFeatureAlterView];
+
 }
 
 //当重新选择省或者市的时候，需要将下级视图移除。
 - (void)removeLastItem{
 
     [self.tableViews.lastObject performSelector:@selector(removeFromSuperview) withObject:nil withObject:nil];
-//    [self.tableViews removeLastObject];
+    [self.tableViews removeLastObject];
 
     [self.topTabbarItems.lastObject performSelector:@selector(removeFromSuperview) withObject:nil withObject:nil];
-//    [self.topTabbarItems removeLastObject];
+    [self.topTabbarItems removeLastObject];
 }
 
 //滚动到下级界面,并重新设置顶部按钮条上对应按钮的title
@@ -428,46 +352,6 @@ static  CGFloat  const  kHYTopTabbarHeight = 30; //地址标签栏的高度
     }];
 }
 
-#pragma mark - 开始就有地址时.
-
-- (void)setAreaCode:(NSString *)areaCode{
-
-//    _areaCode = areaCode;
-//    //2.1 添加市级别,地区级别列表
-//    [self addTableView];
-//    [self addTableView];
-//
-//    self.cityDataSouce = [[CitiesDataTool sharedManager] queryAllRecordWithShengID:[self.areaCode substringWithRange:(NSRange){0,2}]];
-//
-//    //2.3 添加底部对应按钮
-//    [self addTopBarItem];
-//    [self addTopBarItem];
-//
-//    NSString * code = [self.areaCode stringByReplacingCharactersInRange:(NSRange){2,4} withString:@"0000"];
-//    NSString * provinceName = [[CitiesDataTool sharedManager] queryAllRecordWithAreaCode:code];
-//    UIButton * firstBtn = self.topTabbarItems.firstObject;
-//    [firstBtn setTitle:provinceName forState:UIControlStateNormal];
-//
-//    NSString * cityName = [[CitiesDataTool sharedManager] queryAllRecordWithAreaCode:[self.areaCode stringByReplacingCharactersInRange:(NSRange){4,2} withString:@"00"]];
-//    UIButton * midBtn = self.topTabbarItems[1];
-//    [midBtn setTitle:cityName forState:UIControlStateNormal];
-//
-//    NSString * districtName = [[CitiesDataTool sharedManager] queryAllRecordWithAreaCode:self.areaCode];
-//    UIButton * lastBtn = self.topTabbarItems.lastObject;
-//    [lastBtn setTitle:districtName forState:UIControlStateNormal];
-//    [self.topTabbarItems makeObjectsPerformSelector:@selector(sizeToFit)];
-//    [_topTabbar layoutIfNeeded];
-
-
-//    [self changeUnderLineFrame:lastBtn];
-
-    //2.4 设置偏移量
-    self.contentView.contentSize = (CGSize){self.tableViews.count * kMSScreenWith,0};
-    CGPoint offset = self.contentView.contentOffset;
-    self.contentView.contentOffset = CGPointMake((self.tableViews.count - 1) * kMSScreenWith, offset.y);
-
-//    [self setSelectedProvince:provinceName andCity:cityName andDistrict:districtName];
-}
 
 //初始化选中状态
 - (void)setSelectedProvince:(NSString *)provinceName andCity:(NSString *)cityName andDistrict:(NSString *)districtName {
@@ -535,25 +419,14 @@ static  CGFloat  const  kHYTopTabbarHeight = 30; //地址标签栏的高度
 /** 所有省字典数据 */
 -(NSArray *)allProvinces{
     if (!_allProvinces) {
-        NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;
-        NSString *fileName = [path stringByAppendingPathComponent:@ "address.plist" ];
-        NSArray *result = [NSArray arrayWithContentsOfFile:fileName];
-        _allProvinces = result;
-
+        _allProvinces = [NSMutableArray array];
     }
-//    _currentProvince = [_allProvinces[0] objectForKey:@"province_name"];// 初始化当前省
-//    _currentProvinceID = [_allProvinces[0] objectForKey:@"province_id"];// 初始化当前省
-
     return _allProvinces;
 }
 /** 市名称 数组 */
 -(NSMutableArray*)currentCityArray{
     if (!_currentCityArray) {
         _currentCityArray = [[NSMutableArray alloc] init];
-        // 重置城市数组
-        [self resetCityArray];
-//        _currentCity = [_currentCityArray[0]objectForKey:@"city_name"];
-//        _currentCityID = [_currentCityArray[0]objectForKey:@"city_id"];
     }
     return _currentCityArray;
 }
@@ -562,13 +435,11 @@ static  CGFloat  const  kHYTopTabbarHeight = 30; //地址标签栏的高度
 -(NSMutableArray*)currentAreaArray{
     if (!_currentAreaArray) {
         _currentAreaArray = [[NSMutableArray alloc] init];
-        // 重置区数组
-        [self resetAreaArray];
-//        _currentArea = [_currentAreaArray[0] objectForKey:@"district_name"];
-//        _currentAreaID = [_currentAreaArray[0] objectForKey:@"district_id"];
     }
     return _currentAreaArray;
-}- (void)didReceiveMemoryWarning {
+}
+
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }

@@ -61,6 +61,6 @@
     _model = model;
         [_goodsImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",kMSBaseUserHeadPortURL,model.category_pic]]];
 
-    _goodsTitleLabel.text = _model.category_name;
+    _goodsTitleLabel.text = _model.cat_name;
 }
 @end

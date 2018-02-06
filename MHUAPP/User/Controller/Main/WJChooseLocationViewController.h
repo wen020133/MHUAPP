@@ -5,15 +5,16 @@
 //  Created by jinri on 2018/1/30.
 //  Copyright © 2018年 wenchengjun. All rights reserved.
 //
+@protocol selectAddressDelegate <NSObject>
+
+-(void)selectAddressRow:(NSString*)province provinceID:(NSString*)provinceID city:(NSString*)city cityID:(NSString*)cityID area:(NSString*)area areaID:(NSString*)areaID;
+@end
+
 
 #import <UIKit/UIKit.h>
 #import "BaseNetworkViewController.h"
 
 @interface WJChooseLocationViewController : BaseNetworkViewController
-
-@property (nonatomic, copy) NSString * address;
-
-@property (nonatomic, copy) dispatch_block_t chooseFinish;;
 
 @property (nonatomic,copy) NSString * str_fatherID;
 
@@ -30,4 +31,6 @@
 @property(nonatomic,assign) NSInteger cityIndex;
 
 @property NSInteger regType;
+
+@property (nonatomic, assign) id<selectAddressDelegate>delegate;
 @end

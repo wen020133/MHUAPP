@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseNetworkViewController.h"
 
-@interface WJSearchViewController : UIViewController
-
+@interface WJSearchViewController : BaseNetworkViewController<UITableViewDataSource,UITableViewDelegate>
+@property (retain, nonatomic) UITableView *tab_infoView;
+@property (retain, nonatomic) NSMutableArray *arr_items;
 @end

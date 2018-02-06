@@ -16,6 +16,7 @@
 #import "WJGoodsDataModel.h"
 #import "WJSecondsKillViewController.h"
 
+#import "WJHomeNavTopView.h"
 
 @interface WJHomeMainClassViewController ()
 

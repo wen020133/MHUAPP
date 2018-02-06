@@ -60,7 +60,7 @@
 - (void)setTitleItem:(WJClassGoodsItem *)titleItem
 {
     _titleItem = titleItem;
-    self.titleLabel.text = titleItem.category_name;
+    self.titleLabel.text = titleItem.cat_name;
 }
 
 

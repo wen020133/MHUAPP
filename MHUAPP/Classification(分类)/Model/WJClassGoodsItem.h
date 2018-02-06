@@ -11,9 +11,9 @@
 @interface WJClassGoodsItem : NSObject
 
 /** 分类标题  */
-@property (nonatomic, copy ,readonly) NSString *category_name;
+@property (nonatomic, copy ,readonly) NSString *cat_name;
 /** 分类ID  */
-@property (nonatomic, copy ,readonly) NSString *category_id;
+@property (nonatomic, copy ,readonly) NSString *cat_id;
 /** 分类图片  */
 @property (nonatomic, copy ,readonly) NSString *category_pic;
 

@@ -13,7 +13,7 @@
 #import "WJChooseLocationViewController.h"
 #define TextViewBackHight 50
 
-@interface DeliveryAddressViewController ()
+@interface DeliveryAddressViewController ()<selectAddressDelegate>
 //省市县
 @property (strong , nonatomic) NSArray *arr_siteList;
 
@@ -150,36 +150,12 @@
 
 -(void)selectprovice
 {
-//    [self hiddenTextView];
+    [self hiddenTextView];
     WJChooseLocationViewController *dcFeaVc = [WJChooseLocationViewController new];
-
-    [self setUpAlterViewControllerWith:dcFeaVc WithDistance:kMSScreenHeight * 0.8 WithDirection:XWDrawerAnimatorDirectionBottom WithParallaxEnable:YES WithFlipEnable:YES];
+    dcFeaVc.delegate = self;
+    [self setUpAlterViewControllerWith:dcFeaVc WithDistance:kMSScreenHeight * 0.6 WithDirection:XWDrawerAnimatorDirectionBottom WithParallaxEnable:YES WithFlipEnable:YES];
 }
-#pragma mark - 转场动画弹出控制器
-- (void)setUpAlterViewControllerWith:(UIViewController *)vc WithDistance:(CGFloat)distance WithDirection:(XWDrawerAnimatorDirection)vcDirection WithParallaxEnable:(BOOL)parallaxEnable WithFlipEnable:(BOOL)flipEnable
-{
-
-     [self dismissViewControllerAnimated:YES completion:nil];
-    XWDrawerAnimatorDirection direction = vcDirection;
-    XWDrawerAnimator *animator = [XWDrawerAnimator xw_animatorWithDirection:direction moveDistance:distance];
-    animator.parallaxEnable = parallaxEnable;
-    animator.flipEnable = flipEnable;
-    [self xw_presentViewController:vc withAnimator:animator];
-    WEAKSELF
-    [animator xw_enableEdgeGestureAndBackTapWithConfig:^{
-        [weakSelf selfaddAlterViewback];
-    }];
-
-
-}
-
-#pragma 退出界面
-- (void)selfaddAlterViewback{
-
-    [self dismissViewControllerAnimated:YES completion:nil];
-
-}
--(void) selectPickerViewRow:(NSString *)province provinceID:(NSString *)provinceID city:(NSString *)city cityID:(NSString *)cityID area:(NSString *)area areaID:(NSString *)areaID
+-(void)selectAddressRow:(NSString*)province provinceID:(NSString*)provinceID city:(NSString*)city cityID:(NSString*)cityID area:(NSString*)area areaID:(NSString*)areaID
 {
     self.str_provinceName = province;
     self.str_provinceId = provinceID;
@@ -188,8 +164,36 @@
     self.str_district = area;
     self.str_districtId = areaID;
     self.lab_province.text = [NSString stringWithFormat:@"%@ %@ %@",province,city,area];
+}
+#pragma mark - 转场动画弹出控制器
+- (void)setUpAlterViewControllerWith:(UIViewController *)vc WithDistance:(CGFloat)distance WithDirection:(XWDrawerAnimatorDirection)vcDirection WithParallaxEnable:(BOOL)parallaxEnable WithFlipEnable:(BOOL)flipEnable
+{
+
+     [self dismissViewControllerAnimated:YES completion:nil];
+    XWDrawerAnimatorDirection direction = vcDirection;
+    XWDrawerAnimator *animator = [XWDrawerAnimator xw_animatorWithDirection:direction moveDistance:distance];
+    animator.toDuration = 0.5;
+    animator.backDuration = 0.5;
+    animator.parallaxEnable = parallaxEnable;
+    animator.flipEnable = flipEnable;
+    [self xw_presentViewController:vc withAnimator:animator];
+    
+    __weak typeof(self)weakSelf = self;
+    [animator xw_enableEdgeGestureAndBackTapWithConfig:^{
+        [weakSelf _xw_back];
+    }];
+
 
 }
+- (void)_xw_back{
+    if (self.presentedViewController) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }else{
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+
 -(void)showright
 {
     
@@ -198,7 +202,7 @@
         [SVProgressHUD showErrorWithStatus:@"请输入收货人姓名"];
         return;
     }
-    if(self.texf_mobile.text.length==0)
+    if(![RegularExpressionsMethod validateMobile:self.texf_mobile.text])
     {
         [SVProgressHUD showErrorWithStatus:@"请输入手机号"];
         return;
@@ -216,11 +220,11 @@
     NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
     [userDefaults synchronize];
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-    [infos setValue:uid forKey:@"uid"];
+    [infos setValue:uid forKey:@"user_id"];
     [infos setValue:type forKey:@"type"];
-    [infos setObject:self.texf_ContactName.text forKey:@"name"];
+    [infos setObject:self.texf_ContactName.text forKey:@"consignee"];
     [infos setObject:self.texf_mobile.text forKey:@"mobile"];
-    [infos setObject:self.text_postalCode.text forKey:@"zip_code"];
+    [infos setObject:self.text_postalCode.text forKey:@"zipcode"];
     [infos setObject:self.str_provinceId forKey:@"province"];
     [infos setObject:self.str_cityId forKey:@"city"];
     [infos setObject:self.str_districtId forKey:@"district"];
