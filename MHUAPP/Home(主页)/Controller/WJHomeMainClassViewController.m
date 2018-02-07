@@ -15,8 +15,9 @@
 
 #import "WJGoodsDataModel.h"
 #import "WJSecondsKillViewController.h"
-
+#import "WJSearchViewController.h"
 #import "WJHomeNavTopView.h"
+
 
 @interface WJHomeMainClassViewController ()
 
@@ -27,13 +28,27 @@
 
 @implementation WJHomeMainClassViewController
 
+#pragma mark - LifeCyle
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initSendReplyWithTitle:@"M H U" andLeftButtonName:nil andRightButtonName:nil andTitleLeftOrRight:YES];
+
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
+
+    [self setHomeViewUpNav];
+
     self.arr_Type = [NSArray arrayWithObjects:@"首页",@"吹风机",@"直发器",@"电动牙刷",@"个护",@"其他", nil];
     self.headImageArr = [NSArray arrayWithObjects:@"da", nil];
-//    [self.view addSubview:self.menuScrollView];
     [self.view addSubview:self.collectionV];
     self.headImageArr = [WJGoodsDataModel mj_objectArrayWithFilename:@"HomeHighGoods.plist"];
 
@@ -48,6 +63,24 @@
     [self.view addSubview:_backTopImageView];
     _backTopImageView.hidden = YES;
     // Do any additional setup after loading the view.
+}
+
+-(void)setHomeViewUpNav
+{
+    WJHomeNavTopView *searchBarVc = [[WJHomeNavTopView alloc] initWithFrame:CGRectMake(0, 0, kMSScreenWith, 64)];
+    searchBarVc.leftItemClickBlock = ^{
+    };
+    searchBarVc.rightItemClickBlock = ^{
+    };
+    searchBarVc.searchButtonClickBlock = ^{
+        NSLog(@"点击了搜索");
+        WJSearchViewController *ddc = [[WJSearchViewController alloc]init];
+        self.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:ddc animated:YES];
+        self.hidesBottomBarWhenPushed = NO;
+
+    };
+    [self.view addSubview:searchBarVc];
 }
 
 - (void)backTop{
@@ -75,7 +108,7 @@
 {
     if (!_collectionV) {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-        _collectionV = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight-kMSNaviHight-49) collectionViewLayout:layout];
+        _collectionV = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 64, kMSScreenWith, kMSScreenHeight-64-49) collectionViewLayout:layout];
         
         _collectionV.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
         _collectionV.delegate = self;
