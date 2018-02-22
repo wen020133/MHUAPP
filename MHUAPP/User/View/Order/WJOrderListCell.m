@@ -67,7 +67,7 @@
     if (listModel!=_listModel) {
         _listModel = listModel;
     }
-    [_contentImg sd_setImageWithURL:[NSURL URLWithString:_listModel.str_url] placeholderImage:[UIImage imageNamed:@"placeholder.jpg"] completed:nil];
+    [_contentImg sd_setImageWithURL:[NSURL URLWithString:_listModel.str_url] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"] completed:nil];
 
     NSString *price = [NSString stringWithFormat:@"￥%@",_listModel.price];
     CGFloat width = [RegularExpressionsMethod widthOfString:price font:Font(15) height:23];

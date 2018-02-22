@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseNetworkViewController.h"
-#import <zhPopupController/zhPopupController.h>
+#import "zhPopupController.h"
 #import "zhWallView.h"
 
 typedef NS_ENUM(NSInteger, KGetCollectionServerType) {

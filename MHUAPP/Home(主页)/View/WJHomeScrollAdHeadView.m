@@ -50,6 +50,7 @@
 }
 -(void)setModel:(WJHeadScrModel *)model
 {
-     _cycleScrollView.imageURLStringsGroup = @[@"http://gfs4.gomein.net.cn/T1DZAvBQbg1RCvBVdK.jpg",@"http://gfs9.gomein.net.cn/T1CoJvBXV_1RCvBVdK.jpg",@"http://gfs3.gomein.net.cn/T1C.EvBjJ_1RCvBVdK.jpg",@"http://gfs4.gomein.net.cn/T1DZAvBQbg1RCvBVdK.jpg"];
+//     _cycleScrollView.imageURLStringsGroup = @[@"http://gfs4.gomein.net.cn/T1DZAvBQbg1RCvBVdK.jpg",@"http://gfs9.gomein.net.cn/T1CoJvBXV_1RCvBVdK.jpg",@"http://gfs3.gomein.net.cn/T1C.EvBjJ_1RCvBVdK.jpg",@"http://gfs4.gomein.net.cn/T1DZAvBQbg1RCvBVdK.jpg"];
+    _cycleScrollView.localizationImageNamesGroup = @[@"home_banner_img.png",@"home_banner_img.png",@"home_banner_img.png",@"home_banner_img.png",@"home_banner_img.png",@"home_banner_img.png"];
 }
 @end

@@ -37,7 +37,6 @@ PODS:
     - UMengUShare/Core
   - UMengUShare/UI (6.4.6):
     - UMengUShare/Core
-  - zhPopupController (1.0.2)
 
 DEPENDENCIES:
   - AFNetworking
@@ -53,7 +52,6 @@ DEPENDENCIES:
   - UMengUShare/Social/ReducedSina
   - UMengUShare/Social/ReducedWeChat
   - UMengUShare/UI
-  - zhPopupController (~> 1.0.2)
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
@@ -65,8 +63,7 @@ SPEC CHECKSUMS:
   SVProgressHUD: 59b2d3dabacbd051576d21d32293ca7228dc18b0
   UITableView+FDTemplateLayoutCell: 5c949b4a5059c404b442926c0e80f81d10a2d66f
   UMengUShare: fdbbf86353976727af26a66e9a84314ecb59c816
-  zhPopupController: 411af38e63764130e4ae4ba5cde12c776dc84824
 
-PODFILE CHECKSUM: c0f758be425cf1bc591411f65ae666fe5c5a0c65
+PODFILE CHECKSUM: 069ed59f16cbaf8f9c2fadcf28dbd384c434f0d7
 
 COCOAPODS: 1.3.1
