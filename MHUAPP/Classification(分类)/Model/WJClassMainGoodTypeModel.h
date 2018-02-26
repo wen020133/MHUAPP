@@ -14,7 +14,7 @@
 @property (nonatomic, copy ,readonly) NSString *cat_name;
 
 /** 商品图片  */
-@property (nonatomic, copy ,readonly) NSString *category_pic;
+@property (nonatomic, copy ,readonly) NSString *type_img;
 /** 分类ID  */
 @property (nonatomic, copy ,readonly) NSString *cat_id;
 

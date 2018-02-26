@@ -19,6 +19,10 @@
 @property (strong , nonatomic)UICollectionView *collectionView;
 
 /* 左边数据 */
+@property (strong , nonatomic) NSMutableArray *arr_collectionList;
+
+
+/* 左边数据 */
 @property (strong , nonatomic)NSMutableArray<WJClassGoodsItem *> *titleItem;
 /* 右边数据 */
 @property (strong , nonatomic)NSMutableArray<WJClassMainGoodTypeModel *> *mainmodel;

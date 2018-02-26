@@ -22,7 +22,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     WJMainTabBarViewController *loginVC = [[WJMainTabBarViewController alloc]init];
     [self.window setRootViewController:loginVC];
-
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     //设置友盟Appkey
     [[UMSocialManager defaultManager] setUmSocialAppkey:UmengAppkey];
 

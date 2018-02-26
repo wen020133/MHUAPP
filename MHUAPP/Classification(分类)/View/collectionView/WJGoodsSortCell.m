@@ -59,7 +59,9 @@
 -(void)setModel:(WJClassMainGoodTypeModel *)model
 {
     _model = model;
-        [_goodsImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",kMSBaseUserHeadPortURL,model.category_pic]]];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/mobile/data/catthumb/%@",kMSBaseUserHeadPortURL,ConvertString(model.type_img)];
+    NSLog(@"urlStr==%@",urlStr);
+        [_goodsImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"cart_default_bg.png"]];
 
     _goodsTitleLabel.text = _model.cat_name;
 }

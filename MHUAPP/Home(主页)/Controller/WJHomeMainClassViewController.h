@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MenuScrollView.h"
 
-@interface WJHomeMainClassViewController : UIViewController<MenuBtnDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource>
+@interface WJHomeMainClassViewController : UIViewController<UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource>
 
-//@property (strong, nonatomic) MenuScrollView *menuScrollView; //分类ScrollView
 
 @property (strong, nonatomic) UICollectionView *collectionV;
 
 @property (strong, nonatomic) UIImageView *backTopImageView;
+
+
 @end

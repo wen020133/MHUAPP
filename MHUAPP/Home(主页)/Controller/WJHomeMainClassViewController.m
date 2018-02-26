@@ -7,22 +7,30 @@
 //
 
 #import "WJHomeMainClassViewController.h"
+
+#import "WJSecondsKillViewController.h"
+#import "WJSearchViewController.h"
+
+
+#import "WJGoodsDataModel.h"
 #import "WJHomeScrollAdHeadView.h"
 #import "WJGoodsGridViewCell.h"
 #import "WJGoodsGridModel.h"
-#import "WJHomeTOPCollectionViewCell.h"
 #import "WJHomeRecommendCollectionViewCell.h"
-
-#import "WJGoodsDataModel.h"
-#import "WJSecondsKillViewController.h"
-#import "WJSearchViewController.h"
 #import "WJHomeNavTopView.h"
-
+#import "WJEveryDayMastRobView.h"
+#import "WJGoodsCountDownCell.h"
+#import "WJCountDownHeadView.h"
+#import "WJShiShiPingTuanView.h"
+#import "WJShiShiPingTuanCell.h"
+#import "WJZhuanTiHuoDongCell.h"
+#import "WJJingXuanShopCell.h"
+#import "WJPeopleTuiJianCell.h"
+#import "WJNewTuiJianCell.h"
 
 @interface WJHomeMainClassViewController ()
 
-@property (strong, nonatomic) NSArray *arr_Type;
-@property (strong, nonatomic) NSArray *headImageArr;
+@property (strong, nonatomic) NSArray <WJGoodsDataModel *>  *headImageArr;
 
 @end
 
@@ -47,10 +55,10 @@
 
     [self setHomeViewUpNav];
 
-    self.arr_Type = [NSArray arrayWithObjects:@"首页",@"吹风机",@"直发器",@"电动牙刷",@"个护",@"其他", nil];
-    self.headImageArr = [NSArray arrayWithObjects:@"da", nil];
+
+    self.headImageArr = [WJGoodsDataModel mj_objectArrayWithFilename:@"ClasiftyGoods.plist"];
+
     [self.view addSubview:self.collectionV];
-    self.headImageArr = [WJGoodsDataModel mj_objectArrayWithFilename:@"HomeHighGoods.plist"];
 
     //返回顶部
     CGRect loginImageViewRect = CGRectMake(kMSScreenWith - 40,kMSScreenHeight-kMSNaviHight - 100 , 27, 27);
@@ -94,15 +102,7 @@
     //判断回到顶部按钮是否隐藏
     _backTopImageView.hidden = (scrollView.contentOffset.y > 250) ? NO : YES;
 }
-//-(MenuScrollView *)menuScrollView
-//{
-//    if (!_menuScrollView) {
-//        _menuScrollView = [[MenuScrollView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 44) withTitles:self.arr_Type withScrollViewWidth:kMSScreenWith];
-//        _menuScrollView.delegate = self;
-//        [self.view addSubview:_menuScrollView];
-//    }
-//    return _menuScrollView;
-//}
+
 
 -(UICollectionView *)collectionV
 {
@@ -110,34 +110,78 @@
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
         _collectionV = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 64, kMSScreenWith, kMSScreenHeight-64-49) collectionViewLayout:layout];
         
-        _collectionV.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
+        _collectionV.backgroundColor = [UIColor clearColor];
         _collectionV.delegate = self;
         _collectionV.dataSource = self;
         _collectionV.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
         [_collectionV registerClass:[WJHomeScrollAdHeadView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJHomeScrollAdHeadView"];
-        [_collectionV registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"TOP"];
+        [_collectionV registerClass:[WJCountDownHeadView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJCountDownHeadView"];
+        [_collectionV registerClass:[WJShiShiPingTuanView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJShiShiPingTuanView"];
          [_collectionV registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"common"];
         [_collectionV registerClass:[WJGoodsGridViewCell class] forCellWithReuseIdentifier:@"WJGoodsGridViewCell"];
-        [_collectionV registerClass:[WJHomeTOPCollectionViewCell class] forCellWithReuseIdentifier:@"WJHomeTOPCollectionViewCell"];
+        
+        [_collectionV registerClass:[WJEveryDayMastRobView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"WJEveryDayMastRobView"];
+         [_collectionV registerClass:[WJPeopleTuiJianCell class] forCellWithReuseIdentifier:@"WJPeopleTuiJianCell"];
+         [_collectionV registerClass:[WJNewTuiJianCell class] forCellWithReuseIdentifier:@"WJNewTuiJianCell"];
+        
+       [_collectionV registerClass:[WJGoodsCountDownCell class] forCellWithReuseIdentifier:@"WJGoodsCountDownCell"];
+        [_collectionV registerClass:[WJZhuanTiHuoDongCell class] forCellWithReuseIdentifier:@"WJZhuanTiHuoDongCell"];
+        [_collectionV registerClass:[WJShiShiPingTuanCell class] forCellWithReuseIdentifier:@"WJShiShiPingTuanCell"];
        [_collectionV registerClass:[WJHomeRecommendCollectionViewCell class] forCellWithReuseIdentifier:@"WJHomeRecommendCollectionViewCell"];
+        [_collectionV registerClass:[WJJingXuanShopCell class] forCellWithReuseIdentifier:@"WJJingXuanShopCell"];
     }
     return _collectionV;
 }
-- (void)didSelectedButtonWithTag:(NSInteger)currTag
-{
-    
-}
+
 -(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
+    UICollectionReusableView *reusableview = nil;
+    
     if([kind isEqualToString:UICollectionElementKindSectionHeader])
     {
         if(indexPath.section == 0)// 顶部滚动广告
         {
             WJHomeScrollAdHeadView *head = [self.collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJHomeScrollAdHeadView" forIndexPath:indexPath];
                 head.model = self.headImageArr[0];
-            return head;
+            reusableview = head;
         }
-        else if(indexPath.section == 2)
+
+       else if(indexPath.section == 1)// 秒杀
+        {
+            WJCountDownHeadView *head = [self.collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJCountDownHeadView" forIndexPath:indexPath];
+            reusableview = head;
+        }
+       else if(indexPath.section == 2)// 时时拼团
+       {
+           WJShiShiPingTuanView *head = [self.collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJShiShiPingTuanView" forIndexPath:indexPath];
+           head.titleLabel.text = @"时时拼团";
+           reusableview = head;
+       }
+       else if(indexPath.section == 3)// 专题活动
+       {
+           WJShiShiPingTuanView *head = [self.collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJShiShiPingTuanView" forIndexPath:indexPath];
+           head.titleLabel.text = @"专题活动";
+           reusableview = head;
+       }
+       else if(indexPath.section == 4)// 精选店铺
+       {
+           WJShiShiPingTuanView *head = [self.collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJShiShiPingTuanView" forIndexPath:indexPath];
+           head.titleLabel.text = @"精选店铺";
+           reusableview = head;
+       }
+       else if(indexPath.section == 5)// 人气推荐
+       {
+           WJShiShiPingTuanView *head = [self.collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJShiShiPingTuanView" forIndexPath:indexPath];
+           head.titleLabel.text = @"人气推荐";
+           reusableview = head;
+       }
+       else if(indexPath.section == 6)// 最新推荐
+       {
+           WJShiShiPingTuanView *head = [self.collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJShiShiPingTuanView" forIndexPath:indexPath];
+           head.titleLabel.text = @"最新推荐";
+           reusableview = head;
+       }
+        else
         {
             UICollectionReusableView *common = [self.collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"common" forIndexPath:indexPath];
             
@@ -157,47 +201,35 @@
             [common addSubview:more];
             more.font = PFR14Font;
 
-            return common;
+            reusableview = common;
         }
-        else
-        {
-            UICollectionReusableView *TOP = [self.collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"TOP" forIndexPath:indexPath];
-            
-            UIView *v = ViewInit(0, 0, kMSScreenWith, 40);
-            v.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
-            [TOP addSubview:v];
-
-            UIView *line = ViewInit(kMSScreenWith/4, 20, kMSScreenWith/2, 1);
-            line.backgroundColor = [RegularExpressionsMethod ColorWithHexString:@"#C1C1C1"];
-            [TOP addSubview:line];
-
-            UILabel *more = LabelInit(kMSScreenWith/2-24, 0, 48, 40);
-            more.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
-            more.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
-            more.text = @"TOP";
-            more.textAlignment = NSTextAlignmentCenter;
-            [TOP addSubview:more];
-            more.font = PFR14Font;
-            
-
-
-            return TOP;
+        
+    }
+    if (kind == UICollectionElementKindSectionFooter) {
+        if (indexPath.section == 0) {
+            WJEveryDayMastRobView *footview = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"WJEveryDayMastRobView" forIndexPath:indexPath];
+            reusableview = footview;
         }
     }
-    else
-    {
-        return nil;
-    }
+        return reusableview;
+    
 }
--(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
+    
+//定义每个Section的四边间距
+-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return 6;
-
+    return UIEdgeInsetsMake(0,0, 8, 0);//分别为上、左、下、右
 }
 
--(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section;
 {
-    return 0;
+    return 2;
+}
+
+//两个cell之间的间距（同一行的cell的间距）
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section;
+{
+    return 2;
 }
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
@@ -205,42 +237,61 @@
         return CGSizeMake(kMSScreenWith, kMSScreenWith/2);
     }
     else
-    {
-        return CGSizeMake(kMSScreenWith, 40);
-    }
+        return CGSizeMake(kMSScreenWith, 48);  //推荐适合的宽高
+
 }
+
+#pragma mark - foot宽高
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
+    if (section == 0) {
+        return CGSizeMake(kMSScreenWith, 200);
+    }
+    return CGSizeZero;
+}
+
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 3;
+    return 8;
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    if (section == 0) {
-        return 1;
-    }
-    else if (section==1)
-    {
+    if (section == 7) {
         return self.headImageArr.count;
     }
     else
-        return self.headImageArr.count;
+    {
+        return 1;
+    }
+
 }
+
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0)
-        
+    {
             return CGSizeMake(kMSScreenWith, kMSScreenWith/2-40);
-        
-        else if(indexPath.section == 1)
+    }
+        else if(indexPath.section == 1||indexPath.section == 2||indexPath.section == 4||indexPath.section == 6)
         {
             return CGSizeMake(kMSScreenWith, 200);
         }
-        else
-        return CGSizeMake(kMSScreenWith/2, 200);
-      
+        else if(indexPath.section ==3)
+        {
+            return CGSizeMake(kMSScreenWith, 160);
+        }
+        else if(indexPath.section ==5)
+        {
+            return CGSizeMake(kMSScreenWith, 250);
+        }
+    else
+    {
+        return CGSizeMake(kMSScreenWith/2-1, 200);
+    }
+    
 }
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    UICollectionViewCell *gridcell = nil;
     if (indexPath.section == 0) {
         
             WJGoodsGridViewCell *cell = [self.collectionV dequeueReusableCellWithReuseIdentifier:@"WJGoodsGridViewCell" forIndexPath:indexPath];
@@ -248,21 +299,49 @@
         cell.goToALLTypeAction = ^(NSInteger typeID){//点击了筛选
             [self gotoTypeClassWithID:typeID];
         };
-            return cell;
+            gridcell = cell;
      
     }
     else if (indexPath.section == 1)
     {
-        WJHomeTOPCollectionViewCell *cell = [self.collectionV dequeueReusableCellWithReuseIdentifier:@"WJHomeTOPCollectionViewCell" forIndexPath:indexPath];
-        cell.model = self.headImageArr[indexPath.row];
-        return cell;
+            WJGoodsCountDownCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJGoodsCountDownCell" forIndexPath:indexPath];
+            gridcell = cell;
+        
+    }
+    else if (indexPath.section == 2)
+    {
+        WJShiShiPingTuanCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJShiShiPingTuanCell" forIndexPath:indexPath];
+        gridcell = cell;
+
+    }
+    else if (indexPath.section == 3)
+    {
+        WJZhuanTiHuoDongCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJZhuanTiHuoDongCell" forIndexPath:indexPath];
+        gridcell = cell;
+
+    }
+    else if (indexPath.section == 4)
+    {
+        WJJingXuanShopCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJJingXuanShopCell" forIndexPath:indexPath];
+        gridcell = cell;
+    }
+    else if (indexPath.section == 5)
+    {
+        WJPeopleTuiJianCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJPeopleTuiJianCell" forIndexPath:indexPath];
+        gridcell = cell;
+    }
+    else if (indexPath.section == 6)
+    {
+        WJNewTuiJianCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJNewTuiJianCell" forIndexPath:indexPath];
+        gridcell = cell;
     }
     else
     {
         WJHomeRecommendCollectionViewCell *cell = [self.collectionV dequeueReusableCellWithReuseIdentifier:@"WJHomeRecommendCollectionViewCell" forIndexPath:indexPath];
         cell.model = self.headImageArr[indexPath.row];
-        return cell;
+        gridcell = cell;
     }
+    return gridcell;
 }
 
 -(void)gotoTypeClassWithID:(NSInteger)tag

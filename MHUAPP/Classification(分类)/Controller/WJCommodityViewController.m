@@ -17,6 +17,9 @@
 #import "WJSearchViewController.h"
 #import "WJGoodsSetViewController.h"
 
+// Vendors
+#import <UIImageView+WebCache.h>
+
 @interface WJCommodityViewController ()
 {
     NSInteger _selectIndex;
@@ -140,6 +143,7 @@
         if([arr isKindOfClass:[NSArray class]])
         {
              self.titleItem = [WJClassGoodsItem mj_objectArrayWithKeyValuesArray:arr];
+            self.arr_collectionList = arr;
             [self.tableView reloadData];
             [self.collectionView reloadData];
         }
@@ -208,15 +212,22 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    NSArray *arr = [[[self.results objectForKey:@"data"] objectAtIndex:section] objectForKey:@"children"];
+    NSArray *arr = [[self.arr_collectionList objectAtIndex:section] objectForKey:@"children"];
     return arr.count;
 }
 #pragma mark - <UICollectionViewDelegate>
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 
     WJGoodsSortCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJGoodsSortCell" forIndexPath:indexPath];
-    _mainmodel = [WJClassGoodsItem mj_objectArrayWithKeyValuesArray:[[[self.results objectForKey:@"data"] objectAtIndex:indexPath.section] objectForKey:@"children"]];
-    cell.model = _mainmodel[indexPath.row];
+
+
+   NSArray *arr = [[self.arr_collectionList objectAtIndex:indexPath.section] objectForKey:@"children"];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/mobile/data/catthumb/%@",kMSBaseUserHeadPortURL,[[arr objectAtIndex:indexPath.row] objectForKey:@"type_img"]] ;
+    NSLog(@"urlStr==%@",urlStr);
+    [cell.goodsImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"cart_default_bg.png"]];
+
+    cell.goodsTitleLabel.text = [[arr objectAtIndex:indexPath.row] objectForKey:@"cat_name"];
+
     return cell;
 }
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
@@ -249,6 +260,7 @@
     WJGoodsSetViewController *dcVc = [[WJGoodsSetViewController alloc] init];
      _mainmodel = [WJClassGoodsItem mj_objectArrayWithKeyValuesArray:[[[self.results objectForKey:@"data"] objectAtIndex:indexPath.section] objectForKey:@"children"]];
     dcVc.goodTypeName = _mainmodel[indexPath.row].cat_name;
+    NSLog(@"cat_id====%@",_mainmodel[indexPath.row].cat_id);
     [self.navigationController pushViewController:dcVc animated:YES];
     self.hidesBottomBarWhenPushed = NO;
 }

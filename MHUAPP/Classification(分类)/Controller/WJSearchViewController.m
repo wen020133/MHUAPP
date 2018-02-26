@@ -65,7 +65,7 @@
 -(void)HiddenSerVCrightAction
 {
      [self.searchBar resignFirstResponder];
-    [self.navigationController popViewControllerAnimated:NO];
+//    [self.navigationController popViewControllerAnimated:NO];
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];

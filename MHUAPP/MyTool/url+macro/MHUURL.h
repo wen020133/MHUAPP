@@ -13,7 +13,7 @@
 
 //#define   kMSBaseLargeCollectionPortURL              @"http://api.snryid.top"                // 端口
 #define   kMSBaseLargeCollectionPortURL              @"http://api.mhupro.com"                // 端口
-#define   kMSBaseUserHeadPortURL              @"http://shop.snryid.top/"                // 头像端口
+#define   kMSBaseUserHeadPortURL              @"http://shop.snryid.top"                // 头像端口
 
 
 //验证码

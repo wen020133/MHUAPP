@@ -32,9 +32,9 @@
 
 #define kMSVCBackgroundColor    @"F8F8F8"   //APP背景颜色
 #define kGrayBgColor            @"#DFDFDF"  // 图像边缘浅灰色
-#define BASEBLACKCOLOR          @"#6A6A6A"  //Cell title字体黑色
+#define BASEBLACKCOLOR          @"333333"  //Cell title字体黑色
 #define BASEPINK                @"#FF7A9A"  //程序基础粉色
-#define BASELITTLEBLACKCOLOR    @"#9E9E9E"  //最浅的黑色
+#define BASELITTLEBLACKCOLOR    @"707070"  //最浅的黑色
 
 #define SDPhotoBrowserBackgrounColor [UIColor colorWithRed:0 green:0 blue:0 alpha:0.95]               // browser背景颜色
 //R G B 颜色
@@ -53,7 +53,7 @@
 #define kMSViewBackColor [UIColor whiteColor]
 
 
-#define kMSScreenWith CGRectGetWidth([UIScreen mainScreen].bounds)
+#define kMSScreenWith [UIScreen mainScreen].bounds.size.width
 
 
 #define ConvertString(str) ([str isEqual:[NSNull null]] ? @"0" : str)
@@ -64,7 +64,7 @@
 
 #define iPhone5PrintHeght ([[UIScreen mainScreen] bounds].size.height>500? 30 : 20 )
 #define iPhone5HeghtFrame ([[UIScreen mainScreen] bounds].size.height>500? 0 : 60 )
-#define kMSScreenHeight CGRectGetHeight([UIScreen mainScreen].bounds)
+#define kMSScreenHeight [UIScreen mainScreen].bounds.size.height
 
 
 #define kMSNaviHight  64
