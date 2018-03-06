@@ -13,7 +13,7 @@
 
 //#define   kMSBaseLargeCollectionPortURL              @"http://api.snryid.top"                // 端口
 #define   kMSBaseLargeCollectionPortURL              @"http://api.mhupro.com"                // 端口
-#define   kMSBaseUserHeadPortURL              @"http://shop.snryid.top"                // 头像端口
+#define   kMSBaseUserHeadPortURL              @"https://www.mhupro.com"                // 头像端口
 
 
 //验证码
@@ -37,17 +37,19 @@
 #define   kMSUserBindUsername             @"/user/bind_username"              //修改手机号邮箱
 #define   kMSUserGetcollect             @"/user/get_collect"              //获取个人收藏列表
 
+/*首页*/
+#define   kMSGetGoodsGetHotList             @"/goods/get_hot_list"                 //热销列表
+#define   kMSGetGoodsShopInfo             @"/goods/shop_info"                 //商品详情页面
+
 
 /*商品分类*/
-
-
 
 #define   kMSGetGoodsClassType             @"/goods/get_goods_class"                 //获取分类
 #define   kMSVideoTypeSum             @"/video/sum_video"                 //获取分类总条数
 #define   kMSVideoList             @"/video/port_video"                 //视屏列表
 #define   kMSUserCollect             @"/user/user_collect"                 //收藏列表
-#define   kMSGoodsfuzzyquery             @"/goods/fuzzy_query"                 //搜索
-
+#define   kMSGoodsfuzzyquery             @"/goods/fuzzy_query"                 //搜索商品
+#define   kMSGoodsStoreQuery             @"/goods/store_query"                 //搜索店铺
 
 /*交流圈 */
 #define   kMSNewsSumNews            @"/news/sum_news"          //获取新闻公告总数/

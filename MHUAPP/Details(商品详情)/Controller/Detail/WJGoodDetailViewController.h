@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseNetworkViewController.h"
 
-@interface WJGoodDetailViewController : UIViewController<UIScrollViewDelegate>
+
+@interface WJGoodDetailViewController : BaseNetworkViewController<UIScrollViewDelegate>
 
 /* 商品标题 */
 @property (strong , nonatomic)NSString *goodTitle;
@@ -21,5 +23,6 @@
 
 /* 商品轮播图 */
 @property (strong , nonatomic)NSArray *shufflingArray;
-
+/* 商品ID */
+@property (strong , nonatomic) NSString *goods_id;
 @end

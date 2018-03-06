@@ -157,6 +157,7 @@ static CGFloat _lastContentOffset;
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"点击了商品第%zd",indexPath.row);
     WJGoodDetailViewController *dcVc = [[WJGoodDetailViewController alloc] init];
+    dcVc.goods_id = _setItem[indexPath.row].goods_id;
     dcVc.goodTitle = _setItem[indexPath.row].main_title;
     dcVc.goodPrice = _setItem[indexPath.row].price;
     dcVc.goodSubtitle = _setItem[indexPath.row].goods_title;

@@ -41,7 +41,7 @@
         UITextField *searchField = self.searchBarTextField;
         if (searchField) {
             //设置清除按钮图片
-            UIButton *button = [searchField valueForKey:@"_clearButton"];
+            UIButton *button = [searchField valueForKey:@"ic_delete"];
             [button setImage:clearButtonImage forState:UIControlStateNormal];
             searchField.clearButtonMode = UITextFieldViewModeWhileEditing;
         }
@@ -55,5 +55,16 @@
     }
 }
 
+//获取取消按钮
+- (UIButton *)cancleButton
+{
+    self.showsCancelButton = YES;
+    for (UIView *view in [[self.subviews lastObject] subviews]) {
+        if ([view isKindOfClass:[UIButton class]]) {
+            _cancleButton = (UIButton *)view;
+        }
+    }
+    return _cancleButton;
+}
 
 @end

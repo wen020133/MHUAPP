@@ -10,7 +10,7 @@
 
 #import "WJSecondsKillViewController.h"
 #import "WJSearchViewController.h"
-
+#import "WJGoodDetailViewController.h"
 
 #import "WJGoodsDataModel.h"
 #import "WJHomeScrollAdHeadView.h"
@@ -56,7 +56,7 @@
     [self setHomeViewUpNav];
 
 
-    self.headImageArr = [WJGoodsDataModel mj_objectArrayWithFilename:@"ClasiftyGoods.plist"];
+//    self.headImageArr = [WJGoodsDataModel mj_objectArrayWithFilename:@"ClasiftyGoods.plist"];
 
     [self.view addSubview:self.collectionV];
 
@@ -70,7 +70,51 @@
     _backTopImageView.userInteractionEnabled = YES;
     [self.view addSubview:_backTopImageView];
     _backTopImageView.hidden = YES;
+
+    [self getHotListData];
     // Do any additional setup after loading the view.
+}
+
+#pragma mark - getData
+
+-(void)getHotListData
+{
+    _serverType = 1;
+    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+    [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSGetGoodsGetHotList] andInfos:infos];
+}
+-(void)processData
+{
+    if([[self.results objectForKey:@"code"] integerValue] == 200)
+    {
+        switch (_serverType) {
+            case KGetGoodsHotList:
+            {
+                id arr = [self.results objectForKey:@"data"];
+                if([arr isKindOfClass:[NSArray class]])
+                {
+                   self.headImageArr =   [WJGoodsDataModel mj_objectArrayWithKeyValuesArray:arr];
+                  [self.collectionV reloadData];
+                    
+                }
+            }
+                break;
+            case KGetGoodsList:
+            {
+
+            }
+            default:
+                break;
+        }
+
+
+    }
+    else
+    {
+
+//        [self.collectionV.mj_header endRefreshing];
+//        [self.collectionV.mj_footer endRefreshing];
+    }
 }
 
 -(void)setHomeViewUpNav
@@ -184,20 +228,15 @@
         else
         {
             UICollectionReusableView *common = [self.collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"common" forIndexPath:indexPath];
-            
-            UIView *v = ViewInit(0, 0, kMSScreenWith, 40);
-            v.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
-            [common addSubview:v];
+            common.backgroundColor = kMSCellBackColor;
 
-            UIView *line = ViewInit(kMSScreenWith/4, 20, kMSScreenWith/2, 1);
-            line.backgroundColor = [RegularExpressionsMethod ColorWithHexString:@"#C1C1C1"];
-            [common addSubview:line];
+            UIImageView *imgageV = ImageViewInit(kMSScreenWith/2-40, 12, 16, 16);
+            imgageV.image = [UIImage imageNamed:@"home_Like_icon"];
+            [common addSubview:imgageV];
 
-            UILabel *more = LabelInit(kMSScreenWith/2-40, 0, 80, 40);
+            UILabel *more = LabelInit(kMSScreenWith/2-20, 0, 80, 40);
             more.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
-            more.backgroundColor =[RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
-            more.text = @"为你推荐";
-            more.textAlignment = NSTextAlignmentCenter;
+            more.text = @"猜你喜欢";
             [common addSubview:more];
             more.font = PFR14Font;
 
@@ -343,7 +382,20 @@
     }
     return gridcell;
 }
-
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 7) {
+        WJGoodDetailViewController *dcVc = [[WJGoodDetailViewController alloc] init];
+        dcVc.goods_id = self.headImageArr[indexPath.row].goods_id;
+        dcVc.goodTitle = self.headImageArr[indexPath.row].goods_name;
+        dcVc.goodPrice = self.headImageArr[indexPath.row].shop_price;
+        dcVc.goodSubtitle = self.headImageArr[indexPath.row].goods_title;
+        dcVc.shufflingArray = self.headImageArr[indexPath.row].images;
+        dcVc.goodImageView = self.headImageArr[indexPath.row].goods_thumb;
+        self.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:dcVc animated:YES];
+    }
+}
 -(void)gotoTypeClassWithID:(NSInteger)tag
 {
     switch (tag) {
@@ -365,14 +417,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

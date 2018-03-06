@@ -11,7 +11,7 @@
 
 @interface WJSearchViewController ()<UISearchBarDelegate>
 @property (strong, nonatomic) HXSearchBar *searchBar;
-
+@property NSInteger int_goodOrshop;
 @end
 
 @implementation WJSearchViewController
@@ -20,6 +20,7 @@
     [super viewDidLoad];
     self.view.backgroundColor =[RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     [self addSearchBar];
+    self.int_goodOrshop = 0;
     // Do any additional setup after loading the view.
 }
 //添加搜索条
@@ -46,33 +47,68 @@
     {
 
     }
-    //清除按钮图标
-    self.searchBar.clearButtonImage = [UIImage imageNamed:@"demand_delete"];
     self.navigationItem.titleView = self.searchBar;
 
-    UIButton *cancleButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    cancleButton.backgroundColor = [UIColor clearColor];
-    [cancleButton setTitle:@"取消" forState:UIControlStateNormal];
-//    [cancleButton setTitleColor:[RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR] forState:UIControlStateNormal];
-    cancleButton.titleLabel.font = [UIFont systemFontOfSize:19];
-     [cancleButton addTarget:self action:@selector(HiddenSerVCrightAction) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* rightButtonItem = [[UIBarButtonItem alloc] init];
-    rightButtonItem.customView = cancleButton;
-    self.navigationItem.rightBarButtonItem = rightButtonItem;
+    //取消按钮
+    self.searchBar.cancleButton.backgroundColor = [UIColor clearColor];
+    [self.searchBar.cancleButton setTitle:@"取消" forState:UIControlStateNormal];
+    [self.searchBar.cancleButton setTitleColor:kMSCellBackColor forState:UIControlStateNormal];
+    self.searchBar.cancleButton.titleLabel.font = [UIFont systemFontOfSize:16];
 
 }
 
--(void)HiddenSerVCrightAction
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-     [self.searchBar resignFirstResponder];
-//    [self.navigationController popViewControllerAnimated:NO];
+    [self.view endEditing:YES];
+    [self.searchBar resignFirstResponder];
 }
+
+- (void)didSelectedMuluBtnWithTag:(NSInteger)currTag
+{
+    self.int_goodOrshop = currTag;
+    [self getGoodsOrShopDataList:self.searchBar.searchBarTextField.text];
+}
+-(void)getGoodsOrShopDataList:(NSString *)text
+{
+    [self.noMoreView hide];
+    if (self.int_goodOrshop==0) {
+        NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+        [infos setObject:text forKey:@"keywords"];
+        [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSGoodsfuzzyquery] andInfos:infos];
+    }
+    else {
+        NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+        [infos setObject:text forKey:@"store_keywords"];
+        [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSGoodsStoreQuery] andInfos:infos];
+    }
+
+}
+//取消按钮点击的回调
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    [self.view endEditing:YES];
+    [self.searchBar resignFirstResponder];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+- (BOOL)disablesAutomaticKeyboardDismissal
+{
+    return NO;
+}
+
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
+    [searchBar resignFirstResponder];
+}
+
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
    [self.searchBar becomeFirstResponder];
 }
 
-
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.searchBar resignFirstResponder];
+}
 
 #pragma mark - UISearchBar Delegate
 
@@ -80,21 +116,19 @@
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
      NSLog(@"searchText开始");
 }
-- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
-{
-    return YES;
-}
-- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
-{
-    return NO;
-}
+
 //编辑文字改变的回调
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     NSLog(@"searchText:%@",searchText);
+    if (searchText.length>0) {
+        [self getGoodsOrShopDataList:searchText];
+    }
+    else
+    {
+        self.menuScrollView.hidden = YES;
+        self.tab_infoView.hidden = YES;
+    }
 
-    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-    [infos setObject:searchText forKey:@"keywords"];
-    [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSGoodsfuzzyquery] andInfos:infos];
 }
 -(void)processData
 {
@@ -104,11 +138,19 @@
         self.arr_items = [self.results objectForKey:@"data"];
         if (self.arr_items) {
             self.tab_infoView.hidden = NO;
+            self.menuScrollView.hidden = NO;
+            [self.view addSubview:self.menuScrollView];
             [self.tab_infoView reloadData];
+
         }
         else
         {
+            self.menuScrollView.hidden = YES;
             self.tab_infoView.hidden = YES;
+
+              self.noMoreView = [[NOMoreDataView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 80) withContent:@"暂无数据." withNODataImage:@"noMore_bg.png"];
+            self.noMoreView.hidden = NO;
+             [self.view addSubview:self.noMoreView];
         }
     }
     else
@@ -119,7 +161,7 @@
 -(UITableView *)tab_infoView
 {
     if (!_tab_infoView) {
-        self.tab_infoView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight-kMSNaviHight) style:UITableViewStylePlain];
+        self.tab_infoView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44, kMSScreenWith, kMSScreenHeight-kMSNaviHight-44) style:UITableViewStylePlain];
         self.tab_infoView.separatorStyle =UITableViewCellSeparatorStyleNone;
         self.tab_infoView.backgroundColor = [UIColor clearColor];
         self.tab_infoView.dataSource = self;
@@ -133,6 +175,20 @@
       NSLog(@"searchText开始了");
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self.view endEditing:YES];
+    [self.searchBar resignFirstResponder];
+}
+
+-(MuluScrollView *)menuScrollView
+{
+    if (!_menuScrollView) {
+        NSArray *arrType = [NSArray arrayWithObjects:@"商品",@"店铺", nil];
+        _menuScrollView = [[MuluScrollView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 44) withTitles:arrType];
+        _menuScrollView.delegate = self;
+    }
+    return _menuScrollView;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -154,7 +210,13 @@
     {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIndentifier];
     }
-    cell.textLabel.text = [NSString stringWithFormat:@"%@",[[self.arr_items objectAtIndex:indexPath.row] objectForKey:@"goods_name"]];
+    if (self.int_goodOrshop==0) {
+        cell.textLabel.text = [NSString stringWithFormat:@"%@",[[self.arr_items objectAtIndex:indexPath.row] objectForKey:@"goods_name"]];
+    }
+    else
+    {
+      cell.textLabel.text = [NSString stringWithFormat:@"%@",[[self.arr_items objectAtIndex:indexPath.row] objectForKey:@"supplier_name"]];
+    }
     return cell;
 }/*
 #pragma mark - Navigation

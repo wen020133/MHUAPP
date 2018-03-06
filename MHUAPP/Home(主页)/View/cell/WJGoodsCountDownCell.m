@@ -7,16 +7,16 @@
 //
 
 #import "WJGoodsCountDownCell.h"
-#import "WJHomeRecommendCollectionViewCell.h"
+#import "WJXianShiMiaoShaModel.h"
 #import "UIView+UIViewFrame.h"
-#import "WJGoodsDataModel.h"
+#import "WJXianShiMiaoShaCell.h"
 
 @interface WJGoodsCountDownCell ()<UICollectionViewDelegate , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout>
 
 /* collection */
 @property (strong , nonatomic)UICollectionView *collectionView;
 /* 推荐商品数据 */
-@property (strong , nonatomic)NSMutableArray<WJGoodsDataModel *> *countDownItem;
+@property (strong , nonatomic)NSMutableArray<WJXianShiMiaoShaModel *> *countDownItem;
 
 @end
 
@@ -36,7 +36,7 @@
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
 
-        [_collectionView registerClass:[WJHomeRecommendCollectionViewCell class] forCellWithReuseIdentifier:@"WJHomeRecommendCollectionViewCell"];
+        [_collectionView registerClass:[WJXianShiMiaoShaCell class] forCellWithReuseIdentifier:@"WJXianShiMiaoShaCell"];
     }
     return _collectionView;
 }
@@ -56,7 +56,7 @@
 {
     self.backgroundColor = [UIColor whiteColor];
     self.collectionView.backgroundColor = self.backgroundColor;
-     _countDownItem = [WJGoodsDataModel mj_objectArrayWithFilename:@"ClasiftyGoods.plist"];
+     _countDownItem = [WJXianShiMiaoShaModel mj_objectArrayWithFilename:@"ClasiftyGoods.plist"];
     [self addSubview:self.collectionView];
 
 }
@@ -77,7 +77,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    WJHomeRecommendCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJHomeRecommendCollectionViewCell" forIndexPath:indexPath];
+    WJXianShiMiaoShaCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJXianShiMiaoShaCell" forIndexPath:indexPath];
     cell.model = _countDownItem[indexPath.row];
     return cell;
 }

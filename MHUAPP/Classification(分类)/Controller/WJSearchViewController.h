@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseNetworkViewController.h"
-#import "MenuScrollView.h"
+#import "MuluScrollView.h"
+#import "NOMoreDataView.h"
 
-
-@interface WJSearchViewController : BaseNetworkViewController<UITableViewDataSource,UITableViewDelegate>
+@interface WJSearchViewController : BaseNetworkViewController<UITableViewDataSource,UITableViewDelegate,MuluBtnDelegate>
 @property (retain, nonatomic) UITableView *tab_infoView;
 @property (retain, nonatomic) NSMutableArray *arr_items;
 
-@property (strong, nonatomic) MenuScrollView *menuScrollView; //分类ScrollView
+@property (strong, nonatomic) MuluScrollView *menuScrollView; //分类ScrollView
+@property (retain, nonatomic) NOMoreDataView *noMoreView;
 @end

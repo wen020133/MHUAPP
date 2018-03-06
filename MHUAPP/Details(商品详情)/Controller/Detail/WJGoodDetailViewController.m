@@ -52,12 +52,37 @@
 
     [self setUpTopButtonView];
 
+    [self getGoodsInfoItem];
+
     [self addChildViewController];
 
     [self setUpBottomButton];
 
     [self acceptanceNote];
     // Do any additional setup after loading the view.
+}
+
+-(void)getGoodsInfoItem
+{
+
+    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+     [infos setObject:self.goods_id forKey:@"goods_id"];
+    [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSGetGoodsShopInfo] andInfos:infos];
+}
+-(void)processData
+{
+    if([[self.results objectForKey:@"code"] integerValue] == 200)
+    {
+
+
+
+    }
+    else
+    {
+
+        //        [self.collectionV.mj_header endRefreshing];
+        //        [self.collectionV.mj_footer endRefreshing];
+    }
 }
 
 #pragma mark - LazyLoad

@@ -24,6 +24,7 @@
         [self addSubview:_img_shopIcon];
 
         _lab_shopName = [[UILabel alloc]initWithFrame:CGRectMake(50, 3, self.width-60, 21)];
+        _lab_shopName.text = @"劲腾专营店";
         _lab_shopName.font = PFR14Font;
         _lab_shopName.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
         _lab_shopName.textAlignment = NSTextAlignmentLeft;
@@ -31,6 +32,7 @@
 
         _lab_message = [[UILabel alloc]initWithFrame:CGRectMake(10, _img_shopIcon.Bottom+2, self.width-20, 20)];
         _lab_message.font = PFR13Font;
+        _lab_message.text = @"礼遇之选，许你时尚型采";
         _lab_message.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
         _lab_message.textAlignment = NSTextAlignmentLeft;
         [self addSubview:_lab_message];

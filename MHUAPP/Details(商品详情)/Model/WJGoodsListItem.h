@@ -21,7 +21,8 @@
 @property (nonatomic, copy ,readonly) NSString *stock;
 /** 属性 */
 @property (nonatomic, copy ,readonly) NSString *nature;
-
+/* 商品ID */
+@property (strong , nonatomic)NSString *goods_id;
 /* 头部轮播 */
 @property (copy , nonatomic , readonly)NSArray *images;
 /** 销售数量 */
