@@ -49,15 +49,15 @@
     buyCar.isHasNavitationController = NO;
     WJPersonalCenterViewController *me = [[WJPersonalCenterViewController alloc]init];
     
-    [self setUpChildController:mainPage title:@"首页" image:@"img_btn_mainpage_normal" selectedImage:@"img_btn_mainpage_select"];
+    [self setUpChildController:mainPage title:@"首页" image:@"Tab_icon_Home_normal" selectedImage:@"Tab_icon_Home_selected"];
     
-    [self setUpChildController:departClass title:@"分类" image:@"img_btn_class_normal" selectedImage:@"img_btn_class_select"];
+    [self setUpChildController:departClass title:@"分类" image:@"Tab_icon_feilei_normal" selectedImage:@"Tab_icon_feilei_selected"];
     
-    [self setUpChildController:message title:@"消息" image:@"img_btn_message_normal" selectedImage:@"img_btn_message_select"];
+    [self setUpChildController:message title:@"消息" image:@"Tab_icon_messsge_normal" selectedImage:@"Tab_icon_message_selected"];
 
-    [self setUpChildController:buyCar title:@"购物车" image:@"img_btn_shop_normal" selectedImage:@"img_btn_shop_select"];
+    [self setUpChildController:buyCar title:@"购物车" image:@"Tab_icon_Cart_normal" selectedImage:@"Tab_icon_Cart_selected"];
     
-    [self setUpChildController:me title:@"我" image:@"img_btn_me_normal" selectedImage:@"img_btn_me_select"];
+    [self setUpChildController:me title:@"我" image:@"Tab_icon_Account_normal" selectedImage:@"Tab_icon_Account_selected"];
     
     self.selectedIndex = 0;
     

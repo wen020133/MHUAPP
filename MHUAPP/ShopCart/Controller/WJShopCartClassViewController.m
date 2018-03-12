@@ -164,7 +164,7 @@ static NSInteger lz_CartRowHeight = 100;
 - (void)setupCustomBottomView {
 
     UIView *backgroundView = [[UIView alloc]init];
-    backgroundView.backgroundColor = kMSColorFromRGB(245, 245, 245);
+    backgroundView.backgroundColor = kMSCellBackColor;
     backgroundView.tag = TAG_CartEmptyView + 1;
     [self.view addSubview:backgroundView];
 
@@ -175,11 +175,6 @@ static NSInteger lz_CartRowHeight = 100;
         backgroundView.frame = CGRectMake(0, kMSScreenHeight -  49-kMSNaviHight, kMSScreenWith, 49);
     }
 
-    UIView *lineView = [[UIView alloc]init];
-    lineView.frame = CGRectMake(0, 0, kMSScreenWith, 1);
-    lineView.backgroundColor = [UIColor lightGrayColor];
-    [backgroundView addSubview:lineView];
-
     //全选按钮
     UIButton *selectAll = [UIButton buttonWithType:UIButtonTypeCustom];
     selectAll.titleLabel.font = [UIFont systemFontOfSize:16];
@@ -187,14 +182,14 @@ static NSInteger lz_CartRowHeight = 100;
     [selectAll setTitle:@" 全选" forState:UIControlStateNormal];
     [selectAll setImage:[UIImage imageNamed:@"user_weigouxuan"] forState:UIControlStateNormal];
     [selectAll setImage:[UIImage imageNamed:@"shipcart_seleHigh"] forState:UIControlStateSelected];
-    [selectAll setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [selectAll setTitleColor:[RegularExpressionsMethod ColorWithHexString:@"666666"] forState:UIControlStateNormal];
     [selectAll addTarget:self action:@selector(selectAllBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [backgroundView addSubview:selectAll];
     self.allSellectedButton = selectAll;
 
     //结算按钮
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.backgroundColor = [UIColor redColor];
+    btn.backgroundColor = [RegularExpressionsMethod ColorWithHexString:@"F91A60"];
     btn.frame = CGRectMake(kMSScreenWith - 80, 0, 80, 49);
     [btn setTitle:@"去结算" forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(goToPayButtonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -203,7 +198,7 @@ static NSInteger lz_CartRowHeight = 100;
     //合计
     UILabel *label = [[UILabel alloc]init];
     label.font = [UIFont systemFontOfSize:16];
-    label.textColor = [UIColor redColor];
+    label.textColor = [RegularExpressionsMethod ColorWithHexString:@"F91A60"];
     [backgroundView addSubview:label];
 
     label.attributedText = [self LZSetString:@"¥0.00"];

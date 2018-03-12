@@ -12,8 +12,8 @@ typedef void(^buttonClickBlock)(BOOL select);
 
 @interface WJCartTableHeaderView : UITableViewHeaderFooterView
 
-@property (copy,nonatomic)NSString *title;
-@property (copy,nonatomic)buttonClickBlock WJClickBlock;
-@property (assign,nonatomic)BOOL select;
+@property (copy,nonatomic) NSString *title;
+@property (copy,nonatomic) buttonClickBlock WJClickBlock;
+@property (assign,nonatomic) BOOL select;
 
 @end

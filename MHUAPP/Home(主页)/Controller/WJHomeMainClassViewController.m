@@ -276,7 +276,7 @@
         return CGSizeMake(kMSScreenWith, kMSScreenWith/2);
     }
     else
-        return CGSizeMake(kMSScreenWith, 48);  //推荐适合的宽高
+        return CGSizeMake(kMSScreenWith, 40);  //推荐适合的宽高
 
 }
 
@@ -396,6 +396,7 @@
         [self.navigationController pushViewController:dcVc animated:YES];
     }
 }
+
 -(void)gotoTypeClassWithID:(NSInteger)tag
 {
     switch (tag) {

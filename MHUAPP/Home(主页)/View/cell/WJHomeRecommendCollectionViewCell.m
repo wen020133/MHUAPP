@@ -16,7 +16,7 @@
 {
     if (self = [super initWithFrame:frame]) {
         
-        _grayView = [[UIView alloc]initWithFrame:CGRectMake(4, 0, self.width-8, self.height-3)];
+        _grayView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.width, self.height)];
         _grayView.backgroundColor = [UIColor whiteColor];
         [self.contentView addSubview:_grayView];
         
@@ -41,7 +41,8 @@
         _lab_count = [[UILabel alloc]init];
         _lab_count.font = PFR12Font;
         _lab_count.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
-        _lab_count.textAlignment = NSTextAlignmentLeft;
+        _lab_count.textAlignment = NSTextAlignmentRight;
+        _lab_count.adjustsFontSizeToFitWidth = YES;
         [_grayView addSubview:_lab_count];
         
     }
@@ -63,8 +64,7 @@
     _lab_price.text = price;
     
     NSString *saleCount = [NSString stringWithFormat:@"%@人已付款",_model.shop_num];
-    CGFloat saleWidth = [RegularExpressionsMethod widthOfString:saleCount font:Font(12) height:15];
-    _lab_count.frame = CGRectMake(10+width+5, _title.Bottom+10, saleWidth, 15);
+    _lab_count.frame = CGRectMake(width+12, _title.Bottom+10, self.width-width-12, 20);
     _lab_count.text = saleCount;
     
 }

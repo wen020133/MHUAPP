@@ -33,7 +33,7 @@
 #define kMSVCBackgroundColor    @"F8F8F8"   //APP背景颜色
 #define kGrayBgColor            @"#DFDFDF"  // 图像边缘浅灰色
 #define BASEBLACKCOLOR          @"333333"  //Cell title字体黑色
-#define BASEPINK                @"#FF7A9A"  //程序基础粉色
+#define BASEPINK                @"#FF252A"  //程序基础粉色
 #define BASELITTLEBLACKCOLOR    @"707070"  //最浅的黑色
 
 #define SDPhotoBrowserBackgrounColor [UIColor colorWithRed:0 green:0 blue:0 alpha:0.95]               // browser背景颜色
@@ -45,7 +45,7 @@
 #define kMSCellSubtitleLableColor [UIColor colorWithRed:233/255.0 green:35/255.0 blue:46/255.0 alpha:1]
 #define kMSLabelTextColor [UIColor colorWithRed:90/255.0 green:90/255.0 blue:90/255.0 alpha:1]
 #define kMSButtonBackColor [UIColor colorWithRed:249/255.0 green:125/255.0 blue:10/255.0 alpha:1]
-#define kMSNavBarBackColor [UIColor colorWithRed:241/255.0 green:33/255.0 blue:36/255.0 alpha:1]
+#define kMSNavBarBackColor [UIColor colorWithRed:253/255.0 green:35/255.0 blue:60/255.0 alpha:1]
 #define kMSViewBorderColor [[UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1] CGColor]
 
 #define kMSViewTitleColor [UIColor whiteColor]

@@ -10,8 +10,12 @@
 
 @interface WJCartTableHeaderView ()
 
-@property (strong,nonatomic)UILabel *titleLabel;
-@property (strong,nonatomic)UIButton *button;
+@property (strong,nonatomic) UILabel *titleLabel;
+@property (strong,nonatomic) UIButton *button;
+@property (strong,nonatomic) UIImageView *img_shopIcon;
+/* 更多 */
+@property (strong , nonatomic) UIButton *quickButton;
+
 @end
 
 @implementation WJCartTableHeaderView
@@ -20,7 +24,7 @@
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithReuseIdentifier:reuseIdentifier];
     if (self) {
-
+        self.backgroundColor = kMSCellBackColor;
         [self setupUI];
     }
 
@@ -30,7 +34,7 @@
 - (void)setupUI {
 
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(5, 15, 50, 30);
+    button.frame = CGRectMake(10, 5, 30, 30);
 
     [button setImage:[UIImage imageNamed:@"user_weigouxuan"] forState:UIControlStateNormal];
     [button setImage:[UIImage imageNamed:@"shipcart_seleHigh"] forState:UIControlStateSelected];
@@ -38,11 +42,22 @@
     [self.contentView addSubview:button];
     self.button = button;
 
+    self.img_shopIcon = ImageViewInit(45, 10, 20, 20);
+    self.img_shopIcon.contentMode = UIViewContentModeScaleAspectFit;
+    self.img_shopIcon.image = [UIImage imageNamed:@"shop_default"];
+    [self addSubview:self.img_shopIcon];
+
     UILabel *label = [[UILabel alloc]init];
-    label.frame = CGRectMake(70, 15, kMSScreenWith - 100, 30);
+    label.frame = CGRectMake(75, 5, kMSScreenWith - 100, 30);
     label.font = [UIFont systemFontOfSize:14];
     [self.contentView addSubview:label];
     self.titleLabel = label;
+
+    _quickButton = [UIButton buttonWithType:UIButtonTypeCustom];
+     _quickButton.frame = CGRectMake(kMSScreenWith-30, 10, 11, 20);
+    [_quickButton setImage:[UIImage imageNamed:@"home_more"] forState:UIControlStateNormal];
+    [_quickButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [self addSubview:_quickButton];
 }
 - (void)buttonClick:(UIButton*)button {
     button.selected = !button.selected;

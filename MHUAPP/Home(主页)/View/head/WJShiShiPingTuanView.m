@@ -33,7 +33,7 @@
 {
     self.backgroundColor = [UIColor clearColor];
 
-    UIImageView *backImag = ImageViewInit(0, 8, kMSScreenWith, 40);
+    UIImageView *backImag = ImageViewInit(0, 0, kMSScreenWith, 40);
     backImag.backgroundColor = kMSCellBackColor;
     [self addSubview:backImag];
 
@@ -58,7 +58,7 @@
 {
     [super layoutSubviews];
 
-    _titleLabel.frame = CGRectMake(10, 8, 80, self.height-8);
-    _quickButton.frame = CGRectMake(kMSScreenWith-50, 8, 40, 30);
+    _titleLabel.frame = CGRectMake(10, 0, 80, self.height);
+    _quickButton.frame = CGRectMake(kMSScreenWith-50, 2, 40, 30);
 }
 @end

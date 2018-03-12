@@ -16,6 +16,8 @@
 @property (nonatomic, copy ,readonly) NSString *main_title;
 /** 价格  */
 @property (nonatomic, copy ,readonly) NSString *price;
+/** 原价  */
+@property (nonatomic, copy ,readonly) NSString *old_price;
 /** 销量  */
 @property (nonatomic, copy ,readonly) NSString *sales;
 /** ID  */
