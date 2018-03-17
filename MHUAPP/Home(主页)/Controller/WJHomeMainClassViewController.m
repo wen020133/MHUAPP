@@ -394,6 +394,7 @@
         dcVc.goodImageView = self.headImageArr[indexPath.row].goods_thumb;
         self.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:dcVc animated:YES];
+         self.hidesBottomBarWhenPushed = NO;
     }
 }
 

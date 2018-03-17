@@ -39,7 +39,7 @@
         [self.contentView addSubview:_contentLabel];
         
         _actionImageView = [[UIImageView alloc] init];
-        _actionImageView.image = [UIImage imageNamed:@"user_action_right.png"];
+        _actionImageView.image = [UIImage imageNamed:@"home_more"];
         _actionImageView.contentMode = UIViewContentModeScaleAspectFit;
         [self.contentView addSubview:_actionImageView];
 

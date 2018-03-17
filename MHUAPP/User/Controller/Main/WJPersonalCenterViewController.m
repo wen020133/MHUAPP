@@ -37,15 +37,23 @@
 
 @implementation WJPersonalCenterViewController
 
--(void)viewWillAppear:(BOOL)animated
+#pragma mark - LifeCyle
+- (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     [self.collectionView reloadData];
-    [super viewWillAppear:YES];
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
 }
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
-     [self initSendReplyWithTitle:@"个人中心" andLeftButtonName:nil andRightButtonName:@"user_set.png" andTitleLeftOrRight:YES];
     self.collectionView.backgroundColor = self.view.backgroundColor;
     self.automaticallyAdjustsScrollViewInsets = NO;
      [self setUpData];
@@ -56,10 +64,7 @@
     [self.collectionView addSubview:_refreshControl];
     // Do any additional setup after loading the view.
 }
--(void)showright
-{
-    [self changeUserHeard];
-}
+
 #pragma mark - LazyLoad
 - (UICollectionView *)collectionView
 {
@@ -68,8 +73,11 @@
         _collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
-        
-        _collectionView.frame = CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight - kMSNaviHight -49);
+        if (@available(iOS 11.0, *)) {
+            self.collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+
+        }
+        _collectionView.frame = CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight - 49);
          _collectionView.alwaysBounceVertical = YES;
         //头部
         [_collectionView registerClass:[WJUserHeadAndOrderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJUserHeadAndOrderView"];
@@ -142,20 +150,12 @@
 
 
                headerView.userNameLabel.text = str_username;
-//                if (str_username.length>0) {
-//
-//                    headerView.profileLabel.text = str_username;
-//                }
-//                else
-//                {
-//                     headerView.profileLabel.text = @"";
-//                }
+
             }
             else
             {
                 [headerView.headImageView setImage:[UIImage imageNamed:@"ic_no_heardPic.png"] ];
                 headerView.userNameLabel.text = @"请登录";
-//                headerView.profileLabel.text = @"";
             }
             WEAKSELF
             headerView.touchClickBlock = ^{
@@ -232,7 +232,7 @@
 #pragma mark - head宽高
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
 
-    return (section == 0) ? CGSizeMake(kMSScreenWith, 200) : CGSizeZero;
+    return (section == 0) ? CGSizeMake(kMSScreenWith, 240) : CGSizeZero;
 }
 
 #pragma mark - foot宽高

@@ -16,6 +16,8 @@
 @property (copy,nonatomic)NSString *goodsID;
 @property (copy,nonatomic)NSString *goodsName;
 @property (copy,nonatomic)NSString *price;
+@property (copy,nonatomic)NSString *attribute;
+@property (copy,nonatomic)NSString *youhui;
 @property (strong,nonatomic)UIImage *image;
 
 @end

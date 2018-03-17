@@ -7,6 +7,8 @@
 //
 
 #import "WJCartTableHeaderView.h"
+#import "UIView+UIViewFrame.h"
+
 
 @interface WJCartTableHeaderView ()
 
@@ -24,7 +26,7 @@
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithReuseIdentifier:reuseIdentifier];
     if (self) {
-        self.backgroundColor = kMSCellBackColor;
+        self.contentView.backgroundColor = kMSCellBackColor;
         [self setupUI];
     }
 
@@ -32,6 +34,10 @@
 }
 
 - (void)setupUI {
+
+    UIImageView *line = ImageViewInit(0, 39, kMSScreenWith, 1);
+    line.backgroundColor = [[UIColor lightGrayColor]colorWithAlphaComponent:0.4];
+    [self.contentView addSubview:line];
 
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.frame = CGRectMake(10, 5, 30, 30);
@@ -54,8 +60,8 @@
     self.titleLabel = label;
 
     _quickButton = [UIButton buttonWithType:UIButtonTypeCustom];
-     _quickButton.frame = CGRectMake(kMSScreenWith-30, 10, 11, 20);
-    [_quickButton setImage:[UIImage imageNamed:@"home_more"] forState:UIControlStateNormal];
+     _quickButton.frame = CGRectMake(kMSScreenWith-20, 15, 6, 10);
+     [_quickButton setBackgroundImage:[UIImage imageNamed:@"home_more"] forState:UIControlStateNormal];
     [_quickButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [self addSubview:_quickButton];
 }
@@ -77,6 +83,10 @@
     self.titleLabel.text = title;
     _title = title;
 }
+
+
+
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

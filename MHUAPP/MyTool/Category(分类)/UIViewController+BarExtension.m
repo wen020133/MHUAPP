@@ -21,7 +21,8 @@
 	
 	 if (leftImageName) {
          UIButton *btnLeft = [UIButton buttonWithType:UIButtonTypeCustom];
-         [btnLeft setImage:[UIImage imageNamed:leftImageName] forState:UIControlStateNormal];
+//         [btnLeft setImage:[UIImage imageNamed:leftImageName] forState:UIControlStateNormal];
+         [btnLeft setBackgroundImage:[UIImage imageNamed:leftImageName] forState:UIControlStateNormal];
          [btnLeft sizeToFit];
 
          [btnLeft addTarget:self action:@selector(showleft) forControlEvents:UIControlEventTouchUpInside];

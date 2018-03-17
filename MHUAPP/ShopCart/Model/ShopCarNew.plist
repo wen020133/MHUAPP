@@ -17,7 +17,7 @@
 					<key>goodsId</key>
 					<string>11</string>
 					<key>goodsName</key>
-					<string>品质回馈1</string>
+					<string>到底怎样撰写标题才是有吸引人，而有不算吹牛？那我告诉你，标题是个重要艺术，标题表述的事件必须有一定的真实性，也可以有一点点适当的夸张，但又不能离谱超出原则，说多了没有，还是举些例子吧！</string>
 					<key>goodsType</key>
 					<integer>0</integer>
 					<key>id</key>
@@ -61,7 +61,7 @@
 					<key>sid</key>
 					<string>ff80808154ccbba30154ccf6bae90005</string>
 					<key>total</key>
-					<integer>5320</integer>
+					<real>5320</real>
 					<key>userId</key>
 					<string></string>
 				</dict>

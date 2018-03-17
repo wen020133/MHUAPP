@@ -22,14 +22,17 @@
 /* 名字 */
 @property (strong , nonatomic)UILabel *userNameLabel;
 
+/* 个人中心 */
+@property (strong , nonatomic)UILabel *titleLabel;
+
 /* 查看全部 */
 @property (strong , nonatomic) UIButton *btnSeeAll;
 
 /* 箭头图片 */
 @property (strong , nonatomic) UIImageView *actionImageView;
 
-/* 图片头像背景 */
-@property (strong , nonatomic) UIImageView *headBackView;
+/* 设置 */
+@property (strong , nonatomic) UIButton *settingButton;
 
 /* line */
 @property (strong , nonatomic) UIImageView *lineImageView;

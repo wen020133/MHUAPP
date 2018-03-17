@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WJDetailShowTypeCell.h"
 
-@interface WJShowTypeCouponCell : WJDetailShowTypeCell
-/* 优惠券 */
+@interface WJShowTypeCouponCell : UICollectionViewCell
+/* 服务是否含有 */
+@property (strong,nonatomic) NSArray *arr_state;
+/* 服务类型 */
+@property (strong,nonatomic) NSArray *arr_type;
 @end

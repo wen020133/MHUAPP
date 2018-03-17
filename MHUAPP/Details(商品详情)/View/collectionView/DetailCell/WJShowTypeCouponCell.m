@@ -7,6 +7,8 @@
 //
 
 #import "WJShowTypeCouponCell.h"
+#import "UIView+UIViewFrame.h"
+
 
 @implementation WJShowTypeCouponCell
 #pragma mark - Intial
@@ -14,32 +16,29 @@
 
     self = [super initWithFrame:frame];
     if (self) {
-        [self setUpData];
+
+        self.arr_state = @[@"1",@"1",@"1",@"1"];
+        self.arr_type = @[@"正品包邮",@"十五天退换",@"48小时发货",@"假一赔十"];
+         [self setUpData];
+
     }
     return self;
 }
 
 - (void)setUpData
 {
-    self.leftTitleLable.text = @"领券";
-    [self addSubview:self.iconImageView];
-    self.iconImageView.image = [UIImage imageNamed:@"biaoqian"];
+    float width = kMSScreenWith/4-20;
+    for (int kk=0; kk<self.arr_type.count; kk++) {
+        UIImageView *imageState =ImageViewInit(10+kMSScreenWith/4*kk, 10, 20, 20);
+        [self addSubview:imageState];
+
+        UILabel *label = LabelInit(imageState.Right+2+kMSScreenWith/4*kk, 10, width-30, 20);
+        [self addSubview:label];
+
+    }
 }
 
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-    //重写leftTitleLableFrame
-    [self.leftTitleLable mas_makeConstraints:^(MASConstraintMaker *make) {
-        [make.left.mas_equalTo(self)setOffset:DCMargin];
-        make.centerY.mas_equalTo(self);
-    }];
 
-    [self.iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        [make.left.mas_equalTo(self.leftTitleLable.mas_right)setOffset:DCMargin];
-        make.centerY.mas_equalTo(self.leftTitleLable);
-    }];
-}
 
 
 @end

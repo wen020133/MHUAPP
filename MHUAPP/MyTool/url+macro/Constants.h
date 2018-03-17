@@ -33,8 +33,8 @@
 #define kMSVCBackgroundColor    @"F8F8F8"   //APP背景颜色
 #define kGrayBgColor            @"#DFDFDF"  // 图像边缘浅灰色
 #define BASEBLACKCOLOR          @"333333"  //Cell title字体黑色
-#define BASEPINK                @"#FF252A"  //程序基础粉色
-#define BASELITTLEBLACKCOLOR    @"707070"  //最浅的黑色
+#define BASEPINK                @"fd233c"  //程序基础红色
+#define BASELITTLEBLACKCOLOR    @"666666"  //最浅的黑色
 
 #define SDPhotoBrowserBackgrounColor [UIColor colorWithRed:0 green:0 blue:0 alpha:0.95]               // browser背景颜色
 //R G B 颜色

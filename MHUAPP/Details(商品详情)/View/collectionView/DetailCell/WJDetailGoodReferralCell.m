@@ -30,6 +30,7 @@
 
     _goodTitleLabel = [[UILabel alloc] init];
     _goodTitleLabel.font = PFR16Font;
+    _goodPriceLabel.textColor = [RegularExpressionsMethod ColorWithHexString:@"2B2B2B"];
     _goodTitleLabel.numberOfLines = 0;
     [self addSubview:_goodTitleLabel];
 

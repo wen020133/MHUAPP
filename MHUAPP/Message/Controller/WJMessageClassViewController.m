@@ -8,7 +8,13 @@
 
 #import "WJMessageClassViewController.h"
 
-@interface WJMessageClassViewController ()
+#import "WJMessageHeadView.h"
+#import "WJMessageTableViewCell.h"
+
+@interface WJMessageClassViewController ()<UITableViewDelegate,UITableViewDataSource>
+
+/* tableView */
+@property (strong , nonatomic)UITableView *tableView;
 
 @end
 
@@ -18,14 +24,57 @@
     [super viewDidLoad];
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     [self initSendReplyWithTitle:@"消息" andLeftButtonName:nil andRightButtonName:nil andTitleLeftOrRight:YES];
+     [self.view addSubview:self.tableView];
     // Do any additional setup after loading the view.
 }
 
+- (UITableView *)tableView
+{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight-49-kMSNaviHight) style:UITableViewStylePlain];
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.scrollEnabled = NO;
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        [_tableView registerClass:[WJMessageHeadView class] forHeaderFooterViewReuseIdentifier:@"WJMessageHeadView"];
+        [_tableView registerClass:[WJMessageTableViewCell class] forCellReuseIdentifier:@"WJMessageTableViewCell"];
+    }
+    return _tableView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+
+    return 90;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+
+    return 1;
+}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+
+    return 1;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    WJMessageHeadView *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"WJMessageHeadView"];
+
+    return view;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    WJMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WJMessageTableViewCell"];
+    if (cell == nil) {
+        cell = [[WJMessageTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"WJMessageTableViewCell"];
+    }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return cell;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 3;
+}
 /*
 #pragma mark - Navigation
 

@@ -70,7 +70,7 @@
     [self.scr_content addSubview:province];
     
     UIImageView *img_province = [[UIImageView alloc]initWithFrame:CGRectMake(kMSScreenWith-20, 32+(TextViewBackHight+2)*2, 5, 9)];
-    img_province.image = [UIImage imageNamed:@"user_action_right"];
+    img_province.image = [UIImage imageNamed:@"home_more"];
     [self.scr_content addSubview:img_province];
     
     self.lab_province = [[UILabel alloc]initWithFrame:CGRectMake(90, 12+(TextViewBackHight+2)*2, kMSScreenWith-140, TextViewBackHight-2)];

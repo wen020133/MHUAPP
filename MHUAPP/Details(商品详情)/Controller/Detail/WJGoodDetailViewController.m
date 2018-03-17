@@ -52,7 +52,7 @@
 
     [self setUpTopButtonView];
 
-    [self getGoodsInfoItem];
+//    [self getGoodsInfoItem];
 
     [self addChildViewController];
 
@@ -314,15 +314,31 @@
     self.navigationItem.leftBarButtonItem = leftButtonItem;
 
 
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btn setImage:[UIImage imageNamed:@"Details_Btn_More_normal"] forState:UIControlStateNormal];
-    [btn setImage:[UIImage imageNamed:@"Details_Btn_More_normal"] forState:UIControlStateHighlighted];
-    [btn sizeToFit];
+    UIButton *pulishButton=[UIButton buttonWithType:(UIButtonTypeCustom)];
+    [pulishButton setImage:[UIImage imageNamed:@"goodInfo_share"] forState:UIControlStateNormal];
+    [pulishButton addTarget:self action:@selector(goodInfoshare) forControlEvents:UIControlEventTouchUpInside];
 
-    [btn addTarget:self action:@selector(toolItemClick) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* rightButtonItem = [[UIBarButtonItem alloc] init];
-    rightButtonItem.customView = btn;
-    self.navigationItem.rightBarButtonItem = rightButtonItem;
+
+    UIButton *saveButton=[UIButton buttonWithType:(UIButtonTypeCustom)];
+   [saveButton setImage:[UIImage imageNamed:@"goodInfo_message"] forState:UIControlStateNormal];
+    [saveButton addTarget:self action:@selector(messageAction) forControlEvents:UIControlEventTouchUpInside];
+
+    pulishButton.frame = CGRectMake(0, 0, 19, 18);
+    saveButton.frame=CGRectMake(0, 0, 16, 19);
+
+    UIBarButtonItem *pulish = [[UIBarButtonItem alloc] initWithCustomView:pulishButton];
+    UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithCustomView:saveButton];
+
+    [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects: pulish, save,nil]];
+}
+
+-(void)goodInfoshare
+{
+
+}
+-(void)messageAction
+{
+
 }
 
 -(void)showleft

@@ -21,8 +21,8 @@
 @property (strong , nonatomic) UIImageView *headImageView;
 /* 名字 */
 @property (strong , nonatomic) UILabel *userNameLabel;
-/* 签名 */
-@property (strong , nonatomic) UILabel *profileLabel;
+/* 电话 */
+@property (strong , nonatomic) UILabel *phoneLabel;
 
 
 @end

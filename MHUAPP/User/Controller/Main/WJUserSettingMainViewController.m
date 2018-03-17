@@ -12,6 +12,8 @@
 #import "AddAddressViewController.h"
 #import <UIImageView+WebCache.h>
 
+#import "WJFlowItem.h"
+
 @interface WJUserSettingMainViewController ()
 
 @end
@@ -21,6 +23,10 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [self.infoTableView reloadData];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *str_logo_img = [[userDefaults objectForKey:@"userList"] objectForKey:@"user_icon"];
+    [_headImageView sd_setImageWithURL:[NSURL URLWithString:str_logo_img] placeholderImage:[UIImage imageNamed:@"ic_no_heardPic.png"]];
+
     [super viewWillAppear:YES];
 }
 
@@ -28,14 +34,17 @@
     [super viewDidLoad];
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     [self initSendReplyWithTitle:@"账户设置" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
-    self.arr_typeName = [NSArray arrayWithObjects:@"账户安全", @"地址管理",@"用户协议",@"常见问题",@"意见反馈",@"设置",nil];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"UserSetIconFlow" ofType:@"plist" inDirectory:nil];
+
+    _arr_typeName = [[NSArray alloc]initWithContentsOfFile:path];
+
     [self.view addSubview:self.infoTableView];
     // Do any additional setup after loading the view.
 }
 -(UITableView *)infoTableView
 {
     if (!_infoTableView) {
-        _infoTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight-kMSNaviHight)];
+        _infoTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight-kMSNaviHight) style:UITableViewStyleGrouped];
         _infoTableView.delegate = self;
         _infoTableView.dataSource = self;
         _infoTableView.backgroundColor =[UIColor clearColor];
@@ -54,13 +63,15 @@
     NSLog(@"userlist=%@",[userDefaults objectForKey:@"userList"] );
     NSString *str_logo_img = [[userDefaults objectForKey:@"userList"] objectForKey:@"user_icon"];
     NSString *str_username = [[userDefaults objectForKey:@"userList"] objectForKey:@"username"];
+    NSString *phone = [[userDefaults objectForKey:@"userList"] objectForKey:@"phone"];
     if (!_view_head) {
-        _view_head = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 170)];
-        UIImageView *backV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"user_backImageHead.png"]];
-        backV.frame = _view_head.frame;
-        [_view_head addSubview:backV];
+        _view_head = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 108)];
+        _view_head.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
+        UIImageView *imagback = ImageViewInit(0, 0, kMSScreenWith, 100);
+        imagback.backgroundColor = kMSCellBackColor;
+        [_view_head addSubview:imagback];
 
-        _headImageView = [[UIImageView alloc] init];
+        _headImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 17, 66, 66)];
         _headImageView.contentMode = UIViewContentModeScaleAspectFill;
         _headImageView.userInteractionEnabled = YES;
         _headImageView.layer.masksToBounds = YES;
@@ -70,25 +81,19 @@
         [_headImageView addGestureRecognizer:singleTap];
         [_headImageView sd_setImageWithURL:[NSURL URLWithString:str_logo_img] placeholderImage:[UIImage imageNamed:@"ic_no_heardPic.png"]];
         [_view_head addSubview:_headImageView];
-        [_headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            [make.top.mas_equalTo(_view_head.mas_top)setOffset:10];
-            make.centerX.mas_equalTo(_view_head.mas_centerX);
-            make.size.mas_equalTo(CGSizeMake(66, 66));
 
-        }];
-
-        _userNameLabel = [[UILabel alloc] init];
+        _userNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(90, 25, 200, 21)];
         _userNameLabel.font = PFR15Font;
-        _userNameLabel.textColor = kMSViewTitleColor;
+        _userNameLabel.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
         _userNameLabel.text = str_username;
-        _userNameLabel.textAlignment = NSTextAlignmentCenter;
         [_view_head addSubview:_userNameLabel];
-        [_userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            [make.top.mas_equalTo(_headImageView.mas_bottom)setOffset:8];
-            make.centerX.mas_equalTo(_view_head.mas_centerX);
-            make.size.mas_equalTo(CGSizeMake(200, 20));
 
-        }];
+        _phoneLabel = [[UILabel alloc] initWithFrame:CGRectMake(90, 50, 200, 21)];
+        _phoneLabel.font = PFR14Font;
+        _phoneLabel.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
+        _phoneLabel.text = phone;
+        [_view_head addSubview:_phoneLabel];
+
     }
     return _view_head;
     
@@ -106,10 +111,11 @@
         _view_foot.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
 
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.frame = CGRectMake(kMSScreenWith/4, 78, kMSScreenWith/2, 44);
+        btn.frame = CGRectMake(20, 78, kMSScreenWith-40, 48);
         [btn setBackgroundColor:[UIColor redColor]];
-        [btn setTitle:@"安全退出" forState:UIControlStateNormal];
+        [btn setTitle:@"退出登录" forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        btn.layer.cornerRadius = 5.0;
         btn.titleLabel.font = PFR18Font;
         [btn addTarget:self action:@selector(loginoutState) forControlEvents:UIControlEventTouchUpInside];
         [_view_foot addSubview:btn];
@@ -120,9 +126,39 @@
 #pragma mark - UITableViewDelegate UITableViewDataSource Methods
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.arr_typeName.count;
+    NSArray *arr = [self.arr_typeName objectAtIndex:section];
+    return arr.count;
+}
+//section头部间距
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0.01f;//section头部高度
+}
+//section头部视图
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1)];
+    view.backgroundColor = [UIColor clearColor];
+    return view;
 }
 
+//section底部间距
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 8;
+}
+//section底部视图
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1)];
+    view.backgroundColor = [UIColor clearColor];
+    return view;
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return self.arr_typeName.count;
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 44.f;
@@ -133,7 +169,9 @@
     static NSString *CellIndentifier = @"WJSetHeadTableCell";
     WJSetHeadTableCell *cell = (WJSetHeadTableCell *)[tableView dequeueReusableCellWithIdentifier:CellIndentifier];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.nameLabel.text = self.arr_typeName[indexPath.row];
+    NSArray *arr = [self.arr_typeName objectAtIndex:indexPath.section];
+    NSArray *data = [WJFlowItem mj_objectArrayWithKeyValuesArray:arr];
+    cell.flowItem = [data objectAtIndex:indexPath.row];
     return cell;
 }
 

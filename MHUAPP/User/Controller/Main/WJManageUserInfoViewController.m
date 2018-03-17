@@ -194,7 +194,7 @@
         NSDictionary *userListDic = [userDefaults objectForKey:@"userList"];
         NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:userListDic];
         NSLog(@"userListDic===%@",userListDic);
-        NSString *usericon = [NSString stringWithFormat:@"%@%@",kMSBaseLargeCollectionPortURL,[self.results objectForKey:@"data"]];
+        NSString *usericon = [NSString stringWithFormat:@"%@",[self.results objectForKey:@"data"]];
         [dic setObject:usericon forKey:@"user_icon"];
 
         [userDefaults setObject:dic forKey:@"userList"];

@@ -29,7 +29,7 @@
         _title.font = PFR14Font;
         _title.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
         _title.textAlignment = NSTextAlignmentLeft;
-        _title.numberOfLines = 2;
+        _title.numberOfLines = 0;
         [_grayView addSubview:_title];
         
         _lab_price = [[UILabel alloc]init];
@@ -57,7 +57,9 @@
     }
     NSString *urlStr = [NSString stringWithFormat:@"%@/%@",kMSBaseUserHeadPortURL,_model.goods_thumb] ;
     [_img_content sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"] completed:nil];
-    _title.text = _model.goods_name;
+//    _title.text = _model.goods_name;
+    [self refreshUIWithTitle:_model.goods_name];
+
     NSString *price = [NSString stringWithFormat:@"￥%@",_model.shop_price];
     CGFloat width = [RegularExpressionsMethod widthOfString:price font:Font(15) height:20];
     _lab_price.frame = CGRectMake(10, _title.Bottom+5, width, 20);
@@ -69,4 +71,29 @@
     
 }
 
+-(void)refreshUIWithTitle:(NSString *)title{
+    NSString *str =  [title stringByAppendingString:@"\n"];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString: title];
+
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    [paragraphStyle setLineSpacing:8];
+    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [title length])];
+    self.title.attributedText = attributedString;
+
+    CGFloat heights = [self boundingRectWithString:str];
+
+    if (heights>55) {
+        self.title.numberOfLines = 2;
+        self.title.lineBreakMode = NSLineBreakByTruncatingTail;
+    }else{
+        self.title.numberOfLines = 2;
+    }
+
+}
+
+- (CGFloat)boundingRectWithString:(NSString *)string
+{
+    CGRect rect = [string boundingRectWithSize:CGSizeMake( _grayView.width-20, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} context:nil];
+    return  rect.size.height;
+}
 @end

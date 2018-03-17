@@ -39,7 +39,7 @@
     
     self = [super initWithFrame:frame];
     if (self) {
-        _defaultImgArr = @[@"home_secondskill_icon",@"home_spellgroup_icon",@"home_activity_icon",@"home_Selectthestore_icon",@"home_Sellinggoods_icon",@"home_quality_icon",@"home_Integral_icon",@"home_all_icon"];
+        _defaultImgArr = @[@"Home_icon_xianshimiaosha",@"Home_icon_shishipintuan",@"Home_icon_huodongzhuanqu",@"Home_icon_jingxuandianpu",@"Home_icon_remaishangpin",@"Home_icon_youzhixinpin",@"Home_icon_jifenshangcheng",@"Home_icon_quanbushangpin"];
         _defaultTitleArr = @[@"限时秒杀",@"时时拼团",@"活动专区",@"精选店铺",@"热卖商品",@"优质新品",@"积分商城",@"全部商品"];
         _itemCounts = _defaultImgArr.count;
         _lineNumber = 2;
@@ -92,7 +92,7 @@
     
     [self.indicatorBackView addSubview:self.indicatorView];
     
-    CGFloat width = 40;
+    CGFloat width = kMSScreenWith/8;
      NSInteger pageCount = ceilf((CGFloat)self.itemCounts / (self.lineNumber * self.columnNumber));
     self.scrollView.contentSize = CGSizeMake(self.frame.size.width * pageCount, self.frame.size.height);
 
@@ -109,7 +109,7 @@
                     return;
                 }
 
-                UIImageView *iamgeV = [[UIImageView alloc]initWithFrame:CGRectMake(page * kMSScreenWith + kMSScreenWith/8-20+y*kMSScreenWith/_columnNumber, 5+ (x * self.height/2), width, width)];
+                UIImageView *iamgeV = [[UIImageView alloc]initWithFrame:CGRectMake(page * kMSScreenWith + width/2+y*kMSScreenWith/_columnNumber, 5+ (x * self.height/2), width, width)];
                 iamgeV.image = [UIImage imageNamed:_defaultImgArr[countNumber]];
 
                 [self.scrollView addSubview:iamgeV];
@@ -118,7 +118,7 @@
                 UILabel *titleLabel = LabelInit(page * kMSScreenWith + y*kMSScreenWith/_columnNumber, width+10+ (x * self.height/2), kMSScreenWith/_columnNumber, 20);
                 titleLabel.font = PFR13Font;
                 titleLabel.text = _defaultTitleArr[countNumber];
-                titleLabel.textColor = [RegularExpressionsMethod ColorWithHexString:@"747474"];
+                titleLabel.textColor = [RegularExpressionsMethod ColorWithHexString:@"333333"];
                 titleLabel.textAlignment = NSTextAlignmentCenter;
                 [self.scrollView addSubview:titleLabel];
 
@@ -129,7 +129,7 @@
                 [btn addTarget:self action:@selector(toJump:) forControlEvents:UIControlEventTouchUpInside];
                 [self.scrollView addSubview:btn];
 
-                    countNumber ++;
+                countNumber ++;
 
                 }
 

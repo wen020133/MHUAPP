@@ -7,6 +7,7 @@
 //
 
 #import "WJFlowAttributeCell.h"
+#import "UIView+UIViewFrame.h"
 
 
 @implementation WJFlowAttributeCell
@@ -51,12 +52,12 @@
     
     [_flowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self);
-        [make.top.mas_equalTo(self)setOffset:DCMargin];
-        make.size.mas_equalTo(CGSizeMake(32, 32));
+        [make.top.mas_equalTo(self)setOffset:13];
+        make.size.mas_equalTo(CGSizeMake(self.width*0.27, self.width*0.27));
         
     }];
     [_flowTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        [make.top.mas_equalTo(_flowImageView.mas_bottom)setOffset:4];
+        [make.top.mas_equalTo(_flowImageView.mas_bottom)setOffset:13];
         make.centerX.mas_equalTo(self);
     }];
 }

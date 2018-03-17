@@ -42,7 +42,7 @@
     [self addSubview:_countLabel];
 
     _actionImageView = [[UIImageView alloc] init];
-    _actionImageView.image = [UIImage imageNamed:@"user_action_right.png"];
+    _actionImageView.image = [UIImage imageNamed:@"home_more"];
     _actionImageView.contentMode = UIViewContentModeScaleAspectFit;
      [self addSubview:_actionImageView];
 
@@ -54,13 +54,13 @@
 {
     [super layoutSubviews];
     [_flowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        [make.left.mas_equalTo(self)setOffset:15];
+        [make.left.mas_equalTo(self)setOffset:18];
         make.centerY.mas_equalTo(self.mas_centerY);
-        make.size.mas_equalTo(CGSizeMake(28, 28));
+        make.size.mas_equalTo(CGSizeMake(22, 22));
 
     }];
     [_flowTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        [make.left.mas_equalTo(_flowImageView.mas_right)setOffset:DCMargin];
+        [make.left.mas_equalTo(_flowImageView.mas_right)setOffset:15];
         make.centerY.mas_equalTo(self.mas_centerY);
         make.size.mas_equalTo(CGSizeMake(200, 20));
     }];
@@ -72,7 +72,7 @@
     [_actionImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         [make.left.mas_equalTo(self.mas_right)setOffset:-20];
         make.centerY.mas_equalTo(self.mas_centerY);
-        make.size.mas_equalTo(CGSizeMake(13, 19));
+        make.size.mas_equalTo(CGSizeMake(6, 10));
     }];
 }
 
@@ -85,6 +85,6 @@
 
     _flowImageView.image = [UIImage imageNamed:_flowItem.flowImageView];
     _flowTextLabel.text = _flowItem.flow_title;
-    _countLabel.text = @"(1)";
+//    _countLabel.text = @"1";
 }
 @end

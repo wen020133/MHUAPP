@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<array>
+		<dict>
+			<key>flow_title</key>
+			<string>账户安全</string>
+			<key>flowImageView</key>
+			<string>user_set_zhanghuanquan</string>
+		</dict>
+	</array>
+	<array>
+		<dict>
+			<key>flow_title</key>
+			<string>地址管理</string>
+			<key>flowImageView</key>
+			<string>user_set_dizhiguanli</string>
+		</dict>
+		<dict>
+			<key>flow_title</key>
+			<string>用户协议</string>
+			<key>flowImageView</key>
+			<string>user_set_yonghuxieyi</string>
+		</dict>
+	</array>
+	<array>
+		<dict>
+			<key>flow_title</key>
+			<string>常见问题</string>
+			<key>flowImageView</key>
+			<string>user_set_changjianwenti</string>
+		</dict>
+		<dict>
+			<key>flow_title</key>
+			<string>意见反馈</string>
+			<key>flowImageView</key>
+			<string>user_set_yijianfankui</string>
+		</dict>
+		<dict>
+			<key>flow_title</key>
+			<string>设置</string>
+			<key>flowImageView</key>
+			<string>user_set_shezhi</string>
+		</dict>
+	</array>
+</array>
+</plist>

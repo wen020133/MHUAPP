@@ -146,6 +146,7 @@
             self.arr_collectionList = arr;
             [self.tableView reloadData];
             [self.collectionView reloadData];
+            [self selectRowAtIndexPath:0];
         }
 
     }

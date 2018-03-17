@@ -189,7 +189,7 @@ static NSInteger lz_CartRowHeight = 100;
 
     //结算按钮
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.backgroundColor = [RegularExpressionsMethod ColorWithHexString:@"F91A60"];
+    btn.backgroundColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
     btn.frame = CGRectMake(kMSScreenWith - 80, 0, 80, 49);
     [btn setTitle:@"去结算" forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(goToPayButtonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -198,7 +198,7 @@ static NSInteger lz_CartRowHeight = 100;
     //合计
     UILabel *label = [[UILabel alloc]init];
     label.font = [UIFont systemFontOfSize:16];
-    label.textColor = [RegularExpressionsMethod ColorWithHexString:@"F91A60"];
+    label.textColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
     [backgroundView addSubview:label];
 
     label.attributedText = [self LZSetString:@"¥0.00"];
@@ -262,7 +262,7 @@ static NSInteger lz_CartRowHeight = 100;
     //创建底部视图
     [self setupCustomBottomView];
 
-    UITableView *table = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    UITableView *table = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
 
     table.delegate = self;
     table.dataSource = self;
@@ -298,7 +298,14 @@ static NSInteger lz_CartRowHeight = 100;
     if (cell == nil) {
         cell = [[WJCartTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"WJCartTableViewCell"];
     }
-
+   if(indexPath.row==0)
+   {
+       cell.imageLine.hidden = YES;
+   }
+    else
+    {
+        cell.imageLine.hidden = NO;
+    }
     WJCartShopModel *shopModel = self.dataArray[indexPath.section];
     WJCartGoodsModel *model = [shopModel.goodsArray objectAtIndex:indexPath.row];
 
@@ -396,10 +403,18 @@ static NSInteger lz_CartRowHeight = 100;
     return 40;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+//section底部间距
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 5;
 
-    return 1;
 }
+//section底部视图
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    UIView *view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, kMSScreenWith, 5)];
+    view.backgroundColor = [UIColor clearColor];
+    return view;
+}
+
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
 
     if (editingStyle == UITableViewCellEditingStyleDelete) {
