@@ -47,12 +47,12 @@
     
     UILabel *lab_dianmess = LabelInit(ima_dian.Right-100, lab_dianchui.Bottom+5,90, 17);
     lab_dianmess.text = @"愿你与美同行";
-    lab_dianmess.font = Font(12);
+    lab_dianmess.font = Font(11);
     lab_dianmess.textAlignment = NSTextAlignmentRight;
     lab_dianmess.textColor = [RegularExpressionsMethod ColorWithHexString:@"ED7700"];
     [self addSubview:lab_dianmess];
 
-    _img_dianchui = ImageViewInit(20, 10, 50, 80);
+    _img_dianchui = ImageViewInit(15, 10, 50, 80);
     _img_dianchui.contentMode = UIViewContentModeScaleAspectFit;
     _img_dianchui.image = [UIImage imageNamed:@"main_newTuiJian"];
     [self addSubview:_img_dianchui];
@@ -73,12 +73,12 @@
     
     UILabel *lab_meijiaMess = LabelInit(ima_meijia.x+10, lab_meijia.Bottom+5,90, 21);
     lab_meijiaMess.text = @"指甲美丽的秘密";
-    lab_meijiaMess.font = Font(12);
+    lab_meijiaMess.font = Font(11);
     lab_meijiaMess.textAlignment = NSTextAlignmentLeft;
     lab_meijiaMess.textColor = [RegularExpressionsMethod ColorWithHexString:@"9D00FF"];
     [self addSubview:lab_meijiaMess];
     
-    _img_meijia = ImageViewInit(ima_meijia.Right-70, 10, 50, 80);
+    _img_meijia = ImageViewInit(ima_meijia.Right-55, 10, 50, 80);
     _img_meijia.contentMode = UIViewContentModeScaleAspectFit;
     _img_meijia.image = [UIImage imageNamed:@"main_newTuiJian2"];
     [self addSubview:_img_meijia];
@@ -98,14 +98,14 @@
     lab_fuhu.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
     [self addSubview:lab_fuhu];
     
-    UILabel *lab_fuhumess = LabelInit(ima_fuhu.Right-130, lab_fuhu.Bottom+5,120, 21);
-    lab_fuhumess.text = @"健康肌肤有你我有我";
-    lab_fuhumess.font = Font(12);
+    UILabel *lab_fuhumess = LabelInit(ima_fuhu.Right-100, lab_fuhu.Bottom+5,90, 21);
+    lab_fuhumess.text = @"健康肌肤有你我";
+    lab_fuhumess.font = Font(11);
     lab_fuhumess.textAlignment = NSTextAlignmentRight;
     lab_fuhumess.textColor = [RegularExpressionsMethod ColorWithHexString:@"FF110D"];
     [self addSubview:lab_fuhumess];
     
-    _img_fuhu = ImageViewInit(20, 110, 50, 80);
+    _img_fuhu = ImageViewInit(15, 110, 50, 80);
     _img_fuhu.contentMode = UIViewContentModeScaleAspectFit;
     _img_fuhu.image = [UIImage imageNamed:@"main_newTuiJian3"];
     [self addSubview:_img_fuhu];
@@ -127,12 +127,12 @@
     
     UILabel *lab_meifaMess = LabelInit(ima_meifa.x+10, lab_meifa.Bottom+5,90, 21);
     lab_meifaMess.text = @"愿你与美同行";
-    lab_meifaMess.font = Font(12);
+    lab_meifaMess.font = Font(11);
     lab_meifaMess.textAlignment = NSTextAlignmentLeft;
     lab_meifaMess.textColor = [RegularExpressionsMethod ColorWithHexString:@"0F4DDB"];
     [self addSubview:lab_meifaMess];
     
-    _img_meifa = ImageViewInit(ima_meijia.Right-70,110, 50, 80);
+    _img_meifa = ImageViewInit(ima_meijia.Right-55,110, 50, 80);
     _img_meifa.contentMode = UIViewContentModeScaleAspectFit;
     _img_meifa.image = [UIImage imageNamed:@"main_newTuiJian4"];
     [self addSubview:_img_meifa];

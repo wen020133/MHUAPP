@@ -26,7 +26,7 @@
     self.scrollView.showsVerticalScrollIndicator = NO;
     self.scrollView.pagingEnabled = YES;
 
-    float width = kMSScreenWith/3-20;
+    float width = kMSScreenWith/3-1;
 
     for(int i = 0; i < [self.arr_titles count]; i++)
     {
@@ -37,17 +37,19 @@
         button.titleLabel.textAlignment= NSTextAlignmentCenter;
         button.titleLabel.numberOfLines = 0;
         button.titleLabel.lineBreakMode = NSLineBreakByCharWrapping;
+        [button setTitleColor:kMSCellBackColor forState:UIControlStateNormal];
+
         [button setTitle:[self.arr_titles objectAtIndex:i] forState:UIControlStateNormal];
         button.tag = i;
-        [button setFrame:CGRectMake((width+20)*i+10, 0, width, 50)];
+        [button setFrame:CGRectMake((width+2)*i, 0, width, 50)];
 
         if (i == 0)
         {
-            [button setTitleColor:kMSNavBarBackColor forState:UIControlStateNormal];
+            [button setBackgroundColor:[RegularExpressionsMethod ColorWithHexString:BASEPINK]];
         }
         else
         {
-            [button setTitleColor:kMSLabelTextColor forState:UIControlStateNormal];
+             [button setBackgroundColor:[RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR]];
         }
         [self.scrollView addSubview:button];
     }
@@ -83,7 +85,7 @@
                 UIButton *btn = [array objectAtIndex:i];
                 if (btn.tag == index)
                 {
-                    [btn setTitleColor:kMSNavBarBackColor forState:UIControlStateNormal];
+                     [btn setBackgroundColor:[RegularExpressionsMethod ColorWithHexString:BASEPINK]];
                     //标题居中
                     CGFloat offsetX = btn.center.x - kMSScreenWith * 0.5;
                     if (offsetX < 0) { //最小
@@ -100,7 +102,7 @@
                 }
                 else
                 {
-                    [btn setTitleColor:kMSLabelTextColor forState:UIControlStateNormal];
+                     [btn setBackgroundColor:[RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR]];
                 }
 
             }

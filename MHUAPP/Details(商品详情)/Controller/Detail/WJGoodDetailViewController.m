@@ -18,8 +18,10 @@
 #import "UIViewController+XWTransition.h"
 #import "WJShopCartClassViewController.h"
 
+#import "PST_MenuView.h"
 
-@interface WJGoodDetailViewController ()
+
+@interface WJGoodDetailViewController ()<PST_MenuViewDelegate>
 
 @property (strong, nonatomic) UIScrollView *scrollerView;
 @property (strong, nonatomic) UIView *bgView;
@@ -29,6 +31,11 @@
 @property (weak ,nonatomic) UIView *indicatorView;
 /* 通知 */
 @property (weak ,nonatomic) id dcObserve;
+
+/** 右侧下拉框图片数组 */
+@property(nonatomic,strong)NSArray *imgArr;
+/** 右侧下拉框文字数组 */
+@property(nonatomic,strong)NSArray *titleArr;
 
 @end
 
@@ -326,10 +333,13 @@
     pulishButton.frame = CGRectMake(0, 0, 19, 18);
     saveButton.frame=CGRectMake(0, 0, 16, 19);
 
-    UIBarButtonItem *pulish = [[UIBarButtonItem alloc] initWithCustomView:pulishButton];
-    UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithCustomView:saveButton];
 
-    [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects: pulish, save,nil]];
+    UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithCustomView:saveButton];
+    UIBarButtonItem *pulish = [[UIBarButtonItem alloc] initWithCustomView:pulishButton];
+    [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:save, pulish,nil]];
+
+    self.titleArr = @[@"消息",@"首页",@"足迹",@"购物车"];
+    self.imgArr = @[@"Tab_icon_messsge_normal",@"Tab_icon_Home_normal",@"main_zuji",@"Tab_icon_Cart_normal"];
 }
 
 -(void)goodInfoshare
@@ -338,7 +348,25 @@
 }
 -(void)messageAction
 {
+    PST_MenuView *menuView = [[PST_MenuView alloc] initWithFrame:CGRectMake(kMSScreenWith- 120 - 8, 60, 120, 168) titleArr:self.titleArr imgArr:self.imgArr arrowOffset:104 rowHeight:40 layoutType:0 directionType:0 delegate:self];
+    menuView.lineColor = [[UIColor lightGrayColor]colorWithAlphaComponent:0.15];
+}
 
+-(NSArray *)imgArr{
+    if (!_imgArr) {
+        _imgArr = [[NSArray alloc] init];
+    }
+    return _imgArr;
+}
+-(NSArray *)titleArr{
+    if (!_titleArr) {
+        _titleArr = [[NSArray alloc] init];
+    }
+    return _titleArr;
+}
+
+-(void)didSelectRowAtIndex:(NSInteger)index title:(NSString *)title img:(NSString *)img{
+    NSLog(@"index----%zd,  title---%@, image---%@", index, title, img);
 }
 
 -(void)showleft

@@ -61,7 +61,7 @@
     _lab_pianyihaohuo = LabelInit(width_All/2+10, 5,width_All/2-15, 40);
     _lab_pianyihaohuo.text = @"便宜好货时刻准备着";
     _lab_pianyihaohuo.numberOfLines = 2;
-    _lab_pianyihaohuo.font = Font(14);
+    _lab_pianyihaohuo.font = Font(12);
     _lab_pianyihaohuo.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
     [self addSubview:_lab_pianyihaohuo];
 
@@ -71,7 +71,7 @@
 
     _lab_yujian =LabelInit(5, line2.Bottom+5, width_All/2-5, 20);
     _lab_yujian.text = @"遇见最美的自己";
-    _lab_yujian.font = Font(14);
+    _lab_yujian.font = Font(12);
     _lab_yujian.textAlignment = NSTextAlignmentCenter;
     _lab_yujian.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
     [self addSubview:_lab_yujian];
@@ -89,7 +89,7 @@
 
     _lab_remai =LabelInit(width_All/2+5, 105, width_All/2-15, 20);
     _lab_remai.text = @"热卖卖不停";
-    _lab_remai.font = Font(14);
+    _lab_remai.font = Font(12);
     _lab_remai.textAlignment = NSTextAlignmentCenter;
     _lab_remai.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
     [self addSubview:_lab_remai];
@@ -108,32 +108,32 @@
     _img_shop1.image = [UIImage imageNamed:@"home_snap_img"];
     [self addSubview:_img_shop1];
 
-    _lab_shop1 =LabelInit(_img_shop1.Right+5, 15, width_All-95, 21);
+    _lab_shop1 =LabelInit(_img_shop1.Right+3, 10, width_All-90, 21);
     _lab_shop1.text = @"大功率家用吹风...";
-    _lab_shop1.font = Font(14);
+    _lab_shop1.font = Font(12);
     _lab_shop1.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
     [self addSubview:_lab_shop1];
 
-    _lab_pingtuan1 =LabelInit(_img_shop1.Right+10, _lab_shop1.Bottom+10, width_All-95, 20);
+    _lab_pingtuan1 =LabelInit(_img_shop1.Right+3, _lab_shop1.Bottom+10, width_All-90, 20);
     _lab_pingtuan1.text = @"拼团人数 968人";
-    _lab_pingtuan1.font = Font(13);
+    _lab_pingtuan1.font = Font(9);
     _lab_pingtuan1.textColor = [RegularExpressionsMethod ColorWithHexString:@"707070"];
     [self addSubview:_lab_pingtuan1];
 
-    _img_shop2 = ImageViewInit(width_All+5, 108, 85, 85);
+    _img_shop2 = ImageViewInit(width_All+5, 103, 85, 85);
     _img_shop2.contentMode = UIViewContentModeScaleAspectFit;
     _img_shop2.image = [UIImage imageNamed:@"home_snap_img"];
     [self addSubview:_img_shop2];
 
-    _lab_shop2 =LabelInit(_img_shop1.Right+10, 115, width_All-95, 21);
+    _lab_shop2 =LabelInit(_img_shop1.Right+3, 115, width_All-90, 21);
     _lab_shop2.text = @"雷瓦RIWAZ8卷...";
-    _lab_shop2.font = Font(14);
+    _lab_shop2.font = Font(12);
     _lab_shop2.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
     [self addSubview:_lab_shop2];
 
-    _lab_pingtuan2 =LabelInit(_img_shop1.Right+10, _lab_shop2.Bottom+10, width_All-95, 20);
+    _lab_pingtuan2 =LabelInit(_img_shop1.Right+3, _lab_shop2.Bottom+10, width_All-90, 20);
     _lab_pingtuan2.text = @"拼团人数 968人";
-    _lab_pingtuan2.font = Font(13);
+    _lab_pingtuan2.font = Font(9);
     _lab_pingtuan2.textColor = [RegularExpressionsMethod ColorWithHexString:@"707070"];
     [self addSubview:_lab_pingtuan2];
 

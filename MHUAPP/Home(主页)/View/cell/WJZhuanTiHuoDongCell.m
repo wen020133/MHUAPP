@@ -41,13 +41,13 @@
             }
         UILabel *labmeiribiqiang = LabelInit(y*kMSScreenWith/2+10, 20+(x * self.height/2), kMSScreenWith/2-80, 21);
         labmeiribiqiang.text = [self.arr_data objectAtIndex:countNumber];
-        labmeiribiqiang.font = Font(17);
+        labmeiribiqiang.font = Font(16);
         labmeiribiqiang.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
         [self addSubview:labmeiribiqiang];
 
         UILabel *labmeiri_mess =LabelInit(y*kMSScreenWith/2+10 , labmeiribiqiang.Bottom+10, kMSScreenWith/2-80, 20);
         labmeiri_mess.text = @"活动不止，惊喜不断";
-        labmeiri_mess.font = Font(12);
+        labmeiri_mess.font = Font(10);
         labmeiri_mess.textColor = [RegularExpressionsMethod ColorWithHexString:@"707070"];
         [self addSubview:labmeiri_mess];
 

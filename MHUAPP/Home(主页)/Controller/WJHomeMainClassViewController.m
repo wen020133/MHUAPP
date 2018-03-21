@@ -28,6 +28,8 @@
 #import "WJPeopleTuiJianCell.h"
 #import "WJNewTuiJianCell.h"
 
+#import "HWScanViewController.h"
+
 @interface WJHomeMainClassViewController ()
 
 @property (strong, nonatomic) NSArray <WJGoodsDataModel *>  *headImageArr;
@@ -121,8 +123,13 @@
 {
     WJHomeNavTopView *searchBarVc = [[WJHomeNavTopView alloc] initWithFrame:CGRectMake(0, 0, kMSScreenWith, 64)];
     searchBarVc.leftItemClickBlock = ^{
+        HWScanViewController *vc = [[HWScanViewController alloc] init];
+        self.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+        self.hidesBottomBarWhenPushed = NO;
     };
     searchBarVc.rightItemClickBlock = ^{
+
     };
     searchBarVc.searchButtonClickBlock = ^{
         NSLog(@"点击了搜索");

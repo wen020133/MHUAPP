@@ -49,7 +49,7 @@
     
     UILabel *labmeiribiqiang = LabelInit(10, 5, width_meiri-12, 21);
     labmeiribiqiang.text = @"每日必抢";
-    labmeiribiqiang.font = Font(17);
+    labmeiribiqiang.font = Font(16);
     labmeiribiqiang.textColor = [RegularExpressionsMethod ColorWithHexString:@"EE0000"];
     [self addSubview:labmeiribiqiang];
     
@@ -70,7 +70,7 @@
     
     UILabel *labbaokuan =LabelInit(width_meiri+5, 5, width_baokuan-7, 21);
     labbaokuan.text = @"爆款热卖";
-    labbaokuan.font = Font(17);
+    labbaokuan.font = Font(16);
     labbaokuan.textColor = [RegularExpressionsMethod ColorWithHexString:@"CC66FF"];
     [self addSubview:labbaokuan];
     
@@ -93,13 +93,13 @@
     line3.backgroundColor = [RegularExpressionsMethod ColorWithHexString:@"E6E6E6"];
     [self addSubview:line3];
     
-    UILabel *labchaoliu =LabelInit(kMSScreenWith-width_chaoliu+5, 5, width_chaoliu/2-7, 21);
+    UILabel *labchaoliu =LabelInit(kMSScreenWith-width_chaoliu+2, 5, width_chaoliu/2-2, 21);
     labchaoliu.text = @"潮流精选";
-    labchaoliu.font = Font(17);
+    labchaoliu.font = Font(16);
     labchaoliu.textColor = [RegularExpressionsMethod ColorWithHexString:@"FF5D5B"];
     [self addSubview:labchaoliu];
     
-    UILabel *labchaoliu_mess =LabelInit(kMSScreenWith-width_chaoliu+5, labchaoliu.Bottom, width_chaoliu/2-7, 20);
+    UILabel *labchaoliu_mess =LabelInit(kMSScreenWith-width_chaoliu+2, labchaoliu.Bottom, width_chaoliu/2-7, 20);
     labchaoliu_mess.text = @"随时GO";
     labchaoliu_mess.font = Font(12);
     labchaoliu_mess.textColor = [RegularExpressionsMethod ColorWithHexString:@"707070"];
@@ -110,13 +110,13 @@
     _img_chaoliu.image = [UIImage imageNamed:@"home_trend_img"];
     [self addSubview:_img_chaoliu];
     
-    UILabel *labshishang =LabelInit(kMSScreenWith-width_chaoliu/2+5, 5, width_chaoliu/2-7, 21);
+    UILabel *labshishang =LabelInit(kMSScreenWith-width_chaoliu/2+2, 5, width_chaoliu/2-2, 21);
     labshishang.text = @"时尚大牌";
-    labshishang.font = Font(17);
+    labshishang.font = Font(16);
     labshishang.textColor = [RegularExpressionsMethod ColorWithHexString:@"F51385"];
     [self addSubview:labshishang];
     
-    UILabel *labshishang_mess =LabelInit(kMSScreenWith-width_chaoliu/2+5, labshishang.Bottom, width_chaoliu/2-7, 20);
+    UILabel *labshishang_mess =LabelInit(kMSScreenWith-width_chaoliu/2+2, labshishang.Bottom, width_chaoliu/2-7, 20);
     labshishang_mess.text = @"珍品质";
     labshishang_mess.font = Font(12);
     labshishang_mess.textColor = [RegularExpressionsMethod ColorWithHexString:@"707070"];
@@ -133,7 +133,7 @@
     
     UILabel *labxinpin =LabelInit(width_meiri+5, 110, width_baokuan-7, 21);
     labxinpin.text = @"新品首发";
-    labxinpin.font = Font(17);
+    labxinpin.font = Font(16);
     labxinpin.textColor = [RegularExpressionsMethod ColorWithHexString:@"3399FF"];
     [self addSubview:labxinpin];
     
@@ -148,9 +148,9 @@
     _img_xinpin.image = [UIImage imageNamed:@"home_starting_img"];
     [self addSubview:_img_xinpin];
     
-    UILabel *labhaohuo =LabelInit(kMSScreenWith-width_chaoliu+5, 110, width_chaoliu/2-7, 21);
+    UILabel *labhaohuo =LabelInit(kMSScreenWith-width_chaoliu+5, 110, width_chaoliu/2-2, 21);
     labhaohuo.text = @"好货不断";
-    labhaohuo.font = Font(17);
+    labhaohuo.font = Font(16);
     labhaohuo.textColor = [RegularExpressionsMethod ColorWithHexString:@"FF6600"];
     [self addSubview:labhaohuo];
     
@@ -160,7 +160,7 @@
     labhaohuo_mess.textColor = [RegularExpressionsMethod ColorWithHexString:@"707070"];
     [self addSubview:labhaohuo_mess];
     
-    _img_haohuo = ImageViewInit(kMSScreenWith-width_chaoliu/2+2, 110, width_chaoliu/2-2, 90);
+    _img_haohuo = ImageViewInit(kMSScreenWith-width_chaoliu/2+1, 110, width_chaoliu/2-5, 90);
     _img_haohuo.contentMode = UIViewContentModeScaleAspectFit;
     _img_haohuo.image = [UIImage imageNamed:@"home_constantly_img"];
     [self addSubview:_img_haohuo];

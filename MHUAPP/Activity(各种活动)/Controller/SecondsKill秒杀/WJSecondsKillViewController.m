@@ -78,9 +78,9 @@
 
         NSDictionary *dic =  [self calculateDateWithEndDate:endDate withDay:day withMonth:month];
         NSLog(@"%@",dic);
-        NSString *today = [NSString stringWithFormat:@"%@号\n正在抢购",dic[@"day"]];
-        NSString *tomorrow = [NSString stringWithFormat:@"%@号\n即将开始",dic[@"tomorrow"]];
-        NSString *afterDay = [NSString stringWithFormat:@"%@号\n即将开始",dic[@"afterDay"]];
+        NSString *today = [NSString stringWithFormat:@"%@日9:00\n正在抢购",dic[@"day"]];
+        NSString *tomorrow = [NSString stringWithFormat:@"%@日9:00\n即将开始",dic[@"tomorrow"]];
+        NSString *afterDay = [NSString stringWithFormat:@"%@日9:00\n即将开始",dic[@"afterDay"]];
         self.arr_dateTitle = [NSMutableArray arrayWithObjects:today,tomorrow,afterDay, nil];
     }
     return _arr_dateTitle;
@@ -165,7 +165,7 @@
 {
     if(!_menuScrollView)
     {
-        _menuScrollView = [[WJButtonNewlineScrollView alloc]initWithFrame:CGRectMake(0, 50, kMSScreenWith, 50)];
+        _menuScrollView = [[WJButtonNewlineScrollView alloc]initWithFrame:CGRectMake(0, 70, kMSScreenWith, 50)];
         _menuScrollView.delegate = self;
         _menuScrollView.backgroundColor = [UIColor clearColor];
         _menuScrollView.arr_titles = self.arr_dateTitle;
@@ -176,7 +176,7 @@
 -(WJTimeLabel *)timeView
 {
     if (!_timeView) {
-        _timeView = [[WJTimeLabel alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 50)];
+        _timeView = [[WJTimeLabel alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 70)];
         _timeView.backgroundColor = [UIColor whiteColor];
     }
     return _timeView;

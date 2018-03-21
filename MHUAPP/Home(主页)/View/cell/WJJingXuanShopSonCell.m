@@ -31,7 +31,7 @@
         [self addSubview:_lab_shopName];
 
         _lab_message = [[UILabel alloc]initWithFrame:CGRectMake(10, _img_shopIcon.Bottom+2, self.width-20, 20)];
-        _lab_message.font = PFR13Font;
+        _lab_message.font = PFR12Font;
         _lab_message.text = @"礼遇之选，许你时尚型采";
         _lab_message.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
         _lab_message.textAlignment = NSTextAlignmentLeft;
