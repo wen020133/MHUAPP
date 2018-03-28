@@ -7,11 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <RongIMKit/RongIMKit.h>
+#import "WJMainTabBarViewController.h"
+#import "RCDataManager.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
+@property (nonatomic, strong) WJMainTabBarViewController *tabbarVC;
 
+@property(nonatomic,strong) NSMutableArray *friendsArray;
+@property(nonatomic,strong) NSMutableArray *groupsArray;
+
+
+/// func
++ (AppDelegate* )shareAppDelegate;
 @end
 

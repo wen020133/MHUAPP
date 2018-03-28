@@ -165,9 +165,9 @@
 {
     if(!_menuScrollView)
     {
-        _menuScrollView = [[WJButtonNewlineScrollView alloc]initWithFrame:CGRectMake(0, 70, kMSScreenWith, 50)];
+        _menuScrollView = [[WJButtonNewlineScrollView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 50)];
         _menuScrollView.delegate = self;
-        _menuScrollView.backgroundColor = [UIColor clearColor];
+        _menuScrollView.backgroundColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
         _menuScrollView.arr_titles = self.arr_dateTitle;
         [_menuScrollView initScrollView];
     }
@@ -176,8 +176,8 @@
 -(WJTimeLabel *)timeView
 {
     if (!_timeView) {
-        _timeView = [[WJTimeLabel alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 70)];
-        _timeView.backgroundColor = [UIColor whiteColor];
+        _timeView = [[WJTimeLabel alloc]initWithFrame:CGRectMake(0, 50, kMSScreenWith, 70)];
+        _timeView.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     }
     return _timeView;
 }

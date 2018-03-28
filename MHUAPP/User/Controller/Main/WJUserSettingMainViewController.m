@@ -177,21 +177,21 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    switch (indexPath.row) {
-        case 0:
-            {
 
-            }
-            break;
-        case 1:
-        {
+    if (indexPath.section==0) {
+
+    }
+    else if (indexPath.section==1)
+    {
+        if (indexPath.row==0) {
             AddAddressViewController *AddressVC = [[AddAddressViewController alloc]init];
             self.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:AddressVC animated:YES];
         }
-            break;
-        default:
-            break;
+        else
+        {
+
+        }
     }
 }
 - (void)loginoutState {

@@ -45,11 +45,11 @@
 
         if (i == 0)
         {
-            [button setBackgroundColor:[RegularExpressionsMethod ColorWithHexString:BASEPINK]];
+            [button setTitleColor:kMSViewTitleColor forState:UIControlStateNormal];
         }
         else
         {
-             [button setBackgroundColor:[RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR]];
+            [button setTitleColor:[RegularExpressionsMethod ColorWithHexString:@"#FCB1BA"] forState:UIControlStateNormal];
         }
         [self.scrollView addSubview:button];
     }
@@ -85,7 +85,7 @@
                 UIButton *btn = [array objectAtIndex:i];
                 if (btn.tag == index)
                 {
-                     [btn setBackgroundColor:[RegularExpressionsMethod ColorWithHexString:BASEPINK]];
+                     [btn setTitleColor:kMSViewTitleColor forState:UIControlStateNormal];
                     //标题居中
                     CGFloat offsetX = btn.center.x - kMSScreenWith * 0.5;
                     if (offsetX < 0) { //最小
@@ -102,7 +102,7 @@
                 }
                 else
                 {
-                     [btn setBackgroundColor:[RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR]];
+                     [btn setTitleColor:[RegularExpressionsMethod ColorWithHexString:@"#FCB1BA"] forState:UIControlStateNormal];
                 }
 
             }

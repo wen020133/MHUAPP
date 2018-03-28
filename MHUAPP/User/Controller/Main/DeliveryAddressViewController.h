@@ -13,7 +13,7 @@
 @interface DeliveryAddressViewController : BaseNetworkViewController<UITextFieldDelegate,UIAlertViewDelegate,UITextViewDelegate>
 @property (retain, nonatomic) UITextField *texf_ContactName;
 @property (retain, nonatomic) UITextField *texf_mobile;
-@property (retain, nonatomic) UITextField *text_postalCode;
+//@property (retain, nonatomic) UITextField *text_postalCode;
 @property (retain, nonatomic) UILabel *lab_province;
 
 @property (retain, nonatomic) UITextView *texV_address;
@@ -35,6 +35,6 @@
 @property (retain, nonatomic) NSString *str_district;   //县（区）
 @property (retain, nonatomic) NSString *str_districtId;
 @property (retain, nonatomic) NSString *str_id;
-@property (retain, nonatomic) NSString *str_postCode;
+//@property (retain, nonatomic) NSString *str_postCode;
 
 @end

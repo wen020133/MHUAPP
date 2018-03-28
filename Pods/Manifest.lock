@@ -17,6 +17,9 @@ PODS:
   - Masonry (1.1.0)
   - MJExtension (3.0.13)
   - MJRefresh (3.1.15.1)
+  - RongCloudIM/IMKit (2.8.22):
+    - RongCloudIM/IMLib
+  - RongCloudIM/IMLib (2.8.22)
   - SDCycleScrollView (1.65):
     - SDWebImage (~> 3.7)
   - SDWebImage (3.8.2):
@@ -43,6 +46,8 @@ DEPENDENCIES:
   - Masonry
   - MJExtension
   - MJRefresh
+  - RongCloudIM/IMKit (~> 2.8.3)
+  - RongCloudIM/IMLib (~> 2.8.3)
   - SDCycleScrollView
   - SDWebImage (= 3.8.2)
   - SVProgressHUD
@@ -58,12 +63,13 @@ SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJExtension: 5932755f451458eefa24239358817f8d291240c7
   MJRefresh: 5f8552bc25ca8751c010f621c1098dbdaacbccd6
+  RongCloudIM: 9dc4c5c3e215261f610ed294f8c854a1a1f521ee
   SDCycleScrollView: f72904c77698a7f93a41bcbbc2d78b073bf7326c
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SVProgressHUD: 59b2d3dabacbd051576d21d32293ca7228dc18b0
   UITableView+FDTemplateLayoutCell: 5c949b4a5059c404b442926c0e80f81d10a2d66f
   UMengUShare: fdbbf86353976727af26a66e9a84314ecb59c816
 
-PODFILE CHECKSUM: 069ed59f16cbaf8f9c2fadcf28dbd384c434f0d7
+PODFILE CHECKSUM: 9a1f2adab687d61c6a3d5c0e568349b0035c4794
 
 COCOAPODS: 1.3.1

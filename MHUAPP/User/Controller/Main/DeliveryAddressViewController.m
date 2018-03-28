@@ -33,7 +33,7 @@
     }
     self.scr_content = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight-kMSNaviHight)];
     self.scr_content.backgroundColor = [UIColor clearColor];
-    NSArray *arrtitle = [NSArray arrayWithObjects:@"收货人姓名:", @"手机号:",@"省、市、区:",@"邮编:",nil];
+    NSArray *arrtitle = [NSArray arrayWithObjects:@"收货人:", @"手机号:",@"省、市、区:",nil];
     for (int kkk=0; kkk<arrtitle.count; kkk++) {
        
         UIImageView *image_back = [[UIImageView alloc]initWithFrame:CGRectMake(0, 12+(TextViewBackHight+2)*kkk, kMSScreenWith, TextViewBackHight-2)];
@@ -79,24 +79,24 @@
     [self.scr_content addSubview:self.lab_province];
     
 
-    self.text_postalCode = [[UITextField alloc]initWithFrame:CGRectMake(90, 12+(TextViewBackHight+2)*3, kMSScreenWith-90, TextViewBackHight-2)];
-    self.text_postalCode.font =[UIFont systemFontOfSize:14];
-    self.text_postalCode.delegate =self;
-    self.text_postalCode.keyboardType = UIKeyboardTypePhonePad;
-    self.text_postalCode.text = self.str_postCode;
-    [self.scr_content addSubview:self.text_postalCode];
-    
-    UIImageView *image_back = [[UIImageView alloc]initWithFrame:CGRectMake(0, 12+(TextViewBackHight+2)*4, kMSScreenWith, TextViewBackHight*2-4)];
+//    self.text_postalCode = [[UITextField alloc]initWithFrame:CGRectMake(90, 12+(TextViewBackHight+2)*3, kMSScreenWith-90, TextViewBackHight-2)];
+//    self.text_postalCode.font =[UIFont systemFontOfSize:14];
+//    self.text_postalCode.delegate =self;
+//    self.text_postalCode.keyboardType = UIKeyboardTypePhonePad;
+//    self.text_postalCode.text = self.str_postCode;
+//    [self.scr_content addSubview:self.text_postalCode];
+
+    UIImageView *image_back = [[UIImageView alloc]initWithFrame:CGRectMake(0,12+(TextViewBackHight+2)*3, kMSScreenWith, TextViewBackHight*2-4)];
     image_back.backgroundColor = [UIColor whiteColor];
     [self.scr_content addSubview:image_back];
     
-    UILabel *labeltit = [[UILabel alloc]initWithFrame:CGRectMake(7, 12+(TextViewBackHight+2)*4, 150, TextViewBackHight-2)];
+    UILabel *labeltit = [[UILabel alloc]initWithFrame:CGRectMake(7, 12+(TextViewBackHight+2)*3, 150, TextViewBackHight-2)];
     labeltit.font = [UIFont systemFontOfSize:14];
     labeltit.numberOfLines = 0;
     labeltit.text = @"详细地址:";
     [self.scr_content addSubview:labeltit];
     
-    self.texV_address = [[UITextView alloc]initWithFrame:CGRectMake(90, 16+(TextViewBackHight+2)*4, kMSScreenWith-90, TextViewBackHight*2-4)];
+    self.texV_address = [[UITextView alloc]initWithFrame:CGRectMake(90, 16+(TextViewBackHight+2)*3, kMSScreenWith-90, TextViewBackHight*2-4)];
     self.texV_address.font =[UIFont systemFontOfSize:14];
     self.texV_address.delegate =self;
     self.texV_address.text = self.str_address;
@@ -224,7 +224,7 @@
     [infos setValue:type forKey:@"type"];
     [infos setObject:self.texf_ContactName.text forKey:@"consignee"];
     [infos setObject:self.texf_mobile.text forKey:@"mobile"];
-    [infos setObject:self.text_postalCode.text forKey:@"zipcode"];
+//    [infos setObject:self.text_postalCode.text forKey:@"zipcode"];
     [infos setObject:self.str_provinceId forKey:@"province"];
     [infos setObject:self.str_cityId forKey:@"city"];
     [infos setObject:self.str_districtId forKey:@"district"];
@@ -257,14 +257,14 @@
         self.scr_content.contentOffset = CGPointMake(0, 0);
         [UIView commitAnimations];
     }
-    else  if (textField == self.text_postalCode) {
-        [self.text_postalCode becomeFirstResponder];
-        [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDuration:0.3f];
-        self.scr_content.contentOffset = CGPointMake(0, 0);
-        [UIView commitAnimations];
-    }
-    
+//    else  if (textField == self.text_postalCode) {
+//        [self.text_postalCode becomeFirstResponder];
+//        [UIView beginAnimations:nil context:NULL];
+//        [UIView setAnimationDuration:0.3f];
+//        self.scr_content.contentOffset = CGPointMake(0, 0);
+//        [UIView commitAnimations];
+//    }
+
 }
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
@@ -286,7 +286,7 @@
 {
     [self.texf_ContactName resignFirstResponder];
     [self.texf_mobile resignFirstResponder];
-     [self.text_postalCode resignFirstResponder];
+//     [self.text_postalCode resignFirstResponder];
      self.scr_content.contentSize = CGSizeMake(kMSScreenWith, 52*6+280);
 }
 - (void)didReceiveMemoryWarning {

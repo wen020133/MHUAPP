@@ -25,8 +25,8 @@
     [super viewDidLoad];
     self.delegate = self;
     
-    self.tabBar.translucent = YES;
-    [self.tabBar setBackgroundColor:[RegularExpressionsMethod ColorWithHexString:@"FDFDFD"]];
+    self.tabBar.translucent = NO;
+    [self.tabBar setBackgroundColor:[UIColor whiteColor]];
     [[UITabBarItem appearance]setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                                       [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR], NSForegroundColorAttributeName,
                                                       [UIFont systemFontOfSize:12],

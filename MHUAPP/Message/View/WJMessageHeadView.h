@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WJMessageHeadView : UITableViewHeaderFooterView
+@interface WJMessageHeadView : UIView
+
 /** 主题图片 */
 @property (nonatomic,strong) NSArray *defaultImgArr;
 /** 主题标题 */

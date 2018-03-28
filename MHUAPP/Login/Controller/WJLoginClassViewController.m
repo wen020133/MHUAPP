@@ -210,7 +210,7 @@
                 [dic setValue:ConvertNullString([[self.results objectForKey:@"data"] objectForKey:@"mobile_phone" ]) forKey:@"phone"];
                 NSString *logo_img =ConvertNullString([[self.results objectForKey:@"data"] objectForKey:@"headimg" ]);
                 if (logo_img.length>0) {
-                    [dic setValue: [NSString stringWithFormat:@"%@%@",kMSBaseUserHeadPortURL,  logo_img] forKey:@"user_icon"];
+                    [dic setValue:logo_img forKey:@"user_icon"];
                 }else
                 {
                     [dic setValue:@"null" forKey:@"user_icon"];

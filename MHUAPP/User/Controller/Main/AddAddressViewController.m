@@ -42,9 +42,9 @@
     self.selectedState = NO;
 
     UIButton *buttonAdd = [[UIButton alloc]initWithFrame:CGRectMake(0, kMSScreenHeight-kMSNaviHight-49, kMSScreenWith, 49)];
-    buttonAdd.backgroundColor = kMSButtonBackColor;
+    buttonAdd.backgroundColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
     buttonAdd.titleLabel.textColor = [UIColor whiteColor];
-    [buttonAdd setTitle:@"新建地址" forState:UIControlStateNormal] ;
+    [buttonAdd setTitle:@"新增收货地址" forState:UIControlStateNormal] ;
     [buttonAdd addTarget:self action:@selector(gotodelivreyVC) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:buttonAdd];
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -152,13 +152,11 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.addressItem = self.records[indexPath.row];
-    [cell.btn_edit.layer setBorderWidth:1];
-    [cell.btn_edit.layer setBorderColor:kMSViewBorderColor];
     cell.btn_edit.tag = indexPath.row;
     [cell.btn_edit addTarget:self action:@selector(editAddressBookForCell:) forControlEvents:UIControlEventTouchUpInside];
 
-    [cell.btn_Delete.layer setBorderWidth:1];
-     [cell.btn_Delete.layer setBorderColor:kMSViewBorderColor];
+//    [cell.btn_Delete.layer setBorderWidth:1];
+//     [cell.btn_Delete.layer setBorderColor:kMSViewBorderColor];
     cell.btn_Delete.tag = indexPath.row;
     [cell.btn_Delete addTarget:self action:@selector(deleteCellIndexpathAddress:) forControlEvents:UIControlEventTouchUpInside];
 
@@ -260,7 +258,7 @@
     deliverVC.str_district = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].district];
     deliverVC.str_address = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].address];
     deliverVC.str_id = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].region_id];
-    deliverVC.str_postCode = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].zip_code];
+//    deliverVC.str_postCode = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].zip_code];
     deliverVC.str_mobile = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].mobile];
     deliverVC.str_consignee = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].consignee];
     deliverVC.ADDorChange = NO;

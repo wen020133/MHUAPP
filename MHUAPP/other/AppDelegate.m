@@ -7,8 +7,11 @@
 //
 
 #import "AppDelegate.h"
-#import "WJMainTabBarViewController.h"
+#import "RCUserInfo+Addition.h"
+
 #import <UMSocialCore/UMSocialCore.h>
+
+
 
 @interface AppDelegate ()
 
@@ -20,21 +23,36 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    WJMainTabBarViewController *loginVC = [[WJMainTabBarViewController alloc]init];
-    [self.window setRootViewController:loginVC];
+    self.friendsArray = [[NSMutableArray alloc]init];
+    self.groupsArray = [[NSMutableArray alloc]init];
+    
+    self.tabbarVC  = [[WJMainTabBarViewController alloc]init];
+    [self.window setRootViewController:self.tabbarVC];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     //设置友盟Appkey
     [[UMSocialManager defaultManager] setUmSocialAppkey:UmengAppkey];
 
     //设置微信AppId，设置分享url，
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:kAppIDWeixin appSecret:kAppSecret redirectURL:kRedirectURI];
-
+    //初始化融云相关
+    [self initRongClould];
 
     //设置手机QQ的AppId，指定你的分享url，
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:_TencentAppid_  appSecret:@"9XSVjCRGjtSlYuEn" redirectURL:kRedirectURI];
     
     [self.window makeKeyAndVisible];
     return YES;
+}
+-(void)initRongClould{
+
+    //融云
+    [[RCIM sharedRCIM] initWithAppKey:RONGClOUDAPPKEY];
+    //设置用户信息提供者为 [RCDataManager shareManager]
+    [RCIM sharedRCIM].userInfoDataSource = [RCDataManager shareManager];
+    [RCIM sharedRCIM].enableMessageAttachUserInfo = YES;
+     [[RCDataManager shareManager] loginRongCloudWithUserInfo:[[RCUserInfo alloc]initWithUserId:@"60" name:@"mhu158VRQZ1956" portrait:@"http://shop.snryid.top/data/headimg/201803/0c33aa1a90a73e34e4a114d7323e598a.jpg" QQ:@"" sex:@""] withToken:@"iMRZ4b+d0LD/DeL9ae7v9dzYrJ6cohx7SF4nk3KbFSgHOCG2OoxWLl3Yg93x3cguVdTS6q6hPGNDVA8SwD8R4g=="];
+//    iMRZ4b+d0LD/DeL9ae7v9dzYrJ6cohx7SF4nk3KbFSgHOCG2OoxWLl3Yg93x3cguVdTS6q6hPGNDVA8SwD8R4g==
+    
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
@@ -63,6 +81,16 @@
     return result;
 }
 
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+    NSInteger ToatalunreadMsgCount = (NSInteger)[[RCIMClient sharedRCIMClient] getUnreadCount:@[@(ConversationType_PRIVATE),@(ConversationType_DISCUSSION),@(ConversationType_GROUP),@(ConversationType_CHATROOM)]];
+    [UIApplication sharedApplication].applicationIconBadgeNumber = ToatalunreadMsgCount;
+
+}
+
+- (void)applicationWillEnterForeground:(UIApplication *)application {
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -70,21 +98,14 @@
 }
 
 
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-}
-
-
-- (void)applicationWillEnterForeground:(UIApplication *)application {
-    // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-}
 
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
-
++ (AppDelegate* )shareAppDelegate {
+    return (AppDelegate*)[UIApplication sharedApplication].delegate;
+}
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.

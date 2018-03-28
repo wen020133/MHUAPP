@@ -22,19 +22,15 @@
 #define PFR10Font [UIFont fontWithName:PFR size:10];
 
 
-#define IOS7 [[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0
-
-#define kEVNScreenNavigationBarHeight 44.f
-
 
 #define D_LocalizedCardString(s) [[NSBundle mainBundle] localizedStringForKey:s value:nil table:@"CardToolLanguage"]
 #define D_Main_Appdelegate (AppDelegate *)[UIApplication sharedApplication].delegate
 
 #define kMSVCBackgroundColor    @"F8F8F8"   //APP背景颜色
-#define kGrayBgColor            @"#DFDFDF"  // 图像边缘浅灰色
+#define kGrayBgColor            @"999999"  // 灰色字体
 #define BASEBLACKCOLOR          @"333333"  //Cell title字体黑色
 #define BASEPINK                @"fd233c"  //程序基础红色
-#define BASELITTLEBLACKCOLOR    @"666666"  //最浅的黑色
+#define BASELITTLEBLACKCOLOR    @"666666"  //浅的字黑色
 
 #define SDPhotoBrowserBackgrounColor [UIColor colorWithRed:0 green:0 blue:0 alpha:0.95]               // browser背景颜色
 //R G B 颜色
@@ -62,49 +58,26 @@
 #define kMSStartReplyNotification   @"StartReplyNotification"
 #define kMSStartBackNotification   @"StartBackNotification"
 
-#define iPhone5PrintHeght ([[UIScreen mainScreen] bounds].size.height>500? 30 : 20 )
-#define iPhone5HeghtFrame ([[UIScreen mainScreen] bounds].size.height>500? 0 : 60 )
 #define kMSScreenHeight [UIScreen mainScreen].bounds.size.height
 
 
 #define kMSNaviHight  64
-#define startOriginY ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0 ? 20:0)
 
 #define _TencentAppid_  @"1106528553"
 #define UmengAppkey @"5a40c52cf43e482d4d000032"
 #define kAppIDWeixin         @"wxcd6d759365bd725a"
 #define kAppSecret         @"0a650997bb7a8da403999bf63993a13f"
 #define kRedirectURI    @"https://itunes.apple.com/cn/app/omynail/id1115575145?mt=8"
+#define RONGClOUDAPPKEY    @"3argexb63mdle"
+#define RONGClOUDAPPSecret     @"omGLVnwCHwubOP"
+
 
 #define kMSPULLtableViewCellNumber @"10"
 #define kMSappVersionCode   1
 
-#define kMSTOAFRICAAppKey   @"47baa5a71fbd46dca2c83aa085f8fd51"  //APP key
 
-#define KNoDataText                @"The results not found!"
-#define KFailedtogetthedata                @"Failed to get the data!"
+#define kEVNScreenNavigationBarHeight 44.f
 
-#define KMSOSVersion                @"ios"      //版本
-#define KMSLanguageCode               @"en"     //语言
-
-
-
-#define mStringWithInt(A) [NSString stringWithFormat:@"%zi", A]
-#define mStringWithFloat(A) [NSString stringWithFormat:@"%f", A]
-#define mNSNumberWithString(A)   @([A integerValue])
-#define GetObjectFromDicWithKey(dictonary, key , Class) [[dictonary objectForKey:key] isKindOfClass:[Class class]] ? [dictonary objectForKey:key] : nil
-
-#define mGetString(A) A?A:@""
-
-
-
-#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-#define IS_IPHONE_4_OR_LESS (IS_IPHONE && [[UIScreen mainScreen] bounds].size.height < 568.0)
-#define IS_IPHONE_5 (IS_IPHONE && SCREEN_MAX_LENGTH == 568.0)
-#define IS_IPHONE_6 (IS_IPHONE && SCREEN_MAX_LENGTH == 667.0)
-#define IS_IPHONE_6P (IS_IPHONE && SCREEN_MAX_LENGTH == 736.0)
-#define iPhone6PHeghtFrame ([[UIScreen mainScreen] bounds].size.height==736.0? 60 : 0 )
-#define iPhone5Or6PHeght ([[UIScreen mainScreen] bounds].size.height== 568.0||667.0 ? 30 : 0 )
 
 #define MSDynamicCast(C, o) ({ __typeof__(o) MSDynamicCast__o = (o); [MSDynamicCast__o isKindOfClass:[C class]] ? (C*)MSDynamicCast__o : nil; })
 

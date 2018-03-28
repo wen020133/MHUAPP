@@ -11,22 +11,27 @@
 
 @implementation WJMessageHeadView
 
-- (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier {
-    self = [super initWithReuseIdentifier:reuseIdentifier];
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = kMSCellBackColor;
-        _defaultImgArr = @[@"message_wuliu",@"message_tongzhi",@"message_hudong",@"message_youhui"];
+        self.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];        _defaultImgArr = @[@"message_wuliu",@"message_tongzhi",@"message_hudong",@"message_youhui"];
         _defaultTitleArr = @[@"物流",@"通知",@"互动",@"优惠"];
         [self setupUI];
     }
-
     return self;
 }
+
 - (void)setupUI
 {
 
     CGFloat width = kMSScreenWith/8;
 
+    UIImageView *backV = ImageViewInit(0, 0, kMSScreenWith, 84);
+    backV.backgroundColor = kMSCellBackColor;
+    [self addSubview:backV];
+    
     for (int page = 0; page < _defaultImgArr.count; page ++) {
 
                 UIImageView *iamgeV = [[UIImageView alloc]initWithFrame:CGRectMake(width/2+page*kMSScreenWith/4, 5, width, width)];
