@@ -29,7 +29,7 @@
     if (!_collectionView) {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
         layout.minimumLineSpacing = 1;
-        layout.itemSize = CGSizeMake(self.height * 0.65, self.height * 0.9);
+        layout.itemSize = CGSizeMake(self.height * 0.65, self.height);
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal; //滚动方向
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
         _collectionView.frame = self.bounds;
@@ -57,7 +57,7 @@
 {
     self.backgroundColor = [UIColor whiteColor];
     self.collectionView.backgroundColor = self.backgroundColor;
-//    _countDownItem = [WJXianShiMiaoShaModel mj_objectArrayWithFilename:@"ClasiftyGoods.plist"];
+    _countDownItem = [WJJRPTItem mj_objectArrayWithFilename:@"ClasiftyGoods.plist"];
     [self addSubview:self.collectionView];
 
 }

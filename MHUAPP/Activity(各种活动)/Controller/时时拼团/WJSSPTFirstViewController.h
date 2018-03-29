@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseNetworkViewController.h"
 
-@interface WJSSPTFirstViewController : UIViewController
+
+@interface WJSSPTFirstViewController : BaseNetworkViewController<UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource>
+
+@property (strong, nonatomic) UICollectionView *collectionV;
+
 
 @end

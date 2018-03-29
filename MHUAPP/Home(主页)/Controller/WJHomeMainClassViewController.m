@@ -11,6 +11,8 @@
 #import "WJSecondsKillViewController.h"
 #import "WJSearchViewController.h"
 #import "WJGoodDetailViewController.h"
+#import "WJShiShiPinTuanMainViewController.h"
+
 
 #import "WJGoodsDataModel.h"
 #import "WJHomeScrollAdHeadView.h"
@@ -416,7 +418,14 @@
                 self.hidesBottomBarWhenPushed = NO;
             }
             break;
-
+        case 1001:
+        {
+            self.hidesBottomBarWhenPushed = YES;
+            WJShiShiPinTuanMainViewController *dcVc = [[WJShiShiPinTuanMainViewController alloc] init];
+            [self.navigationController pushViewController:dcVc animated:YES];
+            self.hidesBottomBarWhenPushed = NO;
+        }
+            break;
         default:
             break;
     }

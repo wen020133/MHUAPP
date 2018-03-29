@@ -17,7 +17,7 @@
 
     self = [super initWithFrame:frame];
     if (self) {
-
+        self.secondsCountDown = 3600;
         [self setUpUI];
     }
     return self;
@@ -28,7 +28,7 @@
     self.backgroundColor = [UIColor clearColor];
 
     _img_content  = ImageViewInit(0, 0, kMSScreenWith, 120);
-    _img_content.image = [UIImage imageNamed:@"main_sspt_haowuyiqipin.png"];
+    _img_content.image = [UIImage imageNamed:@"main_sspt_haowuyiqipin.jpg"];
     [self addSubview:_img_content];
 
     _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 120, 80, 44)];
@@ -48,11 +48,10 @@
     _countDownTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDownAction) userInfo:nil repeats:YES];
     //启动倒计时后会每秒钟调用一次方法 countDownAction
 
-    CGFloat offset = 0;
-    CGFloat lableWidth = 15;
+    CGFloat lableWidth = 12;
     CGFloat height = 30;
 
-    self.hourLabel = [[UILabel alloc] initWithFrame:CGRectMake(kMSScreenWith/2-75, 130, 24, 24)];
+    self.hourLabel = [[UILabel alloc] initWithFrame:CGRectMake(_timeLabel.Right+5, 130, 24, 24)];
     self.hourLabel.textAlignment = NSTextAlignmentCenter;
     self.hourLabel.font = [UIFont systemFontOfSize:16];
     self.hourLabel.backgroundColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
@@ -62,13 +61,13 @@
     [self addSubview:self.hourLabel];
 
 
-    UILabel *firstLable = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_hourLabel.frame)+1, 135, lableWidth, height)];
+    UILabel *firstLable = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_hourLabel.frame)+3, 127, lableWidth, height)];
     firstLable.text = @"：";
     firstLable.textAlignment = NSTextAlignmentCenter;
-    firstLable.font = [UIFont systemFontOfSize:15];
+    firstLable.font = [UIFont systemFontOfSize:17];
     [self addSubview:firstLable];
 
-    self.minuteLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(firstLable.frame) + offset, 130, 24, 24)];
+    self.minuteLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(firstLable.frame), 130, 24, 24)];
     self.minuteLabel.textAlignment = NSTextAlignmentCenter;
     self.minuteLabel.font = [UIFont systemFontOfSize:16];
     self.minuteLabel.backgroundColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
@@ -79,13 +78,13 @@
 
 
 
-    UILabel *secondLable = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_minuteLabel.frame), 135, lableWidth, height)];
+    UILabel *secondLable = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_minuteLabel.frame)+3, 127, lableWidth, height)];
     secondLable.text = @"：";
     secondLable.textAlignment = NSTextAlignmentCenter;
-    secondLable.font = [UIFont systemFontOfSize:15];
+    secondLable.font = [UIFont systemFontOfSize:17];
     [self addSubview:secondLable];
 
-    self.secondLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(secondLable.frame) + offset, 130, 24, 24)];
+    self.secondLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(secondLable.frame), 130, 24, 24)];
     self.secondLabel.textAlignment = NSTextAlignmentCenter;
     self.secondLabel.font = [UIFont systemFontOfSize:16];
     self.secondLabel.backgroundColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
@@ -93,14 +92,6 @@
     self.secondLabel.layer.cornerRadius = 3;
     self.secondLabel.layer.masksToBounds = YES;//设置圆角
     [self addSubview:_secondLabel];
-
-
-
-    UILabel *thredLable = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_secondLabel.frame), 135, lableWidth, height)];
-    thredLable.text = @"：";
-    thredLable.textAlignment = NSTextAlignmentCenter;
-    thredLable.font = [UIFont systemFontOfSize:15];
-    [self addSubview:thredLable];
 
 }
 //实现倒计时动作

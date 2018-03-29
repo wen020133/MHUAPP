@@ -1,15 +1,15 @@
 //
-//  WJJinRiBiPinCollectionViewCell.h
+//  WJSSPTTypeCollectionViewCell.h
 //  MHUAPP
 //
-//  Created by jinri on 2018/3/28.
+//  Created by jinri on 2018/3/29.
 //  Copyright © 2018年 wenchengjun. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import "WJJRPTItem.h"
 
-@interface WJJinRiBiPinCollectionViewCell : UICollectionViewCell
+@interface WJSSPTTypeCollectionViewCell : UICollectionViewCell
 
 @property (nonatomic, strong) UILabel *lab_title;
 @property (nonatomic, strong) UILabel *lab_describe;
@@ -19,5 +19,6 @@
 @property (nonatomic, strong) UILabel *lab_count;
 @property (nonatomic, strong) UILabel *oldPriceLabel;
 @property (nonatomic, strong) WJJRPTItem *model;
+
 
 @end
