@@ -12,6 +12,10 @@
 #import "WJSearchViewController.h"
 #import "WJGoodDetailViewController.h"
 #import "WJShiShiPinTuanMainViewController.h"
+#import "WJHuoDongZhuanTiMainViewController.h"
+#import "WJHotSellingViewController.h"
+#import "WJIntegralListViewController.h"
+#import "WJYouZhiXinPinViewController.h"
 
 
 #import "WJGoodsDataModel.h"
@@ -424,6 +428,43 @@
             WJShiShiPinTuanMainViewController *dcVc = [[WJShiShiPinTuanMainViewController alloc] init];
             [self.navigationController pushViewController:dcVc animated:YES];
             self.hidesBottomBarWhenPushed = NO;
+        }
+            break;
+        case 1002:
+        {
+            self.hidesBottomBarWhenPushed = YES;
+            WJHuoDongZhuanTiMainViewController *dcVc = [[WJHuoDongZhuanTiMainViewController alloc] init];
+            [self.navigationController pushViewController:dcVc animated:YES];
+            self.hidesBottomBarWhenPushed = NO;
+        }
+            break;
+        case 1004:
+        {
+            self.hidesBottomBarWhenPushed = YES;
+            WJHotSellingViewController *dcVc = [[WJHotSellingViewController alloc] init];
+            [self.navigationController pushViewController:dcVc animated:YES];
+            self.hidesBottomBarWhenPushed = NO;
+        }
+            break;
+        case 1005:
+        {
+            self.hidesBottomBarWhenPushed = YES;
+            WJYouZhiXinPinViewController *dcVc = [[WJYouZhiXinPinViewController alloc] init];
+            [self.navigationController pushViewController:dcVc animated:YES];
+            self.hidesBottomBarWhenPushed = NO;
+        }
+            break;
+        case 1006:
+        {
+            self.hidesBottomBarWhenPushed = YES;
+            WJIntegralListViewController *dcVc = [[WJIntegralListViewController alloc] init];
+            [self.navigationController pushViewController:dcVc animated:YES];
+            self.hidesBottomBarWhenPushed = NO;
+        }
+            break;
+        case 1007:
+        {
+            self.tabBarController.selectedIndex = 1;
         }
             break;
         default:
