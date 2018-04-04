@@ -14,11 +14,15 @@
 #import "WJZhuanTiHDGridViewCell.h"
 #import "WJZhuanTiHDXinPinCell.h"
 #import "WJZhuanTiHDBenZhouZuiLXCell.h"
-#import "WJZhuanTiHDTypeCollrctionCell.h"
+#import "WJZhuanTiHDGridFootView.h"
+#import "WJHDZTFatherClassViewCell.h"
+
 
 @interface WJHuoDongZhuanTiMainViewController ()
 
 @property (strong, nonatomic) NSArray *arr_HDType;
+
+@property (strong, nonatomic) UIScrollView *scrollerView;
 
 @end
 
@@ -45,11 +49,12 @@
         [_collectionV registerClass:[WJSSPTTypeHeadView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJSSPTTypeHeadView"];
         [_collectionV registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"xinpinqiangxiankan"];
         [_collectionV registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"benzhouzuiliuxing"];
-        [_collectionV registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"huodongType"];
+        [_collectionV registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"zthdType"];
+        [_collectionV registerClass:[WJZhuanTiHDGridFootView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"WJZhuanTiHDGridFootView"];
         [_collectionV registerClass:[WJZhuanTiHDGridViewCell class] forCellWithReuseIdentifier:@"WJZhuanTiHDGridViewCell"];
         [_collectionV registerClass:[WJZhuanTiHDXinPinCell class] forCellWithReuseIdentifier:@"WJZhuanTiHDXinPinCell"];
         [_collectionV registerClass:[WJZhuanTiHDBenZhouZuiLXCell class] forCellWithReuseIdentifier:@"WJZhuanTiHDBenZhouZuiLXCell"];
-        [_collectionV registerClass:[WJZhuanTiHDTypeCollrctionCell class] forCellWithReuseIdentifier:@"WJZhuanTiHDTypeCollrctionCell"];
+        [_collectionV registerClass:[WJHDZTFatherClassViewCell class] forCellWithReuseIdentifier:@"WJHDZTFatherClassViewCell"];
     }
     return _collectionV;
 }
@@ -72,10 +77,11 @@
             common.backgroundColor = kMSCellBackColor;
 
             UILabel *more = LabelInit(kMSScreenWith/2-100, 0, 200, 40);
-            more.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
+            more.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
             more.text = @"一 新品抢先看 一";
+            more.textAlignment = NSTextAlignmentCenter;
             [common addSubview:more];
-            more.font = PFR14Font;
+            more.font = PFR16Font;
 
             reusableview = common;
         }
@@ -85,25 +91,24 @@
             common.backgroundColor = kMSCellBackColor;
 
             UILabel *more = LabelInit(kMSScreenWith/2-100, 0, 200, 40);
-            more.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
+            more.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
             more.text = @"一 本周最流行 一";
+            more.textAlignment = NSTextAlignmentCenter;
             [common addSubview:more];
-            more.font = PFR14Font;
+            more.font = PFR16Font;
 
             reusableview = common;
         }
         else if(indexPath.section == 3)
         {
-            UICollectionReusableView *common = [self.collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"xinpinqiangxiankan" forIndexPath:indexPath];
-            common.backgroundColor = kMSCellBackColor;
-
-            UILabel *more = LabelInit(kMSScreenWith/2-100, 0, 200, 40);
-            more.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
-            more.text = @"一 电吹风机 一";
-            [common addSubview:more];
-            more.font = PFR14Font;
-
+            UICollectionReusableView *common = [self.collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"zthdType" forIndexPath:indexPath];
             reusableview = common;
+        }
+    }
+    if (kind == UICollectionElementKindSectionFooter) {
+        if (indexPath.section == 0) {
+            WJZhuanTiHDGridFootView *footview = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"WJZhuanTiHDGridFootView" forIndexPath:indexPath];
+            reusableview = footview;
         }
     }
     return reusableview;
@@ -113,7 +118,7 @@
 //定义每个Section的四边间距
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(0,0, 8, 0);//分别为上、左、下、右
+    return UIEdgeInsetsMake(2,0, 6, 0);//分别为上、左、下、右
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section;
@@ -131,9 +136,18 @@
     if (section == 0) {
         return CGSizeMake(kMSScreenWith, 120);
     }
-    else
+    else if (section == 1||section == 2)
         return CGSizeMake(kMSScreenWith, 40);  //推荐适合的宽高
+    else
+        return CGSizeZero;
 
+}
+#pragma mark - foot宽高
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
+    if (section == 0) {
+        return CGSizeMake(kMSScreenWith, 50);
+    }
+    return CGSizeZero;
 }
 
 
@@ -143,26 +157,27 @@
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    if (section == 3) {
-        return 4;
-    }
-    else
-    {
-        return 1;
-    }
+
+    return 1;
 
 }
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 3)
+
+     if (indexPath.section == 2)
     {
-        return CGSizeMake(kMSScreenWith/2, 260);
+        return CGSizeMake(kMSScreenWith, 300);
     }
-    else
+    else if (indexPath.section == 0||indexPath.section == 1)
     {
         return CGSizeMake(kMSScreenWith, 200);
     }
+    else if (indexPath.section == 3)
+    {
+        return CGSizeMake(kMSScreenWith, kMSScreenHeight-kMSNaviHight);
+    }
+    return CGSizeZero;
 
 }
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -188,7 +203,7 @@
     }
     else if (indexPath.section == 3)
     {
-        WJZhuanTiHDTypeCollrctionCell *cell = [self.collectionV dequeueReusableCellWithReuseIdentifier:@"WJZhuanTiHDTypeCollrctionCell" forIndexPath:indexPath];
+        WJHDZTFatherClassViewCell *cell = [self.collectionV dequeueReusableCellWithReuseIdentifier:@"WJHDZTFatherClassViewCell" forIndexPath:indexPath];
         gridcell = cell;
     }
     return gridcell;

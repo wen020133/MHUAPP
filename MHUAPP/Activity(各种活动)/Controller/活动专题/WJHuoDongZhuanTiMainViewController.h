@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BaseNetworkViewController.h"
 
-@interface WJHuoDongZhuanTiMainViewController : BaseNetworkViewController<UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource>
+@interface WJHuoDongZhuanTiMainViewController : BaseNetworkViewController<UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource,UIScrollViewDelegate>
 
 @property (strong, nonatomic) UICollectionView *collectionV;
 

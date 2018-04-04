@@ -30,7 +30,7 @@
 
 
     _img_top = ImageViewInit(10, 0, kMSScreenWith-20, 100);
-    _img_top.contentMode = UIViewContentModeScaleAspectFill;
+//    _img_top.contentMode = UIViewContentModeScaleAspectFit;
     _img_top.image = [UIImage imageNamed:@"main_sspt_haowuyiqipin.jpg"];
     [self.contentView addSubview:_img_top];
 
@@ -148,12 +148,12 @@
     labifashion_mess.textColor = [RegularExpressionsMethod ColorWithHexString:@"707070"];
     [self.contentView addSubview:labifashion_mess];
 
-    _img_IFASHION = ImageViewInit(width_meiri/2+5, labbaokuan_mess.Bottom+2, width_meiri/2-16, 50);
+    _img_IFASHION = ImageViewInit(width_meiri/2+5, labifashion_mess.Bottom+2, width_meiri/2-16, 50);
     _img_IFASHION.contentMode = UIViewContentModeScaleAspectFit;
     _img_IFASHION.image = [UIImage imageNamed:@"home_selling_img"];
     [self.contentView addSubview:_img_IFASHION];
 
-    UILabel *labzhuanyemeifa =LabelInit(width_meiri+5, 105, width_baokuan-40, 20);
+    UILabel *labzhuanyemeifa =LabelInit(width_meiri+5, 205, width_baokuan-40, 20);
     labzhuanyemeifa.text = @"专业美发";
     labzhuanyemeifa.font = Font(16);
     labzhuanyemeifa.textColor = [RegularExpressionsMethod ColorWithHexString:@"CF17AA"];

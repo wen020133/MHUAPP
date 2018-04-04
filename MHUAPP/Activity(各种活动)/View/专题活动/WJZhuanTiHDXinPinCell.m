@@ -115,7 +115,7 @@
     _lab_aiguangjie.textColor = [RegularExpressionsMethod ColorWithHexString:@"EF73D1"];
     [self.contentView addSubview:_lab_aiguangjie];
 
-    UILabel *labaiguangjie_mess =LabelInit(10, _lab_aichaoliu.Bottom, width_All-20, 18);
+    UILabel *labaiguangjie_mess =LabelInit(10, _lab_aiguangjie.Bottom, width_All-20, 18);
     labaiguangjie_mess.text = @"优惠GO 满199减50";
     labaiguangjie_mess.font = Font(12);
     labaiguangjie_mess.textColor = [RegularExpressionsMethod ColorWithHexString:@"707070"];
