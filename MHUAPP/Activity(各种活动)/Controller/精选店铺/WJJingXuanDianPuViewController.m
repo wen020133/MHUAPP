@@ -202,6 +202,7 @@
         if(indexPath.section == 0)// 顶部滚动广告
         {
             WJJingxuanDianPuHeadView *head = [self.collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJJingxuanDianPuHeadView" forIndexPath:indexPath];
+            head.model = self.arr_Type[indexPath.row];
             reusableview = head;
         }
     }
@@ -235,7 +236,7 @@
 }
 #pragma mark - head宽高
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-    return (section == 0) ?  CGSizeMake(kMSScreenWith, 120)  : CGSizeZero;
+    return (section == 0) ?  CGSizeMake(kMSScreenWith, 160)  : CGSizeZero;
 }
 
 
