@@ -16,7 +16,7 @@
 #import "WJHotSellingViewController.h"
 #import "WJIntegralListViewController.h"
 #import "WJYouZhiXinPinViewController.h"
-
+#import "WJJingXuanDianPuViewController.h"
 
 #import "WJGoodsDataModel.h"
 #import "WJHomeScrollAdHeadView.h"
@@ -434,6 +434,14 @@
         {
             self.hidesBottomBarWhenPushed = YES;
             WJHuoDongZhuanTiMainViewController *dcVc = [[WJHuoDongZhuanTiMainViewController alloc] init];
+            [self.navigationController pushViewController:dcVc animated:YES];
+            self.hidesBottomBarWhenPushed = NO;
+        }
+            break;
+        case 1003:
+        {
+            self.hidesBottomBarWhenPushed = YES;
+            WJJingXuanDianPuViewController *dcVc = [[WJJingXuanDianPuViewController alloc] init];
             [self.navigationController pushViewController:dcVc animated:YES];
             self.hidesBottomBarWhenPushed = NO;
         }

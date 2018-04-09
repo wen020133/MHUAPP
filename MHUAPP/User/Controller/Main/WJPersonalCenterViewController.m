@@ -18,6 +18,9 @@
 #import "WJOrderMainViewController.h"
 #import "WJCouponsClassViewController.h"
 #import "WJUserCollectionViewController.h"
+#import "WJMyStoreViewController.h"
+
+
 #import <UIImageView+WebCache.h>
 
 
@@ -209,11 +212,30 @@
                 self.hidesBottomBarWhenPushed = NO;
             }
                 break;
+
             default:
                 break;
         }
 
     }
+    else if (indexPath.section ==2)
+        switch (indexPath.row) {
+            case 0:
+                {
+                    
+                }
+                break;
+            case 2:
+            {
+                WJMyStoreViewController *dcVc = [[WJMyStoreViewController alloc] init];
+                self.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:dcVc animated:YES];
+                self.hidesBottomBarWhenPushed = NO;
+            }
+                break;
+            default:
+                break;
+        }
 }
 #pragma mark - item宽高
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
