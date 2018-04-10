@@ -37,6 +37,8 @@
 
 -(void)createContents{
 
+    self.backgroundColor = kMSCellBackColor;
+
     self.headerIconImgView = [UIImageView new];
     self.nameLbl = [UILabel new];
     self.txtContentLbl = [UILabel new];

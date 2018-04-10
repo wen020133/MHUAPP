@@ -12,5 +12,7 @@
 
 /** 筛选点击回调 */
 @property (nonatomic , copy) void(^filtrateClickBlock)(NSInteger selectTag);
+@property (nonatomic , strong) UIImageView *img_up;
+@property (nonatomic , strong) UIImageView *img_down;
 
 @end

@@ -82,12 +82,20 @@
     _img_shop3.contentMode = UIViewContentModeScaleAspectFit;
     _img_shop3.image = [UIImage imageNamed:@"home_snap_img"];
     [self.contentView addSubview:_img_shop3];
-    
+
+    UIImageView *line3 = ImageViewInit(width_All, 140, 1, 100);
+    line3.backgroundColor = [RegularExpressionsMethod ColorWithHexString:@"E6E6E6"];
+    [self.contentView addSubview:line3];
+
     _img_shop4 = ImageViewInit(width_All, 141, width_All, 99);
     _img_shop4.contentMode = UIViewContentModeScaleAspectFit;
     _img_shop4.image = [UIImage imageNamed:@"home_snap_img"];
     [self.contentView addSubview:_img_shop4];
-    
+
+    UIImageView *line4 = ImageViewInit(width_All*2, 140, 1, 100);
+    line4.backgroundColor = [RegularExpressionsMethod ColorWithHexString:@"E6E6E6"];
+    [self.contentView addSubview:line4];
+
     _img_shop5 = ImageViewInit(width_All*2, 141, width_All, 99);
     _img_shop5.contentMode = UIViewContentModeScaleAspectFit;
     _img_shop5.image = [UIImage imageNamed:@"home_snap_img"];

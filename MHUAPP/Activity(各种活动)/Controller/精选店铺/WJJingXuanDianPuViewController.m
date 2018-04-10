@@ -209,6 +209,11 @@
     if (kind == UICollectionElementKindSectionFooter) {
         if (indexPath.section == 0) {
             WJJingXuanDPfootView *footview = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"WJJingXuanDPfootView" forIndexPath:indexPath];
+            footview.Menu_titles = self.arr_Type;
+            [footview setUIScrollView];
+            footview.goToHuoDongClassTypeAction = ^(NSInteger typeID) {
+
+            };
             reusableview = footview;
         }
     }
@@ -239,6 +244,13 @@
     return (section == 0) ?  CGSizeMake(kMSScreenWith, 160)  : CGSizeZero;
 }
 
+#pragma mark - foot宽高
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
+    if (section == 0) {
+        return CGSizeMake(kMSScreenWith, 80);
+    }
+    return CGSizeZero;
+}
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
@@ -264,7 +276,7 @@
     }
     else
     {
-        return CGSizeMake(kMSScreenWith, _cellHeight);
+        return CGSizeMake(kMSScreenWith, 200);
     }
 
 }
