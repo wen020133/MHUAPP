@@ -25,10 +25,29 @@
     [super viewDidLoad];
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     [self initSendReplyWithTitle:@"限时秒杀" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
+    [self getSecondsKillData];
     [self addTimeViewHead];
     // Do any additional setup after loading the view.
 }
+-(void)getSecondsKillData
+{
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSMainGetSeckill]];
+}
+-(void)processData
+{
+    if([[self.results objectForKey:@"code"] integerValue] == 200)
+    {
 
+
+
+    }
+    else
+    {
+
+        //        [self.collectionV.mj_header endRefreshing];
+        //        [self.collectionV.mj_footer endRefreshing];
+    }
+}
 -(NSMutableArray *)arr_dateTitle
 {
     if (_arr_dateTitle.count<1) {

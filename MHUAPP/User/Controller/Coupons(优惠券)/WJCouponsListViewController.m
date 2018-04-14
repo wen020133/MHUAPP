@@ -76,7 +76,7 @@
     [infos setValue:kMSPULLtableViewCellNumber forKey:@"img_sum"];
     [infos setValue:_str_imgTypeId forKey:@"type_id"];
     [infos setValue:[NSString stringWithFormat:@"%ld",_page] forKey:@"img_page"];
-    [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSImageTypeGet] andInfos:infos];
+//    [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSImageTypeGet] andInfos:infos];
 }
 -(void)processData
 {
@@ -145,7 +145,6 @@
 
     return 2;
 }
-
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

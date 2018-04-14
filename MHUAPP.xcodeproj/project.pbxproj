@@ -58,6 +58,9 @@
 		3407234B2005AEA9002E6058 /* PPNumberButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3407234A2005AEA9002E6058 /* PPNumberButton.m */; };
 		3407234E2005B272002E6058 /* DCCollectionHeaderLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 3407234D2005B272002E6058 /* DCCollectionHeaderLayout.m */; };
 		340723542005C6A5002E6058 /* WJFeatureHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 340723532005C6A5002E6058 /* WJFeatureHeaderView.m */; };
+		340BB08A20818E8400B1C1A4 /* WJADThirdItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 340BB08920818E8400B1C1A4 /* WJADThirdItem.m */; };
+		340BB08D2081A72000B1C1A4 /* WJMainWebClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 340BB08C2081A72000B1C1A4 /* WJMainWebClassViewController.m */; };
+		340BB0912081EEB700B1C1A4 /* WJMainZhuanTiHDItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 340BB0902081EEB700B1C1A4 /* WJMainZhuanTiHDItem.m */; };
 		340CED7C1FECAA62001707EA /* WJOrderShangjiaNameModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 340CED7B1FECAA62001707EA /* WJOrderShangjiaNameModel.m */; };
 		340CED7F1FECBA92001707EA /* WJOrderListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 340CED7E1FECBA92001707EA /* WJOrderListCell.m */; };
 		340CED821FECFD61001707EA /* WJOrderListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 340CED811FECFD61001707EA /* WJOrderListItem.m */; };
@@ -194,6 +197,7 @@
 		3428B1FD206B2A6C0005EF72 /* WJJRPTItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3428B1FC206B2A6C0005EF72 /* WJJRPTItem.m */; };
 		3428B200206B7E4D0005EF72 /* WJSSPTMRHHCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3428B1FF206B7E4D0005EF72 /* WJSSPTMRHHCollectionCell.m */; };
 		3428B203206B92080005EF72 /* WJSSPTTypeHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3428B202206B92080005EF72 /* WJSSPTTypeHeadView.m */; };
+		34294B6E20804486005240D6 /* WJFollowClassItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 34294B6D20804486005240D6 /* WJFollowClassItem.m */; };
 		342C82551FFDBE6800F1ECCC /* WJSecondsKillViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 342C82541FFDBE6800F1ECCC /* WJSecondsKillViewController.m */; };
 		342C82611FFDDD2C00F1ECCC /* WJTimeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 342C82601FFDDD2C00F1ECCC /* WJTimeLabel.m */; };
 		342C82661FFE252D00F1ECCC /* WJButtonNewlineScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 342C82651FFE252D00F1ECCC /* WJButtonNewlineScrollView.m */; };
@@ -202,6 +206,8 @@
 		3435D7AC2004512500F2FE46 /* ShopItem.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3435D7AB2004512500F2FE46 /* ShopItem.plist */; };
 		3435D7B02004A28800F2FE46 /* WJFeatureItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3435D7AF2004A28800F2FE46 /* WJFeatureItemCell.m */; };
 		3435D7B32004A63A00F2FE46 /* WJFeatureList.m in Sources */ = {isa = PBXBuildFile; fileRef = 3435D7B22004A63A00F2FE46 /* WJFeatureList.m */; };
+		3435E906207F117000A156F2 /* WJMyFollowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3435E905207F117000A156F2 /* WJMyFollowViewController.m */; };
+		3435E90A207F4A5300A156F2 /* WJMyFollowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3435E909207F4A5300A156F2 /* WJMyFollowTableViewCell.m */; };
 		34387BEB1FF5E92500398913 /* WJUserCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34387BEA1FF5E92500398913 /* WJUserCollectionViewController.m */; };
 		34387BF01FF5F22A00398913 /* WJCollectionTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34387BEE1FF5F22A00398913 /* WJCollectionTabCell.m */; };
 		34387BF41FF5F2D100398913 /* WJCollectionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 34387BF31FF5F2D100398913 /* WJCollectionItem.m */; };
@@ -400,6 +406,12 @@
 		3407234D2005B272002E6058 /* DCCollectionHeaderLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCCollectionHeaderLayout.m; sourceTree = "<group>"; };
 		340723522005C6A5002E6058 /* WJFeatureHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJFeatureHeaderView.h; sourceTree = "<group>"; };
 		340723532005C6A5002E6058 /* WJFeatureHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJFeatureHeaderView.m; sourceTree = "<group>"; };
+		340BB08820818E8400B1C1A4 /* WJADThirdItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJADThirdItem.h; sourceTree = "<group>"; };
+		340BB08920818E8400B1C1A4 /* WJADThirdItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJADThirdItem.m; sourceTree = "<group>"; };
+		340BB08B2081A72000B1C1A4 /* WJMainWebClassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WJMainWebClassViewController.h; sourceTree = "<group>"; };
+		340BB08C2081A72000B1C1A4 /* WJMainWebClassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WJMainWebClassViewController.m; sourceTree = "<group>"; };
+		340BB08F2081EEB700B1C1A4 /* WJMainZhuanTiHDItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJMainZhuanTiHDItem.h; sourceTree = "<group>"; };
+		340BB0902081EEB700B1C1A4 /* WJMainZhuanTiHDItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJMainZhuanTiHDItem.m; sourceTree = "<group>"; };
 		340CED7A1FECAA62001707EA /* WJOrderShangjiaNameModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJOrderShangjiaNameModel.h; sourceTree = "<group>"; };
 		340CED7B1FECAA62001707EA /* WJOrderShangjiaNameModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJOrderShangjiaNameModel.m; sourceTree = "<group>"; };
 		340CED7D1FECBA92001707EA /* WJOrderListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJOrderListCell.h; sourceTree = "<group>"; };
@@ -643,6 +655,8 @@
 		3428B1FF206B7E4D0005EF72 /* WJSSPTMRHHCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJSSPTMRHHCollectionCell.m; sourceTree = "<group>"; };
 		3428B201206B92080005EF72 /* WJSSPTTypeHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJSSPTTypeHeadView.h; sourceTree = "<group>"; };
 		3428B202206B92080005EF72 /* WJSSPTTypeHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJSSPTTypeHeadView.m; sourceTree = "<group>"; };
+		34294B6C20804486005240D6 /* WJFollowClassItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJFollowClassItem.h; sourceTree = "<group>"; };
+		34294B6D20804486005240D6 /* WJFollowClassItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJFollowClassItem.m; sourceTree = "<group>"; };
 		342C82531FFDBE6800F1ECCC /* WJSecondsKillViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJSecondsKillViewController.h; sourceTree = "<group>"; };
 		342C82541FFDBE6800F1ECCC /* WJSecondsKillViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJSecondsKillViewController.m; sourceTree = "<group>"; };
 		342C825F1FFDDD2C00F1ECCC /* WJTimeLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJTimeLabel.h; sourceTree = "<group>"; };
@@ -657,6 +671,10 @@
 		3435D7AF2004A28800F2FE46 /* WJFeatureItemCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJFeatureItemCell.m; sourceTree = "<group>"; };
 		3435D7B12004A63A00F2FE46 /* WJFeatureList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJFeatureList.h; sourceTree = "<group>"; };
 		3435D7B22004A63A00F2FE46 /* WJFeatureList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJFeatureList.m; sourceTree = "<group>"; };
+		3435E904207F117000A156F2 /* WJMyFollowViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJMyFollowViewController.h; sourceTree = "<group>"; };
+		3435E905207F117000A156F2 /* WJMyFollowViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJMyFollowViewController.m; sourceTree = "<group>"; };
+		3435E908207F4A5300A156F2 /* WJMyFollowTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJMyFollowTableViewCell.h; sourceTree = "<group>"; };
+		3435E909207F4A5300A156F2 /* WJMyFollowTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJMyFollowTableViewCell.m; sourceTree = "<group>"; };
 		34387BE91FF5E92500398913 /* WJUserCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJUserCollectionViewController.h; sourceTree = "<group>"; };
 		34387BEA1FF5E92500398913 /* WJUserCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJUserCollectionViewController.m; sourceTree = "<group>"; };
 		34387BED1FF5F22A00398913 /* WJCollectionTabCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJCollectionTabCell.h; sourceTree = "<group>"; };
@@ -1014,6 +1032,8 @@
 				17DF7C0C1FCD045700FBD9DC /* WJHomeMainClassViewController.m */,
 				34E932302060D6C20013A7ED /* HWScanViewController.h */,
 				34E9322F2060D6C20013A7ED /* HWScanViewController.m */,
+				340BB08B2081A72000B1C1A4 /* WJMainWebClassViewController.h */,
+				340BB08C2081A72000B1C1A4 /* WJMainWebClassViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1041,6 +1061,7 @@
 		17DF7BFA1FCD013A00FBD9DC /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				3435E903207EFE3100A156F2 /* MyFollow(关注) */,
 				341320A32074BD83009975AB /* MyStore */,
 				34273C5A1FFC72340075A1B0 /* 商品 */,
 				34387BE81FF5E88700398913 /* MyCollection(店铺) */,
@@ -1098,6 +1119,8 @@
 		17DF7C231FCD382000FBD9DC /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				340BB08E2081EE9100B1C1A4 /* 活动专题 */,
+				340BB08720818E5B00B1C1A4 /* l轮播 */,
 				17DF7C2B1FCD430500FBD9DC /* WJGoodsGridModel.h */,
 				17DF7C2C1FCD430500FBD9DC /* WJGoodsGridModel.m */,
 				171410D61FCD7FA900F500A9 /* WJHeadScrModel.h */,
@@ -1228,6 +1251,24 @@
 			children = (
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		340BB08720818E5B00B1C1A4 /* l轮播 */ = {
+			isa = PBXGroup;
+			children = (
+				340BB08820818E8400B1C1A4 /* WJADThirdItem.h */,
+				340BB08920818E8400B1C1A4 /* WJADThirdItem.m */,
+			);
+			path = "l轮播";
+			sourceTree = "<group>";
+		};
+		340BB08E2081EE9100B1C1A4 /* 活动专题 */ = {
+			isa = PBXGroup;
+			children = (
+				340BB08F2081EEB700B1C1A4 /* WJMainZhuanTiHDItem.h */,
+				340BB0902081EEB700B1C1A4 /* WJMainZhuanTiHDItem.m */,
+			);
+			path = "活动专题";
 			sourceTree = "<group>";
 		};
 		3411F90520411277007BCEF9 /* XWTransition */ = {
@@ -1652,6 +1693,15 @@
 			path = search;
 			sourceTree = "<group>";
 		};
+		34294B6B20804279005240D6 /* 关注 */ = {
+			isa = PBXGroup;
+			children = (
+				34294B6C20804486005240D6 /* WJFollowClassItem.h */,
+				34294B6D20804486005240D6 /* WJFollowClassItem.m */,
+			);
+			path = "关注";
+			sourceTree = "<group>";
+		};
 		34295D30205276680045583F /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1730,6 +1780,24 @@
 				340723532005C6A5002E6058 /* WJFeatureHeaderView.m */,
 			);
 			path = "属性";
+			sourceTree = "<group>";
+		};
+		3435E903207EFE3100A156F2 /* MyFollow(关注) */ = {
+			isa = PBXGroup;
+			children = (
+				3435E904207F117000A156F2 /* WJMyFollowViewController.h */,
+				3435E905207F117000A156F2 /* WJMyFollowViewController.m */,
+			);
+			path = "MyFollow(关注)";
+			sourceTree = "<group>";
+		};
+		3435E907207F44AA00A156F2 /* MyFollow */ = {
+			isa = PBXGroup;
+			children = (
+				3435E908207F4A5300A156F2 /* WJMyFollowTableViewCell.h */,
+				3435E909207F4A5300A156F2 /* WJMyFollowTableViewCell.m */,
+			);
+			path = MyFollow;
 			sourceTree = "<group>";
 		};
 		34387BE81FF5E88700398913 /* MyCollection(店铺) */ = {
@@ -2167,6 +2235,7 @@
 		34F1D3941FD679770080EE3D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				34294B6B20804279005240D6 /* 关注 */,
 				179D82631FD6AA5E00CC4AA2 /* WJFlowItem.h */,
 				179D82641FD6AA5E00CC4AA2 /* WJFlowItem.m */,
 				342CDEEF1FE3610500625F23 /* WJAddressItem.h */,
@@ -2188,6 +2257,7 @@
 		34F1D3951FD6797B0080EE3D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3435E907207F44AA00A156F2 /* MyFollow */,
 				34FB720E2079ADD800585866 /* MyStore */,
 				34387BEC1FF5F13500398913 /* 收藏 */,
 				3498E8801FF33D7F007453DF /* Coupons */,
@@ -2492,6 +2562,7 @@
 				3460D3072008B788000F03EB /* WJGenderChangeViewController.m in Sources */,
 				3411F95220411278007BCEF9 /* XWInteractiveTransition.m in Sources */,
 				17DF7C161FCD04BC00FBD9DC /* WJPersonalCenterViewController.m in Sources */,
+				34294B6E20804486005240D6 /* WJFollowClassItem.m in Sources */,
 				3411F95320411278007BCEF9 /* XWTransitionAnimator.m in Sources */,
 				34EEB60A1FD93E4F00B4BE0A /* RigisterClassViewController.m in Sources */,
 				34804A1F206F762200A94CA9 /* WJIntegralListViewController.m in Sources */,
@@ -2524,6 +2595,7 @@
 				345F936620561DAC0088C234 /* WJMessageTableViewCell.m in Sources */,
 				3407234B2005AEA9002E6058 /* PPNumberButton.m in Sources */,
 				34FAB6F62064E171000C9E3C /* RCDataManager.m in Sources */,
+				3435E90A207F4A5300A156F2 /* WJMyFollowTableViewCell.m in Sources */,
 				3411F96720411278007BCEF9 /* XWFilterAnimator+XWFlash.m in Sources */,
 				34FAB70E2064F458000C9E3C /* PRTween.m in Sources */,
 				3411F96620411278007BCEF9 /* XWFilterAnimator+XWCopyMachine.m in Sources */,
@@ -2595,6 +2667,7 @@
 				3452FA2D1FFF29E8009F60AE /* WJSecondsKissCell.m in Sources */,
 				3456C1BD1FD7DB7D00B5AEB8 /* WJUserSettingMainViewController.m in Sources */,
 				17DF7C271FCD3BAE00FBD9DC /* WJHomeScrollAdHeadView.m in Sources */,
+				340BB0912081EEB700B1C1A4 /* WJMainZhuanTiHDItem.m in Sources */,
 				34F1D3811FD61C770080EE3D /* WJDetailShowTypeCell.m in Sources */,
 				340CED7F1FECBA92001707EA /* WJOrderListCell.m in Sources */,
 				34133C2D1FDA1B8F00C95CA4 /* JXTAlertController.m in Sources */,
@@ -2649,6 +2722,7 @@
 				3411F96820411278007BCEF9 /* XWFilterAnimator+XWMask.m in Sources */,
 				34D6C5442029AA47006C4310 /* JXButton.m in Sources */,
 				3428B1FD206B2A6C0005EF72 /* WJJRPTItem.m in Sources */,
+				340BB08D2081A72000B1C1A4 /* WJMainWebClassViewController.m in Sources */,
 				34804A25206F78EA00A94CA9 /* WJJIFenListCollectionViewCell.m in Sources */,
 				34E223721FD12E4E003C0F34 /* WJListGoodsCell.m in Sources */,
 				340E216120423B8900BA8338 /* WJShiShiPingTuanView.m in Sources */,
@@ -2696,9 +2770,11 @@
 				17DF7C131FCD04A100FBD9DC /* WJMessageClassViewController.m in Sources */,
 				341878D41FD538AE00D3F860 /* WJDetailGoodReferralCell.m in Sources */,
 				3418784D1FD5169300D3F860 /* WJToolsViewController.m in Sources */,
+				340BB08A20818E8400B1C1A4 /* WJADThirdItem.m in Sources */,
 				3456C1981FD787CD00B5AEB8 /* WJUserMainTabelCell.m in Sources */,
 				341878D71FD5452800D3F860 /* WJShowTypeCouponCell.m in Sources */,
 				340574E62042834600729FD8 /* WJZhuanTiHuoDongCell.m in Sources */,
+				3435E906207F117000A156F2 /* WJMyFollowViewController.m in Sources */,
 				34EEB6141FD9415600B4BE0A /* UIButton+CountDown.m in Sources */,
 				3413209920746B3A009975AB /* WJHDZTTypeListViewController.m in Sources */,
 				3411F96B20411278007BCEF9 /* XWFilterAnimator+XWRipple.m in Sources */,

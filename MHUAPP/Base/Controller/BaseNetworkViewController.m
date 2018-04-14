@@ -24,7 +24,7 @@
    
 //    [_client setOnError:@selector(errorHandler:withException:)];
 }
-- (void)requestAPIWithServe:(NSString *)service andInfos:(NSDictionary *)infos   //发送请求时有菊花
+- (void)requestAPIWithServe:(NSString *)service andInfos:(NSDictionary *)infos
 {
     if([[Reachability reachabilityForLocalWiFi] currentReachabilityStatus]!=NotReachable ||[[Reachability reachabilityForInternetConnection] currentReachabilityStatus]!=NotReachable)
     {
@@ -36,7 +36,7 @@
         NSTimeInterval a=[dat timeIntervalSince1970];  //  *1000 是精确到毫秒，不乘就是精确到秒
         NSString *timeString = [NSString stringWithFormat:@"%.0f",a ]; //转为字符型
         
-        [infos setValue:[[NSString stringWithFormat:@"jinri_%@_jinri",[timeString md5]] md5] forKey:@"token"];
+        [infos setValue:[[NSString stringWithFormat:@"mhupro_%@_mhupro",[timeString md5]] md5] forKey:@"token"];
         [infos setValue:timeString forKey:@"time"];
         NSLog(@"parameters====%@",infos);
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -69,6 +69,44 @@
 - (void)processData
 {
     NSLog(@"返回数据====%@",_results);
+}
+- (void)requestGetAPIWithServe:(NSString *)urlString
+{
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/xml",@"text/html", nil];
+
+
+    NSDate* dat = [NSDate dateWithTimeIntervalSinceNow:0];
+    NSTimeInterval a=[dat timeIntervalSince1970];  //  *1000 是精确到毫秒，不乘就是精确到秒
+    NSString *timeString = [NSString stringWithFormat:@"%.0f",a ]; //转为字符型
+
+    NSString *token = [[NSString stringWithFormat:@"mhupro_%@_mhupro",[timeString md5]] md5];
+//    NSMutableDictionary *parameters=[[NSMutableDictionary alloc] init];
+//    [parameters setObject:kMSappVersionCode forKey:@"version"];
+//    [parameters setObject:@"ios" forKey:@"mobileType"];
+    urlString = [NSString stringWithFormat:@"%@?time=%@&token=%@",urlString,timeString,token];
+    NSLog(@"urlString====%@",urlString);
+
+    [manager GET:urlString parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"responseObject====%@",responseObject);
+        [SVProgressHUD dismiss];
+        self.results = responseObject;
+        [self processData];
+
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        // 失败，关闭网络指示器
+        NSLog(@"ada===%@",[error localizedDescription]);
+        NSString *str_error = [error localizedDescription];
+        [SVProgressHUD dismiss];
+        [self requestFailed:str_error];
+
+    }];
+
+
 }
 
 // Connected failed

@@ -29,18 +29,18 @@
     self.scrollView.pagingEnabled = YES;
     NSInteger count = self.Menu_titles.count;
     float width = 0;
-    if (count >= 5||count == 3)
-    {
+//    if (count >= 5||count == 3)
+//    {
         width = kMSScreenWith / count;
-    }
-    else if (count == 4)
-    {
-        width = kMSScreenWith / 4;
-    }
-    else
-    {
-        width = kMSScreenWith /2;
-    }
+//    }
+//    else if (count == 4)
+//    {
+//        width = kMSScreenWith / 4;
+//    }
+//    else
+//    {
+//        width = kMSScreenWith /2;
+//    }
     [self.scrollView setContentSize:CGSizeMake([self.Menu_titles count] * width, self.scrollView.frame.size.height)];
     for(int i = 0; i < [self.Menu_titles count]; i++)
     {

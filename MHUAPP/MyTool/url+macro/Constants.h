@@ -73,7 +73,7 @@
 
 
 #define kMSPULLtableViewCellNumber @"10"
-#define kMSappVersionCode   1
+#define kMSappVersionCode   @"v1"
 
 
 #define kEVNScreenNavigationBarHeight 44.f

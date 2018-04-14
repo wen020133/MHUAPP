@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseNetworkViewController.h"
 #import "WJButtonNewlineScrollView.h"
 
-@interface WJSecondsKillViewController : UIViewController<ButtonNewlineDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface WJSecondsKillViewController : BaseNetworkViewController<ButtonNewlineDelegate,UITableViewDelegate,UITableViewDataSource>
 
 
 @property (strong, nonatomic) WJButtonNewlineScrollView *menuScrollView; //分类ScrollView

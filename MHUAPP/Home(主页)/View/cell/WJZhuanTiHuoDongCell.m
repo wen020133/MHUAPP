@@ -11,7 +11,6 @@
 #import "UIView+UIViewFrame.h"
 
 
-
 @implementation WJZhuanTiHuoDongCell
 
 #pragma mark - Intial
@@ -19,8 +18,6 @@
 
     self = [super initWithFrame:frame];
     if (self) {
-        self.arr_data = [NSArray arrayWithObjects:@"满赠臻礼", @"满赠臻礼",@"满赠臻礼",@"满赠臻礼",nil];
-        [self setUpUIZhuanTi];
     }
     return self;
 }
@@ -40,20 +37,20 @@
                 return;
             }
         UILabel *labmeiribiqiang = LabelInit(y*kMSScreenWith/2+10, 20+(x * self.height/2), kMSScreenWith/2-80, 21);
-        labmeiribiqiang.text = [self.arr_data objectAtIndex:countNumber];
+        labmeiribiqiang.text = self.arr_data [countNumber].title;
         labmeiribiqiang.font = Font(16);
         labmeiribiqiang.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
         [self addSubview:labmeiribiqiang];
 
         UILabel *labmeiri_mess =LabelInit(y*kMSScreenWith/2+10 , labmeiribiqiang.Bottom+10, kMSScreenWith/2-80, 20);
-        labmeiri_mess.text = @"活动不止，惊喜不断";
+        labmeiri_mess.text = self.arr_data [countNumber].intro;
         labmeiri_mess.font = Font(10);
         labmeiri_mess.textColor = [RegularExpressionsMethod ColorWithHexString:@"707070"];
         [self addSubview:labmeiri_mess];
 
         UIImageView *imagcontent = ImageViewInit(labmeiribiqiang.Right+5, 5+(x * self.height/2), 60, 60);
         imagcontent.contentMode = UIViewContentModeScaleAspectFit;
-        imagcontent.image = [UIImage imageNamed:@"home_snap_img"];
+        [imagcontent sd_setImageWithURL:[NSURL URLWithString:self.arr_data [countNumber].topic_img] placeholderImage:[UIImage imageNamed:@"home_snap_img"]];
         [self addSubview:imagcontent];
 
             countNumber ++;

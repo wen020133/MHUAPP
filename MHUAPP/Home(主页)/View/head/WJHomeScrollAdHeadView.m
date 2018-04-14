@@ -10,6 +10,7 @@
 #import <SDCycleScrollView.h>
 #import "UIView+UIViewFrame.h"
 
+
 @interface WJHomeScrollAdHeadView ()<SDCycleScrollViewDelegate>
 
 @property (strong, nonatomic) SDCycleScrollView *cycleScrollView;
@@ -22,7 +23,6 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self setUIInit];
     }
     return self;
 }
@@ -36,11 +36,17 @@
     _cycleScrollView.backgroundColor = [UIColor whiteColor];
     _cycleScrollView.currentPageDotColor = [UIColor redColor];
     _cycleScrollView.pageDotColor = [UIColor lightGrayColor];
+    NSMutableArray *arr = [NSMutableArray array];
+    for (int aa=0; aa<self.imageArr.count; aa++) {
+        [arr addObject:self.imageArr[aa].ad_code];
+    }
+    _cycleScrollView.imageURLStringsGroup = arr;
     [self addSubview:_cycleScrollView];
 }
 #pragma mark - 点击广告跳转
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index {
     NSLog(@"点击了%zd广告图",index);
+    !_goToADAction ? : _goToADAction(index);
 }
 
 #pragma mark - 布局
@@ -48,9 +54,5 @@
 {
     [super layoutSubviews];
 }
--(void)setModel:(WJHeadScrModel *)model
-{
-//     _cycleScrollView.imageURLStringsGroup = @[@"http://gfs4.gomein.net.cn/T1DZAvBQbg1RCvBVdK.jpg",@"http://gfs9.gomein.net.cn/T1CoJvBXV_1RCvBVdK.jpg",@"http://gfs3.gomein.net.cn/T1C.EvBjJ_1RCvBVdK.jpg",@"http://gfs4.gomein.net.cn/T1DZAvBQbg1RCvBVdK.jpg"];
-    _cycleScrollView.localizationImageNamesGroup = @[@"home_banner_img.png",@"home_banner_img.png",@"home_banner_img.png",@"home_banner_img.png",@"home_banner_img.png",@"home_banner_img.png"];
-}
+
 @end
