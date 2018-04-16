@@ -44,6 +44,7 @@
 @property (strong, nonatomic) NSArray <WJGoodsDataModel *>  *headImageArr;
 @property (strong, nonatomic) NSArray <WJADThirdItem *>  *adImageArr;
 @property (strong, nonatomic) NSArray <WJMainZhuanTiHDItem *>  *zhuantiHDImageArr;
+@property (strong, nonatomic) NSArray  *peopleTuiJianArr;
 @end
 
 @implementation WJHomeMainClassViewController
@@ -89,35 +90,37 @@
     dispatch_group_t group = dispatch_group_create();
     dispatch_group_async(group, queue, ^{
         NSLog(@"处理事件A");
-         [self getkMSMainGoods100];
+
+        [self getServiceData:kMSMainGoods100];
 
         dispatch_semaphore_signal(semaphore);
     });
     dispatch_group_async(group, queue, ^{
         NSLog(@"处理事件B");
-        [self getKGetTopicData];
+        [self getServiceData:kMSMainGetTopic];
         dispatch_semaphore_signal(semaphore);
     });
     dispatch_group_async(group, queue, ^{
         NSLog(@"处理事件C");
-      [self getHeadADThird];
+      [self getServiceData:kMSMainGetAdThird];
         dispatch_semaphore_signal(semaphore);
     });
     dispatch_group_async(group, queue, ^{
         NSLog(@"处理事件D");
-        for (int i = 0; i<10; i++) {
-            NSLog(@"打印l %d",i);
-        }
+        [self getServiceData:kMSGetReputation];
         dispatch_semaphore_signal(semaphore);
     });
-
+    dispatch_group_async(group, queue, ^{
+        NSLog(@"处理事件E");
+        [self getServiceData:kMSGetToday];
+        dispatch_semaphore_signal(semaphore);
+    });
     dispatch_group_notify(group, queue, ^{
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        NSLog(@"处理事件E");
-
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_group_notify(group, dispatch_get_main_queue(), ^{
            [self.collectionV reloadData];
         });
@@ -128,35 +131,73 @@
 
     // Do any additional setup after loading the view.
 }
-#pragma mark - getData
--(void)getkMSMainGoods100
+-(void)getServiceData:(NSString *)urlString
 {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/xml",@"text/html", nil];
 
-    NSString *urlString = [NSString stringWithFormat:@"%@/%@/%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSMainGoods100];
+
     NSDate* dat = [NSDate dateWithTimeIntervalSinceNow:0];
     NSTimeInterval a=[dat timeIntervalSince1970];  //  *1000 是精确到毫秒，不乘就是精确到秒
     NSString *timeString = [NSString stringWithFormat:@"%.0f",a ]; //转为字符型
     NSString *token = [[NSString stringWithFormat:@"mhupro_%@_mhupro",[timeString md5]] md5];
-    urlString = [NSString stringWithFormat:@"%@?time=%@&token=%@",urlString,timeString,token];
-    NSLog(@"urlString====%@",urlString);
 
-    [manager GET:urlString parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+     NSString *url = [NSString stringWithFormat:@"%@/%@/%@?time=%@&token=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,urlString,timeString,token];
+    NSLog(@"url====%@",url);
+
+    [manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
 
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"getkMSMainGoods100====%@",responseObject);
-        [SVProgressHUD dismiss];
-        id arr = [responseObject objectForKey:@"data"];
+      NSLog(@"responseObject====%@",responseObject);
+         [SVProgressHUD dismiss];
+        if([[responseObject objectForKey:@"code"] integerValue] == 200)
+        {
+          if ([urlString isEqualToString:kMSMainGoods100]) {
+         id arr = [responseObject objectForKey:@"data"];
         if([arr isKindOfClass:[NSArray class]])
         {
+
             self.headImageArr =   [WJGoodsDataModel mj_objectArrayWithKeyValuesArray:arr];
-            [self.collectionV reloadData];
-
         }
 
+        }
+        if ([urlString isEqualToString:kMSMainGetAdThird]) {
+            id arr = [[[responseObject objectForKey:@"data"] objectAtIndex:0] objectForKey:@"items"];
+            if([arr isKindOfClass:[NSArray class]])
+            {
+                self.adImageArr =   [WJADThirdItem mj_objectArrayWithKeyValuesArray:arr];
+            }
+
+        }
+        if ([urlString isEqualToString:kMSMainGetTopic]) {
+            id arr = [responseObject objectForKey:@"data"];
+            if([arr isKindOfClass:[NSArray class]])
+            {
+                self.zhuantiHDImageArr =   [WJMainZhuanTiHDItem mj_objectArrayWithKeyValuesArray:arr];
+            }
+        }
+        if ([urlString isEqualToString:kMSGetReputation]) {
+            id arr = [responseObject objectForKey:@"data"];
+            if([arr isKindOfClass:[NSArray class]])
+            {
+                self.peopleTuiJianArr =  arr;
+            }
+         }
+            if ([urlString isEqualToString:kMSGetToday]) {
+                id arr = [responseObject objectForKey:@"data"];
+                if([arr isKindOfClass:[NSArray class]])
+                {
+                    self.peopleTuiJianArr =  arr;
+                }
+            }
+        }
+        else
+        {
+            [SVProgressHUD showErrorWithStatus:[responseObject objectForKey:@"msg"]];
+            return;
+        }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         // 失败，关闭网络指示器
         NSLog(@"ada===%@",[error localizedDescription]);
@@ -165,124 +206,6 @@
         [SVProgressHUD showErrorWithStatus:str_error];
         return;
     }];
-
-}
-#pragma mark - getData
--(void)getHeadADThird
-{
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/xml",@"text/html", nil];
-
-    NSString *urlString = [NSString stringWithFormat:@"%@/%@/%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSMainGetAdThird];
-    NSDate* dat = [NSDate dateWithTimeIntervalSinceNow:0];
-    NSTimeInterval a=[dat timeIntervalSince1970];  //  *1000 是精确到毫秒，不乘就是精确到秒
-    NSString *timeString = [NSString stringWithFormat:@"%.0f",a ]; //转为字符型
-    NSString *token = [[NSString stringWithFormat:@"mhupro_%@_mhupro",[timeString md5]] md5];
-    urlString = [NSString stringWithFormat:@"%@?time=%@&token=%@",urlString,timeString,token];
-    NSLog(@"urlString====%@",urlString);
-
-    [manager GET:urlString parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
-
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"responseObject====%@",responseObject);
-        [SVProgressHUD dismiss];
-        id arr = [[[responseObject objectForKey:@"data"] objectAtIndex:0] objectForKey:@"items"];
-        if([arr isKindOfClass:[NSArray class]])
-        {
-            self.adImageArr =   [WJADThirdItem mj_objectArrayWithKeyValuesArray:arr];
-        }
-
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        // 失败，关闭网络指示器
-        NSLog(@"ada===%@",[error localizedDescription]);
-        NSString *str_error = [error localizedDescription];
-        [SVProgressHUD dismiss];
-        [SVProgressHUD showErrorWithStatus:str_error];
-        return;
-    }];
-
-
-}
-#pragma mark - getData
--(void)getKGetTopicData
-{
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/xml",@"text/html", nil];
-
-    NSString *urlString = [NSString stringWithFormat:@"%@/%@/%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSMainGetTopic];
-    NSDate* dat = [NSDate dateWithTimeIntervalSinceNow:0];
-    NSTimeInterval a=[dat timeIntervalSince1970];  //  *1000 是精确到毫秒，不乘就是精确到秒
-    NSString *timeString = [NSString stringWithFormat:@"%.0f",a ]; //转为字符型
-    NSString *token = [[NSString stringWithFormat:@"mhupro_%@_mhupro",[timeString md5]] md5];
-    urlString = [NSString stringWithFormat:@"%@?time=%@&token=%@",urlString,timeString,token];
-    NSLog(@"urlString====%@",urlString);
-
-    [manager GET:urlString parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
-
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"responseObject====%@",responseObject);
-        [SVProgressHUD dismiss];
-        id arr = [responseObject objectForKey:@"data"];
-        if([arr isKindOfClass:[NSArray class]])
-        {
-            self.zhuantiHDImageArr =   [WJMainZhuanTiHDItem mj_objectArrayWithKeyValuesArray:arr];
-        }
-
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        // 失败，关闭网络指示器
-        NSLog(@"ada===%@",[error localizedDescription]);
-        NSString *str_error = [error localizedDescription];
-        [SVProgressHUD dismiss];
-        [SVProgressHUD showErrorWithStatus:str_error];
-        return;
-    }];
-}
--(void)getHotListData
-{
-
-    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-
-    NSDate* dat = [NSDate dateWithTimeIntervalSinceNow:0];
-    NSTimeInterval a=[dat timeIntervalSince1970];  //  *1000 是精确到毫秒，不乘就是精确到秒
-    NSString *timeString = [NSString stringWithFormat:@"%.0f",a ]; //转为字符型
-
-    [infos setValue:[[NSString stringWithFormat:@"mhupro_%@_mhupro",[timeString md5]] md5] forKey:@"token"];
-    [infos setValue:timeString forKey:@"time"];
-    NSLog(@"parameters====%@",infos);
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
-    manager.requestSerializer.timeoutInterval = 20.f;
-    [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/xml",@"text/plain", nil];
-    // post请求
-    [manager POST:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSGetGoodsGetHotList] parameters:infos constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) {
-
-    } progress:^(NSProgress * _Nonnull uploadProgress) {
-
-    } success:^(NSURLSessionDataTask * _Nonnull task, id _Nullable responseObject) { // 成功，关闭网络指示器
-        NSLog(@"responseObject====%@",responseObject);
-        [SVProgressHUD dismiss];
-        id arr = [responseObject objectForKey:@"data"];
-        if([arr isKindOfClass:[NSArray class]])
-        {
-            self.headImageArr =   [WJGoodsDataModel mj_objectArrayWithKeyValuesArray:arr];
-            [self.collectionV reloadData];
-
-        }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) { // 失败，关闭网络指示器
-        NSLog(@"ada===%@",[error localizedDescription]);
-        NSString *str_error = [error localizedDescription];
-        [SVProgressHUD dismiss];
-        [SVProgressHUD showErrorWithStatus:str_error];
-        return;
-
-    }];
-
 }
 
 
@@ -552,6 +475,8 @@
     else if (indexPath.section == 5)
     {
         WJPeopleTuiJianCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJPeopleTuiJianCell" forIndexPath:indexPath];
+        cell.arr_tuijiandata = self.peopleTuiJianArr;
+        [cell setUpUI];
         gridcell = cell;
     }
     else if (indexPath.section == 6)

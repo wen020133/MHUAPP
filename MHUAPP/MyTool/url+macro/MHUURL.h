@@ -55,5 +55,8 @@
 #define   kMSMainGetAdThird             @"getAd/3"                 //首页轮播
 #define   kMSMainGetTopic             @"getTopic"                 //专题
 #define   kMSMainGoods100             @"goods/100"                 //猜你喜欢
+#define   kMSGetReputation            @"getReputation/4"                 //人气推荐
+#define   kMSGetToday            @"getToday"                 //今日秒杀
+
 
 #endif /* MHUURL_h */

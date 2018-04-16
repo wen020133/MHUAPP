@@ -14,4 +14,8 @@
 @property (nonatomic, strong) UIImageView *img_second;
 @property (nonatomic, strong) UIImageView *img_third;
 @property (nonatomic, strong) UIImageView *img_fourth;
+
+@property (nonatomic, strong) NSArray *arr_tuijiandata;
+
+-(void)setUpUI;
 @end

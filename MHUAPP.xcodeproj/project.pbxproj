@@ -213,6 +213,7 @@
 		34387BF41FF5F2D100398913 /* WJCollectionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 34387BF31FF5F2D100398913 /* WJCollectionItem.m */; };
 		343A8F3A1FE7B65C0017171A /* WJOrderMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 343A8F391FE7B65C0017171A /* WJOrderMainViewController.m */; };
 		343F78232071CBD7000BEE81 /* WJZhuanTiHDGridFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 343F78222071CBD7000BEE81 /* WJZhuanTiHDGridFootView.m */; };
+		344731562084768800F89D7F /* home_sentiment01_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 344731552084768800F89D7F /* home_sentiment01_icon.png */; };
 		344A14FB2043BB8100C14CFE /* MuluScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 344A14FA2043BB8100C14CFE /* MuluScrollView.m */; };
 		344A14FE2044027500C14CFE /* HXSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 344A14FC2044027400C14CFE /* HXSearchBar.m */; };
 		344A15002044031500C14CFE /* ic_delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 344A14FF2044031500C14CFE /* ic_delete.png */; };
@@ -685,6 +686,7 @@
 		343A8F391FE7B65C0017171A /* WJOrderMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJOrderMainViewController.m; sourceTree = "<group>"; };
 		343F78212071CBD7000BEE81 /* WJZhuanTiHDGridFootView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJZhuanTiHDGridFootView.h; sourceTree = "<group>"; };
 		343F78222071CBD7000BEE81 /* WJZhuanTiHDGridFootView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJZhuanTiHDGridFootView.m; sourceTree = "<group>"; };
+		344731552084768800F89D7F /* home_sentiment01_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home_sentiment01_icon.png; sourceTree = "<group>"; };
 		344A14F92043BB8000C14CFE /* MuluScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MuluScrollView.h; sourceTree = "<group>"; };
 		344A14FA2043BB8100C14CFE /* MuluScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MuluScrollView.m; sourceTree = "<group>"; };
 		344A14FC2044027400C14CFE /* HXSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXSearchBar.m; sourceTree = "<group>"; };
@@ -1945,6 +1947,7 @@
 			children = (
 				3412D5C62046A234000EB1A0 /* 上线要删除的图片 */,
 				340723462005A003002E6058 /* icon_cha@2x.png */,
+				344731552084768800F89D7F /* home_sentiment01_icon.png */,
 				341EF8E61FFB8208008CF841 /* ic_back.png */,
 				342CDEED1FE35F8400625F23 /* noMore_bg.png */,
 				34287B231FCE4B1100C7AE5F /* img_backTop.png */,
@@ -2443,6 +2446,7 @@
 				3418E7432019738500EDD902 /* cart_cutBtn_nomal@2x.png in Resources */,
 				341944B92058C78F00AAAD61 /* user_backImageHead.png in Resources */,
 				34287B481FCFA5BD00C7AE5F /* ClassiftyGoods01.plist in Resources */,
+				344731562084768800F89D7F /* home_sentiment01_icon.png in Resources */,
 				346564791FCD561100448C40 /* img_btn_jipiao@2x.png in Resources */,
 				3418E7412019738500EDD902 /* cart_addBtn_nomal@2x.png in Resources */,
 				346564751FCD561100448C40 /* img_btn_theme@2x.png in Resources */,
