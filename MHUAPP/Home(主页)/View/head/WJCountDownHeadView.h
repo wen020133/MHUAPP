@@ -9,5 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface WJCountDownHeadView : UICollectionReusableView
+@property (strong, nonatomic) NSString *end_time;
+@property (strong, nonatomic) NSString *start_time;
+
+- (void)setUpUI;
 
 @end

@@ -179,6 +179,7 @@
 		342576BD20205A8A0046D24E /* AddressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 342576B920205A890046D24E /* AddressView.m */; };
 		342576BF20205A8A0046D24E /* AddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 342576BB20205A8A0046D24E /* AddressTableViewCell.m */; };
 		342576C220205D7E0046D24E /* WJChooseLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 342576C120205D7E0046D24E /* WJChooseLocationViewController.m */; };
+		342670562085F1E600EB848F /* WJMainMiaoShaItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 342670552085F1E600EB848F /* WJMainMiaoShaItem.m */; };
 		34273C581FFC61FB0075A1B0 /* zhWallViewConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 34273C541FFC61F90075A1B0 /* zhWallViewConfig.m */; };
 		34273C591FFC61FB0075A1B0 /* zhWallView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34273C561FFC61FA0075A1B0 /* zhWallView.m */; };
 		34273C5D1FFC72DB0075A1B0 /* WJUserCollectionShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34273C5C1FFC72DB0075A1B0 /* WJUserCollectionShopViewController.m */; };
@@ -622,6 +623,8 @@
 		342576BB20205A8A0046D24E /* AddressTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressTableViewCell.m; sourceTree = "<group>"; };
 		342576C020205D7E0046D24E /* WJChooseLocationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJChooseLocationViewController.h; sourceTree = "<group>"; };
 		342576C120205D7E0046D24E /* WJChooseLocationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJChooseLocationViewController.m; sourceTree = "<group>"; };
+		342670542085F1E600EB848F /* WJMainMiaoShaItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJMainMiaoShaItem.h; sourceTree = "<group>"; };
+		342670552085F1E600EB848F /* WJMainMiaoShaItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJMainMiaoShaItem.m; sourceTree = "<group>"; };
 		34273C541FFC61F90075A1B0 /* zhWallViewConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = zhWallViewConfig.m; sourceTree = "<group>"; };
 		34273C551FFC61FA0075A1B0 /* zhWallView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zhWallView.h; sourceTree = "<group>"; };
 		34273C561FFC61FA0075A1B0 /* zhWallView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = zhWallView.m; sourceTree = "<group>"; };
@@ -1121,6 +1124,7 @@
 		17DF7C231FCD382000FBD9DC /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				342670532085ED2400EB848F /* 秒杀 */,
 				340BB08E2081EE9100B1C1A4 /* 活动专题 */,
 				340BB08720818E5B00B1C1A4 /* l轮播 */,
 				17DF7C2B1FCD430500FBD9DC /* WJGoodsGridModel.h */,
@@ -1129,8 +1133,6 @@
 				171410D71FCD7FA900F500A9 /* WJHeadScrModel.m */,
 				34287B281FCE9E8400C7AE5F /* WJGoodsDataModel.h */,
 				34287B291FCE9E8400C7AE5F /* WJGoodsDataModel.m */,
-				3412D5B820464CB2000EB1A0 /* WJXianShiMiaoShaModel.h */,
-				3412D5B920464CB2000EB1A0 /* WJXianShiMiaoShaModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1579,6 +1581,17 @@
 				3498E8851FF34B4B007453DF /* WJCouponsListViewController.m */,
 			);
 			path = "Coupons(优惠券)";
+			sourceTree = "<group>";
+		};
+		342670532085ED2400EB848F /* 秒杀 */ = {
+			isa = PBXGroup;
+			children = (
+				3412D5B820464CB2000EB1A0 /* WJXianShiMiaoShaModel.h */,
+				3412D5B920464CB2000EB1A0 /* WJXianShiMiaoShaModel.m */,
+				342670542085F1E600EB848F /* WJMainMiaoShaItem.h */,
+				342670552085F1E600EB848F /* WJMainMiaoShaItem.m */,
+			);
+			path = "秒杀";
 			sourceTree = "<group>";
 		};
 		34273C5A1FFC72340075A1B0 /* 商品 */ = {
@@ -2724,6 +2737,7 @@
 				34273C581FFC61FB0075A1B0 /* zhWallViewConfig.m in Sources */,
 				3435D7B32004A63A00F2FE46 /* WJFeatureList.m in Sources */,
 				3411F96820411278007BCEF9 /* XWFilterAnimator+XWMask.m in Sources */,
+				342670562085F1E600EB848F /* WJMainMiaoShaItem.m in Sources */,
 				34D6C5442029AA47006C4310 /* JXButton.m in Sources */,
 				3428B1FD206B2A6C0005EF72 /* WJJRPTItem.m in Sources */,
 				340BB08D2081A72000B1C1A4 /* WJMainWebClassViewController.m in Sources */,

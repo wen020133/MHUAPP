@@ -45,6 +45,7 @@
 @property (strong, nonatomic) NSArray <WJADThirdItem *>  *adImageArr;
 @property (strong, nonatomic) NSArray <WJMainZhuanTiHDItem *>  *zhuantiHDImageArr;
 @property (strong, nonatomic) NSArray  *peopleTuiJianArr;
+@property (strong, nonatomic) NSArray  *miaoshaArr;
 @end
 
 @implementation WJHomeMainClassViewController
@@ -150,7 +151,7 @@
     [manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
 
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-      NSLog(@"responseObject====%@",responseObject);
+      NSLog(@"%@====%@",urlString,responseObject);
          [SVProgressHUD dismiss];
         if([[responseObject objectForKey:@"code"] integerValue] == 200)
         {
@@ -189,7 +190,7 @@
                 id arr = [responseObject objectForKey:@"data"];
                 if([arr isKindOfClass:[NSArray class]])
                 {
-                    self.peopleTuiJianArr =  arr;
+                    self.miaoshaArr = arr;
                 }
             }
         }
@@ -299,6 +300,8 @@
        else if(indexPath.section == 1)// 秒杀
         {
             WJCountDownHeadView *head = [self.collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJCountDownHeadView" forIndexPath:indexPath];
+            head.end_time = [[self.miaoshaArr objectAtIndex:0] objectForKey:@"end_time"];
+            [head setUpUI];
             reusableview = head;
         }
        else if(indexPath.section == 2)// 时时拼团
@@ -450,6 +453,8 @@
     else if (indexPath.section == 1)
     {
             WJGoodsCountDownCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJGoodsCountDownCell" forIndexPath:indexPath];
+        cell.arr_miaosha = self.miaoshaArr;
+        [cell setUpUI];
             gridcell = cell;
         
     }

@@ -7,7 +7,7 @@
 //
 
 #import "WJGoodsCountDownCell.h"
-#import "WJXianShiMiaoShaModel.h"
+
 #import "UIView+UIViewFrame.h"
 #import "WJXianShiMiaoShaCell.h"
 
@@ -15,8 +15,7 @@
 
 /* collection */
 @property (strong , nonatomic)UICollectionView *collectionView;
-/* 推荐商品数据 */
-@property (strong , nonatomic)NSMutableArray<WJXianShiMiaoShaModel *> *countDownItem;
+
 
 @end
 
@@ -47,7 +46,6 @@
     self = [super initWithFrame:frame];
     if (self) {
 
-        [self setUpUI];
     }
     return self;
 }
@@ -56,7 +54,6 @@
 {
     self.backgroundColor = [UIColor whiteColor];
     self.collectionView.backgroundColor = self.backgroundColor;
-     _countDownItem = [WJXianShiMiaoShaModel mj_objectArrayWithFilename:@"ClasiftyGoods.plist"];
     [self addSubview:self.collectionView];
 
 }
