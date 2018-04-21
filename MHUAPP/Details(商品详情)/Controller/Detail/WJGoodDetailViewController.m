@@ -51,7 +51,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [self setUpChildViewControllers];
+
 
     [self setUpInit];
 
@@ -59,38 +59,107 @@
 
     [self setUpTopButtonView];
 
-//    [self getGoodsInfoItem];
+    [self getGoodsInfoItem];
 
-    [self addChildViewController];
+
 
     [self setUpBottomButton];
 
     [self acceptanceNote];
+
+    
     // Do any additional setup after loading the view.
 }
 
 -(void)getGoodsInfoItem
 {
-
-    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-     [infos setObject:self.goods_id forKey:@"goods_id"];
-    [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSGetGoodsShopInfo] andInfos:infos];
+    _serverType = 1;
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetDetailed,self.goods_id]];
 }
--(void)processData
+
+-(void)setkMSGetComment
+{
+    _serverType = 2;
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@/%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetComment,self.goods_id]];
+}
+-(void)getProcessData
 {
     if([[self.results objectForKey:@"code"] integerValue] == 200)
     {
 
+        switch (_serverType) {
+            case KGetshopInfoClass:
+            {
+                self.goodTitle = self.results[@"data"][@"goods_name"];
+                self.goodPrice = self.results[@"data"][@"shop_price"];
+                self.oldPrice = self.results[@"data"][@"market_price"];
+                self.goodImageView = self.results[@"data"][@"goods_thumb"];
+                self.shufflingArray = self.results[@"data"][@"gallery"];
+                self.attributeArray = self.results[@"data"][@"attr"];
+                self.supplier_id = self.results[@"data"][@"supplier_id"];
+                [self setkMSGetComment];
+                 [self setUpChildViewControllers];
+                 [self addChildViewController];
+
+            }
+                break;
+            case KGetComment:
+            {
+
+//                NSMutableArray *arr_Datalist = [NSMutableArray array];
+//                arr_Datalist = [self.results objectForKey:@"data"];
+//                NSMutableArray *entities = [NSMutableArray array];
+//                if (![arr_Datalist isEqual:[NSNull null]]) {
+//                    for (NSDictionary *dict in arr_Datalist) {
+//                        SLCommentsModel *model = [[SLCommentsModel alloc]init];
+//                        model.imageArr = ConvertNullString([dict objectForKey:@"img_path"]);
+//                        NSLog(@"图片arr===%@",model.imageArr);
+//
+//                        model.headerIconStr = ConvertNullString([[dict objectForKey:@"info"] objectForKey:@"user_img"]);
+//                        model.headerIconStr =[model.headerIconStr stringByReplacingOccurrencesOfString:@".." withString:@""];
+//                        model.str_userName = [[dict objectForKey:@"info"] objectForKey:@"user_name"];
+//                        model.str_huifu = [NSString stringWithFormat:@"%@",[[dict objectForKey:@"info"] objectForKey:@"comm_sum"]];
+//                        model.str_dianzan = [NSString stringWithFormat:@"%@",[[dict objectForKey:@"info"] objectForKey:@"tribune_lick"]];
+//                        model.txtContentStr = [[dict objectForKey:@"info"] objectForKey:@"tribune_content"];
+//                        model.titleStr = [[dict objectForKey:@"info"] objectForKey:@"tribune_title"];
+//                        model.str_uid = [NSString stringWithFormat:@"%@",[[dict objectForKey:@"info"] objectForKey:@"user_id"]];
+//                        model.dateStr = [[dict objectForKey:@"info"] objectForKey:@"add_time"];
+//                        model.str_pid = ConvertNullString([[dict objectForKey:@"info"] objectForKey:@"tribune_id"]);
+//                        [entities addObject:model];
+//                    }
+//
+//                    if(_page_Information==1)
+//                    {
+//                        self.arr_infomationresults= entities;
+//                    }else
+//                    {
+//                        [self.arr_infomationresults addObjectsFromArray:entities];
+//                    }
+//                    [self.collectionV reloadData];
+//                    if (self.page_Information*10 >= self.totleCount_Information)
+//                    {
+//                        [self.collectionV.mj_footer endRefreshingWithNoMoreData];
+//                    }
+//                    else{
+//                        self.collectionV.mj_footer.hidden = NO;
+//                    }
+//                }
+            }
+                break;
+            default:
+                break;
+        }
 
 
     }
     else
     {
-
-        //        [self.collectionV.mj_header endRefreshing];
-        //        [self.collectionV.mj_footer endRefreshing];
+//        [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"msg"]];
+        return;
     }
 }
+
+
 
 #pragma mark - LazyLoad
 - (UIScrollView *)scrollerView
@@ -221,21 +290,24 @@
     goodBaseVc.goodPrice = _goodPrice;
     goodBaseVc.goodSubtitle = _goodSubtitle;
     goodBaseVc.shufflingArray = _shufflingArray;
+    goodBaseVc.oldPrice = _oldPrice;
+    goodBaseVc.attributeArray = _attributeArray;
     goodBaseVc.goodImageView = _goodImageView;
+    goodBaseVc.goods_id = _goods_id;
+    goodBaseVc.supplier_id = _supplier_id;
     goodBaseVc.changeTitleBlock = ^(BOOL isChange) {
         if (isChange) {
-            weakSelf.title = @"图文详情";
-            weakSelf.navigationItem.titleView = nil;
+            UIButton *firstButton = _bgView.subviews[1];
+            [self topBottonClick:firstButton];
             weakSelf.scrollerView.contentSize = CGSizeMake(weakSelf.view.width, 0);
         }else{
-            weakSelf.title = nil;
-            weakSelf.navigationItem.titleView = weakSelf.bgView;
             weakSelf.scrollerView.contentSize = CGSizeMake(weakSelf.view.width * weakSelf.childViewControllers.count, 0);
         }
     };
     [self addChildViewController:goodBaseVc];
 
     WJGoodParticularsViewController *goodParticularsVc = [[WJGoodParticularsViewController alloc] init];
+    goodParticularsVc.goods_id = self.goods_id;
     [self addChildViewController:goodParticularsVc];
 
     WJGoodCommentViewController *goodCommentVc = [[WJGoodCommentViewController alloc] init];
@@ -389,13 +461,12 @@
         WJShopCartClassViewController *shopCarVc = [[WJShopCartClassViewController alloc] init];
         shopCarVc.isHasTabBarController = NO;
         shopCarVc.isHasNavitationController = YES;
+        self.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:shopCarVc animated:YES];
-    }else  if (button.tag == 2 || button.tag == 3) { //父控制器的加入购物车和立即购买
-        //异步发通知
-        dispatch_sync(dispatch_get_global_queue(0, 0), ^{
+    }else  if (button.tag == 2 || button.tag == 3) {
+
             NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%zd",button.tag],@"buttonTag", nil];
             [[NSNotificationCenter defaultCenter]postNotificationName:@"ClikAddOrBuy" object:nil userInfo:dict];
-        });
     }
 }
 #pragma mark - 转场动画弹出控制器

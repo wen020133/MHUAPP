@@ -69,8 +69,12 @@
 #pragma mark - Setter Getter Methods
 - (void)setShufflingArray:(NSArray *)shufflingArray
 {
-    _shufflingArray = shufflingArray;
-    _cycleScrollView.imageURLStringsGroup = shufflingArray;
+    NSMutableArray *arr = [NSMutableArray array];
+    for (NSDictionary *dic in shufflingArray) {
+        [arr addObject:dic[@"img_original"]];
+    }
+    _shufflingArray = arr;
+    _cycleScrollView.imageURLStringsGroup = arr;
     _lab_count.text = [NSString stringWithFormat:@"1/%ld",_shufflingArray.count];
 }
 

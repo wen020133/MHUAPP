@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WJFeatureList.h"
+#import "WJFeatureItem.h"
 
 @interface WJFeatureItemCell : UICollectionViewCell
 
 /* 内容数据 */
-@property (nonatomic , copy) WJFeatureList *content;
+@property (nonatomic , copy) WJFeatureItem *content;
 
 /* 属性 */
 @property (strong , nonatomic)UILabel *attLabel;

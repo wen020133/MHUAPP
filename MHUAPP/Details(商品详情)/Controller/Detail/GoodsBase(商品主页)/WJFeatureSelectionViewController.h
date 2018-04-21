@@ -17,4 +17,7 @@
 /* 上一次选择的数量 */
 @property (assign , nonatomic)NSString *lastNum;
 
+/* 数据 */
+@property (strong , nonatomic) NSArray  *arr_fuckData;
+
 @end

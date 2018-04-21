@@ -35,7 +35,6 @@
 #import "WJJingXuanShopCell.h"
 #import "WJPeopleTuiJianCell.h"
 #import "WJNewTuiJianCell.h"
-
 #import "HWScanViewController.h"
 #import "WJMainWebClassViewController.h"
 
@@ -46,6 +45,7 @@
 @property (strong, nonatomic) NSArray <WJMainZhuanTiHDItem *>  *zhuantiHDImageArr;
 @property (strong, nonatomic) NSArray  *peopleTuiJianArr;
 @property (strong, nonatomic) NSArray  *miaoshaArr;
+@property (strong, nonatomic) NSArray  *jingXuanShopArr;
 @end
 
 @implementation WJHomeMainClassViewController
@@ -91,9 +91,7 @@
     dispatch_group_t group = dispatch_group_create();
     dispatch_group_async(group, queue, ^{
         NSLog(@"处理事件A");
-
         [self getServiceData:kMSMainGoods100];
-
         dispatch_semaphore_signal(semaphore);
     });
     dispatch_group_async(group, queue, ^{
@@ -116,7 +114,13 @@
         [self getServiceData:kMSGetToday];
         dispatch_semaphore_signal(semaphore);
     });
+    dispatch_group_async(group, queue, ^{
+        NSLog(@"处理事件F");
+        [self getServiceData:@"getStreet?id=10000"];
+        dispatch_semaphore_signal(semaphore);
+    });
     dispatch_group_notify(group, queue, ^{
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
@@ -144,8 +148,14 @@
     NSTimeInterval a=[dat timeIntervalSince1970];  //  *1000 是精确到毫秒，不乘就是精确到秒
     NSString *timeString = [NSString stringWithFormat:@"%.0f",a ]; //转为字符型
     NSString *token = [[NSString stringWithFormat:@"mhupro_%@_mhupro",[timeString md5]] md5];
-
-     NSString *url = [NSString stringWithFormat:@"%@/%@/%@?time=%@&token=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,urlString,timeString,token];
+    NSString *url  = @"";
+    if ([urlString containsString:@"id="]) {
+        url  = [NSString stringWithFormat:@"%@/%@/%@&time=%@&token=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,urlString,timeString,token];
+    }
+    else
+    {
+        url  = [NSString stringWithFormat:@"%@/%@/%@?time=%@&token=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,urlString,timeString,token];
+    }
     NSLog(@"url====%@",url);
 
     [manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
@@ -159,8 +169,8 @@
          id arr = [responseObject objectForKey:@"data"];
         if([arr isKindOfClass:[NSArray class]])
         {
-
             self.headImageArr =   [WJGoodsDataModel mj_objectArrayWithKeyValuesArray:arr];
+            [self.collectionV reloadData];
         }
 
         }
@@ -191,6 +201,13 @@
                 if([arr isKindOfClass:[NSArray class]])
                 {
                     self.miaoshaArr = arr;
+                }
+            }
+            if ([urlString isEqualToString:@"getStreet?id=10000"]) {
+                id arr = [responseObject objectForKey:@"data"];
+                if([arr isKindOfClass:[NSArray class]])
+                {
+                    self.jingXuanShopArr = arr;
                 }
             }
         }
@@ -453,7 +470,7 @@
     else if (indexPath.section == 1)
     {
             WJGoodsCountDownCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJGoodsCountDownCell" forIndexPath:indexPath];
-        cell.arr_miaosha = self.miaoshaArr;
+        cell.countDownItem = [[self.miaoshaArr objectAtIndex:0] objectForKey:@"activity"];
         [cell setUpUI];
             gridcell = cell;
         
@@ -475,6 +492,8 @@
     else if (indexPath.section == 4)
     {
         WJJingXuanShopCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJJingXuanShopCell" forIndexPath:indexPath];
+        cell.arr_data = self.jingXuanShopArr;
+        [cell setUpUI];
         gridcell = cell;
     }
     else if (indexPath.section == 5)
@@ -502,11 +521,11 @@
     if (indexPath.section == 7) {
         WJGoodDetailViewController *dcVc = [[WJGoodDetailViewController alloc] init];
         dcVc.goods_id = self.headImageArr[indexPath.row].goods_id;
-        dcVc.goodTitle = self.headImageArr[indexPath.row].goods_name;
-        dcVc.goodPrice = self.headImageArr[indexPath.row].shop_price;
-        dcVc.goodSubtitle = self.headImageArr[indexPath.row].goods_title;
-        dcVc.shufflingArray = self.headImageArr[indexPath.row].images;
-        dcVc.goodImageView = self.headImageArr[indexPath.row].goods_thumb;
+//        dcVc.goodTitle = self.headImageArr[indexPath.row].goods_name;
+//        dcVc.goodPrice = self.headImageArr[indexPath.row].shop_price;
+//        dcVc.goodSubtitle = self.headImageArr[indexPath.row].goods_title;
+//        dcVc.shufflingArray = self.headImageArr[indexPath.row].images;
+//        dcVc.goodImageView = self.headImageArr[indexPath.row].goods_thumb;
         self.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:dcVc animated:YES];
          self.hidesBottomBarWhenPushed = NO;

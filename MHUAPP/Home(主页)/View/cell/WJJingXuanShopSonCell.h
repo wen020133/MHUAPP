@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WJJingXuanShopItem.h"
 
 @interface WJJingXuanShopSonCell : UICollectionViewCell
 
@@ -17,4 +18,6 @@
 @property (nonatomic, strong) UIImageView *img_first;
 @property (nonatomic, strong) UIImageView *img_second;
 @property (nonatomic, strong) UIImageView *img_third;
+
+@property (nonatomic, strong) WJJingXuanShopItem *model;
 @end

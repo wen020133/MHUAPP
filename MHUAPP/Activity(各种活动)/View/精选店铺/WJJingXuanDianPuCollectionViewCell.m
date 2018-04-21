@@ -117,7 +117,7 @@
     //设置属性
     _model = model;
 
-    [self.headerIconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",kMSBaseLargeCollectionPortURL,model.headerIconStr]] placeholderImage:[UIImage imageNamed:@"ic_no_heardPic.png"]];
+    [self.headerIconImgView sd_setImageWithURL:[NSURL URLWithString:model.headerIconStr] placeholderImage:[UIImage imageNamed:@"ic_no_heardPic.png"]];
     self.nameLbl.text = model.titleStr;
     self.txtContentLbl.text = model.txtContentStr;
 

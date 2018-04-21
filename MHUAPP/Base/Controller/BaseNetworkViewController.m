@@ -44,7 +44,7 @@
         manager.requestSerializer.timeoutInterval = 20.f;
         [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
         [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/xml",@"text/plain", nil];
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/xml",@"text/html", nil];
         // post请求
         [manager POST:service parameters:infos constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) {
             
@@ -86,7 +86,15 @@
 //    NSMutableDictionary *parameters=[[NSMutableDictionary alloc] init];
 //    [parameters setObject:kMSappVersionCode forKey:@"version"];
 //    [parameters setObject:@"ios" forKey:@"mobileType"];
-    urlString = [NSString stringWithFormat:@"%@?time=%@&token=%@",urlString,timeString,token];
+    if ([urlString containsString:@"id="]) {
+      urlString  = [NSString stringWithFormat:@"%@&time=%@&token=%@",urlString,timeString,token];
+    }
+    else
+    {
+        urlString = [NSString stringWithFormat:@"%@?time=%@&token=%@",urlString,timeString,token];
+
+    }
+
     NSLog(@"urlString====%@",urlString);
 
     [manager GET:urlString parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
@@ -95,7 +103,7 @@
         NSLog(@"responseObject====%@",responseObject);
         [SVProgressHUD dismiss];
         self.results = responseObject;
-        [self processData];
+        [self getProcessData];
 
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         // 失败，关闭网络指示器
@@ -108,7 +116,10 @@
 
 
 }
-
+- (void)getProcessData
+{
+    NSLog(@"返回数据====%@",_results);
+}
 // Connected failed
 - (void)requestFailed:(NSString *)error
 {

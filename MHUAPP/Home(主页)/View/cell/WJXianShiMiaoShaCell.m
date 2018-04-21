@@ -24,19 +24,19 @@
         _img_content.contentMode = UIViewContentModeScaleAspectFit;
         [_grayView addSubview:_img_content];
 
-        _title = [[UILabel alloc]initWithFrame:CGRectMake(10, _grayView.height-71, _grayView.width-20, 21)];
-        _title.font = PFR14Font;
-        _title.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
-        _title.textAlignment = NSTextAlignmentLeft;
-        [_grayView addSubview:_title];
+        _lab_title = [[UILabel alloc]initWithFrame:CGRectMake(10, _grayView.height-71, _grayView.width-20, 21)];
+        _lab_title.font = PFR14Font;
+        _lab_title.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
+        _lab_title.textAlignment = NSTextAlignmentLeft;
+        [_grayView addSubview:_lab_title];
 
-        _lab_price = [[UILabel alloc]initWithFrame:CGRectMake(10, _title.Bottom+2, self.width-45, 23)];
+        _lab_price = [[UILabel alloc]initWithFrame:CGRectMake(10, _lab_title.Bottom+2, self.width-45, 23)];
         _lab_price.font = PFR15Font;
         _lab_price.textColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
         _lab_price.textAlignment = NSTextAlignmentLeft;
         [_grayView addSubview:_lab_price];
 
-        _oldPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.width-65, _title.Bottom+2, 60, 23)];
+        _oldPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.width-65, _lab_title.Bottom+2, 60, 23)];
         _oldPriceLabel.font = PFR11Font;
         _oldPriceLabel.textAlignment = NSTextAlignmentRight;
         _oldPriceLabel.textColor = [UIColor darkGrayColor];
@@ -53,28 +53,4 @@
 }
 
 
--(void)setModel:(WJXianShiMiaoShaModel *)model
-{
-    if (model!=_model) {
-        _model = model;
-    }
-    NSString *urlStr = [NSString stringWithFormat:@"%@",_model.image_url] ;
-    [_img_content sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"] completed:nil];
-    _title.text = _model.main_title;
-//    NSString *price = [NSString stringWithFormat:@"￥%@",_model.price];
-//    CGFloat width = [RegularExpressionsMethod widthOfString:price font:Font(15) height:20];
-//    _lab_price.frame = CGRectMake(10, _title.Bottom+5, width, 20);
-    _lab_price.text = [NSString stringWithFormat:@"￥%@",_model.price];
-
-    NSString *oldprice = [NSString stringWithFormat:@"￥%@",_model.price];
-    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:oldprice
-                                                                                attributes:@{NSStrikethroughStyleAttributeName : @(NSUnderlineStyleSingle)}];
-    _oldPriceLabel.attributedText = attrStr;
-
-//    NSString *saleCount = [NSString stringWithFormat:@"%@人已付款",_model.sales];
-//    CGFloat saleWidth = [RegularExpressionsMethod widthOfString:saleCount font:Font(12) height:15];
-//    _lab_count.frame = CGRectMake(10+width+5, _title.Bottom+10, saleWidth, 15);
-    _lab_count.text = [NSString stringWithFormat:@"%@人已付款",_model.sales];
-
-}
 @end

@@ -14,10 +14,20 @@
 @property (strong , nonatomic)UILabel *goodTitleLabel;
 /* 商品价格 */
 @property (strong , nonatomic)UILabel *goodPriceLabel;
-/* 商品小标题 */
-@property (strong , nonatomic)UILabel *goodSubtitleLabel;
+@property (strong , nonatomic)UILabel *market_priceLabel;
 
+@property (strong , nonatomic)UILabel *lab_soldNum;
+@property (strong , nonatomic)UILabel *lab_address;
 /* 优惠按钮 */
 @property (strong , nonatomic)UIButton *preferentialButton;
+
+/* 商品标题 */
+@property (strong , nonatomic)NSString *goodTitle;
+/* 店铺价格 */
+@property (strong , nonatomic)NSString *goodPrice;
+/* 原价格 */
+@property (strong , nonatomic)NSString *oldPrice;
+
+- (void)assignmentAllLabel;
 
 @end

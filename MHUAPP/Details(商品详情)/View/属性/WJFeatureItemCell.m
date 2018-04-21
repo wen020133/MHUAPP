@@ -43,10 +43,10 @@
 
 #pragma mark - Setter Getter Methods
 
-- (void)setContent:(WJFeatureList *)content
+- (void)setContent:(WJFeatureItem *)content
 {
     _content = content;
-    _attLabel.text = content.infoname;
+    _attLabel.text = content.attr_value;
 
     if (content.isSelect) {
         _attLabel.textColor = [UIColor redColor];

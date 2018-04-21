@@ -57,6 +57,11 @@
 #define   kMSMainGoods100             @"goods/100"                 //猜你喜欢
 #define   kMSGetReputation            @"getReputation/4"                 //人气推荐
 #define   kMSGetToday            @"getToday"                 //今日秒杀
+//#define   kMSMainGetStreet            @"getStreet"                 //店铺街
+#define   kMSGetComment            @"getComment"                 //今日秒杀
+#define   kMSGetDetailed           @"getDetailed"                 //商品详情页面
 
+#define   kMSPostCart          @"/v1/postCart"                 //向购物车添加数据
+#define   kMSGetGoodsDesc          @"getGoodsDesc"                 //商品的详细描述
 
 #endif /* MHUURL_h */

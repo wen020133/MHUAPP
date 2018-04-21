@@ -218,6 +218,9 @@
 		344A14FB2043BB8100C14CFE /* MuluScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 344A14FA2043BB8100C14CFE /* MuluScrollView.m */; };
 		344A14FE2044027500C14CFE /* HXSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 344A14FC2044027400C14CFE /* HXSearchBar.m */; };
 		344A15002044031500C14CFE /* ic_delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 344A14FF2044031500C14CFE /* ic_delete.png */; };
+		344E91C620882538005501BE /* WJJingXuanShopItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 344E91C520882538005501BE /* WJJingXuanShopItem.m */; };
+		344E91C9208876E7005501BE /* WJDetailPartCommentHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 344E91C8208876E7005501BE /* WJDetailPartCommentHeadView.m */; };
+		344E91D42088870E005501BE /* WJDetailPartCommentItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 344E91D32088870E005501BE /* WJDetailPartCommentItem.m */; };
 		344EDDA02069E39600E283DA /* WJShiShiPinTuanMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 344EDD9F2069E39600E283DA /* WJShiShiPinTuanMainViewController.m */; };
 		344EDDA32069F86F00E283DA /* WJSSPTFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 344EDDA22069F86F00E283DA /* WJSSPTFirstViewController.m */; };
 		344EDDA62069F91A00E283DA /* WJSSPTTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 344EDDA52069F91A00E283DA /* WJSSPTTypeViewController.m */; };
@@ -290,6 +293,7 @@
 		34F1D3911FD62BCD0080EE3D /* DCLIRLButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F1D38F1FD62BCD0080EE3D /* DCLIRLButton.m */; };
 		34F1D3931FD64B240080EE3D /* ClasiftyGoods.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34F1D3921FD64B230080EE3D /* ClasiftyGoods.plist */; };
 		34F1D3981FD687340080EE3D /* user_set.png in Resources */ = {isa = PBXBuildFile; fileRef = 34F1D3971FD687340080EE3D /* user_set.png */; };
+		34F1F577208B0B5900351637 /* WJGoodParticularsListWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F1F576208B0B5900351637 /* WJGoodParticularsListWebController.m */; };
 		34FAB6EF2064DB88000C9E3C /* Default-375w-812h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 34FAB6EA2064DB87000C9E3C /* Default-375w-812h@3x.png */; };
 		34FAB6F02064DB88000C9E3C /* Default-375w-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 34FAB6EB2064DB87000C9E3C /* Default-375w-667h@2x.png */; };
 		34FAB6F12064DB88000C9E3C /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 34FAB6EC2064DB87000C9E3C /* Default-568h@2x.png */; };
@@ -695,6 +699,12 @@
 		344A14FC2044027400C14CFE /* HXSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXSearchBar.m; sourceTree = "<group>"; };
 		344A14FD2044027500C14CFE /* HXSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXSearchBar.h; sourceTree = "<group>"; };
 		344A14FF2044031500C14CFE /* ic_delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_delete.png; sourceTree = "<group>"; };
+		344E91C420882538005501BE /* WJJingXuanShopItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJJingXuanShopItem.h; sourceTree = "<group>"; };
+		344E91C520882538005501BE /* WJJingXuanShopItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJJingXuanShopItem.m; sourceTree = "<group>"; };
+		344E91C7208876E7005501BE /* WJDetailPartCommentHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJDetailPartCommentHeadView.h; sourceTree = "<group>"; };
+		344E91C8208876E7005501BE /* WJDetailPartCommentHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJDetailPartCommentHeadView.m; sourceTree = "<group>"; };
+		344E91D22088870E005501BE /* WJDetailPartCommentItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJDetailPartCommentItem.h; sourceTree = "<group>"; };
+		344E91D32088870E005501BE /* WJDetailPartCommentItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJDetailPartCommentItem.m; sourceTree = "<group>"; };
 		344EDD9E2069E39600E283DA /* WJShiShiPinTuanMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJShiShiPinTuanMainViewController.h; sourceTree = "<group>"; };
 		344EDD9F2069E39600E283DA /* WJShiShiPinTuanMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJShiShiPinTuanMainViewController.m; sourceTree = "<group>"; };
 		344EDDA12069F86F00E283DA /* WJSSPTFirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJSSPTFirstViewController.h; sourceTree = "<group>"; };
@@ -817,6 +827,8 @@
 		34F1D3901FD62BCD0080EE3D /* DCLIRLButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCLIRLButton.h; sourceTree = "<group>"; };
 		34F1D3921FD64B230080EE3D /* ClasiftyGoods.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ClasiftyGoods.plist; sourceTree = "<group>"; };
 		34F1D3971FD687340080EE3D /* user_set.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user_set.png; sourceTree = "<group>"; };
+		34F1F575208B0B5900351637 /* WJGoodParticularsListWebController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJGoodParticularsListWebController.h; sourceTree = "<group>"; };
+		34F1F576208B0B5900351637 /* WJGoodParticularsListWebController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJGoodParticularsListWebController.m; sourceTree = "<group>"; };
 		34FAB6EA2064DB87000C9E3C /* Default-375w-812h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-375w-812h@3x.png"; sourceTree = "<group>"; };
 		34FAB6EB2064DB87000C9E3C /* Default-375w-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-375w-667h@2x.png"; sourceTree = "<group>"; };
 		34FAB6EC2064DB87000C9E3C /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -1124,6 +1136,7 @@
 		17DF7C231FCD382000FBD9DC /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				344E91C32088250A005501BE /* 精选店铺 */,
 				342670532085ED2400EB848F /* 秒杀 */,
 				340BB08E2081EE9100B1C1A4 /* 活动专题 */,
 				340BB08720818E5B00B1C1A4 /* l轮播 */,
@@ -1684,6 +1697,8 @@
 				341039BE2006F50C00895309 /* WJFeatureItem.m */,
 				341039BB2006F4D300895309 /* WJFeatureTitleItem.h */,
 				341039BA2006F4D300895309 /* WJFeatureTitleItem.m */,
+				344E91D22088870E005501BE /* WJDetailPartCommentItem.h */,
+				344E91D32088870E005501BE /* WJDetailPartCommentItem.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1846,6 +1861,15 @@
 				34E3D2441FE89DFE005C7B2B /* WJOderListClassViewController.m */,
 			);
 			path = "Order(订单)";
+			sourceTree = "<group>";
+		};
+		344E91C32088250A005501BE /* 精选店铺 */ = {
+			isa = PBXGroup;
+			children = (
+				344E91C420882538005501BE /* WJJingXuanShopItem.h */,
+				344E91C520882538005501BE /* WJJingXuanShopItem.m */,
+			);
+			path = "精选店铺";
 			sourceTree = "<group>";
 		};
 		344EDD9B2069D99E00E283DA /* 时时拼团 */ = {
@@ -2154,6 +2178,8 @@
 			children = (
 				341878301FD4F10500D3F860 /* WJGoodParticularsViewController.h */,
 				341878311FD4F10500D3F860 /* WJGoodParticularsViewController.m */,
+				34F1F575208B0B5900351637 /* WJGoodParticularsListWebController.h */,
+				34F1F576208B0B5900351637 /* WJGoodParticularsListWebController.m */,
 			);
 			path = "GoodsParticulars(商品详情)";
 			sourceTree = "<group>";
@@ -2240,6 +2266,8 @@
 		34F1D3851FD629200080EE3D /* 评论cell */ = {
 			isa = PBXGroup;
 			children = (
+				344E91C7208876E7005501BE /* WJDetailPartCommentHeadView.h */,
+				344E91C8208876E7005501BE /* WJDetailPartCommentHeadView.m */,
 				34F1D3861FD629480080EE3D /* WJDetailPartCommentCell.h */,
 				34F1D3871FD629480080EE3D /* WJDetailPartCommentCell.m */,
 				34F1D38C1FD62B8D0080EE3D /* WJDetailOverFooterView.h */,
@@ -2606,6 +2634,7 @@
 				34287B361FCF968400C7AE5F /* WJClassGoodsItem.m in Sources */,
 				34FAB6FC2064F402000C9E3C /* RCCustomCell.m in Sources */,
 				3412D5C320469CE1000EB1A0 /* DCZuoWenRightButton.m in Sources */,
+				344E91C620882538005501BE /* WJJingXuanShopItem.m in Sources */,
 				3428B1FA206B25AE0005EF72 /* WJJRBPCollectionCell.m in Sources */,
 				3456C1AF1FD79F1D00B5AEB8 /* WJUserHeadAndOrderView.m in Sources */,
 				17DF7C0D1FCD045700FBD9DC /* WJHomeMainClassViewController.m in Sources */,
@@ -2646,6 +2675,7 @@
 				341FBF4A207B659E00A3F8B1 /* WJJingXuanDPTuiJianCell.m in Sources */,
 				17DF7BFD1FCD01A600FBD9DC /* WJMainTabBarViewController.m in Sources */,
 				3498E8891FF34E2B007453DF /* WJCouponsListCell.m in Sources */,
+				344E91C9208876E7005501BE /* WJDetailPartCommentHeadView.m in Sources */,
 				34287B2A1FCE9E8400C7AE5F /* WJGoodsDataModel.m in Sources */,
 				17DF7C1A1FCD069500FBD9DC /* RegularExpressionsMethod.m in Sources */,
 				3411F95720411278007BCEF9 /* SDBrowserImageView.m in Sources */,
@@ -2670,6 +2700,7 @@
 				3498E88C1FF39D3F007453DF /* WJCouponsItem.m in Sources */,
 				341FBF47207B5D5700A3F8B1 /* WJJingXuanDPfootView.m in Sources */,
 				34804A0C206F3E3B00A94CA9 /* WJHotSellCollectionViewCell.m in Sources */,
+				344E91D42088870E005501BE /* WJDetailPartCommentItem.m in Sources */,
 				341E47A4202161B80048B9FA /* AddressCell.m in Sources */,
 				340574EC20429B3B00729FD8 /* WJJingXuanShopSonCell.m in Sources */,
 				342576BD20205A8A0046D24E /* AddressView.m in Sources */,
@@ -2746,6 +2777,7 @@
 				340E216120423B8900BA8338 /* WJShiShiPingTuanView.m in Sources */,
 				3435D7B02004A28800F2FE46 /* WJFeatureItemCell.m in Sources */,
 				342C82661FFE252D00F1ECCC /* WJButtonNewlineScrollView.m in Sources */,
+				34F1F577208B0B5900351637 /* WJGoodParticularsListWebController.m in Sources */,
 				34387BF41FF5F2D100398913 /* WJCollectionItem.m in Sources */,
 				3418782F1FD4F0DA00D3F860 /* WJGoodBaseViewController.m in Sources */,
 				3411F96A20411278007BCEF9 /* XWFilterAnimator+XWPageCurl.m in Sources */,

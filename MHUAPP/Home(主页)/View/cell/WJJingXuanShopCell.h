@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+
 @interface WJJingXuanShopCell : UICollectionViewCell
 
+@property (nonatomic, strong) NSArray *arr_data;
+- (void)setUpUI;
 @end

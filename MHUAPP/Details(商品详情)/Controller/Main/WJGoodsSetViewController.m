@@ -158,11 +158,11 @@ static CGFloat _lastContentOffset;
     NSLog(@"点击了商品第%zd",indexPath.row);
     WJGoodDetailViewController *dcVc = [[WJGoodDetailViewController alloc] init];
     dcVc.goods_id = _setItem[indexPath.row].stock;
-    dcVc.goodTitle = _setItem[indexPath.row].main_title;
-    dcVc.goodPrice = _setItem[indexPath.row].price;
-    dcVc.goodSubtitle = _setItem[indexPath.row].goods_title;
-    dcVc.shufflingArray = _setItem[indexPath.row].images;
-    dcVc.goodImageView = _setItem[indexPath.row].image_url;
+//    dcVc.goodTitle = _setItem[indexPath.row].main_title;
+//    dcVc.goodPrice = _setItem[indexPath.row].price;
+//    dcVc.goodSubtitle = _setItem[indexPath.row].goods_title;
+//    dcVc.shufflingArray = _setItem[indexPath.row].images;
+//    dcVc.goodImageView = _setItem[indexPath.row].image_url;
     self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:dcVc animated:YES];
 }

@@ -11,9 +11,9 @@
 @interface WJFeatureList : NSObject
 
 /** 类型名 */
-@property (nonatomic, copy) NSString *infoname;
+@property (nonatomic, copy) NSString *attr_value;
 /** 额外价格 */
-@property (nonatomic, copy) NSString *plusprice;
+@property (nonatomic, copy) NSString *attr_price;
 
 /** 是否点击 */
 @property (nonatomic,assign)BOOL isSelect;

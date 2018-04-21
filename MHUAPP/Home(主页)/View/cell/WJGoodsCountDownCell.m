@@ -7,7 +7,7 @@
 //
 
 #import "WJGoodsCountDownCell.h"
-
+#import <UIImageView+WebCache.h>
 #import "UIView+UIViewFrame.h"
 #import "WJXianShiMiaoShaCell.h"
 
@@ -54,6 +54,7 @@
 {
     self.backgroundColor = [UIColor whiteColor];
     self.collectionView.backgroundColor = self.backgroundColor;
+    
     [self addSubview:self.collectionView];
 
 }
@@ -75,7 +76,20 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     WJXianShiMiaoShaCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJXianShiMiaoShaCell" forIndexPath:indexPath];
-    cell.model = _countDownItem[indexPath.row];
+    NSString *urlStr = [NSString stringWithFormat:@"%@",_countDownItem[indexPath.row][@"goods"][@"goods_thumb"]];
+    [cell.img_content sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"] completed:nil];
+    cell.lab_title.text = _countDownItem[indexPath.row][@"goods"] [@"goods_name"];
+    cell.lab_price.text = [NSString stringWithFormat:@"￥%@",_countDownItem[indexPath.row][@"goods_price"]];
+
+    NSString *oldprice = _countDownItem[indexPath.row][@"goods"] [@"shop_price"];
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:oldprice
+                                                                                attributes:@{NSStrikethroughStyleAttributeName : @(NSUnderlineStyleSingle)}];
+    cell.oldPriceLabel.attributedText = attrStr;
+
+    NSString *kill_num = _countDownItem[indexPath.row][@"kill_num"];
+    NSString *goods_num = _countDownItem[indexPath.row][@"goods_num"];
+    NSInteger num = [goods_num integerValue] - [kill_num integerValue];
+    cell.lab_count.text = [NSString stringWithFormat:@"%ld人已付款",num];
     return cell;
 }
 

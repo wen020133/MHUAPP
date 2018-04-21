@@ -17,4 +17,10 @@
 /* 数组 */
 @property (strong , nonatomic) NSArray<WJFeatureList *> *list;
 
+/** 类型名 */
+@property (nonatomic, copy) NSString *attr_value;
+/** 额外价格 */
+@property (nonatomic, copy) NSString *attr_price;
+/** 是否点击 */
+@property (nonatomic,assign)BOOL isSelect;
 @end

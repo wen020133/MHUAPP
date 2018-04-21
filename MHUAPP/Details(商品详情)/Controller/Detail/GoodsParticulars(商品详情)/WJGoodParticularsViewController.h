@@ -7,14 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MenuScrollView.h"
+#import "MunuView.h"
 #import "BaseNetworkViewController.h"
 
-@interface WJGoodParticularsViewController : BaseNetworkViewController
+@interface WJGoodParticularsViewController : BaseNetworkViewController<MunuViewDelegate,UIPageViewControllerDataSource,UIPageViewControllerDelegate>
 {
     UIPageViewController *_pageViewCtrl;
     NSMutableArray *_viewControllers;
 }
+@property (strong, nonatomic)  UIScrollView *scrollView;
 
-@property (strong, nonatomic) MenuScrollView *menu_goodInfoScrollView; //拼团分类ScrollView
+@property (strong, nonatomic) MunuView *menu_goodInfoScrollView; //拼团分类ScrollView
+/* 商品ID */
+@property (strong , nonatomic) NSString *goods_id;
+
 @end

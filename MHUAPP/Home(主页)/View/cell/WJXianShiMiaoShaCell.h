@@ -7,16 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WJXianShiMiaoShaModel.h"
 
 @interface WJXianShiMiaoShaCell : UICollectionViewCell
 
-@property (nonatomic, strong) UILabel *title;
+@property (nonatomic, strong) UILabel *lab_title;
 @property (nonatomic, strong) UIImageView *img_content;
 @property (nonatomic, strong) UIView *grayView;
 @property (nonatomic, strong) UILabel *lab_price;
 @property (nonatomic, strong) UILabel *lab_count;
 @property (nonatomic, strong) UILabel *oldPriceLabel;
-@property (nonatomic, strong) WJXianShiMiaoShaModel *model;
 
 @end
