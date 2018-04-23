@@ -41,6 +41,7 @@
 /* 通知 */
 @property (weak ,nonatomic) id dcObj;
 
+@property NSInteger PostCount;
 @end
 
 static NSString *lastNum_;
@@ -49,18 +50,31 @@ static NSArray *lastSeleArray_;
 @implementation WJGoodBaseViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+
     [self setUpInit];
 
     [self setUpViewScroller];
 
     [self setUpSuspendView];
 
-
-    [self acceptanceNote];
+    _PostCount =0 ;
 
     [self.view addSubview:_scrollerView];
+
+    [super viewDidLoad];
     // Do any additional setup after loading the view.
+}
+#pragma mark - LifeCyle
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self acceptanceNote];
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+}
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter]removeObserver:_dcObj];
+    [super viewWillDisappear:animated];
 }
 #pragma mark - LazyLoad
 - (UIScrollView *)scrollerView
@@ -425,24 +439,31 @@ static NSArray *lastSeleArray_;
 #pragma mark - 加入购物车成功
 - (void)setUpWithAddSuccess
 {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
+
+    _PostCount++;
+    NSLog(@"执行了%ld次",_PostCount);
+    
+//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
 
 
      NSString *result = [NSString stringWithFormat:@"%@",[lastSeleArray_ componentsJoinedByString:@"，"]];
 
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-    [infos setObject:uid forKey:@"user_id"];
+//    [infos setObject:uid forKey:@"user_id"];
     [infos setObject:self.goods_id forKey:@"goods_id"];
      [infos setObject:self.goodPrice forKey:@"price"];
      [infos setObject:lastNum_ forKey:@"num"];
      [infos setObject:result forKey:@"norms"];
-     [infos setObject:self.supplier_id forKey:@"supplier_id"];
-    [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSPostCart] andInfos:infos];
+//     [infos setObject:self.supplier_id forKey:@"supplier_id"];
+    [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSPostCart] andInfos:infos];
 
 }
 -(void)processData
 {
+    [[NSNotificationCenter defaultCenter]removeObserver:_dcObj];
+
+
     if([[self.results objectForKey:@"code"] integerValue] == 200)
     {
         [SVProgressHUD showSuccessWithStatus:@"加入购物车成功~"];

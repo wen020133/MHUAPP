@@ -63,5 +63,8 @@
 
 #define   kMSPostCart          @"/v1/postCart"                 //向购物车添加数据
 #define   kMSGetGoodsDesc          @"getGoodsDesc"                 //商品的详细描述
+#define   kMSGetCartList          @"getCart"                 //购物车列表数据
+
+
 
 #endif /* MHUURL_h */

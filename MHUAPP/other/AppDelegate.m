@@ -45,12 +45,8 @@
 }
 -(void)initRongClould{
 
-    //融云
-    [[RCIM sharedRCIM] initWithAppKey:RONGClOUDAPPKEY];
-    //设置用户信息提供者为 [RCDataManager shareManager]
-    [RCIM sharedRCIM].userInfoDataSource = [RCDataManager shareManager];
-    [RCIM sharedRCIM].enableMessageAttachUserInfo = YES;
-     [[RCDataManager shareManager] loginRongCloudWithUserInfo:[[RCUserInfo alloc]initWithUserId:@"60" name:@"mhu158VRQZ1956" portrait:@"http://shop.snryid.top/data/headimg/201803/0c33aa1a90a73e34e4a114d7323e598a.jpg" QQ:@"" sex:@""] withToken:@"iMRZ4b+d0LD/DeL9ae7v9dzYrJ6cohx7SF4nk3KbFSgHOCG2OoxWLl3Yg93x3cguVdTS6q6hPGNDVA8SwD8R4g=="];
+    
+    [[RCDataManager shareManager] getUserInfoWithMiYouMei];
 //    iMRZ4b+d0LD/DeL9ae7v9dzYrJ6cohx7SF4nk3KbFSgHOCG2OoxWLl3Yg93x3cguVdTS6q6hPGNDVA8SwD8R4g==
     
 }

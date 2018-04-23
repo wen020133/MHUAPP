@@ -10,6 +10,9 @@
 #import "RCDataManager.h"
 #import "RCUserInfo+Addition.h"
 #import "AppDelegate.h"
+#import "AFNetworking.h"
+#import "XYMKeyChain.h"
+#import <RongIMKit/RongIMKit.h>
 
 @implementation RCDataManager{
         NSMutableArray *dataSoure;
@@ -168,6 +171,81 @@
         }
     }
 }
+
+-(void)getUserInfoWithMiYouMei
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *loginType = [userDefaults objectForKey:@"loginType"];
+
+    if ([loginType isEqualToString:@"phone"]) {
+        if([XYMKeyChain loadKeyChainItemWithKey:KEY_KEYCHAINITEM] != nil ){
+            NSMutableDictionary *itemData = (NSMutableDictionary *)[XYMKeyChain loadKeyChainItemWithKey:KEY_KEYCHAINITEM];
+            NSString *userName = [itemData objectForKey:KEY_USERNAME];
+            NSString *passWord = [itemData objectForKey:KEY_PASSWORD];
+            NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+            [infos setObject:userName forKey:@"user_name"];
+            [infos setObject:[passWord md5] forKey:@"user_password"];
+            [self requestPOSTAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSLoginURL] andInfos:infos];
+        }
+
+    }
+    else if ([loginType isEqualToString:@"qq"])
+    {
+//        NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+//        [infos setObject:outUserId forKey:@"usid"];
+//        [infos setObject:outNickName forKey:@"user_name"];
+//        [infos setObject:outSex forKey:@"sex"];
+//        [infos setObject:outHeadUrl forKey:@"user_icon"];
+//        [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSLoginqq] andInfos:infos];
+    }
+
+}
+
+-(void)requestPOSTAPIWithServe:(NSString *)service andInfos:(NSDictionary *)infos
+{
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+    manager.requestSerializer.timeoutInterval = 20.f;
+    [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/xml",@"text/html", nil];
+
+    NSDate* dat = [NSDate dateWithTimeIntervalSinceNow:0];
+    NSTimeInterval a=[dat timeIntervalSince1970];  //  *1000 是精确到毫秒，不乘就是精确到秒
+    NSString *timeString = [NSString stringWithFormat:@"%.0f",a ]; //转为字符型
+
+    [infos setValue:[[NSString stringWithFormat:@"mhupro_%@_mhupro",[timeString md5]] md5] forKey:@"token"];
+    [infos setValue:timeString forKey:@"time"];
+
+    // post请求
+    [manager POST:service parameters:infos constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) {
+
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+
+    } success:^(NSURLSessionDataTask * _Nonnull task, id _Nullable responseObject) { // 成功，关闭网络指示器
+        NSLog(@"responseObject====%@",responseObject);
+
+       if([[responseObject objectForKey:@"code"] integerValue] == 200)
+       {
+        //融云
+        [[RCIM sharedRCIM] initWithAppKey:RONGClOUDAPPKEY];
+        //设置用户信息提供者为 [RCDataManager shareManager]
+        [RCIM sharedRCIM].userInfoDataSource = [RCDataManager shareManager];
+        [RCIM sharedRCIM].enableMessageAttachUserInfo = YES;
+        //融云
+        [[RCIM sharedRCIM] initWithAppKey:RONGClOUDAPPKEY];
+        //设置用户信息提供者为 [RCDataManager shareManager]
+        [RCIM sharedRCIM].userInfoDataSource = [RCDataManager shareManager];
+        [RCIM sharedRCIM].enableMessageAttachUserInfo = YES;
+        [self loginRongCloudWithUserInfo:[[RCUserInfo alloc]initWithUserId:@"60" name:@"mhu158VRQZ1956" portrait:@"http://shop.snryid.top/data/headimg/201803/0c33aa1a90a73e34e4a114d7323e598a.jpg" QQ:@"" sex:@""] withToken:@"iMRZ4b+d0LD/DeL9ae7v9dzYrJ6cohx7SF4nk3KbFSgHOCG2OoxWLl3Yg93x3cguVdTS6q6hPGNDVA8SwD8R4g=="];
+    }
+
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) { // 失败，关闭网络指示器
+        NSLog(@"ada===%@",[error localizedDescription]);
+
+    }];
+}
+
 -(void)loginRongCloudWithUserInfo:(RCUserInfo *)userInfo withToken:(NSString *)token{
                 [[RCIM sharedRCIM] connectWithToken:token success:^(NSString *userId) {
                     [RCIM sharedRCIM].globalNavigationBarTintColor = [UIColor redColor];

@@ -44,14 +44,16 @@
 #pragma mark - LifeCyle
 - (void)viewWillAppear:(BOOL)animated
 {
+    [self acceptanceNote];
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
-
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter]removeObserver:_dcObserve];
+    [super viewWillDisappear:animated];
+}
 - (void)viewDidLoad {
-    [super viewDidLoad];
-
-
 
     [self setUpInit];
 
@@ -61,13 +63,11 @@
 
     [self getGoodsInfoItem];
 
-
-
     [self setUpBottomButton];
 
-    [self acceptanceNote];
 
-    
+
+    [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
 
@@ -189,6 +189,8 @@
 #pragma mark - 接受通知
 - (void)acceptanceNote
 {
+    [[NSNotificationCenter defaultCenter]removeObserver:_dcObserve];
+    
     //滚动到详情
     __weak typeof(self)weakSlef = self;
     _dcObserve = [[NSNotificationCenter defaultCenter]addObserverForName:@"scrollToDetailsPage" object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
@@ -444,6 +446,7 @@
 -(void)showleft
 {
     [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 #pragma mark - 点击工具条
 - (void)toolItemClick

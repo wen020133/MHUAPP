@@ -38,6 +38,9 @@
 #import "HWScanViewController.h"
 #import "WJMainWebClassViewController.h"
 
+#import <MJRefresh.h>
+#import "WJHomeRefreshGifHeader.h"
+
 @interface WJHomeMainClassViewController ()
 
 @property (strong, nonatomic) NSArray <WJGoodsDataModel *>  *headImageArr;
@@ -69,9 +72,6 @@
 
     [self setHomeViewUpNav];
 
-
-//    self.headImageArr = [WJGoodsDataModel mj_objectArrayWithFilename:@"ClasiftyGoods.plist"];
-
     [self.view addSubview:self.collectionV];
 
     //返回顶部
@@ -85,7 +85,21 @@
     [self.view addSubview:_backTopImageView];
     _backTopImageView.hidden = YES;
 
+    [self setUpRecData];
 
+    [self setUpGIFRrfresh];
+
+
+    // Do any additional setup after loading the view.
+}
+#pragma mark - 设置头部header
+- (void)setUpGIFRrfresh
+{
+    self.collectionV.mj_header = [WJHomeRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(setUpRecData)];
+}
+
+-(void)setUpRecData
+{
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_group_t group = dispatch_group_create();
@@ -101,7 +115,7 @@
     });
     dispatch_group_async(group, queue, ^{
         NSLog(@"处理事件C");
-      [self getServiceData:kMSMainGetAdThird];
+        [self getServiceData:kMSMainGetAdThird];
         dispatch_semaphore_signal(semaphore);
     });
     dispatch_group_async(group, queue, ^{
@@ -127,14 +141,11 @@
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-           [self.collectionV reloadData];
+            [self.collectionV reloadData];
+            [self.collectionV.mj_header endRefreshing];
         });
     });
 
-
-
-
-    // Do any additional setup after loading the view.
 }
 -(void)getServiceData:(NSString *)urlString
 {
@@ -161,7 +172,7 @@
     [manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
 
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-      NSLog(@"%@====%@",urlString,responseObject);
+//      NSLog(@"%@====%@",urlString,responseObject);
          [SVProgressHUD dismiss];
         if([[responseObject objectForKey:@"code"] integerValue] == 200)
         {

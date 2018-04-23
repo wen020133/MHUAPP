@@ -11,6 +11,8 @@
 #import "WJCartGoodsModel.h"
 #import "WJCartShopModel.h"
 #import "WJCartTableHeaderView.h"
+#import "WJHomeRefreshGifHeader.h"
+
 
 #define  TAG_CartEmptyView 100
 static NSInteger lz_CartRowHeight = 100;
@@ -49,22 +51,89 @@ static NSInteger lz_CartRowHeight = 100;
     [super viewDidLoad];
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
 
-    [self performSelector:@selector(loadData) withObject:nil afterDelay:1];
-    self.selectedState = NO;
-
+//    [self performSelector:@selector(loadData) withObject:nil afterDelay:1];
+    [self getGoodsInfoCreatData];
     [self setupCustomNavigationBar];
-    if (self.dataArray.count > 0) {
 
-        [self setupCartView];
-    } else {
-        [self setupCartEmptyView];
-    }
+    [self.view addSubview:self.myTableView];
+
     // Do any additional setup after loading the view.
 }
-- (void)loadData {
-    [self creatData];
+-(UITableView *)myTableView
+{
+    if (!_myTableView) {
+        _myTableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
+
+        _myTableView.delegate = self;
+        _myTableView.dataSource = self;
+
+        _myTableView.rowHeight = lz_CartRowHeight;
+        _myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _myTableView.backgroundColor = kMSColorFromRGB(245, 246, 248);
+
+         [self.myTableView registerClass:[WJCartTableHeaderView class] forHeaderFooterViewReuseIdentifier:@"WJCartTableHeaderView"];
+        if (_isHasTabBarController) {
+            self.myTableView.frame = CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight - kMSNaviHight - 2*49);
+        } else {
+            self.myTableView.frame = CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight - kMSNaviHight - 49);
+        }
+        self.myTableView.mj_header = [WJHomeRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(getGoodsInfoCreatData)];
+    }
+    return _myTableView;
+}
+
+-(void)getGoodsInfoCreatData
+{
+    [self.myTableView.mj_header endRefreshing];
+    _serverType = 1;
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetCartList]];
     [self changeView];
 }
+-(void)getProcessData
+{
+    if([[self.results objectForKey:@"code"] integerValue] == 200)
+    {
+
+        switch (_serverType) {
+            case KGetShopCartListClass:
+            {
+                NSDictionary *data_dic = [self.results objectForKey:@"data"];
+                if ([data_dic isKindOfClass:[NSNull class]]) {
+                    [self changeView];
+                    return;
+                }
+                 NSArray *arr = data_dic.allKeys;
+                    for (NSDictionary *dic in data_dic) {
+                        WJCartShopModel *model = [[WJCartShopModel alloc]init];
+                        model.shopID = [dic objectForKey:@"id"];
+                        model.shopName = [dic objectForKey:@"shopName"];
+                        model.sID = [dic objectForKey:@"sid"];
+                        [model configGoodsArrayWithArray:[dic objectForKey:@"items"]];
+
+                        [self.dataArray addObject:model];
+                    }
+
+            }
+                break;
+            case KGetGoodNumChange:
+            {
+
+            }
+                break;
+            default:
+                break;
+        }
+
+
+    }
+    else
+    {
+         [self.myTableView.mj_header endRefreshing];
+        return;
+    }
+}
+
+
 -(void)creatData {
 
     NSString *path = [[NSBundle mainBundle] pathForResource:@"ShopCarNew" ofType:@"plist" inDirectory:nil];
@@ -135,9 +204,9 @@ static NSInteger lz_CartRowHeight = 100;
     else
         self.selectedState = YES;
 
-    if(self.isHasTabBarController)
+    if(!self.isHasTabBarController)
     {
-        if(self.selectedState)
+        if(!self.selectedState)
         {
             [self initSendReplyWithTitle:@"购物车" andLeftButtonName:@"ic_back.png" andRightButtonName:@"编辑" andTitleLeftOrRight:NO];
         }
@@ -148,7 +217,7 @@ static NSInteger lz_CartRowHeight = 100;
     }
     else
     {
-        if(self.selectedState)
+        if(!self.selectedState)
         {
             [self initSendReplyWithTitle:@"购物车" andLeftButtonName:nil andRightButtonName:@"编辑" andTitleLeftOrRight:NO];
         }
@@ -225,13 +294,11 @@ static NSInteger lz_CartRowHeight = 100;
             [view removeFromSuperview];
         }
 
-        [self setupCartView];
+        [self setupCustomBottomView];
     } else {
         UIView *bottomView = [self.view viewWithTag:TAG_CartEmptyView + 1];
         [bottomView removeFromSuperview];
 
-        [self.myTableView removeFromSuperview];
-        self.myTableView = nil;
         [self setupCartEmptyView];
     }
 }
@@ -240,7 +307,7 @@ static NSInteger lz_CartRowHeight = 100;
     //默认视图背景
     UIView *backgroundView = [[UIView alloc]initWithFrame:CGRectMake(0, kMSNaviHight, kMSScreenWith, kMSScreenHeight - kMSNaviHight)];
     backgroundView.tag = TAG_CartEmptyView;
-    [self.view addSubview:backgroundView];
+    [self.myTableView addSubview:backgroundView];
 
     //默认图片
     UIImageView *img = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"cart_default_bg"]];
@@ -257,30 +324,7 @@ static NSInteger lz_CartRowHeight = 100;
     warnLabel.textColor = [RegularExpressionsMethod ColorWithHexString:@"706F6F"];
     [backgroundView addSubview:warnLabel];
 }
-#pragma mark -- 购物车有商品时的视图
-- (void)setupCartView {
-    //创建底部视图
-    [self setupCustomBottomView];
 
-    UITableView *table = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
-
-    table.delegate = self;
-    table.dataSource = self;
-
-    table.rowHeight = lz_CartRowHeight;
-    table.separatorStyle = UITableViewCellSeparatorStyleNone;
-    table.backgroundColor = kMSColorFromRGB(245, 246, 248);
-    [self.view addSubview:table];
-    self.myTableView = table;
-
-    if (_isHasTabBarController) {
-        table.frame = CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight - kMSNaviHight - 2*49);
-    } else {
-        table.frame = CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight - kMSNaviHight - 49);
-    }
-
-    [table registerClass:[WJCartTableHeaderView class] forHeaderFooterViewReuseIdentifier:@"WJCartTableHeaderView"];
-}
 #pragma mark --- UITableViewDataSource & UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 

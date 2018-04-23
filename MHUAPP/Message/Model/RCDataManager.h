@@ -19,6 +19,9 @@
  *  @return RCDataManager单例
  */
 +(RCDataManager *) shareManager;
+
+- (void)getUserInfoWithMiYouMei;
+
 - (void)getUserInfoWithUserId:(NSString*)userId completion:(void (^)(RCUserInfo*))completion;
 /**
  *  判断我的好友列表中有没有此人

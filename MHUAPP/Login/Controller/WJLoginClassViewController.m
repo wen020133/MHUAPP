@@ -220,6 +220,7 @@
                 NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
                 [userDefaults setObject:dic forKey:@"userList"];
                 [userDefaults setObject:@"1" forKey:@"loginState"];
+                [userDefaults setObject:@"phone" forKey:@"loginType"];
                 [userDefaults synchronize];
                 [self.navigationController popViewControllerAnimated:YES];
             }
@@ -254,6 +255,7 @@
                     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
                     [userDefaults setObject:dic forKey:@"userList"];
                     [userDefaults setObject:@"1" forKey:@"loginState"];
+                    [userDefaults setObject:@"qq" forKey:@"loginType"];
                     [userDefaults synchronize];
                     [self.navigationController popViewControllerAnimated:YES];
                 }
@@ -357,6 +359,11 @@
         return;
     }
 
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {
