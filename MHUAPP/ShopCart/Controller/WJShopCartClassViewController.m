@@ -12,6 +12,8 @@
 #import "WJCartShopModel.h"
 #import "WJCartTableHeaderView.h"
 #import "WJHomeRefreshGifHeader.h"
+#import "UIView+UIViewFrame.h"
+#import "WJLoginClassViewController.h"
 
 
 #define  TAG_CartEmptyView 100
@@ -33,6 +35,18 @@ static NSInteger lz_CartRowHeight = 100;
 #pragma mark - viewController life cicle
 - (void)viewWillAppear:(BOOL)animated {
 
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *loginState = [userDefaults objectForKey:@"loginState"];
+    if([loginState isEqualToString:@"0"])
+    {
+        WJLoginClassViewController *land = [[WJLoginClassViewController alloc]init];
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:land];
+        [nav.navigationBar setIsMSNavigationBar];
+        [self presentViewController:nav animated:YES completion:^{
+        }];
+    }
+    else
+    {
     //当进入购物车的时候判断是否有已选择的商品,有就清空
     //主要是提交订单后再返回到购物车,如果不清空,还会显示
     if (self.selectedArray.count > 0) {
@@ -45,6 +59,7 @@ static NSInteger lz_CartRowHeight = 100;
     //初始化显示状态
     _allSellectedButton.selected = NO;
     _totlePriceLabel.attributedText = [self LZSetString:@"￥0.00"];
+    }
 }
 
 - (void)viewDidLoad {
@@ -87,7 +102,7 @@ static NSInteger lz_CartRowHeight = 100;
     [self.myTableView.mj_header endRefreshing];
     _serverType = 1;
     [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetCartList]];
-    [self changeView];
+//    [self changeView];
 }
 -(void)getProcessData
 {
@@ -97,21 +112,32 @@ static NSInteger lz_CartRowHeight = 100;
         switch (_serverType) {
             case KGetShopCartListClass:
             {
+                 [self.dataArray removeAllObjects];
                 NSDictionary *data_dic = [self.results objectForKey:@"data"];
-                if ([data_dic isKindOfClass:[NSNull class]]) {
+                if ([[data_dic allKeys ] count]<1 ) {
                     [self changeView];
+                    [self.myTableView reloadData];
                     return;
                 }
                  NSArray *arr = data_dic.allKeys;
-                    for (NSDictionary *dic in data_dic) {
-                        WJCartShopModel *model = [[WJCartShopModel alloc]init];
-                        model.shopID = [dic objectForKey:@"id"];
-                        model.shopName = [dic objectForKey:@"shopName"];
-                        model.sID = [dic objectForKey:@"sid"];
-                        [model configGoodsArrayWithArray:[dic objectForKey:@"items"]];
 
-                        [self.dataArray addObject:model];
+                for (int aa=0; aa<arr.count; aa++) {
+                    NSArray *arr_goods = [[data_dic objectForKey:[arr objectAtIndex:aa]] objectForKey:@"goods"];
+                    if (arr_goods&&arr_goods.count>0) {
+                        WJCartShopModel *model = [[WJCartShopModel alloc]init];
+                        model.supplier = [[data_dic objectForKey:[arr objectAtIndex:aa]] objectForKey:@"supplier"];
+                        model.supplier_id = [arr objectAtIndex:aa];
+
+                        [model configGoodsArrayWithArray:[[data_dic objectForKey:[arr objectAtIndex:aa]] objectForKey:@"goods"]];
+
+                    [self.dataArray addObject:model];
+
                     }
+
+                    [self changeView];
+                    [self.myTableView reloadData];
+                    [self.myTableView.mj_header endRefreshing];
+                }
 
             }
                 break;
@@ -134,34 +160,14 @@ static NSInteger lz_CartRowHeight = 100;
 }
 
 
--(void)creatData {
-
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"ShopCarNew" ofType:@"plist" inDirectory:nil];
-
-    NSDictionary *dic = [[NSDictionary alloc]initWithContentsOfFile:path];
-    NSLog(@"%@",dic);
-    NSArray *array = [dic objectForKey:@"data"];
-    if (array.count > 0) {
-        for (NSDictionary *dic in array) {
-            WJCartShopModel *model = [[WJCartShopModel alloc]init];
-            model.shopID = [dic objectForKey:@"id"];
-            model.shopName = [dic objectForKey:@"shopName"];
-            model.sID = [dic objectForKey:@"sid"];
-            [model configGoodsArrayWithArray:[dic objectForKey:@"items"]];
-
-            [self.dataArray addObject:model];
-        }
-    }
-}
-
 -(void)countPrice {
     double totlePrice = 0.0;
 
     for (WJCartGoodsModel *model in self.selectedArray) {
 
-        double price = [model.price doubleValue];
+        double price = [model.count_price doubleValue];
 
-        totlePrice += price * model.count;
+        totlePrice += price * model.goods_number;
     }
     NSString *string = [NSString stringWithFormat:@"￥%.2f",totlePrice];
     self.totlePriceLabel.attributedText = [self LZSetString:string];
@@ -188,7 +194,7 @@ static NSInteger lz_CartRowHeight = 100;
 - (void)setupCustomNavigationBar {
 
     if (self.isHasTabBarController) {
-         [self initSendReplyWithTitle:@"购物车" andLeftButtonName:nil andRightButtonName:@"编辑" andTitleLeftOrRight:NO];
+        [self initSendReplyWithTitle:@"购物车" andLeftButtonName:nil andRightButtonName:@"编辑" andTitleLeftOrRight:NO];
     }
     else
     {
@@ -226,8 +232,8 @@ static NSInteger lz_CartRowHeight = 100;
             [self initSendReplyWithTitle:@"购物车" andLeftButtonName:nil andRightButtonName:@"完成" andTitleLeftOrRight:NO];
         }
     }
-
-    [self.infoTableView reloadData];
+    [self changeView];
+    [self.myTableView reloadData];
 }
 #pragma mark -- 自定义底部视图
 - (void)setupCustomBottomView {
@@ -255,7 +261,23 @@ static NSInteger lz_CartRowHeight = 100;
     [selectAll addTarget:self action:@selector(selectAllBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [backgroundView addSubview:selectAll];
     self.allSellectedButton = selectAll;
-
+    if(self.selectedState)
+    {
+        //删除按钮
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.backgroundColor = kMSCellBackColor;
+        btn.layer.borderColor = [[RegularExpressionsMethod ColorWithHexString:BASEPINK] CGColor];
+        btn.layer.borderWidth = 1.0f;
+        btn.layer.cornerRadius = 3;
+        btn.layer.masksToBounds = YES;//设置圆角
+        btn.frame = CGRectMake(kMSScreenWith - 90, 5, 70, 35);
+        [btn setTitle:@"删除" forState:UIControlStateNormal];
+        [btn setTitleColor:[RegularExpressionsMethod ColorWithHexString:BASEPINK] forState:UIControlStateNormal];
+        [btn addTarget:self action:@selector(deleteGoodsInCart:) forControlEvents:UIControlEventTouchUpInside];
+        [backgroundView addSubview:btn];
+    }
+    else
+    {
     //结算按钮
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.backgroundColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
@@ -275,6 +297,7 @@ static NSInteger lz_CartRowHeight = 100;
 //    CGSize size = [label sizeThatFits:CGSizeMake(maxWidth, 49)];
     label.frame = CGRectMake(selectAll.bounds.size.width + 20, 0, maxWidth - 10, 49);
     self.totlePriceLabel = label;
+    }
 }
 - (NSMutableAttributedString*)LZSetString:(NSString*)string {
 
@@ -290,6 +313,8 @@ static NSInteger lz_CartRowHeight = 100;
 - (void)changeView {
     if (self.dataArray.count > 0) {
         UIView *view = [self.view viewWithTag:TAG_CartEmptyView];
+        UIView *bottomView = [self.view viewWithTag:TAG_CartEmptyView + 1];
+         [bottomView removeFromSuperview];
         if (view != nil) {
             [view removeFromSuperview];
         }
@@ -305,26 +330,40 @@ static NSInteger lz_CartRowHeight = 100;
 
 - (void)setupCartEmptyView {
     //默认视图背景
-    UIView *backgroundView = [[UIView alloc]initWithFrame:CGRectMake(0, kMSNaviHight, kMSScreenWith, kMSScreenHeight - kMSNaviHight)];
+    UIView *backgroundView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight - kMSNaviHight)];
     backgroundView.tag = TAG_CartEmptyView;
     [self.myTableView addSubview:backgroundView];
 
     //默认图片
     UIImageView *img = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"cart_default_bg"]];
-    img.center = CGPointMake(kMSScreenWith/2.0, kMSScreenHeight/2.0 - 120);
+    img.center = CGPointMake(kMSScreenWith/2.0, backgroundView.height/2.0 - 140);
     img.bounds = CGRectMake(0, 0, 247.0/187 * 100, 100);
     [backgroundView addSubview:img];
 
     UILabel *warnLabel = [[UILabel alloc]init];
-    warnLabel.center = CGPointMake(kMSScreenWith/2.0, kMSScreenHeight/2.0 - 10);
+    warnLabel.center = CGPointMake(kMSScreenWith/2.0, backgroundView.height/2.0 - 70);
     warnLabel.bounds = CGRectMake(0, 0, kMSScreenWith, 30);
     warnLabel.textAlignment = NSTextAlignmentCenter;
-    warnLabel.text = @"购物车为空!";
-    warnLabel.font = [UIFont systemFontOfSize:15];
+    warnLabel.text = @"亲，您这里还没有任何商品！";
+    warnLabel.font = [UIFont systemFontOfSize:16];
     warnLabel.textColor = [RegularExpressionsMethod ColorWithHexString:@"706F6F"];
     [backgroundView addSubview:warnLabel];
-}
 
+    UIButton *goShoppingButton = [[UIButton alloc] init];
+    goShoppingButton.center = CGPointMake(kMSScreenWith/2.0, backgroundView.height/2.0 - 10);
+    goShoppingButton.bounds = CGRectMake(0, 0, 120, 44);
+    [goShoppingButton setTitle:@"去逛逛" forState:UIControlStateNormal];
+    [goShoppingButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    goShoppingButton.backgroundColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
+    goShoppingButton.layer.cornerRadius = 5;
+    goShoppingButton.clipsToBounds = YES;
+    [goShoppingButton addTarget:self action:@selector(goShoppingBtn) forControlEvents:UIControlEventTouchUpInside];
+    [backgroundView addSubview:goShoppingButton];
+}
+-(void)goShoppingBtn
+{
+    self.tabBarController.selectedIndex = 1;
+}
 #pragma mark --- UITableViewDataSource & UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
@@ -357,7 +396,7 @@ static NSInteger lz_CartRowHeight = 100;
 
     [cell numberAddWithBlock:^(NSInteger number) {
         wsCell.lzNumber = number;
-        model.count = number;
+        model.goods_number = number;
 
         [shopModel.goodsArray replaceObjectAtIndex:indexPath.row withObject:model];
         if ([self.selectedArray containsObject:model]) {
@@ -365,12 +404,18 @@ static NSInteger lz_CartRowHeight = 100;
             [self.selectedArray addObject:model];
             [self countPrice];
         }
+       NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+        [infos setObject:model.goods_id forKey:@"goods_id"];
+        [infos setObject:model.count_price forKey:@"price"];
+        [infos setObject:[NSString stringWithFormat:@"%ld",number] forKey:@"num"];
+        [infos setObject:model.goods_attr forKey:@"norms"];
+        [self changeGoodsNumberWithServer:infos];
     }];
 
     [cell numberCutWithBlock:^(NSInteger number) {
 
         wsCell.lzNumber = number;
-        model.count = number;
+        model.goods_number = number;
 
         [shopModel.goodsArray replaceObjectAtIndex:indexPath.row withObject:model];
 
@@ -380,6 +425,12 @@ static NSInteger lz_CartRowHeight = 100;
             [self.selectedArray addObject:model];
             [self countPrice];
         }
+        NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+        [infos setObject:model.goods_id forKey:@"goods_id"];
+        [infos setObject:model.count_price forKey:@"price"];
+        [infos setObject:[NSString stringWithFormat:@"%ld",number] forKey:@"num"];
+        [infos setObject:model.goods_attr forKey:@"norms"];
+        [self changeGoodsNumberWithServer:infos];
     }];
 
     [cell cellSelectedWithBlock:^(BOOL select) {
@@ -401,6 +452,23 @@ static NSInteger lz_CartRowHeight = 100;
     return cell;
 }
 
+-(void)processData
+{
+    if([[self.results objectForKey:@"code"] integerValue] == 200)
+    {
+
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"msg"]];
+        [self getGoodsInfoCreatData];
+        return;
+    }
+}
+-(void)changeGoodsNumberWithServer:(NSMutableDictionary *)infos
+{
+    [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSPostCart] andInfos:infos];
+}
 -(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
     return @"删除";
 }
@@ -409,7 +477,7 @@ static NSInteger lz_CartRowHeight = 100;
     WJCartTableHeaderView *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"WJCartTableHeaderView"];
     WJCartShopModel *model = [self.dataArray objectAtIndex:section];
     NSLog(@">>>>>>%d", model.select);
-    view.title = model.shopName;
+    view.title = ConvertNullString(model.supplier);
     view.select = model.select;
     view.WJClickBlock  = ^(BOOL select) {
         model.select = select;
@@ -469,38 +537,41 @@ static NSInteger lz_CartRowHeight = 100;
             WJCartShopModel *shop = [self.dataArray objectAtIndex:indexPath.section];
             WJCartGoodsModel *model = [shop.goodsArray objectAtIndex:indexPath.row];
 
-            [shop.goodsArray removeObjectAtIndex:indexPath.row];
-            //    删除
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            NSString *attString =  model.rec_id;
+            [self requestDeleteAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?rec_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetCartList,attString]];
 
-            if (shop.goodsArray.count == 0) {
-                [self.dataArray removeObjectAtIndex:indexPath.section];
-            }
+//            [shop.goodsArray removeObjectAtIndex:indexPath.row];
+//            //    删除
+//            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 
-            //判断删除的商品是否已选择
-            if ([self.selectedArray containsObject:model]) {
-                //从已选中删除,重新计算价格
-                [self.selectedArray removeObject:model];
-                [self countPrice];
-            }
 
-            NSInteger count = 0;
-            for (WJCartShopModel *shop in self.dataArray) {
-                count += shop.goodsArray.count;
-            }
-
-            if (self.selectedArray.count == count) {
-                _allSellectedButton.selected = YES;
-            } else {
-                _allSellectedButton.selected = NO;
-            }
-
-            if (count == 0) {
-                [self changeView];
-            }
-
-            //如果删除的时候数据紊乱,可延迟0.5s刷新一下
-            [self performSelector:@selector(reloadTable) withObject:nil afterDelay:0.5];
+//            if (shop.goodsArray.count == 0) {
+//                [self.dataArray removeObjectAtIndex:indexPath.section];
+//            }
+//
+//            //判断删除的商品是否已选择
+//            if ([self.selectedArray containsObject:model]) {
+//                //从已选中删除,重新计算价格
+//                [self.selectedArray removeObject:model];
+//                [self countPrice];
+//            }
+//
+//            NSInteger count = 0;
+//            for (WJCartShopModel *shop in self.dataArray) {
+//                count += shop.goodsArray.count;
+//            }
+//
+//            if (self.selectedArray.count == count) {
+//                _allSellectedButton.selected = YES;
+//            } else {
+//                _allSellectedButton.selected = NO;
+//            }
+//
+//            if (count == 0) {
+//                [self changeView];
+//            }
+//            //如果删除的时候数据紊乱,可延迟0.5s刷新一下
+//            [self performSelector:@selector(reloadTable) withObject:nil afterDelay:0.5];
 
         }];
 
@@ -558,12 +629,39 @@ static NSInteger lz_CartRowHeight = 100;
 - (void)goToPayButtonClick:(UIButton*)button {
     if (self.selectedArray.count > 0) {
         for (WJCartGoodsModel *model in self.selectedArray) {
-            NSLog(@"选择的商品>>%@>>>%ld",model,(long)model.count);
+            NSLog(@"选择的商品>>%@>>>%ld",model,(long)model.goods_number);
         }
     } else {
-        NSLog(@"你还没有选择任何商品");
+        [SVProgressHUD showErrorWithStatus:@"你还没有选择任何商品"];
     }
 
+}
+-(void)deleteGoodsInCart:(UIButton *)sender
+{
+    if (self.selectedArray.count > 0) {
+        NSMutableArray *arr_recId = [NSMutableArray array];
+        for (WJCartGoodsModel *model in self.selectedArray) {
+            NSLog(@"选择的商品>>%@>>>%ld",model,(long)model.goods_number);
+            [arr_recId addObject:model.rec_id];
+        }
+         NSString *attString =  [arr_recId componentsJoinedByString:@","];
+         [self requestDeleteAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?rec_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetCartList,attString]];
+        
+    } else {
+        [SVProgressHUD showErrorWithStatus:@"你还没有选择任何商品"];
+    }
+}
+-(void)deleteProcessData
+{
+    if([[self.results objectForKey:@"code"] integerValue] == 200)
+    {
+          [self getGoodsInfoCreatData];
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"msg"]];
+        return;
+    }
 }
 
 - (void)verityGroupSelectState:(NSInteger)section {

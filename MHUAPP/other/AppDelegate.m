@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "RCUserInfo+Addition.h"
 
 #import <UMSocialCore/UMSocialCore.h>
 

@@ -12,7 +12,9 @@
 #import "RCCustomCell.h"
 #import "AppDelegate.h"
 #import "UIImageView+WebCache.h"
-
+#import "WJLoginClassViewController.h"
+#import "RCDCustomerServiceViewController.h"
+#import <MJRefresh.h>
 
 @interface WJMessageClassViewController ()<RCIMReceiveMessageDelegate,RCIMConnectionStatusDelegate
 ,UIAlertViewDelegate,UITableViewDataSource,UITableViewDelegate>
@@ -22,6 +24,7 @@
 
 @implementation WJMessageClassViewController
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor=self.conversationListTableView.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
@@ -30,6 +33,7 @@
      self.conversationListTableView.tableHeaderView = self.tab_headView ;
   self.conversationListTableView.separatorStyle=UITableViewCellSeparatorStyleNone;
      [self.conversationListTableView registerClass:[RCCustomCell class] forCellReuseIdentifier:@"RCCustomCell"];
+     self.conversationListTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRereshingCircle)];
     // Do any additional setup after loading the view.
 }
 -(WJMessageHeadView *)tab_headView
@@ -42,6 +46,15 @@
         };
     }
     return _tab_headView;
+}
+-(void)headerRereshingCircle
+{
+    [self setConversationAvatarStyle:RC_USER_AVATAR_CYCLE];
+    [self setDisplayConversationTypes:@[@(ConversationType_PRIVATE),@(ConversationType_CUSTOMERSERVICE),@(ConversationType_SYSTEM)]];
+    [RCIM sharedRCIM].receiveMessageDelegate = self;
+    [RCIM sharedRCIM].connectionStatusDelegate = self;
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didReceiveMessageNotification:)name:RCKitDispatchMessageNotification object:nil];
 }
 - (instancetype)init
 {
@@ -70,8 +83,21 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [[RCDataManager shareManager] refreshBadgeValue];
-    [self.conversationListTableView reloadData];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *loginState = [userDefaults objectForKey:@"loginState"];
+    if([loginState isEqualToString:@"0"])
+    {
+        WJLoginClassViewController *land = [[WJLoginClassViewController alloc]init];
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:land];
+        [nav.navigationBar setIsMSNavigationBar];
+        [self presentViewController:nav animated:YES completion:^{
+        }];
+    }
+    else
+    {
+        [[RCDataManager shareManager] refreshBadgeValue];
+        [self.conversationListTableView reloadData];
+    }
 
 }
 /*!
@@ -101,18 +127,47 @@
                 [self.navigationController dismissViewControllerAnimated:YES completion:^{
                     [[RCIMClient sharedRCIMClient] disconnect:YES];
                 }];
-                NSDictionary *dic = [NSDictionary dictionary];
-                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-                [userDefaults setObject:dic forKey:@"userList"];
-
-                [userDefaults setObject:@"0" forKey:@"loginState"];
-                [userDefaults synchronize];
-                [self.navigationController popToRootViewControllerAnimated:YES];
+                [self loginoutState];
             }
         }];
     }
 }
+- (void)loginoutState {
 
+
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/xml",@"text/html", nil];
+
+
+    NSDate* dat = [NSDate dateWithTimeIntervalSinceNow:0];
+    NSTimeInterval a=[dat timeIntervalSince1970];  //  *1000 是精确到毫秒，不乘就是精确到秒
+    NSString *timeString = [NSString stringWithFormat:@"%.0f",a ]; //转为字符型
+    NSString *token = [[NSString stringWithFormat:@"mhupro_%@_mhupro",[timeString md5]] md5];
+
+    NSString *url  = [NSString stringWithFormat:@"%@/%@/%@?time=%@&token=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSOutLogin,timeString,token];
+    NSLog(@"url====%@",url);
+
+    [manager DELETE:url parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"responseObject====%@",responseObject);
+        if([[responseObject objectForKey:@"code"] integerValue] == 200)
+        {
+            NSDictionary *dic = [NSDictionary dictionary];
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults setObject:dic forKey:@"userList"];
+
+            [userDefaults setObject:@"0" forKey:@"loginState"];
+            [userDefaults synchronize];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+
+    }
+            failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                // 失败，关闭网络指示器
+                NSLog(@"ada===%@",[error localizedDescription]);
+            }];
+}
 
 //插入自定义会话model
 -(NSMutableArray *)willReloadTableData:(NSMutableArray *)dataSource{
@@ -293,7 +348,7 @@
          conversationModel:(RCConversationModel *)model
                atIndexPath:(NSIndexPath *)indexPath{
     //点击cell，拿到cell对应的model，然后从model中拿到对应的RCUserInfo，然后赋值会话属性，进入会话
-
+    NSLog(@"model====%ld",model.conversationType);
     if (model.conversationType==ConversationType_PRIVATE) {//单聊
         RCConversationViewController *conversationVC = [[RCConversationViewController alloc]init];
         conversationVC.conversationType = model.conversationType;
@@ -305,8 +360,14 @@
         [self.navigationController pushViewController:conversationVC animated:YES];
         self.hidesBottomBarWhenPushed = NO;
 
-    }else if (model.conversationType==ConversationType_APPSERVICE){//客服
-
+    }else if (model.conversationType==ConversationType_CUSTOMERSERVICE){//客服
+        RCDCustomerServiceViewController *chatService = [[RCDCustomerServiceViewController alloc] init];
+        chatService.conversationType = ConversationType_CUSTOMERSERVICE;
+        chatService.targetId = @"KEFU152176453929981";
+        chatService.title = @"客服";
+        self.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:chatService animated:YES];
+        self.hidesBottomBarWhenPushed = NO;
     }
 
 

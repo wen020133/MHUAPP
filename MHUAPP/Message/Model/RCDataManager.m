@@ -8,7 +8,6 @@
 //
 
 #import "RCDataManager.h"
-#import "RCUserInfo+Addition.h"
 #import "AppDelegate.h"
 #import "AFNetworking.h"
 #import "XYMKeyChain.h"
@@ -40,32 +39,9 @@
 {
     dataSoure = [[NSMutableArray alloc]init];
 
-    for (NSInteger i = 1; i<7; i++) {
-        if(i==1){
-            RCUserInfo *aUserInfo =[[RCUserInfo alloc]initWithUserId:@"64" name:@"虫虫" portrait:@"http://q.qlogo.cn/qqapp/1104706859/189AA89FAADD207E76D066059F924AE0/100" QQ:@"740747055" sex:@"男"];
+    for (int i = 1; i<2; i++) {
+        RCUserInfo *aUserInfo =[[RCUserInfo alloc]initWithUserId:@"233" name:@"虫虫" portrait:@"http://q.qlogo.cn/qqapp/1104706859/189AA89FAADD207E76D066059F924AE0/100" ];
             [dataSoure addObject:aUserInfo];
-        }else if (i==2) {
-          RCUserInfo *aUserInfo =[[RCUserInfo alloc]initWithUserId:@"170" name:@"蛋蛋" portrait:@"http://weixin.ihk.cn/ihkwx_upload/fodder/20151210/1449727755947.jpg" QQ:@"蛋蛋的QQ信息" sex:@"男"];
-            [dataSoure addObject:aUserInfo];
-        }else if(i==3){
-            RCUserInfo *aUserInfo =[[RCUserInfo alloc]initWithUserId:[NSString stringWithFormat:@"%ld",i] name:@"怕瓦落地" portrait:@"http://pic.ihk.cn/head/base/ihk/2014/04/30/213816839.jpg" QQ:@"帕瓦落地的QQ信息" sex:@"男"];
-            [dataSoure addObject:aUserInfo];
-
-        }else if(i==4){
-            RCUserInfo *aUserInfo =[[RCUserInfo alloc]initWithUserId:[NSString stringWithFormat:@"%ld",i] name:@"凤姐" portrait:@"http://weixin.ihk.cn/ihkwx_upload/fodder/20151218/1450420944608.jpg" QQ:@"凤姐的QQ信息" sex:@"女"];
-            [dataSoure addObject:aUserInfo];
-            
-        }else if(i==5){
-            RCUserInfo *aUserInfo =[[RCUserInfo alloc]initWithUserId:[NSString stringWithFormat:@"%ld",i] name:@"猴塞雷" portrait:@"http://pic.ihk.cn/head/80_93/ihk/2015/05/20/104331022.jpg" QQ:@"猴塞雷的QQ信息" sex:@"男"];
-            [dataSoure addObject:aUserInfo];
-            
-        }else if(i==6){
-            RCUserInfo *aUserInfo =[[RCUserInfo alloc]initWithUserId:[NSString stringWithFormat:@"%ld",i] name:@"犀利哥" portrait:@"" QQ:@"犀利哥的QQ信息" sex:@"男"];
-            [dataSoure addObject:aUserInfo];
-            
-        }
-        
-        
     }
 
     [AppDelegate shareAppDelegate].friendsArray = dataSoure;
@@ -82,14 +58,6 @@
     for (NSInteger i = 1; i<4; i++) {
         if (i==1) {
             RCGroup *aGroup = [[RCGroup alloc]initWithGroupId:[NSString stringWithFormat:@"%ld",i] groupName:@"斧头帮" portraitUri:@"http://farm2.staticflickr.com/1709/24157242566_98d0192315_m.jpg"];
-            [[AppDelegate shareAppDelegate].groupsArray addObject:aGroup];
-            
-        }else if (i==2){
-            RCGroup *aGroup = [[RCGroup alloc]initWithGroupId:[NSString stringWithFormat:@"%ld",i] groupName:@"丐帮" portraitUri:@"http://farm2.staticflickr.com/1715/23815656639_ef86cf1498_m.jpg"];
-            [[AppDelegate shareAppDelegate].groupsArray addObject:aGroup];
-            
-        }else if (i==3){
-            RCGroup *aGroup = [[RCGroup alloc]initWithGroupId:[NSString stringWithFormat:@"%ld",i] groupName:@"青龙帮" portraitUri:@"http://farm2.staticflickr.com/1455/23888379640_edf9fce919_m.jpg"];
             [[AppDelegate shareAppDelegate].groupsArray addObject:aGroup];
         }
     }
@@ -146,7 +114,7 @@
     }
     
     if ([userId isEqualToString:[RCIM sharedRCIM].currentUserInfo.userId]) {
-        RCUserInfo *myselfInfo = [[RCUserInfo alloc]initWithUserId:[RCIM sharedRCIM].currentUserInfo.userId name:[RCIM sharedRCIM].currentUserInfo.name portrait:[RCIM sharedRCIM].currentUserInfo.portraitUri QQ:[RCIM sharedRCIM].currentUserInfo.QQ sex:[RCIM sharedRCIM].currentUserInfo.sex];
+        RCUserInfo *myselfInfo = [[RCUserInfo alloc]initWithUserId:[RCIM sharedRCIM].currentUserInfo.userId name:[RCIM sharedRCIM].currentUserInfo.name portrait:[RCIM sharedRCIM].currentUserInfo.portraitUri];
         completion(myselfInfo);
         
     }
@@ -175,6 +143,15 @@
 -(void)getUserInfoWithMiYouMei
 {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *loginState = [userDefaults objectForKey:@"loginState"];
+    NSString *str_logo_img = [[userDefaults objectForKey:@"userList"] objectForKey:@"user_icon"];
+    NSString *str_uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid"];
+    NSString *str_username = [[userDefaults objectForKey:@"userList"] objectForKey:@"username"];
+    NSString *str_sex = [[userDefaults objectForKey:@"userList"] objectForKey:@"sex"];
+    if([loginState isEqualToString:@"0"])
+    {
+        return;
+    }
     NSString *loginType = [userDefaults objectForKey:@"loginType"];
 
     if ([loginType isEqualToString:@"phone"]) {
@@ -191,12 +168,12 @@
     }
     else if ([loginType isEqualToString:@"qq"])
     {
-//        NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-//        [infos setObject:outUserId forKey:@"usid"];
-//        [infos setObject:outNickName forKey:@"user_name"];
-//        [infos setObject:outSex forKey:@"sex"];
-//        [infos setObject:outHeadUrl forKey:@"user_icon"];
-//        [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSLoginqq] andInfos:infos];
+        NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+        [infos setObject:str_uid forKey:@"usid"];
+        [infos setObject:str_username forKey:@"user_name"];
+        [infos setObject:str_sex forKey:@"sex"];
+        [infos setObject:str_logo_img forKey:@"user_icon"];
+        [self requestPOSTAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSLoginqq] andInfos:infos];
     }
 
 }
@@ -229,15 +206,11 @@
        {
         //融云
         [[RCIM sharedRCIM] initWithAppKey:RONGClOUDAPPKEY];
-        //设置用户信息提供者为 [RCDataManager shareManager]
         [RCIM sharedRCIM].userInfoDataSource = [RCDataManager shareManager];
         [RCIM sharedRCIM].enableMessageAttachUserInfo = YES;
-        //融云
-        [[RCIM sharedRCIM] initWithAppKey:RONGClOUDAPPKEY];
-        //设置用户信息提供者为 [RCDataManager shareManager]
-        [RCIM sharedRCIM].userInfoDataSource = [RCDataManager shareManager];
-        [RCIM sharedRCIM].enableMessageAttachUserInfo = YES;
-        [self loginRongCloudWithUserInfo:[[RCUserInfo alloc]initWithUserId:@"60" name:@"mhu158VRQZ1956" portrait:@"http://shop.snryid.top/data/headimg/201803/0c33aa1a90a73e34e4a114d7323e598a.jpg" QQ:@"" sex:@""] withToken:@"iMRZ4b+d0LD/DeL9ae7v9dzYrJ6cohx7SF4nk3KbFSgHOCG2OoxWLl3Yg93x3cguVdTS6q6hPGNDVA8SwD8R4g=="];
+
+           NSString *logo_img =ConvertNullString([[responseObject objectForKey:@"data"] objectForKey:@"headimg" ]);
+           [[RCDataManager shareManager] loginRongCloudWithUserInfo:[[RCUserInfo alloc]initWithUserId:[[responseObject objectForKey:@"data"] objectForKey:@"user_id"] name:[[responseObject objectForKey:@"data"] objectForKey:@"user_name"] portrait:logo_img] withToken:@"ryoLsajPGxofpGG6J+Zg5iHL1WmuRf3UpRNY4aRna/f9JhFTYxi4jLDhYhNokPEpkrWMVXcglxk5O2hzB2XuQA=="];
     }
 
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) { // 失败，关闭网络指示器

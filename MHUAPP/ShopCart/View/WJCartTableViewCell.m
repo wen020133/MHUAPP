@@ -51,12 +51,24 @@
 - (void)reloadDataWithModel:(WJCartGoodsModel*)model {
 
     self.lzImageView.image = model.image;
-    [self refreshUIWithTitle:model.goodsName];
-    self.priceLabel.text = model.price;
-    self.attributeLabel.text = model.attribute;
-    self.youhuiLabel.text = model.youhui;
-    self.numberLabel.text = [NSString stringWithFormat:@"%ld",(long)model.count];
+    [self refreshUIWithTitle:model.goods_name];
+    self.attributeLabel.text = model.goods_attr;
+    if (model.youhui.length>0) {
+        self.youhuiLabel.text = model.youhui;
+    }
+    self.numberLabel.text = [NSString stringWithFormat:@"%ld",(long)model.goods_number];
     self.selectBtn.selected = model.select;
+    self.priceLabel.text = [NSString stringWithFormat:@"¥%@",model.count_price];
+    self.priceLabel.frame = CGRectMake(self.lzImageView.Right + 10, 65, [RegularExpressionsMethod widthOfString:self.priceLabel.text font:Font(16) height:30], 30);
+
+    if (model.market_price.length>0) {
+        NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:model.market_price
+                                                                                    attributes:@{NSStrikethroughStyleAttributeName : @(NSUnderlineStyleSingle)}];
+        self.lab_market_price.attributedText = attrStr;
+
+        self.lab_market_price.frame = CGRectMake(self.priceLabel.Right+3, 72, 60, 20);
+    }
+
 }
 
 - (void)numberAddWithBlock:(LZNumberChangedBlock)block {
@@ -103,7 +115,7 @@
 - (void)cutBtnClick:(UIButton*)button {
     NSInteger count = [self.numberLabel.text integerValue];
     count--;
-    if(count <= 0){
+    if(count <= 1){
         return ;
     }
 
@@ -158,11 +170,16 @@
     //价格
     self.priceLabel = [[UILabel alloc]init];
     self.priceLabel.frame = CGRectMake(self.lzImageView.Right + 10, 65, 200, 30);
-    self.priceLabel.font = [UIFont boldSystemFontOfSize:16];
+    self.priceLabel.font = Font(16);
     self.priceLabel.textColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
     [self.contentView addSubview:self.priceLabel];
 
-
+    //原价
+    self.lab_market_price = [[UILabel alloc] init];
+    self.lab_market_price.font = PFR12Font;
+    self.lab_market_price.contentMode = NSTextAlignmentLeft;
+    self.lab_market_price.textColor = [RegularExpressionsMethod ColorWithHexString:kGrayBgColor];
+    [self addSubview:self.lab_market_price];
 
     //数量加按钮
     UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeCustom];

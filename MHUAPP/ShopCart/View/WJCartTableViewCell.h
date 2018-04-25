@@ -25,7 +25,11 @@ typedef void(^LZCellSelectedBlock)(BOOL select);
 @property (nonatomic,strong) UILabel *attributeLabel;
 //优惠详情
 @property (nonatomic,strong) UILabel *youhuiLabel;
-//价格
+
+//原价
+@property (nonatomic,strong) UILabel *lab_market_price;
+
+//现价
 @property (nonatomic,strong) UILabel *priceLabel;
 //数量
 @property (nonatomic,strong)UILabel *numberLabel;

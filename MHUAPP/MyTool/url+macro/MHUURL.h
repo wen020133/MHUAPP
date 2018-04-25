@@ -24,6 +24,9 @@
 #define   kMSUserRegister         @"/user/register"              //注册
 #define   kMSLoginURL             @"/user/login"                 //登陆
 #define   kMSLoginqq             @"/user/qq"                 //第三方登陆
+#define   kMSOutLogin          @"OutLogin"      //退出登录
+
+
 #define   kMSAddressGetsite            @"/address/get_site"                 //用户收货地址
 #define   kMSAddressChangeDefault            @"/address/change_default_site"                 //修改默认收货地址
 #define   kMSAddressChangeType            @"/address/change_type"                 //增/删/改 收货地址
@@ -64,7 +67,7 @@
 #define   kMSPostCart          @"/v1/postCart"                 //向购物车添加数据
 #define   kMSGetGoodsDesc          @"getGoodsDesc"                 //商品的详细描述
 #define   kMSGetCartList          @"getCart"                 //购物车列表数据
-
+#define   kMSDeleteCart          @"deleteCart"                 //删除购车商品
 
 
 #endif /* MHUURL_h */

@@ -12,12 +12,14 @@
 
 @property (nonatomic,assign) BOOL select;
 
-@property (assign,nonatomic)NSInteger count;
-@property (copy,nonatomic)NSString *goodsID;
-@property (copy,nonatomic)NSString *goodsName;
-@property (copy,nonatomic)NSString *price;
-@property (copy,nonatomic)NSString *attribute;
-@property (copy,nonatomic)NSString *youhui;
+@property (assign,nonatomic) NSInteger goods_number;
+@property (copy,nonatomic)NSString *goods_id;
+@property (copy,nonatomic)NSString *goods_name;
+@property (copy,nonatomic)NSString *count_price; //现价
+@property (copy,nonatomic)NSString *market_price;  //原价
+@property (copy,nonatomic)NSString *rec_id;  //在购物车的ID
+@property (copy,nonatomic)NSString *youhui;  //在购物车的ID
 @property (strong,nonatomic)UIImage *image;
+@property (copy,nonatomic)NSString *goods_attr;
 
 @end

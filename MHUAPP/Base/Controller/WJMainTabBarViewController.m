@@ -61,7 +61,10 @@
     
     self.selectedIndex = 0;
     
-   
+    //添加阴影
+    self.tabBar.layer.shadowColor = [UIColor lightGrayColor].CGColor;
+    self.tabBar.layer.shadowOffset = CGSizeMake(0, -5);
+    self.tabBar.layer.shadowOpacity = 0.2;
     // Do any additional setup after loading the view.
 }
 - (void)setUpChildController:(UIViewController *)childController title:(NSString *)title image:(NSString *)image  selectedImage:(NSString *)selectedImage

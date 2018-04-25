@@ -12,6 +12,8 @@
 #import "ForgetPasswordViewController.h"
 #import "RigisterClassViewController.h"
 
+#import "RCDataManager.h"
+
 @interface WJLoginClassViewController ()
 
 @end
@@ -223,6 +225,9 @@
                 [userDefaults setObject:@"phone" forKey:@"loginType"];
                 [userDefaults synchronize];
                 [self.navigationController popViewControllerAnimated:YES];
+                [self dismissViewControllerAnimated:YES completion:^{
+
+                }];
             }
                 break;
             case 1:
@@ -258,17 +263,22 @@
                     [userDefaults setObject:@"qq" forKey:@"loginType"];
                     [userDefaults synchronize];
                     [self.navigationController popViewControllerAnimated:YES];
+                    [self dismissViewControllerAnimated:YES completion:^{
+
+                    }];
                 }
                 else
                 {
                     [SVProgressHUD showErrorWithStatus:@"获取数据失败"];
                 }
-
+                NSString *logo_img =ConvertNullString([[self.results objectForKey:@"data"] objectForKey:@"headimg" ]);
+                [[RCDataManager shareManager] loginRongCloudWithUserInfo:[[RCUserInfo alloc]initWithUserId:[[self.results objectForKey:@"data"] objectForKey:@"user_id"] name:[[self.results objectForKey:@"data"] objectForKey:@"user_name"] portrait:logo_img] withToken:@"ryoLsajPGxofpGG6J+Zg5iHL1WmuRf3UpRNY4aRna/f9JhFTYxi4jLDhYhNokPEpkrWMVXcglxk5O2hzB2XuQA=="];
             }
                 break;
             default:
                 break;
         }
+
 
     }
     else

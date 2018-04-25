@@ -196,7 +196,7 @@ static NSInteger num_;
     if (_seleArray.count >0) {
 
         cell.chooseAttLabel.textColor = [UIColor darkGrayColor];
-        NSString *attString =  [_seleArray componentsJoinedByString:@"，"];
+        NSString *attString =  [_seleArray componentsJoinedByString:@","];
         cell.chooseAttLabel.text = [NSString stringWithFormat:@"已选属性：%@",attString];
     }
     else

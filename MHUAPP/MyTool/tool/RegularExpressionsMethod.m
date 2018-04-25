@@ -185,7 +185,7 @@
 {
     NSDictionary * dict=[NSDictionary dictionaryWithObject: font forKey:NSFontAttributeName];
     CGRect rect=[string boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, height) options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil];
-    return rect.size.width;
+    return rect.size.width+2;
 }
 
 #pragma mark - 下划线

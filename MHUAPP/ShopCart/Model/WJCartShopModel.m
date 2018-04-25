@@ -17,11 +17,14 @@
         for (NSDictionary *dic in array) {
             WJCartGoodsModel *model = [[WJCartGoodsModel alloc]init];
 
-            model.count = [[dic objectForKey:@"count"] integerValue];
-            model.goodsID = [dic objectForKey:@"goodsId"];
-            model.goodsName = [dic objectForKey:@"goodsName"];
-            model.price = [NSString stringWithFormat:@"%@",[dic objectForKey:@"realPrice"]];
-
+            model.goods_number = [[dic objectForKey:@"goods_number"] integerValue];
+            model.goods_id = [dic objectForKey:@"goods_id"];
+            model.goods_name = [dic objectForKey:@"goods_name"];
+            model.count_price = [NSString stringWithFormat:@"%@",[dic objectForKey:@"count_price"]];
+            model.goods_attr = [dic objectForKey:@"goods_attr"];
+            model.rec_id = [dic objectForKey:@"rec_id"];
+            model.youhui = [dic objectForKey:@"youhui"];
+            model.market_price = [NSString stringWithFormat:@"%@",[dic objectForKey:@"market_price"]];
             [dataArray addObject:model];
         }
 

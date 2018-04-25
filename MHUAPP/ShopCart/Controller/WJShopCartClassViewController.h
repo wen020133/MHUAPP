@@ -15,10 +15,6 @@ typedef NS_ENUM(NSInteger, KGetShopListClassType) {
 
 @interface WJShopCartClassViewController : BaseNetworkViewController<UITableViewDelegate,UITableViewDataSource>
 
-@property (nonatomic, retain) NSMutableArray              *records;
-@property (strong, nonatomic) UITableView *infoTableView;
-// current page
-@property (assign, nonatomic) NSInteger         currPage;
 
 @property (assign, nonatomic) BOOL isHasTabBarController;//是否含有tabbar
 @property (assign, nonatomic) BOOL isHasNavitationController;//是否含有导航

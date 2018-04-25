@@ -81,6 +81,9 @@
 
 - (void)showleft {
     [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:^{
+
+    }];
 }
 
 - (void)showright {

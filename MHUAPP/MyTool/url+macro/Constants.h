@@ -44,6 +44,12 @@
 #define kMSNavBarBackColor [UIColor colorWithRed:253/255.0 green:35/255.0 blue:60/255.0 alpha:1]
 #define kMSViewBorderColor [[UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1] CGColor]
 
+#define HEXCOLOR(rgbValue)                                                                                             \
+[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16)) / 255.0                                               \
+green:((float)((rgbValue & 0xFF00) >> 8)) / 255.0                                                  \
+blue:((float)(rgbValue & 0xFF)) / 255.0                                                           \
+alpha:1.0]
+
 #define kMSViewTitleColor [UIColor whiteColor]
 #define kMSCellBackColor [UIColor whiteColor]
 #define kMSViewBackColor [UIColor whiteColor]

@@ -114,11 +114,57 @@
 
     }];
 
+}
 
+
+- (void)requestDeleteAPIWithServe:(NSString *)urlString
+{
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/xml",@"text/html", nil];
+
+
+    NSDate* dat = [NSDate dateWithTimeIntervalSinceNow:0];
+    NSTimeInterval a=[dat timeIntervalSince1970];  //  *1000 是精确到毫秒，不乘就是精确到秒
+    NSString *timeString = [NSString stringWithFormat:@"%.0f",a ]; //转为字符型
+
+    NSString *token = [[NSString stringWithFormat:@"mhupro_%@_mhupro",[timeString md5]] md5];
+
+    if ([urlString containsString:@"id="]) {
+        urlString  = [NSString stringWithFormat:@"%@&time=%@&token=%@",urlString,timeString,token];
+    }
+    else
+    {
+        urlString = [NSString stringWithFormat:@"%@?time=%@&token=%@",urlString,timeString,token];
+
+    }
+
+    NSLog(@"urlString====%@",urlString);
+
+    [manager DELETE:urlString parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+
+        NSLog(@"responseObject====%@",responseObject);
+        [SVProgressHUD dismiss];
+        self.results = responseObject;
+        [self deleteProcessData];
+
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        // 失败，关闭网络指示器
+        NSLog(@"ada===%@",[error localizedDescription]);
+        NSString *str_error = [error localizedDescription];
+        [SVProgressHUD dismiss];
+        [self requestFailed:str_error];
+
+    }];
 }
 - (void)getProcessData
 {
-    NSLog(@"返回数据====%@",_results);
+
+}
+-(void)deleteProcessData
+{
+
 }
 // Connected failed
 - (void)requestFailed:(NSString *)error

@@ -14,7 +14,7 @@
 - (void)requestAPIWithServe:(NSString *)service andInfos:(NSDictionary *)infos ; //POST上传普通数据
 
 - (void)requestGetAPIWithServe:(NSString *)urlString; //Get请求数据
-
+- (void)requestDeleteAPIWithServe:(NSString *)urlString; //Get请求数据
 @property (nonatomic, retain) NSDictionary              *results;
 
 

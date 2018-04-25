@@ -195,13 +195,47 @@
     }
 }
 - (void)loginoutState {
-    NSDictionary *dic = [NSDictionary dictionary];
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:dic forKey:@"userList"];
 
-    [userDefaults setObject:@"0" forKey:@"loginState"];
-    [userDefaults synchronize];
-    [self.navigationController popViewControllerAnimated:YES];
+
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/xml",@"text/html", nil];
+
+
+    NSDate* dat = [NSDate dateWithTimeIntervalSinceNow:0];
+    NSTimeInterval a=[dat timeIntervalSince1970];  //  *1000 是精确到毫秒，不乘就是精确到秒
+    NSString *timeString = [NSString stringWithFormat:@"%.0f",a ]; //转为字符型
+    NSString *token = [[NSString stringWithFormat:@"mhupro_%@_mhupro",[timeString md5]] md5];
+
+    NSString *url  = [NSString stringWithFormat:@"%@/%@/%@?time=%@&token=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSOutLogin,timeString,token];
+    NSLog(@"url====%@",url);
+
+    [manager DELETE:url parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"responseObject====%@",responseObject);
+        if([[responseObject objectForKey:@"code"] integerValue] == 200)
+        {
+            NSDictionary *dic = [NSDictionary dictionary];
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults setObject:dic forKey:@"userList"];
+
+            [userDefaults setObject:@"0" forKey:@"loginState"];
+            [userDefaults synchronize];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        else
+        {
+             [SVProgressHUD showErrorWithStatus:@"退出失败"];
+        }
+    }
+     failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        // 失败，关闭网络指示器
+        NSLog(@"ada===%@",[error localizedDescription]);
+        NSString *str_error = [error localizedDescription];
+        [SVProgressHUD dismiss];
+        [SVProgressHUD showErrorWithStatus:str_error];
+        return;
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

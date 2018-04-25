@@ -236,7 +236,7 @@
         backTransition.panRatioBaseValue = _vertical ? containerView.frame.size.height : containerView.frame.size.width;
         [backTransition xw_addPanGestureForView:gestureView to:NO];
 //        [self xw_setBackInteractiveTransition:backTransition];
-        [self setValue:backTransition forKey:@"backTransition"];
+//        [self setValue:backTransition forKey:@"backTransition"];
     }
     [containerView addSubview:gestureView];
 }
