@@ -15,9 +15,7 @@
 
 - (void)requestGetAPIWithServe:(NSString *)urlString; //Get请求数据
 - (void)requestDeleteAPIWithServe:(NSString *)urlString; //Get请求数据
-@property (nonatomic, retain) NSDictionary              *results;
-
-
+@property (nonatomic, strong) NSDictionary              *results;
 
 
 - (NSDictionary *)getJSONDataWithObject:(id)JSON;

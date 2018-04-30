@@ -12,12 +12,17 @@
 
 /* 商品图片 */
 @property (strong , nonatomic)NSString *goodImageView;
+/* 商品价格 */
+@property (strong , nonatomic)NSString *goodPrice;
+
 /* 上一次选择的属性 */
 @property (strong , nonatomic)NSMutableArray *lastSeleArray;
 /* 上一次选择的数量 */
 @property (assign , nonatomic)NSString *lastNum;
 
-/* 数据 */
-@property (strong , nonatomic) NSArray  *arr_fuckData;
+/* 属性 */
+@property (copy , nonatomic) NSArray  *arr_fuckData;
 
+/* 图片数组 */
+@property (copy , nonatomic) NSArray  *arr_goodImage;
 @end

@@ -14,5 +14,7 @@
 @property (strong , nonatomic) NSArray  *countDownItem;
 /* 推荐商品数据 */
 - (void)setUpUI;
+/** 去各活动 */
 
+@property (nonatomic , copy) void(^goToGoodDetailClass)(NSString *good_id);
 @end

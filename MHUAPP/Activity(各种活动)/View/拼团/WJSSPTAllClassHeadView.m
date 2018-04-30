@@ -115,6 +115,7 @@
     if(self.secondsCountDown==0){
 
         [_countDownTimer invalidate];
+        _countDownTimer = nil;
     }
 
 }

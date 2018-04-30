@@ -11,9 +11,8 @@
 @interface WJCartShopModel : NSObject
 
 @property (assign,nonatomic)BOOL select;
-@property (copy,nonatomic)NSString *supplier_id;
-@property (copy,nonatomic)NSString *supplier;
-@property (copy,nonatomic)NSString *sID;
+@property (copy,nonatomic) NSString *supplier_id;
+@property (copy,nonatomic) NSString *supplier_name;
 @property (strong,nonatomic,readonly)NSMutableArray *goodsArray;
 
 - (void)configGoodsArrayWithArray:(NSArray*)array;

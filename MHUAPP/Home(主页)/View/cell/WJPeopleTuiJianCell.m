@@ -43,19 +43,15 @@
     _img_first = ImageViewInit(10, right1.Bottom+5, width_first-15, Cell_height-right1.Bottom-15);
     _img_first.contentMode = UIViewContentModeScaleAspectFit;
     _img_first.image = [UIImage imageNamed:@"home_snap_img"];
-    NSString *goods_thumb = self.arr_tuijiandata[0][@"goods_thumb"];
-    [_img_first sd_setImageWithURL:[NSURL URLWithString:goods_thumb] placeholderImage:[UIImage imageNamed:@"home_snap_img"] completed:nil];
 
     [self.contentView addSubview:_img_first];
 
     UIImageView *line1 = ImageViewInit(width_first, 0, 1, Cell_height-5);
     line1.backgroundColor = [RegularExpressionsMethod ColorWithHexString:@"E6E6E6"];
     [self.contentView addSubview:line1];
-
     _img_second = ImageViewInit(width_first+5, 3,kMSScreenWith-width_first-75, 90);
     _img_second.contentMode = UIViewContentModeScaleAspectFit;
-    NSString *goods_thumb1 = self.arr_tuijiandata[1][@"goods_thumb"];
-    [_img_second sd_setImageWithURL:[NSURL URLWithString:goods_thumb1] placeholderImage:[UIImage imageNamed:@"home_snap_img"] completed:nil];
+
     [self.contentView addSubview:_img_second];
 
     UIButton *right2 = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -80,8 +76,6 @@
 
     _img_third = ImageViewInit(width_first+5, line2.Bottom+ 26,(kMSScreenWith-10-width_first)/2-10, 117);
     _img_third.contentMode = UIViewContentModeScaleAspectFit;
-    NSString *goods_thumb2 = self.arr_tuijiandata[2][@"goods_thumb"];
-    [_img_third sd_setImageWithURL:[NSURL URLWithString:goods_thumb2] placeholderImage:[UIImage imageNamed:@"home_snap_img"] completed:nil];
     [self.contentView addSubview:_img_third];
 
     UIButton *right3 = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -97,9 +91,7 @@
 
     _img_fourth = ImageViewInit(line3.Right+5, line2.Bottom+ 26,(kMSScreenWith-10-width_first)/2-10, 117);
     _img_fourth.contentMode = UIViewContentModeScaleAspectFit;
-    NSString *goods_thumb3 = self.arr_tuijiandata[3][@"goods_thumb"];
-    [_img_fourth sd_setImageWithURL:[NSURL URLWithString:goods_thumb3] placeholderImage:[UIImage imageNamed:@"home_snap_img"] completed:nil];
-    [self.contentView addSubview:_img_fourth];
+       [self.contentView addSubview:_img_fourth];
 
 
     UIButton *right4 = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -112,13 +104,24 @@
     [self.contentView addSubview:right4];
 }
 
--(NSArray *)arr_tuijiandata
+#pragma mark - Setter Getter Methods
+- (void)setArr_tuijiandata:(NSArray *)arr_tuijiandata
 {
-    if(!_arr_tuijiandata)
+    if(arr_tuijiandata.count<1)
     {
-        _arr_tuijiandata = [NSArray array];
+        return;
     }
-    return _arr_tuijiandata;
+    NSString *goods_thumb = ConvertNullString(arr_tuijiandata[0][@"goods_thumb"]);
+    [_img_first sd_setImageWithURL:[NSURL URLWithString:goods_thumb] placeholderImage:[UIImage imageNamed:@"home_snap_img"] completed:nil];
+
+    NSString *goods_thumb1 =ConvertNullString(arr_tuijiandata[1][@"goods_thumb"]);
+    [_img_second sd_setImageWithURL:[NSURL URLWithString:goods_thumb1] placeholderImage:[UIImage imageNamed:@"home_snap_img"] completed:nil];
+
+    NSString *goods_thumb2 = ConvertNullString(arr_tuijiandata[2][@"goods_thumb"]);
+    [_img_third sd_setImageWithURL:[NSURL URLWithString:goods_thumb2] placeholderImage:[UIImage imageNamed:@"home_snap_img"] completed:nil];
+
+    NSString *goods_thumb3 = ConvertNullString(arr_tuijiandata[3][@"goods_thumb"]);
+    [_img_fourth sd_setImageWithURL:[NSURL URLWithString:goods_thumb3] placeholderImage:[UIImage imageNamed:@"home_snap_img"] completed:nil];
 }
 
 @end

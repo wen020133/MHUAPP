@@ -185,6 +185,7 @@
     {
         if (indexPath.row==0) {
             AddAddressViewController *AddressVC = [[AddAddressViewController alloc]init];
+            AddressVC.selectCellIndexpathYES = YES;
             self.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:AddressVC animated:YES];
         }

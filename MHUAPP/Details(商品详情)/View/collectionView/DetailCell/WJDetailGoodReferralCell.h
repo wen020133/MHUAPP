@@ -22,11 +22,11 @@
 @property (strong , nonatomic)UIButton *preferentialButton;
 
 /* 商品标题 */
-@property (strong , nonatomic)NSString *goodTitle;
+@property (assign , nonatomic)NSString *goodTitle;
 /* 店铺价格 */
-@property (strong , nonatomic)NSString *goodPrice;
+@property (assign , nonatomic)NSString *goodPrice;
 /* 原价格 */
-@property (strong , nonatomic)NSString *oldPrice;
+@property (assign , nonatomic)NSString *oldPrice;
 
 - (void)assignmentAllLabel;
 

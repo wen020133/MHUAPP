@@ -10,10 +10,10 @@
 
 @interface WJDetailPartCommentItem : NSObject
 @property (nonatomic, copy)    NSString *headerIconStr;
-@property (nonatomic, copy)    NSString *titleStr;
-@property (nonatomic, copy)    NSString *txtContentStr;
+@property (nonatomic, copy)    NSString *content;
+@property (nonatomic, copy)    NSString *add_time;
+@property (strong, nonatomic)  NSString *comment_rank;
+@property (strong, nonatomic)  NSString *user_name;
 @property (nonatomic, strong)  NSArray  *imageArr;
-@property (nonatomic, copy)    NSString *dateStr;
-@property (strong, nonatomic)  NSString *str_uid;
-@property (strong, nonatomic)  NSString *str_userName;
+
 @end

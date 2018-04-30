@@ -28,9 +28,11 @@ typedef NS_ENUM(NSInteger, KGetShopInfoClassType) {
 @property (strong , nonatomic)NSString *goodImageView;
 
 /* 商品轮播图 */
-@property (strong , nonatomic)NSArray *shufflingArray;
+@property (copy , nonatomic)NSArray *shufflingArray;
 /* 商品属性 */
-@property (strong , nonatomic)NSArray *attributeArray;
+@property (copy , nonatomic)NSArray *attributeArray;
+/* 商品评论 */
+@property (copy , nonatomic)NSArray *getCommentArray;
 
 /* 商品ID */
 @property (strong , nonatomic) NSString *goods_id;

@@ -7,42 +7,35 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WJMYPickerView.h"
 #import "BaseNetworkViewController.h"
 
-@interface WJGoodBaseViewController : BaseNetworkViewController<SelectPickerViewDelegate>
+@interface WJGoodBaseViewController : BaseNetworkViewController
 
 /** 更改标题 */
-@property (nonatomic , copy) void(^changeTitleBlock)(BOOL isChange);
+@property (nonatomic , assign) void(^changeTitleBlock)(BOOL isChange);
 
 /* 商品标题 */
-@property (strong , nonatomic)NSString *goodTitle;
+@property (assign , nonatomic)NSString *goodTitle;
 /* 店铺价格 */
-@property (strong , nonatomic)NSString *goodPrice;
+@property (assign , nonatomic)NSString *goodPrice;
 /* 原价格 */
-@property (strong , nonatomic)NSString *oldPrice;
+@property (assign , nonatomic)NSString *oldPrice;
 /* 商品小标题 */
-@property (strong , nonatomic)NSString *goodSubtitle;
+@property (assign , nonatomic)NSString *goodSubtitle;
 /* 商品图片 */
-@property (strong , nonatomic)NSString *goodImageView;
+@property (assign , nonatomic)NSString *goodImageView;
 
 /* 商品轮播图 */
-@property (strong , nonatomic)NSArray *shufflingArray;
+@property (copy , nonatomic)NSArray *shufflingArray;
 /* 商品属性 */
-@property (strong , nonatomic)NSArray *attributeArray;
+@property (copy , nonatomic)NSArray *attributeArray;
+/* 商品评论 */
+@property (copy , nonatomic)NSArray *commentArray;
+
 /* 商品ID */
-@property (strong , nonatomic) NSString *goods_id;
+@property (assign , nonatomic) NSString *goods_id;
 /* 店铺ID */
-@property (strong , nonatomic) NSString *supplier_id;
+@property (assign , nonatomic) NSString *supplier_id;
 
-@property (retain, nonatomic)  WJMYPickerView *pickerView;
-
-@property (retain, nonatomic) NSString *str_provinceName;
-@property (retain, nonatomic) NSString *str_provinceId;
-@property (retain, nonatomic) NSString *str_cityName;
-@property (retain, nonatomic) NSString *str_cityId;
-@property (retain, nonatomic) NSString *str_address;
-@property (retain, nonatomic) NSString *str_district;   //县（区）
-@property (retain, nonatomic) NSString *str_districtId;
 
 @end

@@ -172,7 +172,6 @@
     [manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
 
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//      NSLog(@"%@====%@",urlString,responseObject);
          [SVProgressHUD dismiss];
         if([[responseObject objectForKey:@"code"] integerValue] == 200)
         {
@@ -208,6 +207,8 @@
             }
          }
             if ([urlString isEqualToString:kMSGetToday]) {
+                NSLog(@"%@====%@",urlString,responseObject);
+
                 id arr = [responseObject objectForKey:@"data"];
                 if([arr isKindOfClass:[NSArray class]])
                 {
@@ -483,6 +484,9 @@
             WJGoodsCountDownCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJGoodsCountDownCell" forIndexPath:indexPath];
         cell.countDownItem = [[self.miaoshaArr objectAtIndex:0] objectForKey:@"activity"];
         [cell setUpUI];
+        cell.goToGoodDetailClass = ^(NSString *good_id) {
+            [self gotoGoodDetailWithGoodId:good_id];
+        };
             gridcell = cell;
         
     }
@@ -522,7 +526,7 @@
     else
     {
         WJHomeRecommendCollectionViewCell *cell = [self.collectionV dequeueReusableCellWithReuseIdentifier:@"WJHomeRecommendCollectionViewCell" forIndexPath:indexPath];
-        cell.model = self.headImageArr[indexPath.row];
+        cell.model = _headImageArr[indexPath.row];
         gridcell = cell;
     }
     return gridcell;
@@ -531,7 +535,7 @@
 {
     if (indexPath.section == 7) {
         WJGoodDetailViewController *dcVc = [[WJGoodDetailViewController alloc] init];
-        dcVc.goods_id = self.headImageArr[indexPath.row].goods_id;
+        dcVc.goods_id = _headImageArr[indexPath.row].goods_id;
 //        dcVc.goodTitle = self.headImageArr[indexPath.row].goods_name;
 //        dcVc.goodPrice = self.headImageArr[indexPath.row].shop_price;
 //        dcVc.goodSubtitle = self.headImageArr[indexPath.row].goods_title;
@@ -543,6 +547,14 @@
     }
 }
 
+- (void)gotoGoodDetailWithGoodId:(NSString *)goodId
+{
+    WJGoodDetailViewController *dcVc = [[WJGoodDetailViewController alloc] init];
+    dcVc.goods_id = goodId;
+    self.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:dcVc animated:YES];
+    self.hidesBottomBarWhenPushed = NO;
+}
 -(void)gotoTypeClassWithID:(NSInteger)tag
 {
     switch (tag) {

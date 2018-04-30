@@ -34,8 +34,6 @@
 @property (strong, nonatomic) UIScrollView *scrollerView;
 @property (strong, nonatomic) UICollectionView *collectionView;
 
-//省市县
-@property (strong , nonatomic) NSArray *arr_siteList;
 /* 滚回顶部按钮 */
 @property (strong , nonatomic)UIButton *backTopButton;
 /* 通知 */
@@ -51,6 +49,8 @@ static NSArray *lastSeleArray_;
 
 - (void)viewDidLoad {
 
+    [super viewDidLoad];
+
     [self setUpInit];
 
     [self setUpViewScroller];
@@ -58,24 +58,19 @@ static NSArray *lastSeleArray_;
     [self setUpSuspendView];
 
     _PostCount =0 ;
+    [self acceptanceNote];
 
-    [self.view addSubview:_scrollerView];
 
-    [super viewDidLoad];
+
     // Do any additional setup after loading the view.
 }
 #pragma mark - LifeCyle
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self acceptanceNote];
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [[NSNotificationCenter defaultCenter]removeObserver:_dcObj];
-    [super viewWillDisappear:animated];
-}
+
 #pragma mark - LazyLoad
 - (UIScrollView *)scrollerView
 {
@@ -85,7 +80,7 @@ static NSArray *lastSeleArray_;
         _scrollerView.contentSize = CGSizeMake(kMSScreenWith, (kMSScreenHeight - 50) * 2);
         _scrollerView.pagingEnabled = YES;
         _scrollerView.scrollEnabled = NO;
-
+        [self.view addSubview:_scrollerView];
     }
     return _scrollerView;
 }
@@ -146,32 +141,18 @@ static NSArray *lastSeleArray_;
     WEAKSELF
     _dcObj = [[NSNotificationCenter defaultCenter]addObserverForName:@"shareAlterView" object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
         [weakSelf selfAlterViewback];
-//        [weakSelf setUpAlterViewControllerWith:[DCShareToViewController new] WithDistance:300 WithDirection:XWDrawerAnimatorDirectionBottom WithParallaxEnable:NO WithFlipEnable:NO];
     }];
-
 
     //父类加入购物车，立即购买通知
     _dcObj = [[NSNotificationCenter defaultCenter]addObserverForName:@"ClikAddOrBuy" object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
 
-        if (lastSeleArray_.count != 0) {
             if ([note.userInfo[@"buttonTag"] isEqualToString:@"2"]) { //加入购物车（父类）
 
-                [weakSelf setUpWithAddSuccess];
+                [weakSelf isSelectAlretOrGetData];
 
             }else if ([note.userInfo[@"buttonTag"] isEqualToString:@"3"]){//立即购买（父类）
 
-//                DCFillinOrderViewController *dcFillVc = [DCFillinOrderViewController new];
-//                [weakSelf.navigationController pushViewController:dcFillVc animated:YES];
             }
-
-        }else {
-            WJFeatureSelectionViewController *dcFeaVc = [WJFeatureSelectionViewController new];
-            dcFeaVc.lastNum = lastNum_;
-            dcFeaVc.lastSeleArray = [NSMutableArray arrayWithArray:lastSeleArray_];
-            dcFeaVc.arr_fuckData = self.attributeArray;
-            dcFeaVc.goodImageView = _goodImageView;
-            [self setUpAlterViewControllerWith:dcFeaVc WithDistance:kMSScreenHeight * 0.8 WithDirection:XWDrawerAnimatorDirectionBottom WithParallaxEnable:YES WithFlipEnable:YES];
-        }
     }];
 
     //选择Item通知
@@ -188,12 +169,9 @@ static NSArray *lastSeleArray_;
 
         if ([buttonTag isEqualToString:@"0"]) { //加入购物车
 
-            [weakSelf setUpWithAddSuccess];
+            [weakSelf isSelectAlretOrGetData];
 
         }else if ([buttonTag isEqualToString:@"1"]) { //立即购买
-
-//            DCFillinOrderViewController *dcFillVc = [DCFillinOrderViewController new];
-//            [weakSelf.navigationController pushViewController:dcFillVc animated:YES];
         }
 
     }];
@@ -214,7 +192,7 @@ static NSArray *lastSeleArray_;
 #pragma mark - 转场动画弹出控制器
 - (void)setUpAlterViewControllerWith:(UIViewController *)vc WithDistance:(CGFloat)distance WithDirection:(XWDrawerAnimatorDirection)vcDirection WithParallaxEnable:(BOOL)parallaxEnable WithFlipEnable:(BOOL)flipEnable
 {
-    [self dismissViewControllerAnimated:YES completion:nil]; //以防有控制未退出
+//    [self dismissViewControllerAnimated:YES completion:nil]; //以防有控制未退出
     XWDrawerAnimatorDirection direction = vcDirection;
     XWDrawerAnimator *animator = [XWDrawerAnimator xw_animatorWithDirection:direction moveDistance:distance];
     animator.parallaxEnable = parallaxEnable;
@@ -227,11 +205,58 @@ static NSArray *lastSeleArray_;
 }
 #pragma mark - <UICollectionViewDataSource>
 - (NSInteger) numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 3;
+    int kk = 1;
+    if (_commentArray&&_commentArray.count>0) {
+        kk++;
+    }
+    else if (_attributeArray&&_attributeArray.count>0)
+    {
+        kk++;
+    }
+    return kk;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return (section == 0 || section == 2) ? 2 : 1;
+    if (section==0) {
+        return 2;
+    }
+    else if(_attributeArray&&_attributeArray.count>0    )
+    {
+        if (section==1)
+        {
+            return 1;
+        }
+        if(_attributeArray&&_attributeArray.count>0)
+        {
+            if (section==2)
+            {
+               if (_attributeArray.count>=2) {
+                 return 2;
+               }
+               else
+              {
+                  return 1;
+               }
+                return 0;
+             }
+
+        }
+    }
+    else
+        {
+        if(_attributeArray&&_attributeArray.count>0)
+            if (section==1)
+            {
+                if (_attributeArray.count>=2) {
+                    return 2;
+                }
+                else
+                {
+                    return 1;
+                }
+            }
+        }
+    return 0;
 }
 
 #pragma mark - <UICollectionViewDelegate>
@@ -240,9 +265,9 @@ static NSArray *lastSeleArray_;
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             WJDetailGoodReferralCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJDetailGoodReferralCell" forIndexPath:indexPath];
-            cell.goodTitle = self.goodTitle;
-            cell.goodPrice = self.goodPrice;
-            cell.oldPrice = self.oldPrice;
+            cell.goodTitle = _goodTitle;
+            cell.goodPrice = _goodPrice;
+            cell.oldPrice = _oldPrice;
             [cell assignmentAllLabel];
             gridcell = cell;
         }else if (indexPath.row == 1){
@@ -251,41 +276,30 @@ static NSArray *lastSeleArray_;
             gridcell = cell;
         }
 
-    }else if (indexPath.section == 1 ){
+    }
+    if (indexPath.section == 1 && _attributeArray.count>0){
             WJShowTypeGoodsPropertyCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJShowTypeGoodsPropertyCell" forIndexPath:indexPath];
 
             NSString *result = [NSString stringWithFormat:@"%@ %@件",[lastSeleArray_ componentsJoinedByString:@"，"],lastNum_];
 
-            cell.leftTitleLable.text =  @"规格选择";
+            cell.leftTitleLable.text =  @"商品属性";
             cell.contentLabel.text = (lastSeleArray_.count == 0) ? @"请选择该商品属性" : result;
 
             gridcell = cell;
 
-//            if (indexPath.row == 0) {
-//                WJShowTypeAddressCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJShowTypeAddressCell" forIndexPath:indexPath];
-//                NSString *address;
-//                if (self.str_provinceName.length>1) {
-//                    address= [NSString stringWithFormat:@"%@ %@ %@",self.str_provinceName,self.str_cityName,self.str_district];
-//                }
-//                else
-//                {
-//                    address = @"请选择收货地址";
-//                }
-//
-//                cell.contentLabel.text = address; //地址
-//                gridcell = cell;
-//            }else{
-//             if (indexPath.row == 0)
-//             {
-//                WJShowTypeFreightCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJShowTypeFreightCell" forIndexPath:indexPath];
-//                gridcell = cell;
-//            }
         }
+    if (indexPath.section == 1 && _attributeArray.count<1&&_commentArray.count>0){
+        WJDetailPartCommentCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJDetailPartCommentCell" forIndexPath:indexPath];
+        gridcell = cell;
+    }
+    else if (_commentArray.count<1&&_attributeArray.count<1){
+
+        return gridcell;
+    }
     else if (indexPath.section == 2){
         WJDetailPartCommentCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJDetailPartCommentCell" forIndexPath:indexPath];
         gridcell = cell;
     }
-
     return gridcell;
 }
 
@@ -298,10 +312,20 @@ static NSArray *lastSeleArray_;
             headerView.shufflingArray = _shufflingArray;
             reusableview = headerView;
         }
-        else if (indexPath.section == 2){
-            WJDetailPartCommentHeadView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJDetailPartCommentHeadView" forIndexPath:indexPath];
-            reusableview = headerView;
+        if (_attributeArray.count>0) {
+             if (indexPath.section == 2){
+                WJDetailPartCommentHeadView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJDetailPartCommentHeadView" forIndexPath:indexPath];
+                reusableview = headerView;
+            }
         }
+        else
+        {
+            if (indexPath.section == 1){
+                WJDetailPartCommentHeadView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJDetailPartCommentHeadView" forIndexPath:indexPath];
+                reusableview = headerView;
+            }
+        }
+
     }else if (kind == UICollectionElementKindSectionFooter){
         if (indexPath.section == 2) {
             WJDetailOverFooterView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"WJDetailOverFooterView" forIndexPath:indexPath];
@@ -321,35 +345,54 @@ static NSArray *lastSeleArray_;
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) { //商品详情
         return (indexPath.row == 0) ? CGSizeMake(kMSScreenWith, [RegularExpressionsMethod dc_calculateTextSizeWithText:_goodTitle WithTextFont:16 WithMaxW:kMSScreenWith - DCMargin * 2].height + 40) : CGSizeMake(kMSScreenWith, 35);
-    }else if (indexPath.section == 1){//商品属性选择
+    }
+    if (_attributeArray>0){
+      if(indexPath.section == 1)
+        //商品属性选择
         return CGSizeMake(kMSScreenWith, 60);
+      else if (indexPath.section == 2){//商品评价部分展示
+          return CGSizeMake(kMSScreenWith, 80);
+      }
     }
-//    else if (indexPath.section == 2){//商品快递信息
-//        return CGSizeMake(kMSScreenWith, 60);
-//    }
-//     else if (indexPath.section == 3){//商品保价
-//        return CGSizeMake(kMSScreenWith / 2, 60);
-//    }
-    else if (indexPath.section == 2){//商品评价部分展示
-        return CGSizeMake(kMSScreenWith, 80);
+    else
+    {
+        if(indexPath.section == 1)
+            //商品评价部分展示
+            return CGSizeMake(kMSScreenWith, 80);
     }
-//    else if (indexPath.section == 3){//商品猜你喜欢
-//        return CGSizeMake(kMSScreenWith, (kMSScreenWith / 3 + 60) * 2 + 20);
-//    }
-    else{
         return CGSizeZero;
-    }
 }
 
 
 #pragma mark - head宽高
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-    return (section == 0) ?  CGSizeMake(kMSScreenWith, kMSScreenWith * 0.55) : ( section == 2) ? CGSizeMake(kMSScreenWith, 40) : CGSizeZero;
+    if (section ==0) {
+        return  CGSizeMake(kMSScreenWith, kMSScreenWith * 0.55);
+    }
+     if (_attributeArray>0){
+         if (section ==2) {
+             return  CGSizeMake(kMSScreenWith, 40);
+         }
+     }
+    else
+    {
+        if (section ==1) {
+            return  CGSizeMake(kMSScreenWith, 40);
+        }
+    }
+    return CGSizeZero;
 }
 
 #pragma mark - foot宽高
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
-    return (section == 2) ? CGSizeMake(kMSScreenWith, 35) : CGSizeMake(kMSScreenWith, DCMargin);
+    if (_attributeArray.count>0) {
+        return (section == 2) ? CGSizeMake(kMSScreenWith, 35) : CGSizeMake(kMSScreenWith, DCMargin);
+    }
+    else
+    {
+       return (section == 1) ? CGSizeMake(kMSScreenWith, 35) : CGSizeMake(kMSScreenWith, DCMargin);
+    }
+
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -359,39 +402,17 @@ static NSArray *lastSeleArray_;
 //    else if (indexPath.section == 2 && indexPath.row == 0) {
 //        [self chageUserAdress]; //跟换地址
 //    }
-    else if (indexPath.section == 1){ //属性选择
+    else if (_attributeArray.count>0&&indexPath.section == 1){ //属性选择
         WJFeatureSelectionViewController *dcFeaVc = [WJFeatureSelectionViewController new];
         dcFeaVc.lastNum = lastNum_;
         dcFeaVc.lastSeleArray = [NSMutableArray arrayWithArray:lastSeleArray_];
-        dcFeaVc.arr_fuckData = self.attributeArray;
+        dcFeaVc.arr_fuckData = _attributeArray;
+        dcFeaVc.arr_goodImage = _shufflingArray;
+        dcFeaVc.goodPrice = _goodPrice;
         dcFeaVc.goodImageView = _goodImageView;
-        [self setUpAlterViewControllerWith:dcFeaVc WithDistance:kMSScreenHeight * 0.8 WithDirection:XWDrawerAnimatorDirectionBottom WithParallaxEnable:YES WithFlipEnable:YES];
+        WEAKSELF
+        [weakSelf setUpAlterViewControllerWith:dcFeaVc WithDistance:kMSScreenHeight * 0.8 WithDirection:XWDrawerAnimatorDirectionBottom WithParallaxEnable:YES WithFlipEnable:YES];
     }
-}
-
-- (void)chageUserAdress
-{
-    _pickerView = [[WJMYPickerView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight)];
-    _pickerView.delegate = self;
-    [_pickerView initView];
-    _pickerView.allProvinces = self.arr_siteList;
-    [[UIApplication sharedApplication].keyWindow addSubview:self.pickerView];
-
-}
-
-
-
-
--(void) selectPickerViewRow:(NSString *)province provinceID:(NSString *)provinceID city:(NSString *)city cityID:(NSString *)cityID area:(NSString *)area areaID:(NSString *)areaID
-{
-    self.str_provinceName = province;
-    self.str_provinceId = provinceID;
-    self.str_cityName = city;
-    self.str_cityId = cityID;
-    self.str_district = area;
-    self.str_districtId = areaID;
-    NSLog(@"%@ %@ %@",province,city,area);
-    [self.collectionView reloadData];
 }
 
 #pragma mark - 滚动到详情页面
@@ -436,23 +457,56 @@ static NSArray *lastSeleArray_;
     //判断回到顶部按钮是否隐藏
     _backTopButton.hidden = (scrollView.contentOffset.y > kMSScreenHeight) ? NO : YES;
 }
+-(void)isSelectAlretOrGetData
+{
+    WEAKSELF
+
+    if (_attributeArray.count>0) {
+        if (lastSeleArray_.count >0) {
+
+                [weakSelf setUpWithAddSuccess];
+        }
+        else {
+            WJFeatureSelectionViewController *dcFeaVc = [WJFeatureSelectionViewController new];
+            dcFeaVc.lastNum = lastNum_;
+            dcFeaVc.lastSeleArray = [NSMutableArray arrayWithArray:lastSeleArray_];
+            dcFeaVc.arr_fuckData = _attributeArray;
+            dcFeaVc.arr_goodImage = _shufflingArray;
+            dcFeaVc.goodPrice = _goodPrice;
+            dcFeaVc.goodImageView = _goodImageView;
+            [weakSelf setUpAlterViewControllerWith:dcFeaVc WithDistance:kMSScreenHeight * 0.8 WithDirection:XWDrawerAnimatorDirectionBottom WithParallaxEnable:YES WithFlipEnable:YES];
+        }
+    }
+    else
+    {
+          [weakSelf setUpWithAddSuccess];
+    }
+}
 #pragma mark - 加入购物车成功
 - (void)setUpWithAddSuccess
 {
-
     _PostCount++;
     NSLog(@"执行了%ld次",_PostCount);
     
 //    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 //    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
+    NSString *result ;
+    if (_attributeArray.count>0) {
+      result  = [NSString stringWithFormat:@"%@",[lastSeleArray_ componentsJoinedByString:@","]];
+
+    }
+    else
+    {
+        result = @"";
+        lastNum_ = @"1";
+    }
 
 
-     NSString *result = [NSString stringWithFormat:@"%@",[lastSeleArray_ componentsJoinedByString:@"，"]];
 
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
 //    [infos setObject:uid forKey:@"user_id"];
-    [infos setObject:self.goods_id forKey:@"goods_id"];
-     [infos setObject:self.goodPrice forKey:@"price"];
+    [infos setObject:_goods_id forKey:@"goods_id"];
+     [infos setObject:_goodPrice forKey:@"price"];
      [infos setObject:lastNum_ forKey:@"num"];
      [infos setObject:result forKey:@"norms"];
 //     [infos setObject:self.supplier_id forKey:@"supplier_id"];
@@ -461,8 +515,6 @@ static NSArray *lastSeleArray_;
 }
 -(void)processData
 {
-    [[NSNotificationCenter defaultCenter]removeObserver:_dcObj];
-
 
     if([[self.results objectForKey:@"code"] integerValue] == 200)
     {
@@ -485,6 +537,7 @@ static NSArray *lastSeleArray_;
 
 - (void)dealloc
 {
+    NSLog(@"goodBase 销毁");
     [[NSNotificationCenter defaultCenter]removeObserver:_dcObj];
 }
 /*

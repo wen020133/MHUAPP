@@ -105,11 +105,21 @@ static NSInteger num_;
     self.collectionView.backgroundColor = self.view.backgroundColor;
     self.automaticallyAdjustsScrollViewInsets = NO;
     _featureAttr = [WJFeatureItem mj_objectArrayWithKeyValuesArray:self.arr_fuckData];
-//    _featureAttr = [WJFeatureItem mj_objectArrayWithFilename:@"ShopItem.plist"];
     self.tableView.frame = CGRectMake(0, 0, kMSScreenWith, 100);
     self.tableView.rowHeight = 100;
     self.collectionView.frame = CGRectMake(0, self.tableView.Bottom ,kMSScreenWith , NowScreenH - 200);
 
+    if (_lastSeleArray.count == 0) return;
+    for (NSString *str in _lastSeleArray) {//反向遍历（赋值）
+        for (NSInteger i = 0; i < _featureAttr.count; i++) {
+            for (NSInteger j = 0; j < _featureAttr[i].list.count; j++) {
+                if ([_featureAttr[i].list[j].attr_value isEqualToString:str]) {
+                    _featureAttr[i].list[j].isSelect = YES;
+                    [self.collectionView reloadData];
+                }
+            }
+        }
+    }
 }
 
 #pragma mark - 底部按钮
@@ -155,18 +165,13 @@ static NSInteger num_;
 #pragma mark - 底部按钮点击
 - (void)buttomButtonClick:(UIButton *)button
 {
-//    if (_seleArray.count != _featureAttr.count && _lastSeleArray.count != _featureAttr.count) {//未选择全属性警告
-//        [SVProgressHUD showInfoWithStatus:@"请选择全属性"];
-//        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
-//        [SVProgressHUD dismissWithDelay:1.0];
-//        return;
-//    }
-    if (_seleArray.count <1) {//未选择全属性警告
-        [SVProgressHUD showInfoWithStatus:@"请选择属性"];
+    if (_seleArray.count != _featureAttr.count && _lastSeleArray.count != _featureAttr.count) {//未选择全属性警告
+        [SVProgressHUD showInfoWithStatus:@"请选择全属性"];
         [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
         [SVProgressHUD dismissWithDelay:1.0];
         return;
     }
+
     [self dismissFeatureViewControllerWithTag:button.tag];
 
 }
@@ -193,17 +198,15 @@ static NSInteger num_;
 {
     WJFeatureChoseTopCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WJFeatureChoseTopCell" forIndexPath:indexPath];
     _cell = cell;
-    if (_seleArray.count >0) {
-
+    if (_seleArray.count != _featureAttr.count && _lastSeleArray.count != _featureAttr.count) {
+        cell.chooseAttLabel.textColor = [UIColor redColor];
+        cell.chooseAttLabel.text = @"请选择";
+    }else {
         cell.chooseAttLabel.textColor = [UIColor darkGrayColor];
-        NSString *attString =  [_seleArray componentsJoinedByString:@","];
+        NSString *attString = (_seleArray.count == _featureAttr.count) ? [_seleArray componentsJoinedByString:@"，"] : [_lastSeleArray componentsJoinedByString:@"，"];
         cell.chooseAttLabel.text = [NSString stringWithFormat:@"已选属性：%@",attString];
     }
-    else
-    {
-        cell.chooseAttLabel.text = @"请选择";
-    }
-    cell.goodPriceLabel.text = [NSString stringWithFormat:@"¥ %@",@"12"];
+    cell.goodPriceLabel.text = [NSString stringWithFormat:@"¥ %@",self.goodPrice];
     [cell.goodImageView sd_setImageWithURL:[NSURL URLWithString:_goodImageView]];
     WEAKSELF
     cell.crossButtonClickBlock = ^{
@@ -219,7 +222,6 @@ static NSInteger num_;
     WEAKSELF
     [weakSelf dismissViewControllerAnimated:YES completion:^{
         if (![weakSelf.cell.chooseAttLabel.text isEqualToString:@"请选择"]) {//当选择全属性才传递出去
-
             dispatch_sync(dispatch_get_global_queue(0, 0), ^{
                 if (_seleArray.count == 0) {
                     NSMutableArray *numArray = [NSMutableArray arrayWithArray:_lastSeleArray];
@@ -248,21 +250,18 @@ static NSInteger num_;
 
 #pragma mark - <UICollectionViewDataSource>
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-//    return _featureAttr.count;
-    return 1;
+    return _featureAttr.count;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-//    return _featureAttr[section].list.count;
-     return _featureAttr.count;
+    return _featureAttr[section].list.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 
     WJFeatureItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJFeatureItemCell" forIndexPath:indexPath];
 
-//     cell.content = _featureAttr[indexPath.section].list[indexPath.row];
-     cell.content = _featureAttr[indexPath.row];
+     cell.content = _featureAttr[indexPath.section].list[indexPath.row];
     return cell;
 }
 
@@ -270,7 +269,7 @@ static NSInteger num_;
 
     if ([kind  isEqualToString:UICollectionElementKindSectionHeader]) {
         WJFeatureHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJFeatureHeaderView" forIndexPath:indexPath];
-         headerView.headTitle = _featureAttr[indexPath.section].attr;
+         headerView.headTitle = _featureAttr[indexPath.section];
         return headerView;
     }else {
 
@@ -284,40 +283,27 @@ static NSInteger num_;
 {
 
     //限制每组内的Item只能选中一个(加入质数选择)
-//    if (_featureAttr[indexPath.section].list[indexPath.row].isSelect == NO) {
-//        for (NSInteger j = 0; j < _featureAttr[indexPath.section].list.count; j++) {
-//            _featureAttr[indexPath.section].list[j].isSelect = NO;
-//        }
-//    }
-    if (_featureAttr[indexPath.row].isSelect == NO) {
-        for (NSInteger j = 0; j < _featureAttr.count; j++) {
-            _featureAttr[j].isSelect = NO;
+    if (_featureAttr[indexPath.section].list[indexPath.row].isSelect == NO) {
+        for (NSInteger j = 0; j < _featureAttr[indexPath.section].list.count; j++) {
+            _featureAttr[indexPath.section].list[j].isSelect = NO;
         }
     }
-//    _featureAttr[indexPath.section].list[indexPath.row].isSelect = !_featureAttr[indexPath.section].list[indexPath.row].isSelect;
+    _featureAttr[indexPath.section].list[indexPath.row].isSelect = !_featureAttr[indexPath.section].list[indexPath.row].isSelect;
 
-    _featureAttr[indexPath.row].isSelect = !_featureAttr[indexPath.row].isSelect;
 
     //section，item 循环讲选中的所有Item加入数组中 ，数组mutableCopy初始化
     _seleArray = [@[] mutableCopy];
-//    for (NSInteger i = 0; i < _featureAttr.count; i++) {
-//        for (NSInteger j = 0; j < _featureAttr[i].list.count; j++) {
-//            if (_featureAttr[i].list[j].isSelect == YES) {
-//                [_seleArray addObject:_featureAttr[i].list[j].attr_value];
-//            }else{
-//                [_seleArray removeObject:_featureAttr[i].list[j].attr_value];
-//                [_lastSeleArray removeAllObjects];
-//            }
-//        }
-//    }
     for (NSInteger i = 0; i < _featureAttr.count; i++) {
-            if (_featureAttr[i].isSelect == YES) {
-                [_seleArray addObject:_featureAttr[i].attr_value];
+        for (NSInteger j = 0; j < _featureAttr[i].list.count; j++) {
+            if (_featureAttr[i].list[j].isSelect == YES) {
+                [_seleArray addObject:_featureAttr[i].list[j].attr_value];
             }else{
-                [_seleArray removeObject:_featureAttr[i].attr_value];
+                [_seleArray removeObject:_featureAttr[i].list[j].attr_value];
                 [_lastSeleArray removeAllObjects];
             }
+        }
     }
+
     //刷新tableView和collectionView
     [self.collectionView reloadData];
     [self.tableView reloadData];
@@ -327,8 +313,7 @@ static NSInteger num_;
 #pragma mark - <HorizontalCollectionLayoutDelegate>
 #pragma mark - 自定义layout必须实现的方法
 - (NSString *)collectionViewItemSizeWithIndexPath:(NSIndexPath *)indexPath {
-//    return _featureAttr[indexPath.section].list[indexPath.row].attr_value;
-    return _featureAttr[indexPath.row].attr_value;
+    return _featureAttr[indexPath.section].list[indexPath.row].attr_value;
 }
 
 

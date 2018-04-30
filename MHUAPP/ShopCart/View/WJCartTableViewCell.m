@@ -9,6 +9,7 @@
 #import "WJCartTableViewCell.h"
 #import "WJCartGoodsModel.h"
 #import "UIView+UIViewFrame.h"
+#import <UIImageView+WebCache.h>
 #define  TAG_Height 100
 
 
@@ -50,7 +51,7 @@
 #pragma mark - public method
 - (void)reloadDataWithModel:(WJCartGoodsModel*)model {
 
-    self.lzImageView.image = model.image;
+    [self.lzImageView sd_setImageWithURL:[NSURL URLWithString:model.img] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"] completed:nil];
     [self refreshUIWithTitle:model.goods_name];
     self.attributeLabel.text = model.goods_attr;
     if (model.youhui.length>0) {
@@ -115,7 +116,7 @@
 - (void)cutBtnClick:(UIButton*)button {
     NSInteger count = [self.numberLabel.text integerValue];
     count--;
-    if(count <= 1){
+    if(count <= 0){
         return ;
     }
 

@@ -19,6 +19,7 @@
 
             model.goods_number = [[dic objectForKey:@"goods_number"] integerValue];
             model.goods_id = [dic objectForKey:@"goods_id"];
+             model.img = [dic objectForKey:@"img"];
             model.goods_name = [dic objectForKey:@"goods_name"];
             model.count_price = [NSString stringWithFormat:@"%@",[dic objectForKey:@"count_price"]];
             model.goods_attr = [dic objectForKey:@"goods_attr"];

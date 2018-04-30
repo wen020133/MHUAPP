@@ -51,7 +51,7 @@
 }
 
 #pragma mark - Setter Getter Methods
-- (void)setHeadTitle:(WJFeatureTitleItem *)headTitle
+- (void)setHeadTitle:(WJFeatureItem *)headTitle
 {
     _headTitle = headTitle;
     _headerLabel.text = headTitle.attrname;

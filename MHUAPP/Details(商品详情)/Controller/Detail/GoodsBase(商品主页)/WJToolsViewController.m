@@ -71,7 +71,7 @@
 {
     XWInteractiveTransitionGestureDirection direction = XWInteractiveTransitionGestureDirectionDown;
     WEAKSELF
-    [self xw_registerBackInteractiveTransitionWithDirection:direction transitonBlock:^(CGPoint startPoint){
+    [weakSelf xw_registerBackInteractiveTransitionWithDirection:direction transitonBlock:^(CGPoint startPoint){
         [weakSelf dismissViewControllerAnimated:YES completion:nil];
     } edgeSpacing:0];
 }

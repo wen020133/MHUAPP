@@ -37,7 +37,7 @@
     for(int i = 0; i < [self.titles count]; i++)
     {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setFrame:CGRectMake(kMSScreenWith/2 * i, 0, kMSScreenWith/2, 40)];
+        [button setFrame:CGRectMake(kMSScreenWith/2 * i, 0, kMSScreenWith/2, 44)];
         [button addTarget:self action:@selector(menuSelected:) forControlEvents:UIControlEventTouchUpInside];
         [button.titleLabel setFont:[UIFont systemFontOfSize:13]];
         [button setTitle:[_titles objectAtIndex:i] forState:UIControlStateNormal];

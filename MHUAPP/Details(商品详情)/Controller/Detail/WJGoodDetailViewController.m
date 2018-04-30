@@ -20,6 +20,7 @@
 
 #import "PST_MenuView.h"
 
+#import "WJDetailPartCommentItem.h"
 
 @interface WJGoodDetailViewController ()<PST_MenuViewDelegate>
 
@@ -44,17 +45,14 @@
 #pragma mark - LifeCyle
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self acceptanceNote];
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [[NSNotificationCenter defaultCenter]removeObserver:_dcObserve];
-    [super viewWillDisappear:animated];
-}
+
 - (void)viewDidLoad {
 
+    [super viewDidLoad];
+    
     [self setUpInit];
 
     [self setUpNav];
@@ -65,22 +63,21 @@
 
     [self setUpBottomButton];
 
+    [self acceptanceNote];
 
-
-    [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
 
 -(void)getGoodsInfoItem
 {
     _serverType = 1;
-    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetDetailed,self.goods_id]];
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetDetailed,_goods_id]];
 }
 
 -(void)setkMSGetComment
 {
     _serverType = 2;
-    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@/%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetComment,self.goods_id]];
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@/%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetComment,_goods_id]];
 }
 -(void)getProcessData
 {
@@ -90,13 +87,14 @@
         switch (_serverType) {
             case KGetshopInfoClass:
             {
-                self.goodTitle = self.results[@"data"][@"goods_name"];
-                self.goodPrice = self.results[@"data"][@"shop_price"];
-                self.oldPrice = self.results[@"data"][@"market_price"];
-                self.goodImageView = self.results[@"data"][@"goods_thumb"];
-                self.shufflingArray = self.results[@"data"][@"gallery"];
-                self.attributeArray = self.results[@"data"][@"attr"];
-                self.supplier_id = self.results[@"data"][@"supplier_id"];
+                _goodTitle = self.results[@"data"][@"goods_name"];
+                _goodPrice = self.results[@"data"][@"shop_price"];
+                _oldPrice = self.results[@"data"][@"market_price"];
+                _goodImageView = self.results[@"data"][@"goods_thumb"];
+                _shufflingArray = self.results[@"data"][@"gallery"];
+                _attributeArray = self.results[@"data"][@"attr"];
+//                self.galleryArray = self.results[@"data"][@"gallery"];
+                _supplier_id = self.results[@"data"][@"supplier_id"];
                 [self setkMSGetComment];
                  [self setUpChildViewControllers];
                  [self addChildViewController];
@@ -106,44 +104,11 @@
             case KGetComment:
             {
 
-//                NSMutableArray *arr_Datalist = [NSMutableArray array];
-//                arr_Datalist = [self.results objectForKey:@"data"];
-//                NSMutableArray *entities = [NSMutableArray array];
-//                if (![arr_Datalist isEqual:[NSNull null]]) {
-//                    for (NSDictionary *dict in arr_Datalist) {
-//                        SLCommentsModel *model = [[SLCommentsModel alloc]init];
-//                        model.imageArr = ConvertNullString([dict objectForKey:@"img_path"]);
-//                        NSLog(@"图片arr===%@",model.imageArr);
-//
-//                        model.headerIconStr = ConvertNullString([[dict objectForKey:@"info"] objectForKey:@"user_img"]);
-//                        model.headerIconStr =[model.headerIconStr stringByReplacingOccurrencesOfString:@".." withString:@""];
-//                        model.str_userName = [[dict objectForKey:@"info"] objectForKey:@"user_name"];
-//                        model.str_huifu = [NSString stringWithFormat:@"%@",[[dict objectForKey:@"info"] objectForKey:@"comm_sum"]];
-//                        model.str_dianzan = [NSString stringWithFormat:@"%@",[[dict objectForKey:@"info"] objectForKey:@"tribune_lick"]];
-//                        model.txtContentStr = [[dict objectForKey:@"info"] objectForKey:@"tribune_content"];
-//                        model.titleStr = [[dict objectForKey:@"info"] objectForKey:@"tribune_title"];
-//                        model.str_uid = [NSString stringWithFormat:@"%@",[[dict objectForKey:@"info"] objectForKey:@"user_id"]];
-//                        model.dateStr = [[dict objectForKey:@"info"] objectForKey:@"add_time"];
-//                        model.str_pid = ConvertNullString([[dict objectForKey:@"info"] objectForKey:@"tribune_id"]);
-//                        [entities addObject:model];
-//                    }
-//
-//                    if(_page_Information==1)
-//                    {
-//                        self.arr_infomationresults= entities;
-//                    }else
-//                    {
-//                        [self.arr_infomationresults addObjectsFromArray:entities];
-//                    }
-//                    [self.collectionV reloadData];
-//                    if (self.page_Information*10 >= self.totleCount_Information)
-//                    {
-//                        [self.collectionV.mj_footer endRefreshingWithNoMoreData];
-//                    }
-//                    else{
-//                        self.collectionV.mj_footer.hidden = NO;
-//                    }
-//                }
+                NSMutableArray *arr_Datalist = [NSMutableArray array];
+                arr_Datalist = [self.results objectForKey:@"data"];
+                if (![arr_Datalist isEqual:[NSNull null]]) {
+                    _attributeArray = arr_Datalist;
+                }
             }
                 break;
             default:
@@ -189,8 +154,7 @@
 #pragma mark - 接受通知
 - (void)acceptanceNote
 {
-    [[NSNotificationCenter defaultCenter]removeObserver:_dcObserve];
-    
+
     //滚动到详情
     __weak typeof(self)weakSlef = self;
     _dcObserve = [[NSNotificationCenter defaultCenter]addObserverForName:@"scrollToDetailsPage" object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
@@ -293,14 +257,30 @@
     goodBaseVc.goodSubtitle = _goodSubtitle;
     goodBaseVc.shufflingArray = _shufflingArray;
     goodBaseVc.oldPrice = _oldPrice;
-    goodBaseVc.attributeArray = _attributeArray;
+    NSMutableArray *arr = [NSMutableArray array];
+    if(_attributeArray&&_attributeArray.count>0)
+    {
+        NSDictionary *dic =[NSMutableDictionary dictionary];
+        [dic setValue:@"产品属性" forKey:@"attrname"];
+        [dic setValue:_attributeArray forKey:@"list"];
+        [arr addObject:dic];
+    }
+//    if(self.galleryArray&&self.galleryArray.count>0)
+//    {
+//        NSDictionary *dic =[NSMutableDictionary dictionary];
+//        [dic setValue:@"规格选择" forKey:@"attrname"];
+//        [dic setValue:self.galleryArray forKey:@"list"];
+//        [arr addObject:dic];
+//    }
+    goodBaseVc.attributeArray = arr;
     goodBaseVc.goodImageView = _goodImageView;
     goodBaseVc.goods_id = _goods_id;
     goodBaseVc.supplier_id = _supplier_id;
+    goodBaseVc.commentArray = _getCommentArray;
     goodBaseVc.changeTitleBlock = ^(BOOL isChange) {
         if (isChange) {
             UIButton *firstButton = _bgView.subviews[1];
-            [self topBottonClick:firstButton];
+            [weakSelf topBottonClick:firstButton];
             weakSelf.scrollerView.contentSize = CGSizeMake(weakSelf.view.width, 0);
         }else{
             weakSelf.scrollerView.contentSize = CGSizeMake(weakSelf.view.width * weakSelf.childViewControllers.count, 0);
@@ -309,7 +289,7 @@
     [self addChildViewController:goodBaseVc];
 
     WJGoodParticularsViewController *goodParticularsVc = [[WJGoodParticularsViewController alloc] init];
-    goodParticularsVc.goods_id = self.goods_id;
+    goodParticularsVc.goods_id = _goods_id;
     [self addChildViewController:goodParticularsVc];
 
     WJGoodCommentViewController *goodCommentVc = [[WJGoodCommentViewController alloc] init];
@@ -412,8 +392,8 @@
     UIBarButtonItem *pulish = [[UIBarButtonItem alloc] initWithCustomView:pulishButton];
     [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:save, pulish,nil]];
 
-    self.titleArr = @[@"消息",@"首页",@"足迹",@"购物车"];
-    self.imgArr = @[@"Tab_icon_messsge_normal",@"Tab_icon_Home_normal",@"main_zuji",@"Tab_icon_Cart_normal"];
+//    _titleArr = @[@"消息",@"首页",@"足迹",@"购物车"];
+//    _imgArr = @[@"Tab_icon_messsge_normal",@"Tab_icon_Home_normal",@"main_zuji",@"Tab_icon_Cart_normal"];
 }
 
 -(void)goodInfoshare
@@ -422,7 +402,7 @@
 }
 -(void)messageAction
 {
-    PST_MenuView *menuView = [[PST_MenuView alloc] initWithFrame:CGRectMake(kMSScreenWith- 120 - 8, 60, 120, 168) titleArr:self.titleArr imgArr:self.imgArr arrowOffset:104 rowHeight:40 layoutType:0 directionType:0 delegate:self];
+    PST_MenuView *menuView = [[PST_MenuView alloc] initWithFrame:CGRectMake(kMSScreenWith- 120 - 8, 60, 120, 168) titleArr:_titleArr imgArr:_imgArr arrowOffset:104 rowHeight:40 layoutType:0 directionType:0 delegate:self];
     menuView.lineColor = [[UIColor lightGrayColor]colorWithAlphaComponent:0.15];
 }
 
@@ -448,11 +428,7 @@
     [self.navigationController popViewControllerAnimated:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-#pragma mark - 点击工具条
-- (void)toolItemClick
-{
-    [self setUpAlterViewControllerWith:[WJToolsViewController new] WithDistance:150 WithDirection:XWDrawerAnimatorDirectionTop WithParallaxEnable:NO WithFlipEnable:NO];
-}
+
 
 - (void)bottomButtonClick:(UIButton *)button
 {
@@ -468,38 +444,19 @@
         [self.navigationController pushViewController:shopCarVc animated:YES];
     }else  if (button.tag == 2 || button.tag == 3) {
 
+
+         dispatch_sync(dispatch_get_global_queue(0, 0), ^{
             NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%zd",button.tag],@"buttonTag", nil];
             [[NSNotificationCenter defaultCenter]postNotificationName:@"ClikAddOrBuy" object:nil userInfo:dict];
+             });
     }
 }
-#pragma mark - 转场动画弹出控制器
-- (void)setUpAlterViewControllerWith:(UIViewController *)vc WithDistance:(CGFloat)distance WithDirection:(XWDrawerAnimatorDirection)vcDirection WithParallaxEnable:(BOOL)parallaxEnable WithFlipEnable:(BOOL)flipEnable
-{
 
-    [self dismissViewControllerAnimated:YES completion:nil]; 
-    XWDrawerAnimatorDirection direction = vcDirection;
-    XWDrawerAnimator *animator = [XWDrawerAnimator xw_animatorWithDirection:direction moveDistance:distance];
-    animator.parallaxEnable = parallaxEnable;
-    animator.flipEnable = flipEnable;
-    [self xw_presentViewController:vc withAnimator:animator];
-    WEAKSELF
-    [animator xw_enableEdgeGestureAndBackTapWithConfig:^{
-        [weakSelf selfAlterViewback];
-    }];
-
-
-}
-
-#pragma 退出界面
-- (void)selfAlterViewback{
-
-    [self dismissViewControllerAnimated:YES completion:nil];
-
-}
 
 #pragma mark - 消失
 - (void)dealloc
 {
+    NSLog(@"goodDetail 销毁");
     [[NSNotificationCenter defaultCenter]removeObserver:_dcObserve];
 }
 

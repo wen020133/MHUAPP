@@ -1,21 +1,23 @@
 //
-//  WJOrderListCell.m
+//  WJWriteListTableCell.m
 //  MHUAPP
 //
-//  Created by jinri on 2017/12/22.
-//  Copyright © 2017年 wenchengjun. All rights reserved.
+//  Created by jinri on 2018/4/29.
+//  Copyright © 2018年 wenchengjun. All rights reserved.
 //
 
-#import "WJOrderListCell.h"
+#import "WJWriteListTableCell.h"
 #import "UIView+UIViewFrame.h"
 #import <UIImageView+WebCache.h>
+#define  TAG_Height 100
 
-@implementation WJOrderListCell
+@implementation WJWriteListTableCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
 }
+
 #pragma mark - Intial
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
 
@@ -27,10 +29,11 @@
     }
     return self;
 }
+
 #pragma mark - UI
 - (void)setUpUI
 {
-    _contentImg = [[UIImageView alloc] initWithFrame:CGRectMake(10, 5, self.contentView.height-10, self.contentView.height-10)];
+    _contentImg = [[UIImageView alloc] initWithFrame:CGRectMake(DCMargin, 5, TAG_Height-10, TAG_Height-10)];
     [self.contentView addSubview:_contentImg];
 
     _title = [[UILabel alloc] init];
@@ -66,38 +69,36 @@
     self.imageLine.backgroundColor = [[UIColor lightGrayColor]colorWithAlphaComponent:0.4];
     [self.contentView addSubview:self.imageLine];
 }
--(void)setListModel:(WJOrderListItem *)listModel
+-(void)setListModel:(WJCartGoodsModel *)listModel
 {
     if (listModel!=_listModel) {
         _listModel = listModel;
     }
-    [_contentImg sd_setImageWithURL:[NSURL URLWithString:_listModel.str_url] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"] completed:nil];
+    [_contentImg sd_setImageWithURL:[NSURL URLWithString:_listModel.img] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"] completed:nil];
 
-    NSString *price = [NSString stringWithFormat:@"￥%@",_listModel.price];
+    NSString *price = [NSString stringWithFormat:@"￥%@",_listModel.count_price];
     CGFloat width = [RegularExpressionsMethod widthOfString:price font:Font(15) height:23];
     _price.frame = CGRectMake(self.contentView.width-width-10, 5, width, 23);
     _price.text = price;
 
-    NSString *oldprice = [NSString stringWithFormat:@"￥%@",_listModel.oldPrice];
+    NSString *oldprice = [NSString stringWithFormat:@"￥%@",_listModel.market_price];
     CGFloat oldwidth = [RegularExpressionsMethod widthOfString:oldprice font:Font(15) height:20];
     _oldprice.frame = CGRectMake(self.contentView.width-oldwidth-10, _price.Bottom+10, oldwidth, 20);
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:oldprice
                                                                                 attributes:@{NSStrikethroughStyleAttributeName : @(NSUnderlineStyleSingle)}];
     _oldprice.attributedText = attrStr;
 
-    _title.text = _listModel.title;
-    CGSize sizeTitle =  [RegularExpressionsMethod dc_calculateTextSizeWithText:_listModel.title WithTextFont:16 WithMaxW:self.contentView.width - DCMargin * 4-self.contentView.height-oldwidth];
-    _title.frame = CGRectMake(self.contentView.height+15, 5, sizeTitle.width, sizeTitle.height);
+    _title.text = _listModel.goods_name;
+    CGSize sizeTitle =  [RegularExpressionsMethod dc_calculateTextSizeWithText:_listModel.goods_name WithTextFont:16 WithMaxW:self.contentView.width - DCMargin * 4-TAG_Height-oldwidth];
+    _title.frame = CGRectMake(TAG_Height+15, 5, sizeTitle.width, sizeTitle.height);
 
-    NSString *saleCount = [NSString stringWithFormat:@"规格%@大号",_listModel.type];
+    NSString *saleCount = [NSString stringWithFormat:@"%@",_listModel.goods_attr];
     _type.text  = saleCount;
-    _type.frame = CGRectMake(self.contentView.height+15, _title.Bottom+5, _title.width, 20);
+    _type.frame = CGRectMake(TAG_Height+15, _title.Bottom+5, _title.width, 20);
 
     _Num.frame = CGRectMake(self.contentView.width-oldwidth-10, _oldprice.Bottom+5, oldwidth, 20);
-    _Num.text =  [NSString stringWithFormat:@"x%@",_listModel.Num];
+    _Num.text =  [NSString stringWithFormat:@"x%ld",_listModel.goods_number];
 }
-
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

@@ -64,7 +64,7 @@
     _countDownLabel.font = PFR16Font;
     [self addSubview:_countDownLabel];
 
-     self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeHeadle) userInfo:nil repeats:YES];
+     _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeHeadle) userInfo:nil repeats:YES];
 
 }
 - (void)timeHeadle{
@@ -78,18 +78,17 @@
     NSString *str_second = [NSString stringWithFormat:@"%02ld", secondsCountDown % 60];
     NSString *format_time = [NSString stringWithFormat:@"%@ : %@ : %@", str_hour, str_minute, str_second];
     // 修改倒计时标签及显示内容
-    self.countDownLabel.text = [NSString stringWithFormat:@"%@", format_time];
+    _countDownLabel.text = [NSString stringWithFormat:@"%@", format_time];
 
     if (startCountDown<= 0) {
-        self.timeLabel.text = @"秒杀开始时间";
+        _timeLabel.text = @"秒杀开始时间";
     }
     // 当倒计时结束时做需要的操作: 比如活动到期不能提交
     if(secondsCountDown <= 0) {
-        self.timeLabel.text = @"秒杀剩余时间";
+        _timeLabel.text = @"秒杀剩余时间";
 //        self.countDownLabel.text = @"当前活动已结束";
-        [self.timer invalidate];
-        self.timer = nil;
-        return;
+        [_timer invalidate];
+        _timer = nil;
     }
 }
 #pragma mark - 布局

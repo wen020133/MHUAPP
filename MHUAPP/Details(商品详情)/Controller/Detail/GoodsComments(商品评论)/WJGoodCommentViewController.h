@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseNetworkViewController.h"
 
-@interface WJGoodCommentViewController : UIViewController
+@interface WJGoodCommentViewController : BaseNetworkViewController<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
+
+@property NSInteger page_Information;
+@property (strong, nonatomic)  UICollectionView *collectionV;
 
 @end

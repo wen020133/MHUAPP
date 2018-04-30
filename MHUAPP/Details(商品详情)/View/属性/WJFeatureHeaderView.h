@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WJFeatureTitleItem.h"
+#import "WJFeatureItem.h"
 
 @interface WJFeatureHeaderView : UICollectionReusableView
 
 /** 标题数据 */
-@property (nonatomic, strong) WJFeatureTitleItem *headTitle;
+@property (nonatomic, strong) WJFeatureItem *headTitle;
 
 /* 属性标题 */
 @property (strong , nonatomic)UILabel *headerLabel;

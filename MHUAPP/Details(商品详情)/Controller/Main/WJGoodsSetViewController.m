@@ -124,9 +124,9 @@ static CGFloat _lastContentOffset;
     if (kind == UICollectionElementKindSectionHeader){
 
         WJCustionGoodsHeadView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJCustionGoodsHeadView" forIndexPath:indexPath];
-
+        WEAKSELF
         headerView.filtrateClickBlock = ^(NSInteger selectTag){
-            [self filtrateButtonClick:selectTag];
+            [weakSelf filtrateButtonClick:selectTag];
         };
         reusableview = headerView;
     }
@@ -214,6 +214,10 @@ static CGFloat _lastContentOffset;
 - (void)selfAlterViewback{
 
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+- (void)dealloc
+{
+    NSLog(@"销毁");
 }
 /*
 #pragma mark - Navigation

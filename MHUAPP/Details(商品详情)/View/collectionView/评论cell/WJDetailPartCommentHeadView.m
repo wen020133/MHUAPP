@@ -41,7 +41,7 @@
     _quickButton.titleLabel.textAlignment = NSTextAlignmentRight;
     [_quickButton setImage:[UIImage imageNamed:@"home_more"] forState:UIControlStateNormal];
     [_quickButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    [_quickButton setTitle:@"好评率 99%" forState:UIControlStateNormal];
+    [_quickButton setTitle:@"更多" forState:UIControlStateNormal];
     [self addSubview:_quickButton];
 
 }

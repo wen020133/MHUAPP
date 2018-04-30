@@ -78,8 +78,8 @@
     _model = model;
 
     [self.headerIconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",kMSBaseLargeCollectionPortURL,model.headerIconStr]] placeholderImage:[UIImage imageNamed:@"ic_no_heardPic.png"]];
-    self.nameLbl.text = model.titleStr;
-    self.txtContentLbl.text = model.txtContentStr;
+    self.nameLbl.text = model.user_name;
+    self.txtContentLbl.text = model.content;
 
     //说说的文字部分
     CGRect txtContentLblRect = [self.txtContentLbl.text boundingRectWithSize:CGSizeMake(kMSScreenWith - 50 - 10, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName:self.txtContentLbl.font} context:nil];

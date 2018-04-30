@@ -75,9 +75,9 @@
     _goodPriceLabel.text = [NSString stringWithFormat:@"¥%@",_goodPrice];
     _goodPriceLabel.frame = CGRectMake(DCMargin, _goodTitleLabel.Bottom+2, [RegularExpressionsMethod widthOfString:_goodPriceLabel.text font:Font(20) height:30], 30);
 
-    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:_oldPrice
-                                                                                attributes:@{NSStrikethroughStyleAttributeName : @(NSUnderlineStyleSingle)}];
-    _market_priceLabel.attributedText = attrStr;
+//    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:_oldPrice
+//                                                                                attributes:@{NSStrikethroughStyleAttributeName : @(NSUnderlineStyleSingle)}];
+//    _market_priceLabel.attributedText = attrStr;
 
     _market_priceLabel.frame = CGRectMake(_goodPriceLabel.Right, _goodTitleLabel.Bottom+12, 60, 20);
 

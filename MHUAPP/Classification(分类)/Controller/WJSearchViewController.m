@@ -115,12 +115,22 @@
 //已经开始编辑时的回调
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
      NSLog(@"searchText开始");
+    if (searchBar.text.length>0) {
+        self.menuScrollView.hidden = NO;
+        [self getGoodsOrShopDataList:searchBar.text];
+    }
+    else
+    {
+        self.menuScrollView.hidden = YES;
+        self.tab_infoView.hidden = YES;
+    }
 }
 
 //编辑文字改变的回调
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     NSLog(@"searchText:%@",searchText);
     if (searchText.length>0) {
+        self.menuScrollView.hidden = NO;
         [self getGoodsOrShopDataList:searchText];
     }
     else
@@ -135,17 +145,15 @@
     if([[self.results objectForKey:@"code"] integerValue] == 200)
     {
         self.arr_items = nil;
+        [self.arr_items removeAllObjects];
         self.arr_items = [self.results objectForKey:@"data"];
-        if (self.arr_items) {
+        if (self.arr_items&&self.arr_items.count>0) {
             self.tab_infoView.hidden = NO;
-            self.menuScrollView.hidden = NO;
             [self.view addSubview:self.menuScrollView];
             [self.tab_infoView reloadData];
-
         }
         else
         {
-            self.menuScrollView.hidden = YES;
             self.tab_infoView.hidden = YES;
 
               self.noMoreView = [[NOMoreDataView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 80) withContent:@"暂无数据." withNODataImage:@"noMore_bg.png"];
@@ -155,7 +163,10 @@
     }
     else
     {
-        return;
+        self.tab_infoView.hidden = YES;
+        self.noMoreView = [[NOMoreDataView alloc]initWithFrame:CGRectMake(0, 44, kMSScreenWith, 80) withContent:@"暂无数据." withNODataImage:@"noMore_bg.png"];
+        self.noMoreView.hidden = NO;
+        [self.view addSubview:self.noMoreView];
     }
 }
 -(UITableView *)tab_infoView

@@ -43,7 +43,7 @@
 
 #pragma mark - Setter Getter Methods
 
-- (void)setContent:(WJFeatureItem *)content
+- (void)setContent:(WJFeatureList *)content
 {
     _content = content;
     _attLabel.text = content.attr_value;

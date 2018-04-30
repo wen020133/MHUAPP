@@ -10,6 +10,7 @@
 #import <UIImageView+WebCache.h>
 #import "UIView+UIViewFrame.h"
 #import "WJXianShiMiaoShaCell.h"
+#import "WJGoodDetailViewController.h"
 
 @interface WJGoodsCountDownCell ()<UICollectionViewDelegate , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout>
 
@@ -96,7 +97,7 @@
 #pragma mark - <UICollectionViewDelegate>
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
 
-    NSLog(@"点击了计时商品%zd",indexPath.row);
-
+    NSString *good_id = _countDownItem[indexPath.row][@"goods_id"];
+   !_goToGoodDetailClass ? : _goToGoodDetailClass(good_id);
 }
 @end
