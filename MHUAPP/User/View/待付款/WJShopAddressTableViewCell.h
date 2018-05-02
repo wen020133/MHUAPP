@@ -10,8 +10,11 @@
 
 @interface WJShopAddressTableViewCell : UITableViewCell
 
-@property (retain, nonatomic)  UILabel *lab_Name;
-@property (retain, nonatomic)  UILabel *lab_telephone;
-@property (retain, nonatomic)  UILabel *lab_address;
+@property (strong, nonatomic)  UILabel *lab_Name;
+@property (strong, nonatomic)  UILabel *lab_telephone;
+@property (strong, nonatomic)  UILabel *lab_address;
+@property (strong, nonatomic)  UIImageView *actionImageView;
 
+/* 地址 */
+@property (assign , nonatomic)  NSString *str_address;
 @end

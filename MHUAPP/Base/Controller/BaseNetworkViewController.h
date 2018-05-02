@@ -28,5 +28,6 @@
 
 - (NSData *)resetSizeOfImageData:(UIImage *)source_image maxSize:(NSInteger)maxSize; //压缩图片
 
-
+// Connected failed
+- (void)requestFailed:(NSString *)error;
 @end

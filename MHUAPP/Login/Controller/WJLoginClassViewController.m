@@ -12,6 +12,7 @@
 #import "ForgetPasswordViewController.h"
 #import "RigisterClassViewController.h"
 
+#import "AppDelegate.h"
 #import "RCDataManager.h"
 
 @interface WJLoginClassViewController ()
@@ -208,6 +209,7 @@
 
                 NSMutableDictionary *dic = [NSMutableDictionary dictionary];
                 [dic setValue:[[self.results objectForKey:@"data"] objectForKey:@"user_id" ] forKey:@"uid"];
+                 [AppDelegate shareAppDelegate].user_id = [[self.results objectForKey:@"data"] objectForKey:@"user_id" ];
                 [dic setValue:[[self.results objectForKey:@"data"] objectForKey:@"user_name" ] forKey:@"username"];
                 [dic setValue:ConvertNullString([[self.results objectForKey:@"data"] objectForKey:@"mobile_phone" ]) forKey:@"phone"];
                 NSString *logo_img =ConvertNullString([[self.results objectForKey:@"data"] objectForKey:@"headimg" ]);
@@ -244,18 +246,20 @@
                     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
 
                     [dic setValue:[NSString stringWithFormat:@"%@",[[self.results objectForKey:@"data"] objectForKey:@"user_id"]] forKey:@"uid"];
-                    [dic setValue:ConvertNullString([[[self.results objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"usid"]) forKey:@"other_uid"];
+                    [AppDelegate shareAppDelegate].user_id = [[self.results objectForKey:@"data"] objectForKey:@"user_id" ];
+                    [dic setValue:self.outUserId forKey:@"other_uid"];
                     [dic setValue:ConvertNullString([[[self.results objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"user_name" ]) forKey:@"username"];
                     [dic setValue:ConvertNullString([[[self.results objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"user_tel" ]) forKey:@"phone"];
-                    NSString *logo_img =ConvertNullString([[[self.results objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"user_headimg" ]);
+                    NSString *logo_img =ConvertNullString([[[self.results objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"headimg" ]);
                     if (logo_img.length>0) {
                         [dic setValue:logo_img forKey:@"user_icon"];
                     }else
                     {
                         [dic setValue:@"null" forKey:@"user_icon"];
                     }
-                    [dic setValue:ConvertNullString([[[self.results objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"usid"]) forKey:@"other_uid"];
+
                     [dic setValue:ConvertNullString([[[self.results objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"email" ]) forKey:@"email"];
+                    [dic setValue:ConvertNullString([[[self.results objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"sex" ]) forKey:@"sex"];
                     [dic setValue:ConvertNullString([[[self.results objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"user_nickname" ]) forKey:@"nickname"];
                     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
                     [userDefaults setObject:dic forKey:@"userList"];
@@ -271,14 +275,14 @@
                 {
                     [SVProgressHUD showErrorWithStatus:@"获取数据失败"];
                 }
-                NSString *logo_img =ConvertNullString([[self.results objectForKey:@"data"] objectForKey:@"headimg" ]);
-                [[RCDataManager shareManager] loginRongCloudWithUserInfo:[[RCUserInfo alloc]initWithUserId:[[self.results objectForKey:@"data"] objectForKey:@"user_id"] name:[[self.results objectForKey:@"data"] objectForKey:@"user_name"] portrait:logo_img] withToken:@"ryoLsajPGxofpGG6J+Zg5iHL1WmuRf3UpRNY4aRna/f9JhFTYxi4jLDhYhNokPEpkrWMVXcglxk5O2hzB2XuQA=="];
+
             }
                 break;
             default:
                 break;
         }
-
+        NSString *logo_img =ConvertNullString([[self.results objectForKey:@"data"] objectForKey:@"headimg" ]);
+        [[RCDataManager shareManager] loginRongCloudWithUserInfo:[[RCUserInfo alloc]initWithUserId:[[self.results objectForKey:@"data"] objectForKey:@"user_id"] name:[[self.results objectForKey:@"data"] objectForKey:@"user_name"] portrait:logo_img] withToken:@"OGYiWAUy26RQBcJUU3AUfCHL1WmuRf3UpRNY4aRna/d/1gsjB6McwDKaplPVWF2yGqTncFAoDNA5O2hzB2XuQA=="];
 
     }
     else

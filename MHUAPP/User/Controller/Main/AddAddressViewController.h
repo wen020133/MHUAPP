@@ -14,7 +14,7 @@
 @property NSInteger regType;
 @property (retain, nonatomic) NOMoreDataView *noMoreView; //没有数据的空白显示
 @property BOOL selectedState;
-@property BOOL selectCellIndexpathYES; //YES 为User接入 。NO为确认订单接入
+@property BOOL selectCellIndexpathYES; // NO为User接入 。YES为确认订单接入
 @property NSInteger deteleCellIndexpath;
 
 @property (strong, nonatomic) UITableView *infoTableView;

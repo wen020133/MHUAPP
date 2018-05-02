@@ -19,7 +19,7 @@
 
 @property(nonatomic,strong) NSMutableArray *friendsArray;
 @property(nonatomic,strong) NSMutableArray *groupsArray;
-
+@property(nonatomic,strong) NSString *user_id;
 
 /// func
 + (AppDelegate* )shareAppDelegate;

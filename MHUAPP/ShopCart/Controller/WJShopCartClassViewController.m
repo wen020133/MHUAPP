@@ -15,6 +15,7 @@
 #import "UIView+UIViewFrame.h"
 #import "WJLoginClassViewController.h"
 #import "WJWirteOrderClassViewController.h"
+#import "AppDelegate.h"
 
 #define  TAG_CartEmptyView 100
 static NSInteger lz_CartRowHeight = 100;
@@ -100,7 +101,9 @@ static NSInteger lz_CartRowHeight = 100;
 {
     [self.myTableView.mj_header endRefreshing];
     _serverType = 1;
-    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetCartList]];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetCartList,uid]];
 //    [self changeView];
 }
 -(void)getProcessData
@@ -419,6 +422,8 @@ static NSInteger lz_CartRowHeight = 100;
     WJCartShopModel *shopModel = self.dataArray[indexPath.section];
     WJCartGoodsModel *model = [shopModel.goodsArray objectAtIndex:indexPath.row];
 
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
     __block typeof(cell)wsCell = cell;
 
     [cell numberAddWithBlock:^(NSInteger number) {
@@ -431,6 +436,7 @@ static NSInteger lz_CartRowHeight = 100;
             [_selectedArray addObject:model];
         }
        NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+        [infos setObject:uid forKey:@"user_id"];
         [infos setObject:model.goods_id forKey:@"goods_id"];
         [infos setObject:model.count_price forKey:@"price"];
         [infos setObject:[NSString stringWithFormat:@"%ld",number] forKey:@"num"];
@@ -453,6 +459,7 @@ static NSInteger lz_CartRowHeight = 100;
             [self countPrice];
         }
         NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+        [infos setObject:uid forKey:@"user_id"];
         [infos setObject:model.goods_id forKey:@"goods_id"];
         [infos setObject:model.count_price forKey:@"price"];
         [infos setObject:[NSString stringWithFormat:@"%ld",number] forKey:@"num"];
@@ -480,6 +487,10 @@ static NSInteger lz_CartRowHeight = 100;
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+}
 -(void)processData
 {
     if([[self.results objectForKey:@"code"] integerValue] == 200)
@@ -565,8 +576,9 @@ static NSInteger lz_CartRowHeight = 100;
             WJCartShopModel *shop = [self.dataArray objectAtIndex:indexPath.section];
             WJCartGoodsModel *model = [shop.goodsArray objectAtIndex:indexPath.row];
 
+
             NSString *attString =  model.rec_id;
-            [self requestDeleteAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?rec_id=%@,",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDeleteCart,attString]];
+            [self requestDeleteAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@&rec_id=%@,",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDeleteCart,[AppDelegate shareAppDelegate].user_id,attString]];
 
             [shop.goodsArray removeObjectAtIndex:indexPath.row];
             //    删除
@@ -680,7 +692,8 @@ static NSInteger lz_CartRowHeight = 100;
             [arr_recId addObject:model.rec_id];
         }
          NSString *attString =  [arr_recId componentsJoinedByString:@","];
-         [self requestDeleteAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?rec_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDeleteCart,attString]];
+
+         [self requestDeleteAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@&rec_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDeleteCart,[AppDelegate shareAppDelegate].user_id,attString]];
         
     } else {
         [SVProgressHUD showErrorWithStatus:@"你还没有选择任何商品"];

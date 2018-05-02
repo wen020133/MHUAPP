@@ -20,6 +20,7 @@
 #import "WJDetailPartCommentCell.h"
 #import "WJFeatureSelectionViewController.h"
 #import "WJDetailOverFooterView.h"
+#import "WJLoginClassViewController.h"
 
 #import "XWDrawerAnimator.h"
 #import "UIViewController+XWTransition.h"
@@ -488,8 +489,19 @@ static NSArray *lastSeleArray_;
     _PostCount++;
     NSLog(@"执行了%ld次",_PostCount);
     
-//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-//    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
+    NSString *loginState = [userDefaults objectForKey:@"loginState"];
+    if([loginState isEqualToString:@"0"])
+    {
+        WJLoginClassViewController *land = [[WJLoginClassViewController alloc]init];
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:land];
+        [nav.navigationBar setIsMSNavigationBar];
+        [self presentViewController:nav animated:YES completion:^{
+        }];
+        return;
+    }
+
     NSString *result ;
     if (_attributeArray.count>0) {
       result  = [NSString stringWithFormat:@"%@",[lastSeleArray_ componentsJoinedByString:@","]];
@@ -504,7 +516,7 @@ static NSArray *lastSeleArray_;
 
 
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-//    [infos setObject:uid forKey:@"user_id"];
+    [infos setObject:uid forKey:@"user_id"];
     [infos setObject:_goods_id forKey:@"goods_id"];
      [infos setObject:_goodPrice forKey:@"price"];
      [infos setObject:lastNum_ forKey:@"num"];

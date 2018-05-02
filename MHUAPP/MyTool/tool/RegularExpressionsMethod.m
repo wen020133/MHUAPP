@@ -163,16 +163,13 @@
     return outputStr;
 }
 
-+(CGFloat)contentCellHeightWithText:(NSString*)text
++(CGFloat)contentCellHeightWithText:(NSString*)text font:(UIFont *)font width:(CGFloat)width
 
 {
     NSInteger ch;
     
-    UIFont *font = [UIFont systemFontOfSize:13.0];// 一定要跟label的显示字体大小一致
-    
     //设置字体
-    
-    CGSize size = CGSizeMake(kMSScreenWith-20, NSIntegerMax);//注：这个宽：200 是你要显示的宽度既固定的宽度，高度可以依照自己的需求而定
+    CGSize size = CGSizeMake(width, NSIntegerMax);
  
         NSDictionary * tdic = [NSDictionary dictionaryWithObjectsAndKeys:font, NSFontAttributeName,nil];
         size =[text boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin |NSStringDrawingUsesFontLeading attributes:tdic context:nil].size;

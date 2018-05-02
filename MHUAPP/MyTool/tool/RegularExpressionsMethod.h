@@ -21,6 +21,9 @@
 //计算字符串宽度
 +(CGFloat)widthOfString:(NSString *)string font:(UIFont *)font height:(CGFloat)height;
 
+//计算字符串高度
++(CGFloat)contentCellHeightWithText:(NSString*)text font:(UIFont *)font width:(CGFloat)width;
+
 //下划线
 + (void)dc_setUpAcrossPartingLineWith:(UIView *)view WithColor:(UIColor *)color;
 

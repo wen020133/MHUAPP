@@ -145,9 +145,18 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *loginState = [userDefaults objectForKey:@"loginState"];
     NSString *str_logo_img = [[userDefaults objectForKey:@"userList"] objectForKey:@"user_icon"];
-    NSString *str_uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid"];
+//    NSString *str_uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid"];
+    NSString *str_otherID = [[userDefaults objectForKey:@"userList"] objectForKey:@"other_uid"];
     NSString *str_username = [[userDefaults objectForKey:@"userList"] objectForKey:@"username"];
     NSString *str_sex = [[userDefaults objectForKey:@"userList"] objectForKey:@"sex"];
+    if ([str_sex integerValue]==1) {
+        str_sex = @"男";
+    }
+    else
+    {
+         str_sex = @"女";
+    }
+
     if([loginState isEqualToString:@"0"])
     {
         return;
@@ -169,7 +178,7 @@
     else if ([loginType isEqualToString:@"qq"])
     {
         NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-        [infos setObject:str_uid forKey:@"usid"];
+        [infos setObject:str_otherID forKey:@"usid"];
         [infos setObject:str_username forKey:@"user_name"];
         [infos setObject:str_sex forKey:@"sex"];
         [infos setObject:str_logo_img forKey:@"user_icon"];
@@ -186,6 +195,7 @@
     [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/xml",@"text/html", nil];
+    NSLog(@"infos====%@",infos);
 
     NSDate* dat = [NSDate dateWithTimeIntervalSinceNow:0];
     NSTimeInterval a=[dat timeIntervalSince1970];  //  *1000 是精确到毫秒，不乘就是精确到秒
@@ -210,8 +220,15 @@
         [RCIM sharedRCIM].enableMessageAttachUserInfo = YES;
 
            NSString *logo_img =ConvertNullString([[responseObject objectForKey:@"data"] objectForKey:@"headimg" ]);
-           [[RCDataManager shareManager] loginRongCloudWithUserInfo:[[RCUserInfo alloc]initWithUserId:[[responseObject objectForKey:@"data"] objectForKey:@"user_id"] name:[[responseObject objectForKey:@"data"] objectForKey:@"user_name"] portrait:logo_img] withToken:@"ryoLsajPGxofpGG6J+Zg5iHL1WmuRf3UpRNY4aRna/f9JhFTYxi4jLDhYhNokPEpkrWMVXcglxk5O2hzB2XuQA=="];
+           NSString *user_id =ConvertNullString([[responseObject objectForKey:@"data"] objectForKey:@"user_id" ]);
+           [AppDelegate shareAppDelegate].user_id = user_id;
+           NSString *user_name =ConvertNullString([[responseObject objectForKey:@"data"] objectForKey:@"user_name" ]);
+           [[RCDataManager shareManager] loginRongCloudWithUserInfo:[[RCUserInfo alloc]initWithUserId:user_id name:user_name portrait:logo_img] withToken:@"OGYiWAUy26RQBcJUU3AUfCHL1WmuRf3UpRNY4aRna/d/1gsjB6McwDKaplPVWF2yGqTncFAoDNA5O2hzB2XuQA=="];
     }
+        else
+        {
+            NSLog(@"msg===%@",[responseObject objectForKey:@"msg"]);
+        }
 
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) { // 失败，关闭网络指示器
         NSLog(@"ada===%@",[error localizedDescription]);

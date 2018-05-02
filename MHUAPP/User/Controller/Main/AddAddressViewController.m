@@ -270,6 +270,12 @@
 {
    
     if (self.selectCellIndexpathYES) {
+        NSMutableDictionary  *infodic = [NSMutableDictionary dictionary];
+        [infodic setValue:[self.records objectAtIndex:indexPath.row].mobile forKey:@"telephone"];
+        [infodic setValue:[self.records objectAtIndex:indexPath.row].consignee forKey:@"name"];
+        [infodic setValue:[self.records objectAtIndex:indexPath.row].address forKey:@"address"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"selectAddressNote" object:self userInfo:infodic];
+        [self.navigationController popViewControllerAnimated:YES];
         return;
     }
         AddressCell *cell=(AddressCell*)[tableView cellForRowAtIndexPath:indexPath];
