@@ -9,39 +9,53 @@
 #import "WJOrderHeader.h"
 // Vendors
 #import <UIImageView+WebCache.h>
+#import "UIView+UIViewFrame.h"
 
 @implementation WJOrderHeader
 
 -(id)initWithReuseIdentifier:(NSString *)reuseIdentifier
 {
     if (self = [super initWithReuseIdentifier:reuseIdentifier]) {
-        self.contentView.backgroundColor = [UIColor whiteColor];
+        self.contentView.backgroundColor = [UIColor clearColor];
         [self setUpInitV];
     }
     return self;
 }
 -(void)setUpInitV
 {
-    _shangjiaIcon = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 20, 20)];
-       [self.contentView addSubview:_shangjiaIcon];
+    UIImageView *imaBV = ImageViewInit(0, 5, kMSScreenWith,40);
+    imaBV.backgroundColor =kMSCellBackColor;
+    [self.contentView addSubview:imaBV];
 
-    _shangjiaName = [[UILabel alloc] init];
-    _shangjiaName.textColor = kMSNavBarBackColor;
-    [self.contentView addSubview:_shangjiaName];
+    UIImageView *line = ImageViewInit(0, 44, kMSScreenWith, 1);
+    line.backgroundColor = [[UIColor lightGrayColor]colorWithAlphaComponent:0.4];
+    [self.contentView addSubview:line];
 
-    _state = [[UILabel alloc] init];
+    self.shangjiaIcon = ImageViewInit(DCMargin, 15, 20, 20);
+    self.shangjiaIcon.contentMode = UIViewContentModeScaleAspectFit;
+    self.shangjiaIcon.image = [UIImage imageNamed:@"shop_default"];
+    [self addSubview:self.shangjiaIcon];
+
+    UILabel *label = [[UILabel alloc]init];
+    label.frame = CGRectMake(self.shangjiaIcon.Right+10, 10, kMSScreenWith - 100, 30);
+    label.font = [UIFont systemFontOfSize:14];
+    label.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
+    [self.contentView addSubview:label];
+    self.shangjiaName = label;
+
+
+
+    _state = [[UILabel alloc] initWithFrame:CGRectMake(kMSScreenWith-80, 15, 70, 20)];
     _state.textColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
+    _state.font = [UIFont systemFontOfSize:14];
+    _state.textAlignment = NSTextAlignmentRight;
     [self.contentView addSubview:_state];
 }
 
--(void)setNameModel:(WJOrderShangjiaNameModel *)nameModel
-{
-    _nameModel = nameModel;
-    [_shangjiaIcon sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",kMSBaseUserHeadPortURL,nameModel.str_url]]];
-
-    _shangjiaName.text = nameModel.name;
+- (void)setShangjiaTitle:(NSString *)shangjiaTitle {
+    self.shangjiaName.text = shangjiaTitle;
+    _shangjiaTitle = shangjiaTitle;
 }
-
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

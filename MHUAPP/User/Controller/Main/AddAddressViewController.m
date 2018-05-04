@@ -273,7 +273,7 @@
         NSMutableDictionary  *infodic = [NSMutableDictionary dictionary];
         [infodic setValue:[self.records objectAtIndex:indexPath.row].mobile forKey:@"telephone"];
         [infodic setValue:[self.records objectAtIndex:indexPath.row].consignee forKey:@"name"];
-        [infodic setValue:[self.records objectAtIndex:indexPath.row].address forKey:@"address"];
+        [infodic setValue:[self.records objectAtIndex:indexPath.row].assemble_site forKey:@"address"];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"selectAddressNote" object:self userInfo:infodic];
         [self.navigationController popViewControllerAnimated:YES];
         return;

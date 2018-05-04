@@ -9,7 +9,7 @@
 #import "WJWriteListTableCell.h"
 #import "UIView+UIViewFrame.h"
 #import <UIImageView+WebCache.h>
-#define  TAG_Height 100
+
 
 @implementation WJWriteListTableCell
 

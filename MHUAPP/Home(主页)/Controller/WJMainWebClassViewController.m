@@ -20,29 +20,58 @@
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     [self initSendReplyWithTitle:self.str_title andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:NO];
     
-    self.mWebView =[[UIWebView alloc] initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight-kMSNaviHight)];
-    self.mWebView.backgroundColor = [UIColor whiteColor];
-    self.mWebView.scalesPageToFit = YES;
-//    self.mWebView.delegate = self;
-    [self.view addSubview:self.mWebView];
-    self.str_urlHttp = [self.str_urlHttp stringByReplacingOccurrencesOfString:@"amp;" withString:@""];
-    
-    [self.mWebView loadHTMLString:self.str_content baseURL:[NSURL URLWithString:kMSBaseLargeCollectionPortURL]];
+    WKWebView *webView = [[WKWebView alloc]initWithFrame:self.view.bounds];
+    [self.view addSubview:webView];
+    self.webView = webView;
+    //添加属性监听
+    [webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
+
+    //进度条
+    UIView *progress = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 3)];
+    progress.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:progress];
+
+    CALayer *layer = [CALayer layer];
+    layer.frame = CGRectMake(0, 0, 0, 3);
+    layer.backgroundColor = [UIColor blueColor].CGColor;
+    [progress.layer addSublayer:layer];
+    self.progresslayer = layer;
+
+    [webView loadHTMLString:self.str_urlHttp baseURL:nil];
     // Do any additional setup after loading the view.
 }
-//开始加载数据
-- (void)webViewDidStartLoad:(UIWebView *)webView {
-    
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
+    if ([keyPath isEqualToString:@"estimatedProgress"]) {
+        NSLog(@"%@", change);
+        self.progresslayer.opacity = 1;
+        self.progresslayer.frame = CGRectMake(0, 0, self.view.bounds.size.width * [change[NSKeyValueChangeNewKey] floatValue], 3);
+        if ([change[NSKeyValueChangeNewKey] floatValue] == 1) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                self.progresslayer.opacity = 0;
+            });
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                self.progresslayer.frame = CGRectMake(0, 0, 0, 3);
+            });
+        }
+    }else{
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
 }
 
-//数据加载完
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
-    
+- (void)showleft {
+    if ([self.webView canGoBack]) {
+        [self.webView goBack];
+    }
+     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+- (void)dealloc{
+    [self.webView removeObserver:self forKeyPath:@"estimatedProgress"];
 }
 
 /*

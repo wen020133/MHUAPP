@@ -7,13 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WJOrderListFootModel.h"
 
 
 @interface WJOrderFooter : UITableViewHeaderFooterView
 
 @property (nonatomic, strong) UILabel *totalPayPrice;
 
-@property (strong , nonatomic) WJOrderListFootModel *footModel;
+@property  NSInteger orderType;
 
 @end

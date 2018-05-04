@@ -12,20 +12,20 @@
 #import "WJOrderHeader.h"
 #import "WJOrderFooter.h"
 
-#import "WJOrderShangjiaNameModel.h"
-#import "WJOrderListItem.h"
-#import "WJOrderListFootModel.h"
+#import "WJOrderGoodListModel.h"
+#import "WJOrderShangJiaHeadModel.h"
 
+#import "AppDelegate.h"
+#import "UIView+UIViewFrame.h"
+
+
+#import "WJWaitPayOrderInfoViewController.h"
 
 
 @interface WJOderListClassViewController ()
 
-/* 商家名字数组 */
-@property (strong , nonatomic) NSMutableArray<WJOrderShangjiaNameModel *> *arr_nameModel;
-/* 单品列表数组 */
-@property (strong , nonatomic) NSMutableArray<WJOrderListItem *> *arr_listItem;
-/* 商家名字数组 */
-@property (strong , nonatomic) NSMutableArray<WJOrderListFootModel *> *arr_footModel;
+@property (strong , nonatomic) NSMutableArray *arr_data;
+
 @end
 
 @implementation WJOderListClassViewController
@@ -40,7 +40,7 @@
 {
     if (!_mainTableView) {
 
-        self.mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight-kMSNaviHight-44)];
+        self.mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight-kMSNaviHight-44) style:UITableViewStyleGrouped];
         self.mainTableView.backgroundColor = [UIColor clearColor];
         self.mainTableView.delegate = self;
         self.mainTableView.dataSource = self;
@@ -54,7 +54,7 @@
         [self.mainTableView.mj_header beginRefreshing];
 
         // 上拉刷新
-        self.mainTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
+//        self.mainTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
     }
     return _mainTableView;
 }
@@ -66,13 +66,40 @@
     _page = 1;
     [self loadData];
 }
+-(void)noOrderListData
+{
+    UIView *backgroundView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight - kMSNaviHight)];
+    backgroundView.tag = 1000;
+    [self.mainTableView addSubview:backgroundView];
 
+    //默认图片
+    UIImageView *img = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"cart_default_bg"]];
+    img.center = CGPointMake(kMSScreenWith/2.0, backgroundView.height/2.0 - 140);
+    img.bounds = CGRectMake(0, 0, 247.0/187 * 100, 100);
+    [backgroundView addSubview:img];
+
+    UILabel *warnLabel = [[UILabel alloc]init];
+    warnLabel.center = CGPointMake(kMSScreenWith/2.0, backgroundView.height/2.0 - 70);
+    warnLabel.bounds = CGRectMake(0, 0, kMSScreenWith, 30);
+    warnLabel.textAlignment = NSTextAlignmentCenter;
+    warnLabel.text = @"您还没有相关订单";
+    warnLabel.font = [UIFont systemFontOfSize:16];
+    warnLabel.textColor = [RegularExpressionsMethod ColorWithHexString:@"706F6F"];
+    [backgroundView addSubview:warnLabel];
+}
 - (void)footerRereshing
 {
     _page ++;
-    [self addPhotoListData];
-
 }
+#pragma mark - 初始化数组
+- (NSMutableArray *)arr_data {
+    if (_arr_data == nil) {
+        _arr_data = [NSMutableArray arrayWithCapacity:0];
+    }
+
+    return _arr_data;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -80,127 +107,236 @@
 //加载数据
 - (void)loadData
 {
-//    _serverType = 1;
-//    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-//    [infos setValue:_str_imgTypeId forKey:@"type_id"];
-//    [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSImageTypeSum] andInfos:infos];
-}
+    switch (_serverType) {
+        case KGetOrderServerwholeOrder:
+            {
+               [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSWholeOrder,[AppDelegate shareAppDelegate].user_id]];
+            }
+            break;
+         case KGetOrderListWaitPay:
+        {
+             [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSListWaitPay,[AppDelegate shareAppDelegate].user_id]];
+        }
+            break;
+        default:
+            break;
+    }
 
--(void)addPhotoListData
-{
-    _serverType = 2;
-    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-    [infos setValue:kMSPULLtableViewCellNumber forKey:@"img_sum"];
-    [infos setValue:_str_imgTypeId forKey:@"type_id"];
-    [infos setValue:[NSString stringWithFormat:@"%ld",_page] forKey:@"img_page"];
-//    [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSImageTypeGet] andInfos:infos];
 }
--(void)processData
+-(void)getProcessData
 {
     if([[self.results objectForKey:@"code"] integerValue] == 200)
     {
-        NSLog(@"responseObject====%@",[self.results objectForKey:@"msg"]);
-        switch (_serverType) {
-            case KGetOrderServerSumList:
-            {
-                self.totleCount = [[self.results objectForKey:@"data"]  integerValue];
-                if (self.totleCount>0) {
-                    [self addPhotoListData];
+
+
+                [self.arr_data removeAllObjects];
+                id arr_data = [self.results objectForKey:@"data"];
+                if ([arr_data isKindOfClass:[NSArray class]]) {
+                    NSArray *dataArr = arr_data;
+                    if ([dataArr  count]<1 ) {
+                        [self noOrderListData];
+                        [self.mainTableView reloadData];
+                        return;
+                    }
+
+                    for (int aa=0; aa<dataArr.count; aa++) {
+                        NSArray *arr_goods = [[dataArr objectAtIndex:aa] objectForKey:@"order_info"];
+                        if (arr_goods&&arr_goods.count>0) {
+                            WJOrderShangJiaHeadModel *model = [[WJOrderShangJiaHeadModel alloc]init];
+                            model.supplier_id = [[dataArr objectAtIndex:aa] objectForKey:@"supplier_id"];
+                            model.referer = [[dataArr objectAtIndex:aa] objectForKey:@"referer"];
+                            model.order_id = [[dataArr objectAtIndex:aa] objectForKey:@"order_id"];
+                            model.order_sn = [[dataArr objectAtIndex:aa] objectForKey:@"order_sn"];
+                            model.pay_status = [[dataArr objectAtIndex:aa] objectForKey:@"pay_status"];
+                             model.shipping_status = [[dataArr objectAtIndex:aa] objectForKey:@"shipping_status"];
+                            model.goods_amount = [[dataArr objectAtIndex:aa] objectForKey:@"goods_amount"];
+                            [model configGoodsArrayWithArray:arr_goods];
+
+                            [self.arr_data addObject:model];
+
+                        }
+
+                        UIView *view = [self.view viewWithTag:1000];
+                        [view removeFromSuperview];
+                        [self.mainTableView reloadData];
+                        [self.mainTableView.mj_header endRefreshing];
+                    }
+
                 }
-            }
-                break;
-            case KOrderTypePortList:
-            {
-                [self.mainTableView.mj_header endRefreshing];
-                [self.mainTableView.mj_footer endRefreshing];
-                NSMutableArray *arr_Datalist = [NSMutableArray array];
-                arr_Datalist =  [self.results objectForKey:@"data"];
-
-
-                if (![arr_Datalist isEqual:[NSNull null]]) {
-
-                    if(_page==1)
-                    {
-                        self.dataArr= arr_Datalist;
-                    }else
-                    {
-                        [self.dataArr addObjectsFromArray:arr_Datalist];
-                    }
-
-                    if (self.page*10 >= self.totleCount)
-                    {
-                        [self.mainTableView.mj_footer endRefreshingWithNoMoreData];
-                    }
+                else
+                {
+                    [self noOrderListData];
                     [self.mainTableView reloadData];
+                    return;
                 }
-            }
-            default:
-                break;
-        }
-
 
     }
     else
     {
-
         [self.mainTableView.mj_header endRefreshing];
-        [self.mainTableView.mj_footer endRefreshing];
+        return;
     }
 }
 
 
-#pragma mark TableViewDelegate
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+
+#pragma mark --- UITableViewDataSource & UITableViewDelegate
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+
+    WJOrderShangJiaHeadModel *model = [self.arr_data objectAtIndex:section];
+    return model.goodsArray.count;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+
+    return self.arr_data.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    WJOrderListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WJOrderListCell"];
+    if (cell == nil) {
+        cell = [[WJOrderListCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"WJOrderListCell"];
+    }
+    if(indexPath.row==0)
+    {
+        cell.imageLine.hidden = YES;
+    }
+    else
+    {
+        cell.imageLine.hidden = NO;
+    }
+    WJOrderShangJiaHeadModel *shopModel = self.arr_data[indexPath.section];
+    WJOrderGoodListModel *model = [shopModel.goodsArray objectAtIndex:indexPath.row];
+    cell.listModel = model;
+    return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 1;
+    WJWaitPayOrderInfoViewController *waitPayInfoVC = [[WJWaitPayOrderInfoViewController alloc]init];
+     self.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:waitPayInfoVC animated:YES];
 }
 
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
 
-    return 2;
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    WJOrderHeader *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"WJOrderHeader"];
+    WJOrderShangJiaHeadModel *model = [self.arr_data objectAtIndex:section];
+    view.shangjiaTitle =  [NSString stringWithFormat:@"%@ >",ConvertNullString(model.referer)];
+    NSInteger paySt = [model.pay_status integerValue];
+    switch (paySt) {
+        case 0:
+            {
+                view.state.text = @"待付款";
+            }
+            break;
+        case 1:
+        {
+            view.state.text = @"付款中";
+        }
+            break;
+        case 2:
+        {
+            NSInteger shipSt = [model.shipping_status integerValue];
+            switch (shipSt) {
+                case 0:
+                    {
+                       view.state.text = @"未发货";
+                    }
+                    break;
+                case 1:
+                {
+                    view.state.text = @"已发货";
+                }
+                    break;
+                case 2:
+                {
+                    view.state.text = @"已收货";
+                }
+                    break;
+                case 3:
+                {
+                    view.state.text = @"退货";
+                }
+                    break;
+                default:
+                    break;
+            }
+        }
+            break;
+
+        default:
+            break;
+    }
+    return view;
 }
-
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+- (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    return 40;
+    WJOrderFooter *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"WJOrderFooter"];
+     WJOrderShangJiaHeadModel *model = [self.arr_data objectAtIndex:section];
+   view.totalPayPrice.text = [NSString stringWithFormat:@"共%ld件商品 合计：￥%@",model.goodsArray.count,model.goods_amount];
+    NSInteger paySt = [model.pay_status integerValue];
+    switch (paySt) {
+        case 0:
+        {
+            view.orderType = 0;
+        }
+            break;
+        case 1:
+        {
+            view.orderType = 0;
+        }
+            break;
+        case 2:
+        {
+            NSInteger shipSt = [model.shipping_status integerValue];
+            switch (shipSt) {
+                case 0:
+                {
+                   view.orderType = 1;
+                }
+                    break;
+                case 1:
+                {
+                    view.orderType = 2;
+                }
+                    break;
+                case 2:
+                {
+                    view.orderType = 3;
+                }
+                    break;
+                case 3:
+                {
+                    view.orderType = 4;
+                }
+                    break;
+                default:
+                    break;
+            }
+        }
+            break;
+
+        default:
+            break;
+    }
+    return view;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+
+    return 45;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 100;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-      return 80;
+    return 62;
 }
 
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 80;
-}
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
-    return NO;
-}
-
-
-
-#pragma mark TableViewDelegate
-
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    WJOrderHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"WJOrderHeader"];
-    return header;
-}
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    WJOrderFooter *footer = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"WJOrderFooter"];
-     return footer;
-}
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    WJOrderListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WJOrderListCell" forIndexPath:indexPath];
-    return cell;
-}
 - (void)firstLoadViewRefresh
 {
     [self.mainTableView.mj_footer endRefreshing];

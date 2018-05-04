@@ -41,6 +41,7 @@
     for (int i = 0; i < [self.arr_Type count]; i++)
     {
         WJOderListClassViewController *healthVC = [[WJOderListClassViewController alloc]init];
+        healthVC.serverType = i;
         [_viewControllers addObject:healthVC];
     }
     _pageViewCtrl=[[UIPageViewController alloc] initWithTransitionStyle:1 navigationOrientation:0 options:nil];

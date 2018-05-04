@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WJOrderListItem.h"
+#import "WJOrderGoodListModel.h"
 
 @interface WJOrderListCell : UITableViewCell
 
@@ -22,5 +22,6 @@
 //Cell分割线
 @property (nonatomic,strong)UIImageView *imageLine;
 
-@property (strong , nonatomic) WJOrderListItem *listModel;
+@property (strong , nonatomic) WJOrderGoodListModel *listModel;
+
 @end

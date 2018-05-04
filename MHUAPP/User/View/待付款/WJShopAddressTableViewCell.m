@@ -60,7 +60,7 @@
 {
     [super layoutSubviews];
 
-    _lab_address.frame = CGRectMake(31, _lab_telephone.Bottom, kMSScreenWith-70, [RegularExpressionsMethod dc_calculateTextSizeWithText:_str_address WithTextFont:16 WithMaxW:kMSScreenWith - DCMargin * 2].height);
+    _lab_address.frame = CGRectMake(31, _lab_telephone.Bottom, kMSScreenWith-70, [RegularExpressionsMethod dc_calculateTextSizeWithText:_str_address WithTextFont:16 WithMaxW:kMSScreenWith-70].height);
 
     [_actionImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         [make.right.mas_equalTo(self) setOffset:-14];

@@ -185,6 +185,7 @@
 
         }
         if ([urlString isEqualToString:kMSMainGetAdThird]) {
+            NSLog(@"%@====%@",urlString,responseObject);
             id arr = [[[responseObject objectForKey:@"data"] objectAtIndex:0] objectForKey:@"items"];
             if([arr isKindOfClass:[NSArray class]])
             {
@@ -207,7 +208,6 @@
             }
          }
             if ([urlString isEqualToString:kMSGetToday]) {
-                NSLog(@"%@====%@",urlString,responseObject);
 
                 id arr = [responseObject objectForKey:@"data"];
                 if([arr isKindOfClass:[NSArray class]])

@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WJOrderShangjiaNameModel.h"
 
 @interface WJOrderHeader : UITableViewHeaderFooterView
 
@@ -17,6 +16,5 @@
 
 @property (nonatomic, strong) UILabel *state;
 
-@property (strong , nonatomic) WJOrderShangjiaNameModel *nameModel;
-
+@property (copy,nonatomic) NSString *shangjiaTitle;
 @end

@@ -69,6 +69,8 @@ alpha:1.0]
 
 #define kMSNaviHight  64
 
+#define  TAG_Height 100
+
 #define _TencentAppid_  @"1106528553"
 #define UmengAppkey @"5a40c52cf43e482d4d000032"
 #define kAppIDWeixin         @"wxcd6d759365bd725a"

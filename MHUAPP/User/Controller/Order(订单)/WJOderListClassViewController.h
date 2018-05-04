@@ -10,14 +10,16 @@
 #import "BaseNetworkViewController.h"
 
 typedef NS_ENUM(NSInteger, KGetOrderServerType) {
-    KGetOrderServerSumList = 1 ,//获取总条数
-    KOrderTypePortList = 2 ,//分页数据
+    KGetOrderServerwholeOrder = 0 ,//获取全部订单
+    KGetOrderListWaitPay = 1 ,//待付款
+    KGetOrderListWaitFahuo = 2 ,//待发货
+    KGetOrderListWaitShouhuo = 3 ,//待收货
+    KGetOrderListWaitPingjia = 4 ,//待评价
 };
 @interface WJOderListClassViewController : BaseNetworkViewController <UITableViewDelegate,UITableViewDataSource>
 
 @property (strong, nonatomic)  UITableView *mainTableView;
 @property (nonatomic,strong) NSString *str_imgTypeId;
-@property (nonatomic,strong)  NSMutableArray *dataArr;
 @property NSInteger totleCount;
 
 @property (assign, nonatomic) KGetOrderServerType serverType;

@@ -40,7 +40,6 @@
 //        [infos setValue:timeString forKey:@"time"];
         NSLog(@"parameters====%@",infos);
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-        [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
         manager.requestSerializer.timeoutInterval = 20.f;
         [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
         [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];

@@ -68,7 +68,10 @@
 #define   kMSGetGoodsDesc          @"getGoodsDesc"                 //商品的详细描述
 #define   kMSGetCartList          @"getCart"                 //购物车列表数据
 #define   kMSDeleteCart          @"deleteCart"                 //删除购车商品
-#define   kMSPlaceAnOrder          @"placeAnOrder"                 //添加订单
+#define   kMSPlaceAnOrder          @"/v1/placeAnOrder"                 //添加订单
+#define   kMSWholeOrder          @"wholeOrder"                 //全部订单
 
+#define   kMSListWaitPay          @"ListWaitPay"                 //待付款列表
+#define   kMSDetailedPay          @"DetailedPay"                 //待付款详情
 
 #endif /* MHUURL_h */

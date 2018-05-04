@@ -126,9 +126,9 @@
     [infos setObject:_str_telephone forKey:@"consignee"];
     [infos setObject:_str_Name forKey:@"mobile"];
     [infos setObject:attString forKey:@"products"];
-    [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSPostCart] andInfos:infos];
+    [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSPlaceAnOrder] andInfos:infos];
 }
--(void)getProcessData
+-(void)processData
 {
     if([[self.results objectForKey:@"code"] integerValue] == 200)
     {
@@ -142,6 +142,7 @@
         return;
     }
 }
+
 #pragma mark --- UITableViewDataSource & UITableViewDelegate
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -156,7 +157,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-     return (indexPath.section==0)? [RegularExpressionsMethod dc_calculateTextSizeWithText:_str_address WithTextFont:16 WithMaxW:kMSScreenWith - DCMargin * 2].height+60:100;
+     return (indexPath.section==0)? [RegularExpressionsMethod dc_calculateTextSizeWithText:_str_address WithTextFont:16 WithMaxW:kMSScreenWith-70].height+60:100;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

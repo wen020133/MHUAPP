@@ -14,31 +14,81 @@
 -(id)initWithReuseIdentifier:(NSString *)reuseIdentifier
 {
     if (self = [super initWithReuseIdentifier:reuseIdentifier]) {
-        self.contentView.backgroundColor = [UIColor whiteColor];
+        self.contentView.backgroundColor = self.backgroundColor= kMSCellBackColor;
         [self setUpInitV];
     }
     return self;
 }
 -(void)setUpInitV
 {
-    _totalPayPrice = [[UILabel alloc] initWithFrame:CGRectMake(50, 5, self.contentView.width-60, 30)];
-    _totalPayPrice.backgroundColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
+
+    _totalPayPrice = [[UILabel alloc] initWithFrame:CGRectMake(50, 5, kMSScreenWith-60, 20)];
+    _totalPayPrice.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
+    _totalPayPrice.font = Font(15);
     _totalPayPrice.textAlignment = NSTextAlignmentRight;
     
     [self.contentView addSubview:_totalPayPrice];
 
-    UIImageView *imgLine = [[UIImageView alloc]initWithFrame:CGRectMake(0, self.contentView.height, self.contentView.width, 1)];
+    UIImageView *imgLine = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 1)];
     imgLine.backgroundColor = [[UIColor lightGrayColor]colorWithAlphaComponent:0.4];
     [self.contentView addSubview:imgLine];
+
+    [self addActionOrderState:_orderType];
 }
 
--(void)setFootModel:(WJOrderListFootModel *)footModel
+-(void)addActionOrderState:(NSInteger )orderType
 {
-    if (footModel!=_footModel) {
-        _footModel = footModel;
+    NSMutableArray *arr_buttonTitle = [NSMutableArray array];
+    switch (orderType) {
+        case 0:   //待付款
+            {
+                arr_buttonTitle = [NSMutableArray arrayWithObjects:@"立即支付",@"取消订单", nil];
+            }
+            break;
+        case 1:  //待发货
+        {
+            arr_buttonTitle = [NSMutableArray arrayWithObjects:@"再次购买",@"催发货", nil];
+        }
+            break;
+        case 2:  //待收货
+        {
+            arr_buttonTitle = [NSMutableArray arrayWithObjects:@"确认收货", @"查看物流",nil];
+        }
+            break;
+        case 3:   //已完成
+        {
+            arr_buttonTitle = [NSMutableArray arrayWithObjects:@"立即评价",@"再次购买", nil];
+        }
+            break;
+        case 4:  //已评价
+        {
+            arr_buttonTitle = [NSMutableArray arrayWithObjects:@"再次购买",@"查看评价", @"删除订单",nil];
+        }
+            break;
+        case 5:  //交易关闭
+        {
+            arr_buttonTitle = [NSMutableArray arrayWithObjects:@"已取消", nil];
+        }
+            break;
+        default:
+            break;
     }
-
-    _totalPayPrice.text = [NSString stringWithFormat:@"共%@件商品 合计：￥%@（含运费￥%@）",_footModel.OrderNum,_footModel.totalPrice,_footModel.freight];
+    for (int aa=0; aa<arr_buttonTitle.count; aa++) {
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.layer.borderColor = [[RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR] CGColor];
+        btn.layer.borderWidth = 1.0f;
+        btn.layer.cornerRadius = 3;
+        btn.layer.masksToBounds = YES;//设置圆角
+        btn.frame = CGRectMake(kMSScreenWith-(70+10)*(aa+1), 29, 70, 28);
+        [btn setTitle:[arr_buttonTitle objectAtIndex:aa] forState:UIControlStateNormal];
+        btn.titleLabel.font = Font(14);
+        [btn setTitleColor:[RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR] forState:UIControlStateNormal];
+        [btn addTarget:self action:@selector(aeleteGoodsInCart:) forControlEvents:UIControlEventTouchUpInside];
+        [self.contentView addSubview:btn];
+    }
+}
+-(void)aeleteGoodsInCart:(UIButton *)sender
+{
 
 }
 /*
