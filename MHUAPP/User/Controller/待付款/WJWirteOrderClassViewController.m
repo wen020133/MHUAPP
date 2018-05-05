@@ -134,10 +134,9 @@
     if([[self.results objectForKey:@"code"] integerValue] == 200)
     {
         self.hidesBottomBarWhenPushed = YES;
-        NSDictionary *pra = [NSDictionary dictionaryWithObjectsAndKeys:self.results[@"data"][@"oPrice"],@"realprice",self.results[@"data"][@"orderNo"],@"orderno", nil];
         PayViewController *pay = [[PayViewController alloc]init];
-        pay.infoDic = pra;
-        pay.isDan = YES;
+        pay.orderNo = self.results[@"data"][@"orderNo"];
+        pay.oPrice = self.results[@"data"][@"oPrice"];
         [self.navigationController pushViewController:pay animated:YES];
     }
     else

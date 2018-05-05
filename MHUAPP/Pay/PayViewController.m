@@ -109,8 +109,7 @@
         UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"first"];
         cell.textLabel.text = @"确定支付";
         cell.textLabel.font = Font(15);
-        NSLog(@"%@",_infoDic);
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"￥%.2f",[_infoDic[@"realprice"] floatValue]];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"￥%@",_oPrice];
         cell.detailTextLabel.font = Font(15);
         cell.detailTextLabel.tintColor = [UIColor redColor];
         return cell;
@@ -156,17 +155,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
     if(indexPath.section == 1){
-        
-        AliPayManagers *manager = [AliPayManagers shareInstance];
-        manager.infoDic = _infoDic;
-        [manager payWithSuccess:^{
-            SuccessViewController *success = [[SuccessViewController alloc]init];
-            success.state = @(0);
-            [self.navigationController pushViewController:success animated:YES];
-        } fail:^{
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"支付失败" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
-            [alert show];
-        }];
+        [self PostAliSignStr];
+
     }else if((indexPath.section == 2)){
         
 //        WXApiManager *manager = [WXApiManager sharedManager];
@@ -176,6 +166,38 @@
 //        } faild:^(id status) {
 //
 //        }];
+    }
+}
+
+-(void)PostAliSignStr
+{
+    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+    [infos setObject:_orderNo forKey:@"orderNo"];
+    [infos setObject:@"0.01" forKey:@"oPrice"];
+    [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSMiYoMeipay] andInfos:infos];
+
+}
+-(void)processData
+{
+
+    if([[self.results objectForKey:@"code"] integerValue] == 200)
+    {
+        AliPayManagers *manager = [AliPayManagers shareInstance];
+        manager.infoStr = @"";
+        [manager payWithSuccess:^{
+            SuccessViewController *success = [[SuccessViewController alloc]init];
+            success.state = @(0);
+            [self.navigationController pushViewController:success animated:YES];
+        } fail:^{
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"支付失败" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            [alert show];
+        }];
+
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"msg"]];
+        return;
     }
 }
 

@@ -73,5 +73,5 @@
 
 #define   kMSListWaitPay          @"ListWaitPay"                 //待付款列表
 #define   kMSDetailedPay          @"DetailedPay"                 //待付款详情
-
+#define   kMSMiYoMeipay          @"/v1/pay"                 //生产支付宝签名
 #endif /* MHUURL_h */

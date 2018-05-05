@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseNetworkViewController.h"
 
 UIKIT_EXTERN NSString * const UpLoadNoti;
 
-@interface PayViewController : UIViewController
+@interface PayViewController : BaseNetworkViewController
 
-@property (nonatomic, strong) NSDictionary *infoDic;
-
-
+@property (nonatomic, strong) NSString *orderNo;
+@property (nonatomic, strong) NSString *oPrice;
+@property (nonatomic, strong) NSString *str;
 @property (nonatomic, assign) BOOL isDan;
 @end

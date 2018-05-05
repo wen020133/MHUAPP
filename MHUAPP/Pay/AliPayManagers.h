@@ -14,7 +14,7 @@ typedef void(^FailResult)(void);
 
 
 @interface AliPayManagers : NSObject
-@property (nonatomic, strong) NSDictionary *infoDic;
+@property (nonatomic, strong) NSString *infoStr;
 +(AliPayManagers *)shareInstance;
 -(void)payWithSuccess:(SuccessResult)sresult fail:(FailResult)fresult;
 @end
