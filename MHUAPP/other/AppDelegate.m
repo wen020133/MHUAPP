@@ -7,9 +7,10 @@
 //
 
 #import "AppDelegate.h"
-
+#import <AlipaySDK/AlipaySDK.h>
 #import <UMSocialCore/UMSocialCore.h>
 
+NSString * const UpLoadNoti = @"uploadInfo";
 
 
 @interface AppDelegate ()
@@ -54,7 +55,48 @@
 {
     BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];
     if (!result) {
-        // 其他如支付等SDK的回调
+        if ([url.host isEqualToString:@"safepay"]) {
+            [[AlipaySDK defaultService] processOrderWithPaymentResult:url
+                                                      standbyCallback:^(NSDictionary *resultDic) {
+                                                          //【由于在跳转支付宝客户端支付的过程中,商户 app 在后台很可能被系统 kill 了,所以 pay 接口的 callback 就会失效,请商户对 standbyCallback 返回的回调结果进行处理,就是在这个方 法里面处理跟 callback 一样的逻辑】
+                                                          NSLog(@"result = %@",resultDic);
+                                                          if ([[resultDic objectForKey:@"resultStatus"]integerValue]==9000)
+                                                          {
+
+                                                              NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+                                                              [center postNotificationName:UpLoadNoti object:nil];
+
+                                                          }
+                                                          else
+                                                          {
+
+                                                              UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"支付失败" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+                                                              [alert show];
+                                                          }
+                                                      }];
+            return YES;
+
+        }
+        if ([url.host isEqualToString:@"platformapi"]){//支付宝钱包快登授权返回 authCode
+            [[AlipaySDK defaultService] processAuthResult:url standbyCallback:^(NSDictionary *resultDic) {
+                //【由于在跳转支付宝客户端支付的过程中,商户 app 在后台很可能被系统 kill 了, 所以 pay 接口的 callback 就会失效,请商户对 standbyCallback 返回的回调结果进行处理,就 是在这个方法里面处理跟 callback 一样的逻辑】
+                NSLog(@"result = %@",resultDic);
+                if ([[resultDic objectForKey:@"resultStatus"]integerValue]==9000)
+                {
+
+                    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+                    [center postNotificationName:UpLoadNoti object:nil];
+
+                }
+                else
+                {
+
+                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"支付失败" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+                    [alert show];
+                }
+            }];
+            return YES;
+        }
     }
     return result;
 }
@@ -64,6 +106,30 @@
     BOOL result = [[UMSocialManager defaultManager]  handleOpenURL:url options:options];
     if (!result) {
         // 其他如支付等SDK的回调
+        if ([url.host isEqualToString:@"safepay"]) {
+            [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+                NSLog(@"result = %@",resultDic);
+            }];
+            [[AlipaySDK defaultService]
+             processOrderWithPaymentResult:url
+             standbyCallback:^(NSDictionary *resultDic) {
+                 NSLog(@"result = %@",resultDic);//返回的支付结果 //【由于在跳转支付宝客户端支付的过程中,商户 app 在后台很可能被系统 kill 了,所以 pay 接 口的 callback 就会失效,请商户对 standbyCallback 返回的回调结果进行处理,就是在这个方法 里面处理跟 callback 一样的逻辑】
+             }];
+            //        [[AlipaySDK defaultService] processAuth_V2Result:url
+            //                                         standbyCallback:^(NSDictionary *resultDic) {
+            //                                             NSLog(@"result = %@",resultDic);
+            //                                             NSString *resultStr = resultDic[@"result"];
+            //                                             NSLog(@"result = %@",resultStr);
+            //                                         }];
+            return YES;
+        }else if ([url.host isEqualToString:@"platformapi"]){//支付宝钱包快登授权返回 authCode
+            [[AlipaySDK defaultService] processAuthResult:url standbyCallback:^(NSDictionary *resultDic) {
+                NSLog(@"result = %@",resultDic);
+            }];
+            return YES;
+        }
+
+//        return  [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
     }
     return result;
 }

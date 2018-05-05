@@ -13,6 +13,7 @@
 #import "UIView+UIViewFrame.h"
 #import "AppDelegate.h"
 
+#import "PayViewController.h"
 
 @interface WJWirteOrderClassViewController ()
 
@@ -132,13 +133,16 @@
 {
     if([[self.results objectForKey:@"code"] integerValue] == 200)
     {
-        [SVProgressHUD showSuccessWithStatus:@"提交成功~"];
-        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
-        [SVProgressHUD dismissWithDelay:1.0];
+        self.hidesBottomBarWhenPushed = YES;
+        NSDictionary *pra = [NSDictionary dictionaryWithObjectsAndKeys:self.results[@"data"][@"oPrice"],@"realprice",self.results[@"data"][@"orderNo"],@"orderno", nil];
+        PayViewController *pay = [[PayViewController alloc]init];
+        pay.infoDic = pra;
+        pay.isDan = YES;
+        [self.navigationController pushViewController:pay animated:YES];
     }
     else
     {
-//        [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"msg"]];
+        [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"msg"]];
         return;
     }
 }
