@@ -43,7 +43,7 @@
         manager.requestSerializer.timeoutInterval = 20.f;
         [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
         [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/xml",@"text/html", nil];
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/xml",@"text/html",nil];
         // post请求
         [manager POST:service parameters:infos constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) {
             

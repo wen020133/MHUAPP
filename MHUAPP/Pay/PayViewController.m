@@ -9,22 +9,26 @@
 #import "PayViewController.h"
 
 #import "SuccessViewController.h"
-
-//#import "WXApiObject.h"
-
-
 #import "AliPayManagers.h"
+//#import "WXApiObject.h"
 //#import "WXApiManager.h"
 
-@interface PayViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
+#import "WJPayFristTableViewCell.h"
+#import "WJpaySectionTableCell.h"
+
+@interface PayViewController ()<UITableViewDataSource,UITableViewDelegate>
+
 @property (nonatomic, strong) UITableView *tb;
+@property (strong, nonatomic) UIView *view_foot;
+@property (strong, nonatomic) NSIndexPath *selectPath;
 @end
 
 @implementation PayViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initView];
+//    [self initView];
+    self.view.backgroundColor = kMSColorFromRGB(127, 127, 127);
     [self.view addSubview:self.tb];
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(push) name:UpLoadNoti object:nil];
@@ -64,11 +68,12 @@
 -(UITableView *)tb
 {
     if (!_tb) {
-        _tb = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight-64) style:UITableViewStyleGrouped];
+        _tb = [[UITableView alloc]initWithFrame:CGRectMake(0, kMSScreenHeight/2-80, kMSScreenWith, kMSScreenHeight/2+80) style:UITableViewStylePlain];
         _tb.delegate = self;
         _tb.dataSource = self;
         _tb.sectionHeaderHeight = 0;
-        [_tb setSeparatorInset:(UIEdgeInsetsMake(0, 0, 0, 0))];
+        _tb.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        _tb.tableFooterView = self.view_foot;
 
     }
     return _tb;
@@ -78,7 +83,7 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return 2;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -88,14 +93,14 @@
     }
     else
     {
-        return 1;
+        return 2;
     }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        return 40;
+        return 90;
     }
     else
     {
@@ -106,67 +111,60 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"first"];
-        cell.textLabel.text = @"确定支付";
-        cell.textLabel.font = Font(15);
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"￥%@",_oPrice];
-        cell.detailTextLabel.font = Font(15);
-        cell.detailTextLabel.tintColor = [UIColor redColor];
+
+        WJPayFristTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WJPayFristTableViewCell"];
+        if (cell == nil) {
+            cell = [[WJPayFristTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"WJPayFristTableViewCell"];
+        }
+        cell.lab_price.text = [NSString stringWithFormat:@"￥%.2f",[_oPrice floatValue]];
+        cell.colsePayView = ^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        };
         return cell;
     }
-    else if(indexPath.section == 1)
+    else
     {
-        UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"second"];
-        cell.imageView.image = [UIImage imageNamed:@"img_icon_zfb"];
-        cell.imageView.frame = CGRectMake(0, 0, 30, 30);
-        
-        cell.textLabel.text = @"支付宝";
-        cell.textLabel.font = Font(15);
-        cell.textLabel.textColor =  [RegularExpressionsMethod ColorWithHexString:@"757575"];
-        
-        cell.detailTextLabel.text = @"安全支付";
-        cell.detailTextLabel.font = Font(13);
-        cell.detailTextLabel.textColor = [RegularExpressionsMethod  ColorWithHexString:@"A3A3A3"];
-        return cell;
-    }else
-    {
-        UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"second"];
-        cell.imageView.image = [UIImage imageNamed:@"weChat"];
-        cell.imageView.frame = CGRectMake(0, 0, 30, 30);
-        
-        cell.textLabel.text = @"微信支付";
-        cell.textLabel.font = Font(15);
-        cell.textLabel.textColor = [RegularExpressionsMethod  ColorWithHexString:@"757575"];
-        
-        cell.detailTextLabel.text = @"亿万用户的选择，更快更安全";
-        cell.detailTextLabel.font = Font(13);
-        cell.detailTextLabel.textColor = [RegularExpressionsMethod  ColorWithHexString:@"A3A3A3"];
+        WJpaySectionTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WJpaySectionTableCell"];
+        if (cell == nil) {
+            cell = [[WJpaySectionTableCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"WJpaySectionTableCell"];
+        }
+        if (indexPath.row==0) {
+            cell.img_icon.image = [UIImage imageNamed:@"user_weixin"];
+            cell.lab_title.text = @"微信支付";
+        }
+       else
+       {
+           cell.img_icon.image = [UIImage imageNamed:@"user_zhifubao"];
+           cell.lab_title.text = @"支付宝支付";
+        }
+        if (_selectPath == indexPath) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        }else{
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
+
         return cell;
     }
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    return 11;
-}
+
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+
+    int newRow = (int)[indexPath row];
+    int oldRow = (int)(_selectPath != nil) ? (int)[_selectPath row]:-1;
+    if (newRow != oldRow) {
+        WJpaySectionTableCell *newCell = [_tb cellForRowAtIndexPath:indexPath];
+        newCell.accessoryType = UITableViewCellAccessoryCheckmark;
+
+        WJpaySectionTableCell *oldCell = [_tb cellForRowAtIndexPath:_selectPath];
+        oldCell.accessoryType = UITableViewCellAccessoryNone;
+        _selectPath = [indexPath copy];
+
+    }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
-    if(indexPath.section == 1){
-        [self PostAliSignStr];
-
-    }else if((indexPath.section == 2)){
-        
-//        WXApiManager *manager = [WXApiManager sharedManager];
-//        manager.orderInfo = _infoDic;
-//        [manager payWithSuccess:^(id status) {
-//
-//        } faild:^(id status) {
-//
-//        }];
-    }
 }
 
 -(void)PostAliSignStr
@@ -180,35 +178,59 @@
 -(void)processData
 {
 
-    if([[self.results objectForKey:@"code"] integerValue] == 200)
+    NSString *signedString = [self.results objectForKey:@"key"];
+    if(signedString.length>1)
     {
         AliPayManagers *manager = [AliPayManagers shareInstance];
-        manager.infoStr = @"";
+        manager.infoStr = signedString;
         [manager payWithSuccess:^{
+            [self dismissViewControllerAnimated:YES completion:nil];
             SuccessViewController *success = [[SuccessViewController alloc]init];
             success.state = @(0);
             [self.navigationController pushViewController:success animated:YES];
         } fail:^{
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"支付失败" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
-            [alert show];
+            [SVProgressHUD showErrorWithStatus:@"支付失败"];
         }];
 
     }
     else
     {
-        [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"msg"]];
+        [SVProgressHUD showErrorWithStatus:@"提交失败"];
         return;
     }
 }
 
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+
+-(UIView *)view_foot
 {
-    SuccessViewController *success = [[SuccessViewController alloc]init];
-    success.state = @(0);
-    [self.navigationController pushViewController:success animated:YES];
+    if (!_view_foot) {
+        _view_foot = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 200)];
+        _view_foot.backgroundColor = kMSCellBackColor;
+
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.frame = CGRectMake(20, 20, kMSScreenWith-40, 48);
+        [btn setBackgroundColor:[UIColor redColor]];
+        [btn setTitle:@"确定" forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        btn.layer.cornerRadius = 5.0;
+        btn.titleLabel.font = PFR18Font;
+        [btn addTarget:self action:@selector(gotoPayForSection:) forControlEvents:UIControlEventTouchUpInside];
+        [_view_foot addSubview:btn];
+    }
+    return _view_foot;
 }
 
+-(void)gotoPayForSection:(UIButton *)sender
+{
+    if ([_selectPath row]==0) {
 
+    }
+    else if ([_selectPath row]==1) {
+         [self PostAliSignStr];
+    }
+
+
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

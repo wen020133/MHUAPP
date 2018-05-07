@@ -334,6 +334,8 @@
 		34FBC1F5209D3444004C0F84 /* openssl_wrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 34FBC1F3209D3444004C0F84 /* openssl_wrapper.m */; };
 		34FBC1F8209D344C004C0F84 /* APAuthInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 34FBC1F6209D344B004C0F84 /* APAuthInfo.m */; };
 		34FBC1FB209D350A004C0F84 /* APOrderInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 34FBC1F9209D3509004C0F84 /* APOrderInfo.m */; };
+		34FF842920A03200001E8070 /* WJPayFristTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34FF842820A03200001E8070 /* WJPayFristTableViewCell.m */; };
+		34FF842C20A03C33001E8070 /* WJpaySectionTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34FF842B20A03C33001E8070 /* WJpaySectionTableCell.m */; };
 		D630FDAEFBDF2DC478337328 /* libPods-MHUAPP.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33FC6ACB0A2BBFE67E9323C4 /* libPods-MHUAPP.a */; };
 /* End PBXBuildFile section */
 
@@ -987,6 +989,10 @@
 		34FBC1F7209D344C004C0F84 /* APAuthInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APAuthInfo.h; sourceTree = "<group>"; };
 		34FBC1F9209D3509004C0F84 /* APOrderInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APOrderInfo.m; sourceTree = "<group>"; };
 		34FBC1FC209D35C0004C0F84 /* APOrderInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APOrderInfo.h; sourceTree = "<group>"; };
+		34FF842720A03200001E8070 /* WJPayFristTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJPayFristTableViewCell.h; sourceTree = "<group>"; };
+		34FF842820A03200001E8070 /* WJPayFristTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJPayFristTableViewCell.m; sourceTree = "<group>"; };
+		34FF842A20A03C33001E8070 /* WJpaySectionTableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJpaySectionTableCell.h; sourceTree = "<group>"; };
+		34FF842B20A03C33001E8070 /* WJpaySectionTableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJpaySectionTableCell.m; sourceTree = "<group>"; };
 		4C9C31D9935B496C97C46B4E /* Pods-MHUAPP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MHUAPP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MHUAPP/Pods-MHUAPP.debug.xcconfig"; sourceTree = "<group>"; };
 		D31EA1D111F60E55B5B4B4B8 /* Pods-MHUAPP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MHUAPP.release.xcconfig"; path = "Pods/Target Support Files/Pods-MHUAPP/Pods-MHUAPP.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2664,6 +2670,7 @@
 				34FBC1DF209C52CD004C0F84 /* AliPayManagers.m */,
 				34FBC1D9209C4F27004C0F84 /* SuccessViewController.h */,
 				34FBC1D8209C4F27004C0F84 /* SuccessViewController.m */,
+				34FF842620A031BC001E8070 /* View */,
 			);
 			path = Pay;
 			sourceTree = "<group>";
@@ -2681,6 +2688,17 @@
 				34FBC1F3209D3444004C0F84 /* openssl_wrapper.m */,
 			);
 			path = utils;
+			sourceTree = "<group>";
+		};
+		34FF842620A031BC001E8070 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				34FF842720A03200001E8070 /* WJPayFristTableViewCell.h */,
+				34FF842820A03200001E8070 /* WJPayFristTableViewCell.m */,
+				34FF842A20A03C33001E8070 /* WJpaySectionTableCell.h */,
+				34FF842B20A03C33001E8070 /* WJpaySectionTableCell.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		445C98F897355C9C327B4939 /* Frameworks */ = {
@@ -2921,6 +2939,7 @@
 				34341C2A208DCE9200ABF73D /* WJHomeRefreshGifHeader.m in Sources */,
 				17DF7C161FCD04BC00FBD9DC /* WJPersonalCenterViewController.m in Sources */,
 				34294B6E20804486005240D6 /* WJFollowClassItem.m in Sources */,
+				34FF842920A03200001E8070 /* WJPayFristTableViewCell.m in Sources */,
 				3411F95320411278007BCEF9 /* XWTransitionAnimator.m in Sources */,
 				34EEB60A1FD93E4F00B4BE0A /* RigisterClassViewController.m in Sources */,
 				34804A1F206F762200A94CA9 /* WJIntegralListViewController.m in Sources */,
@@ -2957,6 +2976,7 @@
 				3435E90A207F4A5300A156F2 /* WJMyFollowTableViewCell.m in Sources */,
 				3411F96720411278007BCEF9 /* XWFilterAnimator+XWFlash.m in Sources */,
 				34FAB70E2064F458000C9E3C /* PRTween.m in Sources */,
+				34FF842C20A03C33001E8070 /* WJpaySectionTableCell.m in Sources */,
 				3411F96620411278007BCEF9 /* XWFilterAnimator+XWCopyMachine.m in Sources */,
 				34FBC1FB209D350A004C0F84 /* APOrderInfo.m in Sources */,
 				34804A09206F16B400A94CA9 /* WJSegmentedInUpDownView.m in Sources */,

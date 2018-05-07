@@ -39,19 +39,24 @@ UIKIT_EXTERN NSString * const UpLoadNoti;
 
 -(void)payWithSuccess:(SuccessResult)sresult fail:(FailResult)fresult
 {
+    
+    NSString *appScheme = @"MHUAPPIdentifier";
+    [[AlipaySDK defaultService] payOrder:_infoStr fromScheme:appScheme callback:^(NSDictionary *resultDic) {
+        NSLog(@"reslut = %@",resultDic);
+        if ([[resultDic objectForKey:@"resultStatus"]integerValue]==9000)
+        {
 
-
-    // NOTE: 如果加签成功，则继续执行支付
-    if (_infoStr.length>1) {
-        //应用注册scheme,在AliSDKDemo-Info.plist定义URL types
-        NSString *appScheme = @"MHUAPPIdentifier";
-
-
-        // NOTE: 调用支付结果开始支付
-        [[AlipaySDK defaultService] payOrder:_infoStr fromScheme:appScheme callback:^(NSDictionary *resultDic) {
-            NSLog(@"reslut = %@",resultDic);
-        }];
-    }
+            if (sresult) {
+                sresult();
+            }
+        }
+        else
+        {
+            if (fresult) {
+                fresult();
+            }
+        }
+    }];
 
 }
 
