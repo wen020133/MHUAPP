@@ -40,6 +40,9 @@ PODS:
     - UMengUShare/Core
   - UMengUShare/UI (6.4.6):
     - UMengUShare/Core
+  - YYKit (1.0.9):
+    - YYKit/no-arc (= 1.0.9)
+  - YYKit/no-arc (1.0.9)
 
 DEPENDENCIES:
   - AFNetworking
@@ -57,6 +60,7 @@ DEPENDENCIES:
   - UMengUShare/Social/ReducedSina
   - UMengUShare/Social/ReducedWeChat
   - UMengUShare/UI
+  - YYKit (~> 1.0.9)
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
@@ -69,7 +73,8 @@ SPEC CHECKSUMS:
   SVProgressHUD: 59b2d3dabacbd051576d21d32293ca7228dc18b0
   UITableView+FDTemplateLayoutCell: 5c949b4a5059c404b442926c0e80f81d10a2d66f
   UMengUShare: fdbbf86353976727af26a66e9a84314ecb59c816
+  YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 9a1f2adab687d61c6a3d5c0e568349b0035c4794
+PODFILE CHECKSUM: 1a8b1b53fca0bb74ce3c2fc7b92ef954d941f45a
 
 COCOAPODS: 1.3.1

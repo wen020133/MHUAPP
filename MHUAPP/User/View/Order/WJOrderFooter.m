@@ -89,7 +89,7 @@
 }
 -(void)aeleteGoodsInCart:(UIButton *)sender
 {
-
+     !_ClickStateForStrBlock ? : _ClickStateForStrBlock(sender.titleLabel.text);
 }
 /*
 // Only override drawRect: if you perform custom drawing.

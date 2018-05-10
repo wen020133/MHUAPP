@@ -84,6 +84,7 @@
     {
         self.hidesBottomBarWhenPushed = YES;
         WJOrderMainViewController *ad = [[WJOrderMainViewController alloc]init];
+        ad.serverType=1;
         [self.navigationController pushViewController:ad animated:YES];
     }
 }
@@ -92,6 +93,7 @@
 {
     self.hidesBottomBarWhenPushed = YES;
     WJOrderMainViewController *ad = [[WJOrderMainViewController alloc]init];
+    ad.serverType=1;
     [self.navigationController pushViewController:ad animated:YES];
 }
 

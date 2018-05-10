@@ -115,10 +115,6 @@
 		3411F96D20411278007BCEF9 /* XWFilterAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3411F94920411278007BCEF9 /* XWFilterAnimator.m */; };
 		3411F96E20411278007BCEF9 /* XWFilterTransitionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3411F94B20411278007BCEF9 /* XWFilterTransitionView.m */; };
 		3411F96F20411278007BCEF9 /* XWMagicMoveAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3411F94E20411278007BCEF9 /* XWMagicMoveAnimator.m */; };
-		34129E0A209D92DA0090D302 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34129E08209D92DA0090D302 /* libssl.a */; };
-		34129E0B209D92DB0090D302 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34129E09209D92DA0090D302 /* libcrypto.a */; };
-		34129E0E209D92E60090D302 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 34129E0C209D92E50090D302 /* AlipaySDK.bundle */; };
-		34129E0F209D92E60090D302 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34129E0D209D92E50090D302 /* AlipaySDK.framework */; };
 		3412D5B720463AF1000EB1A0 /* WJXianShiMiaoShaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3412D5B620463AF1000EB1A0 /* WJXianShiMiaoShaCell.m */; };
 		3412D5BA20464CB2000EB1A0 /* WJXianShiMiaoShaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3412D5B920464CB2000EB1A0 /* WJXianShiMiaoShaModel.m */; };
 		3412D5BC20467C4D000EB1A0 /* home_sentiment02_img.png in Resources */ = {isa = PBXBuildFile; fileRef = 3412D5BB20467C4D000EB1A0 /* home_sentiment02_img.png */; };
@@ -222,6 +218,7 @@
 		344A14FB2043BB8100C14CFE /* MuluScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 344A14FA2043BB8100C14CFE /* MuluScrollView.m */; };
 		344A14FE2044027500C14CFE /* HXSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 344A14FC2044027400C14CFE /* HXSearchBar.m */; };
 		344A15002044031500C14CFE /* ic_delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 344A14FF2044031500C14CFE /* ic_delete.png */; };
+		344B975C20A2EBED00435B11 /* WJWaitPayThridTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 344B975B20A2EBED00435B11 /* WJWaitPayThridTableCell.m */; };
 		344E91C620882538005501BE /* WJJingXuanShopItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 344E91C520882538005501BE /* WJJingXuanShopItem.m */; };
 		344E91C9208876E7005501BE /* WJDetailPartCommentHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 344E91C8208876E7005501BE /* WJDetailPartCommentHeadView.m */; };
 		344E91D42088870E005501BE /* WJDetailPartCommentItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 344E91D32088870E005501BE /* WJDetailPartCommentItem.m */; };
@@ -310,6 +307,16 @@
 		34FAB70C2064F458000C9E3C /* PPDragDropBadgeView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 34FAB7012064F457000C9E3C /* PPDragDropBadgeView.bundle */; };
 		34FAB70E2064F458000C9E3C /* PRTween.m in Sources */ = {isa = PBXBuildFile; fileRef = 34FAB7072064F458000C9E3C /* PRTween.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		34FAB70F2064F458000C9E3C /* PRTweenTimingFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 34FAB7092064F458000C9E3C /* PRTweenTimingFunctions.m */; };
+		34FB224A20A1375200D698FA /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 34FB224820A1375100D698FA /* AlipaySDK.bundle */; };
+		34FB224B20A1375200D698FA /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34FB224920A1375200D698FA /* AlipaySDK.framework */; };
+		34FB225120A1428900D698FA /* WJLogisticsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 34FB225020A1428900D698FA /* WJLogisticsModel.m */; };
+		34FB225420A148B300D698FA /* WJLogisticsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34FB225320A148B300D698FA /* WJLogisticsView.m */; };
+		34FB225720A148E600D698FA /* WJLogisticsTableHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34FB225620A148E600D698FA /* WJLogisticsTableHeadView.m */; };
+		34FB225A20A1541800D698FA /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34FB225820A1541700D698FA /* libcrypto.a */; };
+		34FB225B20A1541800D698FA /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34FB225920A1541800D698FA /* libssl.a */; };
+		34FB226120A16FC700D698FA /* WJLogisticsCustomTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34FB226020A16FC700D698FA /* WJLogisticsCustomTableCell.m */; };
+		34FB226420A1733500D698FA /* WJLogisticsCustomCellContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34FB226320A1733500D698FA /* WJLogisticsCustomCellContentView.m */; };
+		34FB226720A1735A00D698FA /* WJLogisticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34FB226620A1735A00D698FA /* WJLogisticsViewController.m */; };
 		34FB720D20799E5800585866 /* WJMyStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34FB720C20799E5800585866 /* WJMyStoreViewController.m */; };
 		34FB72112079B0CF00585866 /* WJMyStoreTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34FB72102079B0CF00585866 /* WJMyStoreTableCell.m */; };
 		34FB7217207A0D1C00585866 /* MunuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34FB7216207A0D1C00585866 /* MunuView.m */; };
@@ -542,10 +549,6 @@
 		3411F94B20411278007BCEF9 /* XWFilterTransitionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWFilterTransitionView.m; sourceTree = "<group>"; };
 		3411F94D20411278007BCEF9 /* XWMagicMoveAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWMagicMoveAnimator.h; sourceTree = "<group>"; };
 		3411F94E20411278007BCEF9 /* XWMagicMoveAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWMagicMoveAnimator.m; sourceTree = "<group>"; };
-		34129E08209D92DA0090D302 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = MHUAPP/libssl.a; sourceTree = "<group>"; };
-		34129E09209D92DA0090D302 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = MHUAPP/libcrypto.a; sourceTree = "<group>"; };
-		34129E0C209D92E50090D302 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
-		34129E0D209D92E50090D302 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		34129ED3209D99790090D302 /* aes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aes.h; sourceTree = "<group>"; };
 		34129ED4209D99790090D302 /* asn1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = asn1.h; sourceTree = "<group>"; };
 		34129ED5209D99790090D302 /* asn1_mac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = asn1_mac.h; sourceTree = "<group>"; };
@@ -806,6 +809,8 @@
 		344A14FC2044027400C14CFE /* HXSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXSearchBar.m; sourceTree = "<group>"; };
 		344A14FD2044027500C14CFE /* HXSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXSearchBar.h; sourceTree = "<group>"; };
 		344A14FF2044031500C14CFE /* ic_delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_delete.png; sourceTree = "<group>"; };
+		344B975A20A2EBED00435B11 /* WJWaitPayThridTableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJWaitPayThridTableCell.h; sourceTree = "<group>"; };
+		344B975B20A2EBED00435B11 /* WJWaitPayThridTableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJWaitPayThridTableCell.m; sourceTree = "<group>"; };
 		344E91C420882538005501BE /* WJJingXuanShopItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJJingXuanShopItem.h; sourceTree = "<group>"; };
 		344E91C520882538005501BE /* WJJingXuanShopItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJJingXuanShopItem.m; sourceTree = "<group>"; };
 		344E91C7208876E7005501BE /* WJDetailPartCommentHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJDetailPartCommentHeadView.h; sourceTree = "<group>"; };
@@ -954,6 +959,22 @@
 		34FAB7072064F458000C9E3C /* PRTween.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRTween.m; sourceTree = "<group>"; };
 		34FAB7082064F458000C9E3C /* PRTweenTimingFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRTweenTimingFunctions.h; sourceTree = "<group>"; };
 		34FAB7092064F458000C9E3C /* PRTweenTimingFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRTweenTimingFunctions.m; sourceTree = "<group>"; };
+		34FB224820A1375100D698FA /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
+		34FB224920A1375200D698FA /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
+		34FB224F20A1428900D698FA /* WJLogisticsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJLogisticsModel.h; sourceTree = "<group>"; };
+		34FB225020A1428900D698FA /* WJLogisticsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJLogisticsModel.m; sourceTree = "<group>"; };
+		34FB225220A148B300D698FA /* WJLogisticsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJLogisticsView.h; sourceTree = "<group>"; };
+		34FB225320A148B300D698FA /* WJLogisticsView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJLogisticsView.m; sourceTree = "<group>"; };
+		34FB225520A148E600D698FA /* WJLogisticsTableHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJLogisticsTableHeadView.h; sourceTree = "<group>"; };
+		34FB225620A148E600D698FA /* WJLogisticsTableHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJLogisticsTableHeadView.m; sourceTree = "<group>"; };
+		34FB225820A1541700D698FA /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
+		34FB225920A1541800D698FA /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
+		34FB225F20A16FC700D698FA /* WJLogisticsCustomTableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJLogisticsCustomTableCell.h; sourceTree = "<group>"; };
+		34FB226020A16FC700D698FA /* WJLogisticsCustomTableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJLogisticsCustomTableCell.m; sourceTree = "<group>"; };
+		34FB226220A1733500D698FA /* WJLogisticsCustomCellContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJLogisticsCustomCellContentView.h; sourceTree = "<group>"; };
+		34FB226320A1733500D698FA /* WJLogisticsCustomCellContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJLogisticsCustomCellContentView.m; sourceTree = "<group>"; };
+		34FB226520A1735A00D698FA /* WJLogisticsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJLogisticsViewController.h; sourceTree = "<group>"; };
+		34FB226620A1735A00D698FA /* WJLogisticsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJLogisticsViewController.m; sourceTree = "<group>"; };
 		34FB720B20799E5800585866 /* WJMyStoreViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJMyStoreViewController.h; sourceTree = "<group>"; };
 		34FB720C20799E5800585866 /* WJMyStoreViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJMyStoreViewController.m; sourceTree = "<group>"; };
 		34FB720F2079B0CF00585866 /* WJMyStoreTableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJMyStoreTableCell.h; sourceTree = "<group>"; };
@@ -1007,15 +1028,15 @@
 				34FBC1CF209C49B7004C0F84 /* Foundation.framework in Frameworks */,
 				34FBC1CD209C49A9004C0F84 /* UIKit.framework in Frameworks */,
 				34FBC1CB209C49A1004C0F84 /* CoreGraphics.framework in Frameworks */,
+				34FB225B20A1541800D698FA /* libssl.a in Frameworks */,
 				34FBC1C9209C4997004C0F84 /* CoreText.framework in Frameworks */,
-				34129E0B209D92DB0090D302 /* libcrypto.a in Frameworks */,
+				34FB225A20A1541800D698FA /* libcrypto.a in Frameworks */,
 				34FBC1C7209C497F004C0F84 /* QuartzCore.framework in Frameworks */,
 				34FBC1C5209C4976004C0F84 /* CoreTelephony.framework in Frameworks */,
 				34FBC1C3209C496C004C0F84 /* SystemConfiguration.framework in Frameworks */,
 				34FBC1C1209C4950004C0F84 /* libz.tbd in Frameworks */,
-				34129E0F209D92E60090D302 /* AlipaySDK.framework in Frameworks */,
+				34FB224B20A1375200D698FA /* AlipaySDK.framework in Frameworks */,
 				34FBC1BF209C4943004C0F84 /* libc++.tbd in Frameworks */,
-				34129E0A209D92DA0090D302 /* libssl.a in Frameworks */,
 				D630FDAEFBDF2DC478337328 /* libPods-MHUAPP.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1230,6 +1251,7 @@
 		17DF7BFA1FCD013A00FBD9DC /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				34FB224C20A1422600D698FA /* 物流 */,
 				34EC45EE20930B8700C99D44 /* 待付款 */,
 				3435E903207EFE3100A156F2 /* MyFollow(关注) */,
 				341320A32074BD83009975AB /* MyStore */,
@@ -2259,6 +2281,8 @@
 				3472C987209462940048D09E /* WJShopAddressTableViewCell.m */,
 				34090ABF2095B0E2003E0BFD /* WJWriteListTableCell.h */,
 				34090AC02095B0E2003E0BFD /* WJWriteListTableCell.m */,
+				344B975A20A2EBED00435B11 /* WJWaitPayThridTableCell.h */,
+				344B975B20A2EBED00435B11 /* WJWaitPayThridTableCell.m */,
 			);
 			path = "待付款";
 			sourceTree = "<group>";
@@ -2554,6 +2578,7 @@
 		34F1D3941FD679770080EE3D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				34FB224E20A1424A00D698FA /* 物流 */,
 				340607DC209AA38B00A14EAD /* order */,
 				34294B6B20804279005240D6 /* 关注 */,
 				179D82631FD6AA5E00CC4AA2 /* WJFlowItem.h */,
@@ -2571,6 +2596,7 @@
 		34F1D3951FD6797B0080EE3D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				34FB224D20A1424200D698FA /* 物流 */,
 				3472C980209455070048D09E /* 待付款 */,
 				3435E907207F44AA00A156F2 /* MyFollow */,
 				34FB720E2079ADD800585866 /* MyStore */,
@@ -2622,6 +2648,39 @@
 				34FAB7092064F458000C9E3C /* PRTweenTimingFunctions.m */,
 			);
 			path = PRTween;
+			sourceTree = "<group>";
+		};
+		34FB224C20A1422600D698FA /* 物流 */ = {
+			isa = PBXGroup;
+			children = (
+				34FB226520A1735A00D698FA /* WJLogisticsViewController.h */,
+				34FB226620A1735A00D698FA /* WJLogisticsViewController.m */,
+			);
+			path = "物流";
+			sourceTree = "<group>";
+		};
+		34FB224D20A1424200D698FA /* 物流 */ = {
+			isa = PBXGroup;
+			children = (
+				34FB225220A148B300D698FA /* WJLogisticsView.h */,
+				34FB225320A148B300D698FA /* WJLogisticsView.m */,
+				34FB225520A148E600D698FA /* WJLogisticsTableHeadView.h */,
+				34FB225620A148E600D698FA /* WJLogisticsTableHeadView.m */,
+				34FB225F20A16FC700D698FA /* WJLogisticsCustomTableCell.h */,
+				34FB226020A16FC700D698FA /* WJLogisticsCustomTableCell.m */,
+				34FB226220A1733500D698FA /* WJLogisticsCustomCellContentView.h */,
+				34FB226320A1733500D698FA /* WJLogisticsCustomCellContentView.m */,
+			);
+			path = "物流";
+			sourceTree = "<group>";
+		};
+		34FB224E20A1424A00D698FA /* 物流 */ = {
+			isa = PBXGroup;
+			children = (
+				34FB224F20A1428900D698FA /* WJLogisticsModel.h */,
+				34FB225020A1428900D698FA /* WJLogisticsModel.m */,
+			);
+			path = "物流";
 			sourceTree = "<group>";
 		};
 		34FB720E2079ADD800585866 /* MyStore */ = {
@@ -2704,10 +2763,10 @@
 		445C98F897355C9C327B4939 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				34129E0C209D92E50090D302 /* AlipaySDK.bundle */,
-				34129E0D209D92E50090D302 /* AlipaySDK.framework */,
-				34129E09209D92DA0090D302 /* libcrypto.a */,
-				34129E08209D92DA0090D302 /* libssl.a */,
+				34FB225820A1541700D698FA /* libcrypto.a */,
+				34FB225920A1541800D698FA /* libssl.a */,
+				34FB224820A1375100D698FA /* AlipaySDK.bundle */,
+				34FB224920A1375200D698FA /* AlipaySDK.framework */,
 				34FBC1D2209C49CF004C0F84 /* CoreMotion.framework */,
 				34FBC1D0209C49C2004C0F84 /* CFNetwork.framework */,
 				34FBC1CE209C49B7004C0F84 /* Foundation.framework */,
@@ -2803,7 +2862,7 @@
 				3411F8F42040ED38007BCEF9 /* home_selling_img.png in Resources */,
 				34F1D3981FD687340080EE3D /* user_set.png in Resources */,
 				34FAB6F32064DB88000C9E3C /* Default-414w-736h@3x.png in Resources */,
-				34129E0E209D92E60090D302 /* AlipaySDK.bundle in Resources */,
+				34FB224A20A1375200D698FA /* AlipaySDK.bundle in Resources */,
 				34FAB70C2064F458000C9E3C /* PPDragDropBadgeView.bundle in Resources */,
 				34D507571FDB79DC00EA1AC5 /* login_mobile.png in Resources */,
 				341EF8EB1FFB8263008CF841 /* user_icon_share.png in Resources */,
@@ -2949,6 +3008,7 @@
 				341B51B3206C89A70074492C /* WJZhuanTiHDGridViewCell.m in Sources */,
 				34EEB6151FD9415600B4BE0A /* MJCountDownButton.m in Sources */,
 				340626051FDE32C000F52953 /* WJPushPasswordViewController.m in Sources */,
+				34FB225720A148E600D698FA /* WJLogisticsTableHeadView.m in Sources */,
 				34FB72112079B0CF00585866 /* WJMyStoreTableCell.m in Sources */,
 				342C82551FFDBE6800F1ECCC /* WJSecondsKillViewController.m in Sources */,
 				3421BCE91FF1DC5000263FE9 /* RigisterProtocolViewController.m in Sources */,
@@ -2983,6 +3043,7 @@
 				34804A17206F622900A94CA9 /* WJYZXPCellForCell.m in Sources */,
 				34EEB6161FD9415600B4BE0A /* UIImage+Color.m in Sources */,
 				34287B541FCFF52700C7AE5F /* WJSearchViewController.m in Sources */,
+				34FB225420A148B300D698FA /* WJLogisticsView.m in Sources */,
 				34E223751FD12E73003C0F34 /* WJSwitchGridCell.m in Sources */,
 				3400175F1FD24600009A027A /* WJFiltrateViewController.m in Sources */,
 				3411F95C20411278007BCEF9 /* XWCoolAnimator+XWFold.m in Sources */,
@@ -3013,6 +3074,7 @@
 				17DF7C1A1FCD069500FBD9DC /* RegularExpressionsMethod.m in Sources */,
 				3411F95720411278007BCEF9 /* SDBrowserImageView.m in Sources */,
 				34FAB70F2064F458000C9E3C /* PRTweenTimingFunctions.m in Sources */,
+				34FB225120A1428900D698FA /* WJLogisticsModel.m in Sources */,
 				342CDEF11FE3610500625F23 /* WJAddressItem.m in Sources */,
 				17DF7C1F1FCD09D300FBD9DC /* WJShopCartClassViewController.m in Sources */,
 				34FAB70B2064F458000C9E3C /* PPDragDropBadgeView.m in Sources */,
@@ -3051,6 +3113,7 @@
 				17DF7C271FCD3BAE00FBD9DC /* WJHomeScrollAdHeadView.m in Sources */,
 				340BB0912081EEB700B1C1A4 /* WJMainZhuanTiHDItem.m in Sources */,
 				34F1D3811FD61C770080EE3D /* WJDetailShowTypeCell.m in Sources */,
+				344B975C20A2EBED00435B11 /* WJWaitPayThridTableCell.m in Sources */,
 				340CED7F1FECBA92001707EA /* WJOrderListCell.m in Sources */,
 				34133C2D1FDA1B8F00C95CA4 /* JXTAlertController.m in Sources */,
 				3411F95B20411278007BCEF9 /* XWCoolAnimator+XWExplode.m in Sources */,
@@ -3138,17 +3201,20 @@
 				34E932312060D6C20013A7ED /* HWScanViewController.m in Sources */,
 				179D82621FD6A90A00CC4AA2 /* WJFlowAttributeCell.m in Sources */,
 				340626211FDFA56200F52953 /* AddAddressViewController.m in Sources */,
+				34FB226720A1735A00D698FA /* WJLogisticsViewController.m in Sources */,
 				3411F96020411278007BCEF9 /* XWCoolAnimator+XWPortal.m in Sources */,
 				344EDDA62069F91A00E283DA /* WJSSPTTypeViewController.m in Sources */,
 				34804A1A206F710300A94CA9 /* WJYZXPListViewCell.m in Sources */,
 				34133C311FDA39E100C95CA4 /* BaseNetworkViewController.m in Sources */,
 				3460D30A2008B7B8000F03EB /* WJEmailChangeViewController.m in Sources */,
 				340DB1B51FEB9C1E003D5A19 /* WJOrderHeader.m in Sources */,
+				34FB226120A16FC700D698FA /* WJLogisticsCustomTableCell.m in Sources */,
 				17049992203035EF007DBD89 /* zhPopupController.m in Sources */,
 				3411F95D20411278007BCEF9 /* XWCoolAnimator+XWLines.m in Sources */,
 				340626001FDE314100F52953 /* WJPushCodeViewController.m in Sources */,
 				341320A22074A6F8009975AB /* WJHDZTFatherClassViewCell.m in Sources */,
 				341878321FD4F10500D3F860 /* WJGoodParticularsViewController.m in Sources */,
+				34FB226420A1733500D698FA /* WJLogisticsCustomCellContentView.m in Sources */,
 				3411F8F82040FD92007BCEF9 /* WJGoodsCountDownCell.m in Sources */,
 				34090AC12095B0E2003E0BFD /* WJWriteListTableCell.m in Sources */,
 				3413982D2003628C00D0D4FF /* WJFeatureSelectionViewController.m in Sources */,

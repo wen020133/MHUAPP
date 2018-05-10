@@ -20,7 +20,7 @@
 
 
 #import "WJWaitPayOrderInfoViewController.h"
-
+#import "WJLogisticsViewController.h"
 
 @interface WJOderListClassViewController ()
 
@@ -118,6 +118,21 @@
              [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSListWaitPay,[AppDelegate shareAppDelegate].user_id]];
         }
             break;
+        case KGetOrderListWaitFahuo:
+        {
+            [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetDelivery,[AppDelegate shareAppDelegate].user_id]];
+        }
+            break;
+        case KGetOrderListWaitShouhuo:
+        {
+            [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetReceive,[AppDelegate shareAppDelegate].user_id]];
+        }
+            break;
+        case KGetOrderListWaitPingjia:
+        {
+
+        }
+            break;
         default:
             break;
     }
@@ -150,6 +165,9 @@
                             model.pay_status = [[dataArr objectAtIndex:aa] objectForKey:@"pay_status"];
                              model.shipping_status = [[dataArr objectAtIndex:aa] objectForKey:@"shipping_status"];
                             model.goods_amount = [[dataArr objectAtIndex:aa] objectForKey:@"goods_amount"];
+                             model.address = [[dataArr objectAtIndex:aa] objectForKey:@"address"];
+                             model.consignee = [[dataArr objectAtIndex:aa] objectForKey:@"consignee"];
+                            model.mobile = [[dataArr objectAtIndex:aa] objectForKey:@"mobile"];
                             [model configGoodsArrayWithArray:arr_goods];
 
                             [self.arr_data addObject:model];
@@ -214,9 +232,24 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    WJWaitPayOrderInfoViewController *waitPayInfoVC = [[WJWaitPayOrderInfoViewController alloc]init];
-     self.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:waitPayInfoVC animated:YES];
+    switch (_serverType) {
+        case KGetOrderListWaitPay:
+        {
+            WJWaitPayOrderInfoViewController *waitPayInfoVC = [[WJWaitPayOrderInfoViewController alloc]init];
+             WJOrderShangJiaHeadModel *shopModel = self.arr_data[indexPath.section];
+            waitPayInfoVC.str_orderId = shopModel.order_sn;
+            waitPayInfoVC.str_Name = shopModel.referer;
+            waitPayInfoVC.str_telephone = shopModel.mobile;
+            waitPayInfoVC.str_address = shopModel.address;
+            waitPayInfoVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:waitPayInfoVC animated:YES];
+        }
+            break;
+
+        default:
+            break;
+    }
+
 }
 
 
@@ -322,8 +355,16 @@
         default:
             break;
     }
+    view.ClickStateForStrBlock = ^(NSString *stateStr) {
+//        if ([stateStr isEqualToString:@"查看物流"]) {
+        WJLogisticsViewController *waitPayInfoVC = [[WJLogisticsViewController alloc]init];
+        waitPayInfoVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:waitPayInfoVC animated:YES];
+//        }
+    };
     return view;
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
 
     return 45;

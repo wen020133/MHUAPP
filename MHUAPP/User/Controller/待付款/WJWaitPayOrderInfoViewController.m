@@ -11,9 +11,14 @@
 #import "WJWriteListTableCell.h"
 #import "UIView+UIViewFrame.h"
 #import "AppDelegate.h"
+#import "WJCartGoodsModel.h"
+#import "WJWaitPayThridTableCell.h"
 
 @interface WJWaitPayOrderInfoViewController ()
 @property (strong,nonatomic)UITableView *myTableView;
+@property (strong,nonatomic) NSMutableArray <WJCartGoodsModel *> *arr_dataList;
+
+@property (strong, nonatomic) UIView *view_foot;
 @end
 
 @implementation WJWaitPayOrderInfoViewController
@@ -22,10 +27,33 @@
     [super viewDidLoad];
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     [self initSendReplyWithTitle:@"待付款" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
-
+    [self getOrderWaitPayInfo];
     [self.view addSubview:self.myTableView];
 
     // Do any additional setup after loading the view.
+}
+
+-(void)getOrderWaitPayInfo
+{
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?order_sn=%@&user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDetailedPay,_str_orderId,[AppDelegate shareAppDelegate].user_id]];
+}
+
+-(void)getProcessData
+{
+    if([[self.results objectForKey:@"code"] integerValue] == 200)
+    {
+        [self.arr_dataList removeAllObjects];
+        id arr_data = [[[self.results objectForKey:@"data"] objectAtIndex:0] objectForKey:@"order_info"];;
+        if ([arr_data isKindOfClass:[NSArray class]]) {
+            _arr_dataList = [WJCartGoodsModel mj_objectArrayWithKeyValuesArray:arr_data];
+        }
+        [_myTableView reloadData];
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"msg"]];
+        return;
+    }
 }
 -(UITableView *)myTableView
 {
@@ -37,18 +65,37 @@
 
         _myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _myTableView.backgroundColor = kMSColorFromRGB(245, 246, 248);
-
-        //        [self.myTableView registerClass:[WJCartTableHeaderView class] forHeaderFooterViewReuseIdentifier:@"WJCartTableHeaderView"];
         self.myTableView.frame = CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight - kMSNaviHight );
+        _myTableView.tableFooterView = self.view_foot;
     }
     return _myTableView;
 }
+-(UIView *)view_foot
+{
+    if (!_view_foot) {
+        _view_foot = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 200)];
+        _view_foot.backgroundColor = kMSCellBackColor;
 
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.frame = CGRectMake(20, 20, kMSScreenWith-40, 48);
+        [btn setBackgroundColor:[UIColor redColor]];
+        [btn setTitle:@"立即支付" forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        btn.layer.cornerRadius = 5.0;
+        btn.titleLabel.font = PFR18Font;
+        [btn addTarget:self action:@selector(gotoPayNew:) forControlEvents:UIControlEventTouchUpInside];
+        [_view_foot addSubview:btn];
+    }
+    return _view_foot;
+}
+-(void)gotoPayNew:(UIButton *)sender
+{
 
+}
 -(void)countPrice {
     double totlePrice = 0.0;
 
-    for (WJCartGoodsModel *model in _dataArray) {
+    for (WJCartGoodsModel *model in _arr_dataList) {
 
         double price = [model.count_price doubleValue];
 
@@ -57,33 +104,27 @@
 }
 
 
--(void)processData
-{
-    if([[self.results objectForKey:@"code"] integerValue] == 200)
-    {
-
-    }
-    else
-    {
-        return;
-    }
-}
 
 #pragma mark --- UITableViewDataSource & UITableViewDelegate
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return (section==0)? 1:self.dataArray.count;
+    return (section==1)?self.arr_dataList.count:1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return (indexPath.section==0)? [RegularExpressionsMethod dc_calculateTextSizeWithText:_str_address WithTextFont:16 WithMaxW:kMSScreenWith-70].height+60:100;
+    if(indexPath.section==0)
+        return [RegularExpressionsMethod dc_calculateTextSizeWithText:_str_address WithTextFont:16 WithMaxW:kMSScreenWith-70].height+60;
+    else if(indexPath.section ==1)
+        return 100;
+    else
+        return 60;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -93,14 +134,14 @@
         if (cell == nil) {
             cell = [[WJShopAddressTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"WJShopAddressTableViewCell"];
         }
-        cell.lab_Name.text = self.str_Name;
-        cell.lab_telephone.text = self.str_telephone;
-        cell.str_address = self.str_address;
-        cell.lab_address.text = self.str_address;
-
+        cell.lab_Name.text = _str_Name;
+        cell.lab_telephone.text = _str_telephone;
+        cell.str_address = _str_address;
+        cell.lab_address.text = _str_address;
+        cell.actionImageView.hidden = YES;
         return cell;
     }
-    else
+    else if (indexPath.section==1)
     {
         WJWriteListTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WJWriteListTableCell"];
         if (cell == nil) {
@@ -114,17 +155,30 @@
         {
             cell.imageLine.hidden = NO;
         }
-        cell.listModel = self.dataArray[indexPath.row];
+        cell.listModel = self.arr_dataList[indexPath.row];
+        return cell;
+    }
+    else
+    {
+        WJWaitPayThridTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WJWaitPayThridTableCell"];
+        if (cell == nil) {
+            cell = [[WJWaitPayThridTableCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"WJWaitPayThridTableCell"];
+        }
+        NSString *addTime = [[[self.results objectForKey:@"data"] objectAtIndex:0] objectForKey:@"add_time"];
+        NSDateFormatter *stampFormatter = [[NSDateFormatter alloc] init]; [stampFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+        NSDate *stampDate2 = [NSDate dateWithTimeIntervalSince1970:[addTime doubleValue]];
+        cell.lab_time.text = [stampFormatter stringFromDate:stampDate2];
+        cell.str_orderNo = _str_orderId;
         return cell;
     }
 }
-//section底部间距
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+//section头部间距
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 5;
 
 }
-//section底部视图
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+//section头部视图
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, kMSScreenWith, 5)];
     view.backgroundColor = [UIColor clearColor];
     return view;

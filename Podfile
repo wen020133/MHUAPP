@@ -7,6 +7,7 @@ pod 'MJExtension'
 pod 'AFNetworking'
 pod 'Masonry'
 pod 'SDCycleScrollView'
+pod 'YYKit', '~> 1.0.9'
 pod 'UITableView+FDTemplateLayoutCell', '~> 1.5.beta'
 pod 'SVProgressHUD'
 pod 'SDWebImage' ,"3.8.2"

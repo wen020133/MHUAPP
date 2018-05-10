@@ -124,8 +124,8 @@
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
     [infos setObject:[AppDelegate shareAppDelegate].user_id forKey:@"user_id"];
     [infos setObject:_str_address forKey:@"assemble_site"];
-    [infos setObject:_str_telephone forKey:@"consignee"];
-    [infos setObject:_str_Name forKey:@"mobile"];
+    [infos setObject:_str_Name forKey:@"consignee"];
+    [infos setObject:_str_telephone forKey:@"mobile"];
     [infos setObject:attString forKey:@"products"];
     [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSPlaceAnOrder] andInfos:infos];
 }
@@ -136,9 +136,7 @@
         PayViewController *pay = [[PayViewController alloc]init];
         pay.orderNo = self.results[@"data"][@"orderNo"];
         pay.oPrice = self.results[@"data"][@"oPrice"];
-//        [self.navigationController pushViewController:pay animated:YES];
-        [self presentViewController:pay animated:YES completion:^{
-        }];
+        [self.navigationController pushViewController:pay animated:YES];
     }
     else
     {

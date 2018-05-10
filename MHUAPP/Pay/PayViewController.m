@@ -184,7 +184,7 @@
         AliPayManagers *manager = [AliPayManagers shareInstance];
         manager.infoStr = signedString;
         [manager payWithSuccess:^{
-            [self dismissViewControllerAnimated:YES completion:nil];
+            self.hidesBottomBarWhenPushed = YES;
             SuccessViewController *success = [[SuccessViewController alloc]init];
             success.state = @(0);
             [self.navigationController pushViewController:success animated:YES];

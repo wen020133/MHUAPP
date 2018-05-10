@@ -8,13 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseNetworkViewController.h"
-#import "WJCartGoodsModel.h"
 
 @interface WJWaitPayOrderInfoViewController : BaseNetworkViewController<UITableViewDelegate,UITableViewDataSource>
 
-@property (strong,nonatomic) NSArray<WJCartGoodsModel *> *dataArray;
-@property (strong,nonatomic) NSString *str_telephone;
-@property (strong,nonatomic) NSString *str_address;
-@property (strong,nonatomic) NSString *str_Name;
-
+@property (assign,nonatomic) NSString *str_telephone;
+@property (assign,nonatomic) NSString *str_address;
+@property (assign,nonatomic) NSString *str_Name;
+@property (assign,nonatomic) NSString *str_orderId;
 @end

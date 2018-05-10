@@ -189,7 +189,8 @@
      if(indexPath.section==0)
      {
          WJOrderMainViewController *dcVc = [[WJOrderMainViewController alloc] init];
-         self.hidesBottomBarWhenPushed = YES;
+         dcVc.hidesBottomBarWhenPushed = YES;
+         dcVc.serverType = indexPath.row;
          [self.navigationController pushViewController:dcVc animated:YES];
          self.hidesBottomBarWhenPushed = NO;
      }

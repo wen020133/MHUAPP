@@ -11,6 +11,9 @@
 @interface WJOrderShangJiaHeadModel : NSObject
 
 @property (copy,nonatomic) NSString *supplier_id;
+@property (copy,nonatomic) NSString *address;
+@property (copy,nonatomic) NSString *consignee;
+@property (copy,nonatomic) NSString *mobile;
 @property (copy,nonatomic) NSString *referer;
 @property (copy,nonatomic) NSString *pay_status;
 @property (copy,nonatomic) NSString *shipping_status;

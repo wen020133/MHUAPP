@@ -16,4 +16,6 @@
 }
 
 @property (strong, nonatomic) MenuScrollView *menuScrollView; //分类ScrollView
+
+@property (assign, nonatomic) NSInteger serverType;
 @end

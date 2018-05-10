@@ -27,6 +27,8 @@
     self.arr_Type = [NSArray arrayWithObjects:@"全部",@"待付款",@"待发货",@"待收货",@"待评价", nil];
      [self addInformationSegmentedControlView];
     [self addPageVC];
+    [self.menuScrollView changeMenuState:_serverType];
+    [_pageViewCtrl setViewControllers:@[[_viewControllers objectAtIndex:_serverType]] direction:0 animated:YES completion:nil];
     // Do any additional setup after loading the view.
 }
 -(void)addInformationSegmentedControlView
@@ -48,7 +50,6 @@
     _pageViewCtrl.view.frame=CGRectMake(0, 44, kMSScreenWith, kMSScreenHeight-44);
     _pageViewCtrl.dataSource = self;
     _pageViewCtrl.delegate = self;
-    [_pageViewCtrl setViewControllers:@[[_viewControllers objectAtIndex:0]] direction:0 animated:YES completion:nil];
     [self addChildViewController:_pageViewCtrl];
     [self.view addSubview:_pageViewCtrl.view];
 }
