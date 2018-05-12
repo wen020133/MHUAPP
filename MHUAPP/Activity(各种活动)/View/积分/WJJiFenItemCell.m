@@ -16,7 +16,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];        _defaultImgArr = @[@"jifen_jifen",@"jifen_duihuanjilu",@"jifen_qiandao",@"jifen_ruhezhuan"];
-        _defaultTitleArr = @[@"积分25000",@"兑换记录",@"签到",@"如何赚积分"];
         [self setupUI];
     }
     return self;
@@ -24,6 +23,23 @@
 
 - (void)setupUI
 {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *qiandaoIs = [userDefaults objectForKey:@"isQiandao"];
+    NSDate *senddate=[NSDate date];
+    NSDateFormatter  *dateformatter=[[NSDateFormatter alloc] init];
+    [dateformatter setDateFormat:@"YYYY-MM-dd"];
+    NSString * locationString=[dateformatter stringFromDate:senddate];
+    if ([locationString isEqualToString:[userDefaults objectForKey:@"tabbarDate"]]&&[qiandaoIs isEqualToString:@"111"]) {
+       _defaultTitleArr = @[@"积分25000",@"兑换记录",@"已签到",@"如何赚积分"];
+    }
+    else
+    {
+
+      _defaultTitleArr = @[@"积分25000",@"兑换记录",@"签到",@"如何赚积分"];
+    }
+    [userDefaults setValue:locationString forKey:@"tabbarDate"];
+    [userDefaults synchronize];
+
 
     CGFloat width = kMSScreenWith/8;
 
@@ -44,6 +60,7 @@
         titleLabel.text = _defaultTitleArr[page];
         titleLabel.textColor = [RegularExpressionsMethod ColorWithHexString:@"666666"];
         titleLabel.textAlignment = NSTextAlignmentCenter;
+        titleLabel.tag = 10000+page;
         [self.contentView addSubview:titleLabel];
 
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -56,7 +73,15 @@
 
     }
 }
+-(void)setStr_IntegralNum:(NSString *)str_IntegralNum
+{
+    _str_IntegralNum = str_IntegralNum;
+     UILabel *label = [self.contentView viewWithTag:10000];
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"积分 %@",_str_IntegralNum]];
+    [str addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(3,_str_IntegralNum.length)];
+    label.attributedText = str;
 
+}
 - (void)toJumpClassView:(UIButton *)sender
 {
     !_goToJiFenClassTypeAction ? : _goToJiFenClassTypeAction(sender.tag);

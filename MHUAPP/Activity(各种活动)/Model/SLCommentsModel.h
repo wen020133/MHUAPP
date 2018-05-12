@@ -10,15 +10,11 @@
 
 @interface SLCommentsModel : NSObject
 
-@property (nonatomic, copy)    NSString *headerIconStr;
-@property (nonatomic, copy)    NSString *titleStr;
-@property (nonatomic, copy)    NSString *txtContentStr;
-@property (nonatomic, strong)  NSArray  *imageArr;
-@property (nonatomic, copy)    NSString *dateStr;
-@property (strong, nonatomic)  NSString *str_uid;
-@property (strong, nonatomic)  NSString *str_userName;
-@property (strong, nonatomic)  NSString *str_dianzan;//点赞
-@property (strong, nonatomic)  NSString *str_huifu;//回复
-@property (strong, nonatomic)  NSString *str_pid;
+@property (nonatomic, copy)    NSString *logo;
+@property (nonatomic, strong)  NSArray  *may_goods;
+@property (nonatomic, copy)    NSString *supplier_type;
+@property (strong, nonatomic)  NSString *supplier_id;
+@property (strong, nonatomic)  NSString *supplier_name;
+@property (strong, nonatomic)  NSString *supplier_title;
 
 @end

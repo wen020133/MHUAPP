@@ -69,12 +69,12 @@
     if (model!=_model) {
         _model = model;
     }
-    NSString *urlStr = [NSString stringWithFormat:@"%@",_model.image_url] ;
+    NSString *urlStr = [NSString stringWithFormat:@"%@",_model.goods_thumb] ;
     [_img_content sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"] completed:nil];
-    _lab_title.text = _model.main_title;
-    _lab_describe.text = _model.main_title;
+    _lab_title.text = _model.goods_name;
+    _lab_describe.text = _model.goods_brief;
 
-    NSString *oldprice = [NSString stringWithFormat:@"￥%@",_model.price];
+    NSString *oldprice = [NSString stringWithFormat:@"￥%@",_model.market_price];
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:oldprice
                                                                                 attributes:@{NSStrikethroughStyleAttributeName : @(NSUnderlineStyleSingle)}];
     _oldPriceLabel.attributedText = attrStr;

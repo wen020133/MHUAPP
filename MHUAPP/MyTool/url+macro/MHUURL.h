@@ -78,6 +78,14 @@
 #define   kMSGetReceive          @"getReceive"                 //待收货列表
 #define   kMSMiYoMeipay        @"/v1/pay"                 //生产支付宝签名
 
+#define   kMSGetIntegralList       @"getList"                 //积分商品列表
+#define   kMSGetIntegral       @"getIntegral"                 //用户积分
+#define   kMSRegister       @"/v1/register"                 //积分签到
+#define   kMSGetStreetCategory       @"getStreetCategory"                 //店铺分类
+#define   kMSGetStreetGoods      @"getStreetGoods"                 //店铺街
+
+
+
 
 #define   kMSMiYoMeiQuery        @"/v1/query"                 //物流详情
 #endif /* MHUURL_h */

@@ -38,13 +38,13 @@
         _lab_price.textAlignment = NSTextAlignmentLeft;
         [_grayView addSubview:_lab_price];
         
-        _lab_count = [[UILabel alloc]init];
-        _lab_count.font = PFR12Font;
-        _lab_count.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
-        _lab_count.textAlignment = NSTextAlignmentRight;
-        _lab_count.adjustsFontSizeToFitWidth = YES;
-        [_grayView addSubview:_lab_count];
-        
+//        _lab_count = [[UILabel alloc]init];
+//        _lab_count.font = PFR12Font;
+//        _lab_count.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
+//        _lab_count.textAlignment = NSTextAlignmentRight;
+//        _lab_count.adjustsFontSizeToFitWidth = YES;
+//        [_grayView addSubview:_lab_count];
+
     }
     return self;
 }
@@ -64,9 +64,9 @@
     _lab_price.frame = CGRectMake(10, _title.Bottom+5, width, 20);
     _lab_price.text = price;
     
-    NSString *saleCount = [NSString stringWithFormat:@"%@人已付款",_model.shop_num];
-    _lab_count.frame = CGRectMake(width+12, _title.Bottom+10, self.width-width-12, 20);
-    _lab_count.text = saleCount;
+//    NSString *saleCount = [NSString stringWithFormat:@"%@人已付款",_model.shop_num];
+//    _lab_count.frame = CGRectMake(width+12, _title.Bottom+10, self.width-width-12, 20);
+//    _lab_count.text = saleCount;
     
 }
 

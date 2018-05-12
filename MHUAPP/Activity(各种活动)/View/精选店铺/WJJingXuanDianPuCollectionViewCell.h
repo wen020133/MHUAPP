@@ -15,14 +15,11 @@
 
 @property (nonatomic, strong) UIImageView *headerIconImgView;
 @property (nonatomic, strong) UILabel     *nameLbl;
-@property (nonatomic, strong) UILabel     *txtContentLbl;
+@property (nonatomic, strong) UILabel     *lab_address;
+@property (nonatomic, strong) UILabel      *lab_BBmiansu;
+@property (nonatomic, strong) UILabel     *lab_MJfuwu;
+@property (nonatomic, strong) UILabel     *lab_WLfwu;
+@property (nonatomic, strong) UILabel     *lab_goodNum;
 @property (nonatomic, strong) UIView      *imgContentView;
-@property (nonatomic, strong) UILabel     *lab_title;
-@property (nonatomic, strong) UILabel     *lab_collectionNum;
-@property (nonatomic, strong) UIButton    *zanBtn;
-@property (nonatomic, strong) UIButton    *commentBtn;
-
-//返回次cell的高度
--(CGFloat)cellHeight;
 
 @end

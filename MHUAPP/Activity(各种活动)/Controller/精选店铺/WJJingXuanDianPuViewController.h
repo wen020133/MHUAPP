@@ -8,20 +8,23 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseNetworkViewController.h"
-#import "WJJingXuanMenuView.h"
+#import "MenuScrollView.h"
 
-typedef NS_ENUM(NSInteger, KGetCirclenType) {
-    KGetServerSum = 1 ,//获取总条数
-    KGetDataList = 2 ,//分页数据
+typedef NS_ENUM(NSInteger, KGetStreetType) {
+    KGetServerType = 1 ,//获取分类
+    KGetStreet = 2 ,//获取店铺列表
 };
-@interface WJJingXuanDianPuViewController : BaseNetworkViewController<UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource>
+
+
+@interface WJJingXuanDianPuViewController : BaseNetworkViewController<UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource,MenuBtnDelegate>
 
 @property (strong, nonatomic) NSMutableArray *arr_infomationresults;
 @property NSInteger page_Information;
 @property NSInteger totleCount_Information;
 @property (strong, nonatomic)  UICollectionView *collectionV;
-@property (assign, nonatomic) KGetCirclenType serverType;
+@property (assign, nonatomic) KGetStreetType serverType;
 
-@property (strong, nonatomic) WJJingXuanMenuView *menu_ScrollView; //分类ScrollView
-@property (strong, nonatomic) NSArray *arr_Type;
+@property (strong, nonatomic) MenuScrollView *menu_ScrollView; //分类ScrollView
+@property (strong, nonatomic) NSMutableArray *arr_Type;
+@property (strong, nonatomic) NSMutableArray *arr_TypeID;
 @end

@@ -23,7 +23,6 @@
 @interface WJCommodityViewController ()
 {
     NSInteger _selectIndex;
-    BOOL _isScrollDown;
 }
 @end
 
@@ -51,7 +50,6 @@
      [self setUpData];
 
     _selectIndex = 0;
-    _isScrollDown = YES;
     // Do any additional setup after loading the view.
 }
 #pragma mark - initizlize
@@ -146,7 +144,7 @@
             self.arr_collectionList = arr;
             [self.tableView reloadData];
             [self.collectionView reloadData];
-            [self selectRowAtIndexPath:0];
+           [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:_selectIndex inSection:0] animated:YES scrollPosition:UITableViewScrollPositionMiddle];
         }
 
     }
@@ -188,33 +186,22 @@
     if(indexPath.row*50>kMSScreenHeight-113)
         [self.tableView setContentOffset:CGPointMake(0, offsetX) animated:YES];
       _selectIndex = indexPath.row;
-     [self scrollToTopOfSection:_selectIndex animated:YES];
-}
-#pragma mark - 解决点击 TableView 后 CollectionView 的 Header 遮挡问题
-
-- (void)scrollToTopOfSection:(NSInteger)section animated:(BOOL)animated
-{
-    CGRect headerRect = [self frameForHeaderForSection:section];
-    CGPoint topOfHeader = CGPointMake(0, headerRect.origin.y - _collectionView.contentInset.top);
-    [self.collectionView setContentOffset:topOfHeader animated:animated];
+    [_collectionView reloadData];
+    [_collectionView setContentOffset:CGPointMake(0, 0) animated:YES];
 }
 
-- (CGRect)frameForHeaderForSection:(NSInteger)section
-{
-    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:section];
-    UICollectionViewLayoutAttributes *attributes = [self.collectionView.collectionViewLayout layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader atIndexPath:indexPath];
-    return attributes.frame;
-}
 
 
 #pragma mark - <UICollectionDataSource>
 - (NSInteger) numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return _titleItem.count;
+    NSArray *arr = [[self.arr_collectionList objectAtIndex:_selectIndex] objectForKey:@"children"];
+    return arr.count;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    NSArray *arr = [[self.arr_collectionList objectAtIndex:section] objectForKey:@"children"];
-    return arr.count;
+    NSArray *arr = [[self.arr_collectionList objectAtIndex:_selectIndex] objectForKey:@"children"];
+    NSArray *arrList = [[arr objectAtIndex:section] objectForKey:@"children"];
+    return arrList.count;
 }
 #pragma mark - <UICollectionViewDelegate>
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -222,12 +209,13 @@
     WJGoodsSortCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJGoodsSortCell" forIndexPath:indexPath];
 
 
-   NSArray *arr = [[self.arr_collectionList objectAtIndex:indexPath.section] objectForKey:@"children"];
-    NSString *urlStr = [NSString stringWithFormat:@"%@/mobile/data/catthumb/%@",kMSBaseUserHeadPortURL,[[arr objectAtIndex:indexPath.row] objectForKey:@"type_img"]] ;
+   NSArray *arr = [[self.arr_collectionList objectAtIndex:_selectIndex] objectForKey:@"children"];
+   NSArray *arrList = [[arr objectAtIndex:indexPath.section] objectForKey:@"children"];
+    NSString *urlStr = [NSString stringWithFormat:@"%@",[[arrList objectAtIndex:indexPath.row] objectForKey:@"type_img"]] ;
     NSLog(@"urlStr==%@",urlStr);
     [cell.goodsImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"cart_default_bg.png"]];
 
-    cell.goodsTitleLabel.text = [[arr objectAtIndex:indexPath.row] objectForKey:@"cat_name"];
+    cell.goodsTitleLabel.text = [[arrList objectAtIndex:indexPath.row] objectForKey:@"cat_name"];
 
     return cell;
 }
@@ -235,7 +223,8 @@
 
 
         WJBrandsSortHeadView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJBrandsSortHeadView" forIndexPath:indexPath];
-        headerView.titleItem = _titleItem[indexPath.section];
+    NSArray *arr = [[self.arr_collectionList objectAtIndex:_selectIndex] objectForKey:@"children"];
+        headerView.headLabel.text = [[arr objectAtIndex:indexPath.section] objectForKey:@"cat_name"];
     return headerView;
 }
 #pragma mark - item宽高
@@ -259,7 +248,7 @@
     NSLog(@"点击了个第%zd分组第%zd几个Item",indexPath.section,indexPath.row);
     self.hidesBottomBarWhenPushed = YES;
     WJGoodsSetViewController *dcVc = [[WJGoodsSetViewController alloc] init];
-     _mainmodel = [WJClassGoodsItem mj_objectArrayWithKeyValuesArray:[[[self.results objectForKey:@"data"] objectAtIndex:indexPath.section] objectForKey:@"children"]];
+     _mainmodel = [WJClassGoodsItem mj_objectArrayWithKeyValuesArray:[[[[self.arr_collectionList objectAtIndex:_selectIndex] objectForKey:@"children"] objectAtIndex:indexPath.section] objectForKey:@"children"]];
     dcVc.goodTypeName = _mainmodel[indexPath.row].cat_name;
     NSLog(@"cat_id====%@",_mainmodel[indexPath.row].cat_id);
     [self.navigationController pushViewController:dcVc animated:YES];
@@ -271,47 +260,10 @@
 {
     return UIStatusBarStyleLightContent;
 }
-// CollectionView分区标题即将展示
-- (void)collectionView:(UICollectionView *)collectionView willDisplaySupplementaryView:(UICollectionReusableView *)view forElementKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath
-{
-    // 当前CollectionView滚动的方向向上，CollectionView是用户拖拽而产生滚动的（主要是判断CollectionView是用户拖拽而滚动的，还是点击TableView而滚动的）
-    if (!_isScrollDown && (collectionView.dragging || collectionView.decelerating))
-    {
-        [self selectRowAtIndexPath:indexPath.section];
-    }
-}
 
-// CollectionView分区标题展示结束
-- (void)collectionView:(UICollectionView *)collectionView didEndDisplayingSupplementaryView:(nonnull UICollectionReusableView *)view forElementOfKind:(nonnull NSString *)elementKind atIndexPath:(nonnull NSIndexPath *)indexPath
-{
-    // 当前CollectionView滚动的方向向下，CollectionView是用户拖拽而产生滚动的（主要是判断CollectionView是用户拖拽而滚动的，还是点击TableView而滚动的）
-    if (_isScrollDown && (collectionView.dragging || collectionView.decelerating))
-    {
-        [self selectRowAtIndexPath:indexPath.section + 1];
-    }
-}
 
-// 当拖动CollectionView的时候，处理TableView
-- (void)selectRowAtIndexPath:(NSInteger)index
-{
-    if (index<_titleItem.count) {
-         [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] animated:YES scrollPosition:UITableViewScrollPositionMiddle];
-    }
 
-}
 
-#pragma mark - UIScrollView Delegate
-// 标记一下CollectionView的滚动方向，是向上还是向下
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    static float lastOffsetY = 0;
-
-    if (self.collectionView == scrollView)
-    {
-        _isScrollDown = lastOffsetY < scrollView.contentOffset.y;
-        lastOffsetY = scrollView.contentOffset.y;
-    }
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

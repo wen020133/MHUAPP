@@ -14,6 +14,8 @@
 /** 主题标题 */
 @property (nonatomic,strong) NSArray *defaultTitleArr;
 
+@property (assign, nonatomic) NSString *str_IntegralNum;
+
 /** 去各活动 */
 @property (nonatomic , copy) void(^goToJiFenClassTypeAction)(NSInteger typeID);
 @end

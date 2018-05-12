@@ -32,7 +32,7 @@
 #import "WJShiShiPingTuanView.h"
 #import "WJShiShiPingTuanCell.h"
 #import "WJZhuanTiHuoDongCell.h"
-#import "WJJingXuanShopCell.h"
+//#import "WJJingXuanShopCell.h"
 #import "WJPeopleTuiJianCell.h"
 #import "WJNewTuiJianCell.h"
 #import "HWScanViewController.h"
@@ -128,18 +128,18 @@
         [self getServiceData:kMSGetToday];
         dispatch_semaphore_signal(semaphore);
     });
-    dispatch_group_async(group, queue, ^{
-        NSLog(@"处理事件F");
-        [self getServiceData:@"getStreet?id=10000"];
-        dispatch_semaphore_signal(semaphore);
-    });
+//    dispatch_group_async(group, queue, ^{
+//        NSLog(@"处理事件F");
+//        [self getServiceData:@"getStreet?id=10000"];
+//        dispatch_semaphore_signal(semaphore);
+//    });
     dispatch_group_notify(group, queue, ^{
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+//        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_group_notify(group, dispatch_get_main_queue(), ^{
             [self.collectionV reloadData];
             [self.collectionV.mj_header endRefreshing];
@@ -185,7 +185,7 @@
 
         }
         if ([urlString isEqualToString:kMSMainGetAdThird]) {
-            NSLog(@"%@====%@",urlString,responseObject);
+//            NSLog(@"%@====%@",urlString,responseObject);
             id arr = [[[responseObject objectForKey:@"data"] objectAtIndex:0] objectForKey:@"items"];
             if([arr isKindOfClass:[NSArray class]])
             {
@@ -216,6 +216,7 @@
                 }
             }
             if ([urlString isEqualToString:@"getStreet?id=10000"]) {
+                NSLog(@"%@====%@",urlString,responseObject);
                 id arr = [responseObject objectForKey:@"data"];
                 if([arr isKindOfClass:[NSArray class]])
                 {
@@ -299,7 +300,7 @@
         [_collectionV registerClass:[WJZhuanTiHuoDongCell class] forCellWithReuseIdentifier:@"WJZhuanTiHuoDongCell"];
         [_collectionV registerClass:[WJShiShiPingTuanCell class] forCellWithReuseIdentifier:@"WJShiShiPingTuanCell"];
        [_collectionV registerClass:[WJHomeRecommendCollectionViewCell class] forCellWithReuseIdentifier:@"WJHomeRecommendCollectionViewCell"];
-        [_collectionV registerClass:[WJJingXuanShopCell class] forCellWithReuseIdentifier:@"WJJingXuanShopCell"];
+//        [_collectionV registerClass:[WJJingXuanShopCell class] forCellWithReuseIdentifier:@"WJJingXuanShopCell"];
     }
     return _collectionV;
 }
@@ -345,19 +346,19 @@
            head.titleLabel.text = @"专题活动";
            reusableview = head;
        }
-       else if(indexPath.section == 4)// 精选店铺
-       {
-           WJShiShiPingTuanView *head = [self.collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJShiShiPingTuanView" forIndexPath:indexPath];
-           head.titleLabel.text = @"精选店铺";
-           reusableview = head;
-       }
-       else if(indexPath.section == 5)// 人气推荐
+//       else if(indexPath.section == 4)// 精选店铺
+//       {
+//           WJShiShiPingTuanView *head = [self.collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJShiShiPingTuanView" forIndexPath:indexPath];
+//           head.titleLabel.text = @"精选店铺";
+//           reusableview = head;
+//       }
+       else if(indexPath.section == 4)// 人气推荐
        {
            WJShiShiPingTuanView *head = [self.collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJShiShiPingTuanView" forIndexPath:indexPath];
            head.titleLabel.text = @"人气推荐";
            reusableview = head;
        }
-       else if(indexPath.section == 6)// 最新推荐
+       else if(indexPath.section == 5)// 最新推荐
        {
            WJShiShiPingTuanView *head = [self.collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJShiShiPingTuanView" forIndexPath:indexPath];
            head.titleLabel.text = @"最新推荐";
@@ -428,11 +429,11 @@
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 8;
+    return 7;
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    if (section == 7) {
+    if (section == 6) {
         return self.headImageArr.count;
     }
     else
@@ -448,7 +449,7 @@
     {
             return CGSizeMake(kMSScreenWith, kMSScreenWith/4+80);
     }
-        else if(indexPath.section == 1||indexPath.section == 2||indexPath.section == 4||indexPath.section == 6)
+        else if(indexPath.section == 1||indexPath.section == 2||indexPath.section == 5)
         {
             return CGSizeMake(kMSScreenWith, 200);
         }
@@ -456,7 +457,7 @@
         {
             return CGSizeMake(kMSScreenWith, 160);
         }
-        else if(indexPath.section ==5)
+        else if(indexPath.section ==4)
         {
             return CGSizeMake(kMSScreenWith, 250);
         }
@@ -504,21 +505,21 @@
         gridcell = cell;
 
     }
+//    else if (indexPath.section == 4)
+//    {
+//        WJJingXuanShopCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJJingXuanShopCell" forIndexPath:indexPath];
+//        cell.arr_data = self.jingXuanShopArr;
+//        [cell setUpUI];
+//        gridcell = cell;
+//    }
     else if (indexPath.section == 4)
-    {
-        WJJingXuanShopCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJJingXuanShopCell" forIndexPath:indexPath];
-        cell.arr_data = self.jingXuanShopArr;
-        [cell setUpUI];
-        gridcell = cell;
-    }
-    else if (indexPath.section == 5)
     {
         WJPeopleTuiJianCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJPeopleTuiJianCell" forIndexPath:indexPath];
         cell.arr_tuijiandata = self.peopleTuiJianArr;
         [cell setUpUI];
         gridcell = cell;
     }
-    else if (indexPath.section == 6)
+    else if (indexPath.section == 5)
     {
         WJNewTuiJianCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJNewTuiJianCell" forIndexPath:indexPath];
         gridcell = cell;
@@ -533,7 +534,7 @@
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 7) {
+    if (indexPath.section == 6) {
         WJGoodDetailViewController *dcVc = [[WJGoodDetailViewController alloc] init];
         dcVc.goods_id = _headImageArr[indexPath.row].goods_id;
 //        dcVc.goodTitle = self.headImageArr[indexPath.row].goods_name;

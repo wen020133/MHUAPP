@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MenuScrollView.h"
+//#import "MenuScrollView.h"
 #import "BaseNetworkViewController.h"
 
-@interface WJIntegralListViewController : BaseNetworkViewController<MenuBtnDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource>
-@property (strong, nonatomic) MenuScrollView *menu_jifenScrollView; //分类ScrollView
+@interface WJIntegralListViewController : BaseNetworkViewController<UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource>
+//@property (strong, nonatomic) MenuScrollView *menu_jifenScrollView; //分类ScrollView
 
-@property (strong, nonatomic) UICollectionView *collectionV;
+@property (strong, nonatomic) UICollectionView *collectionView;
+@property (strong, nonatomic) NSString *str_IntegralNum;
 @end

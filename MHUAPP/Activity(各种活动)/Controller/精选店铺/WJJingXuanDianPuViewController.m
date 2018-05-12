@@ -8,11 +8,11 @@
 
 #import "WJJingXuanDianPuViewController.h"
 #import "MJRefresh.h"
-#import "WJJingxuanDianPuHeadView.h"
+//#import "WJJingxuanDianPuHeadView.h"
 #import "SLCommentsModel.h"
 #import "WJJingXuanDianPuCollectionViewCell.h"
-#import "WJJingXuanDPfootView.h"
-#import "WJJingXuanDPTuiJianCell.h"
+//#import "WJJingXuanDPfootView.h"
+//#import "WJJingXuanDPTuiJianCell.h"
 
 @interface WJJingXuanDianPuViewController ()
 {
@@ -26,17 +26,81 @@
     [super viewDidLoad];
     [self initSendReplyWithTitle:@"精选店铺" andLeftButtonName:@"ic_back.png" andRightButtonName:@"goodInfo_message" andTitleLeftOrRight:YES];
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
-    self.arr_Type = [NSArray arrayWithObjects:@"地区",@"人气",@"星级",@"店铺类型", nil];
-
+    _arr_Type = [NSMutableArray array];
+    _arr_TypeID = [NSMutableArray array];
 
     self.arr_infomationresults = [NSMutableArray array];
 
     self.page_Information=1;
-    [self addhotsellControlView];
 
+    [self getStreetCategory];
     [self.view addSubview:self.collectionV];
     // Do any additional setup after loading the view.
 }
+-(void)getStreetCategory
+{
+    _serverType = 1;
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetStreetCategory]];
+}
+
+-(void)getProcessData
+{
+    if([[self.results objectForKey:@"code"] integerValue] == 200)
+    {
+        if (_serverType ==1) {
+            NSArray *arrType = [self.results objectForKey:@"data"];
+            if (arrType&&arrType.count>0) {
+                for (NSDictionary *dic in arrType) {
+                    [_arr_Type addObject:dic[@"str_name"]];
+                    [_arr_TypeID addObject:dic[@"str_id"]];
+                }
+                [self addhotsellControlView];
+            }
+        }
+        else
+        {
+            NSArray *arr_Datalist = [NSArray array];
+            arr_Datalist = [self.results objectForKey:@"data"];
+            NSMutableArray *entities = [NSMutableArray array];
+            if (arr_Datalist&&arr_Datalist.count>0) {
+                for (NSDictionary *dict in arr_Datalist) {
+                    SLCommentsModel *model = [[SLCommentsModel alloc]init];
+                    model.may_goods = [dict objectForKey:@"may_goods"];
+                    NSLog(@"图片arr===%@",model.may_goods);
+                    model.logo = ConvertNullString([dict objectForKey:@"logo"]);
+                    model.supplier_name = [dict  objectForKey:@"supplier_name"];
+                    model.supplier_title = [NSString stringWithFormat:@"%@",[dict  objectForKey:@"supplier_title"]];
+                    model.supplier_id = [NSString stringWithFormat:@"%@",[dict objectForKey:@"supplier_id"]];
+                    [entities addObject:model];
+                }
+
+                if(_page_Information==1)
+                {
+                    self.arr_infomationresults= entities;
+                }else
+                {
+                    [self.arr_infomationresults addObjectsFromArray:entities];
+                }
+                [self.collectionV reloadData];
+//                if (self.page_Information*10 >= self.totleCount_Information)
+//                {
+//                    [self.collectionV.mj_footer endRefreshingWithNoMoreData];
+//                }
+//                else{
+//                    self.collectionV.mj_footer.hidden = NO;
+//                }
+            }
+        }
+
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"msg"]];
+        return;
+    }
+}
+
+
 -(UICollectionView *)collectionV
 {
     if (!_collectionV) {
@@ -47,23 +111,34 @@
         _collectionV.delegate = self;
         _collectionV.dataSource = self;
         _collectionV.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-        [_collectionV registerClass:[WJJingxuanDianPuHeadView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJJingxuanDianPuHeadView"];
-        [_collectionV registerClass:[WJJingXuanDPTuiJianCell class] forCellWithReuseIdentifier:@"WJJingXuanDPTuiJianCell"];
+//        [_collectionV registerClass:[WJJingxuanDianPuHeadView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJJingxuanDianPuHeadView"];
+//        [_collectionV registerClass:[WJJingXuanDPTuiJianCell class] forCellWithReuseIdentifier:@"WJJingXuanDPTuiJianCell"];
 
         [_collectionV registerClass:[WJJingXuanDianPuCollectionViewCell class] forCellWithReuseIdentifier:@"WJJingXuanDianPuCollectionViewCell"];
 
-        [_collectionV registerClass:[WJJingXuanDPfootView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"WJJingXuanDPfootView"];
+//        [_collectionV registerClass:[WJJingXuanDPfootView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"WJJingXuanDPfootView"];
     }
     return _collectionV;
+}
+- (void)didSelectedButtonWithTag:(NSInteger)currTag
+{
+    [self getStreetGoods:currTag];
 }
 
 -(void)addhotsellControlView
 {
-    _menu_ScrollView = [[WJJingXuanMenuView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 44) withTitles:self.arr_Type ];
-    _menu_ScrollView.jingxuanShopClickBlock = ^(NSInteger selectTag) {
-
-    };
+    
+    _menu_ScrollView = [[MenuScrollView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 44) withTitles:_arr_Type  withScrollViewWidth:kMSScreenWith];
+    _menu_ScrollView.delegate = self;
     [self.view addSubview:_menu_ScrollView];
+
+    [self getStreetGoods:0];
+    
+}
+-(void)getStreetGoods:(NSInteger)tag
+{
+    _serverType = 2;
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetStreetGoods,_arr_TypeID[tag]]];
 }
 -(void)showright
 {
@@ -83,143 +158,40 @@
             }];
     }
 }
-- (void)getinfomationRefresh
-{
-
-    // 下拉刷新
-    self.collectionV.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRereshingCircle)];
-    [self.collectionV.mj_header beginRefreshing];
-    // 上拉刷新
-    self.collectionV.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshingCircle)];
-
-}
--(void)headerRereshingCircle
-{
-    [self.collectionV.mj_header endRefreshing];
-    [self.collectionV.mj_footer endRefreshing];
-    _page_Information = 1;
-    [self initinfomationClassDataCount];
-}
-
--(void)footerRereshingCircle
-{
-    _page_Information ++;
-    [self initinfomationClassData];
-}
--(void)initinfomationClassData
-{
-    _serverType = 2;
-    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-    [infos setValue:kMSPULLtableViewCellNumber forKey:@"forum_sum"];
-    [infos setValue:[NSString stringWithFormat:@"%ld",_page_Information] forKey:@"forum_page"];
-//    [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSForumExchange] andInfos:infos];
-}
-
--(void)initinfomationClassDataCount
-{
-    _serverType = 1;
-//    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-//    [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSFriendsSumtribune] andInfos:infos];
-}
-
--(void)processData
-{
-    [self.collectionV.mj_header endRefreshing];
-    [self.collectionV.mj_footer endRefreshing];
-    if([[self.results objectForKey:@"code"] integerValue] == 200)
-    {
-        switch (_serverType) {
-            case KGetServerSum:
-            {
-                self.totleCount_Information = [[self.results objectForKey:@"data"]  integerValue];
-                if (self.totleCount_Information>0) {
-                    [self initinfomationClassData];
-                }
-            }
-                break;
-            case KGetDataList:
-            {
-
-                NSMutableArray *arr_Datalist = [NSMutableArray array];
-                arr_Datalist = [self.results objectForKey:@"data"];
-                NSMutableArray *entities = [NSMutableArray array];
-                if (![arr_Datalist isEqual:[NSNull null]]) {
-                    for (NSDictionary *dict in arr_Datalist) {
-                        SLCommentsModel *model = [[SLCommentsModel alloc]init];
-                        model.imageArr = ConvertNullString([dict objectForKey:@"img_path"]);
-                        NSLog(@"图片arr===%@",model.imageArr);
-
-                        model.headerIconStr = ConvertNullString([[dict objectForKey:@"info"] objectForKey:@"user_img"]);
-                        model.headerIconStr =[model.headerIconStr stringByReplacingOccurrencesOfString:@".." withString:@""];
-                        model.str_userName = [[dict objectForKey:@"info"] objectForKey:@"user_name"];
-                        model.str_huifu = [NSString stringWithFormat:@"%@",[[dict objectForKey:@"info"] objectForKey:@"comm_sum"]];
-                        model.str_dianzan = [NSString stringWithFormat:@"%@",[[dict objectForKey:@"info"] objectForKey:@"tribune_lick"]];
-                        model.txtContentStr = [[dict objectForKey:@"info"] objectForKey:@"tribune_content"];
-                        model.titleStr = [[dict objectForKey:@"info"] objectForKey:@"tribune_title"];
-                        model.str_uid = [NSString stringWithFormat:@"%@",[[dict objectForKey:@"info"] objectForKey:@"user_id"]];
-                        model.dateStr = [[dict objectForKey:@"info"] objectForKey:@"add_time"];
-                        model.str_pid = ConvertNullString([[dict objectForKey:@"info"] objectForKey:@"tribune_id"]);
-                        [entities addObject:model];
-                    }
-
-                    if(_page_Information==1)
-                    {
-                        self.arr_infomationresults= entities;
-                    }else
-                    {
-                        [self.arr_infomationresults addObjectsFromArray:entities];
-                    }
-                    [self.collectionV reloadData];
-                    if (self.page_Information*10 >= self.totleCount_Information)
-                    {
-                        [self.collectionV.mj_footer endRefreshingWithNoMoreData];
-                    }
-                    else{
-                        self.collectionV.mj_footer.hidden = NO;
-                    }
-                }
-            }
-                break;
-            default:
-                break;
-        }
 
 
-    }
-    else
-    {
-        [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"msg"]];
-        return;
-    }
-}
 
--(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
-{
-    UICollectionReusableView *reusableview = nil;
 
-    if([kind isEqualToString:UICollectionElementKindSectionHeader])
-    {
-        if(indexPath.section == 0)// 顶部滚动广告
-        {
-            WJJingxuanDianPuHeadView *head = [self.collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJJingxuanDianPuHeadView" forIndexPath:indexPath];
-            head.model = self.arr_Type[indexPath.row];
-            reusableview = head;
-        }
-    }
-    if (kind == UICollectionElementKindSectionFooter) {
-        if (indexPath.section == 0) {
-            WJJingXuanDPfootView *footview = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"WJJingXuanDPfootView" forIndexPath:indexPath];
-            footview.Menu_titles = self.arr_Type;
-            [footview setUIScrollView];
-            footview.goToHuoDongClassTypeAction = ^(NSInteger typeID) {
 
-            };
-            reusableview = footview;
-        }
-    }
-    return reusableview;
 
-}
+
+//-(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+//{
+//    UICollectionReusableView *reusableview = nil;
+//
+//    if([kind isEqualToString:UICollectionElementKindSectionHeader])
+//    {
+//        if(indexPath.section == 0)// 顶部滚动广告
+//        {
+//            WJJingxuanDianPuHeadView *head = [self.collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJJingxuanDianPuHeadView" forIndexPath:indexPath];
+//            head.model = self.arr_Type[indexPath.row];
+//            reusableview = head;
+//        }
+//    }
+//    if (kind == UICollectionElementKindSectionFooter) {
+//        if (indexPath.section == 0) {
+//            WJJingXuanDPfootView *footview = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"WJJingXuanDPfootView" forIndexPath:indexPath];
+//            footview.Menu_titles = self.arr_Type;
+//            [footview setUIScrollView];
+//            footview.goToHuoDongClassTypeAction = ^(NSInteger typeID) {
+//
+//            };
+//            reusableview = footview;
+//        }
+//    }
+//    return reusableview;
+//
+//}
 
 
 
@@ -239,10 +211,10 @@
 {
     return 2;
 }
-#pragma mark - head宽高
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-    return (section == 0) ?  CGSizeMake(kMSScreenWith, 160)  : CGSizeZero;
-}
+//#pragma mark - head宽高
+//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+//    return (section == 0) ?  CGSizeMake(kMSScreenWith, 160)  : CGSizeZero;
+//}
 
 #pragma mark - foot宽高
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
@@ -254,49 +226,24 @@
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 2;
+    return 1;
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    if (section == 0) {
-        return 1;
-    }
-    else
-    {
-        return 4;
-    }
-
+    return _arr_infomationresults.count;
 }
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0)
-    {
-        return CGSizeMake(kMSScreenWith, 240);
-    }
-    else
-    {
-        return CGSizeMake(kMSScreenWith, 200);
-    }
-
+    return CGSizeMake(kMSScreenWith, 240);
 }
+
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell *gridcell = nil;
-    if (indexPath.section == 0) {
 
-        WJJingXuanDPTuiJianCell *cell = [self.collectionV dequeueReusableCellWithReuseIdentifier:@"WJJingXuanDPTuiJianCell" forIndexPath:indexPath];
-
-        gridcell = cell;
-
-    }
-
-    else
-    {
-        WJJingXuanDianPuCollectionViewCell *cell = [self.collectionV dequeueReusableCellWithReuseIdentifier:@"WJJingXuanDianPuCollectionViewCell" forIndexPath:indexPath];
-        gridcell = cell;
-    }
-    return gridcell;
+    WJJingXuanDianPuCollectionViewCell *cell = [self.collectionV dequeueReusableCellWithReuseIdentifier:@"WJJingXuanDianPuCollectionViewCell" forIndexPath:indexPath];
+    cell.model = _arr_infomationresults[indexPath.row];
+    return cell;
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {

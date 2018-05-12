@@ -39,60 +39,116 @@
 
     self.backgroundColor = kMSCellBackColor;
 
-    self.headerIconImgView = [UIImageView new];
-    self.nameLbl = [UILabel new];
-    self.txtContentLbl = [UILabel new];
-    self.imgContentView = [self imageContentView];
-    self.lab_title = [UILabel new];
-    self.lab_collectionNum = [UILabel new];
-    self.zanBtn = [UIButton new];
-    self.commentBtn = [UIButton new];
-
-    [self.contentView addSubview:self.headerIconImgView];
-    [self.contentView addSubview:self.nameLbl];
-    [self.contentView addSubview:self.txtContentLbl];
-    [self.contentView addSubview:self.imgContentView];
-    [self.contentView addSubview:self.lab_title];
-    [self.contentView addSubview:self.lab_collectionNum];
-    [self.contentView addSubview:self.zanBtn];
-    [self.contentView addSubview:self.commentBtn];
-
-
     //头像
-    self.headerIconImgView.frame = CGRectMake(5, 10, 40, 40);
-    self.headerIconImgView.layer.cornerRadius = 20;
+    self.headerIconImgView = ImageViewInit(DCMargin, DCMargin, 50, 50);
+    self.headerIconImgView.layer.cornerRadius = 25;
     self.headerIconImgView.layer.masksToBounds = YES;
+    [self.contentView addSubview:self.headerIconImgView];
     //名字
-    self.nameLbl.frame = CGRectMake(50, 20,110, 20);
+  self.nameLbl = LabelInit(self.headerIconImgView.Right+DCMargin, 20,kMSScreenWith-80, 20);
     self.nameLbl.font = [UIFont boldSystemFontOfSize:14];
     self.nameLbl.text = @"adadsdgfglhkkkk";
     self.nameLbl.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
+    [self.contentView addSubview:self.nameLbl];
 
-    //收藏数量
-    self.lab_collectionNum.frame = CGRectMake(165, 20, 80, 20);
-    self.lab_collectionNum.font = [UIFont systemFontOfSize:11];
-    self.lab_collectionNum.text = @"10000人已收藏";
+    //地址
+    self.lab_address = LabelInit(self.headerIconImgView.Right+DCMargin, self.nameLbl.Bottom+2, kMSScreenWith-80, 20);
+    self.lab_address.font = [UIFont systemFontOfSize:14];
+    self.lab_address.text = @"深圳市光明新区公明镇";
+    self.lab_address.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
+    [self.contentView addSubview:self.lab_address];
 
-    //收藏
-    self.zanBtn.frame = CGRectMake(self.lab_collectionNum.Right+5, 15, 30, 30);
-    [self.zanBtn setBackgroundImage:[UIImage imageNamed:@"jxdp_shoucang"] forState:UIControlStateNormal];
 
-    self.commentBtn.frame = CGRectMake(self.zanBtn.Right+10, 20, 60, 30);
-    self.commentBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-    [self.commentBtn setTitle:@"进店看看" forState:UIControlStateNormal];
+     CGFloat miaosuWidth = [RegularExpressionsMethod widthOfString:@"宝贝描述:5.0" font:[UIFont systemFontOfSize:14] height:20];
+    //宝贝描述
+    self.lab_BBmiansu = LabelInit(DCMargin, self.headerIconImgView.Bottom+DCMargin, miaosuWidth, 20);
+    self.lab_BBmiansu.font = [UIFont systemFontOfSize:14];
 
-    //标题
-    self.lab_title.font = [UIFont systemFontOfSize:12];
-    self.lab_title.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
-    self.lab_title.frame = CGRectMake(10, 55, kMSScreenWith-20, 20);
-    self.lab_title.text = @"店铺广告语";
+    self.lab_BBmiansu.text = @"宝贝描述:5.0";
+    self.lab_BBmiansu.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
+    [self.contentView addSubview:self.lab_BBmiansu];
 
-    //文字部分
-    self.txtContentLbl.frame = CGRectMake(10, self.lab_title.Bottom, kMSScreenWith-20, 0);
-    self.txtContentLbl.font = [UIFont systemFontOfSize:13];
-    self.txtContentLbl.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
-    self.txtContentLbl.numberOfLines = 0;
-    self.txtContentLbl.lineBreakMode = NSLineBreakByWordWrapping;
+    UILabel *labGao1= [[UILabel alloc] initWithFrame:CGRectMake(self.lab_BBmiansu.Right+2, self.headerIconImgView.Bottom+DCMargin, 20, 20)];
+    labGao1.textAlignment = NSTextAlignmentCenter;
+    labGao1.font = [UIFont systemFontOfSize:14];
+    labGao1.backgroundColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
+    labGao1.textColor = [UIColor whiteColor];
+    labGao1.text = @"高";
+    labGao1.layer.cornerRadius = 3;
+    labGao1.layer.masksToBounds = YES;//设置圆角
+    [self.contentView addSubview:labGao1];
+    
+
+    //宝贝描述
+    self.lab_MJfuwu = LabelInit((kMSScreenWith-miaosuWidth)/2-12, self.headerIconImgView.Bottom+DCMargin, miaosuWidth, 20);
+    self.lab_MJfuwu.font = [UIFont systemFontOfSize:14];
+    self.lab_MJfuwu.text = @"卖家服务:5.0";
+    self.lab_MJfuwu.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
+    [self.contentView addSubview:self.lab_MJfuwu];
+
+    UILabel *labGao2= [[UILabel alloc] initWithFrame:CGRectMake(self.lab_MJfuwu.Right+2, self.headerIconImgView.Bottom+DCMargin, 20, 20)];
+    labGao2.textAlignment = NSTextAlignmentCenter;
+    labGao2.font = [UIFont systemFontOfSize:14];
+    labGao2.backgroundColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
+    labGao2.textColor = [UIColor whiteColor];
+    labGao2.text = @"高";
+    labGao2.layer.cornerRadius = 3;
+    labGao2.layer.masksToBounds = YES;//设置圆角
+    [self.contentView addSubview:labGao2];
+
+    //物流服务
+    self.lab_WLfwu = LabelInit(kMSScreenWith-miaosuWidth-22-DCMargin, self.headerIconImgView.Bottom+DCMargin, kMSScreenWith-80, 20);
+    self.lab_WLfwu.font = [UIFont systemFontOfSize:14];
+    self.lab_WLfwu.text = @"深圳市光明新区公明镇";
+    self.lab_WLfwu.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
+    [self.contentView addSubview:self.lab_WLfwu];
+
+    UILabel *labGao3= [[UILabel alloc] initWithFrame:CGRectMake(self.lab_WLfwu.Right+2, self.headerIconImgView.Bottom+DCMargin, 20, 20)];
+    labGao3.textAlignment = NSTextAlignmentCenter;
+    labGao3.font = [UIFont systemFontOfSize:14];
+    labGao3.backgroundColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
+    labGao3.textColor = [UIColor whiteColor];
+    labGao3.text = @"高";
+    labGao3.layer.cornerRadius = 3;
+    labGao3.layer.masksToBounds = YES;//设置圆角
+    [self.contentView addSubview:labGao3];
+
+    UIImageView *line1 = ImageViewInit(DCMargin,  self.lab_BBmiansu.Bottom+DCMargin, kMSScreenWith-DCMargin*2, 1);
+    line1.backgroundColor = [RegularExpressionsMethod ColorWithHexString:@"E6E6E6"];
+    [self.contentView addSubview:line1];
+
+    //总多少商品
+    self.lab_goodNum = LabelInit(DCMargin, line1.Bottom+DCMargin, kMSScreenWith-80, 20);
+    self.lab_goodNum.font = [UIFont systemFontOfSize:14];
+    self.lab_goodNum.text = @"共12件宝贝";
+    self.lab_goodNum.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
+    [self.contentView addSubview:self.lab_goodNum];
+
+    self.imgContentView = [self imageContentView];
+
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom]; button.frame = CGRectMake(DCMargin, self.imgContentView.Bottom, 100, 40);
+    [button setImage:[UIImage imageNamed:@"customerService"] forState:UIControlStateNormal];
+    [button setBackgroundColor:kMSCellBackColor];
+    button.layer.cornerRadius = 3;
+    button.layer.masksToBounds = YES;//设置圆角
+    button.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 60);
+    [button setTitle:@"联系客服" forState:UIControlStateNormal];
+    button.titleEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
+    [button setTitleColor:[RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR] forState:UIControlStateNormal];
+    button.titleLabel.font = [UIFont systemFontOfSize:14];
+    [self.contentView addSubview:button];
+
+    UIButton *buttonShop = [UIButton buttonWithType:UIButtonTypeCustom]; button.frame = CGRectMake(kMSScreenWith-DCMargin-100, self.imgContentView.Bottom, 100, 40);
+    [buttonShop setImage:[UIImage imageNamed:@"shop_default"] forState:UIControlStateNormal];
+    [buttonShop setBackgroundColor:kMSCellBackColor];
+    buttonShop.layer.cornerRadius = 3;
+    buttonShop.layer.masksToBounds = YES;//设置圆角
+    buttonShop.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 60);
+    [buttonShop setTitle:@"进入店铺" forState:UIControlStateNormal];
+    buttonShop.titleEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
+    [buttonShop setTitleColor:[RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR] forState:UIControlStateNormal];
+    buttonShop.titleLabel.font = [UIFont systemFontOfSize:14];
+    [self.contentView addSubview:buttonShop];
 
 
 }
@@ -117,21 +173,15 @@
     //设置属性
     _model = model;
 
-    [self.headerIconImgView sd_setImageWithURL:[NSURL URLWithString:model.headerIconStr] placeholderImage:[UIImage imageNamed:@"ic_no_heardPic.png"]];
-    self.nameLbl.text = model.titleStr;
-    self.txtContentLbl.text = model.txtContentStr;
+    [self.headerIconImgView sd_setImageWithURL:[NSURL URLWithString:model.logo] placeholderImage:[UIImage imageNamed:@"ic_no_heardPic.png"]];
+    self.nameLbl.text = model.supplier_name;
 
-    //说说的文字部分
-    CGRect txtContentLblRect = [self.txtContentLbl.text boundingRectWithSize:CGSizeMake(kMSScreenWith - 20, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName:self.txtContentLbl.font} context:nil];
-    self.txtContentLbl.frame = CGRectMake(10, self.lab_title.Bottom, self.nameLbl.bounds.size.width, txtContentLblRect.size.height);
 
     //排版说说的图片部分
     [self layoutImgContentViewWithModel:model];
-    self.imgContentView.frame = CGRectMake(10, self.txtContentLbl.frame.origin.y + self.txtContentLbl.frame.size.height + 5, self.imgContentView.bounds.size.width, [self heightForImgContentByCount:model.imageArr.count]);
+
     self.imgContentView.contentMode = UIViewContentModeScaleAspectFill;
 
-    //
-    self.lab_collectionNum.text = model.dateStr;
 
 }
 
@@ -141,62 +191,29 @@
     //先遍历所有的的图片，并将其置空
     for (UIImageView *imgView in [self.imgContentView subviews]) {
         imgView.frame = CGRectMake(0, 0, 0, 0);
-        self.imgContentView.frame = CGRectMake(10, self.txtContentLbl.bounds.origin.y + self.txtContentLbl.bounds.size.height, kMSScreenWith - 20, 0);
     }
 
-    for (numOfImg = 0; numOfImg < model.imageArr.count; numOfImg++) {
+    for (numOfImg = 0; numOfImg < model.may_goods.count; numOfImg++) {
         UIImageView *imageView = [[self.imgContentView subviews] objectAtIndex:numOfImg];
         //给带图的imageView添加单击手势
         imageView.tag = numOfImg;
-        [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",kMSBaseLargeCollectionPortURL,[[model.imageArr objectAtIndex:numOfImg] objectForKey:@"thumb_url"]]] placeholderImage:[UIImage imageNamed:@"noMore_bg"]];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",kMSBaseLargeCollectionPortURL,[[model.may_goods objectAtIndex:numOfImg] objectForKey:@"original_img"]]] placeholderImage:[UIImage imageNamed:@"noMore_bg"]];
 
     }
     //布局
-    int numOfLine = 0;
-    int colu = 3;
+    int colu = 4;
 
-    if (kMSScreenWith == 320) {
-        img_H = 80;
-        img_W = 80;
-    }else{
-        img_H = 100;
-        img_W = 100;
-    }
+    img_H = kMSScreenWith/colu-6;
+    img_W = kMSScreenWith/colu-6;
 
 
-    if ( model.imageArr.count > 0) {
-        if (model.imageArr.count == 1) { //当只有一张图片时，按比例显示图片
-            colu = 1;
+    for (int j = 0; j < model.may_goods.count; j++) {
+            UIImageView *imageView = (UIImageView *)[[self.imgContentView subviews] objectAtIndex: j];
+            imageView.frame = CGRectMake(j * (img_W + 3), 3, img_W, img_H);
         }
-        numOfLine = 1;
-        colu = (int)model.imageArr.count;
-    }else{
-        numOfLine = 0;
-        img_H = 0;
-        img_W = 0;
-    }
-
-    for (int i = 0; i < numOfLine; i++) {
-        for (int j = 0; j < 3; j++) {
-            UIImageView *imageView = (UIImageView *)[[self.imgContentView subviews] objectAtIndex:i * colu + j];
-            imageView.frame = CGRectMake(j * (img_W + 3), i * (img_H + 3), img_W, img_H);
-        }
-    }
-}
-#pragma mark -返回次cell的高度
--(CGFloat)cellHeight{
-
-    return self.lab_collectionNum.Bottom + 85;
 }
 
-#pragma mark -照片墙的高度
--(CGFloat)heightForImgContentByCount:(NSInteger)count{
 
-    if (count == 0) {
-        return 0;
-    }else
-        return img_H;
 
-}
 
 @end

@@ -31,11 +31,6 @@
     _headLabel.frame = CGRectMake(DCMargin, 0, self.width, self.height);
 }
 
-#pragma mark - Setter Getter Methods
--(void)setTitleItem:(WJClassGoodsItem *)titleItem
-{
-    _titleItem = titleItem;
-    _headLabel.text = titleItem.cat_name;
-}
+
 
 @end

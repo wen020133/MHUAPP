@@ -11,16 +11,20 @@
 @interface WJJRPTItem : NSObject
 
 /** 图片  */
-@property (nonatomic, copy ,readonly) NSString *image_url;
+@property (nonatomic, copy ,readonly) NSString *goods_thumb;
 /** 标题  */
-@property (nonatomic, copy ,readonly) NSString *main_title;
+@property (nonatomic, copy ,readonly) NSString *goods_name;
+/** 副标题  */
+@property (nonatomic, copy ,readonly) NSString *goods_brief;
 /** 价格  */
-@property (nonatomic, copy ,readonly) NSString *price;
+@property (nonatomic, copy ,readonly) NSString *integral;
 /** 原价  */
-@property (nonatomic, copy ,readonly) NSString *old_price;
+@property (nonatomic, copy ,readonly) NSString *market_price;
+/** 原价  */
+@property (nonatomic, copy ,readonly) NSString *shop_price;
 /** 销量  */
 @property (nonatomic, copy ,readonly) NSString *sales;
 /** ID  */
-@property (nonatomic, copy ,readonly) NSString *stock;
+@property (nonatomic, copy ,readonly) NSString *integral_id;
 
 @end
