@@ -22,4 +22,6 @@
 @property (nonatomic, strong) UILabel     *lab_goodNum;
 @property (nonatomic, strong) UIView      *imgContentView;
 
+@property (nonatomic, strong) UIButton     *btn_kefu;
+@property (nonatomic, strong) UIButton     *btn_shop;
 @end

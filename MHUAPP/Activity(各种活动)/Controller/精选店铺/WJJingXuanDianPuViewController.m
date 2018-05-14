@@ -8,7 +8,6 @@
 
 #import "WJJingXuanDianPuViewController.h"
 #import "MJRefresh.h"
-//#import "WJJingxuanDianPuHeadView.h"
 #import "SLCommentsModel.h"
 #import "WJJingXuanDianPuCollectionViewCell.h"
 //#import "WJJingXuanDPfootView.h"
@@ -24,7 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initSendReplyWithTitle:@"精选店铺" andLeftButtonName:@"ic_back.png" andRightButtonName:@"goodInfo_message" andTitleLeftOrRight:YES];
+    [self initSendReplyWithTitle:@"精选店铺" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     _arr_Type = [NSMutableArray array];
     _arr_TypeID = [NSMutableArray array];
@@ -235,7 +234,12 @@
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(kMSScreenWith, 240);
+    SLCommentsModel *model = _arr_infomationresults[indexPath.row];
+    if (model.may_goods.count>0) {
+        return CGSizeMake(kMSScreenWith, 200+(kMSScreenWith-DCMargin*2)/4);
+    }
+    else
+    return CGSizeMake(kMSScreenWith, 176);
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
