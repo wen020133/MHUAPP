@@ -32,32 +32,21 @@
         _lab_title.textAlignment = NSTextAlignmentLeft;
         [_grayView addSubview:_lab_title];
 
-        _lab_describe= [[UILabel alloc]initWithFrame:CGRectMake(10, _lab_title.Bottom, _grayView.width-20, 20)];
-        _lab_describe.font = PFR12Font;
-        _lab_describe.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
-        _lab_describe.textAlignment = NSTextAlignmentLeft;
-        [_grayView addSubview:_lab_describe];
 
-        _lab_price = [[UILabel alloc] initWithFrame:CGRectMake(10, _lab_describe.Bottom, self.width/2, 20)];
-        _lab_price.font = PFR11Font;
+        _lab_price = [[UILabel alloc] initWithFrame:CGRectMake(10, _lab_title.Bottom, self.width/2, 20)];
+        _lab_price.font = PFR13Font;
         _lab_price.textAlignment = NSTextAlignmentLeft;
-        _lab_price.textColor = [UIColor darkGrayColor];
+        _lab_price.textColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
         [_grayView addSubview:_lab_price];
-
-        _lab_count = [[UILabel alloc]initWithFrame:CGRectMake(self.width/2, _lab_describe.Bottom, self.width/2-20, 20)];
-        _lab_count.font = PFR11Font;
-        _lab_count.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
-        _lab_count.textAlignment = NSTextAlignmentRight;
-        [_grayView addSubview:_lab_count];
 
 
         _btn_buy = [UIButton buttonWithType:UIButtonTypeCustom];
         [_btn_buy setBackgroundColor:[RegularExpressionsMethod ColorWithHexString:BASEPINK]];
-        _btn_buy.frame = CGRectMake(10, _lab_count.Bottom+1, _grayView.width-20, 30);
+        _btn_buy.frame = CGRectMake(10, _lab_price.Bottom+10, _grayView.width-20, 40);
         _btn_buy.titleLabel.font = PFR15Font;
         _btn_buy.titleLabel.textColor = kMSCellBackColor;
-        [_btn_buy setTitle:@"立即抢购" forState:UIControlStateNormal];
-        _btn_buy.layer.cornerRadius = 15;
+        [_btn_buy setTitle:@"立即兑换" forState:UIControlStateNormal];
+        _btn_buy.layer.cornerRadius = 20;
         _btn_buy.layer.masksToBounds = YES;//设置圆角
         [_grayView addSubview:_btn_buy];
     }
@@ -73,7 +62,7 @@
     NSString *urlStr = [NSString stringWithFormat:@"%@",_model.goods_thumb] ;
     [_img_content sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"] completed:nil];
     _lab_title.text = _model.goods_name;
-    _lab_describe.text = _model.goods_brief;
+    _lab_price.text = [NSString stringWithFormat:@"%@积分",_model.integral];
 
 }
 @end

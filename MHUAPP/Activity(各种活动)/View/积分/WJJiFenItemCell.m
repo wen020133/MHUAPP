@@ -29,15 +29,24 @@
     NSDateFormatter  *dateformatter=[[NSDateFormatter alloc] init];
     [dateformatter setDateFormat:@"YYYY-MM-dd"];
     NSString * locationString=[dateformatter stringFromDate:senddate];
-    if ([locationString isEqualToString:[userDefaults objectForKey:@"tabbarDate"]]&&[qiandaoIs isEqualToString:@"111"]) {
-       _defaultTitleArr = @[@"积分25000",@"兑换记录",@"已签到",@"如何赚积分"];
+    if ([locationString isEqualToString:[userDefaults objectForKey:@"tabbarDate"]]) {
+        if ([qiandaoIs isEqualToString:@"111"]) {
+             _defaultTitleArr = @[@"积分25000",@"兑换记录",@"已签到",@"如何赚积分"];
+        }
+        else
+        {
+            _defaultTitleArr = @[@"积分25000",@"兑换记录",@"签到",@"如何赚积分"];
+        }
     }
     else
     {
+        _defaultTitleArr = @[@"积分25000",@"兑换记录",@"签到",@"如何赚积分"];
+        [userDefaults setValue:@"00" forKey:@"isQiandao"];
 
-      _defaultTitleArr = @[@"积分25000",@"兑换记录",@"签到",@"如何赚积分"];
     }
+
     [userDefaults setValue:locationString forKey:@"tabbarDate"];
+
     [userDefaults synchronize];
 
 

@@ -12,7 +12,7 @@
 #import "WJSSPTTypeHeadView.h"
 #import "WJJRPTItem.h"
 #import "AppDelegate.h"
-
+#import "WJIntegralInfoClassViewController.h"
 
 @interface WJIntegralListViewController ()
 
@@ -305,7 +305,12 @@
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    WJIntegralInfoClassViewController *storeInfo = [[WJIntegralInfoClassViewController alloc]init];
+    storeInfo.str_title =  _arr_jiFen[indexPath.row].goods_name;
+    storeInfo.str_integral = _arr_jiFen[indexPath.row].integral;
+    storeInfo.str_supplierId = _arr_jiFen[indexPath.row].goods_id;
+    self.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:storeInfo animated:YES];
 }
 -(void)dealloc
 {

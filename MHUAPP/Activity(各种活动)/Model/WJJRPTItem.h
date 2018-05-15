@@ -24,7 +24,9 @@
 @property (nonatomic, copy ,readonly) NSString *shop_price;
 /** 销量  */
 @property (nonatomic, copy ,readonly) NSString *sales;
-/** ID  */
+/** 积分ID  */
 @property (nonatomic, copy ,readonly) NSString *integral_id;
+/** goods_id  */
+@property (nonatomic, copy ,readonly) NSString *goods_id;
 
 @end

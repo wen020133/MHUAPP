@@ -10,8 +10,8 @@
 #import "MJRefresh.h"
 #import "SLCommentsModel.h"
 #import "WJJingXuanDianPuCollectionViewCell.h"
-//#import "WJJingXuanDPfootView.h"
-//#import "WJJingXuanDPTuiJianCell.h"
+#import "WJStoreInfoClassViewController.h"
+
 
 @interface WJJingXuanDianPuViewController ()
 {
@@ -75,10 +75,10 @@
 
                 if(_page_Information==1)
                 {
-                    self.arr_infomationresults= entities;
+                    _arr_infomationresults= entities;
                 }else
                 {
-                    [self.arr_infomationresults addObjectsFromArray:entities];
+                    [_arr_infomationresults addObjectsFromArray:entities];
                 }
                 [self.collectionV reloadData];
 //                if (self.page_Information*10 >= self.totleCount_Information)
@@ -247,6 +247,19 @@
 
     WJJingXuanDianPuCollectionViewCell *cell = [self.collectionV dequeueReusableCellWithReuseIdentifier:@"WJJingXuanDianPuCollectionViewCell" forIndexPath:indexPath];
     cell.model = _arr_infomationresults[indexPath.row];
+     SLCommentsModel *model = _arr_infomationresults[indexPath.row];
+    WEAKSELF
+    cell.goToContactServiceBlock = ^{
+
+    };
+    cell.goToShopInfoBlock = ^{
+        WJStoreInfoClassViewController *storeInfo = [[WJStoreInfoClassViewController alloc]init];
+        storeInfo.storeId = model.supplier_id;
+        storeInfo.storeLogo = model.logo;
+        storeInfo.storeName = model.supplier_name;
+        weakSelf.hidesBottomBarWhenPushed = YES;
+        [weakSelf.navigationController pushViewController:storeInfo animated:YES];
+    };
     return cell;
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath

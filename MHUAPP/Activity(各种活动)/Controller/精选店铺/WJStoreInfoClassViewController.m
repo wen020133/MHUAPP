@@ -8,12 +8,18 @@
 
 #import "WJStoreInfoClassViewController.h"
 #import "WJStoreHeadCollectionView.h"
-#import "WJHomeRecommendCollectionViewCell.h"
+#import "WJStoreInfoCollectionCell.h"
+#import "WJGoodsDataModel.h"
+#import "UIImageView+WebCache.h"
+#import "WJGoodDetailViewController.h"
+
 
 @interface WJStoreInfoClassViewController ()
 
 @property (strong, nonatomic)  UICollectionView *collectionV;
-@property (strong, nonatomic)  NSMutableArray *arr_infomationresults;
+@property NSInteger serviceType;
+@property (strong, nonatomic) NSArray <WJGoodsDataModel *>  *goodsImageArr;
+@property (strong ,nonatomic) NSString *str_addGoodsNum;
 
 @end
 
@@ -23,22 +29,61 @@
     [super viewDidLoad];
     [self initSendReplyWithTitle:@"精选店铺" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
-    _arr_infomationresults = [NSMutableArray array];
     [self.view addSubview:self.collectionV];
+    [self getStreetCategory];
+    _str_addGoodsNum = @"0";
     // Do any additional setup after loading the view.
 }
+-(void)getStreetCategory
+{
+    _serviceType = 1;
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetSupplierNum,_storeId]];
+}
+
+-(void)addServiceListData
+{
+    _serviceType = 2;
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetBestSeller,_storeId]];
+}
+-(void)getProcessData
+{
+    if([[self.results objectForKey:@"code"] integerValue] == 200)
+    {
+        if (_serviceType ==1) {
+            _str_addGoodsNum = [self.results objectForKey:@"data"];
+            [self addServiceListData];
+        }
+        else
+        {
+            id arr = [self.results objectForKey:@"data"];
+            if([arr isKindOfClass:[NSArray class]])
+            {
+                self.goodsImageArr =   [WJGoodsDataModel mj_objectArrayWithKeyValuesArray:arr];
+                [self.collectionV reloadData];
+            }
+        }
+
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"msg"]];
+        return;
+    }
+}
+
+
 -(UICollectionView *)collectionV
 {
     if (!_collectionV) {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-        _collectionV = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 44, kMSScreenWith, kMSScreenHeight-kMSNaviHight-44) collectionViewLayout:layout];
+        _collectionV = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight-kMSNaviHight) collectionViewLayout:layout];
         
         _collectionV.backgroundColor = [UIColor clearColor];
         _collectionV.delegate = self;
         _collectionV.dataSource = self;
         _collectionV.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
         [_collectionV registerClass:[WJStoreHeadCollectionView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJStoreHeadCollectionView"];
-        [_collectionV registerClass:[WJHomeRecommendCollectionViewCell class] forCellWithReuseIdentifier:@"WJHomeRecommendCollectionViewCell"];
+        [_collectionV registerClass:[WJStoreInfoCollectionCell class] forCellWithReuseIdentifier:@"WJStoreInfoCollectionCell"];
     }
     return _collectionV;
 }
@@ -50,6 +95,9 @@
     if([kind isEqualToString:UICollectionElementKindSectionHeader])
     {
         WJStoreHeadCollectionView *head = [self.collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJStoreHeadCollectionView" forIndexPath:indexPath];
+        head.lab_allGood.text = [NSString stringWithFormat:@"%@",_str_addGoodsNum];
+        head.titleLabel.text = _storeName;
+        [head.headImageView sd_setImageWithURL:[NSURL URLWithString:_storeLogo] placeholderImage:[UIImage imageNamed:@"ic_no_heardPic.png"]];
         reusableview = head;
     }
     return reusableview;
@@ -76,7 +124,7 @@
 }
 #pragma mark - head宽高
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-    return  CGSizeMake(kMSScreenWith, 240+kMSScreenWith/2);
+    return  CGSizeMake(kMSScreenWith, 220);
 }
 
 #pragma mark - foot宽高
@@ -90,7 +138,7 @@
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return _arr_infomationresults.count;
+    return _goodsImageArr.count;
 }
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -101,13 +149,16 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    WJHomeRecommendCollectionViewCell *cell = [self.collectionV dequeueReusableCellWithReuseIdentifier:@"WJHomeRecommendCollectionViewCell" forIndexPath:indexPath];
-//    cell.model = _arr_infomationresults[indexPath.row];
+    WJStoreInfoCollectionCell *cell = [self.collectionV dequeueReusableCellWithReuseIdentifier:@"WJStoreInfoCollectionCell" forIndexPath:indexPath];
+    cell.item = _goodsImageArr[indexPath.row];
     return cell;
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    WJGoodDetailViewController *dcVc = [[WJGoodDetailViewController alloc] init];
+    dcVc.goods_id = _goodsImageArr[indexPath.row].goods_id;
+    self.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:dcVc animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

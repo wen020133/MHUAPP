@@ -15,6 +15,10 @@
 
 /* 店名 */
 @property (strong , nonatomic)UILabel *titleLabel;
+
+/* 图片 */
+@property (strong , nonatomic)UIImageView *headImageView;
+
 /* 全部宝贝Num */
 @property (strong , nonatomic)UILabel *lab_allGood;
 /* 商家描述 */

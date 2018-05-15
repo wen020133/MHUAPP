@@ -24,4 +24,10 @@
 
 @property (nonatomic, strong) UIButton     *btn_kefu;
 @property (nonatomic, strong) UIButton     *btn_shop;
+
+/** 点击联系客服 */
+@property (nonatomic, copy) dispatch_block_t goToContactServiceBlock;
+
+/** 点击联系客服 */
+@property (nonatomic, copy) dispatch_block_t goToShopInfoBlock;
 @end

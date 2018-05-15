@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseNetworkViewController.h"
 
-@interface WJStoreInfoClassViewController : UIViewController<UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource>
+@interface WJStoreInfoClassViewController : BaseNetworkViewController<UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource>
 
+@property (assign ,nonatomic) NSString *storeId;
+@property (assign ,nonatomic) NSString *storeLogo;
+@property (assign ,nonatomic) NSString *storeName;
 @end

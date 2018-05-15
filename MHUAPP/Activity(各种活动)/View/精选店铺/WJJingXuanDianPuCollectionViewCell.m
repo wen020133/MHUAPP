@@ -38,7 +38,6 @@
 -(void)createContents{
 
     self.backgroundColor = kMSCellBackColor;
-
     //头像
     self.headerIconImgView = ImageViewInit(DCMargin, DCMargin, 50, 50);
     self.headerIconImgView.layer.cornerRadius = 25;
@@ -97,7 +96,7 @@
     [self.contentView addSubview:labGao2];
 
     //物流服务
-    self.lab_WLfwu = LabelInit(kMSScreenWith-miaosuWidth-22-DCMargin, self.headerIconImgView.Bottom+DCMargin, kMSScreenWith-80, 20);
+    self.lab_WLfwu = LabelInit(kMSScreenWith-miaosuWidth-40-DCMargin, self.headerIconImgView.Bottom+DCMargin, kMSScreenWith-80, 20);
     self.lab_WLfwu.font = [UIFont systemFontOfSize:14];
     self.lab_WLfwu.text = @"物流服务:5.0";
     self.lab_WLfwu.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
@@ -127,8 +126,35 @@
     self.imgContentView = [self imageContentView];
     [self.contentView addSubview:self.imgContentView];
 
-   
+    _btn_kefu = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_btn_kefu setImage:[UIImage imageNamed:@"customerService"] forState:UIControlStateNormal];
+    [_btn_kefu setBackgroundColor:kMSCellBackColor];
+    _btn_kefu.layer.cornerRadius = 3;
+    _btn_kefu.layer.masksToBounds = YES;//设置圆角
+    _btn_kefu.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 95);
+    [_btn_kefu setTitle:@"联系客服" forState:UIControlStateNormal];
+    //    _btn_kefu.titleEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
+    _btn_kefu.layer.borderColor = [[[UIColor lightGrayColor]colorWithAlphaComponent:0.3] CGColor];
+    _btn_kefu.layer.borderWidth = 1.0f;
+    [_btn_kefu setTitleColor:[RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR] forState:UIControlStateNormal];
+    [_btn_kefu addTarget:self action:@selector(goToContactService) forControlEvents:UIControlEventTouchUpInside];
+    _btn_kefu.titleLabel.font = [UIFont systemFontOfSize:14];
+    [self.contentView addSubview:_btn_kefu];
 
+    _btn_shop = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_btn_shop setImage:[UIImage imageNamed:@"shop_default"] forState:UIControlStateNormal];
+    [_btn_shop setBackgroundColor:kMSCellBackColor];
+    _btn_shop.layer.cornerRadius = 3;
+    _btn_shop.layer.masksToBounds = YES;//设置圆角
+    _btn_shop.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 95);
+    [_btn_shop setTitle:@"进入店铺" forState:UIControlStateNormal];
+    //    _btn_shop.titleEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
+    _btn_shop.layer.borderColor = [[[UIColor lightGrayColor]colorWithAlphaComponent:0.3] CGColor];
+    _btn_shop.layer.borderWidth = 1.0f;
+    [_btn_shop addTarget:self action:@selector(goToShopInfo) forControlEvents:UIControlEventTouchUpInside];
+    [_btn_shop setTitleColor:[RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR] forState:UIControlStateNormal];
+    _btn_shop.titleLabel.font = [UIFont systemFontOfSize:14];
+    [self.contentView addSubview:_btn_shop];
 
 }
 
@@ -153,37 +179,12 @@
     self.imgContentView.frame = CGRectMake(DCMargin, self.lab_goodNum.Bottom+DCMargin, kMSScreenWith-DCMargin*2, [self heightForImgContentByCount:model.may_goods.count]);
     self.imgContentView.contentMode = UIViewContentModeScaleAspectFill;
     
-    
-    _btn_kefu = [UIButton buttonWithType:UIButtonTypeCustom];
     _btn_kefu.frame = CGRectMake(20, self.imgContentView.Bottom, kMSScreenWith/2-40, 40);
-    [_btn_kefu setImage:[UIImage imageNamed:@"customerService"] forState:UIControlStateNormal];
-    [_btn_kefu setBackgroundColor:kMSCellBackColor];
-    _btn_kefu.layer.cornerRadius = 3;
-    _btn_kefu.layer.masksToBounds = YES;//设置圆角
-    _btn_kefu.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 95);
-    [_btn_kefu setTitle:@"联系客服" forState:UIControlStateNormal];
-//    _btn_kefu.titleEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
-    _btn_kefu.layer.borderColor = [[[UIColor lightGrayColor]colorWithAlphaComponent:0.3] CGColor];
-    _btn_kefu.layer.borderWidth = 1.0f;
-    [_btn_kefu setTitleColor:[RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR] forState:UIControlStateNormal];
-    _btn_kefu.titleLabel.font = [UIFont systemFontOfSize:14];
-    [self.contentView addSubview:_btn_kefu];
-    
-    _btn_shop = [UIButton buttonWithType:UIButtonTypeCustom];
+
     _btn_shop.frame = CGRectMake(kMSScreenWith/2+20, self.imgContentView.Bottom, kMSScreenWith/2-40, 40);
-    [_btn_shop setImage:[UIImage imageNamed:@"shop_default"] forState:UIControlStateNormal];
-    [_btn_shop setBackgroundColor:kMSCellBackColor];
-    _btn_shop.layer.cornerRadius = 3;
-    _btn_shop.layer.masksToBounds = YES;//设置圆角
-    _btn_shop.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 95);
-    [_btn_shop setTitle:@"进入店铺" forState:UIControlStateNormal];
-//    _btn_shop.titleEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
-    _btn_shop.layer.borderColor = [[[UIColor lightGrayColor]colorWithAlphaComponent:0.3] CGColor];
-    _btn_shop.layer.borderWidth = 1.0f;
-    [_btn_shop setTitleColor:[RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR] forState:UIControlStateNormal];
-    _btn_shop.titleLabel.font = [UIFont systemFontOfSize:14];
-    [self.contentView addSubview:_btn_shop];
-   
+
+    
+
 
 }
 #pragma mark -照片墙的高度
@@ -198,6 +199,12 @@
 #pragma mark -对图片墙布局
 -(void)layoutImgContentViewWithModel:(SLCommentsModel *)model{
 
+
+    for(UIView *view in [self.imgContentView subviews])
+    {
+        [view removeFromSuperview];
+    }
+
      img_W = img_H = (kMSScreenWith-DCMargin*2)/4-6;
     
     for (numOfImg = 0; numOfImg < model.may_goods.count; numOfImg++) {
@@ -210,7 +217,7 @@
         labPrice.textColor = kMSCellBackColor;
         labPrice.font = Font(12);
         labPrice.backgroundColor = [[UIColor lightGrayColor]colorWithAlphaComponent:0.5];
-        labPrice.text = @"￥30.00";
+        labPrice.text = [NSString stringWithFormat:@"￥%@",[[model.may_goods objectAtIndex:numOfImg] objectForKey:@"shop_price"]];
         [self.imgContentView addSubview:labPrice];
         
         UILabel *labTitle = LabelInit(numOfImg * (img_W + 6), imageView.Bottom, img_W, 30);
@@ -222,6 +229,13 @@
 
 }
 
+-(void)goToContactService
+{
+    !_goToContactServiceBlock ?: _goToContactServiceBlock();
+}
 
-
+-(void)goToShopInfo
+{
+    !_goToShopInfoBlock ?: _goToShopInfoBlock();
+}
 @end
