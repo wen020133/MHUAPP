@@ -12,7 +12,11 @@
 #import "WJSSPTTypeHeadView.h"
 #import "WJJRPTItem.h"
 #import "AppDelegate.h"
+
+
 #import "WJIntegralInfoClassViewController.h"
+#import "WJIntegralOrderListViewController.h"
+
 
 @interface WJIntegralListViewController ()
 
@@ -110,6 +114,14 @@
 
     if([[self.results objectForKey:@"code"] integerValue] == 200)
     {
+        [self jxt_showAlertWithTitle:@"签到成功" message:nil appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
+            alertMaker.
+            addActionCancelTitle(@"确定");
+        } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, JXTAlertController * _Nonnull alertSelf) {
+            if (buttonIndex == 0) {
+                NSLog(@"cancel");
+            }
+        }];
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         NSDate *senddate=[NSDate date];
         NSDateFormatter  *dateformatter=[[NSDateFormatter alloc] init];
@@ -240,7 +252,9 @@
                     break;
                 case 1001:
                 {
-                    
+                    WJIntegralOrderListViewController *storeInfo = [[WJIntegralOrderListViewController alloc]init];
+                    self.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:storeInfo animated:YES];
                 }
                     break;
                     case 1002:
@@ -309,6 +323,8 @@
     storeInfo.str_title =  _arr_jiFen[indexPath.row].goods_name;
     storeInfo.str_integral = _arr_jiFen[indexPath.row].integral;
     storeInfo.str_supplierId = _arr_jiFen[indexPath.row].goods_id;
+    storeInfo.str_userIntegral = _str_IntegralNum;
+    storeInfo.listModel =_arr_jiFen[indexPath.row];
     self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:storeInfo animated:YES];
 }

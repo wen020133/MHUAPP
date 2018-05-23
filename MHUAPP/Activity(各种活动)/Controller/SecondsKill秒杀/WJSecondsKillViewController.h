@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseNetworkViewController.h"
-#import "WJButtonNewlineScrollView.h"
+//#import "WJButtonNewlineScrollView.h"
 
-@interface WJSecondsKillViewController : BaseNetworkViewController<ButtonNewlineDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface WJSecondsKillViewController : BaseNetworkViewController
 
 
-@property (strong, nonatomic) WJButtonNewlineScrollView *menuScrollView; //分类ScrollView
-@property (strong, nonatomic) NSMutableArray *arr_dateTitle;
+//@property (strong, nonatomic) WJButtonNewlineScrollView *menuScrollView; //分类ScrollView
+//@property (strong, nonatomic) NSMutableArray *arr_dateTitle;
 @property (strong, nonatomic)  UITableView *mainTableView;
 @end

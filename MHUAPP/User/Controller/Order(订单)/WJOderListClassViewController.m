@@ -159,6 +159,7 @@
                         if (arr_goods&&arr_goods.count>0) {
                             WJOrderShangJiaHeadModel *model = [[WJOrderShangJiaHeadModel alloc]init];
                             model.supplier_id = [[dataArr objectAtIndex:aa] objectForKey:@"supplier_id"];
+                            model.is_group_buy = [[dataArr objectAtIndex:aa] objectForKey:@"is_group_buy"];
                             model.referer = [[dataArr objectAtIndex:aa] objectForKey:@"referer"];
                             model.order_id = [[dataArr objectAtIndex:aa] objectForKey:@"order_id"];
                             model.order_sn = [[dataArr objectAtIndex:aa] objectForKey:@"order_sn"];
@@ -226,6 +227,7 @@
     }
     WJOrderShangJiaHeadModel *shopModel = self.arr_data[indexPath.section];
     WJOrderGoodListModel *model = [shopModel.goodsArray objectAtIndex:indexPath.row];
+    model.is_group_buy = shopModel.is_group_buy;
     cell.listModel = model;
     return cell;
 }

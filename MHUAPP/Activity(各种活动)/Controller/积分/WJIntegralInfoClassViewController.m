@@ -11,7 +11,7 @@
 #import "WJIntegralCollectionListCell.h"
 #import <WebKit/WebKit.h>
 #import "UIView+UIViewFrame.h"
-
+#import "WJWriteIntegralOrderViewController.h"
 
 @interface WJIntegralInfoClassViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIWebViewDelegate>
 /* 商品轮播图 */
@@ -30,7 +30,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initSendReplyWithTitle:@"积分详情" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
-    self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
      [self setUpInit];
 
     [self getGoodsInfoItem];
@@ -57,12 +56,15 @@
             case 1:
             {
                 _shufflingArray = self.results[@"data"][@"gallery"];
+                _str_goods_sn = self.results[@"data"][@"goods_sn"];
                 [_collectionView reloadData];
+                [self getGoodsDescData];
             }
                 break;
             case 2:
             {
-
+                NSString *goods_desc = [[self.results objectForKey:@"data"] objectForKey:@"goods_desc"];
+                [_webView loadHTMLString:goods_desc baseURL:nil];
 
             }
                 break;
@@ -83,10 +85,20 @@
     if (!_scrollerView) {
         _scrollerView = [[UIScrollView alloc] initWithFrame:CGRectZero];
         _scrollerView.frame = self.view.bounds;
-        _scrollerView.contentSize = CGSizeMake(kMSScreenWith, (kMSScreenHeight - 50) * 2);
+        _scrollerView.contentSize = CGSizeMake(kMSScreenWith, kMSScreenHeight+220+kMSScreenWith/2);
         _scrollerView.pagingEnabled = YES;
         _scrollerView.scrollEnabled = NO;
         [self.view addSubview:_scrollerView];
+        
+        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, kMSScreenWith/2+44*4+44, kMSScreenWith,kMSScreenHeight)];
+        _webView.backgroundColor = [UIColor blackColor];
+        _webView.delegate = self;
+        _webView.scrollView.bounces = NO;
+        _webView.scrollView.showsHorizontalScrollIndicator = NO;
+        _webView.scrollView.scrollEnabled = NO;
+        _webView.scalesPageToFit = YES;
+        [self.scrollerView addSubview:_webView];
+        [self.webView.scrollView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
     }
     return _scrollerView;
 }
@@ -100,7 +112,7 @@
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
-        _collectionView.frame = CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight/2+44*4+40);
+        _collectionView.frame = CGRectMake(0, 0, kMSScreenWith, kMSScreenWith/2+44*4+40);
         _collectionView.showsVerticalScrollIndicator = NO;
         [self.scrollerView addSubview:_collectionView];
 
@@ -122,7 +134,6 @@
 #pragma mark - initialize
 - (void)setUpInit
 {
-    self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     self.collectionView.backgroundColor = self.view.backgroundColor;
     self.scrollerView.backgroundColor = self.view.backgroundColor;
@@ -144,7 +155,7 @@
             cell.lab_content.text = [NSString stringWithFormat:@"消耗积分：%@",_str_integral];
             break;
         case 1:
-            cell.lab_content.text = [NSString stringWithFormat:@"商品货号：%@",_str_integral];
+            cell.lab_content.text = [NSString stringWithFormat:@"商品货号：%@",_str_goods_sn];
             break;
         case 2:
             cell.lab_content.text = [NSString stringWithFormat:@"商品库存：%@",_str_integral];
@@ -185,6 +196,26 @@
 }
 -(void)goTobtnBuyNew
 {
+    if ([_str_userIntegral integerValue]<[_str_integral integerValue]) {
+        [self jxt_showAlertWithTitle:@"消息提示" message:@"您的积分不足！" appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
+            alertMaker.
+            addActionCancelTitle(@"确定");
+        } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, JXTAlertController * _Nonnull alertSelf) {
+            if (buttonIndex == 0) {
+                NSLog(@"cancel");
+            }
+        }];
+        return;
+    }
+    else
+    {
+        WJWriteIntegralOrderViewController *storeInfo = [[WJWriteIntegralOrderViewController alloc]init];
+        storeInfo.str_integral = _listModel.integral;
+        storeInfo.listItem =_listModel;
+        storeInfo.str_goods_sn = _str_goods_sn;
+        self.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:storeInfo animated:YES];
+    }
    
 }
 
@@ -204,28 +235,8 @@
 }
 
 
-- (UIWebView *)webView {
-    if (!_webView)
-    { _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, _collectionView.Bottom, kMSScreenWith,kMSScreenHeight)];
-        _webView.delegate = self;
-        _webView.scrollView.bounces = NO;
-        _webView.scrollView.showsHorizontalScrollIndicator = NO;
-        _webView.scrollView.scrollEnabled = NO;
-        _webView.scalesPageToFit = YES;
-        [self.scrollerView addSubview:_webView];
-        [self.webView.scrollView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
-    }
-    return _webView;
-
-}
 // 修改webview的frame
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"contentSize"]) {
-        CGSize resize = [self.webView sizeThatFits:CGSizeZero];
-        self.webView.frame = CGRectMake(0, 0, kMSScreenWith, resize.height);
-
-    }
-
 }
 // 移除监听
 -(void)dealloc {

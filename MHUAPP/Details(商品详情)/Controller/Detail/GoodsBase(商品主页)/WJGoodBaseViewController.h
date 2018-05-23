@@ -11,9 +11,6 @@
 
 @interface WJGoodBaseViewController : BaseNetworkViewController
 
-/** 更改标题 */
-@property (nonatomic , assign) void(^changeTitleBlock)(BOOL isChange);
-
 /* 商品标题 */
 @property (assign , nonatomic)NSString *goodTitle;
 /* 店铺价格 */
@@ -37,5 +34,6 @@
 /* 店铺ID */
 @property (assign , nonatomic) NSString *supplier_id;
 
-
+/* 销售数量 */
+@property (strong , nonatomic) NSString *soldNum;
 @end

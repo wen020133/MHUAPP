@@ -157,7 +157,7 @@
 {
     WJGoodDetailViewController *dcVc = [[WJGoodDetailViewController alloc] init];
     dcVc.goods_id = _goodsImageArr[indexPath.row].goods_id;
-    self.hidesBottomBarWhenPushed = YES;
+    dcVc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:dcVc animated:YES];
 }
 

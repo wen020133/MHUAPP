@@ -11,7 +11,7 @@
 
 #define PFR [[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0 ? @"PingFangSC-Regular" : @"PingFang SC"
 
-#define PFR20Font [UIFont fontWithName:PFR size:20];
+#define PFR20Font [UIFont fontWithName:@"Helvetica-Bold" size:20];
 #define PFR18Font [UIFont fontWithName:PFR size:18];
 #define PFR16Font [UIFont fontWithName:PFR size:16];
 #define PFR15Font [UIFont fontWithName:PFR size:15];
@@ -60,9 +60,9 @@ alpha:1.0]
 #define kMSScreenWith [UIScreen mainScreen].bounds.size.width
 
 
-#define ConvertString(str) ([str isEqual:[NSNull null]] ? @"0" : str)
-#define ConvertNullString(str) ([str isEqual:[NSNull null]] ? @"" : str)
-#define ConvertAnonymousString(str) ([str isEqual:[NSNull null]] ? @"匿名" : str)
+#define ConvertString(str) ([RegularExpressionsMethod isBlankString:str] ? @"0" : str)
+#define ConvertNullString(str) ([RegularExpressionsMethod isBlankString:str] ? @"" : str)
+#define ConvertAnonymousString(str) ([RegularExpressionsMethod isBlankString:str] ? @"匿名" : str)
 #define kMSStartReplyNotification   @"StartReplyNotification"
 #define kMSStartBackNotification   @"StartBackNotification"
 
@@ -97,7 +97,6 @@ alpha:1.0]
 #define ImageViewInit(x,y,width,height) [[UIImageView alloc]initWithFrame:CGRectMake(x, y, width, height)]
 //定义UIImageView对象
 #define ViewInit(x,y,width,height) [[UIView alloc]initWithFrame:CGRectMake(x, y, width, height)]
-
 
 
 #endif

@@ -13,7 +13,7 @@
 
 #define   kMSBaseLargeCollectionPortURL              @"http://api.miyomei.com"                // 杨印章 端口
 #define   kMSBaseMiYoMeiPortURL              @"http://api.miyomei.com/api"                // 程帝洲 端口
-#define   kMSBaseUserHeadPortURL              @"http://api.miyomei.com"                // 头像端口
+#define   kMSBaseUserHeadPortURL              @"https://www.miyomei.com/"                // 头像端口
 
 
 //验证码
@@ -85,7 +85,13 @@
 #define   kMSGetStreetGoods      @"getStreetGoods"                 //店铺街
 #define   kMSGetSupplierNum      @"getSupplierNum"                 //某个店铺的商品总数
 #define   kMSGetBestSeller      @"newGoods"                 //某个店铺热销商品
-
+#define   kMSPostOrderIntegral      @"/v1/postOrderIntegral"                 //积分商城用户下单
+#define   kMSGetGroupList      @"getGroupList"                 //拼团列表
+#define   kMSGetOrderIntegral      @"getOrderIntegral"                 //积分订单
+#define   kMSMiYoMeiGetNum      @"getNum"                 //获取某个商品的销售数量
+#define   kMSPostGoodsList      @"/goods/list"                 //获取分类商品列表
 
 #define   kMSMiYoMeiQuery        @"/v1/query"                 //物流详情
+
+#define   kMSMiYoMeigetGroupOrder        @"/v1/getGroupOrder"                 //拼团下单
 #endif /* MHUURL_h */

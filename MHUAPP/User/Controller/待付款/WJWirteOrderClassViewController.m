@@ -28,6 +28,20 @@
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
      [self initSendReplyWithTitle:@"填写订单" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
 
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *mobile = [[userDefaults objectForKey:@"userAddress"] objectForKey:@"mobile"];
+    if (mobile&&mobile.length>1) {
+        _str_Name = [[userDefaults objectForKey:@"userAddress"] objectForKey:@"consignee"];
+        _str_address = [[userDefaults objectForKey:@"userAddress"] objectForKey:@"assemble_site"];
+        _str_telephone = mobile;
+    }
+    else
+    {
+        _str_telephone = @"请选择收货地址";
+    }
+    [userDefaults synchronize];
+    
+    
     [self.view addSubview:self.myTableView];
 
     [self setupCustomBottomView];
@@ -94,7 +108,7 @@
 
     for (WJCartGoodsModel *model in _dataArray) {
 
-        double price = [model.count_price doubleValue];
+        double price = [model.goods_price doubleValue];
 
         totlePrice += price * model.goods_number;
     }
@@ -136,6 +150,7 @@
         PayViewController *pay = [[PayViewController alloc]init];
         pay.orderNo = self.results[@"data"][@"orderNo"];
         pay.oPrice = self.results[@"data"][@"oPrice"];
+        self.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:pay animated:YES];
     }
     else
@@ -169,10 +184,10 @@
         if (cell == nil) {
             cell = [[WJShopAddressTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"WJShopAddressTableViewCell"];
         }
-        cell.lab_Name.text = self.str_Name;
-        cell.lab_telephone.text = self.str_telephone;
-          cell.str_address = self.str_address;
-        cell.lab_address.text = self.str_address;
+        cell.lab_Name.text = _str_Name;
+        cell.lab_telephone.text = _str_telephone;
+          cell.str_address = _str_address;
+        cell.lab_address.text = _str_address;
 
         return cell;
     }

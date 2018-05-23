@@ -177,7 +177,7 @@ static NSInteger lz_CartRowHeight = 100;
 
     for (WJCartGoodsModel *model in _selectedArray) {
 
-        double price = [model.count_price doubleValue];
+        double price = [model.goods_price doubleValue];
 
         totlePrice += price * model.goods_number;
     }
@@ -438,7 +438,7 @@ static NSInteger lz_CartRowHeight = 100;
        NSMutableDictionary *infos = [NSMutableDictionary dictionary];
         [infos setObject:uid forKey:@"user_id"];
         [infos setObject:model.goods_id forKey:@"goods_id"];
-        [infos setObject:model.count_price forKey:@"price"];
+        [infos setObject:model.goods_price forKey:@"price"];
         [infos setObject:[NSString stringWithFormat:@"%ld",number] forKey:@"num"];
         [infos setObject:model.goods_attr forKey:@"norms"];
         [self changeGoodsNumberWithServer:infos];
@@ -461,7 +461,7 @@ static NSInteger lz_CartRowHeight = 100;
         NSMutableDictionary *infos = [NSMutableDictionary dictionary];
         [infos setObject:uid forKey:@"user_id"];
         [infos setObject:model.goods_id forKey:@"goods_id"];
-        [infos setObject:model.count_price forKey:@"price"];
+        [infos setObject:model.goods_price forKey:@"price"];
         [infos setObject:[NSString stringWithFormat:@"%ld",number] forKey:@"num"];
         [infos setObject:model.goods_attr forKey:@"norms"];
         [self changeGoodsNumberWithServer:infos];

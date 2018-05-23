@@ -27,6 +27,8 @@
 @property (assign , nonatomic)NSString *goodPrice;
 /* 原价格 */
 @property (assign , nonatomic)NSString *oldPrice;
+/* 已售数量 */
+@property (assign , nonatomic)NSString *soldNum;
 
 - (void)assignmentAllLabel;
 

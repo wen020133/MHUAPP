@@ -27,8 +27,8 @@
 
 #import <SVProgressHUD.h>
 #import "DCLIRLButton.h"
-#import <MJRefresh.h>
 
+#import "WJWirteOrderClassViewController.h"
 
 @interface WJGoodBaseViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
@@ -54,17 +54,35 @@ static NSArray *lastSeleArray_;
 
     [self setUpInit];
 
-    [self setUpViewScroller];
-
     [self setUpSuspendView];
 
     _PostCount =0 ;
     [self acceptanceNote];
 
-
+    [self toGetGoodNum];
 
     // Do any additional setup after loading the view.
 }
+
+-(void)toGetGoodNum
+{
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSMiYoMeiGetNum,_goods_id]];
+}
+
+-(void)getProcessData
+{
+    if([[self.results objectForKey:@"code"] integerValue] == 200)
+    {
+        _soldNum = [self.results objectForKey:@"data"];
+        [_collectionView reloadData];
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"data"]];
+        return;
+    }
+}
+
 #pragma mark - LifeCyle
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -149,10 +167,10 @@ static NSArray *lastSeleArray_;
 
             if ([note.userInfo[@"buttonTag"] isEqualToString:@"2"]) { //加入购物车（父类）
 
-                [weakSelf isSelectAlretOrGetData];
+                [weakSelf isSelectAlretOrGetData:100];
 
             }else if ([note.userInfo[@"buttonTag"] isEqualToString:@"3"]){//立即购买（父类）
-
+               [weakSelf isSelectAlretOrGetData:3000];
             }
     }];
 
@@ -170,9 +188,10 @@ static NSArray *lastSeleArray_;
 
         if ([buttonTag isEqualToString:@"0"]) { //加入购物车
 
-            [weakSelf isSelectAlretOrGetData];
+            [weakSelf isSelectAlretOrGetData:100];
 
         }else if ([buttonTag isEqualToString:@"1"]) { //立即购买
+            [weakSelf isSelectAlretOrGetData:3000];
         }
 
     }];
@@ -269,6 +288,7 @@ static NSArray *lastSeleArray_;
             cell.goodTitle = _goodTitle;
             cell.goodPrice = _goodPrice;
             cell.oldPrice = _oldPrice;
+            cell.soldNum = _soldNum;
             [cell assignmentAllLabel];
             gridcell = cell;
         }else if (indexPath.row == 1){
@@ -437,20 +457,8 @@ static NSArray *lastSeleArray_;
             [weakSelf.collectionView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
         }];
     }
-    !_changeTitleBlock ? : _changeTitleBlock(NO);
 }
-#pragma mark - 视图滚动
-- (void)setUpViewScroller{
-    WEAKSELF
-    self.collectionView.mj_footer = [MJRefreshBackFooter footerWithRefreshingBlock:^{
-        [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionLayoutSubviews animations:^{
-            !weakSelf.changeTitleBlock ? : weakSelf.changeTitleBlock(YES);
-//            weakSelf.scrollerView.contentOffset = CGPointMake(0, kMSScreenHeight);
-        } completion:^(BOOL finished) {
-            [weakSelf.collectionView.mj_footer endRefreshing];
-        }];
-    }];
-}
+
 
 #pragma mark - <UIScrollViewDelegate>
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -458,14 +466,14 @@ static NSArray *lastSeleArray_;
     //判断回到顶部按钮是否隐藏
     _backTopButton.hidden = (scrollView.contentOffset.y > kMSScreenHeight) ? NO : YES;
 }
--(void)isSelectAlretOrGetData
+-(void)isSelectAlretOrGetData:(NSInteger)tagSender
 {
     WEAKSELF
 
     if (_attributeArray.count>0) {
         if (lastSeleArray_.count >0) {
 
-                [weakSelf setUpWithAddSuccess];
+            [weakSelf setUpWithAddSuccess:tagSender];
         }
         else {
             WJFeatureSelectionViewController *dcFeaVc = [WJFeatureSelectionViewController new];
@@ -480,51 +488,63 @@ static NSArray *lastSeleArray_;
     }
     else
     {
-          [weakSelf setUpWithAddSuccess];
+          [weakSelf setUpWithAddSuccess:tagSender];
     }
 }
+
+
 #pragma mark - 加入购物车成功
-- (void)setUpWithAddSuccess
+- (void)setUpWithAddSuccess :(NSInteger)tagSender
 {
-    _PostCount++;
-    NSLog(@"执行了%ld次",_PostCount);
-    
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
-    NSString *loginState = [userDefaults objectForKey:@"loginState"];
-    if([loginState isEqualToString:@"0"])
-    {
-        WJLoginClassViewController *land = [[WJLoginClassViewController alloc]init];
-        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:land];
-        [nav.navigationBar setIsMSNavigationBar];
-        [self presentViewController:nav animated:YES completion:^{
-        }];
-        return;
-    }
 
-    NSString *result ;
-    if (_attributeArray.count>0) {
-      result  = [NSString stringWithFormat:@"%@",[lastSeleArray_ componentsJoinedByString:@","]];
+    if (tagSender==100) {
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
+        NSString *loginState = [userDefaults objectForKey:@"loginState"];
+        if(![loginState isEqualToString:@"1"])
+        {
+            WJLoginClassViewController *land = [[WJLoginClassViewController alloc]init];
+            UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:land];
+            [nav.navigationBar setIsMSNavigationBar];
+            [self presentViewController:nav animated:YES completion:^{
+            }];
+            return;
+        }
 
+        NSString *result ;
+        if (_attributeArray.count>0) {
+            result  = [NSString stringWithFormat:@"%@",[lastSeleArray_ componentsJoinedByString:@","]];
+
+        }
+        else
+        {
+            result = @"";
+            lastNum_ = @"1";
+        }
+
+
+
+        NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+        [infos setObject:uid forKey:@"user_id"];
+        [infos setObject:_goods_id forKey:@"goods_id"];
+        [infos setObject:_goodPrice forKey:@"price"];
+        [infos setObject:lastNum_ forKey:@"num"];
+        [infos setObject:result forKey:@"norms"];
+//        [infos setObject:self.supplier_id forKey:@"supplier_id"];
+        [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSPostCart] andInfos:infos];
     }
     else
     {
-        result = @"";
-        lastNum_ = @"1";
+        WEAKSELF
+        WJWirteOrderClassViewController *shopCarVc = [[WJWirteOrderClassViewController alloc] init];
+        shopCarVc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:shopCarVc animated:YES];
+        weakSelf.hidesBottomBarWhenPushed = YES;
     }
-
-
-
-    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-    [infos setObject:uid forKey:@"user_id"];
-    [infos setObject:_goods_id forKey:@"goods_id"];
-     [infos setObject:_goodPrice forKey:@"price"];
-     [infos setObject:lastNum_ forKey:@"num"];
-     [infos setObject:result forKey:@"norms"];
-//     [infos setObject:self.supplier_id forKey:@"supplier_id"];
-    [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSPostCart] andInfos:infos];
+    
 
 }
+
 -(void)processData
 {
 
@@ -537,7 +557,7 @@ static NSArray *lastSeleArray_;
     }
     else
     {
-       [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"msg"]];
+       [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"data"]];
         return;
     }
 }

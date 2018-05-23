@@ -38,9 +38,15 @@
 
     _gridLabel = [[UILabel alloc] init];
     _gridLabel.font = PFR14Font;
-    _gridLabel.numberOfLines = 2;
+    _gridLabel.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
     _gridLabel.textAlignment = NSTextAlignmentLeft;
     [self addSubview:_gridLabel];
+
+    _goods_briefLabel = [[UILabel alloc] init];
+    _goods_briefLabel.font = PFR12Font;
+    _goods_briefLabel.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
+    _goods_briefLabel.textAlignment = NSTextAlignmentLeft;
+    [self addSubview:_goods_briefLabel];
 
     _priceLabel = [[UILabel alloc] init];
     _priceLabel.font = PFR18Font;
@@ -52,14 +58,22 @@
     _oldPriceLabel.textColor = [UIColor darkGrayColor];
     [self addSubview:_oldPriceLabel];
 
+    _lab_count = [[UILabel alloc] init];
+    _lab_count.font = PFR12Font;
+    _lab_count.textColor = [UIColor darkGrayColor];
+    [self addSubview:_lab_count];
+
     _btn_action = [UIButton buttonWithType:UIButtonTypeCustom];
-    _btn_action.frame = CGRectMake(kMSScreenWith-100, 63, 90, 30);
-    _btn_action.layer.borderColor = [[UIColor redColor] CGColor];
+    _btn_action.frame = CGRectMake(kMSScreenWith-100, 45, 90, 30);
+    [_btn_action setBackgroundColor:[UIColor redColor]];
     _btn_action.layer.cornerRadius = 2.0f;
     _btn_action.layer.masksToBounds = YES;
+    [_btn_action setTitle:@"立即抢购" forState:UIControlStateNormal];
+    _btn_action.titleLabel.font = Font(14);
+    [_btn_action setTitleColor:kMSCellBackColor forState:UIControlStateNormal];
     [self.contentView addSubview:_btn_action];
 
-    [RegularExpressionsMethod dc_setUpAcrossPartingLineWith:self WithColor:[[UIColor lightGrayColor]colorWithAlphaComponent:0.4]];
+    [RegularExpressionsMethod dc_setUpAcrossPartingLineWith:self WithColor:[[UIColor lightGrayColor]colorWithAlphaComponent:0.3]];
 }
 
 - (void)layoutSubviews
@@ -73,34 +87,48 @@
     }];
 
 
+
     [_gridLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-    [make.left.mas_equalTo(_gridImageView.mas_right)setOffset:DCMargin];
-        [make.top.mas_equalTo(self)setOffset:-3];
+        [make.left.mas_equalTo(_gridImageView.mas_right)setOffset:DCMargin];
+        [make.top.mas_equalTo(self)setOffset:3];
+        [make.right.mas_equalTo(self)setOffset:-DCMargin];
+    }];
+
+    [_goods_briefLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        [make.left.mas_equalTo(_gridImageView.mas_right)setOffset:DCMargin];
+        [make.top.mas_equalTo(_gridLabel.mas_bottom)setOffset:3];
         [make.right.mas_equalTo(self)setOffset:-DCMargin];
     }];
 
 
     [_priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(_gridImageView.mas_right);
-    [make.top.mas_equalTo(_gridLabel.mas_bottom)setOffset:20];
+        [make.left.mas_equalTo(_gridImageView.mas_right)setOffset:DCMargin];
+        [make.top.mas_equalTo(_goods_briefLabel.mas_bottom)setOffset:10];
     }];
 
     [_oldPriceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(_gridImageView.mas_right);
-        [make.top.mas_equalTo(_priceLabel.mas_bottom)setOffset:2];
+        [make.left.mas_equalTo(_gridImageView.mas_right)setOffset:10];
+        make.top.mas_equalTo(_priceLabel.mas_bottom);
+    }];
+
+    [_lab_count mas_makeConstraints:^(MASConstraintMaker *make) {
+        [make.left.mas_equalTo(_oldPriceLabel.mas_right)setOffset:50];
+        make.top.mas_equalTo(_priceLabel.mas_bottom);
     }];
 }
--(void)setGoodsItem:(WJSecondsKillItem *)goodsItem
-{
-    _goodsItem = goodsItem;
-    [_gridImageView sd_setImageWithURL:[NSURL URLWithString:_goodsItem.image_url]];
-    _priceLabel.text = [NSString stringWithFormat:@"¥ %.2f",[_goodsItem.price floatValue]];
-    NSString *oldprice = [NSString stringWithFormat:@"￥%@件",_goodsItem.old_price];
-    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:oldprice
-                                                                                attributes:@{NSStrikethroughStyleAttributeName : @(NSUnderlineStyleSingle)}];
-    _oldPriceLabel.attributedText = attrStr;
-    _gridLabel.text = _goodsItem.main_title;
-}
+//-(void)setGoodsItem:(WJSecondsKillItem *)goodsItem
+//{
+//    _goodsItem = goodsItem;
+//    _gridLabel.text = _goodsItem.goods_name;
+//    _goods_briefLabel.text = _goodsItem.goods_brief;
+//    [_gridImageView sd_setImageWithURL:[NSURL URLWithString:_goodsItem.goods_thumb]];
+//    _priceLabel.text = [NSString stringWithFormat:@"¥ %.2f",[_goodsItem.shop_price floatValue]];
+//    NSString *oldprice = [NSString stringWithFormat:@"￥%@件",_goodsItem.market_price];
+//    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:oldprice
+//                                                                                attributes:@{NSStrikethroughStyleAttributeName : @(NSUnderlineStyleSingle)}];
+//    _oldPriceLabel.attributedText = attrStr;
+//
+//}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

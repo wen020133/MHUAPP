@@ -9,13 +9,15 @@
 #import "WJSecondsKillViewController.h"
 #import "WJTimeLabel.h"
 #import "MJRefresh.h"
-
+#import "WJSecondsKillItem.h"
 #import "WJSecondsKissCell.h"
+#import <UIImageView+WebCache.h>
 
-
-@interface WJSecondsKillViewController ()
+@interface WJSecondsKillViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (strong , nonatomic) WJTimeLabel *timeView;
+/* 商品数据 */
+@property (strong , nonatomic) NSArray  *countDownItem;
 
 @end
 
@@ -25,85 +27,98 @@
     [super viewDidLoad];
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     [self initSendReplyWithTitle:@"限时秒杀" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
-    [self getSecondsKillData];
-    [self addTimeViewHead];
+
+    [self.view addSubview:self.mainTableView];
     // Do any additional setup after loading the view.
 }
 -(void)getSecondsKillData
 {
-    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSMainGetSeckill]];
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetToday]];
 }
--(void)processData
+-(void)getProcessData
 {
-    if([[self.results objectForKey:@"code"] integerValue] == 200)
-    {
+    [_mainTableView.mj_header endRefreshing];
+    [_mainTableView.mj_footer endRefreshing];
+        if([[self.results objectForKey:@"code"] integerValue] == 200)
+        {
 
+          NSArray *arr_Datalist = [[[self.results objectForKey:@"data"] objectAtIndex:0] objectForKey:@"activity"];
+            if (arr_Datalist&&arr_Datalist.count>0) {
 
+              _countDownItem= arr_Datalist;
 
-    }
-    else
-    {
+                [_mainTableView reloadData];
 
-        //        [self.collectionV.mj_header endRefreshing];
-        //        [self.collectionV.mj_footer endRefreshing];
-    }
-}
--(NSMutableArray *)arr_dateTitle
-{
-    if (_arr_dateTitle.count<1) {
-            NSDate *now=[NSDate date];
-            NSCalendar *cal=[NSCalendar currentCalendar];
-            unsigned int time=NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond;
-            NSDateComponents *t=[cal components:time fromDate:now];
-            int year=(int)[t year];
-            int month=(int)[t month];
-            int day=(int)[t day];
-        //判断当前月分的天数
-        int endDate = 0;
-        switch (month) {
-            case 1:
-            case 3:
-            case 5:
-            case 7:
-            case 8:
-            case 10:
-            case 12:
-                endDate = 31;
-                break;
-                break;
-            case 4:
-            case 6:
-            case 9:
-            case 11:
-                endDate = 30;
-                break;
-            case 2:
-                // 是否为闰年
-                if (year % 400 == 0) {
-                    endDate = 29;
-                    break;
-                } else {
-                    if (year % 100 != 0 && year %4 ==4) {
-                        endDate = 29;
-                    } else {
-                        endDate = 28;
-                    }
-                    break;
-                }
-                break;
-            default:
-                break;
+                [_mainTableView.mj_footer endRefreshingWithNoMoreData];
+            [self addTimeViewHead];
+            }
+            else
+            {
+                [_mainTableView.mj_footer endRefreshingWithNoMoreData];
+            }
+
         }
-
-        NSDictionary *dic =  [self calculateDateWithEndDate:endDate withDay:day withMonth:month];
-        NSLog(@"%@",dic);
-        NSString *today = [NSString stringWithFormat:@"%@日9:00\n正在抢购",dic[@"day"]];
-        NSString *tomorrow = [NSString stringWithFormat:@"%@日9:00\n即将开始",dic[@"tomorrow"]];
-        NSString *afterDay = [NSString stringWithFormat:@"%@日9:00\n即将开始",dic[@"afterDay"]];
-        self.arr_dateTitle = [NSMutableArray arrayWithObjects:today,tomorrow,afterDay, nil];
-    }
-    return _arr_dateTitle;
+        else
+        {
+            [self requestFailed:@"获取数据失败"];
+        }
 }
+//-(NSMutableArray *)arr_dateTitle
+//{
+//    if (_arr_dateTitle.count<1) {
+//            NSDate *now=[NSDate date];
+//            NSCalendar *cal=[NSCalendar currentCalendar];
+//            unsigned int time=NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond;
+//            NSDateComponents *t=[cal components:time fromDate:now];
+//            int year=(int)[t year];
+//            int month=(int)[t month];
+//            int day=(int)[t day];
+//        //判断当前月分的天数
+//        int endDate = 0;
+//        switch (month) {
+//            case 1:
+//            case 3:
+//            case 5:
+//            case 7:
+//            case 8:
+//            case 10:
+//            case 12:
+//                endDate = 31;
+//                break;
+//                break;
+//            case 4:
+//            case 6:
+//            case 9:
+//            case 11:
+//                endDate = 30;
+//                break;
+//            case 2:
+//                // 是否为闰年
+//                if (year % 400 == 0) {
+//                    endDate = 29;
+//                    break;
+//                } else {
+//                    if (year % 100 != 0 && year %4 ==4) {
+//                        endDate = 29;
+//                    } else {
+//                        endDate = 28;
+//                    }
+//                    break;
+//                }
+//                break;
+//            default:
+//                break;
+//        }
+//
+//        NSDictionary *dic =  [self calculateDateWithEndDate:endDate withDay:day withMonth:month];
+//        NSLog(@"%@",dic);
+//        NSString *today = [NSString stringWithFormat:@"%@日9:00\n正在抢购",dic[@"day"]];
+//        NSString *tomorrow = [NSString stringWithFormat:@"%@日9:00\n即将开始",dic[@"tomorrow"]];
+//        NSString *afterDay = [NSString stringWithFormat:@"%@日9:00\n即将开始",dic[@"afterDay"]];
+//        self.arr_dateTitle = [NSMutableArray arrayWithObjects:today,tomorrow,afterDay, nil];
+//    }
+//    return _arr_dateTitle;
+//}
 -(NSDictionary *)calculateDateWithEndDate:(int)endDate withDay:(NSInteger)day withMonth:(NSInteger)month
 {
     NSInteger tomorrow = 0; //明天
@@ -176,26 +191,26 @@
 -(void)addTimeViewHead
 {
     [self.view addSubview:self.timeView];
-    _timeView.secondsCountDown = 48*3600;
-    [self.view addSubview:self.menuScrollView];
+    _timeView.secondsCountDown = [[[self.results objectForKey:@"data"] objectAtIndex:0] objectForKey:@"end_time"];
+//    [self.view addSubview:self.menuScrollView];
 }
 
--(WJButtonNewlineScrollView *)menuScrollView
-{
-    if(!_menuScrollView)
-    {
-        _menuScrollView = [[WJButtonNewlineScrollView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 50)];
-        _menuScrollView.delegate = self;
-        _menuScrollView.backgroundColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
-        _menuScrollView.arr_titles = self.arr_dateTitle;
-        [_menuScrollView initScrollView];
-    }
-    return _menuScrollView;
-}
+//-(WJButtonNewlineScrollView *)menuScrollView
+//{
+//    if(!_menuScrollView)
+//    {
+//        _menuScrollView = [[WJButtonNewlineScrollView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 50)];
+//        _menuScrollView.delegate = self;
+//        _menuScrollView.backgroundColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
+//        _menuScrollView.arr_titles = self.arr_dateTitle;
+//        [_menuScrollView initScrollView];
+//    }
+//    return _menuScrollView;
+//}
 -(WJTimeLabel *)timeView
 {
     if (!_timeView) {
-        _timeView = [[WJTimeLabel alloc]initWithFrame:CGRectMake(0, 50, kMSScreenWith, 70)];
+        _timeView = [[WJTimeLabel alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 70)];
         _timeView.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     }
     return _timeView;
@@ -205,7 +220,7 @@
 {
     if (!_mainTableView) {
 
-        self.mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight-kMSNaviHight-44)];
+        self.mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 70, kMSScreenWith, kMSScreenHeight-kMSNaviHight-70)];
         self.mainTableView.backgroundColor = [UIColor clearColor];
         self.mainTableView.delegate = self;
         self.mainTableView.dataSource = self;
@@ -224,7 +239,7 @@
 }
 -(void)headerKillRereshing
 {
-
+      [self getSecondsKillData];
 }
 
 -(void)footerKillRereshing
@@ -244,7 +259,7 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 
-    return 2;
+    return _countDownItem.count;
 }
 
 
@@ -258,6 +273,22 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     WJSecondsKissCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WJSecondsKissCell" forIndexPath:indexPath];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@",_countDownItem[indexPath.row][@"goods"][@"goods_thumb"]];
+    [cell.gridImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"] completed:nil];
+    cell.gridLabel.text = _countDownItem[indexPath.row][@"goods"] [@"goods_name"];
+    cell.goods_briefLabel.text = _countDownItem[indexPath.row][@"goods"] [@"goods_brief"];
+    cell.priceLabel.text = [NSString stringWithFormat:@"￥%@",_countDownItem[indexPath.row][@"goods_price"]];
+
+    NSString *oldprice = _countDownItem[indexPath.row][@"goods"] [@"shop_price"];
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:oldprice
+                                                                                attributes:@{NSStrikethroughStyleAttributeName : @(NSUnderlineStyleSingle)}];
+    cell.oldPriceLabel.attributedText = attrStr;
+
+    NSString *kill_num = _countDownItem[indexPath.row][@"kill_num"];
+    NSString *goods_num = _countDownItem[indexPath.row][@"goods_num"];
+    NSInteger num =  [kill_num integerValue]-[goods_num integerValue];
+    cell.lab_count.text = [NSString stringWithFormat:@"已售%ld件",num];
     return cell;
 }
 

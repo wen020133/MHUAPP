@@ -11,6 +11,7 @@
 #import "WJListGoodsCell.h"
 #import "WJSwitchGridCell.h"
 #import "WJGoodDetailViewController.h"
+#import "MJRefresh.h"
 
 #import "WJGoodsListItem.h"
 
@@ -46,12 +47,63 @@ static CGFloat _lastContentOffset;
     [self initSendReplyWithTitle:self.goodTypeName andLeftButtonName:@"ic_back.png" andRightButtonName:@"nav_btn_jiugongge" andTitleLeftOrRight:YES];
 
     _isSwitchGrid = NO;
-    _setItem = [WJGoodsListItem mj_objectArrayWithFilename:@"ClasiftyGoods.plist"];
+     _str_type = @"1";
+    _type_numb = @"2";
     [self.view addSubview:self.collectionView];
 
     [self setUpSuspendView];
-
     // Do any additional setup after loading the view.
+}
+-(void)initinfomationClassData
+{
+    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+    [infos setValue:kMSPULLtableViewCellNumber forKey:@"numb"];
+    [infos setValue:_category_id forKey:@"category_id"];
+    [infos setValue:_str_type forKey:@"type"];
+    [infos setValue:_type_numb forKey:@"type_numb"];
+    [infos setValue:[NSString stringWithFormat:@"%ld",_page_Information] forKey:@"start"];
+    [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSPostGoodsList] andInfos:infos];
+}
+
+-(void)processData
+{
+    [_collectionView.mj_header endRefreshing];
+    [_collectionView.mj_footer endRefreshing];
+    if([[self.results objectForKey:@"code"] integerValue] == 200)
+    {
+
+        NSMutableArray *arr_Datalist = [NSMutableArray array];
+                arr_Datalist = [self.results objectForKey:@"data"];
+        NSMutableArray *entities = [NSMutableArray array];
+                if (arr_Datalist&&arr_Datalist.count>0) {
+
+                    entities = [WJGoodsListItem mj_objectArrayWithKeyValuesArray:arr_Datalist];
+                    if(_page_Information==0)
+                    {
+                        _setItem= entities;
+                    }else
+                    {
+                        [_setItem addObjectsFromArray:entities];
+                    }
+                    [_collectionView reloadData];
+                    if(entities.count<[kMSPULLtableViewCellNumber integerValue])
+                    {
+                        [_collectionView.mj_footer endRefreshingWithNoMoreData];
+                    }
+                    else{
+                        _collectionView.mj_footer.hidden = NO;
+                    }
+                }
+        else
+        {
+            [_collectionView.mj_footer endRefreshingWithNoMoreData];
+        }
+
+    }
+    else
+    {
+        [self requestFailed:@"获取数据失败"];
+    }
 }
 #pragma mark - LazyLoad
 - (UICollectionView *)collectionView
@@ -68,8 +120,28 @@ static CGFloat _lastContentOffset;
         [_collectionView registerClass:[WJListGoodsCell class] forCellWithReuseIdentifier:@"WJListGoodsCell"];//cell
         [_collectionView registerClass:[WJSwitchGridCell class] forCellWithReuseIdentifier:@"WJSwitchGridCell"];//cell
         [self.view addSubview:_collectionView];
+        // 下拉刷新
+        _collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRereshingCircle)];
+        [_collectionView.mj_header beginRefreshing];
+        // 上拉刷新
+        _collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshingCircle)];
     }
     return _collectionView;
+}
+-(void)headerRereshingCircle
+{
+    [_collectionView.mj_header endRefreshing];
+    [_collectionView.mj_footer endRefreshing];
+    _page_Information = 0;
+    [self initinfomationClassData];
+}
+
+-(void)footerRereshingCircle
+{
+    [_collectionView.mj_header endRefreshing];
+    [_collectionView.mj_footer endRefreshing];
+    _page_Information = _page_Information+10;
+    [self initinfomationClassData];
 }
 #pragma mark - 切换Model
 - (void)showright
@@ -134,7 +206,7 @@ static CGFloat _lastContentOffset;
 }
 #pragma mark - item宽高
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return (_isSwitchGrid) ? CGSizeMake(kMSScreenWith, 100) : CGSizeMake((kMSScreenWith - 4)/2, (kMSScreenWith - 4)/2 + 60);//列表、网格Cell
+    return (_isSwitchGrid) ? CGSizeMake(kMSScreenWith, 100) : CGSizeMake((kMSScreenWith - 4)/2, (kMSScreenWith - 4)/2 + 50);//列表、网格Cell
 }
 
 #pragma mark - head宽高
@@ -157,13 +229,13 @@ static CGFloat _lastContentOffset;
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"点击了商品第%zd",indexPath.row);
     WJGoodDetailViewController *dcVc = [[WJGoodDetailViewController alloc] init];
-    dcVc.goods_id = _setItem[indexPath.row].stock;
+    dcVc.goods_id = _setItem[indexPath.row].goods_id;
 //    dcVc.goodTitle = _setItem[indexPath.row].main_title;
 //    dcVc.goodPrice = _setItem[indexPath.row].price;
 //    dcVc.goodSubtitle = _setItem[indexPath.row].goods_title;
 //    dcVc.shufflingArray = _setItem[indexPath.row].images;
 //    dcVc.goodImageView = _setItem[indexPath.row].image_url;
-    self.hidesBottomBarWhenPushed = YES;
+    dcVc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:dcVc animated:YES];
 }
 
@@ -204,10 +276,45 @@ static CGFloat _lastContentOffset;
 }
 -(void)filtrateButtonClick:(NSInteger)tag
 {
-    if (tag==103) {
-        [WJSildeBarView dc_showSildBarViewController];
-    }
 
+    switch (tag) {
+        case 1000:
+            {
+                _page_Information = 0;
+                _str_type = @"1";
+                _type_numb = @"2";
+            }
+            break;
+        case 1001:
+        {
+            _page_Information = 0;
+            _str_type = @"2";
+            _type_numb = @"2";
+        }
+            break;
+        case 1002:
+        {
+            _page_Information = 0;
+            _str_type = @"3";
+            _type_numb = @"2";
+        }
+            break;
+        case 1003:
+        {
+           [WJSildeBarView dc_showSildBarViewController];
+        }
+            break;
+        case 1004:
+        {
+            _page_Information = 0;
+            _str_type = @"2";
+            _type_numb = @"1";
+        }
+        default:
+            break;
+    }
+    [self initinfomationClassData];
+    [self ScrollToTop];
 }
 
 #pragma 退出界面

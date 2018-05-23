@@ -14,7 +14,7 @@
 
 @property (nonatomic, strong) UILabel *totalPayPrice;
 
-@property  NSInteger orderType;
+@property (assign,nonatomic)  NSInteger orderType;
 
 /** 筛选点击回调 */
 @property (nonatomic , copy) void(^ClickStateForStrBlock)(NSString *stateStr);

@@ -39,4 +39,5 @@ typedef NS_ENUM(NSInteger, KGetShopInfoClassType) {
 /* 店铺ID */
 @property (strong , nonatomic) NSString *supplier_id;
 @property (assign, nonatomic) KGetShopInfoClassType serverType;
+
 @end

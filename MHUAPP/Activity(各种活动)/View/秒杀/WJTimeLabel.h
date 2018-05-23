@@ -20,6 +20,6 @@
 //创建定时器(因为下面两个方法都使用,所以定时器拿出来设置为一个属性)
 @property (nonatomic,strong) NSTimer *countDownTimer;
 
-@property NSInteger  secondsCountDown;
+@property (nonatomic, assign) NSString  *secondsCountDown;
 
 @end

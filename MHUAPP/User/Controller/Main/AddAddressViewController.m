@@ -275,17 +275,25 @@
         [infodic setValue:[self.records objectAtIndex:indexPath.row].consignee forKey:@"name"];
         [infodic setValue:[self.records objectAtIndex:indexPath.row].assemble_site forKey:@"address"];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"selectAddressNote" object:self userInfo:infodic];
+        
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        [dic setValue:[self.records objectAtIndex:indexPath.row].mobile forKey:@"mobile"];
+        [dic setValue:[self.records objectAtIndex:indexPath.row].consignee forKey:@"consignee"];
+        [dic setValue:[self.records objectAtIndex:indexPath.row].assemble_site forKey:@"assemble_site"];
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:dic forKey:@"userAddress"];
+        [userDefaults synchronize];
         [self.navigationController popViewControllerAnimated:YES];
         return;
     }
-        AddressCell *cell=(AddressCell*)[tableView cellForRowAtIndexPath:indexPath];
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    NSMutableDictionary *info = [NSMutableDictionary dictionary];
-    [info setValue:cell.lab_Name.text forKey:@"name"];
-    [info setValue:cell.lab_telephone.text forKey:@"telephone"];
-    [info setValue:cell.lab_address.text forKey:@"address"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"addressChange" object:self userInfo:info];
-    [self.navigationController popViewControllerAnimated:YES];
+//        AddressCell *cell=(AddressCell*)[tableView cellForRowAtIndexPath:indexPath];
+//        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+//    NSMutableDictionary *info = [NSMutableDictionary dictionary];
+//    [info setValue:cell.lab_Name.text forKey:@"name"];
+//    [info setValue:cell.lab_telephone.text forKey:@"telephone"];
+//    [info setValue:cell.lab_address.text forKey:@"address"];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"addressChange" object:self userInfo:info];
+//    [self.navigationController popViewControllerAnimated:YES];
 }
 
 

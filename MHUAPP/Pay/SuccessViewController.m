@@ -88,7 +88,10 @@
         [self.navigationController pushViewController:ad animated:YES];
     }
 }
-
+-(void)showleft
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
 -(void)look
 {
     self.hidesBottomBarWhenPushed = YES;

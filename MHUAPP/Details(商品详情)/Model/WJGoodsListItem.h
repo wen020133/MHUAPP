@@ -10,20 +10,20 @@
 
 @interface WJGoodsListItem : NSObject
 /** 图片URL */
-@property (nonatomic, copy ,readonly) NSString *image_url;
+@property (nonatomic, copy ,readonly) NSString *goods_thumb;
 /** 商品标题 */
-@property (nonatomic, copy ,readonly) NSString *main_title;
-/** 商品小标题 */
-@property (nonatomic, copy ,readonly) NSString *goods_title;
+@property (nonatomic, copy ,readonly) NSString *goods_name;
+///** 商品小标题 */
+//@property (nonatomic, copy ,readonly) NSString *goods_title;
 /** 商品价格 */
-@property (nonatomic, copy ,readonly) NSString *price;
+@property (nonatomic, copy ,readonly) NSString *shop_price;
 /** 剩余 */
 @property (nonatomic, copy ,readonly) NSString *stock;
-/** 属性 */
-@property (nonatomic, copy ,readonly) NSString *nature;
+/** 货号 */
+@property (nonatomic, copy ,readonly) NSString *goods_sn;
 /* 商品ID */
 @property (strong , nonatomic)NSString *goods_id;
 
 /** 销售数量 */
-@property (nonatomic, copy ,readonly) NSString *sale_count;
+@property (nonatomic, copy ,readonly) NSString *goods_number;
 @end

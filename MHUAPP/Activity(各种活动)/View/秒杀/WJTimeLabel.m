@@ -9,6 +9,11 @@
 #import "WJTimeLabel.h"
 #import "UIView+UIViewFrame.h"
 
+@interface WJTimeLabel()
+
+@property NSInteger  sCountDown;
+
+@end
 
 
 @implementation WJTimeLabel
@@ -23,8 +28,7 @@
 }
 -(void)setupLabelInit
 {
-    //设置定时器
-    _countDownTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDownAction) userInfo:nil repeats:YES];
+
     //启动倒计时后会每秒钟调用一次方法 countDownAction
 
     CGFloat offset = 0;
@@ -110,19 +114,24 @@
     thredLable.textAlignment = NSTextAlignmentCenter;
     thredLable.font = [UIFont systemFontOfSize:15];
     [self addSubview:thredLable];
+
+    _sCountDown = [self getDateDifferenceWithNowDateStr:_secondsCountDown];
+
+    //设置定时器
+    _countDownTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDownAction) userInfo:nil repeats:YES];
 }
 
 //实现倒计时动作
 -(void)countDownAction{
     //倒计时-1
-    self.secondsCountDown--;
+    _sCountDown--;
 
     //重新计算 时/分/秒
-    NSString *str_hour = [NSString stringWithFormat:@"%02ld",self.secondsCountDown/3600];
+    NSString *str_hour = [NSString stringWithFormat:@"%02ld",_sCountDown/3600];
 
-    NSString *str_minute = [NSString stringWithFormat:@"%02ld",(self.secondsCountDown%3600)/60];
+    NSString *str_minute = [NSString stringWithFormat:@"%02ld",(_sCountDown%3600)/60];
 
-    NSString *str_second = [NSString stringWithFormat:@"%02ld",self.secondsCountDown%60];
+    NSString *str_second = [NSString stringWithFormat:@"%02ld",_sCountDown%60];
 
     //修改倒计时标签及显示内容
     self.hourLabel1.text=[str_hour substringToIndex:1];
@@ -138,6 +147,17 @@
         [_countDownTimer invalidate];
     }
 
+}
+
+- (NSInteger)getDateDifferenceWithNowDateStr:(NSString*)deadlineStr {
+    NSInteger timeDifference = 0;
+    NSDate* dat = [NSDate dateWithTimeIntervalSinceNow:0];
+    NSTimeInterval nowDate=[dat timeIntervalSince1970];
+
+    NSTimeInterval endTime = [deadlineStr doubleValue];
+    timeDifference = endTime-nowDate;
+
+    return timeDifference;
 }
 /*
 // Only override drawRect: if you perform custom drawing.

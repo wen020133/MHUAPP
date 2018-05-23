@@ -10,11 +10,13 @@
 
 @interface WJSecondsKillItem : NSObject
 /** 图片URL */
-@property (nonatomic, copy ,readonly) NSString *image_url;
+@property (nonatomic, copy ,readonly) NSString *goods_thumb;
 /** 商品标题 */
-@property (nonatomic, copy ,readonly) NSString *main_title;
+@property (nonatomic, copy ,readonly) NSString *goods_name;
+/** 小标题 */
+@property (nonatomic, copy ,readonly) NSString *goods_brief;
 /** 商品价格 */
-@property (nonatomic, copy ,readonly) NSString *price;
+@property (nonatomic, copy ,readonly) NSString *shop_price;
 /** 销售数量 */
-@property (nonatomic, copy ,readonly) NSString *old_price;
+@property (nonatomic, copy ,readonly) NSString *market_price;
 @end

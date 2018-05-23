@@ -250,7 +250,7 @@
     WJGoodsSetViewController *dcVc = [[WJGoodsSetViewController alloc] init];
      _mainmodel = [WJClassGoodsItem mj_objectArrayWithKeyValuesArray:[[[[self.arr_collectionList objectAtIndex:_selectIndex] objectForKey:@"children"] objectAtIndex:indexPath.section] objectForKey:@"children"]];
     dcVc.goodTypeName = _mainmodel[indexPath.row].cat_name;
-    NSLog(@"cat_id====%@",_mainmodel[indexPath.row].cat_id);
+    dcVc.category_id = _mainmodel[indexPath.row].cat_id;
     [self.navigationController pushViewController:dcVc animated:YES];
     self.hidesBottomBarWhenPushed = NO;
 }

@@ -33,17 +33,23 @@
     imgLine.backgroundColor = [[UIColor lightGrayColor]colorWithAlphaComponent:0.4];
     [self.contentView addSubview:imgLine];
 
-    [self addActionOrderState:_orderType];
 }
 
--(void)addActionOrderState:(NSInteger )orderType
+
+-(void)setOrderType:(NSInteger)orderType
 {
+    for(UIView *mylabelview in [self.contentView subviews]) {
+        if ([mylabelview isKindOfClass:[UIButton class]]) {
+             [mylabelview removeFromSuperview];
+        }
+    }
+
     NSMutableArray *arr_buttonTitle = [NSMutableArray array];
     switch (orderType) {
         case 0:   //待付款
-            {
-                arr_buttonTitle = [NSMutableArray arrayWithObjects:@"立即支付",@"取消订单", nil];
-            }
+        {
+            arr_buttonTitle = [NSMutableArray arrayWithObjects:@"立即支付",@"取消订单", nil];
+        }
             break;
         case 1:  //待发货
         {

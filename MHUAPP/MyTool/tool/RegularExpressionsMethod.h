@@ -51,4 +51,6 @@
 
 #pragma mark - 账号以字母开头，字母或者数字组合，6到12位
 +(BOOL)regularAccount:(NSString *)account;
+
++ (BOOL)isBlankString:(NSString *)string;
 @end

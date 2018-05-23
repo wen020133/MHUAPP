@@ -73,8 +73,16 @@
         _listModel = listModel;
     }
     [_contentImg sd_setImageWithURL:[NSURL URLWithString:_listModel.img] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"] completed:nil];
+    NSString *price =@"";
 
-    NSString *price = [NSString stringWithFormat:@"￥%@",_listModel.count_price];
+    if ([_listModel.is_group_buy integerValue]==2) {
+       price = [NSString stringWithFormat:@"%@积分",_listModel.count_price];
+    }
+    else
+    {
+    price = [NSString stringWithFormat:@"￥%@",_listModel.count_price];
+
+    }
     CGFloat width = [RegularExpressionsMethod widthOfString:price font:Font(14) height:23];
     _price.frame = CGRectMake(kMSScreenWith-width-10, 5, width, 23);
     _price.text = price;

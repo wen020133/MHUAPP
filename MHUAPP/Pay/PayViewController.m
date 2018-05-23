@@ -27,7 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [self initView];
+    [self initView];
     self.view.backgroundColor = kMSColorFromRGB(127, 127, 127);
     [self.view addSubview:self.tb];
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];

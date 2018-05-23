@@ -16,7 +16,9 @@
 #import "WJToolsViewController.h"
 #import "XWDrawerAnimator.h"
 #import "UIViewController+XWTransition.h"
+
 #import "WJShopCartClassViewController.h"
+
 
 #import "PST_MenuView.h"
 
@@ -250,7 +252,6 @@
 #pragma mark - 添加子控制器
 -(void)setUpChildViewControllers
 {
-    WEAKSELF
     WJGoodBaseViewController *goodBaseVc = [[WJGoodBaseViewController alloc] init];
     goodBaseVc.goodTitle = _goodTitle;
     goodBaseVc.goodPrice = _goodPrice;
@@ -277,15 +278,6 @@
     goodBaseVc.goods_id = _goods_id;
     goodBaseVc.supplier_id = _supplier_id;
     goodBaseVc.commentArray = _getCommentArray;
-    goodBaseVc.changeTitleBlock = ^(BOOL isChange) {
-        if (isChange) {
-            UIButton *firstButton = _bgView.subviews[1];
-            [weakSelf topBottonClick:firstButton];
-            weakSelf.scrollerView.contentSize = CGSizeMake(weakSelf.view.width, 0);
-        }else{
-            weakSelf.scrollerView.contentSize = CGSizeMake(weakSelf.view.width * weakSelf.childViewControllers.count, 0);
-        }
-    };
     [self addChildViewController:goodBaseVc];
 
     WJGoodParticularsViewController *goodParticularsVc = [[WJGoodParticularsViewController alloc] init];

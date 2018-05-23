@@ -41,12 +41,12 @@
     [self addSubview:_gridLabel];
 
     _priceLabel = [[UILabel alloc] init];
-    _priceLabel.font = PFR15Font;
+    _priceLabel.font = PFR20Font;
     _priceLabel.textColor = [UIColor redColor];
     [self addSubview:_priceLabel];
 
     _commentNumLabel = [[UILabel alloc] init];
-    _commentNumLabel.font = PFR10Font;
+    _commentNumLabel.font = PFR12Font;
     _commentNumLabel.textColor = [UIColor darkGrayColor];
     [self addSubview:_commentNumLabel];
 }
@@ -75,12 +75,12 @@
 
     [_priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
        [make.left.mas_equalTo(self) setOffset:2];
-        [make.top.mas_equalTo(_freeSuitImageView.mas_bottom)setOffset:2];
+        [make.top.mas_equalTo(_freeSuitImageView.mas_bottom)setOffset:DCMargin];
     }];
 
     [_commentNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        [make.left.mas_equalTo(self) setOffset:2];
-        [make.top.mas_equalTo(_priceLabel.mas_bottom)setOffset:2];
+        [make.right.mas_equalTo(self) setOffset:-DCMargin];
+        [make.top.mas_equalTo(_freeSuitImageView.mas_bottom)setOffset:DCMargin];
     }];
 
 
@@ -89,10 +89,14 @@
 -(void)setGoodsItem:(WJGoodsListItem *)goodsItem
 {
     _goodsItem = goodsItem;
-    [_gridImageView sd_setImageWithURL:[NSURL URLWithString:_goodsItem.image_url]];
-    _priceLabel.text = [NSString stringWithFormat:@"¥ %.2f",[_goodsItem.price floatValue]];
-     _commentNumLabel.text = [NSString stringWithFormat:@"已售%@件",_goodsItem.sale_count];
-    _gridLabel.text = _goodsItem.main_title;
+    [_gridImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",kMSBaseUserHeadPortURL,_goodsItem.goods_thumb]]];
+    NSString *stringPrice = [NSString stringWithFormat:@"¥ %.2f",[_goodsItem.shop_price floatValue]];
+    NSMutableAttributedString *LZString = [[NSMutableAttributedString alloc]initWithString:stringPrice];
+    [LZString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, 2)];
+    _priceLabel.attributedText =LZString;
+
+     _commentNumLabel.text = [NSString stringWithFormat:@"已售%@件",ConvertString(_goodsItem.goods_number)];
+    _gridLabel.text = _goodsItem.goods_name;
 }
 
 

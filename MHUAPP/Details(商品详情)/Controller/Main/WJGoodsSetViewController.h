@@ -7,9 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseNetworkViewController.h"
 
-@interface WJGoodsSetViewController : UIViewController
+
+@interface WJGoodsSetViewController : BaseNetworkViewController
 /* 分类标题*/
 @property (strong , nonatomic) NSString *goodTypeName;
-
+/* 分类ID*/
+@property (assign , nonatomic) NSString *category_id;
+/* 价格升/降 */
+@property (strong , nonatomic) NSString *type_numb;
+/* 查询类型*/
+@property (strong , nonatomic) NSString *str_type;
+@property NSInteger page_Information;
 @end

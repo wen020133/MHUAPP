@@ -89,7 +89,7 @@
 
     NSString *kill_num = _countDownItem[indexPath.row][@"kill_num"];
     NSString *goods_num = _countDownItem[indexPath.row][@"goods_num"];
-    NSInteger num = [goods_num integerValue] - [kill_num integerValue];
+    NSInteger num =  [kill_num integerValue]-[goods_num integerValue];
     cell.lab_count.text = [NSString stringWithFormat:@"%ld人已付款",num];
     return cell;
 }

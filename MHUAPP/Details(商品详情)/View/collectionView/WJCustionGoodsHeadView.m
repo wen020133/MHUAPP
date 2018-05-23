@@ -36,7 +36,7 @@
 - (void)setUpUI
 {
     self.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
-    NSArray *titles = @[@"推荐 ",@"价格",@"销量",@"筛选 "];
+    NSArray *titles = @[@"推荐 ",@"价格",@"销量"];
     CGFloat btnW = self.width / titles.count;
     CGFloat btnH = self.height;
     CGFloat btnY = 0;
@@ -62,12 +62,12 @@
             _img_down.image = [UIImage imageNamed:@"price_no_down"];
             [self addSubview:_img_down];
         }
-        else if (i==3)
-        {
-            UIImageView *img_shaixuan = ImageViewInit(button.dc_centerX+20, 15, 10, 11);
-            img_shaixuan.image = [UIImage imageNamed:@"icon_shaixuan"];
-            [self addSubview:img_shaixuan];
-        }
+//        else if (i==3)
+//        {
+//            UIImageView *img_shaixuan = ImageViewInit(button.dc_centerX+20, 15, 10, 11);
+//            img_shaixuan.image = [UIImage imageNamed:@"icon_shaixuan"];
+//            [self addSubview:img_shaixuan];
+//        }
     }
 
 
@@ -77,16 +77,19 @@
 #pragma mark - 按钮点击
 - (void)buttonClick:(UIButton *)button
 {
+    NSInteger seder = button.tag;
     if (button.tag == 1 + 1000) { //筛选
         if([_img_up.image isEqual:[UIImage imageNamed:@"price_no_up"]])
         {
             _img_up.image = [UIImage imageNamed:@"price_yes_up"];
             _img_down.image = [UIImage imageNamed:@"price_no_down"];
+            seder = 1004;
         }
         else
         {
             _img_up.image = [UIImage imageNamed:@"price_no_up"];
             _img_down.image = [UIImage imageNamed:@"price_yes_down"];
+            seder = 1001;
         }
     }else{
 
@@ -97,7 +100,7 @@
     [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
 
         _selectBtn = button;
-         !_filtrateClickBlock ? : _filtrateClickBlock(button.tag);
+         !_filtrateClickBlock ? : _filtrateClickBlock(seder);
 }
 
 @end

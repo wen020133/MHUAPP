@@ -10,13 +10,18 @@
 
 #import "WJSecondsKillViewController.h"
 #import "WJSearchViewController.h"
+
 #import "WJGoodDetailViewController.h"
-#import "WJShiShiPinTuanMainViewController.h"
+#import "WJSSPTDetailClassViewController.h"
+//#import "WJShiShiPinTuanMainViewController.h"  //有分类的拼团
+#import "WJSSPTTypeViewController.h"    //没有分类的拼团
+
 #import "WJHuoDongZhuanTiMainViewController.h"
 #import "WJHotSellingViewController.h"
 #import "WJIntegralListViewController.h"
 #import "WJYouZhiXinPinViewController.h"
 #import "WJJingXuanDianPuViewController.h"
+#import "WJLoginClassViewController.h"
 
 #import "WJADThirdItem.h"
 #import "WJGoodsDataModel.h"
@@ -185,7 +190,6 @@
 
         }
         if ([urlString isEqualToString:kMSMainGetAdThird]) {
-//            NSLog(@"%@====%@",urlString,responseObject);
             id arr = [[[responseObject objectForKey:@"data"] objectAtIndex:0] objectForKey:@"items"];
             if([arr isKindOfClass:[NSArray class]])
             {
@@ -208,7 +212,7 @@
             }
          }
             if ([urlString isEqualToString:kMSGetToday]) {
-
+            NSLog(@"%@====%@",urlString,responseObject);
                 id arr = [responseObject objectForKey:@"data"];
                 if([arr isKindOfClass:[NSArray class]])
                 {
@@ -216,7 +220,7 @@
                 }
             }
             if ([urlString isEqualToString:@"getStreet?id=10000"]) {
-                NSLog(@"%@====%@",urlString,responseObject);
+//                NSLog(@"%@====%@",urlString,responseObject);
                 id arr = [responseObject objectForKey:@"data"];
                 if([arr isKindOfClass:[NSArray class]])
                 {
@@ -542,7 +546,7 @@
 //        dcVc.goodSubtitle = self.headImageArr[indexPath.row].goods_title;
 //        dcVc.shufflingArray = self.headImageArr[indexPath.row].images;
 //        dcVc.goodImageView = self.headImageArr[indexPath.row].goods_thumb;
-        self.hidesBottomBarWhenPushed = YES;
+        dcVc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:dcVc animated:YES];
          self.hidesBottomBarWhenPushed = NO;
     }
@@ -550,9 +554,11 @@
 
 - (void)gotoGoodDetailWithGoodId:(NSString *)goodId
 {
-    WJGoodDetailViewController *dcVc = [[WJGoodDetailViewController alloc] init];
+    WJSSPTDetailClassViewController *dcVc = [[WJSSPTDetailClassViewController alloc] init];
     dcVc.goods_id = goodId;
-    self.hidesBottomBarWhenPushed = YES;
+    dcVc.endTimeStr = [[self.miaoshaArr objectAtIndex:0] objectForKey:@"end_time"];
+    dcVc.info_classType = @"秒杀";
+    dcVc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:dcVc animated:YES];
     self.hidesBottomBarWhenPushed = NO;
 }
@@ -570,7 +576,7 @@
         case 1001:
         {
             self.hidesBottomBarWhenPushed = YES;
-            WJShiShiPinTuanMainViewController *dcVc = [[WJShiShiPinTuanMainViewController alloc] init];
+            WJSSPTTypeViewController *dcVc = [[WJSSPTTypeViewController alloc] init];
             [self.navigationController pushViewController:dcVc animated:YES];
             self.hidesBottomBarWhenPushed = NO;
         }
@@ -609,6 +615,18 @@
             break;
         case 1006:
         {
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            NSString *loginState = [userDefaults objectForKey:@"loginState"];
+            if(![loginState isEqualToString:@"1"])
+            {
+                WJLoginClassViewController *land = [[WJLoginClassViewController alloc]init];
+                UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:land];
+                [nav.navigationBar setIsMSNavigationBar];
+                [self presentViewController:nav animated:YES completion:^{
+                }];
+                return;
+            }
+            
             self.hidesBottomBarWhenPushed = YES;
             WJIntegralListViewController *dcVc = [[WJIntegralListViewController alloc] init];
             [self.navigationController pushViewController:dcVc animated:YES];
@@ -624,6 +642,8 @@
             break;
     }
 }
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
