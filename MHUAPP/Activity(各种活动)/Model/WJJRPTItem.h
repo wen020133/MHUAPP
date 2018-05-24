@@ -28,5 +28,6 @@
 @property (nonatomic, copy ,readonly) NSString *integral_id;
 /** goods_id  */
 @property (nonatomic, copy ,readonly) NSString *goods_id;
-
+/** shop_num  */
+@property (nonatomic, copy ,readonly) NSString *shop_num;
 @end

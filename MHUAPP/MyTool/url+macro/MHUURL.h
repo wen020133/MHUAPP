@@ -57,7 +57,7 @@
 #define   kMSMainGetSeckill             @"getSeckill"                 //秒杀
 #define   kMSMainGetAdThird             @"getAd/3"                 //首页轮播
 #define   kMSMainGetTopic             @"getTopic"                 //专题
-#define   kMSMainGoods100             @"goods/100"                 //猜你喜欢
+#define   kMSMainGoods100             @"goods/10"                 //猜你喜欢
 #define   kMSGetReputation            @"getReputation/4"                 //人气推荐
 #define   kMSGetToday            @"getToday"                 //今日秒杀
 //#define   kMSMainGetStreet            @"getStreet"                 //店铺街
@@ -93,5 +93,6 @@
 
 #define   kMSMiYoMeiQuery        @"/v1/query"                 //物流详情
 
+#define   kMSGetIsNewGoods        @"getIsNewGoods"                 //更多新品
 #define   kMSMiYoMeigetGroupOrder        @"/v1/getGroupOrder"                 //拼团下单
 #endif /* MHUURL_h */

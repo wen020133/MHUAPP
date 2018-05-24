@@ -12,11 +12,13 @@
 
 
 @implementation WJYZXPListViewCell
+
 -(instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
 
-        _grayView = [[UIView alloc]initWithFrame:CGRectMake(4, 0, self.width-8, self.height)];
+        self.backgroundColor = self.contentView.backgroundColor = [UIColor clearColor];
+        _grayView = [[UIView alloc]initWithFrame:CGRectMake(2, 0, self.width-3, self.height)];
         _grayView.backgroundColor = [UIColor whiteColor];
         [self.contentView addSubview:_grayView];
 
@@ -26,28 +28,28 @@
         [_grayView addSubview:_img_content];
 
         _lab_title= [[UILabel alloc]initWithFrame:CGRectMake(10, 135, _grayView.width-20, 20)];
-        _lab_title.font = PFR13Font;
+        _lab_title.font = PFR14Font;
         _lab_title.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
         _lab_title.textAlignment = NSTextAlignmentLeft;
         [_grayView addSubview:_lab_title];
 
         _lab_describe= [[UILabel alloc]initWithFrame:CGRectMake(10, _lab_title.Bottom, _grayView.width-20, 20)];
         _lab_describe.font = PFR12Font;
-        _lab_describe.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
+        _lab_describe.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
         _lab_describe.textAlignment = NSTextAlignmentLeft;
         [_grayView addSubview:_lab_describe];
 
-        _oldPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, _lab_describe.Bottom, 40, 20)];
-        _oldPriceLabel.font = PFR11Font;
-        _oldPriceLabel.textAlignment = NSTextAlignmentRight;
-        _oldPriceLabel.textColor = [UIColor darkGrayColor];
-        [_grayView addSubview:_oldPriceLabel];
+        _priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, _lab_describe.Bottom, 100, 20)];
+        _priceLabel.font = PFR14Font;
+        _priceLabel.textAlignment = NSTextAlignmentLeft;
+        _priceLabel.textColor = [UIColor redColor];
+        [_grayView addSubview:_priceLabel];
 
-        _lab_count = [[UILabel alloc]initWithFrame:CGRectMake(70, _lab_describe.Bottom, self.width-45, 20)];
+        _lab_count = [[UILabel alloc]initWithFrame:CGRectMake(self.width-50, _lab_describe.Bottom, 45, 20)];
         _lab_count.font = PFR11Font;
         _lab_count.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
-        _lab_count.textAlignment = NSTextAlignmentLeft;
-        [_grayView addSubview:_lab_count];
+        _lab_count.textAlignment = NSTextAlignmentRight;
+//        [_grayView addSubview:_lab_count];
 
 
         _btn_price = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -73,14 +75,14 @@
     [_img_content sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"] completed:nil];
     _lab_title.text = _model.goods_name;
     _lab_describe.text = _model.goods_brief;
+    _priceLabel.text = [NSString stringWithFormat:@"¥ %.2f",[_model.shop_price floatValue]];
+//    NSString *oldprice = [NSString stringWithFormat:@"￥%@",_model.market_price];
+//    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:oldprice
+//                                                                                attributes:@{NSStrikethroughStyleAttributeName : @(NSUnderlineStyleSingle)}];
+//    _oldPriceLabel.attributedText = attrStr;
 
-    NSString *oldprice = [NSString stringWithFormat:@"￥%@",_model.market_price];
-    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:oldprice
-                                                                                attributes:@{NSStrikethroughStyleAttributeName : @(NSUnderlineStyleSingle)}];
-    _oldPriceLabel.attributedText = attrStr;
 
-
-    _lab_count.text = [NSString stringWithFormat:@"已售%@",_model.sales];
+    _lab_count.text = [NSString stringWithFormat:@"已售%@",_model.shop_num];
 
 }
 @end

@@ -115,12 +115,16 @@
     thredLable.font = [UIFont systemFontOfSize:15];
     [self addSubview:thredLable];
 
-    _sCountDown = [self getDateDifferenceWithNowDateStr:_secondsCountDown];
+
 
     //设置定时器
     _countDownTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDownAction) userInfo:nil repeats:YES];
 }
 
+-(void)setSecondsCountDown:(NSString *)secondsCountDown
+{
+     _sCountDown = [self getDateDifferenceWithNowDateStr:secondsCountDown];
+}
 //实现倒计时动作
 -(void)countDownAction{
     //倒计时-1
@@ -142,7 +146,7 @@
     self.secondLabel2.text=[str_second substringFromIndex:1];
 
     //当倒计时到0时做需要的操作，比如验证码过期不能提交
-    if(self.secondsCountDown==0){
+    if(_sCountDown==0){
 
         [_countDownTimer invalidate];
     }
@@ -158,6 +162,11 @@
     timeDifference = endTime-nowDate;
 
     return timeDifference;
+}
+
+-(void)dissMissTheNSTimer
+{
+     [_countDownTimer invalidate];
 }
 /*
 // Only override drawRect: if you perform custom drawing.

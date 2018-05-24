@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MenuScrollView.h"
+//#import "MenuScrollView.h"
 #import "BaseNetworkViewController.h"
 
 
-@interface WJHotSellingViewController : BaseNetworkViewController<MenuBtnDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource>
+@interface WJHotSellingViewController : BaseNetworkViewController
 
-@property (strong, nonatomic) MenuScrollView *menu_HotSellScrollView; //热卖分类ScrollView
+//@property (strong, nonatomic) MenuScrollView *menu_HotSellScrollView; //热卖分类ScrollView
 
 @property (strong, nonatomic) UICollectionView *collectionV;
 @end

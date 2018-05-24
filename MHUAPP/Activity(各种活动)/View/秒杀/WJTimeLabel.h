@@ -22,4 +22,5 @@
 
 @property (nonatomic, assign) NSString  *secondsCountDown;
 
+-(void)dissMissTheNSTimer;
 @end

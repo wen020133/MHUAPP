@@ -7,12 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MenuScrollView.h"
+//#import "MenuScrollView.h"
 #import "BaseNetworkViewController.h"
 
-@interface WJYouZhiXinPinViewController : BaseNetworkViewController<MenuBtnDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource>
-@property (strong, nonatomic) MenuScrollView *menu_newScrollView; //分类ScrollView
+@interface WJYouZhiXinPinViewController : BaseNetworkViewController
+//@property (strong, nonatomic) MenuScrollView *menu_newScrollView; //分类ScrollView
 
-@property (strong, nonatomic) UICollectionView *collectionV;
 
 @end

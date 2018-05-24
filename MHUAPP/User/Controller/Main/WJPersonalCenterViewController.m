@@ -190,7 +190,7 @@
      {
          WJOrderMainViewController *dcVc = [[WJOrderMainViewController alloc] init];
          dcVc.hidesBottomBarWhenPushed = YES;
-         dcVc.serverType = indexPath.row;
+         dcVc.serverType = indexPath.row+1;
          [self.navigationController pushViewController:dcVc animated:YES];
          self.hidesBottomBarWhenPushed = NO;
      }
@@ -310,6 +310,11 @@
 -(void)goToOrderVC
 {
     NSLog(@"跳转到订单");
+    WJOrderMainViewController *dcVc = [[WJOrderMainViewController alloc] init];
+    dcVc.hidesBottomBarWhenPushed = YES;
+    dcVc.serverType = 0;
+    [self.navigationController pushViewController:dcVc animated:YES];
+    self.hidesBottomBarWhenPushed = NO;
 }
 /*
 #pragma mark - Navigation

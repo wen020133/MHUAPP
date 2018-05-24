@@ -12,6 +12,8 @@
 #import "WJSecondsKillItem.h"
 #import "WJSecondsKissCell.h"
 #import <UIImageView+WebCache.h>
+#import "WJSSPTDetailClassViewController.h"
+
 
 @interface WJSecondsKillViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -62,6 +64,11 @@
         {
             [self requestFailed:@"获取数据失败"];
         }
+}
+-(void)showleft
+{
+     [_timeView dissMissTheNSTimer];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 //-(NSMutableArray *)arr_dateTitle
 //{
@@ -220,20 +227,20 @@
 {
     if (!_mainTableView) {
 
-        self.mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 70, kMSScreenWith, kMSScreenHeight-kMSNaviHight-70)];
-        self.mainTableView.backgroundColor = [UIColor clearColor];
-        self.mainTableView.delegate = self;
-        self.mainTableView.dataSource = self;
-
-        [self.mainTableView registerClass:[WJSecondsKissCell class] forCellReuseIdentifier:@"WJSecondsKissCell"];
-        self.mainTableView.alwaysBounceVertical = YES;
+        _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 70, kMSScreenWith, kMSScreenHeight-kMSNaviHight-70)];
+        _mainTableView.backgroundColor = [UIColor clearColor];
+        _mainTableView.delegate = self;
+        _mainTableView.dataSource = self;
+        _mainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        [_mainTableView registerClass:[WJSecondsKissCell class] forCellReuseIdentifier:@"WJSecondsKissCell"];
+        _mainTableView.alwaysBounceVertical = YES;
 
         // 下拉刷新
-        self.mainTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerKillRereshing)];
-        [self.mainTableView.mj_header beginRefreshing];
+        _mainTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerKillRereshing)];
+        [_mainTableView.mj_header beginRefreshing];
 
         // 上拉刷新
-        self.mainTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerKillRereshing)];
+        _mainTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerKillRereshing)];
     }
     return _mainTableView;
 }
@@ -289,9 +296,19 @@
     NSString *goods_num = _countDownItem[indexPath.row][@"goods_num"];
     NSInteger num =  [kill_num integerValue]-[goods_num integerValue];
     cell.lab_count.text = [NSString stringWithFormat:@"已售%ld件",num];
+    cell.slider.maxValue = [kill_num integerValue];
+    cell.slider.currentSliderValue = num;
     return cell;
 }
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    WJSSPTDetailClassViewController *dcVc = [[WJSSPTDetailClassViewController alloc] init];
+    dcVc.goods_id = _countDownItem[indexPath.row][@"goods"] [@"goods_id"];;
+    dcVc.endTimeStr = [[[self.results objectForKey:@"data"] objectAtIndex:0] objectForKey:@"end_time"];
+    dcVc.info_classType = @"秒杀";
+    dcVc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:dcVc animated:YES];
+}
 - (void)firstLoadViewRefresh
 {
     [self.mainTableView.mj_footer endRefreshing];
@@ -300,7 +317,10 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+-(void)dealloc
+{
+    [_timeView dissMissTheNSTimer];
+}
 /*
 #pragma mark - Navigation
 

@@ -68,14 +68,14 @@
     [_img_content mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self);
         [make.top.mas_equalTo(self)setOffset:DCMargin];
-        make.size.mas_equalTo(CGSizeMake(self.width-8, 130));
+        make.size.mas_equalTo(CGSizeMake(self.width-DCMargin, 130));
     }];
 
 
     [_lab_title mas_makeConstraints:^(MASConstraintMaker *make) {
         [make.left.mas_equalTo(self) setOffset:6];
         [make.top.mas_equalTo(_img_content.mas_bottom) setOffset:6];
-        [make.right.mas_equalTo(self)setOffset:6];
+        [make.right.mas_equalTo(self.mas_right)setOffset:-6];
     }];
 
 
@@ -86,7 +86,7 @@
     }];
 
     [_lab_count mas_makeConstraints:^(MASConstraintMaker *make) {
-        [make.right.mas_equalTo(self) setOffset:-6];
+        [make.right.mas_equalTo(self) setOffset:-DCMargin];
         [make.top.mas_equalTo(_lab_title.mas_bottom)setOffset:6];
     }];
 

@@ -181,6 +181,7 @@
         if([[responseObject objectForKey:@"code"] integerValue] == 200)
         {
           if ([urlString isEqualToString:kMSMainGoods100]) {
+            NSLog(@"%@====%@",urlString,responseObject);
          id arr = [responseObject objectForKey:@"data"];
         if([arr isKindOfClass:[NSArray class]])
         {
@@ -212,7 +213,7 @@
             }
          }
             if ([urlString isEqualToString:kMSGetToday]) {
-            NSLog(@"%@====%@",urlString,responseObject);
+
                 id arr = [responseObject objectForKey:@"data"];
                 if([arr isKindOfClass:[NSArray class]])
                 {
@@ -583,10 +584,20 @@
             break;
         case 1002:
         {
-            self.hidesBottomBarWhenPushed = YES;
-            WJHuoDongZhuanTiMainViewController *dcVc = [[WJHuoDongZhuanTiMainViewController alloc] init];
-            [self.navigationController pushViewController:dcVc animated:YES];
-            self.hidesBottomBarWhenPushed = NO;
+            [self jxt_showAlertWithTitle:@"消息提示" message:@"活动暂未开放。敬请期待！" appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
+                alertMaker.
+                addActionCancelTitle(@"确定");
+            } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, JXTAlertController * _Nonnull alertSelf) {
+                if (buttonIndex == 0) {
+                    NSLog(@"cancel");
+                }
+
+                NSLog(@"%@--%@", action.title, action);
+            }];
+//            self.hidesBottomBarWhenPushed = YES;
+//            WJHuoDongZhuanTiMainViewController *dcVc = [[WJHuoDongZhuanTiMainViewController alloc] init];
+//            [self.navigationController pushViewController:dcVc animated:YES];
+//            self.hidesBottomBarWhenPushed = NO;
         }
             break;
         case 1003:

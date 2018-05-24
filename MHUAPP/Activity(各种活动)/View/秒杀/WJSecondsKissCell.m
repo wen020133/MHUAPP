@@ -9,6 +9,13 @@
 #import "WJSecondsKissCell.h"
 #import <UIImageView+WebCache.h>
 
+
+@interface WJSecondsKissCell()
+
+
+@end
+
+
 @implementation WJSecondsKissCell
 
 - (void)awakeFromNib {
@@ -73,6 +80,11 @@
     [_btn_action setTitleColor:kMSCellBackColor forState:UIControlStateNormal];
     [self.contentView addSubview:_btn_action];
 
+     _slider = [[HYSlider alloc]initWithFrame:CGRectMake(kMSScreenWith-100, 80, 90, 10)];
+    _slider.currentValueColor = [RegularExpressionsMethod ColorWithHexString:@"409EFF"];
+    _slider.showTouchView = NO;
+    [self.contentView addSubview:_slider];
+
     [RegularExpressionsMethod dc_setUpAcrossPartingLineWith:self WithColor:[[UIColor lightGrayColor]colorWithAlphaComponent:0.3]];
 }
 
@@ -103,7 +115,7 @@
 
     [_priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         [make.left.mas_equalTo(_gridImageView.mas_right)setOffset:DCMargin];
-        [make.top.mas_equalTo(_goods_briefLabel.mas_bottom)setOffset:10];
+        [make.top.mas_equalTo(self)setOffset:45];
     }];
 
     [_oldPriceLabel mas_makeConstraints:^(MASConstraintMaker *make) {

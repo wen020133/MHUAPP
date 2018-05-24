@@ -358,11 +358,11 @@
             break;
     }
     view.ClickStateForStrBlock = ^(NSString *stateStr) {
-//        if ([stateStr isEqualToString:@"查看物流"]) {
+        if ([stateStr isEqualToString:@"查看物流"]) {
         WJLogisticsViewController *waitPayInfoVC = [[WJLogisticsViewController alloc]init];
         waitPayInfoVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:waitPayInfoVC animated:YES];
-//        }
+        }
     };
     return view;
 }

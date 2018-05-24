@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 //#import "WJSecondsKillItem.h"
+#import "HYSlider.h"
 
 @interface WJSecondsKissCell : UITableViewCell
 //
@@ -28,5 +29,7 @@
 @property (strong , nonatomic)UILabel *lab_count;
 /* 按钮事件 */
 @property (strong , nonatomic) UIButton *btn_action;
+
+@property (strong,nonatomic) HYSlider *slider;
 
 @end
