@@ -8,9 +8,6 @@
 
 #import "AliPayManagers.h"
 #import <AlipaySDK/AlipaySDK.h>
-#import "APAuthInfo.h"
-#import "APOrderInfo.h"
-#import "APRSASigner.h"
 
 
 static AliPayManagers *sigleton = nil;

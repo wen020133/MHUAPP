@@ -75,8 +75,8 @@ alpha:1.0]
 
 #define _TencentAppid_  @"1106528553"
 #define UmengAppkey @"5a40c52cf43e482d4d000032"
-#define kAppIDWeixin         @"wxcd6d759365bd725a"
-#define kAppSecret         @"0a650997bb7a8da403999bf63993a13f"
+#define kAppIDWeixin         @"wx586d8045169c86f1"
+#define kAppSecret         @"b97c4cb8386368a799296656539a4e9e"
 #define kRedirectURI    @"https://itunes.apple.com/cn/app/omynail/id1115575145?mt=8"
 #define RONGClOUDAPPKEY    @"3argexb63mdle"
 #define RONGClOUDAPPSecret     @"omGLVnwCHwubOP"

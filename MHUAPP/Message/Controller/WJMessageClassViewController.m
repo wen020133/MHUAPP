@@ -85,7 +85,7 @@
     [super viewWillAppear:animated];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *loginState = [userDefaults objectForKey:@"loginState"];
-    if([loginState isEqualToString:@"0"])
+     if(![loginState isEqualToString:@"1"])
     {
         WJLoginClassViewController *land = [[WJLoginClassViewController alloc]init];
         UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:land];

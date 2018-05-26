@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import <AlipaySDK/AlipaySDK.h>
 #import <UMSocialCore/UMSocialCore.h>
+#import "WXApiManager.h"
 
 NSString * const UpLoadNoti = @"uploadInfo";
 
@@ -29,6 +30,8 @@ NSString * const UpLoadNoti = @"uploadInfo";
     self.tabbarVC  = [[WJMainTabBarViewController alloc]init];
     [self.window setRootViewController:self.tabbarVC];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    
+    [WXApi registerApp:kAppIDWeixin];
     //设置友盟Appkey
     [[UMSocialManager defaultManager] setUmSocialAppkey:UmengAppkey];
 
@@ -69,9 +72,12 @@ NSString * const UpLoadNoti = @"uploadInfo";
                                                           }
                                                           else
                                                           {
-
-                                                              UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"支付失败" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
-                                                              [alert show];
+                                                              UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"支付失败" preferredStyle:UIAlertControllerStyleAlert];
+                                                              [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                                                                  
+                                                              }]];
+                                                              
+                                                              [self.window.rootViewController presentViewController:alertController animated:YES completion:nil];
                                                           }
                                                       }];
             return YES;
@@ -91,8 +97,12 @@ NSString * const UpLoadNoti = @"uploadInfo";
                 else
                 {
 
-                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"支付失败" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
-                    [alert show];
+                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"支付失败" preferredStyle:UIAlertControllerStyleAlert];
+                    [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                        
+                    }]];
+                    
+                    [self.window.rootViewController presentViewController:alertController animated:YES completion:nil];
                 }
             }];
             return YES;
@@ -108,19 +118,15 @@ NSString * const UpLoadNoti = @"uploadInfo";
         // 其他如支付等SDK的回调
         if ([url.host isEqualToString:@"safepay"]) {
             [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
-                NSLog(@"result = %@",resultDic);
+                NSLog(@"result1 = %@",resultDic);
+                if ([[resultDic objectForKey:@"resultStatus"]integerValue]==9000)
+                {
+                    
+                    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+                    [center postNotificationName:UpLoadNoti object:nil];
+                    
+                }
             }];
-            [[AlipaySDK defaultService]
-             processOrderWithPaymentResult:url
-             standbyCallback:^(NSDictionary *resultDic) {
-                 NSLog(@"result = %@",resultDic);//返回的支付结果 //【由于在跳转支付宝客户端支付的过程中,商户 app 在后台很可能被系统 kill 了,所以 pay 接 口的 callback 就会失效,请商户对 standbyCallback 返回的回调结果进行处理,就是在这个方法 里面处理跟 callback 一样的逻辑】
-             }];
-            //        [[AlipaySDK defaultService] processAuth_V2Result:url
-            //                                         standbyCallback:^(NSDictionary *resultDic) {
-            //                                             NSLog(@"result = %@",resultDic);
-            //                                             NSString *resultStr = resultDic[@"result"];
-            //                                             NSLog(@"result = %@",resultStr);
-            //                                         }];
             return YES;
         }else if ([url.host isEqualToString:@"platformapi"]){//支付宝钱包快登授权返回 authCode
             [[AlipaySDK defaultService] processAuthResult:url standbyCallback:^(NSDictionary *resultDic) {
@@ -129,7 +135,7 @@ NSString * const UpLoadNoti = @"uploadInfo";
             return YES;
         }
 
-//        return  [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+        return  [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
     }
     return result;
 }
@@ -138,6 +144,7 @@ NSString * const UpLoadNoti = @"uploadInfo";
     BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
     if (!result) {
         // 其他如支付等SDK的回调
+        return  [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
     }
     return result;
 }
@@ -150,7 +157,7 @@ NSString * const UpLoadNoti = @"uploadInfo";
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-
+    NSLog(@"走了applicationWillEnterForeground方法");
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

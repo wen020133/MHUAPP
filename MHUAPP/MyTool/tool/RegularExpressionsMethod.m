@@ -231,4 +231,40 @@
     return NO;
 
 }
+
++ (NSString *)htmlEntityDecode:(NSString *)string
+{
+    
+    //将特殊字符替换了
+    
+    string = [string stringByReplacingOccurrencesOfString:@"&quot;" withString:@"\""];
+    string = [string stringByReplacingOccurrencesOfString:@"&apos;" withString:@"'"];
+    string = [string stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
+    string = [string stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
+    string = [string stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
+    
+    // 图片自适应
+    string = [NSString stringWithFormat:@"<html> \n"
+              "<head> \n"
+              "<style type=\"text/css\"> \n"
+              
+              "</style> \n"
+              
+              "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">"
+              
+              "</head> \n"
+              "<body>"
+              "<script type='text/javascript'>"
+              "window.onload = function(){\n"
+              "var $img = document.getElementsByTagName('img');\n"
+              "for(var p in  $img){\n"
+              " $img[p].style.width = '100%%';\n"
+              "$img[p].style.height ='auto'\n"
+              "}\n"
+              "}"
+              "</script>%@"
+              "</body>"
+              "</html>",string];
+    return string;
+}
 @end

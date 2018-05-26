@@ -186,6 +186,17 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    NSString *loginState = [userDefaults objectForKey:@"loginState"];
+    if(![loginState isEqualToString:@"1"])
+    {
+        WJLoginClassViewController *loginVC = [[WJLoginClassViewController alloc]init];
+        self.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:loginVC animated:YES];
+        self.hidesBottomBarWhenPushed = NO;
+        return;
+    }
      if(indexPath.section==0)
      {
          WJOrderMainViewController *dcVc = [[WJOrderMainViewController alloc] init];
@@ -309,6 +320,17 @@
 }
 -(void)goToOrderVC
 {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    NSString *loginState = [userDefaults objectForKey:@"loginState"];
+    if(![loginState isEqualToString:@"1"])
+    {
+        WJLoginClassViewController *loginVC = [[WJLoginClassViewController alloc]init];
+        self.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:loginVC animated:YES];
+        self.hidesBottomBarWhenPushed = NO;
+        return;
+    }
     NSLog(@"跳转到订单");
     WJOrderMainViewController *dcVc = [[WJOrderMainViewController alloc] init];
     dcVc.hidesBottomBarWhenPushed = YES;

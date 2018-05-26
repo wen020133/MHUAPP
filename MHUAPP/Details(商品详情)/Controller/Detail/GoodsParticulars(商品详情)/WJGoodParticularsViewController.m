@@ -36,7 +36,9 @@
     if([[self.results objectForKey:@"code"] integerValue] == 200)
     {
         NSString *goods_desc = [[self.results objectForKey:@"data"] objectForKey:@"goods_desc"];
-        [_webView loadHTMLString:goods_desc baseURL:nil];
+        
+        NSString *str1 = [RegularExpressionsMethod htmlEntityDecode:goods_desc];
+        [_webView loadHTMLString:str1 baseURL:nil];
     }
     else
     {

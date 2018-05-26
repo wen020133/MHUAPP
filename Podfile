@@ -19,4 +19,5 @@ pod ‘UMengUShare/Social/AlipayShare'
 pod 'RongCloudIM/IMLib', '~> 2.8.3'
 pod 'RongCloudIM/IMKit', '~> 2.8.3'
 
+pod 'WechatOpenSDK'
 end

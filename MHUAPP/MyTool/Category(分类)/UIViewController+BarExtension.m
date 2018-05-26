@@ -22,8 +22,10 @@
 	 if (leftImageName) {
          UIButton *btnLeft = [UIButton buttonWithType:UIButtonTypeCustom];
 //         [btnLeft setImage:[UIImage imageNamed:leftImageName] forState:UIControlStateNormal];
-         [btnLeft setBackgroundImage:[UIImage imageNamed:leftImageName] forState:UIControlStateNormal];
-         [btnLeft sizeToFit];
+         [btnLeft setImage:[UIImage imageNamed:leftImageName] forState:UIControlStateNormal];
+         btnLeft.frame = CGRectMake(0, 0,48, 35);
+        btnLeft.imageEdgeInsets = UIEdgeInsetsMake(6, 10, 5, 14);
+         btnLeft.imageView.contentMode = UIViewContentModeScaleAspectFit;
 
          [btnLeft addTarget:self action:@selector(showleft) forControlEvents:UIControlEventTouchUpInside];
          UIBarButtonItem* leftButtonItem = [[UIBarButtonItem alloc] init];

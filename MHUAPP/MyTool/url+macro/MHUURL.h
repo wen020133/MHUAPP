@@ -15,6 +15,8 @@
 #define   kMSBaseMiYoMeiPortURL              @"http://api.miyomei.com/api"                // 程帝洲 端口
 #define   kMSBaseUserHeadPortURL              @"https://www.miyomei.com/"                // 头像端口
 
+#define __WECHATAJAX @"wechatAjax/notifyurl.do"
+
 
 //验证码
 #define   kMSBaseCodePortURL              @"/code"                // 验证码端口
@@ -57,7 +59,7 @@
 #define   kMSMainGetSeckill             @"getSeckill"                 //秒杀
 #define   kMSMainGetAdThird             @"getAd/3"                 //首页轮播
 #define   kMSMainGetTopic             @"getTopic"                 //专题
-#define   kMSMainGoods100             @"goods/10"                 //猜你喜欢
+#define   kMSMainGoods100             @"goods/30"                 //猜你喜欢
 #define   kMSGetReputation            @"getReputation/4"                 //人气推荐
 #define   kMSGetToday            @"getToday"                 //今日秒杀
 //#define   kMSMainGetStreet            @"getStreet"                 //店铺街
@@ -77,6 +79,7 @@
 #define   kMSGetDelivery          @"getDelivery"                 //待发货列表
 #define   kMSGetReceive          @"getReceive"                 //待收货列表
 #define   kMSMiYoMeipay        @"/v1/pay"                 //生产支付宝签名
+#define   kMSMiYoMeiWXpay        @"/v1/wxPay"                 //微信s支付宝签名
 
 #define   kMSGetIntegralList       @"getList"                 //积分商品列表
 #define   kMSGetIntegral       @"getIntegral"                 //用户积分

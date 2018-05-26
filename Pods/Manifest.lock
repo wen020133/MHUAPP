@@ -40,6 +40,7 @@ PODS:
     - UMengUShare/Core
   - UMengUShare/UI (6.4.6):
     - UMengUShare/Core
+  - WechatOpenSDK (1.8.0)
   - YYKit (1.0.9):
     - YYKit/no-arc (= 1.0.9)
   - YYKit/no-arc (1.0.9)
@@ -60,6 +61,7 @@ DEPENDENCIES:
   - UMengUShare/Social/ReducedSina
   - UMengUShare/Social/ReducedWeChat
   - UMengUShare/UI
+  - WechatOpenSDK
   - YYKit (~> 1.0.9)
 
 SPEC CHECKSUMS:
@@ -73,8 +75,9 @@ SPEC CHECKSUMS:
   SVProgressHUD: 59b2d3dabacbd051576d21d32293ca7228dc18b0
   UITableView+FDTemplateLayoutCell: 5c949b4a5059c404b442926c0e80f81d10a2d66f
   UMengUShare: fdbbf86353976727af26a66e9a84314ecb59c816
+  WechatOpenSDK: 0ee07a8d492299d3e47372a33da5af26524a7576
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 1a8b1b53fca0bb74ce3c2fc7b92ef954d941f45a
+PODFILE CHECKSUM: 02190f46290e3ac1f5c75e9d1cf59773ee5384df
 
 COCOAPODS: 1.3.1

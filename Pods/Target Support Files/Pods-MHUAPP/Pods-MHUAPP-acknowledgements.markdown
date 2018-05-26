@@ -190,6 +190,11 @@ SOFTWARE.
 Copyright 2011 - 2017 UMeng.com. All rights reserved.
 
 
+## WechatOpenSDK
+
+Copyright 2017 tencent.com. All rights reserved.
+
+
 ## YYKit
 
 The MIT License (MIT)

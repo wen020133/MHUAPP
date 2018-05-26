@@ -89,8 +89,7 @@
     _oldprice.attributedText = attrStr;
 
     _title.text = _listModel.goods_name;
-    CGSize sizeTitle =  [RegularExpressionsMethod dc_calculateTextSizeWithText:_listModel.goods_name WithTextFont:16 WithMaxW:kMSScreenWith- DCMargin * 4-TAG_Height-width];
-    _title.frame = CGRectMake(TAG_Height+15, 5, sizeTitle.width, sizeTitle.height);
+    _title.frame = CGRectMake(TAG_Height+15, 5, kMSScreenWith- DCMargin * 4-TAG_Height-width, 40);
 
     NSString *saleCount = [NSString stringWithFormat:@"%@",_listModel.goods_attr];
     _type.text  = saleCount;

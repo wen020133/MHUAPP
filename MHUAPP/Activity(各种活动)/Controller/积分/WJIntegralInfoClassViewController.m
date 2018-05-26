@@ -64,6 +64,7 @@
             case 2:
             {
                 NSString *goods_desc = [[self.results objectForKey:@"data"] objectForKey:@"goods_desc"];
+                goods_desc = [RegularExpressionsMethod htmlEntityDecode:goods_desc];
                 [_webView loadHTMLString:goods_desc baseURL:nil];
 
             }

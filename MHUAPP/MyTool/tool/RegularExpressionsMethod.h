@@ -52,5 +52,7 @@
 #pragma mark - 账号以字母开头，字母或者数字组合，6到12位
 +(BOOL)regularAccount:(NSString *)account;
 
-+ (BOOL)isBlankString:(NSString *)string;
++ (BOOL)isBlankString:(NSString *)string;  //判断空字符串
+
++ (NSString *)htmlEntityDecode:(NSString *)string;  //转换成标准的HTMLString
 @end

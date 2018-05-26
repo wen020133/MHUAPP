@@ -10,8 +10,7 @@
 
 #import "SuccessViewController.h"
 #import "AliPayManagers.h"
-//#import "WXApiObject.h"
-//#import "WXApiManager.h"
+#import "WXApiManager.h"
 
 #import "WJPayFristTableViewCell.h"
 #import "WJpaySectionTableCell.h"
@@ -173,11 +172,42 @@
     [infos setObject:_orderNo forKey:@"orderNo"];
     [infos setObject:@"0.01" forKey:@"oPrice"];
     [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSMiYoMeipay] andInfos:infos];
-
+}
+-(void)PostWXpaySignStr
+{
+    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+    [infos setObject:_orderNo forKey:@"orderNo"];
+    [infos setObject:@"0.01" forKey:@"oPrice"];
+    [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSMiYoMeiWXpay] andInfos:infos];
 }
 -(void)processData
 {
-
+    if (_selectPath.row==0) {
+        if ([self.results allKeys].count>1) {
+            if([WXApi isWXAppInstalled])
+            {
+            WXApiManager *manager = [WXApiManager sharedManager];
+            manager.orderInfo = self.results;
+            [manager payWithSuccess:^(id status) {
+                NSLog(@"支付成功");
+            } faild:^(id status) {
+                NSLog(@"支付失败");
+            }];
+          }
+            else
+            {
+                [SVProgressHUD showErrorWithStatus:@"您没有安装微信！"];
+                return;
+            }
+        }
+        else
+        {
+            [SVProgressHUD showErrorWithStatus:@"提交失败"];
+            return;
+        }
+    }
+    else
+    {
     NSString *signedString = [self.results objectForKey:@"key"];
     if(signedString.length>1)
     {
@@ -197,6 +227,7 @@
     {
         [SVProgressHUD showErrorWithStatus:@"提交失败"];
         return;
+    }
     }
 }
 
@@ -223,7 +254,7 @@
 -(void)gotoPayForSection:(UIButton *)sender
 {
     if ([_selectPath row]==0) {
-
+        [self PostWXpaySignStr];
     }
     else if ([_selectPath row]==1) {
          [self PostAliSignStr];

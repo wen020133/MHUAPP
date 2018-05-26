@@ -96,7 +96,7 @@
 {
     self.hidesBottomBarWhenPushed = YES;
     WJOrderMainViewController *ad = [[WJOrderMainViewController alloc]init];
-    ad.serverType=1;
+    ad.serverType=2;
     [self.navigationController pushViewController:ad animated:YES];
 }
 

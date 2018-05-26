@@ -36,7 +36,6 @@
     layer.backgroundColor = [UIColor blueColor].CGColor;
     [progress.layer addSublayer:layer];
     self.progresslayer = layer;
-
     [webView loadHTMLString:self.str_urlHttp baseURL:nil];
     // Do any additional setup after loading the view.
 }
