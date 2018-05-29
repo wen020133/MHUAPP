@@ -77,7 +77,7 @@
     }
     [_contentImg sd_setImageWithURL:[NSURL URLWithString:_listModel.img] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"] completed:nil];
 
-    NSString *price = [NSString stringWithFormat:@"￥%@",_listModel.goods_price];
+    NSString *price = [NSString stringWithFormat:@"￥%@",_listModel.count_price];
     CGFloat width = [RegularExpressionsMethod widthOfString:price font:Font(15) height:23];
     _price.frame = CGRectMake(kMSScreenWith-width-10, 5, width, 23);
     _price.text = price;

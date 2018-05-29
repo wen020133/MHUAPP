@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WJADThirdItem.h"
 
 @interface WJEveryDayMastRobView : UICollectionReusableView
+
+@property (strong, nonatomic) NSArray <WJADThirdItem *>  *imageArr;
+
 
 @end

@@ -66,6 +66,7 @@
 
     WJHomeNavTopView *searchBarVc = [[WJHomeNavTopView alloc] initWithFrame:CGRectMake(0, 0, kMSScreenWith, 64)];
     searchBarVc.leftItemClickBlock = ^{
+        
     };
     searchBarVc.rightItemClickBlock = ^{
     };

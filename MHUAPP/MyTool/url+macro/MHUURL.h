@@ -95,6 +95,7 @@
 #define   kMSPostGoodsList      @"/goods/list"                 //获取分类商品列表
 
 #define   kMSMiYoMeiQuery        @"/v1/query"                 //物流详情
+#define   kMSPostBackOrder        @"/v1/postBackOrder"                 //申请退款
 
 #define   kMSGetIsNewGoods        @"getIsNewGoods"                 //更多新品
 #define   kMSMiYoMeigetGroupOrder        @"/v1/getGroupOrder"                 //拼团下单

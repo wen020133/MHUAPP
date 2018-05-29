@@ -73,7 +73,7 @@
 -(UIView *)view_foot
 {
     if (!_view_foot) {
-        _view_foot = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 200)];
+        _view_foot = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 88)];
         _view_foot.backgroundColor = kMSCellBackColor;
 
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -97,7 +97,7 @@
 
     for (WJCartGoodsModel *model in _arr_dataList) {
 
-        double price = [model.goods_price doubleValue];
+        double price = [model.count_price doubleValue];
 
         totlePrice += price * model.goods_number;
     }
@@ -124,7 +124,7 @@
     else if(indexPath.section ==1)
         return 100;
     else
-        return 60;
+        return 120;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -169,6 +169,8 @@
         NSDate *stampDate2 = [NSDate dateWithTimeIntervalSince1970:[addTime doubleValue]];
         cell.lab_time.text = [stampFormatter stringFromDate:stampDate2];
         cell.str_orderNo = _str_orderId;
+
+        cell.totalPayPrice.text = [NSString stringWithFormat:@"共%ld件商品 合计：￥%@",_arr_dataList.count,[[[self.results objectForKey:@"data"] objectAtIndex:0] objectForKey:@"goods_amount"]];
         return cell;
     }
 }

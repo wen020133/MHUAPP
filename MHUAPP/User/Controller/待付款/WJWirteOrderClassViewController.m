@@ -108,7 +108,7 @@
 
     for (WJCartGoodsModel *model in _dataArray) {
 
-        double price = [model.goods_price doubleValue];
+        double price = [model.count_price doubleValue];
 
         totlePrice += price * model.goods_number;
     }

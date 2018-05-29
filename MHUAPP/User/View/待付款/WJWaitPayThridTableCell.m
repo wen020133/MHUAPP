@@ -32,7 +32,12 @@
 - (void)setUpUI
 {
 
-    _lab_orderNo = LabelInit(DCMargin, DCMargin, 220, 20);
+    _totalPayPrice = [[UILabel alloc] initWithFrame:CGRectMake(50, 5, kMSScreenWith-60, 20)];
+    _totalPayPrice.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
+    _totalPayPrice.font = Font(15);
+    _totalPayPrice.textAlignment = NSTextAlignmentRight;
+    
+    _lab_orderNo = LabelInit(DCMargin, 60+DCMargin, 220, 20);
     _lab_orderNo.font = PFR14Font;
     _lab_orderNo.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
     [self.contentView addSubview:_lab_orderNo];

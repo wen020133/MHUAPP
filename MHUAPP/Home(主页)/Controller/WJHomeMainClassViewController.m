@@ -51,9 +51,11 @@
 @property (strong, nonatomic) NSArray <WJGoodsDataModel *>  *headImageArr;
 @property (strong, nonatomic) NSArray <WJADThirdItem *>  *adImageArr;
 @property (strong, nonatomic) NSArray <WJMainZhuanTiHDItem *>  *zhuantiHDImageArr;
-@property (strong, nonatomic) NSArray  *peopleTuiJianArr;
+
+@property (strong, nonatomic) NSArray  *newshangshiArr;
 @property (strong, nonatomic) NSArray  *miaoshaArr;
 @property (strong, nonatomic) NSArray  *jingXuanShopArr;
+
 @end
 
 @implementation WJHomeMainClassViewController
@@ -125,7 +127,7 @@
     });
     dispatch_group_async(group, queue, ^{
         NSLog(@"处理事件D");
-        [self getServiceData:kMSGetReputation];
+        [self getServiceData:@"getIsNewGoods?id=1"];
         dispatch_semaphore_signal(semaphore);
     });
     dispatch_group_async(group, queue, ^{
@@ -203,14 +205,15 @@
             id arr = [responseObject objectForKey:@"data"];
             if([arr isKindOfClass:[NSArray class]])
             {
-                self.zhuantiHDImageArr =   [WJMainZhuanTiHDItem mj_objectArrayWithKeyValuesArray:arr];
+                _zhuantiHDImageArr =   [WJMainZhuanTiHDItem mj_objectArrayWithKeyValuesArray:arr];
             }
         }
-        if ([urlString isEqualToString:kMSGetReputation]) {
-            id arr = [responseObject objectForKey:@"data"];
+        if ([urlString isEqualToString:@"getIsNewGoods?id=1"]) {
+            NSLog(@"%@====%@",urlString,responseObject);
+            id arr = [[responseObject objectForKey:@"data"] objectForKey:@"data"];
             if([arr isKindOfClass:[NSArray class]])
             {
-                self.peopleTuiJianArr =  arr;
+                _newshangshiArr =  arr;
                  [_collectionV reloadData];
             }
          }
@@ -251,10 +254,11 @@
 {
     WJHomeNavTopView *searchBarVc = [[WJHomeNavTopView alloc] initWithFrame:CGRectMake(0, 0, kMSScreenWith, 64)];
     searchBarVc.leftItemClickBlock = ^{
-        HWScanViewController *vc = [[HWScanViewController alloc] init];
-        self.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:vc animated:YES];
-        self.hidesBottomBarWhenPushed = NO;
+         self.tabBarController.selectedIndex = 1;
+//        HWScanViewController *vc = [[HWScanViewController alloc] init];
+//        self.hidesBottomBarWhenPushed = YES;
+//        [self.navigationController pushViewController:vc animated:YES];
+//        self.hidesBottomBarWhenPushed = NO;
     };
     searchBarVc.rightItemClickBlock = ^{
 
@@ -321,15 +325,16 @@
         if(indexPath.section == 0)// 顶部滚动广告
         {
             WJHomeScrollAdHeadView *head = [_collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJHomeScrollAdHeadView" forIndexPath:indexPath];
-            head.imageArr = self.adImageArr;
+            head.imageArr = _adImageArr;
             [head setUIInit];
+            WEAKSELF
             head.goToADAction = ^(NSInteger index) {
                 WJMainWebClassViewController *MainWebV = [[WJMainWebClassViewController alloc]init];
-                MainWebV.str_urlHttp = self.adImageArr[index].ad_link;
-                MainWebV.str_urlHttp = self.adImageArr[index].ad_name;
-                self.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:MainWebV animated:YES];
-                self.hidesBottomBarWhenPushed = NO;
+                MainWebV.str_urlHttp = _adImageArr[index].ad_link;
+                MainWebV.str_urlHttp = _adImageArr[index].ad_name;
+                MainWebV.hidesBottomBarWhenPushed = YES;
+                [weakSelf.navigationController pushViewController:MainWebV animated:YES];
+                weakSelf.hidesBottomBarWhenPushed = NO;
             };
             reusableview = head;
         }
@@ -341,36 +346,36 @@
             [head setUpUI];
             reusableview = head;
         }
-       else if(indexPath.section == 2)// 时时拼团
-       {
-           WJShiShiPingTuanView *head = [_collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJShiShiPingTuanView" forIndexPath:indexPath];
-           head.titleLabel.text = @"时时拼团";
-           reusableview = head;
-       }
-       else if(indexPath.section == 3)// 专题活动
-       {
-           WJShiShiPingTuanView *head = [_collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJShiShiPingTuanView" forIndexPath:indexPath];
-           head.titleLabel.text = @"专题活动";
-           reusableview = head;
-       }
+//       else if(indexPath.section == 2)// 时时拼团
+//       {
+//           WJShiShiPingTuanView *head = [_collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJShiShiPingTuanView" forIndexPath:indexPath];
+//           head.titleLabel.text = @"时时拼团";
+//           reusableview = head;
+//       }
+//       else if(indexPath.section == 3)// 专题活动
+//       {
+//           WJShiShiPingTuanView *head = [_collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJShiShiPingTuanView" forIndexPath:indexPath];
+//           head.titleLabel.text = @"专题活动";
+//           reusableview = head;
+//       }
 //       else if(indexPath.section == 4)// 精选店铺
 //       {
 //           WJShiShiPingTuanView *head = [_collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJShiShiPingTuanView" forIndexPath:indexPath];
 //           head.titleLabel.text = @"精选店铺";
 //           reusableview = head;
 //       }
-       else if(indexPath.section == 4)// 人气推荐
+       else if(indexPath.section == 2)// 新品上市
        {
            WJShiShiPingTuanView *head = [_collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJShiShiPingTuanView" forIndexPath:indexPath];
-           head.titleLabel.text = @"人气推荐";
+           head.titleLabel.text = @"新品上市";
            reusableview = head;
        }
-       else if(indexPath.section == 5)// 最新推荐
-       {
-           WJShiShiPingTuanView *head = [_collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJShiShiPingTuanView" forIndexPath:indexPath];
-           head.titleLabel.text = @"最新推荐";
-           reusableview = head;
-       }
+//       else if(indexPath.section == 5)// 最新推荐
+//       {
+//           WJShiShiPingTuanView *head = [_collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJShiShiPingTuanView" forIndexPath:indexPath];
+//           head.titleLabel.text = @"最新推荐";
+//           reusableview = head;
+//       }
         else
         {
             UICollectionReusableView *common = [_collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"common" forIndexPath:indexPath];
@@ -393,6 +398,7 @@
     if (kind == UICollectionElementKindSectionFooter) {
         if (indexPath.section == 0) {
             WJEveryDayMastRobView *footview = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"WJEveryDayMastRobView" forIndexPath:indexPath];
+            footview.imageArr = _adImageArr;
             reusableview = footview;
         }
     }
@@ -436,11 +442,11 @@
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 7;
+    return 4;
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    if (section == 6) {
+    if (section == 3) {
         return self.headImageArr.count;
     }
     else
@@ -456,18 +462,18 @@
     {
             return CGSizeMake(kMSScreenWith, kMSScreenWith/4+80);
     }
-        else if(indexPath.section == 1||indexPath.section == 2||indexPath.section == 5)
+        else if(indexPath.section == 1)
         {
-            return CGSizeMake(kMSScreenWith, 200);
+            return CGSizeMake(kMSScreenWith, 210);
         }
-        else if(indexPath.section ==3)
+        else if(indexPath.section ==2)
         {
-            return CGSizeMake(kMSScreenWith, 160);
+            return CGSizeMake(kMSScreenWith, 190);
         }
-        else if(indexPath.section ==4)
-        {
-            return CGSizeMake(kMSScreenWith, 250);
-        }
+//        else if(indexPath.section ==4)
+//        {
+//            return CGSizeMake(kMSScreenWith, 250);
+//        }
     else
     {
         return CGSizeMake(kMSScreenWith/2-1, 200);
@@ -489,8 +495,8 @@
     }
     else if (indexPath.section == 1)
     {
-            WJGoodsCountDownCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJGoodsCountDownCell" forIndexPath:indexPath];
-        cell.countDownItem = [[self.miaoshaArr objectAtIndex:0] objectForKey:@"activity"];
+        WJGoodsCountDownCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJGoodsCountDownCell" forIndexPath:indexPath];
+        cell.countDownItem = [[_miaoshaArr objectAtIndex:0] objectForKey:@"activity"];
         [cell setUpUI];
         cell.goToGoodDetailClass = ^(NSString *good_id) {
             [self gotoGoodDetailWithGoodId:good_id];
@@ -498,20 +504,31 @@
             gridcell = cell;
         
     }
-    else if (indexPath.section == 2)
+    else if (indexPath.section == 2)  //新品上市
     {
-        WJShiShiPingTuanCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJShiShiPingTuanCell" forIndexPath:indexPath];
+        WJNewTuiJianCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJNewTuiJianCell" forIndexPath:indexPath];
+        cell.countDownItem = _newshangshiArr;
+        [cell setUpUI];
+        cell.goToGoodDetailClass = ^(NSString *good_id) {
+            [self gotoGoodDetailWithGoodId:good_id];
+        };
         gridcell = cell;
 
     }
-    else if (indexPath.section == 3)
-    {
-        WJZhuanTiHuoDongCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJZhuanTiHuoDongCell" forIndexPath:indexPath];
-        cell.arr_data = self.zhuantiHDImageArr;
-        [cell setUpUIZhuanTi];
-        gridcell = cell;
-
-    }
+//    else if (indexPath.section == 2)
+//    {
+//        WJShiShiPingTuanCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJShiShiPingTuanCell" forIndexPath:indexPath];
+//        gridcell = cell;
+//
+//    }
+//    else if (indexPath.section == 3)
+//    {
+//        WJZhuanTiHuoDongCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJZhuanTiHuoDongCell" forIndexPath:indexPath];
+//        cell.arr_data = self.zhuantiHDImageArr;
+//        [cell setUpUIZhuanTi];
+//        gridcell = cell;
+//
+//    }
 //    else if (indexPath.section == 4)
 //    {
 //        WJJingXuanShopCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJJingXuanShopCell" forIndexPath:indexPath];
@@ -519,18 +536,18 @@
 //        [cell setUpUI];
 //        gridcell = cell;
 //    }
-    else if (indexPath.section == 4)
-    {
-        WJPeopleTuiJianCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJPeopleTuiJianCell" forIndexPath:indexPath];
-        cell.arr_tuijiandata = self.peopleTuiJianArr;
-        [cell setUpUI];
-        gridcell = cell;
-    }
-    else if (indexPath.section == 5)
-    {
-        WJNewTuiJianCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJNewTuiJianCell" forIndexPath:indexPath];
-        gridcell = cell;
-    }
+//    else if (indexPath.section == 4)
+//    {
+//        WJPeopleTuiJianCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJPeopleTuiJianCell" forIndexPath:indexPath];
+//        cell.arr_tuijiandata = self.peopleTuiJianArr;
+//        [cell setUpUI];
+//        gridcell = cell;
+//    }
+//    else if (indexPath.section == 5)
+//    {
+//        WJNewTuiJianCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJNewTuiJianCell" forIndexPath:indexPath];
+//        gridcell = cell;
+//    }
     else
     {
         WJHomeRecommendCollectionViewCell *cell = [_collectionV dequeueReusableCellWithReuseIdentifier:@"WJHomeRecommendCollectionViewCell" forIndexPath:indexPath];
@@ -559,7 +576,7 @@
 {
     WJSSPTDetailClassViewController *dcVc = [[WJSSPTDetailClassViewController alloc] init];
     dcVc.goods_id = goodId;
-    dcVc.endTimeStr = [[self.miaoshaArr objectAtIndex:0] objectForKey:@"end_time"];
+    dcVc.endTimeStr = [[_miaoshaArr objectAtIndex:0] objectForKey:@"end_time"];
     dcVc.info_classType = @"秒杀";
     dcVc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:dcVc animated:YES];

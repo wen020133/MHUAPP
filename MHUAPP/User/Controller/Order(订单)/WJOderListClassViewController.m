@@ -21,6 +21,8 @@
 
 #import "WJWaitPayOrderInfoViewController.h"
 #import "WJLogisticsViewController.h"
+#import "WJGoodDetailViewController.h"
+
 
 @interface WJOderListClassViewController ()
 
@@ -234,17 +236,53 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    switch (_serverType) {
-        case KGetOrderListWaitPay:
+    WJOrderShangJiaHeadModel *model = [self.arr_data objectAtIndex:indexPath.section];
+    NSInteger paySt = [model.pay_status integerValue];
+    switch (paySt) {
+        case 0:
         {
             WJWaitPayOrderInfoViewController *waitPayInfoVC = [[WJWaitPayOrderInfoViewController alloc]init];
-             WJOrderShangJiaHeadModel *shopModel = self.arr_data[indexPath.section];
+            WJOrderShangJiaHeadModel *shopModel = self.arr_data[indexPath.section];
             waitPayInfoVC.str_orderId = shopModel.order_sn;
             waitPayInfoVC.str_Name = shopModel.referer;
             waitPayInfoVC.str_telephone = shopModel.mobile;
             waitPayInfoVC.str_address = shopModel.address;
             waitPayInfoVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:waitPayInfoVC animated:YES];
+        }
+            break;
+        case 1:
+        {
+
+        }
+            break;
+        case 2:
+        {
+            NSInteger shipSt = [model.shipping_status integerValue];
+            switch (shipSt) {
+                case 0:
+                {
+//                    view.state.text = @"未发货";
+                }
+                    break;
+                case 1:
+                {
+//                    view.state.text = @"已发货";
+                }
+                    break;
+                case 2:
+                {
+//                    view.state.text = @"已收货";
+                }
+                    break;
+                case 3:
+                {
+//                    view.state.text = @"退货";
+                }
+                    break;
+                default:
+                    break;
+            }
         }
             break;
 
@@ -311,6 +349,7 @@
 {
     WJOrderFooter *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"WJOrderFooter"];
      WJOrderShangJiaHeadModel *model = [self.arr_data objectAtIndex:section];
+    WJOrderGoodListModel *listmodel = [model.goodsArray objectAtIndex:0];
    view.totalPayPrice.text = [NSString stringWithFormat:@"共%ld件商品 合计：￥%@",model.goodsArray.count,model.goods_amount];
     NSInteger paySt = [model.pay_status integerValue];
     switch (paySt) {
@@ -360,9 +399,31 @@
     view.ClickStateForStrBlock = ^(NSString *stateStr) {
         if ([stateStr isEqualToString:@"查看物流"]) {
         WJLogisticsViewController *waitPayInfoVC = [[WJLogisticsViewController alloc]init];
+            waitPayInfoVC.invoice_no = model.invoice_no;
+            waitPayInfoVC.shipping_name = model.shipping_name;
         waitPayInfoVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:waitPayInfoVC animated:YES];
         }
+      else  if ([stateStr isEqualToString:@"立即支付"]) {
+            WJWaitPayOrderInfoViewController *waitPayInfoVC = [[WJWaitPayOrderInfoViewController alloc]init];
+            waitPayInfoVC.str_Name = model.consignee;
+            waitPayInfoVC.str_address = model.address;
+            waitPayInfoVC.str_telephone = model.mobile;
+            waitPayInfoVC.str_orderId = model.order_id;
+            waitPayInfoVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:waitPayInfoVC animated:YES];
+        }
+      else  if ([stateStr isEqualToString:@"再次购买"]) {
+            WJGoodDetailViewController *waitPayInfoVC = [[WJGoodDetailViewController alloc]init];
+                waitPayInfoVC.goods_id = listmodel.goods_id;
+            waitPayInfoVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:waitPayInfoVC animated:YES];
+        }
+      else  if ([stateStr isEqualToString:@"我要催单"]) {
+          [self requestFailed:@"已向商家催单！"];
+      }
+      else  if ([stateStr isEqualToString:@"我要退款"]) {
+      }
     };
     return view;
 }

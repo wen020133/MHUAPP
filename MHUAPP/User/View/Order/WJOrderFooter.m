@@ -53,7 +53,7 @@
             break;
         case 1:  //待发货
         {
-            arr_buttonTitle = [NSMutableArray arrayWithObjects:@"再次购买",@"催发货", nil];
+            arr_buttonTitle = [NSMutableArray arrayWithObjects:@"我要催单", @"我要退款",nil];
         }
             break;
         case 2:  //待收货

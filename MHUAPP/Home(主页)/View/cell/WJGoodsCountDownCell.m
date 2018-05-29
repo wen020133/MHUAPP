@@ -10,7 +10,6 @@
 #import <UIImageView+WebCache.h>
 #import "UIView+UIViewFrame.h"
 #import "WJXianShiMiaoShaCell.h"
-#import "WJGoodDetailViewController.h"
 
 @interface WJGoodsCountDownCell ()<UICollectionViewDelegate , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout>
 

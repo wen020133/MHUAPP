@@ -25,8 +25,8 @@
     [self initSendReplyWithTitle:@"物流信息" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
     
     self.dataArry = [NSMutableArray array];
-    _shipping_name = @"顺丰速运";
-    _invoice_no = @"765192325744";
+    _shipping_name = @"中通速递";
+    _invoice_no = @"490850486931";
     [self getMiYouMeiQuery];
     // Do any additional setup after loading the view.
 }
@@ -41,7 +41,7 @@
 -(void)processData
 {
     if ([_shipping_name isEqualToString:@"顺丰速运"]||[_shipping_name isEqualToString:@"申通速递"]||[_shipping_name isEqualToString:@"百世快递"]) {
-        NSArray *arr_Traces = [self.results objectForKey:@"list"];
+        NSArray *arr_Traces = [[self.results objectForKey:@"result"] objectForKey:@"list"];
         if (arr_Traces&&arr_Traces.count>0) {
             for (NSDictionary *dic in arr_Traces) {
 
@@ -63,6 +63,7 @@
                         break;
                     case 3:
                         logisView.wltype = @"已签收";
+                        break;
                     case 4:
                         logisView.wltype = @"问题件";
                         break;
@@ -70,8 +71,8 @@
                         break;
                 }
 
-                logisView.number = [self.results objectForKey:@"LogisticCode"];
-                logisView.company = [self.results objectForKey:@"name"];
+                logisView.number =  [[self.results objectForKey:@"result"] objectForKey:@"no"];
+                logisView.company = [[self.results objectForKey:@"result"] objectForKey:@"company"];
                 logisView.imageUrl = @"";
                 logisView.frame = CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight-kMSNaviHight);
                 [self.view addSubview:logisView];
@@ -79,7 +80,7 @@
         }
     else
     {
-        [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"error_code"]];
+        [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"reason"]];
         return;
     }
 
@@ -107,6 +108,7 @@
                     break;
                 case 3:
                      logisView.wltype = @"已签收";
+                    break;
                 case 4:
                     logisView.wltype = @"问题件";
                     break;

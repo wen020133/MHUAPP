@@ -11,7 +11,7 @@
 
 @interface WJHomeNavTopView ()
 /* 左边Item */
-@property (strong , nonatomic) JXButton *leftItemButton;
+@property (strong , nonatomic) UIButton *leftItemButton;
 /* 右边Item */
 @property (strong , nonatomic) JXButton *rightItemButton;
 /* 搜索 */
@@ -35,17 +35,19 @@
 
 - (void)setUpUI
 {
-    _leftItemButton = [JXButton new];
-        [_leftItemButton setTitle:@"扫一扫" forState:UIControlStateNormal];
-        [_leftItemButton setImage:[UIImage imageNamed:@"home_sweep"] forState:UIControlStateNormal];
-        [_leftItemButton addTarget:self action:@selector(leftButtonItemClick) forControlEvents:UIControlEventTouchUpInside];
+    _leftItemButton = [UIButton new];
+//        [_leftItemButton setTitle:@"扫一扫" forState:UIControlStateNormal];
+//        [_leftItemButton setImage:[UIImage imageNamed:@"home_sweep"] forState:UIControlStateNormal];
+
+    [_leftItemButton setImage:[UIImage imageNamed:@"Tab_icon_feilei_normal"] forState:UIControlStateNormal];
+    [_leftItemButton addTarget:self action:@selector(leftButtonItemClick) forControlEvents:UIControlEventTouchUpInside];
 
 
 
     _rightItemButton = [JXButton new];
     [_rightItemButton setTitle:@"消息" forState:UIControlStateNormal];
-        [_rightItemButton setImage:[UIImage imageNamed:@"home_message"] forState:UIControlStateNormal];
-        [_rightItemButton addTarget:self action:@selector(rightButtonItemClick) forControlEvents:UIControlEventTouchUpInside];
+    [_rightItemButton setImage:[UIImage imageNamed:@"home_message"] forState:UIControlStateNormal];
+    [_rightItemButton addTarget:self action:@selector(rightButtonItemClick) forControlEvents:UIControlEventTouchUpInside];
 
 
     [self addSubview:_rightItemButton];

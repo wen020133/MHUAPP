@@ -12,6 +12,6 @@
 
 @property (strong, nonatomic)  UILabel *lab_orderNo;
 @property (strong, nonatomic)  UILabel *lab_time;
-
+@property (nonatomic, strong)  UILabel *totalPayPrice;
 @property (strong, nonatomic)  NSString *str_orderNo;
 @end
