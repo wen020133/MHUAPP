@@ -49,14 +49,15 @@
 }
 - (void)setImageUrl:(NSString *)imageUrl {
     _imageUrl = imageUrl;
-    //    [self.goodsPic sd_setImageWithURL:[NSURL URLWithString:imageUrl]];
+    self.goodsPic.image = [UIImage imageNamed:imageUrl];
 
 }
 - (void)setupUI {
     self.backgroundColor=[UIColor whiteColor];
 
+    self.goodsPic = [[UIImageView alloc]init];
     self.goodsPic.frame=CGRectMake(15, 15, 85,85);
-    self.goodsPic.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"hh" ofType:@"jpg"]];
+    self.goodsPic.image = [UIImage imageNamed:@"logistics_EMS.png"];
     [self addSubview:self.goodsPic];
 
     self.type =[[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.goodsPic.frame)+14,12, 20*10, 2*10)];

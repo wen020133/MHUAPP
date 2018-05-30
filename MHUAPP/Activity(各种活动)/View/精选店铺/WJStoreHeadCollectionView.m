@@ -147,7 +147,7 @@
     }];
 
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        [make.top.mas_equalTo(_headImageView.mas_top)setOffset:20];
+        [make.top.mas_equalTo(_headImageView.mas_bottom)setOffset:20];
         make.centerX.mas_equalTo(_view_head.mas_centerX);
         make.size.mas_equalTo(CGSizeMake(200, 30));
         

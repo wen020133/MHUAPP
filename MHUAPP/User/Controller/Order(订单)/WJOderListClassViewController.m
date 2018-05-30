@@ -22,7 +22,8 @@
 #import "WJWaitPayOrderInfoViewController.h"
 #import "WJLogisticsViewController.h"
 #import "WJGoodDetailViewController.h"
-
+#import "WJWaitForGoodInfoViewController.h"
+#import "WJPostBackOrderViewController.h"
 
 @interface WJOderListClassViewController ()
 
@@ -267,7 +268,16 @@
                     break;
                 case 1:
                 {
-//                    view.state.text = @"已发货";
+                    WJWaitForGoodInfoViewController *waitPayInfoVC = [[WJWaitForGoodInfoViewController alloc]init];
+                    WJOrderShangJiaHeadModel *shopModel = self.arr_data[indexPath.section];
+                    waitPayInfoVC.str_orderId = shopModel.order_sn;
+                    waitPayInfoVC.str_Name = shopModel.referer;
+                    waitPayInfoVC.str_telephone = shopModel.mobile;
+                    waitPayInfoVC.str_address = shopModel.address;
+                    waitPayInfoVC.shipping_name = shopModel.shipping_name;
+                    waitPayInfoVC.invoice_no = shopModel.invoice_no;
+                    waitPayInfoVC.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:waitPayInfoVC animated:YES];
                 }
                     break;
                 case 2:
@@ -397,37 +407,83 @@
             break;
     }
     view.ClickStateForStrBlock = ^(NSString *stateStr) {
+        WEAKSELF
         if ([stateStr isEqualToString:@"查看物流"]) {
         WJLogisticsViewController *waitPayInfoVC = [[WJLogisticsViewController alloc]init];
             waitPayInfoVC.invoice_no = model.invoice_no;
             waitPayInfoVC.shipping_name = model.shipping_name;
         waitPayInfoVC.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:waitPayInfoVC animated:YES];
+        [weakSelf.navigationController pushViewController:waitPayInfoVC animated:YES];
         }
       else  if ([stateStr isEqualToString:@"立即支付"]) {
             WJWaitPayOrderInfoViewController *waitPayInfoVC = [[WJWaitPayOrderInfoViewController alloc]init];
             waitPayInfoVC.str_Name = model.consignee;
             waitPayInfoVC.str_address = model.address;
             waitPayInfoVC.str_telephone = model.mobile;
-            waitPayInfoVC.str_orderId = model.order_id;
+            waitPayInfoVC.str_orderId = model.order_sn;
             waitPayInfoVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:waitPayInfoVC animated:YES];
+            [weakSelf.navigationController pushViewController:waitPayInfoVC animated:YES];
         }
       else  if ([stateStr isEqualToString:@"再次购买"]) {
             WJGoodDetailViewController *waitPayInfoVC = [[WJGoodDetailViewController alloc]init];
                 waitPayInfoVC.goods_id = listmodel.goods_id;
             waitPayInfoVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:waitPayInfoVC animated:YES];
+            [weakSelf.navigationController pushViewController:waitPayInfoVC animated:YES];
         }
       else  if ([stateStr isEqualToString:@"我要催单"]) {
           [self requestFailed:@"已向商家催单！"];
       }
       else  if ([stateStr isEqualToString:@"我要退款"]) {
+          WJPostBackOrderViewController *waitPayInfoVC = [[WJPostBackOrderViewController alloc]init];
+          waitPayInfoVC.hidesBottomBarWhenPushed = YES;
+          [self.navigationController pushViewController:waitPayInfoVC animated:YES];
+      }
+      else  if ([stateStr isEqualToString:@"确认收货"]) {
+          [self jxt_showAlertWithTitle:nil message:@"已收到货？" appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
+              alertMaker.
+              addActionCancelTitle(@"取消").
+              addActionDestructiveTitle(@"已收货");
+          } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, JXTAlertController * _Nonnull alertSelf) {
+              if ([action.title isEqualToString:@"取消"]) {
+                  NSLog(@"cancel");
+              }
+              else if ([action.title isEqualToString:@"已收货"]) {
+                  [self postbackOderData:model.order_sn];
+              }
+          }];
       }
     };
     return view;
 }
 
+-(void)postbackOderData:(NSString *)order_sn
+{
+    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+    [infos setValue:[AppDelegate shareAppDelegate].user_id forKey:@"user_id"];
+    [infos setValue:order_sn forKey:@"id"];
+    [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSMiYoMeiAffirmGoods] andInfos:infos];
+}
+
+-(void)processData
+{
+    if([[self.results objectForKey:@"code"] integerValue] == 200)
+    {
+        [SVProgressHUD showSuccessWithStatus:@"收货成功~"];
+        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+        [SVProgressHUD dismissWithDelay:1.0];
+        [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:2.0];
+
+    }
+    else
+    {
+        [self requestFailed:@"确认收货失败"];
+    }
+}
+-(void)delayMethod
+{
+    _page = 1;
+    [self loadData];
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
 
     return 45;

@@ -13,6 +13,8 @@
 #import "AppDelegate.h"
 #import "WJCartGoodsModel.h"
 #import "WJWaitPayThridTableCell.h"
+#import "PayViewController.h"
+
 
 @interface WJWaitPayOrderInfoViewController ()
 @property (strong,nonatomic)UITableView *myTableView;
@@ -90,8 +92,28 @@
 }
 -(void)gotoPayNew:(UIButton *)sender
 {
-
+    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+    [infos setObject:[AppDelegate shareAppDelegate].user_id forKey:@"user_id"];
+    [infos setObject:_str_orderId forKey:@"id"];
+    [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSPlaceAnOrder] andInfos:infos];
 }
+-(void)processData
+{
+    if([[self.results objectForKey:@"code"] integerValue] == 200)
+    {
+        PayViewController *pay = [[PayViewController alloc]init];
+        pay.orderNo = self.results[@"data"][@"orderNo"];
+        pay.oPrice = self.results[@"data"][@"oPrice"];
+        self.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:pay animated:YES];
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"data"]];
+        return;
+    }
+}
+
 -(void)countPrice {
     double totlePrice = 0.0;
 
@@ -155,7 +177,7 @@
         {
             cell.imageLine.hidden = NO;
         }
-        cell.listModel = self.arr_dataList[indexPath.row];
+        cell.listModel = _arr_dataList[indexPath.row];
         return cell;
     }
     else

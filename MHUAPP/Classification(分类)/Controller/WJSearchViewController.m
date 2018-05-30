@@ -8,6 +8,9 @@
 
 #import "WJSearchViewController.h"
 #import "HXSearchBar.h"
+#import "WJGoodDetailViewController.h"
+#import "WJStoreInfoClassViewController.h"
+
 
 @interface WJSearchViewController ()<UISearchBarDelegate>
 @property (strong, nonatomic) HXSearchBar *searchBar;
@@ -57,11 +60,6 @@
 
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [self.view endEditing:YES];
-    [self.searchBar resignFirstResponder];
-}
 
 - (void)didSelectedMuluBtnWithTag:(NSInteger)currTag
 {
@@ -144,10 +142,12 @@
 {
     if([[self.results objectForKey:@"code"] integerValue] == 200)
     {
+
         self.arr_items = nil;
         [self.arr_items removeAllObjects];
         self.arr_items = [self.results objectForKey:@"data"];
         if (self.arr_items&&self.arr_items.count>0) {
+             self.noMoreView.hidden = YES;
             self.tab_infoView.hidden = NO;
             [self.view addSubview:self.menuScrollView];
             [self.tab_infoView reloadData];
@@ -229,7 +229,30 @@
       cell.textLabel.text = [NSString stringWithFormat:@"%@",[[self.arr_items objectAtIndex:indexPath.row] objectForKey:@"supplier_name"]];
     }
     return cell;
-}/*
+}
+
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self.view endEditing:YES];
+    [self.searchBar resignFirstResponder];
+  if (self.int_goodOrshop==0) {
+    WJGoodDetailViewController *dcVc = [[WJGoodDetailViewController alloc] init];
+    dcVc.goods_id = [[self.arr_items objectAtIndex:indexPath.row] objectForKey:@"goods_id"];
+    self.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:dcVc animated:YES];
+  }
+else
+{
+    WJStoreInfoClassViewController *storeInfo = [[WJStoreInfoClassViewController alloc]init];
+    storeInfo.storeId = [[self.arr_items objectAtIndex:indexPath.row] objectForKey:@"supplier_id"];
+    storeInfo.storeLogo = [[self.arr_items objectAtIndex:indexPath.row] objectForKey:@"goods_id"];;
+    storeInfo.storeName = [[self.arr_items objectAtIndex:indexPath.row] objectForKey:@"supplier_name"];;
+    storeInfo.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:storeInfo animated:YES];
+}
+}
+/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation

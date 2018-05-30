@@ -240,7 +240,25 @@
 		3452FA3E1FFF646E009F60AE /* shopcart_edit.png in Resources */ = {isa = PBXBuildFile; fileRef = 3452FA3B1FFF646E009F60AE /* shopcart_edit.png */; };
 		345390D520B2B663009F98BA /* WJSSPTInfoClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 345390D420B2B663009F98BA /* WJSSPTInfoClassViewController.m */; };
 		3456C1851FD7730100B5AEB8 /* UserCommitFlow.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3456C1841FD7730100B5AEB8 /* UserCommitFlow.plist */; };
+		3456C18920BE258A002A6566 /* logistics_STO.png in Resources */ = {isa = PBXBuildFile; fileRef = 3456C17A20BE2585002A6566 /* logistics_STO.png */; };
+		3456C18A20BE258A002A6566 /* logistics_YD.png in Resources */ = {isa = PBXBuildFile; fileRef = 3456C17B20BE2586002A6566 /* logistics_YD.png */; };
+		3456C18B20BE258A002A6566 /* logistics_TNT.png in Resources */ = {isa = PBXBuildFile; fileRef = 3456C17C20BE2586002A6566 /* logistics_TNT.png */; };
+		3456C18C20BE258A002A6566 /* logistics_JD.png in Resources */ = {isa = PBXBuildFile; fileRef = 3456C17D20BE2587002A6566 /* logistics_JD.png */; };
+		3456C18D20BE258A002A6566 /* logistics_DBL.png in Resources */ = {isa = PBXBuildFile; fileRef = 3456C17E20BE2587002A6566 /* logistics_DBL.png */; };
+		3456C18E20BE258A002A6566 /* logistics_HHTT.png in Resources */ = {isa = PBXBuildFile; fileRef = 3456C17F20BE2587002A6566 /* logistics_HHTT.png */; };
+		3456C18F20BE258A002A6566 /* logistics_YZPY.png in Resources */ = {isa = PBXBuildFile; fileRef = 3456C18020BE2587002A6566 /* logistics_YZPY.png */; };
+		3456C19020BE258A002A6566 /* logistics_ZTO.png in Resources */ = {isa = PBXBuildFile; fileRef = 3456C18120BE2588002A6566 /* logistics_ZTO.png */; };
+		3456C19120BE258A002A6566 /* logistics_HTKY.png in Resources */ = {isa = PBXBuildFile; fileRef = 3456C18220BE2588002A6566 /* logistics_HTKY.png */; };
+		3456C19220BE258A002A6566 /* logistics_ZJS.png in Resources */ = {isa = PBXBuildFile; fileRef = 3456C18320BE2588002A6566 /* logistics_ZJS.png */; };
+		3456C19320BE258A002A6566 /* logistics_EMS.png in Resources */ = {isa = PBXBuildFile; fileRef = 3456C18420BE2589002A6566 /* logistics_EMS.png */; };
+		3456C19420BE258A002A6566 /* logistics_UC.png in Resources */ = {isa = PBXBuildFile; fileRef = 3456C18520BE2589002A6566 /* logistics_UC.png */; };
+		3456C19520BE258A002A6566 /* logistics_FAST.png in Resources */ = {isa = PBXBuildFile; fileRef = 3456C18620BE2589002A6566 /* logistics_FAST.png */; };
+		3456C19620BE258A002A6566 /* logistics_YTO.png in Resources */ = {isa = PBXBuildFile; fileRef = 3456C18720BE2589002A6566 /* logistics_YTO.png */; };
+		3456C19720BE258A002A6566 /* logistics_SF.png in Resources */ = {isa = PBXBuildFile; fileRef = 3456C18820BE258A002A6566 /* logistics_SF.png */; };
 		3456C1981FD787CD00B5AEB8 /* WJUserMainTabelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3456C1971FD787CD00B5AEB8 /* WJUserMainTabelCell.m */; };
+		3456C19C20BE5773002A6566 /* WJWAaitForGoodLogistTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3456C19B20BE5773002A6566 /* WJWAaitForGoodLogistTableCell.m */; };
+		3456C19F20BE929B002A6566 /* WJPostBackOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3456C19E20BE929B002A6566 /* WJPostBackOrderViewController.m */; };
+		3456C1A220BE96B2002A6566 /* WJWAaitForGoodThridTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3456C1A120BE96B2002A6566 /* WJWAaitForGoodThridTableCell.m */; };
 		3456C1AF1FD79F1D00B5AEB8 /* WJUserHeadAndOrderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3456C1AD1FD79F1D00B5AEB8 /* WJUserHeadAndOrderView.m */; };
 		3456C1B51FD7A04700B5AEB8 /* user_headBC.png in Resources */ = {isa = PBXBuildFile; fileRef = 3456C1B41FD7A04700B5AEB8 /* user_headBC.png */; };
 		3456C1B71FD7C33800B5AEB8 /* ic_no_heardPic.png in Resources */ = {isa = PBXBuildFile; fileRef = 3456C1B61FD7C33800B5AEB8 /* ic_no_heardPic.png */; };
@@ -783,10 +801,31 @@
 		3452FA3B1FFF646E009F60AE /* shopcart_edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shopcart_edit.png; sourceTree = "<group>"; };
 		345390D320B2B663009F98BA /* WJSSPTInfoClassViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJSSPTInfoClassViewController.h; sourceTree = "<group>"; };
 		345390D420B2B663009F98BA /* WJSSPTInfoClassViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJSSPTInfoClassViewController.m; sourceTree = "<group>"; };
+		3456C17A20BE2585002A6566 /* logistics_STO.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logistics_STO.png; sourceTree = "<group>"; };
+		3456C17B20BE2586002A6566 /* logistics_YD.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logistics_YD.png; sourceTree = "<group>"; };
+		3456C17C20BE2586002A6566 /* logistics_TNT.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logistics_TNT.png; sourceTree = "<group>"; };
+		3456C17D20BE2587002A6566 /* logistics_JD.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logistics_JD.png; sourceTree = "<group>"; };
+		3456C17E20BE2587002A6566 /* logistics_DBL.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logistics_DBL.png; sourceTree = "<group>"; };
+		3456C17F20BE2587002A6566 /* logistics_HHTT.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logistics_HHTT.png; sourceTree = "<group>"; };
+		3456C18020BE2587002A6566 /* logistics_YZPY.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logistics_YZPY.png; sourceTree = "<group>"; };
+		3456C18120BE2588002A6566 /* logistics_ZTO.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logistics_ZTO.png; sourceTree = "<group>"; };
+		3456C18220BE2588002A6566 /* logistics_HTKY.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logistics_HTKY.png; sourceTree = "<group>"; };
+		3456C18320BE2588002A6566 /* logistics_ZJS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logistics_ZJS.png; sourceTree = "<group>"; };
 		3456C1841FD7730100B5AEB8 /* UserCommitFlow.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = UserCommitFlow.plist; sourceTree = "<group>"; };
+		3456C18420BE2589002A6566 /* logistics_EMS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logistics_EMS.png; sourceTree = "<group>"; };
+		3456C18520BE2589002A6566 /* logistics_UC.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logistics_UC.png; sourceTree = "<group>"; };
+		3456C18620BE2589002A6566 /* logistics_FAST.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logistics_FAST.png; sourceTree = "<group>"; };
+		3456C18720BE2589002A6566 /* logistics_YTO.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logistics_YTO.png; sourceTree = "<group>"; };
+		3456C18820BE258A002A6566 /* logistics_SF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logistics_SF.png; sourceTree = "<group>"; };
 		3456C1961FD787CD00B5AEB8 /* WJUserMainTabelCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJUserMainTabelCell.h; sourceTree = "<group>"; };
 		3456C1971FD787CD00B5AEB8 /* WJUserMainTabelCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJUserMainTabelCell.m; sourceTree = "<group>"; };
 		3456C1991FD78BC700B5AEB8 /* UserTableFlow.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = UserTableFlow.plist; sourceTree = "<group>"; };
+		3456C19A20BE5773002A6566 /* WJWAaitForGoodLogistTableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJWAaitForGoodLogistTableCell.h; sourceTree = "<group>"; };
+		3456C19B20BE5773002A6566 /* WJWAaitForGoodLogistTableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJWAaitForGoodLogistTableCell.m; sourceTree = "<group>"; };
+		3456C19D20BE929A002A6566 /* WJPostBackOrderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJPostBackOrderViewController.h; sourceTree = "<group>"; };
+		3456C19E20BE929B002A6566 /* WJPostBackOrderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJPostBackOrderViewController.m; sourceTree = "<group>"; };
+		3456C1A020BE96B2002A6566 /* WJWAaitForGoodThridTableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJWAaitForGoodThridTableCell.h; sourceTree = "<group>"; };
+		3456C1A120BE96B2002A6566 /* WJWAaitForGoodThridTableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJWAaitForGoodThridTableCell.m; sourceTree = "<group>"; };
 		3456C1AC1FD79F1D00B5AEB8 /* WJUserHeadAndOrderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJUserHeadAndOrderView.h; sourceTree = "<group>"; };
 		3456C1AD1FD79F1D00B5AEB8 /* WJUserHeadAndOrderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJUserHeadAndOrderView.m; sourceTree = "<group>"; };
 		3456C1B41FD7A04700B5AEB8 /* user_headBC.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user_headBC.png; sourceTree = "<group>"; };
@@ -1211,6 +1250,7 @@
 		17DF7BFA1FCD013A00FBD9DC /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				3456C19820BE35FA002A6566 /* 待收货 */,
 				17D6D4F720AFBE3500674875 /* 积分订单 */,
 				34FB224C20A1422600D698FA /* 物流 */,
 				34EC45EE20930B8700C99D44 /* 待付款 */,
@@ -2016,8 +2056,6 @@
 				343A8F391FE7B65C0017171A /* WJOrderMainViewController.m */,
 				34E3D2431FE89DFE005C7B2B /* WJOderListClassViewController.h */,
 				34E3D2441FE89DFE005C7B2B /* WJOderListClassViewController.m */,
-				341AA4EC20BD47A900CA893B /* WJWaitForGoodInfoViewController.h */,
-				341AA4ED20BD47A900CA893B /* WJWaitForGoodInfoViewController.m */,
 			);
 			path = "Order(订单)";
 			sourceTree = "<group>";
@@ -2106,6 +2144,50 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		3456C17920BE2574002A6566 /* logistics */ = {
+			isa = PBXGroup;
+			children = (
+				3456C17E20BE2587002A6566 /* logistics_DBL.png */,
+				3456C18420BE2589002A6566 /* logistics_EMS.png */,
+				3456C18620BE2589002A6566 /* logistics_FAST.png */,
+				3456C17F20BE2587002A6566 /* logistics_HHTT.png */,
+				3456C18220BE2588002A6566 /* logistics_HTKY.png */,
+				3456C17D20BE2587002A6566 /* logistics_JD.png */,
+				3456C18820BE258A002A6566 /* logistics_SF.png */,
+				3456C17A20BE2585002A6566 /* logistics_STO.png */,
+				3456C17C20BE2586002A6566 /* logistics_TNT.png */,
+				3456C18520BE2589002A6566 /* logistics_UC.png */,
+				3456C17B20BE2586002A6566 /* logistics_YD.png */,
+				3456C18720BE2589002A6566 /* logistics_YTO.png */,
+				3456C18020BE2587002A6566 /* logistics_YZPY.png */,
+				3456C18320BE2588002A6566 /* logistics_ZJS.png */,
+				3456C18120BE2588002A6566 /* logistics_ZTO.png */,
+			);
+			path = logistics;
+			sourceTree = "<group>";
+		};
+		3456C19820BE35FA002A6566 /* 待收货 */ = {
+			isa = PBXGroup;
+			children = (
+				341AA4EC20BD47A900CA893B /* WJWaitForGoodInfoViewController.h */,
+				341AA4ED20BD47A900CA893B /* WJWaitForGoodInfoViewController.m */,
+				3456C19D20BE929A002A6566 /* WJPostBackOrderViewController.h */,
+				3456C19E20BE929B002A6566 /* WJPostBackOrderViewController.m */,
+			);
+			path = "待收货";
+			sourceTree = "<group>";
+		};
+		3456C19920BE3C56002A6566 /* 待收货 */ = {
+			isa = PBXGroup;
+			children = (
+				3456C19A20BE5773002A6566 /* WJWAaitForGoodLogistTableCell.h */,
+				3456C19B20BE5773002A6566 /* WJWAaitForGoodLogistTableCell.m */,
+				3456C1A020BE96B2002A6566 /* WJWAaitForGoodThridTableCell.h */,
+				3456C1A120BE96B2002A6566 /* WJWAaitForGoodThridTableCell.m */,
+			);
+			path = "待收货";
+			sourceTree = "<group>";
+		};
 		3456C1C01FD7E8DF00B5AEB8 /* set */ = {
 			isa = PBXGroup;
 			children = (
@@ -2139,6 +2221,7 @@
 		3465646D1FCD552800448C40 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				3456C17920BE2574002A6566 /* logistics */,
 				3418E73C20196AB200EDD902 /* cart */,
 				34F1D3961FD686C70080EE3D /* User */,
 				3465646E1FCD553400448C40 /* main */,
@@ -2498,6 +2581,7 @@
 		34F1D3951FD6797B0080EE3D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3456C19920BE3C56002A6566 /* 待收货 */,
 				34FB224D20A1424200D698FA /* 物流 */,
 				3472C980209455070048D09E /* 待付款 */,
 				3435E907207F44AA00A156F2 /* MyFollow */,
@@ -2734,20 +2818,27 @@
 				34EB6A9B20A96BB2005C3671 /* topbg.jpg in Resources */,
 				340D036820511CCF003E02CB /* shop_default.png in Resources */,
 				3411F8F22040ED38007BCEF9 /* home_constantly_img.png in Resources */,
+				3456C18A20BE258A002A6566 /* logistics_YD.png in Resources */,
 				340626011FDE314100F52953 /* WJPushCodeViewController.xib in Resources */,
+				3456C18D20BE258A002A6566 /* logistics_DBL.png in Resources */,
 				340626061FDE32C000F52953 /* WJPushPasswordViewController.xib in Resources */,
 				34D5075E1FDB7E5A00EA1AC5 /* login_weixin.png in Resources */,
 				34D5075D1FDB7E5A00EA1AC5 /* login_qq.png in Resources */,
 				34FBC1DE209C50F9004C0F84 /* img_successimg.png in Resources */,
 				3412D5BC20467C4D000EB1A0 /* home_sentiment02_img.png in Resources */,
 				3456C1B51FD7A04700B5AEB8 /* user_headBC.png in Resources */,
+				3456C18E20BE258A002A6566 /* logistics_HHTT.png in Resources */,
 				3412D5CB2046A27E000EB1A0 /* main_newTuiJian4.png in Resources */,
+				3456C19220BE258A002A6566 /* logistics_ZJS.png in Resources */,
 				3456C1BA1FD7C43C00B5AEB8 /* UserTableFlow.plist in Resources */,
 				3411F8F52040ED38007BCEF9 /* home_brand_img.png in Resources */,
 				3411F8F42040ED38007BCEF9 /* home_selling_img.png in Resources */,
 				34F1D3981FD687340080EE3D /* user_set.png in Resources */,
 				34FB224A20A1375200D698FA /* AlipaySDK.bundle in Resources */,
 				34FAB70C2064F458000C9E3C /* PPDragDropBadgeView.bundle in Resources */,
+				3456C19120BE258A002A6566 /* logistics_HTKY.png in Resources */,
+				3456C19520BE258A002A6566 /* logistics_FAST.png in Resources */,
+				3456C18920BE258A002A6566 /* logistics_STO.png in Resources */,
 				34D507571FDB79DC00EA1AC5 /* login_mobile.png in Resources */,
 				341EF8EB1FFB8263008CF841 /* user_icon_share.png in Resources */,
 				341EF8E71FFB8208008CF841 /* ic_back.png in Resources */,
@@ -2757,6 +2848,7 @@
 				3411F95520411278007BCEF9 /* mask.jpg in Resources */,
 				34FAB6F12064DB88000C9E3C /* Default-568h@2x.png in Resources */,
 				3418E7432019738500EDD902 /* cart_cutBtn_nomal@2x.png in Resources */,
+				3456C18F20BE258A002A6566 /* logistics_YZPY.png in Resources */,
 				341944B92058C78F00AAAD61 /* user_backImageHead.png in Resources */,
 				34287B481FCFA5BD00C7AE5F /* ClassiftyGoods01.plist in Resources */,
 				344731562084768800F89D7F /* home_sentiment01_icon.png in Resources */,
@@ -2777,7 +2869,10 @@
 				34D5075C1FDB7E5A00EA1AC5 /* login_mima.png in Resources */,
 				340625FC1FDE28A900F52953 /* RigisterClassViewController.xib in Resources */,
 				346564761FCD561100448C40 /* img_btn_shiping@2x.png in Resources */,
+				3456C19420BE258A002A6566 /* logistics_UC.png in Resources */,
 				3411F8EB2040EC41007BCEF9 /* home_snap_img.png in Resources */,
+				3456C18B20BE258A002A6566 /* logistics_TNT.png in Resources */,
+				3456C18C20BE258A002A6566 /* logistics_JD.png in Resources */,
 				34FAB6F02064DB88000C9E3C /* Default-375w-667h@2x.png in Resources */,
 				342CDEEE1FE35F8500625F23 /* noMore_bg.png in Resources */,
 				346564771FCD561100448C40 /* img_btn_chongzhi@2x.png in Resources */,
@@ -2789,8 +2884,11 @@
 				340723472005A003002E6058 /* icon_cha@2x.png in Resources */,
 				3456C1851FD7730100B5AEB8 /* UserCommitFlow.plist in Resources */,
 				34EEB60C1FD93E4F00B4BE0A /* ForgetPasswordViewController.xib in Resources */,
+				3456C19620BE258A002A6566 /* logistics_YTO.png in Resources */,
 				3418E7422019738500EDD902 /* cart_cutBtn_highlight@2x.png in Resources */,
 				3452FA3E1FFF646E009F60AE /* shopcart_edit.png in Resources */,
+				3456C19020BE258A002A6566 /* logistics_ZTO.png in Resources */,
+				3456C19320BE258A002A6566 /* logistics_EMS.png in Resources */,
 				344A15002044031500C14CFE /* ic_delete.png in Resources */,
 				17F9F1661FCC527300C71820 /* home_more.xcassets in Resources */,
 				3411F8F32040ED38007BCEF9 /* home_trend_img.png in Resources */,
@@ -2800,6 +2898,7 @@
 				3418E7442019738500EDD902 /* cart_addBtn_highlight@2x.png in Resources */,
 				342576BC20205A8A0046D24E /* AddressTableViewCell.xib in Resources */,
 				3435D7AC2004512500F2FE46 /* ShopItem.plist in Resources */,
+				3456C19720BE258A002A6566 /* logistics_SF.png in Resources */,
 				3412D5C52046A124000EB1A0 /* main_newTuiJian.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3040,6 +3139,7 @@
 				3411F94F20411278007BCEF9 /* UINavigationController+XWTransition.m in Sources */,
 				34287B4B1FCFB5CE00C7AE5F /* WJBrandsSortHeadView.m in Sources */,
 				3411F95920411278007BCEF9 /* SDWaitingView.m in Sources */,
+				3456C19C20BE5773002A6566 /* WJWAaitForGoodLogistTableCell.m in Sources */,
 				3407234E2005B272002E6058 /* DCCollectionHeaderLayout.m in Sources */,
 				340E21642042401000BA8338 /* WJShiShiPingTuanCell.m in Sources */,
 				34287B391FCF96C300C7AE5F /* WJClassMainGoodTypeModel.m in Sources */,
@@ -3099,6 +3199,7 @@
 				34FB226120A16FC700D698FA /* WJLogisticsCustomTableCell.m in Sources */,
 				17049992203035EF007DBD89 /* zhPopupController.m in Sources */,
 				34EB6A9E20A96F72005C3671 /* WJStoreInfoCollectionCell.m in Sources */,
+				3456C1A220BE96B2002A6566 /* WJWAaitForGoodThridTableCell.m in Sources */,
 				3411F95D20411278007BCEF9 /* XWCoolAnimator+XWLines.m in Sources */,
 				340626001FDE314100F52953 /* WJPushCodeViewController.m in Sources */,
 				341320A22074A6F8009975AB /* WJHDZTFatherClassViewCell.m in Sources */,
@@ -3119,6 +3220,7 @@
 				341878D41FD538AE00D3F860 /* WJDetailGoodReferralCell.m in Sources */,
 				3418784D1FD5169300D3F860 /* WJToolsViewController.m in Sources */,
 				340BB08A20818E8400B1C1A4 /* WJADThirdItem.m in Sources */,
+				3456C19F20BE929B002A6566 /* WJPostBackOrderViewController.m in Sources */,
 				3456C1981FD787CD00B5AEB8 /* WJUserMainTabelCell.m in Sources */,
 				34EB6AA120A97787005C3671 /* WJIntegralInfoClassViewController.m in Sources */,
 				341878D71FD5452800D3F860 /* WJShowTypeCouponCell.m in Sources */,

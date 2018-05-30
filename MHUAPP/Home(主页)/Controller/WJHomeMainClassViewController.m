@@ -266,7 +266,7 @@
     searchBarVc.searchButtonClickBlock = ^{
         NSLog(@"点击了搜索");
         WJSearchViewController *ddc = [[WJSearchViewController alloc]init];
-        self.hidesBottomBarWhenPushed = YES;
+        ddc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:ddc animated:YES];
         self.hidesBottomBarWhenPushed = NO;
 
@@ -558,7 +558,7 @@
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 6) {
+    if (indexPath.section == 3) {
         WJGoodDetailViewController *dcVc = [[WJGoodDetailViewController alloc] init];
         dcVc.goods_id = _headImageArr[indexPath.row].goods_id;
 //        dcVc.goodTitle = self.headImageArr[indexPath.row].goods_name;

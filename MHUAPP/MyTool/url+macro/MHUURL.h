@@ -98,5 +98,8 @@
 #define   kMSPostBackOrder        @"/v1/postBackOrder"                 //申请退款
 
 #define   kMSGetIsNewGoods        @"getIsNewGoods"                 //更多新品
+#define   kMSGetDetailedReceive        @"getDetailedReceive"                 //详细的待收货订单
 #define   kMSMiYoMeigetGroupOrder        @"/v1/getGroupOrder"                 //拼团下单
+#define   kMSMiYoMeiAffirmPay        @"/v1/affirmPay"                 //待支付状态下的确认支付
+#define   kMSMiYoMeiAffirmGoods        @"/v1/affirmGoods"                 //确认收货
 #endif /* MHUURL_h */

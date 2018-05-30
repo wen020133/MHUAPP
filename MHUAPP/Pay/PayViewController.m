@@ -170,14 +170,14 @@
 {
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
     [infos setObject:_orderNo forKey:@"orderNo"];
-    [infos setObject:@"0.01" forKey:@"oPrice"];
+    [infos setObject:_oPrice forKey:@"oPrice"];
     [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSMiYoMeipay] andInfos:infos];
 }
 -(void)PostWXpaySignStr
 {
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
     [infos setObject:_orderNo forKey:@"orderNo"];
-    [infos setObject:@"0.01" forKey:@"oPrice"];
+    [infos setObject:_oPrice forKey:@"oPrice"];
     [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSMiYoMeiWXpay] andInfos:infos];
 }
 -(void)processData

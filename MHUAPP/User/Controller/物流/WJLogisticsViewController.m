@@ -73,7 +73,7 @@
 
                 logisView.number =  [[self.results objectForKey:@"result"] objectForKey:@"no"];
                 logisView.company = [[self.results objectForKey:@"result"] objectForKey:@"company"];
-                logisView.imageUrl = @"";
+                logisView.imageUrl = [self LogisticsCompanyNameSelectImageName:_shipping_name];
                 logisView.frame = CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight-kMSNaviHight);
                 [self.view addSubview:logisView];
 
@@ -118,7 +118,7 @@
 
             logisView.number = [self.results objectForKey:@"LogisticCode"];
             logisView.company = [self.results objectForKey:@"name"];
-            logisView.imageUrl = @"";
+            logisView.imageUrl = [self LogisticsCompanyNameSelectImageName:_shipping_name];
             logisView.frame = CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight-kMSNaviHight);
             [self.view addSubview:logisView];
 
@@ -131,6 +131,59 @@
         return;
     }
     }
+}
+
+-(NSString *)LogisticsCompanyNameSelectImageName:(NSString *)shippingName
+{
+    NSString *iamgeName;
+    if ([shippingName isEqualToString:@"顺丰速运"]) {
+        iamgeName = @"logistics_SF";
+    }
+    else if ([shippingName isEqualToString:@"百世快递"]) {
+        iamgeName = @"logistics_HTKY";
+    }
+    else if ([shippingName isEqualToString:@"中通速递"]) {
+        iamgeName = @"logistics_ZTO";
+    }
+    else if ([shippingName isEqualToString:@"申通快递"]) {
+        iamgeName = @"logistics_STO";
+    }
+    else if ([shippingName isEqualToString:@"圆通速递"]) {
+        iamgeName = @"logistics_YTO";
+    }
+    else if ([shippingName isEqualToString:@"韵达快递"]) {
+        iamgeName = @"logistics_YD";
+    }
+    else if ([shippingName isEqualToString:@"EMS"]) {
+        iamgeName = @"logistics_EMS";
+    }
+    else if ([shippingName isEqualToString:@"天天速递"]) {
+        iamgeName = @"logistics_HHTT";
+    }
+    else if ([shippingName isEqualToString:@"京东物流"]) {
+        iamgeName = @"logistics_JD";
+    }
+    else if ([shippingName isEqualToString:@"优速速递"]) {
+        iamgeName = @"logistics_UC";
+        
+    }
+    else if ([shippingName isEqualToString:@"德邦"]) {
+        iamgeName = @"logistics_DBL";
+    }
+    else if ([shippingName isEqualToString:@"快捷速递"]) {
+        iamgeName = @"logistics_FAST";
+    }
+    else if ([shippingName isEqualToString:@"宅急送"]) {
+        iamgeName = @"logistics_ZJS";
+    }
+    else if ([shippingName isEqualToString:@"TNT速递"]) {
+        iamgeName = @"logistics_TNT";
+    }
+    else if ([shippingName isEqualToString:@"邮政速递"]) {
+        iamgeName = @"logistics_YZPY";
+    }
+    return iamgeName;
+
 }
 
 - (void)didReceiveMemoryWarning {
