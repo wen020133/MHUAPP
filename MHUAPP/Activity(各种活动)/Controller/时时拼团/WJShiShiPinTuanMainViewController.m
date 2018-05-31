@@ -36,6 +36,7 @@
     _menu_PTScrollView.delegate = self;
     [self.view addSubview:_menu_PTScrollView];
 }
+
 -(void)addPageVC
 {
     _viewControllers = [[NSMutableArray alloc]init];

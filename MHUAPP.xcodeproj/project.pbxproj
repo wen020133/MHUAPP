@@ -45,6 +45,7 @@
 		34014A6520B3EEEF00B6A91E /* WJCountdownView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34014A6420B3EEEF00B6A91E /* WJCountdownView.m */; };
 		34014A6820B3FB8000B6A91E /* WJPTPriceCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34014A6720B3FB8000B6A91E /* WJPTPriceCollectionCell.m */; };
 		34014A6A20B41C5300B6A91E /* Default-414w-736h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 34014A6920B41C5300B6A91E /* Default-414w-736h@3x.png */; };
+		3402430320BFEDED0033E864 /* WJPTNewBuyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3402430220BFEDED0033E864 /* WJPTNewBuyViewController.m */; };
 		340574E62042834600729FD8 /* WJZhuanTiHuoDongCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 340574E52042834600729FD8 /* WJZhuanTiHuoDongCell.m */; };
 		340574E920429AA900729FD8 /* WJJingXuanShopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 340574E820429AA900729FD8 /* WJJingXuanShopCell.m */; };
 		340574EC20429B3B00729FD8 /* WJJingXuanShopSonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 340574EB20429B3B00729FD8 /* WJJingXuanShopSonCell.m */; };
@@ -452,6 +453,8 @@
 		34014A6620B3FB8000B6A91E /* WJPTPriceCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJPTPriceCollectionCell.h; sourceTree = "<group>"; };
 		34014A6720B3FB8000B6A91E /* WJPTPriceCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJPTPriceCollectionCell.m; sourceTree = "<group>"; };
 		34014A6920B41C5300B6A91E /* Default-414w-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-414w-736h@3x.png"; sourceTree = "<group>"; };
+		3402430120BFEDED0033E864 /* WJPTNewBuyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJPTNewBuyViewController.h; sourceTree = "<group>"; };
+		3402430220BFEDED0033E864 /* WJPTNewBuyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJPTNewBuyViewController.m; sourceTree = "<group>"; };
 		340574E42042834600729FD8 /* WJZhuanTiHuoDongCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJZhuanTiHuoDongCell.h; sourceTree = "<group>"; };
 		340574E52042834600729FD8 /* WJZhuanTiHuoDongCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJZhuanTiHuoDongCell.m; sourceTree = "<group>"; };
 		340574E720429AA900729FD8 /* WJJingXuanShopCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJJingXuanShopCell.h; sourceTree = "<group>"; };
@@ -2082,6 +2085,8 @@
 				34014A5E20B3BEC200B6A91E /* WJSSPTDetailClassViewController.m */,
 				345390D320B2B663009F98BA /* WJSSPTInfoClassViewController.h */,
 				345390D420B2B663009F98BA /* WJSSPTInfoClassViewController.m */,
+				3402430120BFEDED0033E864 /* WJPTNewBuyViewController.h */,
+				3402430220BFEDED0033E864 /* WJPTNewBuyViewController.m */,
 			);
 			path = "时时拼团";
 			sourceTree = "<group>";
@@ -3183,6 +3188,7 @@
 				34804A10206F5F5F00A94CA9 /* WJYouZhiXinPinViewController.m in Sources */,
 				17DF7C2A1FCD42D800FBD9DC /* WJGoodsGridViewCell.m in Sources */,
 				3411F96E20411278007BCEF9 /* XWFilterTransitionView.m in Sources */,
+				3402430320BFEDED0033E864 /* WJPTNewBuyViewController.m in Sources */,
 				34387BF01FF5F22A00398913 /* WJCollectionTabCell.m in Sources */,
 				3411F95E20411278007BCEF9 /* XWCoolAnimator+XWMiddlePageFlip.m in Sources */,
 				340626321FDFABCC00F52953 /* WJMYPickerView.m in Sources */,

@@ -186,10 +186,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    
-    NSString *loginState = [userDefaults objectForKey:@"loginState"];
-    if(![loginState isEqualToString:@"1"])
+    if([AppDelegate shareAppDelegate].user_id.length<1)
     {
         WJLoginClassViewController *loginVC = [[WJLoginClassViewController alloc]init];
         self.hidesBottomBarWhenPushed = YES;
@@ -320,10 +317,7 @@
 }
 -(void)goToOrderVC
 {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    
-    NSString *loginState = [userDefaults objectForKey:@"loginState"];
-    if(![loginState isEqualToString:@"1"])
+    if([AppDelegate shareAppDelegate].user_id.length<1)
     {
         WJLoginClassViewController *loginVC = [[WJLoginClassViewController alloc]init];
         self.hidesBottomBarWhenPushed = YES;

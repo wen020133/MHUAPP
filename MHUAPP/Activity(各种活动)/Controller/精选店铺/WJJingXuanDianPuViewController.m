@@ -259,6 +259,7 @@
         storeInfo.storeName = model.supplier_name;
         storeInfo.hidesBottomBarWhenPushed = YES;
         [weakSelf.navigationController pushViewController:storeInfo animated:YES];
+        self.hidesBottomBarWhenPushed = YES;
     };
     return cell;
 }

@@ -28,7 +28,8 @@
 #import <SVProgressHUD.h>
 #import "DCLIRLButton.h"
 
-#import "WJWirteOrderClassViewController.h"
+#import "WJPTNewBuyViewController.h"
+
 
 @interface WJGoodBaseViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
@@ -500,8 +501,7 @@ static NSArray *lastSeleArray_;
     if (tagSender==100) {
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
-        NSString *loginState = [userDefaults objectForKey:@"loginState"];
-        if(![loginState isEqualToString:@"1"])
+        if([AppDelegate shareAppDelegate].user_id.length<1)
         {
             WJLoginClassViewController *land = [[WJLoginClassViewController alloc]init];
             UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:land];
@@ -536,10 +536,15 @@ static NSArray *lastSeleArray_;
     else
     {
         WEAKSELF
-        WJWirteOrderClassViewController *shopCarVc = [[WJWirteOrderClassViewController alloc] init];
+        WJPTNewBuyViewController *shopCarVc = [[WJPTNewBuyViewController alloc] init];
+        shopCarVc.str_goodsId = _goods_id;
+        shopCarVc.str_price = _goodPrice;
+        shopCarVc.str_Num = lastNum_;
+        shopCarVc.str_goodsId = _goods_id;
+        shopCarVc.str_goodsId = _goods_id;
         shopCarVc.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:shopCarVc animated:YES];
-        weakSelf.hidesBottomBarWhenPushed = YES;
+        [weakSelf.navigationController pushViewController:shopCarVc animated:YES];
+        self.hidesBottomBarWhenPushed = YES;
     }
     
 

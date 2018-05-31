@@ -8,7 +8,7 @@
 
 #import "WJPostBackOrderViewController.h"
 
-@interface WJPostBackOrderViewController ()
+@interface WJPostBackOrderViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @end
 
@@ -16,6 +16,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
+    [self initSendReplyWithTitle:@"申请退款" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
+
     // Do any additional setup after loading the view.
 }
 -(void)postbackOderData

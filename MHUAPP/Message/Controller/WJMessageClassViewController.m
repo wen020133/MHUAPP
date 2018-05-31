@@ -83,9 +83,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *loginState = [userDefaults objectForKey:@"loginState"];
-     if(![loginState isEqualToString:@"1"])
+     if([AppDelegate shareAppDelegate].user_id.length<1)
     {
         WJLoginClassViewController *land = [[WJLoginClassViewController alloc]init];
         UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:land];

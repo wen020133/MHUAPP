@@ -27,6 +27,8 @@
 
 #import <SVProgressHUD.h>
 #import "DCLIRLButton.h"
+#import "WJPTNewBuyViewController.h"
+
 
 @interface WJSSPTInfoClassViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
@@ -130,14 +132,9 @@ static NSArray *lastSeleArray_;
     }];
 
     //父类加入购物车，立即购买通知
-    _dcObj = [[NSNotificationCenter defaultCenter]addObserverForName:@"ClikAddOrBuy" object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
-
-        if ([note.userInfo[@"buttonTag"] isEqualToString:@"2"]) { //加入购物车（父类）
-
-            [weakSelf isSelectAlretOrGetData];
-
-        }else if ([note.userInfo[@"buttonTag"] isEqualToString:@"3"]){//立即购买（父类）
-
+    _dcObj = [[NSNotificationCenter defaultCenter]addObserverForName:@"PTAddMiaoshaClikAddOrBuy" object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+       if ([note.userInfo[@"buttonTag"] isEqualToString:@"3"]){//立即购买（父类）
+              [weakSelf isSelectAlretOrGetData];
         }
     }];
 
@@ -471,13 +468,10 @@ static NSArray *lastSeleArray_;
         [weakSelf setUpWithAddSuccess];
     }
 }
-#pragma mark - 加入购物车成功
+
 - (void)setUpWithAddSuccess
 {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
-    NSString *loginState = [userDefaults objectForKey:@"loginState"];
-    if(![loginState isEqualToString:@"1"])
+    if([AppDelegate shareAppDelegate].user_id.length<1)
     {
         WJLoginClassViewController *land = [[WJLoginClassViewController alloc]init];
         UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:land];
@@ -500,16 +494,25 @@ static NSArray *lastSeleArray_;
 
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
     if ([_info_classType isEqualToString:@"秒杀"]) {
-
-        [infos setObject:uid forKey:@"user_id"];
+        [infos setObject:[AppDelegate shareAppDelegate].user_id forKey:@"user_id"];
         [infos setObject:_goods_id forKey:@"goods_id"];
         [infos setObject:_goodPrice forKey:@"price"];
         [infos setObject:lastNum_ forKey:@"num"];
         [infos setObject:result forKey:@"norms"];
         [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSPostCart] andInfos:infos];
     }
+    else
+    {
+        [infos setObject:[AppDelegate shareAppDelegate].user_id forKey:@"user_id"];
+        [infos setObject:_goods_id forKey:@"goods_id"];
+        [infos setObject:_goodPrice forKey:@"price"];
+        [infos setObject:lastNum_ forKey:@"num"];
+        [infos setObject:result forKey:@"norms"];
+        [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSMiYoMeigetGroupOrder] andInfos:infos];
+    }
 
 }
+#pragma mark - 加入购物车成功
 -(void)processData
 {
 

@@ -220,7 +220,7 @@
         [RCIM sharedRCIM].enableMessageAttachUserInfo = YES;
 
            NSString *logo_img =ConvertNullString([[responseObject objectForKey:@"data"] objectForKey:@"headimg" ]);
-           NSString *user_id =[[responseObject objectForKey:@"data"] objectForKey:@"user_id" ];
+           NSString *user_id =[NSString stringWithFormat:@"%@", [[responseObject objectForKey:@"data"] objectForKey:@"user_id" ]];
            [AppDelegate shareAppDelegate].user_id = user_id;
            NSString *user_name =ConvertNullString([[responseObject objectForKey:@"data"] objectForKey:@"user_name" ]);
            [[RCDataManager shareManager] loginRongCloudWithUserInfo:[[RCUserInfo alloc]initWithUserId:user_id name:user_name portrait:logo_img] withToken:@"OGYiWAUy26RQBcJUU3AUfCHL1WmuRf3UpRNY4aRna/d/1gsjB6McwDKaplPVWF2yGqTncFAoDNA5O2hzB2XuQA=="];

@@ -1,30 +1,32 @@
 //
-//  WJWirteOrderClassViewController.m
+//  WJPTNewBuyViewController.m
 //  MHUAPP
 //
-//  Created by jinri on 2018/4/27.
+//  Created by jinri on 2018/5/31.
 //  Copyright © 2018年 wenchengjun. All rights reserved.
 //
 
-#import "WJWirteOrderClassViewController.h"
+#import "WJPTNewBuyViewController.h"
 #import "AddAddressViewController.h"
 #import "WJShopAddressTableViewCell.h"
 #import "WJWriteListTableCell.h"
 #import "UIView+UIViewFrame.h"
 #import "PayViewController.h"
 
-@interface WJWirteOrderClassViewController ()
+
+@interface WJPTNewBuyViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (strong,nonatomic)UITableView *myTableView;
 
 @end
 
-@implementation WJWirteOrderClassViewController
+@implementation WJPTNewBuyViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
-     [self initSendReplyWithTitle:@"填写订单" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
+    [self initSendReplyWithTitle:@"填写订单" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
 
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *mobile = [[userDefaults objectForKey:@"userAddress"] objectForKey:@"mobile"];
@@ -38,8 +40,8 @@
         _str_telephone = @"请选择收货地址";
     }
     [userDefaults synchronize];
-    
-    
+
+
     [self.view addSubview:self.myTableView];
 
     [self setupCustomBottomView];
@@ -70,7 +72,7 @@
         _myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _myTableView.backgroundColor = kMSColorFromRGB(245, 246, 248);
 
-//        [self.myTableView registerClass:[WJCartTableHeaderView class] forHeaderFooterViewReuseIdentifier:@"WJCartTableHeaderView"];
+        //        [self.myTableView registerClass:[WJCartTableHeaderView class] forHeaderFooterViewReuseIdentifier:@"WJCartTableHeaderView"];
         self.myTableView.frame = CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight - kMSNaviHight );
     }
     return _myTableView;
@@ -83,34 +85,26 @@
     [self.view addSubview:backgroundView];
     backgroundView.frame = CGRectMake(0, kMSScreenHeight -  49-kMSNaviHight, kMSScreenWith, 49);
 
-        //结算按钮
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.backgroundColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
-        btn.frame = CGRectMake(kMSScreenWith - 100, 0, 100, 49);
-        [btn setTitle:@"提交订单" forState:UIControlStateNormal];
-        [btn addTarget:self action:@selector(goToPayClassClick:) forControlEvents:UIControlEventTouchUpInside];
-        [backgroundView addSubview:btn];
+    //结算按钮
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.backgroundColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
+    btn.frame = CGRectMake(kMSScreenWith - 100, 0, 100, 49);
+    [btn setTitle:@"提交订单" forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(goToPayClassClick:) forControlEvents:UIControlEventTouchUpInside];
+    [backgroundView addSubview:btn];
 
-        //合计
-        _totlePriceLabel = [[UILabel alloc]init];
-        _totlePriceLabel.font = [UIFont systemFontOfSize:16];
-        _totlePriceLabel.textColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
-        [backgroundView addSubview:_totlePriceLabel];
-        _totlePriceLabel.frame = CGRectMake(DCMargin, 0, kMSScreenWith - 118, 49);
-        _totlePriceLabel.textAlignment = NSTextAlignmentRight;
+    //合计
+    _totlePriceLabel = [[UILabel alloc]init];
+    _totlePriceLabel.font = [UIFont systemFontOfSize:16];
+    _totlePriceLabel.textColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
+    [backgroundView addSubview:_totlePriceLabel];
+    _totlePriceLabel.frame = CGRectMake(DCMargin, 0, kMSScreenWith - 118, 49);
+    _totlePriceLabel.textAlignment = NSTextAlignmentRight;
     [self countPrice];
 }
 
 -(void)countPrice {
-    double totlePrice = 0.0;
-
-    for (WJCartGoodsModel *model in _dataArray) {
-
-        double price = [model.count_price doubleValue];
-
-        totlePrice += price * model.goods_number;
-    }
-    NSString *string = [NSString stringWithFormat:@"￥%.2f",totlePrice];
+    NSString *string = [NSString stringWithFormat:@"￥%.2f",[_str_price floatValue] * [_str_Num floatValue]];
     _totlePriceLabel.attributedText = [self LZSetString:string];
 }
 - (NSMutableAttributedString*)LZSetString:(NSString*)string {
@@ -122,23 +116,19 @@
     [LZString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:16] range:rang];
     return LZString;
 }
--(void)goToPayClassClick:(UIButton*)button 
+-(void)goToPayClassClick:(UIButton*)button
 {
     if (_str_address.length<1) {
         [self requestFailed:@"请选择收货地址！"];
         return;
     }
-    NSMutableArray *arr_recId = [NSMutableArray array];
-    for (WJCartGoodsModel *model in _dataArray) {
-        [arr_recId addObject:model.rec_id];
-    }
-    NSString *attString =  [arr_recId componentsJoinedByString:@","];
+
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
     [infos setObject:[AppDelegate shareAppDelegate].user_id forKey:@"user_id"];
     [infos setObject:_str_address forKey:@"assemble_site"];
     [infos setObject:_str_Name forKey:@"consignee"];
     [infos setObject:_str_telephone forKey:@"mobile"];
-    [infos setObject:attString forKey:@"products"];
+    [infos setObject:_str_type forKey:@"products"];
     [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSPlaceAnOrder] andInfos:infos];
 }
 -(void)processData
@@ -167,12 +157,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return (section==0)? 1:self.dataArray.count;
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-     return (indexPath.section==0)? [RegularExpressionsMethod dc_calculateTextSizeWithText:_str_address WithTextFont:16 WithMaxW:kMSScreenWith-70].height+60:100;
+    return (indexPath.section==0)? [RegularExpressionsMethod dc_calculateTextSizeWithText:_str_address WithTextFont:16 WithMaxW:kMSScreenWith-70].height+60:100;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -184,27 +174,26 @@
         }
         cell.lab_Name.text = _str_Name;
         cell.lab_telephone.text = _str_telephone;
-          cell.str_address = _str_address;
+        cell.str_address = _str_address;
         cell.lab_address.text = _str_address;
 
         return cell;
     }
     else
     {
-    WJWriteListTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WJWriteListTableCell"];
-    if (cell == nil) {
-        cell = [[WJWriteListTableCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"WJWriteListTableCell"];
-    }
-    if(indexPath.row==0)
-    {
-        cell.imageLine.hidden = YES;
-    }
-    else
-    {
-        cell.imageLine.hidden = NO;
-    }
-    cell.listModel = self.dataArray[indexPath.row];
-    return cell;
+        WJWriteListTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WJWriteListTableCell"];
+        if (cell == nil) {
+            cell = [[WJWriteListTableCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"WJWriteListTableCell"];
+        }
+        if(indexPath.row==0)
+        {
+            cell.imageLine.hidden = YES;
+        }
+        else
+        {
+            cell.imageLine.hidden = NO;
+        }
+        return cell;
     }
 }
 //section底部间距
