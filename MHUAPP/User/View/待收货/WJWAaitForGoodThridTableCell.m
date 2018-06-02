@@ -37,6 +37,11 @@
     _totalPayPrice.textAlignment = NSTextAlignmentRight;
     [self.contentView addSubview:_totalPayPrice];
 
+
+    UIImageView *imageline = ImageViewInit(0, 60, kMSScreenWith, 3);
+    imageline.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
+    [self.contentView addSubview:imageline];
+
     _lab_orderNo = LabelInit(DCMargin, 60+DCMargin, 220, 20);
     _lab_orderNo.font = PFR14Font;
     _lab_orderNo.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
@@ -47,7 +52,12 @@
     _lab_add_time.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
     [self addSubview:_lab_add_time];
 
-    _lab_shipping_time = LabelInit(DCMargin, _lab_add_time.Bottom+4, 220, 20);
+    _lab_payTime = LabelInit(DCMargin, _lab_add_time.Bottom+4, 220, 20);
+    _lab_payTime.font = PFR14Font;
+    _lab_payTime.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
+    [self addSubview:_lab_payTime];
+
+    _lab_shipping_time = LabelInit(DCMargin, _lab_payTime.Bottom+4, 220, 20);
     _lab_shipping_time.font = PFR14Font;
     _lab_shipping_time.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
     [self addSubview:_lab_shipping_time];

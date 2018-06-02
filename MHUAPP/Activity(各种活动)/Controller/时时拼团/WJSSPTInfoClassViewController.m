@@ -491,25 +491,18 @@ static NSArray *lastSeleArray_;
         result = @"";
         lastNum_ = @"1";
     }
-
-    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-    if ([_info_classType isEqualToString:@"秒杀"]) {
-        [infos setObject:[AppDelegate shareAppDelegate].user_id forKey:@"user_id"];
-        [infos setObject:_goods_id forKey:@"goods_id"];
-        [infos setObject:_goodPrice forKey:@"price"];
-        [infos setObject:lastNum_ forKey:@"num"];
-        [infos setObject:result forKey:@"norms"];
-        [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSPostCart] andInfos:infos];
-    }
-    else
-    {
-        [infos setObject:[AppDelegate shareAppDelegate].user_id forKey:@"user_id"];
-        [infos setObject:_goods_id forKey:@"goods_id"];
-        [infos setObject:_goodPrice forKey:@"price"];
-        [infos setObject:lastNum_ forKey:@"num"];
-        [infos setObject:result forKey:@"norms"];
-        [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSMiYoMeigetGroupOrder] andInfos:infos];
-    }
+    WJPTNewBuyViewController *newBuyVC = [[WJPTNewBuyViewController alloc]init];
+    newBuyVC.str_contentImg = _goodImageView;
+    newBuyVC.str_title = _goodTitle;
+    newBuyVC.str_type = result;
+    newBuyVC.str_Num = lastNum_;
+    newBuyVC.str_price = _goodPrice;
+    newBuyVC.str_oldprice = _oldPrice;
+    newBuyVC.str_goodsId = _goods_id;
+    newBuyVC.info_classType = _info_classType;
+    newBuyVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:newBuyVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
 
 }
 #pragma mark - 加入购物车成功

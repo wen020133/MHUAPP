@@ -209,7 +209,7 @@
 
                 NSMutableDictionary *dic = [NSMutableDictionary dictionary];
                 [dic setValue:[[self.results objectForKey:@"data"] objectForKey:@"user_id" ] forKey:@"uid"];
-                 [AppDelegate shareAppDelegate].user_id = [[self.results objectForKey:@"data"] objectForKey:@"user_id" ];
+                 [AppDelegate shareAppDelegate].user_id = [NSString stringWithFormat:@"%@",[[self.results objectForKey:@"data"] objectForKey:@"user_id"]];
                 [dic setValue:[[self.results objectForKey:@"data"] objectForKey:@"user_name" ] forKey:@"username"];
                 [dic setValue:ConvertNullString([[self.results objectForKey:@"data"] objectForKey:@"mobile_phone" ]) forKey:@"phone"];
                 NSString *logo_img =ConvertNullString([[self.results objectForKey:@"data"] objectForKey:@"headimg" ]);
@@ -246,7 +246,7 @@
                     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
 
                     [dic setValue:[NSString stringWithFormat:@"%@",[[self.results objectForKey:@"data"] objectForKey:@"user_id"]] forKey:@"uid"];
-                    [AppDelegate shareAppDelegate].user_id = [[self.results objectForKey:@"data"] objectForKey:@"user_id" ];
+                    [AppDelegate shareAppDelegate].user_id = [NSString stringWithFormat:@"%@",[[self.results objectForKey:@"data"] objectForKey:@"user_id"]];
                     [dic setValue:self.outUserId forKey:@"other_uid"];
                     [dic setValue:ConvertNullString([[[self.results objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"user_name" ]) forKey:@"username"];
                     [dic setValue:ConvertNullString([[[self.results objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"user_tel" ]) forKey:@"phone"];
@@ -259,7 +259,7 @@
                     }
 
                     [dic setValue:ConvertNullString([[[self.results objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"email" ]) forKey:@"email"];
-                    [dic setValue:ConvertNullString([[[self.results objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"sex" ]) forKey:@"sex"];
+                    [dic setValue:[[[self.results objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"sex"] forKey:@"sex"];
                     [dic setValue:ConvertNullString([[[self.results objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"user_nickname" ]) forKey:@"nickname"];
                     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
                     [userDefaults setObject:dic forKey:@"userList"];

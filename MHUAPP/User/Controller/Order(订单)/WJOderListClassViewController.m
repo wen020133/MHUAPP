@@ -24,6 +24,8 @@
 #import "WJGoodDetailViewController.h"
 #import "WJWaitForGoodInfoViewController.h"
 #import "WJPostBackOrderViewController.h"
+#import "WJDetailedDeliveryInfoViewController.h"
+
 
 @interface WJOderListClassViewController ()
 
@@ -264,6 +266,15 @@
                 case 0:
                 {
 //                    view.state.text = @"未发货";
+                    WJDetailedDeliveryInfoViewController *waitPayInfoVC = [[WJDetailedDeliveryInfoViewController alloc]init];
+                    WJOrderShangJiaHeadModel *shopModel = self.arr_data[indexPath.section];
+                    waitPayInfoVC.str_orderId = shopModel.order_sn;
+                    waitPayInfoVC.str_Name = shopModel.referer;
+                    waitPayInfoVC.str_telephone = shopModel.mobile;
+                    waitPayInfoVC.str_address = shopModel.address;
+                    waitPayInfoVC.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:waitPayInfoVC animated:YES];
+                    self.hidesBottomBarWhenPushed = YES;
                 }
                     break;
                 case 1:
@@ -278,6 +289,7 @@
                     waitPayInfoVC.invoice_no = shopModel.invoice_no;
                     waitPayInfoVC.hidesBottomBarWhenPushed = YES;
                     [self.navigationController pushViewController:waitPayInfoVC animated:YES];
+                    self.hidesBottomBarWhenPushed = YES;
                 }
                     break;
                 case 2:
@@ -431,7 +443,14 @@
             [weakSelf.navigationController pushViewController:waitPayInfoVC animated:YES];
         }
       else  if ([stateStr isEqualToString:@"我要催单"]) {
-          [self requestFailed:@"已向商家催单！"];
+          [self jxt_showAlertWithTitle:@"已通知卖家发货" message:@"请耐心等待" appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
+              alertMaker.
+              addActionCancelTitle(@"确认");
+          } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, JXTAlertController * _Nonnull alertSelf) {
+              if (buttonIndex == 0) {
+                  NSLog(@"cancel");
+              }
+          }];
       }
       else  if ([stateStr isEqualToString:@"我要退款"]) {
           WJPostBackOrderViewController *waitPayInfoVC = [[WJPostBackOrderViewController alloc]init];

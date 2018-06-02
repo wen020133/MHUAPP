@@ -1,22 +1,22 @@
 
 //
-//  WJWaitPayThridTableCell.m
+//  WJDetailedDeliveryThirdTableCell.m
 //  MHUAPP
 //
-//  Created by jinri on 2018/5/9.
+//  Created by jinri on 2018/6/1.
 //  Copyright © 2018年 wenchengjun. All rights reserved.
 //
 
-#import "WJWaitPayThridTableCell.h"
+#import "WJDetailedDeliveryThirdTableCell.h"
 #import "UIView+UIViewFrame.h"
 
-@implementation WJWaitPayThridTableCell
+
+@implementation WJDetailedDeliveryThirdTableCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
 }
-
 #pragma mark - Intial
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
 
@@ -47,10 +47,20 @@
     _lab_orderNo.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
     [self.contentView addSubview:_lab_orderNo];
 
-    _lab_time = LabelInit(DCMargin, _lab_orderNo.Bottom+4, 220, 20);
-    _lab_time.font = PFR14Font;
-    _lab_time.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
-    [self addSubview:_lab_time];
+    _lab_add_time = LabelInit(DCMargin, _lab_orderNo.Bottom+4, 220, 20);
+    _lab_add_time.font = PFR14Font;
+    _lab_add_time.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
+    [self addSubview:_lab_add_time];
+
+    _lab_payTime = LabelInit(DCMargin, _lab_add_time.Bottom+4, 220, 20);
+    _lab_payTime.font = PFR14Font;
+    _lab_payTime.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
+    [self addSubview:_lab_payTime];
+
+    _lab_pay_name = LabelInit(DCMargin, _lab_payTime.Bottom+4, 220, 20);
+    _lab_pay_name.font = PFR14Font;
+    _lab_pay_name.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
+    [self addSubview:_lab_pay_name];
 
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.layer.borderColor = [[RegularExpressionsMethod ColorWithHexString:kGrayBgColor] CGColor];

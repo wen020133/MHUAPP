@@ -24,4 +24,6 @@
 @property (assign,nonatomic) NSString *str_goodsId;
 
 @property (strong,nonatomic)UILabel *totlePriceLabel;
+
+@property (assign, nonatomic) NSString *info_classType;
 @end

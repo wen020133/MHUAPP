@@ -77,6 +77,8 @@
 		340BB08A20818E8400B1C1A4 /* WJADThirdItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 340BB08920818E8400B1C1A4 /* WJADThirdItem.m */; };
 		340BB08D2081A72000B1C1A4 /* WJMainWebClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 340BB08C2081A72000B1C1A4 /* WJMainWebClassViewController.m */; };
 		340BB0912081EEB700B1C1A4 /* WJMainZhuanTiHDItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 340BB0902081EEB700B1C1A4 /* WJMainZhuanTiHDItem.m */; };
+		340C5C4720C113020069F2E8 /* WJDetailedDeliveryInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 340C5C4620C113020069F2E8 /* WJDetailedDeliveryInfoViewController.m */; };
+		340C5C4B20C11A8B0069F2E8 /* WJDetailedDeliveryThirdTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 340C5C4A20C11A8B0069F2E8 /* WJDetailedDeliveryThirdTableCell.m */; };
 		340CED7F1FECBA92001707EA /* WJOrderListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 340CED7E1FECBA92001707EA /* WJOrderListCell.m */; };
 		340D036820511CCF003E02CB /* shop_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 340D036720511CCE003E02CB /* shop_default.png */; };
 		340DB1B51FEB9C1E003D5A19 /* WJOrderHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 340DB1B41FEB9C1E003D5A19 /* WJOrderHeader.m */; };
@@ -511,6 +513,10 @@
 		340BB08C2081A72000B1C1A4 /* WJMainWebClassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WJMainWebClassViewController.m; sourceTree = "<group>"; };
 		340BB08F2081EEB700B1C1A4 /* WJMainZhuanTiHDItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJMainZhuanTiHDItem.h; sourceTree = "<group>"; };
 		340BB0902081EEB700B1C1A4 /* WJMainZhuanTiHDItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJMainZhuanTiHDItem.m; sourceTree = "<group>"; };
+		340C5C4520C113020069F2E8 /* WJDetailedDeliveryInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJDetailedDeliveryInfoViewController.h; sourceTree = "<group>"; };
+		340C5C4620C113020069F2E8 /* WJDetailedDeliveryInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJDetailedDeliveryInfoViewController.m; sourceTree = "<group>"; };
+		340C5C4920C11A8B0069F2E8 /* WJDetailedDeliveryThirdTableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJDetailedDeliveryThirdTableCell.h; sourceTree = "<group>"; };
+		340C5C4A20C11A8B0069F2E8 /* WJDetailedDeliveryThirdTableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJDetailedDeliveryThirdTableCell.m; sourceTree = "<group>"; };
 		340CED7D1FECBA92001707EA /* WJOrderListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJOrderListCell.h; sourceTree = "<group>"; };
 		340CED7E1FECBA92001707EA /* WJOrderListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJOrderListCell.m; sourceTree = "<group>"; };
 		340D036720511CCE003E02CB /* shop_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shop_default.png; sourceTree = "<group>"; };
@@ -1253,6 +1259,7 @@
 		17DF7BFA1FCD013A00FBD9DC /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				340C5C4820C113CB0069F2E8 /* 待发货 */,
 				3456C19820BE35FA002A6566 /* 待收货 */,
 				17D6D4F720AFBE3500674875 /* 积分订单 */,
 				34FB224C20A1422600D698FA /* 物流 */,
@@ -1481,6 +1488,24 @@
 				340BB0902081EEB700B1C1A4 /* WJMainZhuanTiHDItem.m */,
 			);
 			path = "活动专题";
+			sourceTree = "<group>";
+		};
+		340C5C4420C111CC0069F2E8 /* 待发货 */ = {
+			isa = PBXGroup;
+			children = (
+				340C5C4920C11A8B0069F2E8 /* WJDetailedDeliveryThirdTableCell.h */,
+				340C5C4A20C11A8B0069F2E8 /* WJDetailedDeliveryThirdTableCell.m */,
+			);
+			path = "待发货";
+			sourceTree = "<group>";
+		};
+		340C5C4820C113CB0069F2E8 /* 待发货 */ = {
+			isa = PBXGroup;
+			children = (
+				340C5C4520C113020069F2E8 /* WJDetailedDeliveryInfoViewController.h */,
+				340C5C4620C113020069F2E8 /* WJDetailedDeliveryInfoViewController.m */,
+			);
+			path = "待发货";
 			sourceTree = "<group>";
 		};
 		3411F90520411277007BCEF9 /* XWTransition */ = {
@@ -2586,6 +2611,7 @@
 		34F1D3951FD6797B0080EE3D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				340C5C4420C111CC0069F2E8 /* 待发货 */,
 				3456C19920BE3C56002A6566 /* 待收货 */,
 				34FB224D20A1424200D698FA /* 物流 */,
 				3472C980209455070048D09E /* 待付款 */,
@@ -3094,6 +3120,7 @@
 				341878DA1FD545D100D3F860 /* WJShowTypeGoodsPropertyCell.m in Sources */,
 				3421BCED1FF2485D00263FE9 /* WJCouponsClassViewController.m in Sources */,
 				340607DF209AA3FD00A14EAD /* WJOrderShangJiaHeadModel.m in Sources */,
+				340C5C4720C113020069F2E8 /* WJDetailedDeliveryInfoViewController.m in Sources */,
 				342576C220205D7E0046D24E /* WJChooseLocationViewController.m in Sources */,
 				3411F96320411278007BCEF9 /* XWDrawerAnimator.m in Sources */,
 				17DF7C2D1FCD430500FBD9DC /* WJGoodsGridModel.m in Sources */,
@@ -3136,6 +3163,7 @@
 				3428B200206B7E4D0005EF72 /* WJSSPTMRHHCollectionCell.m in Sources */,
 				3416C2AC1FE110560006169D /* WJUserInfoListCel.m in Sources */,
 				344A14FB2043BB8100C14CFE /* MuluScrollView.m in Sources */,
+				340C5C4B20C11A8B0069F2E8 /* WJDetailedDeliveryThirdTableCell.m in Sources */,
 				3418E732201960E800EDD902 /* WJCartTableViewCell.m in Sources */,
 				340DB1B81FEB9C41003D5A19 /* WJOrderFooter.m in Sources */,
 				34EEB6021FD9376E00B4BE0A /* WJLoginClassViewController.m in Sources */,

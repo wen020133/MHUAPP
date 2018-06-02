@@ -10,7 +10,6 @@
 #import "WJShopAddressTableViewCell.h"
 #import "WJWriteListTableCell.h"
 #import "UIView+UIViewFrame.h"
-#import "AppDelegate.h"
 #import "WJCartGoodsModel.h"
 #import "WJWAaitForGoodThridTableCell.h"
 #import "WJWAaitForGoodLogistTableCell.h"
@@ -78,6 +77,12 @@
         case 200:
             {
                 WJPostBackOrderViewController *waitPayInfoVC = [[WJPostBackOrderViewController alloc]init];
+                waitPayInfoVC.str_goodsId = _arr_dataList[0].goods_id;
+                 waitPayInfoVC.str_price = _arr_dataList[0].count_price;
+                 waitPayInfoVC.str_oldprice = _arr_dataList[0].market_price;
+                 waitPayInfoVC.str_goodsId = _arr_dataList[0].goods_id;
+                 waitPayInfoVC.str_goodsId = _arr_dataList[0].goods_id;
+                 waitPayInfoVC.str_goodsId = _arr_dataList[0].goods_id;
                 waitPayInfoVC.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:waitPayInfoVC animated:YES];
             }
@@ -219,7 +224,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return (section==1)?self.arr_dataList.count:1;
+    return (section==2)?self.arr_dataList.count:1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -284,9 +289,14 @@
         NSDate *stampDate = [NSDate dateWithTimeIntervalSince1970:[addTime doubleValue]];
         cell.lab_add_time.text =[NSString stringWithFormat:@"下单时间：%@",[stampFormatter stringFromDate:stampDate]];
 
+        NSString *pay_time = [[[self.results objectForKey:@"data"] objectAtIndex:0] objectForKey:@"pay_time"];
+        NSDate *stampDate2 = [NSDate dateWithTimeIntervalSince1970:[pay_time doubleValue]];
+        cell.lab_payTime.text =[NSString stringWithFormat:@"付款时间：%@", [stampFormatter stringFromDate:stampDate2]];
+
+
       NSString *shipping_time = [[[self.results objectForKey:@"data"] objectAtIndex:0] objectForKey:@"shipping_time"];
-        NSDate *stampDate2 = [NSDate dateWithTimeIntervalSince1970:[shipping_time doubleValue]];
-        cell.lab_shipping_time.text =[NSString stringWithFormat:@"发货时间：%@", [stampFormatter stringFromDate:stampDate2]];
+        NSDate *stampDate3 = [NSDate dateWithTimeIntervalSince1970:[shipping_time doubleValue]];
+        cell.lab_shipping_time.text =[NSString stringWithFormat:@"发货时间：%@", [stampFormatter stringFromDate:stampDate3]];
 
 
         cell.str_orderNo = _str_orderId;

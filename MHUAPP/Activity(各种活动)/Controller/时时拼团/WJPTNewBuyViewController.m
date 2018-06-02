@@ -12,7 +12,7 @@
 #import "WJWriteListTableCell.h"
 #import "UIView+UIViewFrame.h"
 #import "PayViewController.h"
-
+#import <UIImageView+WebCache.h>
 
 @interface WJPTNewBuyViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -122,14 +122,39 @@
         [self requestFailed:@"请选择收货地址！"];
         return;
     }
-
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-    [infos setObject:[AppDelegate shareAppDelegate].user_id forKey:@"user_id"];
-    [infos setObject:_str_address forKey:@"assemble_site"];
-    [infos setObject:_str_Name forKey:@"consignee"];
-    [infos setObject:_str_telephone forKey:@"mobile"];
-    [infos setObject:_str_type forKey:@"products"];
-    [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSPlaceAnOrder] andInfos:infos];
+    if ([_info_classType isEqualToString:@"秒杀"]) {
+        [infos setObject:[AppDelegate shareAppDelegate].user_id forKey:@"user_id"];
+        [infos setObject:_str_address forKey:@"assemble_site"];
+        [infos setObject:_str_Name forKey:@"consignee"];
+        [infos setObject:_str_telephone forKey:@"mobile"];
+        [infos setObject:_str_goodsId forKey:@"goods_id"];
+        [infos setObject:_str_Num forKey:@"num"];
+        [infos setObject:_str_type forKey:@"norms"];
+        [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSMiYoMeigetpostsPay] andInfos:infos];
+    }
+    else  if ([_info_classType isEqualToString:@"拼团"])
+    {
+        [infos setObject:[AppDelegate shareAppDelegate].user_id forKey:@"user_id"];
+        [infos setObject:_str_address forKey:@"assemble_site"];
+        [infos setObject:_str_Name forKey:@"consignee"];
+        [infos setObject:_str_telephone forKey:@"mobile"];
+        [infos setObject:_str_goodsId forKey:@"goods_id"];
+        [infos setObject:_str_Num forKey:@"num"];
+        [infos setObject:_str_type forKey:@"norms"];
+        [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSMiYoMeigetGroupOrder] andInfos:infos];
+    }
+    else
+    {
+        [infos setObject:[AppDelegate shareAppDelegate].user_id forKey:@"user_id"];
+        [infos setObject:_str_address forKey:@"assemble_site"];
+        [infos setObject:_str_Name forKey:@"consignee"];
+        [infos setObject:_str_telephone forKey:@"mobile"];
+        [infos setObject:_str_goodsId forKey:@"goods_id"];
+        [infos setObject:_str_Num forKey:@"num"];
+        [infos setObject:_str_type forKey:@"norms"];
+        [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSMiYoMeiGoodsOrder] andInfos:infos];
+    }
 }
 -(void)processData
 {
@@ -143,7 +168,7 @@
     }
     else
     {
-        [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"msg"]];
+        [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"data"]];
         return;
     }
 }
@@ -193,6 +218,28 @@
         {
             cell.imageLine.hidden = NO;
         }
+        [cell.contentImg sd_setImageWithURL:[NSURL URLWithString:_str_contentImg] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"] completed:nil];
+
+        NSString *price = [NSString stringWithFormat:@"￥%@",_str_price];
+        CGFloat width = [RegularExpressionsMethod widthOfString:price font:Font(15) height:23];
+        cell.price.frame = CGRectMake(kMSScreenWith-width-10, 5, width, 23);
+        cell.price.text = price;
+
+        NSString *oldprice = [NSString stringWithFormat:@"￥%@",_str_oldprice];
+        cell.oldprice.frame = CGRectMake(kMSScreenWith-width-10, cell.price.Bottom+5, width, 20);
+        NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:oldprice
+                                                                                    attributes:@{NSStrikethroughStyleAttributeName : @(NSUnderlineStyleSingle)}];
+        cell.oldprice.attributedText = attrStr;
+
+        cell.title.text = _str_title;
+        cell.title.frame = CGRectMake(TAG_Height+15, 5, kMSScreenWith- DCMargin * 4-TAG_Height-width, 40);
+
+        NSString *saleCount = [NSString stringWithFormat:@"%@",_str_type];
+        cell.type.text  = saleCount;
+        cell.type.frame = CGRectMake(TAG_Height+15, cell.title.Bottom+5, cell.title.width, 20);
+
+        cell.Num.frame =CGRectMake(kMSScreenWith-width-10, cell.oldprice.Bottom+5, width, 20);
+        cell.Num.text =  [NSString stringWithFormat:@"x%@",_str_Num];
         return cell;
     }
 }

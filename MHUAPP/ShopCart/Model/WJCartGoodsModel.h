@@ -23,4 +23,5 @@
 @property (copy,nonatomic) NSString *img;
 @property (copy,nonatomic) NSString *goods_attr;
 
+@property (copy,nonatomic) NSString *is_group_buy;   //当为2时是积分商城订单
 @end

@@ -99,7 +99,12 @@
 
 #define   kMSGetIsNewGoods        @"getIsNewGoods"                 //更多新品
 #define   kMSGetDetailedReceive        @"getDetailedReceive"                 //详细的待收货订单
+
+#define   kMSGetDetailedDelivery        @"getDetailedDelivery"                 //详细的待发货订单
+
 #define   kMSMiYoMeigetGroupOrder        @"/v1/getGroupOrder"                 //拼团下单
+#define   kMSMiYoMeigetpostsPay        @"/v1/postsPay"                 //秒杀下单
+#define   kMSMiYoMeiGoodsOrder        @"/v1/goodsOrder"                 //普通商品的立即购买
 #define   kMSMiYoMeiAffirmPay        @"/v1/affirmPay"                 //待支付状态下的确认支付
 #define   kMSMiYoMeiAffirmGoods        @"/v1/affirmGoods"                 //确认收货
 #endif /* MHUURL_h */

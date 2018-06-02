@@ -497,7 +497,16 @@ static NSArray *lastSeleArray_;
 #pragma mark - 加入购物车成功
 - (void)setUpWithAddSuccess :(NSInteger)tagSender
 {
+    NSString *result ;
+    if (_attributeArray.count>0) {
+        result  = [NSString stringWithFormat:@"%@",[lastSeleArray_ componentsJoinedByString:@","]];
 
+    }
+    else
+    {
+        result = @"";
+        lastNum_ = @"1";
+    }
     if (tagSender==100) {
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
@@ -511,19 +520,6 @@ static NSArray *lastSeleArray_;
             return;
         }
 
-        NSString *result ;
-        if (_attributeArray.count>0) {
-            result  = [NSString stringWithFormat:@"%@",[lastSeleArray_ componentsJoinedByString:@","]];
-
-        }
-        else
-        {
-            result = @"";
-            lastNum_ = @"1";
-        }
-
-
-
         NSMutableDictionary *infos = [NSMutableDictionary dictionary];
         [infos setObject:uid forKey:@"user_id"];
         [infos setObject:_goods_id forKey:@"goods_id"];
@@ -536,15 +532,17 @@ static NSArray *lastSeleArray_;
     else
     {
         WEAKSELF
-        WJPTNewBuyViewController *shopCarVc = [[WJPTNewBuyViewController alloc] init];
-        shopCarVc.str_goodsId = _goods_id;
-        shopCarVc.str_price = _goodPrice;
-        shopCarVc.str_Num = lastNum_;
-        shopCarVc.str_goodsId = _goods_id;
-        shopCarVc.str_goodsId = _goods_id;
-        shopCarVc.hidesBottomBarWhenPushed = YES;
-        [weakSelf.navigationController pushViewController:shopCarVc animated:YES];
-        self.hidesBottomBarWhenPushed = YES;
+        WJPTNewBuyViewController *newBuyVC = [[WJPTNewBuyViewController alloc]init];
+        newBuyVC.str_contentImg = _goodImageView;
+        newBuyVC.str_title = _goodTitle;
+        newBuyVC.str_type = result;
+        newBuyVC.str_Num = lastNum_;
+        newBuyVC.str_price = _goodPrice;
+        newBuyVC.str_oldprice = _oldPrice;
+        newBuyVC.str_goodsId = _goods_id;
+        newBuyVC.hidesBottomBarWhenPushed = YES;
+        [weakSelf.navigationController pushViewController:newBuyVC animated:YES];
+        weakSelf.hidesBottomBarWhenPushed = YES;
     }
     
 
