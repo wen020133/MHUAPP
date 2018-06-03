@@ -38,7 +38,7 @@
     _totalPayPrice.textAlignment = NSTextAlignmentRight;
     [self.contentView addSubview:_totalPayPrice];
 
-    UIImageView *imageline = ImageViewInit(0, 60, kMSScreenWith, 3);
+    UIImageView *imageline = ImageViewInit(0, 58, kMSScreenWith, 5);
     imageline.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     [self.contentView addSubview:imageline];
     

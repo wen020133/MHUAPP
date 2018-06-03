@@ -19,7 +19,7 @@
 
 #import "WJShopCartClassViewController.h"
 
-
+#import "JXButton.h"
 #import "PST_MenuView.h"
 
 #import "WJDetailPartCommentItem.h"
@@ -297,22 +297,24 @@
 #pragma mark - 收藏 购物车
 - (void)setUpLeftTwoButton
 {
-    NSArray *imagesNor = @[@"tabr_07shoucang_up",@"tabr_08gouwuche"];
-    NSArray *imagesSel = @[@"tabr_07shoucang_down",@"tabr_08gouwuche"];
-    CGFloat buttonW = kMSScreenWith * 0.2;
+    NSArray *imagesNor = @[@"shop_default",@"customerService",@"home_Like_icon"];
+    NSArray *imagesSel = @[@"店铺",@"客服",@"关注"];
+    CGFloat buttonW = kMSScreenWith * 0.5/3;
     CGFloat buttonH = 50;
     CGFloat buttonY = kMSScreenHeight -kMSNaviHight- buttonH;
-
+    
     for (NSInteger i = 0; i < imagesNor.count; i++) {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setImage:[UIImage imageNamed:imagesNor[i]] forState:UIControlStateNormal];
+        JXButton *button = [JXButton new];
+        [button setTitle:imagesSel[i] forState:UIControlStateNormal];
+        [button setTitleColor:[RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR] forState:UIControlStateNormal];
+        button.titleLabel.font = Font(14);
         button.backgroundColor = [UIColor whiteColor];
-        [button setImage:[UIImage imageNamed:imagesSel[i]] forState:UIControlStateSelected];
+        [button setImage:[UIImage imageNamed:imagesNor[i]] forState:UIControlStateNormal];
         button.tag = i;
         [button addTarget:self action:@selector(bottomButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         CGFloat buttonX = (buttonW * i);
         button.frame = CGRectMake(buttonX, buttonY, buttonW, buttonH);
-
+        
         [self.view addSubview:button];
     }
 }
@@ -320,18 +322,18 @@
 - (void)setUpRightTwoButton
 {
     NSArray *titles = @[@"加入购物车",@"立即购买"];
-    CGFloat buttonW = kMSScreenWith * 0.6 * 0.5;
+    CGFloat buttonW = kMSScreenWith * 0.5 * 0.5;
     CGFloat buttonH = 50;
     CGFloat buttonY = kMSScreenHeight -kMSNaviHight- buttonH;
     for (NSInteger i = 0; i < titles.count; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.titleLabel.font = PFR16Font;
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        button.tag = i + 2;
+        button.tag = i + 3;
         [button setTitle:titles[i] forState:UIControlStateNormal];
         button.backgroundColor = (i == 0) ? [UIColor redColor] : kMSButtonBackColor;
         [button addTarget:self action:@selector(bottomButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-        CGFloat buttonX = kMSScreenWith * 0.4 + (buttonW * i);
+        CGFloat buttonX = kMSScreenWith * 0.5 + (buttonW * i);
         button.frame = CGRectMake(buttonX, buttonY, buttonW, buttonH);
 
         [self.view addSubview:button];
@@ -425,16 +427,16 @@
 - (void)bottomButtonClick:(UIButton *)button
 {
     if (button.tag == 0) {
-        NSLog(@"收藏");
+        NSLog(@"店铺");
         button.selected = !button.selected;
     }else if(button.tag == 1){
-        NSLog(@"购物车");
-        WJShopCartClassViewController *shopCarVc = [[WJShopCartClassViewController alloc] init];
-        shopCarVc.isHasTabBarController = NO;
-        shopCarVc.isHasNavitationController = YES;
-        self.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:shopCarVc animated:YES];
-    }else  if (button.tag == 2 || button.tag == 3) {
+        NSLog(@"客服");
+
+    }
+    else if(button.tag == 2){
+        NSLog(@"关注");
+        
+    }else  if (button.tag == 3 || button.tag == 4) {
 
 
          dispatch_sync(dispatch_get_global_queue(0, 0), ^{

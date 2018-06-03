@@ -166,11 +166,11 @@ static NSArray *lastSeleArray_;
     //父类加入购物车，立即购买通知
     _dcObj = [[NSNotificationCenter defaultCenter]addObserverForName:@"ClikAddOrBuy" object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
 
-            if ([note.userInfo[@"buttonTag"] isEqualToString:@"2"]) { //加入购物车（父类）
+            if ([note.userInfo[@"buttonTag"] isEqualToString:@"3"]) { //加入购物车（父类）
 
                 [weakSelf isSelectAlretOrGetData:100];
 
-            }else if ([note.userInfo[@"buttonTag"] isEqualToString:@"3"]){//立即购买（父类）
+            }else if ([note.userInfo[@"buttonTag"] isEqualToString:@"4"]){//立即购买（父类）
                [weakSelf isSelectAlretOrGetData:3000];
             }
     }];

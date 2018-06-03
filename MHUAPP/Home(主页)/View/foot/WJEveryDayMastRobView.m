@@ -42,7 +42,7 @@
     [self addSubview:line1];
 
     _img_left = ImageViewInit(0, 0, kMSScreenWith/2, 200);
-    _img_left.contentMode = UIViewContentModeScaleAspectFit;
+    _img_left.contentMode = UIViewContentModeScaleAspectFill;
     [self addSubview:_img_left];
 
     UIImageView *line2 = ImageViewInit(kMSScreenWith/2, 100, kMSScreenWith/2, 1);
@@ -50,11 +50,11 @@
     [self addSubview:line2];
 
     _img_right1 = ImageViewInit(kMSScreenWith/2, 0, kMSScreenWith/2, 99);
-    _img_right1.contentMode = UIViewContentModeScaleAspectFit;
+    _img_right1.contentMode = UIViewContentModeScaleAspectFill;
     [self addSubview:_img_right1];
 
     _img_right2 = ImageViewInit(kMSScreenWith/2, 101, kMSScreenWith/2, 99);
-    _img_right2.contentMode = UIViewContentModeScaleAspectFit;
+    _img_right2.contentMode = UIViewContentModeScaleAspectFill;
     [self addSubview:_img_right2];
     
 }
