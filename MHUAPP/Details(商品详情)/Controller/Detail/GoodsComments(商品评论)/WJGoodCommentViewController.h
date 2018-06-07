@@ -13,5 +13,6 @@
 
 @property NSInteger page_Information;
 @property (strong, nonatomic)  UICollectionView *collectionV;
-
+/* 商品ID */
+@property (assign , nonatomic) NSString *goods_id;
 @end

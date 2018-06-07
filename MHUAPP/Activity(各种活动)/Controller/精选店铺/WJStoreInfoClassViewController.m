@@ -98,12 +98,41 @@
         head.lab_allGood.text = [NSString stringWithFormat:@"%@",_str_addGoodsNum];
         head.titleLabel.text = _storeName;
         [head.headImageView sd_setImageWithURL:[NSURL URLWithString:_storeLogo] placeholderImage:[UIImage imageNamed:@"ic_no_heardPic.png"]];
+        head.goToTuijianGoodBlock = ^{
+            [self initgetFollowData];
+        };
         reusableview = head;
     }
     return reusableview;
 
 }
+-(void)initgetFollowData
+{
+    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+    [infos setValue:[AppDelegate shareAppDelegate].user_id forKey:@"user_id"];
+    [infos setValue:_storeId forKey:@"id"];
+    [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSGetFollow] andInfos:infos];
+}
+-(void)processData
+{
+    if([[self.results objectForKey:@"code"] integerValue] == 200)
+    {
+        [SVProgressHUD showSuccessWithStatus:@"收藏成功"];
+            [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+            [SVProgressHUD dismissWithDelay:1.0];
 
+    }
+    else
+    {
+        NSLog(@"加入足迹---%@！",self.results[@"data"]);
+
+        [SVProgressHUD showSuccessWithStatus:self.results[@"data"]];
+            [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+            [SVProgressHUD dismissWithDelay:1.0];
+
+        return;
+    }
+}
 
 
 //定义每个Section的四边间距

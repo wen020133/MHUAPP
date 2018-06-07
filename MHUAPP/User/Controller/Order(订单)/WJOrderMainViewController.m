@@ -24,7 +24,7 @@
     [super viewDidLoad];
     [self initSendReplyWithTitle:@"我的订单" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
-    self.arr_Type = [NSArray arrayWithObjects:@"全部",@"待付款",@"待发货",@"待收货",@"待评价", nil];
+    self.arr_Type = [NSArray arrayWithObjects:@"全部",@"待付款",@"待发货",@"待收货",@"待评价",@"退货退款中",@"交易成功",nil];
      [self addInformationSegmentedControlView];
     [self addPageVC];
     [self.menuScrollView changeMenuState:_serverType];

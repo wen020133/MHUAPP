@@ -139,6 +139,7 @@
     storeInfo.group_price_two = [NSString stringWithFormat:@"%@",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"group_price_two"]];
     storeInfo.group_price_three = [NSString stringWithFormat:@"%@",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"group_price_three"]];
     storeInfo.endTimeStr = [[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"end_time"];
+    storeInfo.group_info_id = [[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"group_info_id"];
     storeInfo.info_classType = @"拼团";
     storeInfo.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:storeInfo animated:YES];

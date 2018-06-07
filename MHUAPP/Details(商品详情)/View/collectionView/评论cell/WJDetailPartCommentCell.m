@@ -25,6 +25,7 @@
         //先清除缓存
         [[SDWebImageManager sharedManager].imageCache clearDisk];
         [self createContents];
+        self.backgroundColor = kMSCellBackColor;
     }
     return self;
 }
@@ -55,6 +56,8 @@
     self.txtContentLbl.font = [UIFont systemFontOfSize:13];
     self.txtContentLbl.numberOfLines = 0;
     self.txtContentLbl.lineBreakMode = NSLineBreakByWordWrapping;
+    
+    [RegularExpressionsMethod dc_setUpAcrossPartingLineWith:self WithColor:[[UIColor lightGrayColor]colorWithAlphaComponent:0.3]];
     
 }
 

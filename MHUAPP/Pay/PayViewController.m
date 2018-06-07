@@ -116,6 +116,7 @@
             cell = [[WJPayFristTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"WJPayFristTableViewCell"];
         }
         cell.lab_price.text = [NSString stringWithFormat:@"￥%.2f",[_oPrice floatValue]];
+        cell.accessoryType = UITableViewCellAccessoryNone;
         cell.colsePayView = ^{
             [self dismissViewControllerAnimated:YES completion:nil];
         };

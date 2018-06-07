@@ -158,7 +158,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     WJCollectionTabCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WJCollectionTabCell" forIndexPath:indexPath];
-    cell.moreShareCanceBlock  = ^{
+    cell.moreShareCanceBlock = ^(BOOL select) {
         [self moreClickShareAndCancel:indexPath.row];
     };
     return cell;

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseNetworkViewController.h"
+#import "WJDetailPartCommentItem.h"
 
 typedef NS_ENUM(NSInteger, KGetSSPTDetailClassType) {
     KGetSSPTDetailClass = 1 ,//获取商品详情
@@ -24,13 +25,16 @@ typedef NS_ENUM(NSInteger, KGetSSPTDetailClassType) {
 @property (strong , nonatomic)NSString *oldPrice;
 /* 商品图片 */
 @property (strong , nonatomic)NSString *goodImageView;
-
+/* 拼团ID */
+@property (assign , nonatomic) NSString *group_info_id;
+/* 秒杀ID */
+@property (assign , nonatomic) NSString *info_id;
 /* 商品轮播图 */
 @property (strong , nonatomic)NSArray *shufflingArray;
 /* 商品属性 */
 @property (strong , nonatomic)NSArray *attributeArray;
 /* 商品评论 */
-@property (strong , nonatomic)NSArray *commentArray;
+@property (strong , nonatomic)NSArray<WJDetailPartCommentItem *> *commentArray;
 
 /* 商品ID */
 @property (assign , nonatomic) NSString *goods_id;

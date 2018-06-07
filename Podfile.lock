@@ -14,6 +14,7 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - IQKeyboardManager (5.0.6)
   - Masonry (1.1.0)
   - MJExtension (3.0.13)
   - MJRefresh (3.1.15.1)
@@ -47,6 +48,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
+  - IQKeyboardManager
   - Masonry
   - MJExtension
   - MJRefresh
@@ -66,6 +68,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  IQKeyboardManager: 077b7f691dfa9d69db9cff66f2bed68ebfc02d9b
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJExtension: 5932755f451458eefa24239358817f8d291240c7
   MJRefresh: 5f8552bc25ca8751c010f621c1098dbdaacbccd6
@@ -78,6 +81,6 @@ SPEC CHECKSUMS:
   WechatOpenSDK: 0ee07a8d492299d3e47372a33da5af26524a7576
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 02190f46290e3ac1f5c75e9d1cf59773ee5384df
+PODFILE CHECKSUM: 5ce1a16a056fa38d658ccef131b5ecd4665d9758
 
 COCOAPODS: 1.3.1

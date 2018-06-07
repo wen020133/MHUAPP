@@ -8,7 +8,7 @@
 
 #import "WJCollectionTabCell.h"
 #import "UIView+UIViewFrame.h"
-
+#import <UIImageView+WebCache.h>
 
 @implementation WJCollectionTabCell
 
@@ -35,28 +35,31 @@
     imgV.backgroundColor = kMSViewBackColor;
     [self.contentView addSubview:imgV];
 
-    _img_content = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 80, 80)];
+
+    _selectBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_selectBtn setImage:[UIImage imageNamed:@"user_weigouxuan"] forState:UIControlStateNormal];
+    [_selectBtn setImage:[UIImage imageNamed:@"shipcart_seleHigh"] forState:UIControlStateSelected];
+    [_selectBtn addTarget:self action:@selector(showAlertViewClass:) forControlEvents:UIControlEventTouchUpInside];
+    [self.contentView addSubview:_selectBtn];
+
+    _img_content = [[UIImageView alloc] init];
+//    _img_content.layer.cornerRadius = 35;
+    _img_content.contentMode = UIViewContentModeScaleToFill;
+    _img_content.layer.masksToBounds = YES;//设置圆角
     _img_content.backgroundColor = [UIColor redColor];
     [self.contentView addSubview:_img_content];
 
 
-    _lab_title = [[UILabel alloc] initWithFrame:CGRectMake(20+_img_content.width, 8, kMSScreenWith-30-_img_content.width, 20)];
-    _lab_title.textAlignment = NSTextAlignmentRight;
-    _lab_title.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
+    _lab_title = [[UILabel alloc] init];
+    _lab_title.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
     _lab_title.font = Font(15);
     [self.contentView addSubview:_lab_title];
 
-    _lab_price = [[UILabel alloc] initWithFrame:CGRectMake(20+_img_content.width, 33, kMSScreenWith-30-_img_content.width, 20)];
-    _lab_price.textAlignment = NSTextAlignmentRight;
-    _lab_price.textColor = [UIColor redColor];
-    _lab_price.font = Font(15);
-    [self.contentView addSubview:_lab_price];
+    _lab_num = [[UILabel alloc] init];
+    _lab_num.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
+    _lab_num.font = Font(15);
+    [self.contentView addSubview:_lab_num];
 
-    _btn_use = [UIButton buttonWithType:UIButtonTypeCustom];
-    _btn_use.frame = CGRectMake(kMSScreenWith-100, 63, 90, 30);
-    [_btn_use setTitle:@"..." forState:UIControlStateNormal];
-    [_btn_use addTarget:self action:@selector(showAlertViewClass) forControlEvents:UIControlEventTouchUpInside];
-    [self.contentView addSubview:_btn_use];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -64,14 +67,40 @@
 
     // Configure the view for the selected state
 }
--(void)showAlertViewClass
-{
-    !_moreShareCanceBlock ? : _moreShareCanceBlock();
+- (void)setSelectIsHidden:(BOOL)selectIsHidden {
+
+    if (selectIsHidden) {
+        _selectBtn.frame = CGRectMake(0, 0, 0, 0);
+    }
+    else
+    {
+        _selectBtn.frame = CGRectMake(10, 35, 30, 30);
+    }
+    _selectIsHidden = selectIsHidden;
+    _img_content.frame = CGRectMake(_selectBtn.Right+10, 10, 70, 70);
+    _lab_title.frame = CGRectMake(_img_content.Right+DCMargin, 15, kMSScreenWith-35-_img_content.width-_selectBtn.width, 20);
+    _lab_num.frame = CGRectMake(_img_content.Right+DCMargin, 60, kMSScreenWith-30-_img_content.width, 20);
 }
+
+#pragma mark - 按钮点击方法
+- (void)showAlertViewClass:(UIButton*)button {
+    button.selected = !button.selected;
+
+    if (_moreShareCanceBlock) {
+        _moreShareCanceBlock(button.selected);
+    }
+}
+
 -(void)setListModel:(WJCollectionItem *)listModel
 {
-    _lab_title.text = [NSString stringWithFormat:@"￥%@",@"20"];
-    _lab_price.text = [NSString stringWithFormat:@"满%@元可使用",@"300"];
+    if (listModel!=_listModel) {
+        _listModel = listModel;
+    }
+    [_img_content sd_setImageWithURL:[NSURL URLWithString:_listModel.logo] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"] completed:nil];
+    _selectBtn.selected = _listModel.select;
+    _lab_title.text = _listModel.supplier_name;
+
+    _lab_num.text =  [NSString stringWithFormat:@"%@人已关注",_listModel.num];
 }
 
 @end

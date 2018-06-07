@@ -17,4 +17,7 @@
 @property (nonatomic, strong)  UILabel *totalPayPrice;
 @property (strong, nonatomic)  NSString *str_orderNo;
 
+/** 筛选点击回调 */
+@property (nonatomic , copy) void(^ClickdetailStateForStrBlock)(NSString *stateStr);
+
 @end

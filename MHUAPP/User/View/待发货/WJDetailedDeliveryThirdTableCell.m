@@ -38,11 +38,27 @@
     _totalPayPrice.textAlignment = NSTextAlignmentRight;
     [self.contentView addSubview:_totalPayPrice];
 
-    UIImageView *imageline = ImageViewInit(0, 58, kMSScreenWith, 5);
+    NSArray *arr_buttonTitle = [NSArray arrayWithObjects:@"申请退款",@"联系客服", nil];
+    for (int aa=0; aa<arr_buttonTitle.count; aa++) {
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.layer.borderColor = [[RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR] CGColor];
+        btn.layer.borderWidth = 1.0f;
+        btn.layer.cornerRadius = 3;
+        btn.layer.masksToBounds = YES;//设置圆角
+        btn.frame = CGRectMake(kMSScreenWith-(70+10)*(aa+1), 35, 70, 28);
+        [btn setTitle:[arr_buttonTitle objectAtIndex:aa] forState:UIControlStateNormal];
+        btn.titleLabel.font = Font(14);
+        [btn setTitleColor:[RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR] forState:UIControlStateNormal];
+        [btn addTarget:self action:@selector(aelesteGoodsInCart:) forControlEvents:UIControlEventTouchUpInside];
+        [self.contentView addSubview:btn];
+    }
+
+
+    UIImageView *imageline = ImageViewInit(0, 85, kMSScreenWith, 5);
     imageline.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     [self.contentView addSubview:imageline];
     
-    _lab_orderNo = LabelInit(DCMargin, 60+DCMargin, 220, 20);
+    _lab_orderNo = LabelInit(DCMargin, 90+DCMargin, 220, 20);
     _lab_orderNo.font = PFR14Font;
     _lab_orderNo.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
     [self.contentView addSubview:_lab_orderNo];
@@ -67,7 +83,7 @@
     btn.layer.borderWidth = 1.0f;
     btn.layer.cornerRadius = 3;
     btn.layer.masksToBounds = YES;//设置圆角
-    btn.frame = CGRectMake(kMSScreenWith-80, 60+DCMargin, 70, 28);
+    btn.frame = CGRectMake(kMSScreenWith-80, 90+DCMargin, 70, 28);
     [btn setTitle:@"复制" forState:UIControlStateNormal];
     btn.titleLabel.font = Font(14);
     [btn setTitleColor:[RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR] forState:UIControlStateNormal];
@@ -102,5 +118,8 @@
 
     // Configure the view for the selected state
 }
-
+-(void)aelesteGoodsInCart:(UIButton *)sender
+{
+    !_ClickdetailStateForStrBlock ? : _ClickdetailStateForStrBlock(sender.titleLabel.text);
+}
 @end

@@ -16,5 +16,5 @@
 - (void)setUpUI;
 /** 去各活动 */
 
-@property (nonatomic , copy) void(^goToGoodDetailClass)(NSString *good_id);
+@property (nonatomic , copy) void(^goToGoodDetailClass)(NSDictionary *dic_goods);
 @end

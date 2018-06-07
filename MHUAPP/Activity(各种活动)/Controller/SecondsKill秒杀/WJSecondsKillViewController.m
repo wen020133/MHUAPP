@@ -303,7 +303,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     WJSSPTDetailClassViewController *dcVc = [[WJSSPTDetailClassViewController alloc] init];
-    dcVc.goods_id = _countDownItem[indexPath.row][@"goods"] [@"goods_id"];;
+    dcVc.goods_id = _countDownItem[indexPath.row][@"goods"] [@"goods_id"];
+     dcVc.info_id = _countDownItem[indexPath.row][@"goods"] [@"info_id"];
     dcVc.endTimeStr = [[[self.results objectForKey:@"data"] objectAtIndex:0] objectForKey:@"end_time"];
     dcVc.info_classType = @"秒杀";
     dcVc.hidesBottomBarWhenPushed = YES;

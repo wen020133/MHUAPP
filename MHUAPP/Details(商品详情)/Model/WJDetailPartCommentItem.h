@@ -15,5 +15,5 @@
 @property (strong, nonatomic)  NSString *comment_rank;
 @property (strong, nonatomic)  NSString *user_name;
 @property (nonatomic, strong)  NSArray  *imageArr;
-
+@property (nonatomic, strong)  NSString  *hide_username;
 @end

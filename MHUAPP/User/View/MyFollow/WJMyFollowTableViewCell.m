@@ -9,7 +9,7 @@
 #import "WJMyFollowTableViewCell.h"
 #import "UIView+UIViewFrame.h"
 #import <UIImageView+WebCache.h>
-#define Follow_Height 80
+#define Follow_Height 100
 
 
 @implementation WJMyFollowTableViewCell
@@ -32,6 +32,11 @@
 #pragma mark - UI
 - (void)setUpUI
 {
+    self.contentView.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
+    UIImageView *imgV = [[UIImageView alloc]initWithFrame:CGRectMake(0, 2, kMSScreenWith, 95)];
+    imgV.backgroundColor = kMSViewBackColor;
+    [self.contentView addSubview:imgV];
+    
     //选中按钮
     self.selectBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.selectBtn setImage:[UIImage imageNamed:@"user_weigouxuan"] forState:UIControlStateNormal];
@@ -47,18 +52,9 @@
 
     //店铺名
     self.lab_name = [[UILabel alloc]init];
-    self.lab_name.frame = CGRectMake(self.lzImageView.Right + 10, 3, kMSScreenWith-self.lzImageView.Right-30, 40);
     self.lab_name.font = [UIFont systemFontOfSize:13];
+    _lab_name.numberOfLines = 2;
     [self.contentView addSubview:self.lab_name];
-
-    //属性
-    self.lab_New = [[UILabel alloc]init];
-    self.lab_New.frame = CGRectMake(self.lzImageView.Right + 10, self.lab_name.Bottom +2, 200, 18);
-    self.lab_New.text = @"上新";
-    self.lab_New.textColor = kMSCellBackColor;
-    self.lab_New.backgroundColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
-    self.lab_New.font = [UIFont systemFontOfSize:12];
-    [self.contentView addSubview:self.lab_New];
 
     //评分
     self.lab_store = [[UILabel alloc]init];
@@ -70,7 +66,7 @@
     //价格
     self.lab_followNum = [[UILabel alloc]init];
     self.lab_followNum.font = [UIFont boldSystemFontOfSize:12];
-    self.lab_followNum.textColor = [RegularExpressionsMethod ColorWithHexString:kGrayBgColor];
+    self.lab_followNum.textColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
     [self.contentView addSubview:self.lab_followNum];
 
 }
@@ -80,30 +76,35 @@
      !_WJCellSelectedBlock ? : _WJCellSelectedBlock(button.selected);
 }
 
-#pragma mark - public method
-- (void)reloadDataWithModel:(WJFollowClassItem*)item {
+- (void)setSelectHidden:(BOOL)selectHidden{
 
-    if (self.selectHidden) {
-        self.selectBtn.hidden=YES;
-        self.lzImageView.frame = CGRectMake(20, 5, Follow_Height - 10, Follow_Height - 10);
-
+    if (selectHidden) {
+        _selectBtn.frame = CGRectMake(0, 0, 0, 0);
     }
     else
     {
-         self.selectBtn.hidden = NO;
-        self.selectBtn.frame = CGRectMake(20, 25, 30, 30);
-        self.lzImageView.frame = CGRectMake(self.selectBtn.Right + 5, 5, Follow_Height - 10, Follow_Height - 10);
-
+        _selectBtn.frame = CGRectMake(10, 35, 30, 30);
     }
-    self.selectBtn.layer.cornerRadius = Follow_Height/2 - 5;
-    self.selectBtn.layer.masksToBounds = YES;//设置圆角
-    [self.lzImageView sd_setImageWithURL:[NSURL URLWithString: item.image] placeholderImage:[UIImage imageNamed:@"ic_no_heardPic.png"]];
-    self.lab_name.text = item.goodsName;
-    self.lab_New.text = item.attribute;
-    self.lab_store.text = item.youhui;
-    self.lab_followNum.text = [NSString stringWithFormat:@"%ld",(long)item.count];
-    self.selectBtn.selected = item.select;
+    _selectHidden = selectHidden;
+    _lzImageView.frame = CGRectMake(_selectBtn.Right+10, 10, 70, 70);
+    _lab_name.frame = CGRectMake(_lzImageView.Right+DCMargin, 15, kMSScreenWith-35-_lzImageView.width-_selectBtn.width, 40);
+    _lab_followNum.frame = CGRectMake(_lzImageView.Right+DCMargin, 60, kMSScreenWith-30-_lzImageView.width, 20);
+    
 }
+
+
+-(void)setListModel:(WJFollowClassItem *)listModel
+{
+    if (listModel!=_listModel) {
+        _listModel = listModel;
+    }
+    [_lzImageView sd_setImageWithURL:[NSURL URLWithString: _listModel.goods.original_img] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"] completed:nil];
+    _selectBtn.selected = _listModel.select;
+    _lab_name.text = _listModel.goods.goods_name;
+
+    _lab_followNum.text =  [NSString stringWithFormat:@"￥%@",ConvertNullString(_listModel.goods.shop_price)];
+}
+
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

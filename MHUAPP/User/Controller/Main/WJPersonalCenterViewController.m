@@ -20,7 +20,8 @@
 #import "WJUserCollectionViewController.h"
 #import "WJMyStoreViewController.h"
 
-
+#import "WJMyFootprintViewController.h"
+#import "WJMyFollowViewController.h"
 #import <UIImageView+WebCache.h>
 
 
@@ -107,7 +108,13 @@
     return 3;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-   return (section == 0)  ? 5 : 4;
+    if(section == 0)
+        return 5;
+    else if(section == 1)
+        return 4;
+    else if(section == 2)
+        return 3;
+    return 0;
 }
 #pragma mark - <UICollectionViewDelegate>
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -207,10 +214,20 @@
         switch (indexPath.row) {
             case 0:
                 {
-                    WJCouponsClassViewController *dcVc = [[WJCouponsClassViewController alloc] init];
-                    self.hidesBottomBarWhenPushed = YES;
-                    [self.navigationController pushViewController:dcVc animated:YES];
-                    self.hidesBottomBarWhenPushed = NO;
+                    [self jxt_showAlertWithTitle:@"消息提示" message:@"活动暂未开放。敬请期待！" appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
+                        alertMaker.
+                        addActionCancelTitle(@"确定");
+                    } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, JXTAlertController * _Nonnull alertSelf) {
+                        if (buttonIndex == 0) {
+                            NSLog(@"cancel");
+                        }
+
+                        NSLog(@"%@--%@", action.title, action);
+                    }];
+//                    WJCouponsClassViewController *dcVc = [[WJCouponsClassViewController alloc] init];
+//                    self.hidesBottomBarWhenPushed = YES;
+//                    [self.navigationController pushViewController:dcVc animated:YES];
+//                    self.hidesBottomBarWhenPushed = NO;
                 }
                 break;
             case 1:
@@ -221,7 +238,14 @@
                 self.hidesBottomBarWhenPushed = NO;
             }
                 break;
-
+            case 2:
+            {
+                WJMyFollowViewController *dcVc = [[WJMyFollowViewController alloc] init];
+                self.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:dcVc animated:YES];
+                self.hidesBottomBarWhenPushed = NO;
+            }
+                break;
             default:
                 break;
         }
@@ -234,9 +258,17 @@
                     
                 }
                 break;
-            case 2:
+            case 1:
             {
-                WJMyStoreViewController *dcVc = [[WJMyStoreViewController alloc] init];
+//                WJMyStoreViewController *dcVc = [[WJMyStoreViewController alloc] init];
+//                self.hidesBottomBarWhenPushed = YES;
+//                [self.navigationController pushViewController:dcVc animated:YES];
+//                self.hidesBottomBarWhenPushed = NO;
+            }
+                break;
+                case 2:
+            {
+                WJMyFootprintViewController *dcVc = [[WJMyFootprintViewController alloc] init];
                 self.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:dcVc animated:YES];
                 self.hidesBottomBarWhenPushed = NO;

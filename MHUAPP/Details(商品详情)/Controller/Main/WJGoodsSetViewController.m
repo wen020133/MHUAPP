@@ -310,6 +310,7 @@ static CGFloat _lastContentOffset;
             _str_type = @"2";
             _type_numb = @"1";
         }
+            break;
         default:
             break;
     }

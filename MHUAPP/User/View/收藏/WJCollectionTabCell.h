@@ -13,11 +13,15 @@
 
 @property (nonatomic, strong) UIImageView *img_content;
 @property (nonatomic, strong) UILabel *lab_title;
-@property (nonatomic, strong) UILabel *lab_price;
-@property (nonatomic, strong) UIButton *btn_use;
+@property (nonatomic, strong) UILabel *lab_num;
 
 @property (strong , nonatomic) WJCollectionItem *listModel;
+@property (assign,nonatomic) BOOL selectIsHidden;
+
+//选中按钮
+@property (nonatomic,strong) UIButton *selectBtn;
 
 /** 筛选点击回调 */
-@property (nonatomic, copy) dispatch_block_t moreShareCanceBlock;
+/** 去各活动 */
+@property (nonatomic , copy) void(^moreShareCanceBlock)(BOOL select);
 @end

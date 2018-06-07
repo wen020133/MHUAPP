@@ -61,7 +61,7 @@ alpha:1.0]
 
 
 #define ConvertString(str) ([RegularExpressionsMethod isBlankString:str] ? @"0" : str)
-#define ConvertNullString(str) ([RegularExpressionsMethod isBlankString:str] ? @"null" : str)
+#define ConvertNullString(str) ([RegularExpressionsMethod isBlankString:str] ? @"" : str)
 #define ConvertAnonymousString(str) ([RegularExpressionsMethod isBlankString:str] ? @"匿名" : str)
 #define kMSStartReplyNotification   @"StartReplyNotification"
 #define kMSStartBackNotification   @"StartBackNotification"

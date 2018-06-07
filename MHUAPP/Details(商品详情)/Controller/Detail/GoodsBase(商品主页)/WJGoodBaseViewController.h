@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseNetworkViewController.h"
+#import "WJDetailPartCommentItem.h"
 
 @interface WJGoodBaseViewController : BaseNetworkViewController
 
@@ -27,7 +28,7 @@
 /* 商品属性 */
 @property (copy , nonatomic)NSArray *attributeArray;
 /* 商品评论 */
-@property (copy , nonatomic)NSArray *commentArray;
+@property (copy , nonatomic)NSArray<WJDetailPartCommentItem *> *commentArray;
 
 /* 商品ID */
 @property (assign , nonatomic) NSString *goods_id;

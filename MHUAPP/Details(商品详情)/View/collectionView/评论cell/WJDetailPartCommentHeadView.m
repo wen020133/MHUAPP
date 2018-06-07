@@ -23,7 +23,7 @@
 
 - (void)setUpUI
 {
-    self.backgroundColor = [UIColor clearColor];
+    self.backgroundColor = kMSCellBackColor;
 
     UIImageView *backImag = ImageViewInit(0, 0, kMSScreenWith, 40);
     backImag.backgroundColor = kMSCellBackColor;
@@ -40,18 +40,23 @@
     _quickButton.titleLabel.font = PFR14Font;
     _quickButton.titleLabel.textAlignment = NSTextAlignmentRight;
     [_quickButton setImage:[UIImage imageNamed:@"home_more"] forState:UIControlStateNormal];
+    [_quickButton addTarget:self action:@selector(goTomoreViewClick) forControlEvents:UIControlEventTouchUpInside];
     [_quickButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [_quickButton setTitle:@"更多" forState:UIControlStateNormal];
     [self addSubview:_quickButton];
 
 }
-
+#pragma mark - 更多按钮点击
+- (void)goTomoreViewClick
+{
+    !_moreClickBlock ? : _moreClickBlock();
+}
 #pragma mark - 布局
 - (void)layoutSubviews
 {
     [super layoutSubviews];
 
     _titleLabel.frame = CGRectMake(10, 0, 80, self.height);
-    _quickButton.frame = CGRectMake(kMSScreenWith-110, 2, 100, 30);
+    _quickButton.frame = CGRectMake(kMSScreenWith-50, 2, 40, 30);
 }
 @end

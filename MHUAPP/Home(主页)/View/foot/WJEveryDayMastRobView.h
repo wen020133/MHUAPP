@@ -13,5 +13,6 @@
 
 @property (strong, nonatomic) NSArray <WJADThirdItem *>  *imageArr;
 
-
+/** 去各活动 */
+@property (nonatomic , copy) void(^goToADAction)(NSInteger index);
 @end

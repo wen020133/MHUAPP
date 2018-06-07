@@ -28,6 +28,11 @@
 
 /* 商品ID */
 @property (assign , nonatomic) NSString *goods_id;
+
+@property (assign , nonatomic) NSString *group_info_id;  //拼团ID
+/* 秒杀ID */
+@property (assign , nonatomic) NSString *info_id;
+
 /* 原价格 */
 @property (assign , nonatomic)NSString *oldPrice;
 /* 结束时间 */

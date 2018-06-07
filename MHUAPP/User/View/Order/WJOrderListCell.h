@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WJOrderGoodListModel.h"
+#import "WJOrderWaitPingjiaAndSuccessItem.h"
 
 @interface WJOrderListCell : UITableViewCell
 
@@ -23,5 +24,7 @@
 @property (nonatomic,strong)UIImageView *imageLine;
 
 @property (strong , nonatomic) WJOrderGoodListModel *listModel;
+
+@property (strong , nonatomic) WJOrderWaitPingjiaAndSuccessItem *item;
 
 @end

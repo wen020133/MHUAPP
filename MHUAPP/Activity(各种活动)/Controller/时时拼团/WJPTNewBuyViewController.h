@@ -22,7 +22,8 @@
 @property (assign,nonatomic) NSString *str_oldprice;
 @property (assign,nonatomic) NSString *str_Num;
 @property (assign,nonatomic) NSString *str_goodsId;
-
+@property (assign,nonatomic) NSString *str_group_info_id; //拼团Id
+@property (assign,nonatomic) NSString *str_info_id; //秒杀Id
 @property (strong,nonatomic)UILabel *totlePriceLabel;
 
 @property (assign, nonatomic) NSString *info_classType;

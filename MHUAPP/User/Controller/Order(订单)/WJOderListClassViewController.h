@@ -14,7 +14,10 @@ typedef NS_ENUM(NSInteger, KGetOrderServerType) {
     KGetOrderListWaitPay = 1 ,//待付款
     KGetOrderListWaitFahuo = 2 ,//待发货
     KGetOrderListWaitShouhuo = 3 ,//待收货
+    KGetOrderListTuiKuanTuihuo = 5 ,//退货退款中
     KGetOrderListWaitPingjia = 4 ,//待评价
+    KGetOrderListJiaoyiSuccess = 6 ,//交易成功
+//    KGetOrderListJiaoClose = 7 ,//交易关闭
 };
 @interface WJOderListClassViewController : BaseNetworkViewController <UITableViewDelegate,UITableViewDataSource>
 

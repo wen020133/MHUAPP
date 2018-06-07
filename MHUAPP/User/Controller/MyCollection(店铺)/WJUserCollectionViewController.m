@@ -9,9 +9,20 @@
 #import "WJUserCollectionViewController.h"
 #import "MJRefresh.h"
 #import "WJCollectionTabCell.h"
+#import "WJCollectionItem.h"
+#import "NOMoreDataView.h"
 
 
-@interface WJUserCollectionViewController ()
+@interface WJUserCollectionViewController ()<UITableViewDelegate,UITableViewDataSource>
+
+@property (strong, nonatomic)  UITableView *tab_collectionView;
+@property (nonatomic,strong)  NSMutableArray<WJCollectionItem *> *dataArr;
+@property BOOL editYes;
+@property NSInteger page;
+@property (strong, nonatomic) UIButton *allSellectedButton;
+@property (strong,nonatomic) NSMutableArray *selectedArray;
+
+@property (strong, nonatomic) NOMoreDataView *noMoreView;
 
 @end
 
@@ -19,9 +30,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initSendReplyWithTitle:@"店铺" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
+   [self initSendReplyWithTitle:@"我的收藏" andLeftButtonName:@"ic_back.png" andRightButtonName:@"编辑" andTitleLeftOrRight:NO];
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     [self.view addSubview:self.tab_collectionView];
+    _selectedArray = [NSMutableArray array];
+    _editYes = YES;
     // Do any additional setup after loading the view.
 }
 -(UITableView *)tab_collectionView
@@ -49,9 +62,120 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(void)showright
+{
+        if(_editYes)
+        {
+            [self initSendReplyWithTitle:@"我的收藏" andLeftButtonName:@"ic_back.png" andRightButtonName:@"完成" andTitleLeftOrRight:NO];
+            _editYes = NO;
+
+
+        }
+        else
+        {
+            [self initSendReplyWithTitle:@"我的收藏" andLeftButtonName:@"ic_back.png" andRightButtonName:@"编辑" andTitleLeftOrRight:NO];
+            _editYes = YES;
+        }
+     [self changeViewBotton];
+    [_tab_collectionView reloadData];
+}
+
+- (void)changeViewBotton {
+    if (self.dataArr.count > 0&&!_editYes) {
+        UIView *view = [self.view viewWithTag:1000];
+        if (view != nil) {
+            [view removeFromSuperview];
+        }
+        for (WJCollectionItem *shop in _dataArr) {
+            shop.select = NO;
+        }
+        [self setupShopCustomBottomView];
+    }
+    else
+    {
+        UIView *view = [self.view viewWithTag:1000];
+        if (view != nil) {
+            [view removeFromSuperview];
+        }
+    }
+}
+#pragma mark -- 自定义底部视图
+- (void)setupShopCustomBottomView {
+
+    UIView *backgroundView = [[UIView alloc]initWithFrame:CGRectMake(0, kMSScreenHeight -  49-kMSNaviHight, kMSScreenWith, 49)];
+    backgroundView.tag = 1000;
+    backgroundView.backgroundColor = kMSCellBackColor;
+    [self.view addSubview:backgroundView];
+
+
+    //全选按钮
+    UIButton *selectAll = [UIButton buttonWithType:UIButtonTypeCustom];
+    selectAll.titleLabel.font = [UIFont systemFontOfSize:16];
+    selectAll.frame = CGRectMake(10, 5, 80, 49 - 10);
+    [selectAll setTitle:@" 全选" forState:UIControlStateNormal];
+    [selectAll setImage:[UIImage imageNamed:@"user_weigouxuan"] forState:UIControlStateNormal];
+    [selectAll setImage:[UIImage imageNamed:@"shipcart_seleHigh"] forState:UIControlStateSelected];
+    [selectAll setTitleColor:[RegularExpressionsMethod ColorWithHexString:@"666666"] forState:UIControlStateNormal];
+    [selectAll addTarget:self action:@selector(selectAllShopBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [backgroundView addSubview:selectAll];
+    self.allSellectedButton = selectAll;
+
+    //取消关注
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.backgroundColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
+    btn.frame = CGRectMake(kMSScreenWith - 80, 0, 80, 49);
+    [btn setTitle:@"取消关注" forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(cancelTheAttention:) forControlEvents:UIControlEventTouchUpInside];
+    [backgroundView addSubview:btn];
+
+}
+-(void)selectAllShopBtnClick:(UIButton *)sender
+{
+    sender.selected = !sender.selected;
+    //点击全选时,把之前已选择的全部删除
+    for (WJCollectionItem *model in _selectedArray) {
+        model.select = NO;
+    }
+
+    [_selectedArray removeAllObjects];
+
+
+    if (sender.selected) {
+
+        for (WJCollectionItem *shop in _dataArr) {
+            shop.select = YES;
+            [_selectedArray addObject:shop];
+        }
+
+    } else {
+        for (WJCollectionItem *shop in _dataArr) {
+            shop.select = NO;
+        }
+    }
+    [_tab_collectionView reloadData];
+}
+-(void)cancelTheAttention:(UIButton *)button
+{
+    if (_selectedArray.count > 0) {
+        NSMutableArray *arr_recId = [NSMutableArray array];
+        for (WJCollectionItem *model in _selectedArray) {
+            NSLog(@"选择的商品>>%@>>>%ld",model,(long)model.guanzhu_id);
+            [arr_recId addObject:model.guanzhu_id];
+        }
+        NSString *attString =  [arr_recId componentsJoinedByString:@","];
+
+        [self requestDeleteAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@&str=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDeleteSupplier,[AppDelegate shareAppDelegate].user_id,attString]];
+
+    } else {
+        [SVProgressHUD showErrorWithStatus:@"你还没有选择任何店铺"];
+    }
+}
+
 #pragma mark 开始进入刷新状态
 - (void)headerRereshing
 {
+    [_noMoreView hide];
+    [_dataArr removeAllObjects];
     [self.tab_collectionView.mj_header endRefreshing];
     [self.tab_collectionView.mj_footer endRefreshing];
     _page = 1;
@@ -61,7 +185,7 @@
 - (void)footerRereshing
 {
     _page ++;
-    [self addPhotoListData];
+    [self loadData];
 
 }
 
@@ -69,69 +193,53 @@
 - (void)loadData
 {
 
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%ld&user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetSupplierGuanzhu,_page,[AppDelegate shareAppDelegate].user_id]];
 }
 
--(void)addPhotoListData
+-(void)getProcessData
 {
-    _serverType = 2;
-    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-    [infos setValue:kMSPULLtableViewCellNumber forKey:@"img_sum"];
-    [infos setValue:[NSString stringWithFormat:@"%ld",_page] forKey:@"img_page"];
-//    [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSImageTypeGet] andInfos:infos];
-}
--(void)processData
-{
+    [_tab_collectionView.mj_header endRefreshing];
+    [_tab_collectionView.mj_footer endRefreshing];
     if([[self.results objectForKey:@"code"] integerValue] == 200)
     {
-        NSLog(@"responseObject====%@",[self.results objectForKey:@"msg"]);
-        switch (_serverType) {
-            case KGetCollectionServerSumList:
+
+        NSMutableArray *arr_Datalist = [NSMutableArray array];
+        arr_Datalist = [self.results objectForKey:@"data"];
+        if (arr_Datalist&&arr_Datalist.count>0) {
+           [self.noMoreView hide];
+            if(_page==1)
             {
-                self.totleCount = [[self.results objectForKey:@"data"]  integerValue];
-                if (self.totleCount>0) {
-                    [self addPhotoListData];
-                }
-            }
-                break;
-            case KGetCollectionTypePortList:
+                _dataArr= arr_Datalist;
+            }else
             {
-                [self.tab_collectionView.mj_header endRefreshing];
-                [self.tab_collectionView.mj_footer endRefreshing];
-                NSMutableArray *arr_Datalist = [NSMutableArray array];
-                arr_Datalist =  [self.results objectForKey:@"data"];
-
-
-                if (![arr_Datalist isEqual:[NSNull null]]) {
-
-                    if(_page==1)
-                    {
-                        self.dataArr= arr_Datalist;
-                    }else
-                    {
-                        [self.dataArr addObjectsFromArray:arr_Datalist];
-                    }
-
-                    if (self.page*10 >= self.totleCount)
-                    {
-                        [self.tab_collectionView.mj_footer endRefreshingWithNoMoreData];
-                    }
-                    [self.tab_collectionView reloadData];
-                }
+                [_dataArr addObjectsFromArray:arr_Datalist];
             }
-            default:
-                break;
+             _dataArr = [WJCollectionItem mj_objectArrayWithKeyValuesArray:_dataArr];
+
+            if(arr_Datalist.count<[kMSPULLtableViewCellNumber integerValue])
+            {
+                [_tab_collectionView.mj_footer endRefreshingWithNoMoreData];
+            }
+            else{
+                _tab_collectionView.mj_footer.hidden = NO;
+                self.noMoreView = [[NOMoreDataView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 80) withContent:@"您还没有收藏的店铺" withNODataImage:@"noMore_bg.png"];
+                self.noMoreView.hidden = NO;
+                [self.view addSubview:self.noMoreView];
+            }
+             [_tab_collectionView reloadData];
         }
-
+        else
+        {
+            [_tab_collectionView reloadData];
+            [_tab_collectionView.mj_footer endRefreshingWithNoMoreData];
+        }
 
     }
     else
     {
-
-        [self.tab_collectionView.mj_header endRefreshing];
-        [self.tab_collectionView.mj_footer endRefreshing];
+        [self requestFailed:@"获取数据失败"];
     }
 }
-
 
 #pragma mark TableViewDelegate
 
@@ -144,7 +252,7 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 
-    return 2;
+    return _dataArr.count;
 }
 
 
@@ -158,46 +266,34 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     WJCollectionTabCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WJCollectionTabCell" forIndexPath:indexPath];
-    cell.moreShareCanceBlock  = ^{
-        [self moreClickShareAndCancel:indexPath.row];
+    cell.selectIsHidden = _editYes;
+    WJCollectionItem *item = _dataArr[indexPath.row];
+
+    cell.moreShareCanceBlock = ^(BOOL select) {
+        item.select = select;
+        if (select) {
+            [_selectedArray addObject:item];
+        } else {
+            [_selectedArray removeObject:item];
+        }
+        [self verityShopAllSelectState];
+        [_tab_collectionView reloadData];
+
     };
+    cell.listModel = item;
     return cell;
 }
 
--(void)moreClickShareAndCancel:(NSInteger )tag
-{
+- (void)verityShopAllSelectState {
 
-    self.zh_popupController = [zhPopupController popupControllerWithMaskType:zhPopupMaskTypeClear];
-    self.zh_popupController.layoutType = zhPopupLayoutTypeBottom;
-    self.zh_popupController.allowPan = YES;
-    // ...
-    [self.zh_popupController presentContentView:self.wallView];
+    NSInteger count = _dataArr.count;
 
-
-}
-- (zhWallView *)wallView {
-    CGRect rect = CGRectMake(100, 100, kMSScreenWith, 300);
-    zhWallView *wallView = [[zhWallView alloc] initWithFrame:rect];
-    wallView.wallHeaderLabel.text = @"";
-    wallView.wallFooterLabel.text = @"取消";
-    wallView.models = [self wallModels];
-    [wallView autoAdjustFitHeight];
-    return wallView;
-}
-
-- (NSArray *)wallModels {
-
-    NSArray *titles = @[@"取消收藏",@"进入店铺",@"分享"];
-    NSArray *images = @[@"user_icon_wodeshoucang.png",@"user_icon_enterShop.png",@"user_icon_share.png"];
-
-    NSMutableArray *array1 = [NSMutableArray array];
-    for (int kk=0;kk<titles.count;kk++) {
-        [array1 addObject:[zhWallItemModel modelWithImage:[UIImage imageNamed:[images objectAtIndex:kk]] text:[titles objectAtIndex:kk]]];
+    if (_selectedArray.count == count) {
+        _allSellectedButton.selected = YES;
+    } else {
+        _allSellectedButton.selected = NO;
     }
-
-    return [NSMutableArray arrayWithObjects:array1, nil];
 }
-
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -218,19 +314,24 @@
     [tableView setEditing:NO animated:YES];
 
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-
-
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"你确定删除该消息？" preferredStyle:UIAlertControllerStyleAlert];
-        [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-
-        }]];
-
-        [self presentViewController:alertController animated:YES completion:nil];
+        NSString *attString = _dataArr[indexPath.row].guanzhu_id;
+        [self requestDeleteAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@&str=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDeleteSupplier,[AppDelegate shareAppDelegate].user_id,attString]];
 
     }
 
 }
-
+-(void)deleteProcessData
+{
+    if([[self.results objectForKey:@"code"] integerValue] == 200)
+    {
+        [self headerRereshing];
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"msg"]];
+        return;
+    }
+}
 - (void)firstLoadViewRefresh
 {
     [self.tab_collectionView.mj_footer endRefreshing];

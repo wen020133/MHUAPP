@@ -30,7 +30,7 @@
     self.view.backgroundColor=self.conversationListTableView.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     [self initSendReplyWithTitle:@"消息" andLeftButtonName:nil andRightButtonName:nil andTitleLeftOrRight:YES];
      self.edgesForExtendedLayout = UIRectEdgeNone;
-     self.conversationListTableView.tableHeaderView = self.tab_headView ;
+//     self.conversationListTableView.tableHeaderView = self.tab_headView ;
   self.conversationListTableView.separatorStyle=UITableViewCellSeparatorStyleNone;
      [self.conversationListTableView registerClass:[RCCustomCell class] forCellReuseIdentifier:@"RCCustomCell"];
      self.conversationListTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRereshingCircle)];

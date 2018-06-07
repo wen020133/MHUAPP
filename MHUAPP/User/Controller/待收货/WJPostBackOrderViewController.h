@@ -19,7 +19,7 @@
 @property (assign,nonatomic) NSString *str_oldprice;
 @property (assign,nonatomic) NSString *str_Num;
 @property (assign,nonatomic) NSString *str_goodsId;
-
+@property (assign,nonatomic) NSString *str_order_id;
 @property (strong,nonatomic)UILabel *totlePriceLabel;
 
 @end

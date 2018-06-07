@@ -8,14 +8,14 @@
 
 #import "WJEveryDayMastRobView.h"
 #import "UIView+UIViewFrame.h"
-#import <UIImageView+WebCache.h>
+#import <UIButton+AFNetworking.h>
 
 
 @interface WJEveryDayMastRobView ()
 
-@property (strong , nonatomic) UIImageView *img_left;
-@property (strong , nonatomic) UIImageView *img_right1;
-@property (strong , nonatomic) UIImageView *img_right2;
+@property (strong , nonatomic) UIButton *img_left;
+@property (strong , nonatomic) UIButton *img_right1;
+@property (strong , nonatomic) UIButton *img_right2;
 
 @end
 
@@ -41,20 +41,29 @@
     line1.backgroundColor = [RegularExpressionsMethod ColorWithHexString:@"E6E6E6"];
     [self addSubview:line1];
 
-    _img_left = ImageViewInit(0, 0, kMSScreenWith/2, 200);
+    _img_left = [UIButton buttonWithType:UIButtonTypeCustom];
+    _img_left.frame = CGRectMake (0, 0, kMSScreenWith/2, 200);
     _img_left.contentMode = UIViewContentModeScaleAspectFill;
+    _img_left.tag = 0;
+    [_img_left addTarget:self action:@selector(didselectAction:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_img_left];
 
     UIImageView *line2 = ImageViewInit(kMSScreenWith/2, 100, kMSScreenWith/2, 1);
     line2.backgroundColor = [RegularExpressionsMethod ColorWithHexString:@"E6E6E6"];
     [self addSubview:line2];
 
-    _img_right1 = ImageViewInit(kMSScreenWith/2, 0, kMSScreenWith/2, 99);
+     _img_right1 = [UIButton buttonWithType:UIButtonTypeCustom];
+    _img_right1.frame = CGRectMake(kMSScreenWith/2, 0, kMSScreenWith/2, 99);
     _img_right1.contentMode = UIViewContentModeScaleAspectFill;
+    _img_right1.tag = 1;
+    [_img_right1 addTarget:self action:@selector(didselectAction:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_img_right1];
 
-    _img_right2 = ImageViewInit(kMSScreenWith/2, 101, kMSScreenWith/2, 99);
+    _img_right2 = [UIButton buttonWithType:UIButtonTypeCustom];
+    _img_right2.frame = CGRectMake(kMSScreenWith/2, 101, kMSScreenWith/2, 99);
     _img_right2.contentMode = UIViewContentModeScaleAspectFill;
+    _img_right2.tag = 2;
+    [_img_right2 addTarget:self action:@selector(didselectAction:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_img_right2];
     
 }
@@ -64,11 +73,15 @@
     if (imageArr!=_imageArr) {
         _imageArr = imageArr;
     }
-    [_img_left sd_setImageWithURL:[NSURL URLWithString:self.imageArr[0].ad_code] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"]];
-    [_img_right1 sd_setImageWithURL:[NSURL URLWithString:self.imageArr[1].ad_code] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"]];
-    [_img_right2 sd_setImageWithURL:[NSURL URLWithString:self.imageArr[2].ad_code] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"]];
+    [_img_left setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:self.imageArr[0].ad_code] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"]];
+    [_img_right1 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:self.imageArr[1].ad_code] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"]];
+    [_img_right2 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:self.imageArr[2].ad_code] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"]];
 }
 
+-(void)didselectAction:(UIButton *)sender
+{
+     !_goToADAction ? : _goToADAction(sender.tag);
+}
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code

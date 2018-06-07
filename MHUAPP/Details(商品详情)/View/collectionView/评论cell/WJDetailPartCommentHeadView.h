@@ -14,4 +14,7 @@
 @property (strong , nonatomic) DCZuoWenRightButton *quickButton;
 /* title */
 @property (strong , nonatomic) UILabel *titleLabel;
+
+/** 更多点击 */
+@property (nonatomic, copy) dispatch_block_t moreClickBlock;
 @end

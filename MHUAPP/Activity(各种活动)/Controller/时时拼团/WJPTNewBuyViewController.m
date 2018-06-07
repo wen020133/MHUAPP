@@ -128,9 +128,9 @@
         [infos setObject:_str_address forKey:@"assemble_site"];
         [infos setObject:_str_Name forKey:@"consignee"];
         [infos setObject:_str_telephone forKey:@"mobile"];
-        [infos setObject:_str_goodsId forKey:@"goods_id"];
+        [infos setObject:_str_info_id forKey:@"id"];
         [infos setObject:_str_Num forKey:@"num"];
-        [infos setObject:_str_type forKey:@"norms"];
+        [infos setObject:_str_type forKey:@"norm"];
         [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSMiYoMeigetpostsPay] andInfos:infos];
     }
     else  if ([_info_classType isEqualToString:@"拼团"])
@@ -139,9 +139,9 @@
         [infos setObject:_str_address forKey:@"assemble_site"];
         [infos setObject:_str_Name forKey:@"consignee"];
         [infos setObject:_str_telephone forKey:@"mobile"];
-        [infos setObject:_str_goodsId forKey:@"goods_id"];
+        [infos setObject:_str_group_info_id forKey:@"id"];
         [infos setObject:_str_Num forKey:@"num"];
-        [infos setObject:_str_type forKey:@"norms"];
+        [infos setObject:_str_type forKey:@"norm"];
         [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSMiYoMeigetGroupOrder] andInfos:infos];
     }
     else

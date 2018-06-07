@@ -16,6 +16,8 @@
 #import "WJLoginClassViewController.h"
 #import "WJWirteOrderClassViewController.h"
 #import "AppDelegate.h"
+#import "WJGoodDetailViewController.h"
+
 
 #define  TAG_CartEmptyView 100
 static NSInteger lz_CartRowHeight = 100;
@@ -487,7 +489,12 @@ static NSInteger lz_CartRowHeight = 100;
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    WJGoodDetailViewController *dcVc = [[WJGoodDetailViewController alloc] init];
+    WJCartShopModel *shopModel = self.dataArray[indexPath.section];
+    WJCartGoodsModel *model = [shopModel.goodsArray objectAtIndex:indexPath.row];
+    dcVc.goods_id = model.goods_id;
+    dcVc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:dcVc animated:YES];
 }
 -(void)processData
 {
@@ -576,7 +583,7 @@ static NSInteger lz_CartRowHeight = 100;
 
 
             NSString *attString =  model.rec_id;
-            [self requestDeleteAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@&rec_id=%@,",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDeleteCart,[AppDelegate shareAppDelegate].user_id,attString]];
+            [self requestDeleteAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@&rec_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDeleteCart,[AppDelegate shareAppDelegate].user_id,attString]];
 
             [shop.goodsArray removeObjectAtIndex:indexPath.row];
             //    删除

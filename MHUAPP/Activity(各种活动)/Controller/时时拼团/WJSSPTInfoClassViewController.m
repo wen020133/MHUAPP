@@ -207,41 +207,28 @@ static NSArray *lastSeleArray_;
         else
         return 3;
     }
-    else if(_attributeArray&&_attributeArray.count>0    )
+    else if(section==1)
     {
-        if (section==1)
+        if(_attributeArray&&_attributeArray.count>0)
         {
             return 1;
         }
-        if(_attributeArray&&_attributeArray.count>0)
+        else
         {
-            if (section==2)
-            {
-                if (_attributeArray.count>=2) {
-                    return 2;
-                }
-                else
-                {
-                    return 1;
-                }
-                return 0;
+            if (_commentArray.count>1) {
+                return 2;
             }
-
+            else
+                return 1;
         }
     }
-    else
+    else if(section==2)
     {
-        if(_attributeArray&&_attributeArray.count>0)
-            if (section==1)
-            {
-                if (_attributeArray.count>=2) {
-                    return 2;
-                }
-                else
-                {
-                    return 1;
-                }
+            if (_commentArray.count>1) {
+                return 2;
             }
+            else
+                return 1;
     }
     return 0;
 }
@@ -274,27 +261,32 @@ static NSArray *lastSeleArray_;
             gridcell = cell;
         }
     }
-    if (indexPath.section == 1 && _attributeArray.count>0){
-        WJShowTypeGoodsPropertyCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJShowTypeGoodsPropertyCell" forIndexPath:indexPath];
+    else if (indexPath.section == 1)
+    {
+        if(_attributeArray.count>0){
+            WJShowTypeGoodsPropertyCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJShowTypeGoodsPropertyCell" forIndexPath:indexPath];
 
-        NSString *result = [NSString stringWithFormat:@"%@ %@件",[lastSeleArray_ componentsJoinedByString:@"，"],lastNum_];
+            NSString *result = [NSString stringWithFormat:@"%@ %@件",[lastSeleArray_ componentsJoinedByString:@"，"],lastNum_];
 
-        cell.leftTitleLable.text =  @"商品属性";
-        cell.contentLabel.text = (lastSeleArray_.count == 0) ? @"请选择该商品属性" : result;
+            cell.leftTitleLable.text =  @"商品属性";
+            cell.contentLabel.text = (lastSeleArray_.count == 0) ? @"请选择该商品属性" : result;
 
-        gridcell = cell;
+            return cell;
 
-    }
-    if (indexPath.section == 1 && _attributeArray.count<1&&_commentArray.count>0){
-        WJDetailPartCommentCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJDetailPartCommentCell" forIndexPath:indexPath];
-        gridcell = cell;
-    }
-    else if (_commentArray.count<1&&_attributeArray.count<1){
+        }
+        else if (_commentArray.count>0){
+            WJDetailPartCommentCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJDetailPartCommentCell" forIndexPath:indexPath];
+            cell.model = _commentArray[indexPath.row];
+            return cell;
+        }
+        else {
 
-        return gridcell;
+            return gridcell;
+        }
     }
     else if (indexPath.section == 2){
         WJDetailPartCommentCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJDetailPartCommentCell" forIndexPath:indexPath];
+        cell.model = _commentArray[indexPath.row];
         gridcell = cell;
     }
     return gridcell;
@@ -309,18 +301,21 @@ static NSArray *lastSeleArray_;
             headerView.shufflingArray = _shufflingArray;
             reusableview = headerView;
         }
-        if (_attributeArray.count>0) {
-            if (indexPath.section == 2){
+        else if (indexPath.section == 1) {
+            if(_attributeArray.count<1&&_commentArray.count>0){
                 WJDetailPartCommentHeadView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJDetailPartCommentHeadView" forIndexPath:indexPath];
+                headerView.moreClickBlock = ^{
+                    dispatch_sync(dispatch_get_global_queue(0, 0), ^{
+                        [[NSNotificationCenter defaultCenter]postNotificationName:@"scrollToCommentsPage" object:nil];
+                    });
+                };
                 reusableview = headerView;
             }
+
         }
-        else
-        {
-            if (indexPath.section == 1){
-                WJDetailPartCommentHeadView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJDetailPartCommentHeadView" forIndexPath:indexPath];
-                reusableview = headerView;
-            }
+        else if (indexPath.section == 2){
+            WJDetailPartCommentHeadView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJDetailPartCommentHeadView" forIndexPath:indexPath];
+            reusableview = headerView;
         }
 
     }else if (kind == UICollectionElementKindSectionFooter){
@@ -355,19 +350,17 @@ static NSArray *lastSeleArray_;
                 break;
         }
     }
-    if (_attributeArray>0){
-        if(indexPath.section == 1)
-            //商品属性选择
-            return CGSizeMake(kMSScreenWith, 60);
-        else if (indexPath.section == 2){//商品评价部分展示
-            return CGSizeMake(kMSScreenWith, 80);
-        }
-    }
-    else
+    else  if(indexPath.section == 1)
     {
-        if(indexPath.section == 1)
-            //商品评价部分展示
+        if (_attributeArray>0)
+            return CGSizeMake(kMSScreenWith, 60);
+        else
             return CGSizeMake(kMSScreenWith, 80);
+    }
+    else if(indexPath.section == 2)
+    {
+
+        return CGSizeMake(kMSScreenWith, 80);
     }
     return CGSizeZero;
 }
@@ -378,16 +371,13 @@ static NSArray *lastSeleArray_;
     if (section ==0) {
         return  CGSizeMake(kMSScreenWith, kMSScreenWith * 0.55);
     }
-    if (_attributeArray>0){
-        if (section ==2) {
+    else  if (section ==1){
+        if(_attributeArray.count<1&&_commentArray.count>0)
             return  CGSizeMake(kMSScreenWith, 40);
-        }
     }
-    else
+    else if (section ==2)
     {
-        if (section ==1) {
-            return  CGSizeMake(kMSScreenWith, 40);
-        }
+        return  CGSizeMake(kMSScreenWith, 40);
     }
     return CGSizeZero;
 }
@@ -500,6 +490,8 @@ static NSArray *lastSeleArray_;
     newBuyVC.str_oldprice = _oldPrice;
     newBuyVC.str_goodsId = _goods_id;
     newBuyVC.info_classType = _info_classType;
+    newBuyVC.str_group_info_id = _group_info_id;
+    newBuyVC.str_info_id = _info_id;
     newBuyVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:newBuyVC animated:YES];
     self.hidesBottomBarWhenPushed = YES;

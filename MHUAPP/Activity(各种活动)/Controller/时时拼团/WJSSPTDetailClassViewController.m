@@ -17,7 +17,6 @@
 #import "UIViewController+XWTransition.h"
 #import "WJShopCartClassViewController.h"
 #import "JXButton.h"
-#import "WJDetailPartCommentItem.h"
 
 @interface WJSSPTDetailClassViewController ()
 
@@ -77,8 +76,7 @@
                 _shufflingArray = self.results[@"data"][@"gallery"];
                 _attributeArray = self.results[@"data"][@"attr"];
                 [self setkMSGetComment];
-                [self setUpChildViewControllers];
-                [self addChildViewController];
+
             }
                 break;
             case KGetSSPTDetailComment:
@@ -87,8 +85,10 @@
                 NSMutableArray *arr_Datalist = [NSMutableArray array];
                 arr_Datalist = [self.results objectForKey:@"data"];
                 if (![arr_Datalist isEqual:[NSNull null]]) {
-                    _attributeArray = arr_Datalist;
+                    _commentArray = [WJDetailPartCommentItem mj_objectArrayWithKeyValuesArray:arr_Datalist];
                 }
+                [self setUpChildViewControllers];
+                [self addChildViewController];
             }
                 break;
             default:
@@ -164,7 +164,33 @@
     offset.x = _scrollerView.width * button.tag;
     [_scrollerView setContentOffset:offset animated:YES];
 }
+-(void)initPTPostCollectGoodsData
+{
+    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+    [infos setValue:[AppDelegate shareAppDelegate].user_id forKey:@"user_id"];
+    [infos setValue:_goods_id forKey:@"id"];
+    [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSPostCollectGoods] andInfos:infos];
+}
+-(void)processData
+{
+    if([[self.results objectForKey:@"code"] integerValue] == 200)
+    {
 
+            [SVProgressHUD showSuccessWithStatus:@"已加入收藏"];
+            [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+            [SVProgressHUD dismissWithDelay:1.0];
+
+    }
+    else
+    {
+        NSLog(@"加入足迹---%@！",self.results[@"data"]);
+
+        [SVProgressHUD showSuccessWithStatus:self.results[@"data"]];
+        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+        [SVProgressHUD dismissWithDelay:1.0];
+        return;
+    }
+}
 #pragma mark - 头部View
 - (void)setUpTopButtonView
 {
@@ -234,6 +260,8 @@
     goodBaseVc.goodTitle = _goodTitle;
     goodBaseVc.goodPrice = _goodPrice;
     goodBaseVc.oldPrice = _oldPrice;
+    goodBaseVc.group_info_id = _group_info_id;
+    goodBaseVc.info_id = _info_id;
     goodBaseVc.shufflingArray = _shufflingArray;
 
     goodBaseVc.group_numb_one = _group_numb_one;
@@ -263,6 +291,7 @@
     [self addChildViewController:goodParticularsVc];
 
     WJGoodCommentViewController *goodCommentVc = [[WJGoodCommentViewController alloc] init];
+    goodCommentVc.goods_id = _goods_id;
     [self addChildViewController:goodCommentVc];
 }
 #pragma mark - 底部按钮(收藏 购物车 加入购物车 立即购买)
@@ -359,8 +388,6 @@
     UIBarButtonItem *pulish = [[UIBarButtonItem alloc] initWithCustomView:pulishButton];
     [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:pulish,nil]];
 
-    //    _titleArr = @[@"消息",@"首页",@"足迹",@"购物车"];
-    //    _imgArr = @[@"Tab_icon_messsge_normal",@"Tab_icon_Home_normal",@"main_zuji",@"Tab_icon_Cart_normal"];
 }
 
 -(void)goodInfoshare
@@ -369,9 +396,6 @@
 }
 
 
--(void)didSelectRowAtIndex:(NSInteger)index title:(NSString *)title img:(NSString *)img{
-    NSLog(@"index----%zd,  title---%@, image---%@", index, title, img);
-}
 
 -(void)showleft
 {
@@ -395,7 +419,7 @@
     }
     else if(button.tag == 2){
         NSLog(@"关注");
-
+        [self initPTPostCollectGoodsData];
     }else  if (button.tag == 3) {
 
 

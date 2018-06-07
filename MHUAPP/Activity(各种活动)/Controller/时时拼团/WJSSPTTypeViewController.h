@@ -12,4 +12,5 @@
 @interface WJSSPTTypeViewController : BaseNetworkViewController<UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property (strong, nonatomic) UICollectionView *collectionV;
+
 @end

@@ -53,7 +53,7 @@
     {
         [self.arr_dataList removeAllObjects];
         _arr_reslut = self.results;
-        id arr_data = [[[self.results objectForKey:@"data"] objectAtIndex:0] objectForKey:@"order_info"];;
+        id arr_data = [[[self.results objectForKey:@"data"] objectAtIndex:0] objectForKey:@"order_info"];
         if ([arr_data isKindOfClass:[NSArray class]]) {
             _arr_dataList = [WJCartGoodsModel mj_objectArrayWithKeyValuesArray:arr_data];
             [self countPrice];
@@ -113,7 +113,7 @@
     else if(indexPath.section ==1)
         return 100;
     else
-        return 170;
+        return 200;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -152,6 +152,23 @@
         if (cell == nil) {
             cell = [[WJDetailedDeliveryThirdTableCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"WJDetailedDeliveryThirdTableCell"];
         }
+        cell.ClickdetailStateForStrBlock = ^(NSString *stateStr) {
+            if ([stateStr isEqualToString:@"联系客服"]) {
+            }
+            else  if ([stateStr isEqualToString:@"申请退款"]) {
+                WJPostBackOrderViewController *waitPayInfoVC = [[WJPostBackOrderViewController alloc]init];
+                waitPayInfoVC.str_goodsId = _arr_dataList[0].rec_id;
+                waitPayInfoVC.str_price = _arr_dataList[0].count_price;
+                waitPayInfoVC.str_oldprice = _arr_dataList[0].market_price;
+                waitPayInfoVC.str_title = _arr_dataList[0].goods_name;
+                waitPayInfoVC.str_Num = [NSString stringWithFormat:@"%ld",_arr_dataList[0].goods_number];
+                waitPayInfoVC.str_contentImg = _arr_dataList[0].img;
+                waitPayInfoVC.str_order_id = _arr_dataList[0].order_id;
+                waitPayInfoVC.str_type = _arr_dataList[0].goods_attr;
+                waitPayInfoVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:waitPayInfoVC animated:YES];
+            }
+        };
         NSString *addTime = [[[self.results objectForKey:@"data"] objectAtIndex:0] objectForKey:@"add_time"];
         NSDateFormatter *stampFormatter = [[NSDateFormatter alloc] init]; [stampFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
         NSDate *stampDate = [NSDate dateWithTimeIntervalSince1970:[addTime doubleValue]];

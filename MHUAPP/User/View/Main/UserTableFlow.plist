@@ -16,12 +16,6 @@
 	</dict>
 	<dict>
 		<key>flow_title</key>
-		<string>我的积分</string>
-		<key>flowImageView</key>
-		<string>user_icon_jifen</string>
-	</dict>
-	<dict>
-		<key>flow_title</key>
 		<string>我的足迹</string>
 		<key>flowImageView</key>
 		<string>user_icon_zuji</string>

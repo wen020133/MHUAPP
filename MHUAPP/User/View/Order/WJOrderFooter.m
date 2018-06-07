@@ -66,14 +66,24 @@
             arr_buttonTitle = [NSMutableArray arrayWithObjects:@"立即评价",@"再次购买", nil];
         }
             break;
-        case 4:  //已评价
+        case 7:  //已评价
         {
             arr_buttonTitle = [NSMutableArray arrayWithObjects:@"再次购买",@"查看评价", @"删除订单",nil];
+        }
+            break;
+        case 6:  //待评价
+        {
+            arr_buttonTitle = [NSMutableArray arrayWithObjects:@"去评价",nil];
         }
             break;
         case 5:  //交易关闭
         {
             arr_buttonTitle = [NSMutableArray arrayWithObjects:@"已取消", nil];
+        }
+            break;
+        case 8:  //退款
+        {
+            arr_buttonTitle = [NSMutableArray arrayWithObjects:@"查看详情",nil];
         }
             break;
         default:

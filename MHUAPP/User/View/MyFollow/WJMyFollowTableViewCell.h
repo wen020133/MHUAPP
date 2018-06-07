@@ -27,9 +27,8 @@
 /** 筛选点击回调 */
 @property (nonatomic , copy) void(^WJCellSelectedBlock)(BOOL select);
 
-- (void)reloadDataWithModel:(WJFollowClassItem*)item;
-
+@property (strong , nonatomic) WJFollowClassItem *listModel;
 //选中按钮是否含有
-@property  BOOL *selectHidden;
+@property (assign,nonatomic) BOOL selectHidden;
 
 @end

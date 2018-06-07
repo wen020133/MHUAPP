@@ -7,17 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MunuView.h"
+//#import "MunuView.h"
+#import "BaseNetworkViewController.h"
 
-@interface WJMyFollowViewController : UIViewController<MunuViewDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface WJMyFollowViewController : BaseNetworkViewController<UITableViewDelegate,UITableViewDataSource>
 
-@property (strong, nonatomic) MunuView *menu_ScrollView; //分类ScrollView
+//@property (strong, nonatomic) MunuView *menu_ScrollView; //分类ScrollView
 
 @property (strong, nonatomic)  UITableView *mainTableView;
 
-@property (strong, nonatomic) NSArray *arr_Type;
+//@property (strong, nonatomic) NSArray *arr_Type;
 
-@property (assign, nonatomic) BOOL selectedState;
 
-@property (strong,nonatomic)UIButton *allSellectedButton;
 @end

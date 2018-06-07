@@ -63,7 +63,11 @@
 #define   kMSGetReputation            @"getReputation/4"                 //人气推荐
 #define   kMSGetToday            @"getToday"                 //今日秒杀
 //#define   kMSMainGetStreet            @"getStreet"                 //店铺街
+
+
 #define   kMSGetComment            @"getComment"                 //评论
+#define   kMSAddComment          @"/v1/addComment"                 //用户添加评论
+
 #define   kMSGetDetailed           @"getDetailed"                 //商品详情页面
 
 #define   kMSPostCart          @"/v1/postCart"                 //向购物车添加数据
@@ -107,4 +111,24 @@
 #define   kMSMiYoMeiGoodsOrder        @"/v1/goodsOrder"                 //普通商品的立即购买
 #define   kMSMiYoMeiAffirmPay        @"/v1/affirmPay"                 //待支付状态下的确认支付
 #define   kMSMiYoMeiAffirmGoods        @"/v1/affirmGoods"                 //确认收货
+#define   kMSPostFootmark        @"/v1/postFootmark"                 //加入足迹
+#define   kMSGetFootmark        @"getFootmark"                 //足迹列表
+#define   kMSDeleteFootmark        @"deleteFootmark"                 //删除足迹
+
+
+#define   kMSPostCollectGoods        @"/v1/postCollectGoods"                 //收藏商品
+#define   kMSDeleteGoods        @"deleteGoods"                 //删除收藏商品
+#define   kMSGetCollectGoodsr        @"getCollectGoods"                 //收藏的商品列表
+
+
+#define   kMSGetFollow        @"/v1/getFollow"                 //关注店铺
+#define   kMSDeleteSupplier        @"deleteSupplier"                 //删除关注的店铺
+#define   kMSGetSupplierGuanzhu        @"getSupplierGuanzhu"              //关注店铺列表
+
+
+#define   kMSCommentList        @"commentList"              //交易完成和待评价
+
+
+#define   kMSGetOrderStatus        @"getOrderStatus"                 //各订单状态下的订单 （新）
+#define   kMSGetBackGoods        @"getBackGoods"                 //申请退款列表
 #endif /* MHUURL_h */

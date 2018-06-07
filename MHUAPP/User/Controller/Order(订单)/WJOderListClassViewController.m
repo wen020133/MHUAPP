@@ -14,11 +14,13 @@
 
 #import "WJOrderGoodListModel.h"
 #import "WJOrderShangJiaHeadModel.h"
+#import "WJOrderWaitPingjiaAndSuccessItem.h"
+
 
 #import "AppDelegate.h"
 #import "UIView+UIViewFrame.h"
 
-
+#import <UIImageView+WebCache.h>
 #import "WJWaitPayOrderInfoViewController.h"
 #import "WJLogisticsViewController.h"
 #import "WJGoodDetailViewController.h"
@@ -30,7 +32,9 @@
 @interface WJOderListClassViewController ()
 
 @property (strong , nonatomic) NSMutableArray *arr_data;
-
+@property (strong , nonatomic) NSString *order_status;
+@property (strong , nonatomic) NSString *pay_status;
+@property (strong , nonatomic) NSString *shipping_status;
 @end
 
 @implementation WJOderListClassViewController
@@ -115,32 +119,59 @@
     switch (_serverType) {
         case KGetOrderServerwholeOrder:
             {
-               [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSWholeOrder,[AppDelegate shareAppDelegate].user_id]];
+                _pay_status = @"10";
+                _shipping_status= @"10";
+                _order_status = @"10";
             }
             break;
          case KGetOrderListWaitPay:
         {
-             [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSListWaitPay,[AppDelegate shareAppDelegate].user_id]];
+            _pay_status = @"0";
+            _shipping_status= @"0";
+            _order_status = @"1";
         }
             break;
         case KGetOrderListWaitFahuo:
         {
-            [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetDelivery,[AppDelegate shareAppDelegate].user_id]];
+            _pay_status = @"2";
+            _shipping_status= @"0";
+            _order_status = @"1";
         }
             break;
         case KGetOrderListWaitShouhuo:
         {
-            [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetReceive,[AppDelegate shareAppDelegate].user_id]];
+            _pay_status = @"2";
+            _shipping_status= @"1";
+            _order_status = @"1";
+        }
+            break;
+            case KGetOrderListTuiKuanTuihuo:
+        {
+               [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetBackGoods,[AppDelegate shareAppDelegate].user_id]];
+            return;
         }
             break;
         case KGetOrderListWaitPingjia:
         {
-
+             [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@&id=0",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSCommentList,[AppDelegate shareAppDelegate].user_id]];
+            return;
         }
             break;
+            case KGetOrderListJiaoyiSuccess:
+        {
+            [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@&id=1",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSCommentList,[AppDelegate shareAppDelegate].user_id]];
+            return;
+        }
+            break;
+//            case KGetOrderListJiaoClose:
+//        {
+//
+//        }
+//            break;
         default:
             break;
     }
+     [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?order_status=%@&pay_status=%@&shipping_status=%@&user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetOrderStatus,_order_status,_pay_status,_shipping_status,[AppDelegate shareAppDelegate].user_id]];
 
 }
 -(void)getProcessData
@@ -148,8 +179,7 @@
     if([[self.results objectForKey:@"code"] integerValue] == 200)
     {
 
-
-                [self.arr_data removeAllObjects];
+            [self.arr_data removeAllObjects];
                 id arr_data = [self.results objectForKey:@"data"];
                 if ([arr_data isKindOfClass:[NSArray class]]) {
                     NSArray *dataArr = arr_data;
@@ -160,6 +190,36 @@
                     }
 
                     for (int aa=0; aa<dataArr.count; aa++) {
+                        if (_serverType==KGetOrderListTuiKuanTuihuo) {
+                            NSArray *arr_goods = [[dataArr objectAtIndex:aa] objectForKey:@"backGoods"];
+                            if (arr_goods&&arr_goods.count>0) {
+                                WJOrderShangJiaHeadModel *model = [[WJOrderShangJiaHeadModel alloc]init];
+                                model.supplier_name = [[dataArr objectAtIndex:aa] objectForKey:@"supplier_name"];
+                                model.order_id = [[dataArr objectAtIndex:aa] objectForKey:@"order_id"];
+                                model.order_sn = [[dataArr objectAtIndex:aa] objectForKey:@"order_sn"];
+                                model.address = [[dataArr objectAtIndex:aa] objectForKey:@"address"];
+                                model.consignee = [[dataArr objectAtIndex:aa] objectForKey:@"consignee"];
+                                model.mobile = [[dataArr objectAtIndex:aa] objectForKey:@"mobile"];
+                                [model configGoodsArrayWithArray:arr_goods];
+
+                                [self.arr_data addObject:model];
+
+                            }
+                        }
+                        else if (_serverType==KGetOrderListWaitPingjia||_serverType == KGetOrderListJiaoyiSuccess) {
+                                WJOrderWaitPingjiaAndSuccessItem *model = [[WJOrderWaitPingjiaAndSuccessItem alloc]init];
+                                model.supplier_name = [[dataArr objectAtIndex:aa] objectForKey:@"supplier_name"];
+                                model.order_id = [[dataArr objectAtIndex:aa] objectForKey:@"order_id"];
+                                model.supplier_id = [[dataArr objectAtIndex:aa] objectForKey:@"supplier_id"];
+                                model.goods_name = [[dataArr objectAtIndex:aa] objectForKey:@"goods_name"];
+                                model.goods_attr = [[dataArr objectAtIndex:aa] objectForKey:@"goods_attr"];
+                             model.market_price = [[dataArr objectAtIndex:aa] objectForKey:@"market_price"];
+                             model.count_price = [[dataArr objectAtIndex:aa] objectForKey:@"count_price"];
+                                model.goods_number = [NSString stringWithFormat:@"%@",[[dataArr objectAtIndex:aa] objectForKey:@"goods_number"]];
+                                [self.arr_data addObject:model];
+                        }
+                        else
+                        {
                         NSArray *arr_goods = [[dataArr objectAtIndex:aa] objectForKey:@"order_info"];
                         if (arr_goods&&arr_goods.count>0) {
                             WJOrderShangJiaHeadModel *model = [[WJOrderShangJiaHeadModel alloc]init];
@@ -179,7 +239,7 @@
                             [self.arr_data addObject:model];
 
                         }
-
+                        }
                         UIView *view = [self.view viewWithTag:1000];
                         [view removeFromSuperview];
                         [self.mainTableView reloadData];
@@ -208,6 +268,10 @@
 #pragma mark --- UITableViewDataSource & UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
+    if(_serverType ==KGetOrderListWaitPingjia||_serverType == KGetOrderListJiaoyiSuccess)
+    {
+        return 1;
+    }
     WJOrderShangJiaHeadModel *model = [self.arr_data objectAtIndex:section];
     return model.goodsArray.count;
 }
@@ -230,16 +294,57 @@
     {
         cell.imageLine.hidden = NO;
     }
-    WJOrderShangJiaHeadModel *shopModel = self.arr_data[indexPath.section];
-    WJOrderGoodListModel *model = [shopModel.goodsArray objectAtIndex:indexPath.row];
-    model.is_group_buy = shopModel.is_group_buy;
-    cell.listModel = model;
+
+    if(_serverType ==KGetOrderListTuiKuanTuihuo)
+    {
+        WJOrderShangJiaHeadModel *shopModel = self.arr_data[indexPath.section];
+        WJOrderGoodListModel *model = [shopModel.goodsArray objectAtIndex:indexPath.row];
+        [cell.contentImg sd_setImageWithURL:[NSURL URLWithString:model.img] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"] completed:nil];
+        NSString * price = [NSString stringWithFormat:@"￥%@",model.back_goods_price];
+
+        CGFloat width = [RegularExpressionsMethod widthOfString:price font:Font(14) height:23];
+        cell.price.frame = CGRectMake(kMSScreenWith-width-10, 5, width, 23);
+        cell.price.text = price;
+
+
+        cell.title.text = model.goods_name;
+        cell.title.frame = CGRectMake(TAG_Height+DCMargin, 5, kMSScreenWith- DCMargin * 4-TAG_Height-width, 40);
+
+        NSString *saleCount = [NSString stringWithFormat:@"%@",model.goods_attr];
+        cell.type.text  = saleCount;
+        cell.type.frame = CGRectMake(TAG_Height+DCMargin, cell.title.Bottom+5, cell.title.width, 20);
+
+        cell.Num.frame =CGRectMake(kMSScreenWith-width-10, cell.oldprice.Bottom+5, width, 20);
+        cell.Num.text =  [NSString stringWithFormat:@"x%@",model.back_goods_number];
+    }
+   else if(_serverType ==KGetOrderListWaitPingjia||_serverType == KGetOrderListJiaoyiSuccess)
+    {
+        WJOrderWaitPingjiaAndSuccessItem *item = self.arr_data[indexPath.section];
+         cell.item = item;
+    }
+    else
+    {
+        WJOrderShangJiaHeadModel *shopModel = self.arr_data[indexPath.section];
+        WJOrderGoodListModel *model = [shopModel.goodsArray objectAtIndex:indexPath.row];
+        model.is_group_buy = shopModel.is_group_buy;
+        cell.listModel = model;
+    }
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     WJOrderShangJiaHeadModel *model = [self.arr_data objectAtIndex:indexPath.section];
+    if(_serverType ==KGetOrderListTuiKuanTuihuo)
+    {
+
+    }
+    else if(_serverType ==KGetOrderListWaitPingjia||_serverType == KGetOrderListJiaoyiSuccess)
+    {
+//        WJOrderWaitPingjiaAndSuccessItem *item = self.arr_data[indexPath.section];
+    }
+    else
+    {
     NSInteger paySt = [model.pay_status integerValue];
     switch (paySt) {
         case 0:
@@ -311,6 +416,7 @@
         default:
             break;
     }
+    }
 
 }
 
@@ -318,9 +424,91 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     WJOrderHeader *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"WJOrderHeader"];
-    WJOrderShangJiaHeadModel *model = [self.arr_data objectAtIndex:section];
-    view.shangjiaTitle =  [NSString stringWithFormat:@"%@ >",ConvertNullString(model.referer)];
-    NSInteger paySt = [model.pay_status integerValue];
+    WJOrderShangJiaHeadModel *shopmodel = [self.arr_data objectAtIndex:section];
+    if(_serverType ==KGetOrderListTuiKuanTuihuo)
+    {
+          WJOrderGoodListModel *model = [shopmodel.goodsArray objectAtIndex:0];
+        view.shangjiaTitle =  [NSString stringWithFormat:@"%@ >",ConvertNullString(shopmodel.supplier_name)];
+        NSInteger status_refund = [model.status_refund integerValue];
+        switch (status_refund) {
+            case 1:
+            {
+                view.state.text = @"已退款";
+            }
+                break;
+
+            case 0:
+            {
+                NSInteger shipSt = [model.status_back integerValue];
+                switch (shipSt) {
+                    case 0:
+                    {
+                        view.state.text = @"审核通过";
+                    }
+                        break;
+                    case 1:
+                    {
+                        view.state.text = @"收到寄回商品";
+                    }
+                        break;
+                    case 2:
+                    {
+                        view.state.text = @"换回商品已寄出";
+                    }
+                        break;
+                    case 3:
+                    {
+                        view.state.text = @"完成退货/返修";
+                    }
+                        break;
+                    case 4:
+                    {
+                        view.state.text = @"退款(无需退货)";
+                    }
+                        break;
+                    case 5:
+                    {
+                        view.state.text = @"审核中";
+                    }
+                        break;
+                    case 6:
+                    {
+                        view.state.text = @"申请被拒绝";
+                    }
+                        break;
+                    case 7:
+                    {
+                        view.state.text = @"管理员取消";
+                    }
+                        break;
+                    case 8:
+                    {
+                        view.state.text = @"用户自己取消";
+                    }
+                        break;
+                    default:
+                        break;
+                }
+            }
+                break;
+
+            default:
+                break;
+        }
+    }
+    else if(_serverType ==KGetOrderListWaitPingjia||_serverType == KGetOrderListJiaoyiSuccess)
+    {
+        WJOrderWaitPingjiaAndSuccessItem *item = self.arr_data[section];
+        view.shangjiaTitle = item.supplier_name;
+        if(_serverType ==KGetOrderListWaitPingjia)
+           view.state.text = @"待评价";
+        else
+           view.state.text = @"已完成";
+    }
+    else
+    {
+    view.shangjiaTitle =  [NSString stringWithFormat:@"%@ >",ConvertNullString(shopmodel.referer)];
+    NSInteger paySt = [shopmodel.pay_status integerValue];
     switch (paySt) {
         case 0:
             {
@@ -334,7 +522,7 @@
             break;
         case 2:
         {
-            NSInteger shipSt = [model.shipping_status integerValue];
+            NSInteger shipSt = [shopmodel.shipping_status integerValue];
             switch (shipSt) {
                 case 0:
                     {
@@ -351,7 +539,7 @@
                     view.state.text = @"已收货";
                 }
                     break;
-                case 3:
+                case 4:
                 {
                     view.state.text = @"退货";
                 }
@@ -365,14 +553,43 @@
         default:
             break;
     }
+    }
     return view;
 }
 - (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     WJOrderFooter *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"WJOrderFooter"];
-     WJOrderShangJiaHeadModel *model = [self.arr_data objectAtIndex:section];
-    WJOrderGoodListModel *listmodel = [model.goodsArray objectAtIndex:0];
-   view.totalPayPrice.text = [NSString stringWithFormat:@"共%ld件商品 合计：￥%@",model.goodsArray.count,model.goods_amount];
+
+    if(_serverType ==KGetOrderListTuiKuanTuihuo)
+    {
+        WJOrderShangJiaHeadModel *model = [self.arr_data objectAtIndex:section];
+        WJOrderGoodListModel *listmodel = [model.goodsArray objectAtIndex:0];
+        view.totalPayPrice.text = [NSString stringWithFormat:@"共%ld件商品 合计：￥%@",model.goodsArray.count,listmodel.back_goods_price];
+        view.orderType = 8;
+    }
+    else if(_serverType ==KGetOrderListWaitPingjia||_serverType == KGetOrderListJiaoyiSuccess)
+    {
+        WJOrderWaitPingjiaAndSuccessItem *item = self.arr_data[section];
+        view.totalPayPrice.text = [NSString stringWithFormat:@"共%@件商品 合计：￥%@",@"1",item.count_price];
+        if(_serverType ==KGetOrderListWaitPingjia)
+            view.orderType = 6;
+        else
+            view.orderType = 7;
+
+        view.ClickStateForStrBlock = ^(NSString *stateStr) {
+            WEAKSELF
+            if ([stateStr isEqualToString:@"去评价"]) {
+                WJLogisticsViewController *waitPayInfoVC = [[WJLogisticsViewController alloc]init];
+                waitPayInfoVC.hidesBottomBarWhenPushed = YES;
+                [weakSelf.navigationController pushViewController:waitPayInfoVC animated:YES];
+            }
+        };
+    }
+    else
+    {
+        WJOrderShangJiaHeadModel *model = [self.arr_data objectAtIndex:section];
+        WJOrderGoodListModel *listmodel = [model.goodsArray objectAtIndex:0];
+      view.totalPayPrice.text = [NSString stringWithFormat:@"共%ld件商品 合计：￥%@",model.goodsArray.count,model.goods_amount];
     NSInteger paySt = [model.pay_status integerValue];
     switch (paySt) {
         case 0:
@@ -418,60 +635,72 @@
         default:
             break;
     }
-    view.ClickStateForStrBlock = ^(NSString *stateStr) {
-        WEAKSELF
-        if ([stateStr isEqualToString:@"查看物流"]) {
-        WJLogisticsViewController *waitPayInfoVC = [[WJLogisticsViewController alloc]init];
-            waitPayInfoVC.invoice_no = model.invoice_no;
-            waitPayInfoVC.shipping_name = model.shipping_name;
-        waitPayInfoVC.hidesBottomBarWhenPushed = YES;
-        [weakSelf.navigationController pushViewController:waitPayInfoVC animated:YES];
-        }
-      else  if ([stateStr isEqualToString:@"立即支付"]) {
-            WJWaitPayOrderInfoViewController *waitPayInfoVC = [[WJWaitPayOrderInfoViewController alloc]init];
-            waitPayInfoVC.str_Name = model.consignee;
-            waitPayInfoVC.str_address = model.address;
-            waitPayInfoVC.str_telephone = model.mobile;
-            waitPayInfoVC.str_orderId = model.order_sn;
-            waitPayInfoVC.hidesBottomBarWhenPushed = YES;
-            [weakSelf.navigationController pushViewController:waitPayInfoVC animated:YES];
-        }
-      else  if ([stateStr isEqualToString:@"再次购买"]) {
-            WJGoodDetailViewController *waitPayInfoVC = [[WJGoodDetailViewController alloc]init];
+        view.ClickStateForStrBlock = ^(NSString *stateStr) {
+            WEAKSELF
+            if ([stateStr isEqualToString:@"查看物流"]) {
+                WJLogisticsViewController *waitPayInfoVC = [[WJLogisticsViewController alloc]init];
+                waitPayInfoVC.invoice_no = model.invoice_no;
+                waitPayInfoVC.shipping_name = model.shipping_name;
+                waitPayInfoVC.hidesBottomBarWhenPushed = YES;
+                [weakSelf.navigationController pushViewController:waitPayInfoVC animated:YES];
+            }
+            else  if ([stateStr isEqualToString:@"立即支付"]) {
+                WJWaitPayOrderInfoViewController *waitPayInfoVC = [[WJWaitPayOrderInfoViewController alloc]init];
+                waitPayInfoVC.str_Name = model.consignee;
+                waitPayInfoVC.str_address = model.address;
+                waitPayInfoVC.str_telephone = model.mobile;
+                waitPayInfoVC.str_orderId = model.order_sn;
+                waitPayInfoVC.hidesBottomBarWhenPushed = YES;
+                [weakSelf.navigationController pushViewController:waitPayInfoVC animated:YES];
+            }
+            else  if ([stateStr isEqualToString:@"再次购买"]) {
+                WJGoodDetailViewController *waitPayInfoVC = [[WJGoodDetailViewController alloc]init];
                 waitPayInfoVC.goods_id = listmodel.goods_id;
-            waitPayInfoVC.hidesBottomBarWhenPushed = YES;
-            [weakSelf.navigationController pushViewController:waitPayInfoVC animated:YES];
-        }
-      else  if ([stateStr isEqualToString:@"我要催单"]) {
-          [self jxt_showAlertWithTitle:@"已通知卖家发货" message:@"请耐心等待" appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
-              alertMaker.
-              addActionCancelTitle(@"确认");
-          } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, JXTAlertController * _Nonnull alertSelf) {
-              if (buttonIndex == 0) {
-                  NSLog(@"cancel");
-              }
-          }];
-      }
-      else  if ([stateStr isEqualToString:@"我要退款"]) {
-          WJPostBackOrderViewController *waitPayInfoVC = [[WJPostBackOrderViewController alloc]init];
-          waitPayInfoVC.hidesBottomBarWhenPushed = YES;
-          [self.navigationController pushViewController:waitPayInfoVC animated:YES];
-      }
-      else  if ([stateStr isEqualToString:@"确认收货"]) {
-          [self jxt_showAlertWithTitle:nil message:@"已收到货？" appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
-              alertMaker.
-              addActionCancelTitle(@"取消").
-              addActionDestructiveTitle(@"已收货");
-          } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, JXTAlertController * _Nonnull alertSelf) {
-              if ([action.title isEqualToString:@"取消"]) {
-                  NSLog(@"cancel");
-              }
-              else if ([action.title isEqualToString:@"已收货"]) {
-                  [self postbackOderData:model.order_sn];
-              }
-          }];
-      }
-    };
+                waitPayInfoVC.hidesBottomBarWhenPushed = YES;
+                [weakSelf.navigationController pushViewController:waitPayInfoVC animated:YES];
+            }
+            else  if ([stateStr isEqualToString:@"我要催单"]) {
+                [self jxt_showAlertWithTitle:@"已通知卖家发货" message:@"请耐心等待" appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
+                    alertMaker.
+                    addActionCancelTitle(@"确认");
+                } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, JXTAlertController * _Nonnull alertSelf) {
+                    if (buttonIndex == 0) {
+                        NSLog(@"cancel");
+                    }
+                }];
+            }
+            else  if ([stateStr isEqualToString:@"我要退款"]) {
+                WJPostBackOrderViewController *waitPayInfoVC = [[WJPostBackOrderViewController alloc]init];
+                waitPayInfoVC.str_goodsId = listmodel.rec_id;
+                waitPayInfoVC.str_price = listmodel.count_price;
+                waitPayInfoVC.str_oldprice = listmodel.market_price;
+                waitPayInfoVC.str_title = listmodel.goods_name;
+                waitPayInfoVC.str_Num = [NSString stringWithFormat:@"%ld",listmodel.goods_number];
+                waitPayInfoVC.str_contentImg = listmodel.img;
+                waitPayInfoVC.str_order_id = listmodel.order_id;
+                waitPayInfoVC.str_type = listmodel.goods_attr;
+                waitPayInfoVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:waitPayInfoVC animated:YES];
+            }
+            else  if ([stateStr isEqualToString:@"确认收货"]) {
+                [self jxt_showAlertWithTitle:nil message:@"已收到货？" appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
+                    alertMaker.
+                    addActionCancelTitle(@"取消").
+                    addActionDestructiveTitle(@"已收货");
+                } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, JXTAlertController * _Nonnull alertSelf) {
+                    if ([action.title isEqualToString:@"取消"]) {
+                        NSLog(@"cancel");
+                    }
+                    else if ([action.title isEqualToString:@"已收货"]) {
+                        [self postbackOderData:model.order_sn];
+                    }
+                }];
+            }
+             };
+    }
+
+
+
     return view;
 }
 

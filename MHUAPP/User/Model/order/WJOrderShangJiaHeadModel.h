@@ -11,6 +11,7 @@
 @interface WJOrderShangJiaHeadModel : NSObject
 
 @property (copy,nonatomic) NSString *supplier_id;
+@property (copy,nonatomic) NSString *supplier_name;
 @property (copy,nonatomic) NSString *address;
 @property (copy,nonatomic) NSString *consignee;
 @property (copy,nonatomic) NSString *mobile;
@@ -23,6 +24,7 @@
 @property (copy,nonatomic) NSString *shipping_name;//物流公司
 @property (copy,nonatomic) NSString *goods_amount;//订单总价
 @property (copy,nonatomic) NSString *is_group_buy;   //当为2时是积分商城订单
+
 @property (strong,nonatomic,readonly)NSMutableArray *goodsArray;
 
 - (void)configGoodsArrayWithArray:(NSArray*)array;

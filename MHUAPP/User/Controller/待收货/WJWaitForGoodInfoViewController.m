@@ -77,12 +77,14 @@
         case 200:
             {
                 WJPostBackOrderViewController *waitPayInfoVC = [[WJPostBackOrderViewController alloc]init];
-                waitPayInfoVC.str_goodsId = _arr_dataList[0].goods_id;
+                waitPayInfoVC.str_goodsId = _arr_dataList[0].rec_id;
                  waitPayInfoVC.str_price = _arr_dataList[0].count_price;
                  waitPayInfoVC.str_oldprice = _arr_dataList[0].market_price;
-                 waitPayInfoVC.str_goodsId = _arr_dataList[0].goods_id;
-                 waitPayInfoVC.str_goodsId = _arr_dataList[0].goods_id;
-                 waitPayInfoVC.str_goodsId = _arr_dataList[0].goods_id;
+                 waitPayInfoVC.str_title = _arr_dataList[0].goods_name;
+                 waitPayInfoVC.str_Num = [NSString stringWithFormat:@"%ld",_arr_dataList[0].goods_number];
+                 waitPayInfoVC.str_contentImg = _arr_dataList[0].img;
+                 waitPayInfoVC.str_order_id = _arr_dataList[0].order_id;
+                 waitPayInfoVC.str_type = _arr_dataList[0].goods_attr;
                 waitPayInfoVC.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:waitPayInfoVC animated:YES];
             }

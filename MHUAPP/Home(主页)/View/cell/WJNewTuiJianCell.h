@@ -15,6 +15,6 @@
 /* 推荐商品数据 */
 - (void)setUpUI;
 
-@property (nonatomic , copy) void(^goToGoodDetailClass)(NSString *good_id);
+@property (nonatomic , copy) void(^goToGoodDetailClass)(NSDictionary *dic_goods);
 
 @end

@@ -399,6 +399,15 @@
         if (indexPath.section == 0) {
             WJEveryDayMastRobView *footview = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"WJEveryDayMastRobView" forIndexPath:indexPath];
             footview.imageArr = _adImageArr;
+            WEAKSELF
+            footview.goToADAction = ^(NSInteger index) {
+                WJMainWebClassViewController *MainWebV = [[WJMainWebClassViewController alloc]init];
+                MainWebV.str_urlHttp = _adImageArr[index].ad_link;
+                MainWebV.str_urlHttp = _adImageArr[index].ad_name;
+                MainWebV.hidesBottomBarWhenPushed = YES;
+                [weakSelf.navigationController pushViewController:MainWebV animated:YES];
+                weakSelf.hidesBottomBarWhenPushed = NO;
+            };
             reusableview = footview;
         }
     }
@@ -498,8 +507,8 @@
         WJGoodsCountDownCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJGoodsCountDownCell" forIndexPath:indexPath];
         cell.countDownItem = [[_miaoshaArr objectAtIndex:0] objectForKey:@"activity"];
         [cell setUpUI];
-        cell.goToGoodDetailClass = ^(NSString *good_id) {
-            [self gotoGoodDetailWithGoodId:good_id];
+        cell.goToGoodDetailClass = ^(NSDictionary *dic_goods) {
+            [self gotoGoodDetailWithGoodId:dic_goods];
         };
             gridcell = cell;
         
@@ -509,8 +518,8 @@
         WJNewTuiJianCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJNewTuiJianCell" forIndexPath:indexPath];
         cell.countDownItem = _newshangshiArr;
         [cell setUpUI];
-        cell.goToGoodDetailClass = ^(NSString *good_id) {
-            [self gotoGoodDetailWithGoodId:good_id];
+        cell.goToGoodDetailClass = ^(NSDictionary *dic_goods) {
+            [self gotoGoodDetailWithGoodId:dic_goods];
         };
         gridcell = cell;
 
@@ -572,10 +581,11 @@
     }
 }
 
-- (void)gotoGoodDetailWithGoodId:(NSString *)goodId
+- (void)gotoGoodDetailWithGoodId:(NSDictionary *)DicGoods
 {
     WJSSPTDetailClassViewController *dcVc = [[WJSSPTDetailClassViewController alloc] init];
-    dcVc.goods_id = goodId;
+    dcVc.goods_id = DicGoods[@"goods_id"];
+    dcVc.info_id =  DicGoods[@"info_id"];
     dcVc.endTimeStr = [[_miaoshaArr objectAtIndex:0] objectForKey:@"end_time"];
     dcVc.info_classType = @"秒杀";
     dcVc.hidesBottomBarWhenPushed = YES;

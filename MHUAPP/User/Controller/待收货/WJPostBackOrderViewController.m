@@ -10,12 +10,13 @@
 #import "WJWriteListTableCell.h"
 #import "UIView+UIViewFrame.h"
 #import <UIImageView+WebCache.h>
+#import "WJBackOrderReasonView.h"
 
-
-@interface WJPostBackOrderViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface WJPostBackOrderViewController ()<UITableViewDelegate,UITableViewDataSource,BackOrderReasonSelectDelegate>
 
 @property (strong,nonatomic)UITableView *myTableView;
-
+@property (strong,nonatomic)NSArray  *arr_reason;
+@property (strong,nonatomic)NSString  *str_reason;
 @end
 
 @implementation WJPostBackOrderViewController
@@ -24,6 +25,9 @@
     [super viewDidLoad];
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     [self initSendReplyWithTitle:@"申请退款" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
+
+    _arr_reason = [NSArray arrayWithObjects:@"操作有误（商品、地址等选错）",@"重复下单/误下单",@"其他渠道价格更低",@"该商品降价了",@"不想买了",@"商品无货",@"其他原因", nil];
+    _str_reason = @"退款原因";
     [self.view addSubview:self.myTableView];
     [self setupCustomBottomView];
     // Do any additional setup after loading the view.
@@ -55,8 +59,8 @@
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.backgroundColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
     btn.frame = CGRectMake(kMSScreenWith - 100, 0, 100, 49);
-    [btn setTitle:@"退款" forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(goToPayClassClick:) forControlEvents:UIControlEventTouchUpInside];
+    [btn setTitle:@"仅退款" forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(postbackOderData) forControlEvents:UIControlEventTouchUpInside];
     [backgroundView addSubview:btn];
 
     //合计
@@ -82,22 +86,20 @@
     [LZString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:16] range:rang];
     return LZString;
 }
--(void)goToPayClassClick:(UIButton*)button
-{
 
-    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-    [infos setObject:[AppDelegate shareAppDelegate].user_id forKey:@"user_id"];
-    [infos setObject:_str_goodsId forKey:@"goods_id"];
-    [infos setObject:_str_Num forKey:@"num"];
-    [infos setObject:_str_type forKey:@"norms"];
-    [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSMiYoMeigetpostsPay] andInfos:infos];
-
-}
 -(void)processData
 {
     if([[self.results objectForKey:@"code"] integerValue] == 200)
     {
+        [self jxt_showAlertWithTitle:@"申请成功" message:@"请等待商家退款" appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
+            alertMaker.
+            addActionCancelTitle(@"确定");
+        } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, JXTAlertController * _Nonnull alertSelf) {
+            if (buttonIndex == 0) {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
 
+        }];
     }
     else
     {
@@ -171,9 +173,8 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
-        cell.textLabel.text = @"退款原因";
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.textLabel.text = _str_reason;
         return cell;
     }
 }
@@ -191,14 +192,31 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section==1) {
-      
+        WJBackOrderReasonView *view = [[WJBackOrderReasonView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight-kMSNaviHight) withTitles:_arr_reason];
+        view.delegate = self;
+        [self.view addSubview:view];
     }
 }
-
+- (void)didSelectedReasonBUttonWithString:(NSString *)reasonString
+{
+    _str_reason = reasonString;
+    [_myTableView reloadData];
+}
 -(void)postbackOderData
 {
-    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-    [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSPostBackOrder] andInfos:infos];
+    if ([_str_reason isEqualToString:@"退款原因"]) {
+        [self requestFailed:@"请选择退款原因"];
+
+    }
+    else
+    {
+        NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+        [infos setValue:_str_reason forKey:@"content"];
+        [infos setValue:_str_goodsId forKey:@"id"];
+        [infos setValue:[AppDelegate shareAppDelegate].user_id forKey:@"user_id"];
+        [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSPostBackOrder] andInfos:infos];
+    }
+
 }
 
 

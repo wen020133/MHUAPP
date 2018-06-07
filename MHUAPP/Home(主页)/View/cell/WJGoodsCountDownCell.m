@@ -97,6 +97,9 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
 
     NSString *good_id = _countDownItem[indexPath.row][@"goods_id"];
-   !_goToGoodDetailClass ? : _goToGoodDetailClass(good_id);
+    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+    [infos setValue:good_id forKey:@"goods_id"];
+    [infos setValue:_countDownItem[indexPath.row][@"info_id"] forKey:@"info_id"];
+   !_goToGoodDetailClass ? : _goToGoodDetailClass(infos);
 }
 @end

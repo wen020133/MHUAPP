@@ -40,6 +40,10 @@
 /** 右侧下拉框文字数组 */
 @property(nonatomic,strong)NSArray *titleArr;
 
+/* 商品评论 */
+@property (strong , nonatomic)NSArray<WJDetailPartCommentItem *> *getCommentArray;
+
+@property NSInteger postDataType;
 @end
 
 @implementation WJGoodDetailViewController
@@ -67,9 +71,53 @@
 
     [self acceptanceNote];
 
+    [self initPostFootmarkData];
     // Do any additional setup after loading the view.
 }
 
+-(void)initPostFootmarkData
+{
+    _postDataType =1;
+    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+    [infos setValue:[AppDelegate shareAppDelegate].user_id forKey:@"user_id"];
+    [infos setValue:_goods_id forKey:@"id"];
+    [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSPostFootmark] andInfos:infos];
+}
+-(void)initPostCollectGoodsData
+{
+    _postDataType =2;
+    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+    [infos setValue:[AppDelegate shareAppDelegate].user_id forKey:@"user_id"];
+    [infos setValue:_goods_id forKey:@"id"];
+    [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSPostCollectGoods] andInfos:infos];
+}
+-(void)processData
+{
+    if([[self.results objectForKey:@"code"] integerValue] == 200)
+    {
+        if (_postDataType==1) {
+            NSLog(@"加入足迹成功！");
+        }
+        else if (_postDataType == 2 )
+        {
+            [SVProgressHUD showSuccessWithStatus:@"关注成功"];
+            [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+            [SVProgressHUD dismissWithDelay:1.0];
+        }
+
+    }
+    else
+    {
+        NSLog(@"加入足迹---%@！",self.results[@"data"]);
+        if (_postDataType == 2 )
+        {
+            [SVProgressHUD showSuccessWithStatus:self.results[@"data"]];
+            [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+            [SVProgressHUD dismissWithDelay:1.0];
+        }
+        return;
+    }
+}
 -(void)getGoodsInfoItem
 {
     _serverType = 1;
@@ -98,9 +146,6 @@
 //                self.galleryArray = self.results[@"data"][@"gallery"];
                 _supplier_id = self.results[@"data"][@"supplier_id"];
                 [self setkMSGetComment];
-                 [self setUpChildViewControllers];
-                 [self addChildViewController];
-
             }
                 break;
             case KGetComment:
@@ -109,8 +154,10 @@
                 NSMutableArray *arr_Datalist = [NSMutableArray array];
                 arr_Datalist = [self.results objectForKey:@"data"];
                 if (![arr_Datalist isEqual:[NSNull null]]) {
-                    _attributeArray = arr_Datalist;
+                    _getCommentArray = [WJDetailPartCommentItem mj_objectArrayWithKeyValuesArray:arr_Datalist];
                 }
+                [self setUpChildViewControllers];
+                [self addChildViewController];
             }
                 break;
             default:
@@ -285,6 +332,7 @@
     [self addChildViewController:goodParticularsVc];
 
     WJGoodCommentViewController *goodCommentVc = [[WJGoodCommentViewController alloc] init];
+     goodCommentVc.goods_id = _goods_id;
     [self addChildViewController:goodCommentVc];
 }
 #pragma mark - 底部按钮(收藏 购物车 加入购物车 立即购买)
@@ -386,8 +434,8 @@
     UIBarButtonItem *pulish = [[UIBarButtonItem alloc] initWithCustomView:pulishButton];
     [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:save, pulish,nil]];
 
-//    _titleArr = @[@"消息",@"首页",@"足迹",@"购物车"];
-//    _imgArr = @[@"Tab_icon_messsge_normal",@"Tab_icon_Home_normal",@"main_zuji",@"Tab_icon_Cart_normal"];
+    _titleArr = @[@"消息",@"首页",@"足迹",@"购物车"];
+    _imgArr = @[@"Tab_icon_messsge_normal",@"Tab_icon_Home_normal",@"main_zuji",@"Tab_icon_Cart_normal"];
 }
 
 -(void)goodInfoshare
@@ -435,7 +483,7 @@
     }
     else if(button.tag == 2){
         NSLog(@"关注");
-        
+        [self initPostCollectGoodsData];
     }else  if (button.tag == 3 || button.tag == 4) {
 
 
