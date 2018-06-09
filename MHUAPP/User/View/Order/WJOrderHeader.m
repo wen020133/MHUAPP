@@ -45,9 +45,9 @@
 
 
 
-    _state = [[UILabel alloc] initWithFrame:CGRectMake(kMSScreenWith-80, 15, 70, 20)];
+    _state = [[UILabel alloc] initWithFrame:CGRectMake(kMSScreenWith-130, 15, 120, 20)];
     _state.textColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
-    _state.font = [UIFont systemFontOfSize:14];
+    _state.font = [UIFont systemFontOfSize:13];
     _state.textAlignment = NSTextAlignmentRight;
     [self.contentView addSubview:_state];
 }

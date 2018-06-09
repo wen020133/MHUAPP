@@ -21,6 +21,19 @@
 }
 - (void)initScrollView
 {
+    NSMutableDictionary *transformImgDic = [NSMutableDictionary dictionaryWithCapacity:3];
+    [transformImgDic setObject:[UIImage imageNamed:@"commit_chaping.png"] forKey:@"Default"];
+    [transformImgDic setObject:[UIImage imageNamed:@"commit_chaping_select.png"] forKey:@"Selected"];
+
+    NSMutableDictionary *accountImgDic = [NSMutableDictionary dictionaryWithCapacity:3];
+    [accountImgDic setObject:[UIImage imageNamed:@"commit_zhongping.png"] forKey:@"Default"];
+    [accountImgDic setObject:[UIImage imageNamed:@"commit_zhongping_select.png"] forKey:@"Selected"];
+
+    NSMutableDictionary *moreImgDic = [NSMutableDictionary dictionaryWithCapacity:3];
+    [moreImgDic setObject:[UIImage imageNamed:@"commit_haoping.png"] forKey:@"Default"];
+    [moreImgDic setObject:[UIImage imageNamed:@"commit_haoping_select.png"] forKey:@"Selected"];
+
+     NSArray *stateImages = [NSArray arrayWithObjects:transformImgDic, accountImgDic, moreImgDic, nil];
     self.backgroundColor = kMSViewBackColor;
     _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 44)];
     self.scrollView.backgroundColor = [UIColor clearColor];
@@ -29,45 +42,24 @@
     self.scrollView.pagingEnabled = YES;
     NSInteger count = self.Menu_titles.count;
     float width = 0;
-//    if (count >= 5||count == 3)
-//    {
-        width = kMSScreenWith / count;
-//    }
-//    else if (count == 4)
-//    {
-//        width = kMSScreenWith / 4;
-//    }
-//    else
-//    {
-//        width = kMSScreenWith /2;
-//    }
+    width = kMSScreenWith / count;
+
     [self.scrollView setContentSize:CGSizeMake([self.Menu_titles count] * width, self.scrollView.frame.size.height)];
-    for(int i = 0; i < [self.Menu_titles count]; i++)
+    for(int i = 0; i < [stateImages count]; i++)
     {
         
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setFrame:CGRectMake(width * i, 0, width, 44)];
+        button.titleLabel.font = [UIFont systemFontOfSize:18];
+        button.frame = CGRectMake(width * i, 0, width, 44);
         [button addTarget:self action:@selector(menuSelected:) forControlEvents:UIControlEventTouchUpInside];
-        [button.titleLabel setFont:[UIFont systemFontOfSize:18]];
         [button setTitle:[self.Menu_titles objectAtIndex:i] forState:UIControlStateNormal];
+        [button setImage:[[stateImages objectAtIndex:i] objectForKey:@"Default"] forState:UIControlStateNormal];
+        [button setImage:[[stateImages objectAtIndex:i] objectForKey:@"Selected"] forState:UIControlStateSelected];
         button.tag = 3*i;
-        if (i == 0)
-        {
-            [button setTitleColor:kMSNavBarBackColor forState:UIControlStateNormal];
-        }
-        else
-        {
-            [button setTitleColor:kMSLabelTextColor forState:UIControlStateNormal];
-        }
-        
+        [button setTitleColor:[RegularExpressionsMethod ColorWithHexString:kGrayBgColor] forState:UIControlStateNormal];
         [self.scrollView addSubview:button];
         
     }
-    // Indicator image
-    _indicatorImage = [[UIView alloc]initWithFrame:CGRectMake(20, 42, width-40, 2)];
-    _indicatorImage.backgroundColor = kMSNavBarBackColor;
-    [_scrollView addSubview:_indicatorImage];
-    _selectIndex = 0;
     [self addSubview:self.scrollView];
 }
 
@@ -98,13 +90,13 @@
                 UIButton *btn = [array objectAtIndex:i];
                 if (btn.tag == index)
                 {
-                    self.indicatorImage.center = CGPointMake(btn.center.x, self.indicatorImage.center.y);
-                    
-                    [btn setTitleColor:kMSNavBarBackColor forState:UIControlStateNormal];
+                    btn.selected = YES;
+                    [btn setTitleColor:[RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR] forState:UIControlStateNormal];
                 }
                 else
                 {
-                    [btn setTitleColor:kMSLabelTextColor forState:UIControlStateNormal];
+                    btn.selected = NO;
+                    [btn setTitleColor:[RegularExpressionsMethod ColorWithHexString:kGrayBgColor] forState:UIControlStateNormal];
                 }
             }
     }

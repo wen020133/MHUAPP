@@ -27,6 +27,7 @@
 #import "WJWaitForGoodInfoViewController.h"
 #import "WJPostBackOrderViewController.h"
 #import "WJDetailedDeliveryInfoViewController.h"
+#import "WJWaitCommitInfoViewController.h"
 
 
 @interface WJOderListClassViewController ()
@@ -35,6 +36,9 @@
 @property (strong , nonatomic) NSString *order_status;
 @property (strong , nonatomic) NSString *pay_status;
 @property (strong , nonatomic) NSString *shipping_status;
+
+@property NSInteger  page_data;
+
 @end
 
 @implementation WJOderListClassViewController
@@ -63,7 +67,7 @@
         [self.mainTableView.mj_header beginRefreshing];
 
         // 上拉刷新
-//        self.mainTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
+        self.mainTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
     }
     return _mainTableView;
 }
@@ -72,7 +76,7 @@
 {
     [self.mainTableView.mj_header endRefreshing];
     [self.mainTableView.mj_footer endRefreshing];
-    _page = 1;
+    _page_data = 1;
     [self loadData];
 }
 -(void)noOrderListData
@@ -98,7 +102,8 @@
 }
 - (void)footerRereshing
 {
-    _page ++;
+     _page_data ++;
+    [self loadData];
 }
 #pragma mark - 初始化数组
 - (NSMutableArray *)arr_data {
@@ -163,36 +168,34 @@
             return;
         }
             break;
-//            case KGetOrderListJiaoClose:
-//        {
-//
-//        }
-//            break;
         default:
             break;
     }
-     [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?order_status=%@&pay_status=%@&shipping_status=%@&user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetOrderStatus,_order_status,_pay_status,_shipping_status,[AppDelegate shareAppDelegate].user_id]];
+ [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?order_status=%@&id=%ld&pay_status=%@&shipping_status=%@&user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetOrderStatus,_order_status,_page_data,_pay_status,_shipping_status,[AppDelegate shareAppDelegate].user_id]];
 
 }
 -(void)getProcessData
 {
+    [_mainTableView.mj_header endRefreshing];
+    [_mainTableView.mj_footer endRefreshing];
     if([[self.results objectForKey:@"code"] integerValue] == 200)
     {
 
-            [self.arr_data removeAllObjects];
-                id arr_data = [self.results objectForKey:@"data"];
-                if ([arr_data isKindOfClass:[NSArray class]]) {
+        id arr_data = [self.results objectForKey:@"data"];
+        if ([arr_data isKindOfClass:[NSArray class]]) {
                     NSArray *dataArr = arr_data;
-                    if ([dataArr  count]<1 ) {
+            if ([dataArr  count]<1 ) {
                         [self noOrderListData];
-                        [self.mainTableView reloadData];
+                        [_mainTableView.mj_footer endRefreshingWithNoMoreData];
                         return;
-                    }
+                }
+        [_arr_data removeAllObjects];
+        for (int aa=0; aa<dataArr.count; aa++) {
 
-                    for (int aa=0; aa<dataArr.count; aa++) {
-                        if (_serverType==KGetOrderListTuiKuanTuihuo) {
-                            NSArray *arr_goods = [[dataArr objectAtIndex:aa] objectForKey:@"backGoods"];
-                            if (arr_goods&&arr_goods.count>0) {
+        if (_serverType==KGetOrderListTuiKuanTuihuo)
+        {
+        NSArray *arr_goods = [[dataArr objectAtIndex:aa] objectForKey:@"backGoods"];
+        if (arr_goods&&arr_goods.count>0) {
                                 WJOrderShangJiaHeadModel *model = [[WJOrderShangJiaHeadModel alloc]init];
                                 model.supplier_name = [[dataArr objectAtIndex:aa] objectForKey:@"supplier_name"];
                                 model.order_id = [[dataArr objectAtIndex:aa] objectForKey:@"order_id"];
@@ -205,54 +208,89 @@
                                 [self.arr_data addObject:model];
 
                             }
-                        }
-                        else if (_serverType==KGetOrderListWaitPingjia||_serverType == KGetOrderListJiaoyiSuccess) {
-                                WJOrderWaitPingjiaAndSuccessItem *model = [[WJOrderWaitPingjiaAndSuccessItem alloc]init];
-                                model.supplier_name = [[dataArr objectAtIndex:aa] objectForKey:@"supplier_name"];
+
+        }
+        else if (_serverType==KGetOrderListWaitPingjia||_serverType == KGetOrderListJiaoyiSuccess) {
+        WJOrderWaitPingjiaAndSuccessItem *model = [[WJOrderWaitPingjiaAndSuccessItem alloc]init];
+        model.supplier_name = [[dataArr objectAtIndex:aa] objectForKey:@"supplier_name"];
                                 model.order_id = [[dataArr objectAtIndex:aa] objectForKey:@"order_id"];
                                 model.supplier_id = [[dataArr objectAtIndex:aa] objectForKey:@"supplier_id"];
                                 model.goods_name = [[dataArr objectAtIndex:aa] objectForKey:@"goods_name"];
                                 model.goods_attr = [[dataArr objectAtIndex:aa] objectForKey:@"goods_attr"];
-                             model.market_price = [[dataArr objectAtIndex:aa] objectForKey:@"market_price"];
-                             model.count_price = [[dataArr objectAtIndex:aa] objectForKey:@"count_price"];
-                                model.goods_number = [NSString stringWithFormat:@"%@",[[dataArr objectAtIndex:aa] objectForKey:@"goods_number"]];
-                                [self.arr_data addObject:model];
-                        }
-                        else
-                        {
-                        NSArray *arr_goods = [[dataArr objectAtIndex:aa] objectForKey:@"order_info"];
-                        if (arr_goods&&arr_goods.count>0) {
-                            WJOrderShangJiaHeadModel *model = [[WJOrderShangJiaHeadModel alloc]init];
-                            model.supplier_id = [[dataArr objectAtIndex:aa] objectForKey:@"supplier_id"];
-                            model.is_group_buy = [[dataArr objectAtIndex:aa] objectForKey:@"is_group_buy"];
-                            model.referer = [[dataArr objectAtIndex:aa] objectForKey:@"referer"];
-                            model.order_id = [[dataArr objectAtIndex:aa] objectForKey:@"order_id"];
-                            model.order_sn = [[dataArr objectAtIndex:aa] objectForKey:@"order_sn"];
-                            model.pay_status = [[dataArr objectAtIndex:aa] objectForKey:@"pay_status"];
-                             model.shipping_status = [[dataArr objectAtIndex:aa] objectForKey:@"shipping_status"];
-                            model.goods_amount = [[dataArr objectAtIndex:aa] objectForKey:@"goods_amount"];
-                             model.address = [[dataArr objectAtIndex:aa] objectForKey:@"address"];
-                             model.consignee = [[dataArr objectAtIndex:aa] objectForKey:@"consignee"];
-                            model.mobile = [[dataArr objectAtIndex:aa] objectForKey:@"mobile"];
-                            [model configGoodsArrayWithArray:arr_goods];
+            model.market_price = [[dataArr objectAtIndex:aa] objectForKey:@"market_price"];
+            model.count_price = [[dataArr objectAtIndex:aa] objectForKey:@"count_price"];
+            model.goods_number = [NSString stringWithFormat:@"%@",[[dataArr objectAtIndex:aa] objectForKey:@"goods_number"]];
+            model.img = [NSString stringWithFormat:@"%@",[[dataArr objectAtIndex:aa] objectForKey:@"img"]];
+            [self.arr_data addObject:model];
+            }
 
-                            [self.arr_data addObject:model];
 
-                        }
-                        }
-                        UIView *view = [self.view viewWithTag:1000];
-                        [view removeFromSuperview];
-                        [self.mainTableView reloadData];
-                        [self.mainTableView.mj_header endRefreshing];
-                    }
-
+        }
+            UIView *view = [self.view viewWithTag:1000];
+            [view removeFromSuperview];
+            [_mainTableView reloadData];
+            [_mainTableView.mj_header endRefreshing];
+            [_mainTableView.mj_footer endRefreshing];
+            [_mainTableView.mj_footer endRefreshingWithNoMoreData];
                 }
-                else
+        else  if ([arr_data isKindOfClass:[NSDictionary class]])
+        {
+            NSArray *dataArr = [arr_data objectForKey:@"data"];
+            if ([dataArr  count]<1 ) {
+                [self noOrderListData];
+                [_mainTableView.mj_footer endRefreshingWithNoMoreData];
+                return;
+            }
+            NSMutableArray *arr_Datalist = [NSMutableArray array];
+            for (int aa=0; aa<dataArr.count; aa++) {
+
+             NSArray *arr_goods = [[dataArr objectAtIndex:aa] objectForKey:@"order_info"];
+            if (arr_goods&&arr_goods.count>0) {
+                WJOrderShangJiaHeadModel *model = [[WJOrderShangJiaHeadModel alloc]init];
+                model.supplier_id = [[dataArr objectAtIndex:aa] objectForKey:@"supplier_id"];
+                model.is_group_buy = [[dataArr objectAtIndex:aa] objectForKey:@"is_group_buy"];
+                model.referer = [[dataArr objectAtIndex:aa] objectForKey:@"referer"];
+                model.order_id = [[dataArr objectAtIndex:aa] objectForKey:@"order_id"];
+                model.order_sn = [[dataArr objectAtIndex:aa] objectForKey:@"order_sn"];
+                model.pay_status = [[dataArr objectAtIndex:aa] objectForKey:@"pay_status"];
+                model.shipping_status = [[dataArr objectAtIndex:aa] objectForKey:@"shipping_status"];
+                model.goods_amount = [[dataArr objectAtIndex:aa] objectForKey:@"goods_amount"];
+                model.address = [[dataArr objectAtIndex:aa] objectForKey:@"address"];
+                model.consignee = [[dataArr objectAtIndex:aa] objectForKey:@"consignee"];
+                model.mobile = [[dataArr objectAtIndex:aa] objectForKey:@"mobile"];
+                [model configGoodsArrayWithArray:arr_goods];
+
+                [arr_Datalist addObject:model];
+               }
+            }
+            if(_page_data==1)
+            {
+                [_arr_data removeAllObjects];
+                _arr_data= arr_Datalist;
+            }else
+            {
+                [_arr_data addObjectsFromArray:arr_Datalist];
+            }
+
+                UIView *view = [self.view viewWithTag:1000];
+                [view removeFromSuperview];
+                [self.mainTableView reloadData];
+                [self.mainTableView.mj_header endRefreshing];
+                if(dataArr.count<[kMSPULLtableViewCellNumber integerValue])
                 {
-                    [self noOrderListData];
-                    [self.mainTableView reloadData];
-                    return;
+                    [_mainTableView.mj_footer endRefreshingWithNoMoreData];
                 }
+                else{
+                    _mainTableView.mj_footer.hidden = NO;
+                }
+
+            }
+            else
+            {
+                [self noOrderListData];
+                [self.mainTableView reloadData];
+                return;
+            }
 
     }
     else
@@ -334,17 +372,31 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    WJOrderShangJiaHeadModel *model = [self.arr_data objectAtIndex:indexPath.section];
+
     if(_serverType ==KGetOrderListTuiKuanTuihuo)
     {
 
     }
-    else if(_serverType ==KGetOrderListWaitPingjia||_serverType == KGetOrderListJiaoyiSuccess)
+    else if(_serverType ==KGetOrderListWaitPingjia)
     {
-//        WJOrderWaitPingjiaAndSuccessItem *item = self.arr_data[indexPath.section];
+         WJOrderWaitPingjiaAndSuccessItem *model = [_arr_data objectAtIndex:indexPath.section];
+        WJWaitCommitInfoViewController *waitCommit = [[WJWaitCommitInfoViewController alloc]init];
+        waitCommit.supplier_name = model.supplier_name;
+        waitCommit.img = model.img;
+        waitCommit.order_id = model.order_id;;
+        waitCommit.supplier_id = model.supplier_id;
+        waitCommit.goods_name = model.goods_name;
+        waitCommit.goods_attr = model.goods_attr;
+        waitCommit.market_price = model.market_price;
+        waitCommit.count_price = model.count_price;
+        waitCommit.goods_number = [NSString stringWithFormat:@"%@",model.goods_number];
+        waitCommit.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:waitCommit animated:YES];
+        self.hidesBottomBarWhenPushed = YES;
     }
     else
     {
+         WJOrderShangJiaHeadModel *model = [self.arr_data objectAtIndex:indexPath.section];
     NSInteger paySt = [model.pay_status integerValue];
     switch (paySt) {
         case 0:
@@ -352,11 +404,12 @@
             WJWaitPayOrderInfoViewController *waitPayInfoVC = [[WJWaitPayOrderInfoViewController alloc]init];
             WJOrderShangJiaHeadModel *shopModel = self.arr_data[indexPath.section];
             waitPayInfoVC.str_orderId = shopModel.order_sn;
-            waitPayInfoVC.str_Name = shopModel.referer;
+            waitPayInfoVC.str_Name = shopModel.consignee;
             waitPayInfoVC.str_telephone = shopModel.mobile;
             waitPayInfoVC.str_address = shopModel.address;
             waitPayInfoVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:waitPayInfoVC animated:YES];
+            self.hidesBottomBarWhenPushed = YES;
         }
             break;
         case 1:
@@ -374,7 +427,7 @@
                     WJDetailedDeliveryInfoViewController *waitPayInfoVC = [[WJDetailedDeliveryInfoViewController alloc]init];
                     WJOrderShangJiaHeadModel *shopModel = self.arr_data[indexPath.section];
                     waitPayInfoVC.str_orderId = shopModel.order_sn;
-                    waitPayInfoVC.str_Name = shopModel.referer;
+                    waitPayInfoVC.str_Name = shopModel.consignee;
                     waitPayInfoVC.str_telephone = shopModel.mobile;
                     waitPayInfoVC.str_address = shopModel.address;
                     waitPayInfoVC.hidesBottomBarWhenPushed = YES;
@@ -387,7 +440,7 @@
                     WJWaitForGoodInfoViewController *waitPayInfoVC = [[WJWaitForGoodInfoViewController alloc]init];
                     WJOrderShangJiaHeadModel *shopModel = self.arr_data[indexPath.section];
                     waitPayInfoVC.str_orderId = shopModel.order_sn;
-                    waitPayInfoVC.str_Name = shopModel.referer;
+                    waitPayInfoVC.str_Name = shopModel.consignee;
                     waitPayInfoVC.str_telephone = shopModel.mobile;
                     waitPayInfoVC.str_address = shopModel.address;
                     waitPayInfoVC.shipping_name = shopModel.shipping_name;
@@ -424,9 +477,10 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     WJOrderHeader *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"WJOrderHeader"];
-    WJOrderShangJiaHeadModel *shopmodel = [self.arr_data objectAtIndex:section];
+
     if(_serverType ==KGetOrderListTuiKuanTuihuo)
     {
+         WJOrderShangJiaHeadModel *shopmodel = [_arr_data objectAtIndex:section];
           WJOrderGoodListModel *model = [shopmodel.goodsArray objectAtIndex:0];
         view.shangjiaTitle =  [NSString stringWithFormat:@"%@ >",ConvertNullString(shopmodel.supplier_name)];
         NSInteger status_refund = [model.status_refund integerValue];
@@ -498,15 +552,19 @@
     }
     else if(_serverType ==KGetOrderListWaitPingjia||_serverType == KGetOrderListJiaoyiSuccess)
     {
-        WJOrderWaitPingjiaAndSuccessItem *item = self.arr_data[section];
-        view.shangjiaTitle = item.supplier_name;
+
         if(_serverType ==KGetOrderListWaitPingjia)
+        {
+        WJOrderWaitPingjiaAndSuccessItem *item = _arr_data[section];
+          view.shangjiaTitle = item.supplier_name;
            view.state.text = @"待评价";
+        }
         else
            view.state.text = @"已完成";
     }
     else
     {
+         WJOrderShangJiaHeadModel *shopmodel = [_arr_data objectAtIndex:section];
     view.shangjiaTitle =  [NSString stringWithFormat:@"%@ >",ConvertNullString(shopmodel.referer)];
     NSInteger paySt = [shopmodel.pay_status integerValue];
     switch (paySt) {
@@ -579,7 +637,7 @@
         view.ClickStateForStrBlock = ^(NSString *stateStr) {
             WEAKSELF
             if ([stateStr isEqualToString:@"去评价"]) {
-                WJLogisticsViewController *waitPayInfoVC = [[WJLogisticsViewController alloc]init];
+                WJWaitCommitInfoViewController *waitPayInfoVC = [[WJWaitCommitInfoViewController alloc]init];
                 waitPayInfoVC.hidesBottomBarWhenPushed = YES;
                 [weakSelf.navigationController pushViewController:waitPayInfoVC animated:YES];
             }
@@ -729,7 +787,7 @@
 }
 -(void)delayMethod
 {
-    _page = 1;
+    _page_data = 1;
     [self loadData];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

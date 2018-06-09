@@ -72,7 +72,7 @@
     if (listModel!=_listModel) {
         _listModel = listModel;
     }
-    [_contentImg sd_setImageWithURL:[NSURL URLWithString:_listModel.img] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"] completed:nil];
+    [_contentImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",_listModel.img]] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"] completed:nil];
     NSString *price =@"";
 
     if ([_listModel.is_group_buy integerValue]==3) {

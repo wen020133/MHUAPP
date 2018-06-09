@@ -27,6 +27,5 @@ typedef NS_ENUM(NSInteger, KGetOrderServerType) {
 
 @property (assign, nonatomic) KGetOrderServerType serverType;
 
-@property NSInteger page;
 
 @end

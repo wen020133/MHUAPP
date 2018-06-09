@@ -15,8 +15,6 @@
 @interface MunuView : UIView<UIScrollViewDelegate>
 
 @property (retain, nonatomic) UIScrollView  *scrollView;
-@property (retain, nonatomic) UIView        *indicatorImage;
-
 @property (retain, nonatomic) NSArray       *Menu_titles;
 
 @property (assign, nonatomic) NSInteger     selectIndex;

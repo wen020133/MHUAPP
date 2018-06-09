@@ -127,7 +127,7 @@
 
 
 #define   kMSCommentList        @"commentList"              //交易完成和待评价
-
+#define   kMSOrderInfo        @"orderInfo"              //用户订单详情
 
 #define   kMSGetOrderStatus        @"getOrderStatus"                 //各订单状态下的订单 （新）
 #define   kMSGetBackGoods        @"getBackGoods"                 //申请退款列表

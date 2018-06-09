@@ -158,11 +158,12 @@
 
 -(void)getDetailedReceiveInfo
 {
-    _postType = 1;
+
     [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?order_sn=%@&user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetDetailedReceive,_str_orderId,[AppDelegate shareAppDelegate].user_id]];
 }
 -(void)getMiYouMeiQuery
 {
+    _postType = 1;
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
     [infos setObject:_shipping_name forKey:@"shipping_name"];
     [infos setObject:_invoice_no forKey:@"invoice_no"];
