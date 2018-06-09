@@ -179,6 +179,9 @@
 		341D718020CB6C16002D4CCD /* SDLoopProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 341D717C20CB6C15002D4CCD /* SDLoopProgressView.m */; };
 		341D718320CB6C28002D4CCD /* SDDemoItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 341D718220CB6C27002D4CCD /* SDDemoItemView.m */; };
 		341D718720CB75D9002D4CCD /* CWStarRateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 341D718620CB75D9002D4CCD /* CWStarRateView.m */; };
+		341D718B20CB89C5002D4CCD /* ico_check_nomal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 341D718820CB89C4002D4CCD /* ico_check_nomal@3x.png */; };
+		341D718C20CB89C5002D4CCD /* ico_check_nomal.png in Resources */ = {isa = PBXBuildFile; fileRef = 341D718920CB89C4002D4CCD /* ico_check_nomal.png */; };
+		341D718D20CB89C5002D4CCD /* ico_check_nomal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 341D718A20CB89C5002D4CCD /* ico_check_nomal@2x.png */; };
 		341E47A4202161B80048B9FA /* AddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 341E47A2202161B70048B9FA /* AddressCell.m */; };
 		341E47A5202161B80048B9FA /* AddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 341E47A3202161B80048B9FA /* AddressCell.xib */; };
 		341EF8E71FFB8208008CF841 /* ic_back.png in Resources */ = {isa = PBXBuildFile; fileRef = 341EF8E61FFB8208008CF841 /* ic_back.png */; };
@@ -729,6 +732,9 @@
 		341D718220CB6C27002D4CCD /* SDDemoItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDDemoItemView.m; sourceTree = "<group>"; };
 		341D718520CB75D9002D4CCD /* CWStarRateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWStarRateView.h; sourceTree = "<group>"; };
 		341D718620CB75D9002D4CCD /* CWStarRateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWStarRateView.m; sourceTree = "<group>"; };
+		341D718820CB89C4002D4CCD /* ico_check_nomal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ico_check_nomal@3x.png"; sourceTree = "<group>"; };
+		341D718920CB89C4002D4CCD /* ico_check_nomal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ico_check_nomal.png; sourceTree = "<group>"; };
+		341D718A20CB89C5002D4CCD /* ico_check_nomal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ico_check_nomal@2x.png"; sourceTree = "<group>"; };
 		341E47A1202161B70048B9FA /* AddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressCell.h; sourceTree = "<group>"; };
 		341E47A2202161B70048B9FA /* AddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressCell.m; sourceTree = "<group>"; };
 		341E47A3202161B80048B9FA /* AddressCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressCell.xib; sourceTree = "<group>"; };
@@ -2712,6 +2718,9 @@
 		34E9C83020CA7DB3003A592E /* MImgpicker */ = {
 			isa = PBXGroup;
 			children = (
+				341D718920CB89C4002D4CCD /* ico_check_nomal.png */,
+				341D718A20CB89C5002D4CCD /* ico_check_nomal@2x.png */,
+				341D718820CB89C4002D4CCD /* ico_check_nomal@3x.png */,
 				34E9C84520CA7DF4003A592E /* MFlowLayOut.h */,
 				34E9C84A20CA7DF6003A592E /* MFlowLayOut.m */,
 				34E9C84720CA7DF5003A592E /* MHeaderImaCell.h */,
@@ -3080,6 +3089,7 @@
 				34E9C84220CA7DC7003A592E /* MGroupCell.xib in Resources */,
 				3411F8F52040ED38007BCEF9 /* home_brand_img.png in Resources */,
 				3411F8F42040ED38007BCEF9 /* home_selling_img.png in Resources */,
+				341D718C20CB89C5002D4CCD /* ico_check_nomal.png in Resources */,
 				34F1D3981FD687340080EE3D /* user_set.png in Resources */,
 				34FB224A20A1375200D698FA /* AlipaySDK.bundle in Resources */,
 				34FAB70C2064F458000C9E3C /* PPDragDropBadgeView.bundle in Resources */,
@@ -3094,6 +3104,7 @@
 				34FAB6F22064DB88000C9E3C /* Default@2x.png in Resources */,
 				3411F95520411278007BCEF9 /* mask.jpg in Resources */,
 				34FAB6F12064DB88000C9E3C /* Default-568h@2x.png in Resources */,
+				341D718D20CB89C5002D4CCD /* ico_check_nomal@2x.png in Resources */,
 				3418E7432019738500EDD902 /* cart_cutBtn_nomal@2x.png in Resources */,
 				3456C18F20BE258A002A6566 /* logistics_YZPY.png in Resources */,
 				341944B92058C78F00AAAD61 /* user_backImageHead.png in Resources */,
@@ -3106,6 +3117,7 @@
 				3456C1B71FD7C33800B5AEB8 /* ic_no_heardPic.png in Resources */,
 				346564781FCD561100448C40 /* img_btn_wuliu@2x.png in Resources */,
 				3411F95620411278007BCEF9 /* restrictedshine.tiff in Resources */,
+				341D718B20CB89C5002D4CCD /* ico_check_nomal@3x.png in Resources */,
 				34014A6A20B41C5300B6A91E /* Default-414w-736h@3x.png in Resources */,
 				340574EE20429E3A00729FD8 /* home-store01_logo_img.png in Resources */,
 				3456C1B91FD7C3B200B5AEB8 /* MyBuyFlow.plist in Resources */,
