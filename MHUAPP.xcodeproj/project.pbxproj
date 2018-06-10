@@ -19,6 +19,7 @@
 		17833090204179B200321476 /* WJEveryDayMastRobView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1783308E204179B200321476 /* WJEveryDayMastRobView.m */; };
 		179D82621FD6A90A00CC4AA2 /* WJFlowAttributeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 179D82611FD6A90A00CC4AA2 /* WJFlowAttributeCell.m */; };
 		179D82651FD6AA5E00CC4AA2 /* WJFlowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 179D82641FD6AA5E00CC4AA2 /* WJFlowItem.m */; };
+		17C617CF20CBD34A001F47A1 /* WJOrderSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17C617CE20CBD34A001F47A1 /* WJOrderSuccessViewController.m */; };
 		17D6D4FA20AFBE7B00674875 /* WJIntegralOrderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17D6D4F920AFBE7B00674875 /* WJIntegralOrderListViewController.m */; };
 		17DF7BE81FCCFF7100FBD9DC /* UIView+UIViewFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 17DF7BE61FCCFF7100FBD9DC /* UIView+UIViewFrame.m */; };
 		17DF7BE91FCCFF7100FBD9DC /* UIButton+LZCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 17DF7BE71FCCFF7100FBD9DC /* UIButton+LZCategory.m */; };
@@ -435,6 +436,8 @@
 		179D82631FD6AA5E00CC4AA2 /* WJFlowItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJFlowItem.h; sourceTree = "<group>"; };
 		179D82641FD6AA5E00CC4AA2 /* WJFlowItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJFlowItem.m; sourceTree = "<group>"; };
 		179D82661FD6E1AB00CC4AA2 /* MyBuyFlow.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = MyBuyFlow.plist; sourceTree = "<group>"; };
+		17C617CD20CBD34A001F47A1 /* WJOrderSuccessViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJOrderSuccessViewController.h; sourceTree = "<group>"; };
+		17C617CE20CBD34A001F47A1 /* WJOrderSuccessViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJOrderSuccessViewController.m; sourceTree = "<group>"; };
 		17D6D4F820AFBE7B00674875 /* WJIntegralOrderListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJIntegralOrderListViewController.h; sourceTree = "<group>"; };
 		17D6D4F920AFBE7B00674875 /* WJIntegralOrderListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJIntegralOrderListViewController.m; sourceTree = "<group>"; };
 		17DF7BE51FCCFF7100FBD9DC /* UIButton+LZCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+LZCategory.h"; sourceTree = "<group>"; };
@@ -1202,6 +1205,15 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
+		17C617CC20CBD30F001F47A1 /* 交易成功 */ = {
+			isa = PBXGroup;
+			children = (
+				17C617CD20CBD34A001F47A1 /* WJOrderSuccessViewController.h */,
+				17C617CE20CBD34A001F47A1 /* WJOrderSuccessViewController.m */,
+			);
+			path = "交易成功";
+			sourceTree = "<group>";
+		};
 		17D6D4F720AFBE3500674875 /* 积分订单 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1356,6 +1368,7 @@
 		17DF7BFA1FCD013A00FBD9DC /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				17C617CC20CBD30F001F47A1 /* 交易成功 */,
 				34E9C80F20CA093D003A592E /* 评价 */,
 				34F4E23720C76E0A00B71B5F /* 我的足迹 */,
 				340C5C4820C113CB0069F2E8 /* 待发货 */,
@@ -2733,11 +2746,11 @@
 				34E9C83820CA7DC4003A592E /* MGroupCell.xib */,
 				34E9C83D20CA7DC6003A592E /* MImaCell.h */,
 				34E9C83520CA7DC3003A592E /* MImaCell.m */,
+				34E9C83920CA7DC5003A592E /* MShowAllGroup.m */,
 				34E9C83A20CA7DC5003A592E /* MImaCell.xib */,
 				34E9C83C20CA7DC6003A592E /* MImaLibTool.h */,
 				34E9C83620CA7DC3003A592E /* MImaLibTool.m */,
 				34E9C83320CA7DC2003A592E /* MShowAllGroup.h */,
-				34E9C83920CA7DC5003A592E /* MShowAllGroup.m */,
 				34E9C83B20CA7DC5003A592E /* MShowGroupAllSet.h */,
 				34E9C83720CA7DC4003A592E /* MShowGroupAllSet.m */,
 			);
@@ -3508,6 +3521,7 @@
 				34014A6520B3EEEF00B6A91E /* WJCountdownView.m in Sources */,
 				341878D41FD538AE00D3F860 /* WJDetailGoodReferralCell.m in Sources */,
 				3418784D1FD5169300D3F860 /* WJToolsViewController.m in Sources */,
+				17C617CF20CBD34A001F47A1 /* WJOrderSuccessViewController.m in Sources */,
 				34E9C84120CA7DC7003A592E /* MShowGroupAllSet.m in Sources */,
 				340BB08A20818E8400B1C1A4 /* WJADThirdItem.m in Sources */,
 				3456C19F20BE929B002A6566 /* WJPostBackOrderViewController.m in Sources */,

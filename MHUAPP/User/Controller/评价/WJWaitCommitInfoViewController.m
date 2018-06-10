@@ -82,6 +82,8 @@
         case 2001:
         {
             WJCommitViewController *waitPayInfoVC = [[WJCommitViewController alloc]init];
+            waitPayInfoVC.goods_id = _goods_id;
+            waitPayInfoVC.rec_id = _rec_id;
             waitPayInfoVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:waitPayInfoVC animated:YES];
         }

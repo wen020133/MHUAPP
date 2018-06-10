@@ -44,7 +44,13 @@
 //商品评价
 @property (nonatomic,strong) NSString *comment_rank;
 
-
+//描述分数
+@property (nonatomic,strong) NSString *str_miaosuNum;
+//物流分数
+@property (nonatomic,strong) NSString *str_wuliuNum;
+//服务分数
+@property (nonatomic,strong) NSString *str_fuwuNum;
+@property (nonatomic,strong) NSString *hide_username;
 @end
 
 @implementation WJCommitViewController
@@ -60,7 +66,7 @@
     self.showInView = _mianScrollView;
     [self initViews];
 
-
+    _hide_username = @"1";
     // Do any additional setup after loading the view.
 }
 - (void)viewTapped{
@@ -155,7 +161,7 @@
      _lab_miaosu.text = @"5.0分";
     _lab_miaosu.font = Font(15);
     [_view_star addSubview:_lab_miaosu];
-
+    _str_miaosuNum = @"5";
     UILabel *labwuliu = LabelInit(15, 80, 60, 20);
     labwuliu.text = @"物流服务";
     labwuliu.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
@@ -171,7 +177,8 @@
     _lab_wuliu.font = Font(15);
     _lab_wuliu.text = @"5.0分";
     [_view_star addSubview:_lab_wuliu];
-
+    _str_wuliuNum = @"5";
+    
     UILabel *labfuwu = LabelInit(15, 135, 60, 20);
     labfuwu.text = @"服务态度";
     labfuwu.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
@@ -187,7 +194,8 @@
     _lab_fuwu.font = Font(15);
     _lab_fuwu.text = @"5.0分";
     [_view_star addSubview:_lab_fuwu];
-
+    _str_fuwuNum = @"5";
+    
     //发布按钮样式->可自定义!
     _submitBtn = [[UIButton alloc]init];
     [_submitBtn setTitle:@"提交" forState:UIControlStateNormal];
@@ -238,7 +246,13 @@
 -(void)selectNimingBtnClick:(UIButton *)sender
 {
     sender.selected = !sender.selected;
+    if (sender.selected) {
+        _hide_username = @"0";
+    }
+    else
+        _hide_username = @"1";
 }
+
 - (void)didSelectedButtonWithTag:(NSInteger)currTag
 {
     switch (currTag) {
@@ -260,12 +274,15 @@
 {
     if (starRateView==_star_miaosu) {
         _lab_miaosu.text = [NSString stringWithFormat:@"%.1f分",newScorePercent*5];
+        _str_miaosuNum = [NSString stringWithFormat:@"%.f",newScorePercent*5];
     }
     else if (starRateView==_star_fuwu) {
         _lab_fuwu.text = [NSString stringWithFormat:@"%.1f分",newScorePercent*5];
+        _str_fuwuNum = [NSString stringWithFormat:@"%.f",newScorePercent*5];
     }
     else if (starRateView==_star_wuliu) {
         _lab_wuliu.text = [NSString stringWithFormat:@"%.1f分",newScorePercent*5];
+        _str_wuliuNum = [NSString stringWithFormat:@"%.f",newScorePercent*5];
     }
 
 }
@@ -367,6 +384,14 @@
 
 - (void)submitToServer{
 
+    if (_noteTextView.text.length<1||[_noteTextView.text isEqualToString:@"商品符合您预期吗？说说您的感受呗……"]) {
+        [self requestFailed:@"请填写评价内容！"];
+        return;
+    }
+    if (_comment_rank.length<1) {
+        [self requestFailed:@"请给商品打分！"];
+        return;
+    }
 
     // 可以选择上传大图数据或者小图数据->
 
@@ -390,9 +415,15 @@
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
     [infos setValue:_goods_id forKey:@"goods_id"];
     [infos setValue:[AppDelegate shareAppDelegate].user_id forKey:@"user_id"];
+    [infos setValue:smallImageDataArray forKey:@"array_file"];
     [infos setValue:_rec_id forKey:@"rec_id"];
     [infos setValue:str_username forKey:@"user_name"];
     [infos setValue:_comment_rank forKey:@"comment_rank"];
+    [infos setValue:_noteTextView.text forKey:@"content"];
+    [infos setValue:_hide_username forKey:@"hide_username"];
+    [infos setValue:_str_miaosuNum forKey:@"debe_comm"];
+    [infos setValue:_str_wuliuNum forKey:@"lot_serve"];
+    [infos setValue:_str_fuwuNum forKey:@"serve_att"];
     [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSAddComment] andInfos:infos];
 }
 
@@ -432,7 +463,12 @@
     }
     return YES;
 }
-
+- (void)textViewDidEndEditing:(UITextView *)textView;
+{
+    if ([textView.text isEqualToString:@""]) {
+        textView.text = @"商品符合您预期吗？说说您的感受呗……";
+    }
+}
 
 /*
 #pragma mark - Navigation

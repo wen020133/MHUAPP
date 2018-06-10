@@ -28,6 +28,8 @@
 #import "WJPostBackOrderViewController.h"
 #import "WJDetailedDeliveryInfoViewController.h"
 #import "WJWaitCommitInfoViewController.h"
+#import "WJCommitViewController.h"
+#import "WJOrderSuccessViewController.h"
 
 
 @interface WJOderListClassViewController ()
@@ -221,6 +223,8 @@
             model.count_price = [[dataArr objectAtIndex:aa] objectForKey:@"count_price"];
             model.goods_number = [NSString stringWithFormat:@"%@",[[dataArr objectAtIndex:aa] objectForKey:@"goods_number"]];
             model.img = [NSString stringWithFormat:@"%@",[[dataArr objectAtIndex:aa] objectForKey:@"img"]];
+            model.goods_id = [NSString stringWithFormat:@"%@",[[dataArr objectAtIndex:aa] objectForKey:@"goods_id"]];
+            model.rec_id = [NSString stringWithFormat:@"%@",[[dataArr objectAtIndex:aa] objectForKey:@"rec_id"]];
             [self.arr_data addObject:model];
             }
 
@@ -381,6 +385,23 @@
     {
          WJOrderWaitPingjiaAndSuccessItem *model = [_arr_data objectAtIndex:indexPath.section];
         WJWaitCommitInfoViewController *waitCommit = [[WJWaitCommitInfoViewController alloc]init];
+        waitCommit.supplier_name = model.supplier_name;
+        waitCommit.img = model.img;
+        waitCommit.order_id = model.order_id;;
+        waitCommit.supplier_id = model.supplier_id;
+        waitCommit.goods_name = model.goods_name;
+        waitCommit.goods_attr = model.goods_attr;
+        waitCommit.market_price = model.market_price;
+        waitCommit.count_price = model.count_price;
+        waitCommit.goods_number = [NSString stringWithFormat:@"%@",model.goods_number];
+        waitCommit.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:waitCommit animated:YES];
+        self.hidesBottomBarWhenPushed = YES;
+    }
+    else if(_serverType ==KGetOrderListJiaoyiSuccess)
+    {
+        WJOrderWaitPingjiaAndSuccessItem *model = [_arr_data objectAtIndex:indexPath.section];
+        WJOrderSuccessViewController *waitCommit = [[WJOrderSuccessViewController alloc]init];
         waitCommit.supplier_name = model.supplier_name;
         waitCommit.img = model.img;
         waitCommit.order_id = model.order_id;;
@@ -637,9 +658,12 @@
         view.ClickStateForStrBlock = ^(NSString *stateStr) {
             WEAKSELF
             if ([stateStr isEqualToString:@"去评价"]) {
-                WJWaitCommitInfoViewController *waitPayInfoVC = [[WJWaitCommitInfoViewController alloc]init];
+                WJCommitViewController *waitPayInfoVC = [[WJCommitViewController alloc]init];
+                waitPayInfoVC.goods_id = item.goods_id;
+                waitPayInfoVC.rec_id = item.rec_id;
                 waitPayInfoVC.hidesBottomBarWhenPushed = YES;
                 [weakSelf.navigationController pushViewController:waitPayInfoVC animated:YES];
+                weakSelf.hidesBottomBarWhenPushed = YES;
             }
         };
     }

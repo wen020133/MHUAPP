@@ -15,7 +15,8 @@
 }
 - (void)awakeFromNib {
     // Initialization code
-    [self.btnCheckMark setImage:[UIImage imageNamed:@"ico_check_select@2x.png"] forState:UIControlStateSelected];
+    [self.btnCheckMark setImage:[UIImage imageNamed:@"shipcart_seleHigh"] forState:UIControlStateSelected];
+    [super awakeFromNib];
 }
 
 - (void)setBtnSelectedHandle:(MBoolBlock)block {
