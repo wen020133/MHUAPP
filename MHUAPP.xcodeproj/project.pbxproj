@@ -149,6 +149,8 @@
 		34133C381FDA3D4500C95CA4 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 34133C371FDA3D4500C95CA4 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		3413982D2003628C00D0D4FF /* WJFeatureSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3413982C2003628C00D0D4FF /* WJFeatureSelectionViewController.m */; };
 		3414A675206DBFB300E96FE2 /* WJZhuanTiHDTypeCollrctionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3414A674206DBFB300E96FE2 /* WJZhuanTiHDTypeCollrctionCell.m */; };
+		34164C7520CF674E006062FD /* WJConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34164C7420CF674E006062FD /* WJConversationViewController.m */; };
+		34164C7B20CF8BF2006062FD /* RCDCustomerServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34164C7920CF8BF1006062FD /* RCDCustomerServiceViewController.m */; };
 		3416C2AC1FE110560006169D /* WJUserInfoListCel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3416C2AB1FE110560006169D /* WJUserInfoListCel.m */; };
 		3418782C1FD4D7B800D3F860 /* WJGoodDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3418782B1FD4D7B800D3F860 /* WJGoodDetailViewController.m */; };
 		3418782F1FD4F0DA00D3F860 /* WJGoodBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3418782E1FD4F0DA00D3F860 /* WJGoodBaseViewController.m */; };
@@ -190,7 +192,6 @@
 		341EF8EB1FFB8263008CF841 /* user_icon_share.png in Resources */ = {isa = PBXBuildFile; fileRef = 341EF8EA1FFB8263008CF841 /* user_icon_share.png */; };
 		341FBF3B207AEAA600A3F8B1 /* SLCommentsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 341FBF3A207AEAA600A3F8B1 /* SLCommentsModel.m */; };
 		341FBF44207B5BE100A3F8B1 /* WJJingXuanDianPuCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 341FBF43207B5BE100A3F8B1 /* WJJingXuanDianPuCollectionViewCell.m */; };
-		34216D6320905B6F006B68E8 /* RCDCustomerServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34216D6220905B6F006B68E8 /* RCDCustomerServiceViewController.m */; };
 		3421BCE91FF1DC5000263FE9 /* RigisterProtocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3421BCE81FF1DC5000263FE9 /* RigisterProtocolViewController.m */; };
 		3421BCED1FF2485D00263FE9 /* WJCouponsClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3421BCEC1FF2485D00263FE9 /* WJCouponsClassViewController.m */; };
 		342576BC20205A8A0046D24E /* AddressTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 342576B520205A880046D24E /* AddressTableViewCell.xib */; };
@@ -677,6 +678,10 @@
 		3413982C2003628C00D0D4FF /* WJFeatureSelectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJFeatureSelectionViewController.m; sourceTree = "<group>"; };
 		3414A673206DBFB300E96FE2 /* WJZhuanTiHDTypeCollrctionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJZhuanTiHDTypeCollrctionCell.h; sourceTree = "<group>"; };
 		3414A674206DBFB300E96FE2 /* WJZhuanTiHDTypeCollrctionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJZhuanTiHDTypeCollrctionCell.m; sourceTree = "<group>"; };
+		34164C7320CF674E006062FD /* WJConversationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJConversationViewController.h; sourceTree = "<group>"; };
+		34164C7420CF674E006062FD /* WJConversationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJConversationViewController.m; sourceTree = "<group>"; };
+		34164C7920CF8BF1006062FD /* RCDCustomerServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDCustomerServiceViewController.m; sourceTree = "<group>"; };
+		34164C7A20CF8BF2006062FD /* RCDCustomerServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDCustomerServiceViewController.h; sourceTree = "<group>"; };
 		3416C2AA1FE110560006169D /* WJUserInfoListCel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJUserInfoListCel.h; sourceTree = "<group>"; };
 		3416C2AB1FE110560006169D /* WJUserInfoListCel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJUserInfoListCel.m; sourceTree = "<group>"; };
 		3418782A1FD4D7B800D3F860 /* WJGoodDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJGoodDetailViewController.h; sourceTree = "<group>"; };
@@ -748,8 +753,6 @@
 		341FBF3A207AEAA600A3F8B1 /* SLCommentsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLCommentsModel.m; sourceTree = "<group>"; };
 		341FBF42207B5BE100A3F8B1 /* WJJingXuanDianPuCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJJingXuanDianPuCollectionViewCell.h; sourceTree = "<group>"; };
 		341FBF43207B5BE100A3F8B1 /* WJJingXuanDianPuCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJJingXuanDianPuCollectionViewCell.m; sourceTree = "<group>"; };
-		34216D6120905B6E006B68E8 /* RCDCustomerServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDCustomerServiceViewController.h; sourceTree = "<group>"; };
-		34216D6220905B6F006B68E8 /* RCDCustomerServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDCustomerServiceViewController.m; sourceTree = "<group>"; };
 		3421BCE71FF1DC5000263FE9 /* RigisterProtocolViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RigisterProtocolViewController.h; sourceTree = "<group>"; };
 		3421BCE81FF1DC5000263FE9 /* RigisterProtocolViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RigisterProtocolViewController.m; sourceTree = "<group>"; };
 		3421BCEB1FF2485D00263FE9 /* WJCouponsClassViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJCouponsClassViewController.h; sourceTree = "<group>"; };
@@ -1361,6 +1364,10 @@
 			children = (
 				17DF7C111FCD04A100FBD9DC /* WJMessageClassViewController.h */,
 				17DF7C121FCD04A100FBD9DC /* WJMessageClassViewController.m */,
+				34164C7320CF674E006062FD /* WJConversationViewController.h */,
+				34164C7420CF674E006062FD /* WJConversationViewController.m */,
+				34164C7A20CF8BF2006062FD /* RCDCustomerServiceViewController.h */,
+				34164C7920CF8BF1006062FD /* RCDCustomerServiceViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1931,15 +1938,6 @@
 			path = SDProgressView;
 			sourceTree = "<group>";
 		};
-		34216D43209051E3006B68E8 /* rongyunService */ = {
-			isa = PBXGroup;
-			children = (
-				34216D6120905B6E006B68E8 /* RCDCustomerServiceViewController.h */,
-				34216D6220905B6F006B68E8 /* RCDCustomerServiceViewController.m */,
-			);
-			path = rongyunService;
-			sourceTree = "<group>";
-		};
 		3421BCEA1FF2476200263FE9 /* Coupons(优惠券) */ = {
 			isa = PBXGroup;
 			children = (
@@ -2363,7 +2361,6 @@
 				341D717920CB6BFC002D4CCD /* SDProgressView */,
 				34E9C83020CA7DB3003A592E /* MImgpicker */,
 				34E9C81B20CA7C5F003A592E /* JJPhotoManeger.h */,
-				34216D43209051E3006B68E8 /* rongyunService */,
 				34FAB6FD2064F448000C9E3C /* PPDragDropBadgeView */,
 				3411F90520411277007BCEF9 /* XWTransition */,
 				1704998F203035C8007DBD89 /* zhPopupController */,
@@ -3203,7 +3200,6 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-MHUAPP/Pods-MHUAPP-resources.sh",
-				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/RongCloudIM/RongCloudIM/RongCloud.bundle",
 				"${PODS_ROOT}/RongCloudIM/RongCloudIM/en.lproj",
@@ -3354,6 +3350,7 @@
 				3411F96F20411278007BCEF9 /* XWMagicMoveAnimator.m in Sources */,
 				3468659520C5097200D81DEB /* WJBackOrderReasonView.m in Sources */,
 				17DF7BE91FCCFF7100FBD9DC /* UIButton+LZCategory.m in Sources */,
+				34164C7B20CF8BF2006062FD /* RCDCustomerServiceViewController.m in Sources */,
 				34F1D3881FD629480080EE3D /* WJDetailPartCommentCell.m in Sources */,
 				343F78232071CBD7000BEE81 /* WJZhuanTiHDGridFootView.m in Sources */,
 				344A14FE2044027500C14CFE /* HXSearchBar.m in Sources */,
@@ -3448,7 +3445,6 @@
 				17DF7BF11FCCFFAE00FBD9DC /* UINavigationBar+MSExtension.m in Sources */,
 				34F30E8C20B64AF700939BE9 /* HYSlider.m in Sources */,
 				341B51B9206CB6FC0074492C /* WJZhuanTiHDBenZhouZuiLXCell.m in Sources */,
-				34216D6320905B6F006B68E8 /* RCDCustomerServiceViewController.m in Sources */,
 				3435D7B32004A63A00F2FE46 /* WJFeatureList.m in Sources */,
 				3411F96820411278007BCEF9 /* XWFilterAnimator+XWMask.m in Sources */,
 				342670562085F1E600EB848F /* WJMainMiaoShaItem.m in Sources */,
@@ -3492,6 +3488,7 @@
 				3411F96020411278007BCEF9 /* XWCoolAnimator+XWPortal.m in Sources */,
 				344EDDA62069F91A00E283DA /* WJSSPTTypeViewController.m in Sources */,
 				34804A1A206F710300A94CA9 /* WJYZXPListViewCell.m in Sources */,
+				34164C7520CF674E006062FD /* WJConversationViewController.m in Sources */,
 				34133C311FDA39E100C95CA4 /* BaseNetworkViewController.m in Sources */,
 				341D718320CB6C28002D4CCD /* SDDemoItemView.m in Sources */,
 				3460D30A2008B7B8000F03EB /* WJEmailChangeViewController.m in Sources */,
@@ -3656,6 +3653,7 @@
 			baseConfigurationReference = 4C9C31D9935B496C97C46B4E /* Pods-MHUAPP.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FV78E8XR87;
@@ -3689,8 +3687,9 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/MHUAPP",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = www.jinri.MHU.miyomei;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jinri.MHU.MHUAPP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -3701,6 +3700,7 @@
 			baseConfigurationReference = D31EA1D111F60E55B5B4B4B8 /* Pods-MHUAPP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FV78E8XR87;
@@ -3733,8 +3733,9 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/MHUAPP",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = www.jinri.MHU.miyomei;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jinri.MHU.MHUAPP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -191,6 +191,13 @@
     [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSLoginURL] andInfos:infos];
 }
 
+-(void)getAccountToken:(NSString *)user_id
+{
+    self.regType = 2;
+    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+    [infos setObject:user_id forKey:@"user_id"];
+    [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSGetAccessToken] andInfos:infos];
+}
 -(void)processData
 {
     [SVProgressHUD dismiss];
@@ -217,7 +224,7 @@
                     [dic setValue:logo_img forKey:@"user_icon"];
                 }else
                 {
-                    [dic setValue:@"null" forKey:@"user_icon"];
+                    [dic setValue:@"" forKey:@"user_icon"];
                 }
 
                 [dic setValue:ConvertNullString([[self.results objectForKey:@"data"] objectForKey:@"email" ]) forKey:@"email"];
@@ -226,10 +233,11 @@
                 [userDefaults setObject:@"1" forKey:@"loginState"];
                 [userDefaults setObject:@"phone" forKey:@"loginType"];
                 [userDefaults synchronize];
-                [self.navigationController popViewControllerAnimated:YES];
-                [self dismissViewControllerAnimated:YES completion:^{
-
-                }];
+                [self getAccountToken:[[self.results objectForKey:@"data"] objectForKey:@"user_id"]];
+//                [self.navigationController popViewControllerAnimated:YES];
+//                [self dismissViewControllerAnimated:YES completion:^{
+//
+//                }];
             }
                 break;
             case 1:
@@ -266,10 +274,11 @@
                     [userDefaults setObject:@"1" forKey:@"loginState"];
                     [userDefaults setObject:@"qq" forKey:@"loginType"];
                     [userDefaults synchronize];
-                    [self.navigationController popViewControllerAnimated:YES];
-                    [self dismissViewControllerAnimated:YES completion:^{
-
-                    }];
+                    [self getAccountToken:[[self.results objectForKey:@"data"] objectForKey:@"user_id"]];
+//                    [self.navigationController popViewControllerAnimated:YES];
+//                    [self dismissViewControllerAnimated:YES completion:^{
+//
+//                    }];
                 }
                 else
                 {
@@ -278,11 +287,33 @@
 
             }
                 break;
+                case 2:
+            {
+                  NSString *data = [self.results objectForKey:@"data"];
+                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                [userDefaults setObject:data forKey:@"accessToken"];
+                [userDefaults synchronize];
+                NSString *str_username = [[userDefaults objectForKey:@"userList"] objectForKey:@"username"];
+                NSString *str_logo_img = [[userDefaults objectForKey:@"userList"] objectForKey:@"user_icon"];
+                NSString *user_id =[NSString stringWithFormat:@"guke%@", [AppDelegate shareAppDelegate].user_id];
+                //融云
+                [[RCIM sharedRCIM] initWithAppKey:RONGClOUDAPPKEY];
+                [RCIM sharedRCIM].userInfoDataSource = [RCDataManager shareManager];
+                [RCIM sharedRCIM].enablePersistentUserInfoCache = YES;
+                [RCIM sharedRCIM].enableMessageAttachUserInfo = YES;
+//                [[RCIM sharedRCIM]refreshUserInfoCache:[[RCUserInfo alloc]initWithUserId:user_id name:str_username portrait:str_logo_img] withUserId:user_id];
+                [[RCDataManager shareManager] loginRongCloudWithUserInfo:[[RCUserInfo alloc]initWithUserId:user_id name:str_username portrait:str_logo_img] withToken:data];
+                [self.navigationController popViewControllerAnimated:YES];
+                [self dismissViewControllerAnimated:YES completion:^{
+
+                }];
+            }
+                break;
             default:
                 break;
         }
-        NSString *logo_img =ConvertNullString([[self.results objectForKey:@"data"] objectForKey:@"headimg" ]);
-        [[RCDataManager shareManager] loginRongCloudWithUserInfo:[[RCUserInfo alloc]initWithUserId:[[self.results objectForKey:@"data"] objectForKey:@"user_id"] name:[[self.results objectForKey:@"data"] objectForKey:@"user_name"] portrait:logo_img] withToken:@"OGYiWAUy26RQBcJUU3AUfCHL1WmuRf3UpRNY4aRna/d/1gsjB6McwDKaplPVWF2yGqTncFAoDNA5O2hzB2XuQA=="];
+
+
 
     }
     else

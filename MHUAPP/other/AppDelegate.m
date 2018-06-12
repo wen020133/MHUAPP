@@ -50,8 +50,6 @@ NSString * const UpLoadNoti = @"uploadInfo";
 
     
     [[RCDataManager shareManager] getUserInfoWithMiYouMei];
-//    iMRZ4b+d0LD/DeL9ae7v9dzYrJ6cohx7SF4nk3KbFSgHOCG2OoxWLl3Yg93x3cguVdTS6q6hPGNDVA8SwD8R4g==
-    
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation

@@ -13,8 +13,10 @@
 #import "AppDelegate.h"
 #import "UIImageView+WebCache.h"
 #import "WJLoginClassViewController.h"
-#import "RCDCustomerServiceViewController.h"
+#import "WJConversationViewController.h"
 #import <MJRefresh.h>
+#import "RCDCustomerServiceViewController.h"
+#import <UserNotifications/UserNotifications.h>
 
 @interface WJMessageClassViewController ()<RCIMReceiveMessageDelegate,RCIMConnectionStatusDelegate
 ,UIAlertViewDelegate,UITableViewDataSource,UITableViewDelegate>
@@ -50,22 +52,24 @@
 -(void)headerRereshingCircle
 {
     [self setConversationAvatarStyle:RC_USER_AVATAR_CYCLE];
-    [self setDisplayConversationTypes:@[@(ConversationType_PRIVATE),@(ConversationType_CUSTOMERSERVICE),@(ConversationType_SYSTEM)]];
+    [self setDisplayConversationTypes:@[@(ConversationType_PRIVATE),@(ConversationType_SYSTEM)]];
     [RCIM sharedRCIM].receiveMessageDelegate = self;
     [RCIM sharedRCIM].connectionStatusDelegate = self;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didReceiveMessageNotification:)name:RCKitDispatchMessageNotification object:nil];
+    [self.conversationListTableView.mj_header endRefreshing];
 }
 - (instancetype)init
 {
     self = [super init];
     if (self) {
         [self setConversationAvatarStyle:RC_USER_AVATAR_CYCLE];
-        [self setDisplayConversationTypes:@[@(ConversationType_PRIVATE),@(ConversationType_CUSTOMERSERVICE),@(ConversationType_SYSTEM)]];
+        [self setDisplayConversationTypes:@[@(ConversationType_PRIVATE),@(ConversationType_SYSTEM)]];
         [RCIM sharedRCIM].receiveMessageDelegate = self;
         [RCIM sharedRCIM].connectionStatusDelegate = self;
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(didReceiveMessageNotification:)name:RCKitDispatchMessageNotification object:nil];
+        [self.conversationListTableView.mj_header endRefreshing];
 
     }
     return self;
@@ -75,7 +79,7 @@
     self =[super initWithCoder:aDecoder];
     if (self) {
         //设置要显示的会话类型
-        [self setDisplayConversationTypes:@[@(ConversationType_PRIVATE),@(ConversationType_CUSTOMERSERVICE),@(ConversationType_SYSTEM)]];
+        [self setDisplayConversationTypes:@[@(ConversationType_PRIVATE),@(ConversationType_SYSTEM)]];
         [self setConversationAvatarStyle:RC_USER_AVATAR_CYCLE];
     }
     return self;
@@ -93,6 +97,9 @@
     }
     else
     {
+
+        [[RCDataManager shareManager] syncFriendList:^(NSMutableArray *friends, BOOL isSuccess) {
+        }];
         [[RCDataManager shareManager] refreshBadgeValue];
         [self.conversationListTableView reloadData];
     }
@@ -154,7 +161,7 @@
             NSDictionary *dic = [NSDictionary dictionary];
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
             [userDefaults setObject:dic forKey:@"userList"];
-
+            [AppDelegate shareAppDelegate].user_id = @"";
             [userDefaults setObject:@"0" forKey:@"loginState"];
             [userDefaults synchronize];
             [self.navigationController popViewControllerAnimated:YES];
@@ -265,50 +272,8 @@
                     cell.contentLabel.text = [model.lastestMessage valueForKey:@"content"];
 
                 }else if ([model.lastestMessage isKindOfClass:[RCImageMessage class]]){
-
-                    if ([model.senderUserId isEqualToString:[RCIMClient sharedRCIMClient].currentUserInfo.userId]) {
-                        //我自己发的
-                        RCUserInfo *myselfInfo = [RCIMClient sharedRCIMClient].currentUserInfo;
-
-                        if ([[NSString stringWithFormat:@"%@",myselfInfo.name] isEqualToString:@""]) {
-                            cell.contentLabel.text =[NSString stringWithFormat:@"来自\"%@\"的图片消息，点击查看",myselfInfo.name];
-                        }else{
-                            cell.contentLabel.text =[NSString stringWithFormat:@"来自\"%@\"的图片消息，点击查看",myselfInfo.name];
-
-                        }
-                    }else{
-
-                        cell.contentLabel.text =[NSString stringWithFormat:@"来自\"%@\"的图片消息，点击查看",userInfo.name] ;
-                    }
-
-                }else if ([model.lastestMessage isKindOfClass:[RCVoiceMessage class]]){
-                    if ([model.senderUserId isEqualToString:[RCIMClient sharedRCIMClient].currentUserInfo.userId]) {
-                        //我自己发的
-                        RCUserInfo *myselfInfo = [RCIMClient sharedRCIMClient].currentUserInfo;
-                        if ([[NSString stringWithFormat:@"%@",myselfInfo.name] isEqualToString:@""]) {
-                            cell.contentLabel.text = [NSString stringWithFormat:@"来自\"%@\"的语音消息，点击查看",myselfInfo.name];
-
-                        }else{
-                            cell.contentLabel.text = [NSString stringWithFormat:@"来自\"%@\"的语音消息，点击查看",myselfInfo.name];
-                        }
-                    }else{
-                        cell.contentLabel.text = [NSString stringWithFormat:@"来自\"%@\"的语音消息，点击查看",userInfo.name];
-                    }
+                    cell.contentLabel.text = @"[图片]";
                 }
-                else if ([model.lastestMessage isKindOfClass:[RCLocationMessage class]]){
-                    if ([model.senderUserId isEqualToString:[RCIMClient sharedRCIMClient].currentUserInfo.userId]) {
-                        //我自己发的
-                        RCUserInfo *myselfInfo = [RCIMClient sharedRCIMClient].currentUserInfo;
-                        if ([[NSString stringWithFormat:@"%@",myselfInfo.name] isEqualToString:@""]) {
-                            cell.contentLabel.text = [NSString stringWithFormat:@"来自\"%@\"的位置消息，点击查看",myselfInfo.name];
-                        }else{
-                            cell.contentLabel.text = [NSString stringWithFormat:@"来自\"%@\"的位置消息，点击查看",myselfInfo.name];
-                        }
-                    }else{
-                        cell.contentLabel.text = [NSString stringWithFormat:@"来自\"%@\"的位置消息，点击查看",userInfo.name];
-                    }
-                }
-
             }
         }
 
@@ -348,25 +313,25 @@
     //点击cell，拿到cell对应的model，然后从model中拿到对应的RCUserInfo，然后赋值会话属性，进入会话
     NSLog(@"model====%ld",model.conversationType);
     if (model.conversationType==ConversationType_PRIVATE) {//单聊
-        RCConversationViewController *conversationVC = [[RCConversationViewController alloc]init];
+        WJConversationViewController *conversationVC = [[WJConversationViewController alloc]init];
         conversationVC.conversationType = model.conversationType;
         conversationVC.targetId = model.targetId;
 
         RCUserInfo *aUserInfo = [[RCDataManager shareManager] currentUserInfoWithUserId:model.targetId];
-        conversationVC.title = aUserInfo.name;
+        conversationVC.strTitle = aUserInfo.name;
         self.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:conversationVC animated:YES];
         self.hidesBottomBarWhenPushed = NO;
 
-    }else if (model.conversationType==ConversationType_CUSTOMERSERVICE){//客服
-        RCDCustomerServiceViewController *chatService = [[RCDCustomerServiceViewController alloc] init];
-        chatService.conversationType = ConversationType_CUSTOMERSERVICE;
-        chatService.targetId = @"KEFU152176453929981";
-        chatService.title = @"客服";
-        self.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:chatService animated:YES];
-        self.hidesBottomBarWhenPushed = NO;
     }
+//    else if (model.conversationType==ConversationType_CUSTOMERSERVICE){//客服
+//        RCDCustomerServiceViewController *chatService = [[RCDCustomerServiceViewController alloc] init];
+//        chatService.conversationType = ConversationType_CUSTOMERSERVICE;
+//        chatService.targetId = @"KEFU152176453929981";
+//        self.hidesBottomBarWhenPushed = YES;
+//        [self.navigationController pushViewController:chatService animated:YES];
+//        self.hidesBottomBarWhenPushed = NO;
+//    }
 
 
 }
@@ -431,13 +396,77 @@
     }
     [[RCDataManager shareManager] getUserInfoWithUserId:message.senderUserId completion:^(RCUserInfo *userInfo) {
         NSLog(@"didReceiveMessageNotification 名字 ＝ %@  ID ＝ %@",userInfo.name,userInfo.userId);
+        NSString *kefuUserId = userInfo.userId;
+
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+
+        NSArray *friendsList = [userDefaults objectForKey:@"RYFriendsList"];
+        NSMutableArray *allTimeArr = [NSMutableArray arrayWithArray:friendsList];
+        int kk=0;
+        for (NSDictionary *goodsDic in friendsList) {
+            NSString *user_id = goodsDic[@"userId"];
+            if([kefuUserId isEqualToString:user_id]){
+                kk++;
+            }
+        }
+        if (kk==0) {
+            NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+            [dic setValue:userInfo.userId forKey:@"userId"];
+            [dic setValue:userInfo.name forKey:@"name"];
+            [dic setValue:userInfo.portraitUri forKey:@"portrait"];
+            [allTimeArr addObject:dic];
+            [userDefaults setObject:allTimeArr forKey:@"RYFriendsList"];
+            [userDefaults synchronize];
+        }
     }];
+
     [self refreshConversationTableViewIfNeeded];
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return  self.conversationListDataSource.count;
 }
+#pragma mark - 本地推送
+-(void)notif:(RCMessage *)message body:(NSString *)body{
+    if ([UIApplication sharedApplication].applicationState==UIApplicationStateBackground) {
+        if (KSystemVersion>=10.0) {
+            NSLog(@"IOS10本地推送");
 
+
+            // 使用 UNUserNotificationCenter 来管理通知
+            UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
+
+            //需创建一个包含待通知内容的 UNMutableNotificationContent 对象，注意不是 UNNotificationContent ,此对象为不可变对象。
+            UNMutableNotificationContent* content = [[UNMutableNotificationContent alloc] init];
+            content.title = [NSString localizedUserNotificationStringForKey:@"新消息" arguments:nil];
+            content.body = [NSString localizedUserNotificationStringForKey:body
+                                                                 arguments:nil];
+            content.sound = [UNNotificationSound defaultSound];
+
+            // 在 alertTime 后推送本地推送
+            UNTimeIntervalNotificationTrigger* trigger = [UNTimeIntervalNotificationTrigger
+                                                          triggerWithTimeInterval:0.1 repeats:NO];
+
+            UNNotificationRequest* request = [UNNotificationRequest requestWithIdentifier:[NSString stringWithFormat:@"%ld",message.messageId]
+                                                                                  content:content trigger:trigger];
+
+            //添加推送成功后的处理！
+            [center addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+
+            }];
+
+        }else{
+            [[UIApplication sharedApplication] cancelAllLocalNotifications];
+
+            UILocalNotification *alarm = [[UILocalNotification alloc] init];
+            alarm.alertBody = body;
+            alarm.soundName = @"alarm.wav";
+            alarm.alertAction = @"确定";
+            [[UIApplication sharedApplication] presentLocalNotificationNow:alarm];
+        }
+    }
+
+
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

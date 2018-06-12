@@ -41,6 +41,13 @@ typedef NS_ENUM(NSInteger, KGetSSPTDetailClassType) {
 
 @property (assign, nonatomic) KGetSSPTDetailClassType serverType;
 
+/* 店铺ID */
+@property (strong , nonatomic) NSString *supplier_id;
+/* 店铺头像 */
+@property (strong , nonatomic) NSString *supplier_logo;
+/* 店铺名 */
+@property (strong , nonatomic) NSString *supplier_name;
+
 
 @property (assign , nonatomic)NSString *group_numb_one;
 @property (assign , nonatomic)NSString *group_numb_two;

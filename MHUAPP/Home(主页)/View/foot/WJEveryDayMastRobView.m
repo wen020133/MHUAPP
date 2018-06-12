@@ -73,9 +73,9 @@
     if (imageArr!=_imageArr) {
         _imageArr = imageArr;
     }
-    [_img_left setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:self.imageArr[0].ad_code] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"]];
-    [_img_right1 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:self.imageArr[1].ad_code] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"]];
-    [_img_right2 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:self.imageArr[2].ad_code] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"]];
+    [_img_left setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:@"https://www.miyomei.com/mobile/data/afficheimg/1442452784680942491.jpg"] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"]];
+    [_img_right1 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:@"https://www.miyomei.com/mobile/data/afficheimg/1528043747133353224.png"] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"]];
+    [_img_right2 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:@"https://www.miyomei.com/mobile/data/afficheimg/1442452805449188441.jpg"] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"]];
 }
 
 -(void)didselectAction:(UIButton *)sender

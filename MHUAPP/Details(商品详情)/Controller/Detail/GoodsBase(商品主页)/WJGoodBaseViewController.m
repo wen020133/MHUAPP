@@ -79,7 +79,7 @@ static NSArray *lastSeleArray_;
     }
     else
     {
-        [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"data"]];
+//        [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"data"]];
         return;
     }
 }
@@ -114,7 +114,7 @@ static NSArray *lastSeleArray_;
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
-        _collectionView.frame = CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight  - 50);
+        _collectionView.frame = CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight  - 50-kMSNaviHight);
         _collectionView.showsVerticalScrollIndicator = NO;
         [self.scrollerView addSubview:_collectionView];
 
@@ -226,14 +226,14 @@ static NSArray *lastSeleArray_;
 }
 #pragma mark - <UICollectionViewDataSource>
 - (NSInteger) numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    int kk = 1;
+    int kk = 2;
     if (_commentArray&&_commentArray.count>0) {
         kk++;
     }
-    else if (_attributeArray&&_attributeArray.count>0)
-    {
-        kk++;
-    }
+//    else if (_attributeArray&&_attributeArray.count>0)
+//    {
+//        kk++;
+//    }
     return kk;
 }
 
@@ -244,18 +244,18 @@ static NSArray *lastSeleArray_;
             break;
         case 1:
         {
-          if(_attributeArray&&_attributeArray.count>0)
-          {
+//          if(_attributeArray&&_attributeArray.count>0)
+//          {
              return 1;
-          }
-            else
-            {
-                if (_commentArray.count>1) {
-                    return 2;
-                }
-                else
-                    return 1;
-            }
+//          }
+//            else
+//            {
+//                if (_commentArray.count>1) {
+//                    return 2;
+//                }
+//                else
+//                    return 1;
+//            }
         }
             break;
             case 2:
@@ -300,20 +300,32 @@ static NSArray *lastSeleArray_;
             NSString *result = [NSString stringWithFormat:@"%@ %@件",[lastSeleArray_ componentsJoinedByString:@"，"],lastNum_];
 
             cell.leftTitleLable.text =  @"商品属性";
+
             cell.contentLabel.text = (lastSeleArray_.count == 0) ? @"请选择该商品属性" : result;
 
            return cell;
 
         }
-       else if (_commentArray.count>0){
-           WJDetailPartCommentCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJDetailPartCommentCell" forIndexPath:indexPath];
-           cell.model = _commentArray[indexPath.row];
-           return cell;
-       }
-       else {
+       else
+       {
+           WJShowTypeGoodsPropertyCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJShowTypeGoodsPropertyCell" forIndexPath:indexPath];
 
-           return gridcell;
+           NSString *result = [NSString stringWithFormat:@"%@件",lastNum_];
+
+           cell.leftTitleLable.text =  @"商品数量";
+           cell.contentLabel.text = (lastNum_.length <1) ? @"请选择该商品数量" : result;
+           return cell;
+
        }
+//       else if (_commentArray.count>0){
+//           WJDetailPartCommentCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJDetailPartCommentCell" forIndexPath:indexPath];
+//           cell.model = _commentArray[indexPath.row];
+//           return cell;
+//       }
+//       else {
+//
+//           return gridcell;
+//       }
    }
     else if (indexPath.section == 2){
         WJDetailPartCommentCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJDetailPartCommentCell" forIndexPath:indexPath];
@@ -333,21 +345,26 @@ static NSArray *lastSeleArray_;
             reusableview = headerView;
         }
        else if (indexPath.section == 1) {
-         if(_attributeArray.count<1&&_commentArray.count>0){
-                 WJDetailPartCommentHeadView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJDetailPartCommentHeadView" forIndexPath:indexPath];
-             headerView.moreClickBlock = ^{
-                 dispatch_sync(dispatch_get_global_queue(0, 0), ^{
-                     [[NSNotificationCenter defaultCenter]postNotificationName:@"scrollToCommentsPage" object:nil];
-                 });
-             };
-                 reusableview = headerView;
-            }
+//         if(_attributeArray.count<1&&_commentArray.count>0){
+//                 WJDetailPartCommentHeadView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJDetailPartCommentHeadView" forIndexPath:indexPath];
+//             headerView.moreClickBlock = ^{
+//                 dispatch_sync(dispatch_get_global_queue(0, 0), ^{
+//                     [[NSNotificationCenter defaultCenter]postNotificationName:@"scrollToCommentsPage" object:nil];
+//                 });
+//             };
+//                 reusableview = headerView;
+//            }
 
         }
         else if (indexPath.section == 2){
-                WJDetailPartCommentHeadView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJDetailPartCommentHeadView" forIndexPath:indexPath];
-                reusableview = headerView;
-            }
+            WJDetailPartCommentHeadView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJDetailPartCommentHeadView" forIndexPath:indexPath];
+            headerView.moreClickBlock = ^{
+                dispatch_sync(dispatch_get_global_queue(0, 0), ^{
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"scrollToCommentsPage" object:nil];
+                });
+            };
+            reusableview = headerView;
+        }
 
     }else if (kind == UICollectionElementKindSectionFooter){
         if (indexPath.section == 2) {
@@ -370,10 +387,10 @@ static NSArray *lastSeleArray_;
 
    else  if(indexPath.section == 1)
    {
-        if (_attributeArray>0)
+//        if (_attributeArray>0)
         return CGSizeMake(kMSScreenWith, 60);
-      else
-          return CGSizeMake(kMSScreenWith, 80);
+//      else
+//          return CGSizeMake(kMSScreenWith, 80);
     }
     else if(indexPath.section == 2)
     {
@@ -389,10 +406,10 @@ static NSArray *lastSeleArray_;
     if (section ==0) {
         return  CGSizeMake(kMSScreenWith, kMSScreenWith * 0.55);
     }
-   else  if (section ==1){
-       if(_attributeArray.count<1&&_commentArray.count>0)
-            return  CGSizeMake(kMSScreenWith, 40);
-     }
+//   else  if (section ==1){
+//       if(_attributeArray.count<1&&_commentArray.count>0)
+//            return  CGSizeMake(kMSScreenWith, 40);
+//     }
     else if (section ==2)
     {
        return  CGSizeMake(kMSScreenWith, 40);
@@ -402,13 +419,13 @@ static NSArray *lastSeleArray_;
 
 #pragma mark - foot宽高
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
-    if (_attributeArray.count>0) {
+//    if (_attributeArray.count>0) {
         return (section == 2) ? CGSizeMake(kMSScreenWith, 35) : CGSizeMake(kMSScreenWith, DCMargin);
-    }
-    else
-    {
-       return (section == 1) ? CGSizeMake(kMSScreenWith, 35) : CGSizeMake(kMSScreenWith, DCMargin);
-    }
+//    }
+//    else
+//    {
+//       return (section == 1) ? CGSizeMake(kMSScreenWith, 35) : CGSizeMake(kMSScreenWith, DCMargin);
+//    }
 
 }
 
@@ -419,7 +436,8 @@ static NSArray *lastSeleArray_;
 //    else if (indexPath.section == 2 && indexPath.row == 0) {
 //        [self chageUserAdress]; //跟换地址
 //    }
-    else if (_attributeArray.count>0&&indexPath.section == 1){ //属性选择
+//    else if (_attributeArray.count>0&&indexPath.section == 1){ //属性选择
+    else if (indexPath.section == 1){ //属性选择
         WJFeatureSelectionViewController *dcFeaVc = [WJFeatureSelectionViewController new];
         dcFeaVc.lastNum = lastNum_;
         dcFeaVc.lastSeleArray = [NSMutableArray arrayWithArray:lastSeleArray_];
@@ -500,7 +518,6 @@ static NSArray *lastSeleArray_;
     else
     {
         result = @"";
-        lastNum_ = @"1";
     }
     if (tagSender==100) {
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];

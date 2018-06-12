@@ -38,14 +38,17 @@
 -(void)syncFriendList:(void (^)(NSMutableArray* friends,BOOL isSuccess))completion
 {
     dataSoure = [[NSMutableArray alloc]init];
-
-    for (int i = 1; i<2; i++) {
-        RCUserInfo *aUserInfo =[[RCUserInfo alloc]initWithUserId:@"233" name:@"虫虫" portrait:@"http://q.qlogo.cn/qqapp/1104706859/189AA89FAADD207E76D066059F924AE0/100" ];
-            [dataSoure addObject:aUserInfo];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSArray *allTimeArr = [userDefaults objectForKey:@"RYFriendsList"];
+    for (NSDictionary *goodsDic in allTimeArr) {
+        RCUserInfo *aUserInfo =[[RCUserInfo alloc]initWithUserId:goodsDic[@"userId"] name:goodsDic[@"name"] portrait:goodsDic[@"portrait"]];
+        [dataSoure addObject:aUserInfo];
     }
+
 
     [AppDelegate shareAppDelegate].friendsArray = dataSoure;
     completion(dataSoure,YES);
+
 
 }
 /**
@@ -118,6 +121,7 @@
         completion(myselfInfo);
         
     }
+ 
     
     for (NSInteger i = 0; i<[AppDelegate shareAppDelegate].friendsArray.count; i++) {
         RCUserInfo *aUser = [AppDelegate shareAppDelegate].friendsArray[i];
@@ -217,13 +221,33 @@
         //融云
         [[RCIM sharedRCIM] initWithAppKey:RONGClOUDAPPKEY];
         [RCIM sharedRCIM].userInfoDataSource = [RCDataManager shareManager];
+           [RCIM sharedRCIM].enablePersistentUserInfoCache = YES;
         [RCIM sharedRCIM].enableMessageAttachUserInfo = YES;
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+           NSString *loginType = [userDefaults objectForKey:@"loginType"];
+           if ([loginType isEqualToString:@"phone"]) {
+               NSString *logo_img =ConvertNullString([[responseObject objectForKey:@"data"] objectForKey:@"headimg"]);
+               NSString *user_id =[NSString stringWithFormat:@"guke%@", [[responseObject objectForKey:@"data"] objectForKey:@"user_id" ]];
+               [AppDelegate shareAppDelegate].user_id =[NSString stringWithFormat:@"%@", [[responseObject objectForKey:@"data"] objectForKey:@"user_id"]];
+               NSString *user_name =ConvertNullString([[responseObject objectForKey:@"data"] objectForKey:@"user_name" ]);
+               NSString *accessToken =  [userDefaults objectForKey:@"accessToken"];
+               [[RCDataManager shareManager] loginRongCloudWithUserInfo:[[RCUserInfo alloc]initWithUserId:user_id name:user_name portrait:logo_img] withToken:accessToken];
+           }
+           else if ([loginType isEqualToString:@"qq"])
+           {
+               NSString *logo_img =ConvertNullString([[[responseObject objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"headimg"]);
+               NSString *user_id =[NSString stringWithFormat:@"guke%@", [[responseObject objectForKey:@"data"] objectForKey:@"user_id" ]];
+               [AppDelegate shareAppDelegate].user_id = [NSString stringWithFormat:@"%@", [[responseObject objectForKey:@"data"] objectForKey:@"user_id"]];
+               NSString *user_name =ConvertNullString([[[responseObject objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"user_name" ]);
+               NSString *accessToken =  [userDefaults objectForKey:@"accessToken"];
+//               [[RCIM sharedRCIM]refreshUserInfoCache:[[RCUserInfo alloc]initWithUserId:user_id name:user_name portrait:logo_img] withUserId:user_id];
 
-           NSString *logo_img =ConvertNullString([[responseObject objectForKey:@"data"] objectForKey:@"headimg" ]);
-           NSString *user_id =[NSString stringWithFormat:@"%@", [[responseObject objectForKey:@"data"] objectForKey:@"user_id" ]];
-           [AppDelegate shareAppDelegate].user_id = user_id;
-           NSString *user_name =ConvertNullString([[responseObject objectForKey:@"data"] objectForKey:@"user_name" ]);
-           [[RCDataManager shareManager] loginRongCloudWithUserInfo:[[RCUserInfo alloc]initWithUserId:user_id name:user_name portrait:logo_img] withToken:@"OGYiWAUy26RQBcJUU3AUfCHL1WmuRf3UpRNY4aRna/d/1gsjB6McwDKaplPVWF2yGqTncFAoDNA5O2hzB2XuQA=="];
+               [[RCDataManager shareManager] loginRongCloudWithUserInfo:[[RCUserInfo alloc]initWithUserId:user_id name:user_name portrait:logo_img] withToken:accessToken];
+
+           }
+
+
+
     }
         else
         {
@@ -243,15 +267,6 @@
                     //同步好友列表
                     [self syncFriendList:^(NSMutableArray *friends, BOOL isSuccess) {
                         NSLog(@"%@",friends);
-                        if (isSuccess) {
-                            [self syncGroupList:^(NSMutableArray *groups, BOOL isSuccess) {
-                                if (isSuccess) {
-                                    NSLog(@" success 发送通知");
-                                    [[NSNotificationCenter defaultCenter] postNotificationName:@"alreadyLogin" object:nil];
-                                }
-                            }];
-                           
-                        }
                     }];
                     
 

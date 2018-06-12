@@ -23,7 +23,7 @@
 
 - (void)setUpData
 {
-    self.hintLabel.text = @"可选增值服务";
+//    self.hintLabel.text = @"可选增值服务";
 }
 
 - (void)layoutSubviews

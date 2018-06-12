@@ -11,6 +11,7 @@
 #import "WJGoodBaseViewController.h"
 #import "WJGoodParticularsViewController.h"
 #import "WJGoodCommentViewController.h"
+#import "WJConversationViewController.h"
 
 #import "UIView+UIViewFrame.h"
 #import "WJToolsViewController.h"
@@ -18,6 +19,7 @@
 #import "UIViewController+XWTransition.h"
 
 #import "WJShopCartClassViewController.h"
+#import "WJStoreInfoClassViewController.h"
 
 #import "JXButton.h"
 #import "PST_MenuView.h"
@@ -96,7 +98,7 @@
     if([[self.results objectForKey:@"code"] integerValue] == 200)
     {
         if (_postDataType==1) {
-            NSLog(@"加入足迹成功！");
+             NSLog(@"加入足迹---%@！",self.results[@"data"]);
         }
         else if (_postDataType == 2 )
         {
@@ -127,7 +129,7 @@
 -(void)setkMSGetComment
 {
     _serverType = 2;
-    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@/%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetComment,_goods_id]];
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@/%@?start=%d&numb=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetComment,_goods_id,0,kMSPULLtableViewCellNumber]];
 }
 -(void)getProcessData
 {
@@ -137,14 +139,20 @@
         switch (_serverType) {
             case KGetshopInfoClass:
             {
-                _goodTitle = self.results[@"data"][@"goods_name"];
-                _goodPrice = self.results[@"data"][@"shop_price"];
-                _oldPrice = self.results[@"data"][@"market_price"];
-                _goodImageView = self.results[@"data"][@"goods_thumb"];
+                _goodTitle =[NSString stringWithFormat:@"%@", self.results[@"data"][@"goods_name"]];
+                _goodPrice =[NSString stringWithFormat:@"%@", self.results[@"data"][@"shop_price"]];
+                _oldPrice = [NSString stringWithFormat:@"%@",self.results[@"data"][@"market_price"]];
+                _goodImageView =[NSString stringWithFormat:@"%@", self.results[@"data"][@"goods_thumb"]];
                 _shufflingArray = self.results[@"data"][@"gallery"];
                 _attributeArray = self.results[@"data"][@"attr"];
 //                self.galleryArray = self.results[@"data"][@"gallery"];
-                _supplier_id = self.results[@"data"][@"supplier_id"];
+                _supplier_id = [NSString stringWithFormat:@"%@",self.results[@"data"][@"supplier_id"]];
+                id supplierU = [[self.results objectForKey:@"data"] objectForKey:@"supplier_name"];
+                if ([supplierU isKindOfClass:[NSDictionary class]]) {
+                    _supplier_name = [supplierU objectForKey:@"supplier_name"];
+                     _supplier_logo = [supplierU objectForKey:@"logo"];
+                }
+
                 [self setkMSGetComment];
             }
                 break;
@@ -477,9 +485,44 @@
     if (button.tag == 0) {
         NSLog(@"店铺");
         button.selected = !button.selected;
+        WJStoreInfoClassViewController *storeInfo = [[WJStoreInfoClassViewController alloc]init];
+        storeInfo.storeId = _supplier_id;
+        storeInfo.storeLogo = _supplier_logo;
+        storeInfo.storeName = _supplier_name;
+        storeInfo.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:storeInfo animated:YES];
+        self.hidesBottomBarWhenPushed = YES;
     }else if(button.tag == 1){
         NSLog(@"客服");
+        WJConversationViewController *conversationVC = [[WJConversationViewController alloc]init];
+        conversationVC.conversationType = ConversationType_PRIVATE;
+       NSString *kefuUserId = [NSString stringWithFormat:@"kefu%@",_supplier_id];
+        conversationVC.targetId =  kefuUserId;
 
+        conversationVC.strTitle =_supplier_name;
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+
+        NSArray *friendsList = [userDefaults objectForKey:@"RYFriendsList"];
+         NSMutableArray *allTimeArr = [NSMutableArray arrayWithArray:friendsList];
+        int kk=0;
+        for (NSDictionary *goodsDic in friendsList) {
+            NSString *userId = goodsDic[@"userId"];
+            if([kefuUserId isEqualToString:userId]){
+                kk++;
+            }
+        }
+        if (kk==0) {
+            NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+            [dic setValue:[NSString stringWithFormat:@"kefu%@",_supplier_id] forKey:@"userId"];
+            [dic setValue:_supplier_name forKey:@"name"];
+            [dic setValue:_supplier_logo forKey:@"portrait"];
+            [allTimeArr addObject:dic];
+            [userDefaults setObject:allTimeArr forKey:@"RYFriendsList"];
+            [userDefaults synchronize];
+        }
+
+        self.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:conversationVC animated:YES];
     }
     else if(button.tag == 2){
         NSLog(@"关注");

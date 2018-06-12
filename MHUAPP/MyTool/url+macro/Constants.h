@@ -24,7 +24,7 @@
 
 
 #define D_LocalizedCardString(s) [[NSBundle mainBundle] localizedStringForKey:s value:nil table:@"CardToolLanguage"]
-#define D_Main_Appdelegate (AppDelegate *)[UIApplication sharedApplication].delegate
+
 
 #define kMSVCBackgroundColor    @"F8F8F8"   //APP背景颜色
 #define kGrayBgColor            @"999999"  // 灰色字体
@@ -98,5 +98,6 @@ alpha:1.0]
 //定义UIImageView对象
 #define ViewInit(x,y,width,height) [[UIView alloc]initWithFrame:CGRectMake(x, y, width, height)]
 
+#define KSystemVersion [[[UIDevice currentDevice] systemVersion] floatValue]
 
 #endif

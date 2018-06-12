@@ -119,7 +119,6 @@
     }
     else
     {
-        self.menuScrollView.hidden = YES;
         self.tab_infoView.hidden = YES;
     }
 }
@@ -133,7 +132,6 @@
     }
     else
     {
-        self.menuScrollView.hidden = YES;
         self.tab_infoView.hidden = YES;
     }
 

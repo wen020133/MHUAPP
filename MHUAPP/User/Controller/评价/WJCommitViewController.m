@@ -66,7 +66,7 @@
     self.showInView = _mianScrollView;
     [self initViews];
 
-    _hide_username = @"1";
+    _hide_username = @"0";
     // Do any additional setup after loading the view.
 }
 - (void)viewTapped{
@@ -245,16 +245,18 @@
 }
 -(void)selectNimingBtnClick:(UIButton *)sender
 {
+    [self.noteTextView resignFirstResponder];
     sender.selected = !sender.selected;
     if (sender.selected) {
-        _hide_username = @"0";
+        _hide_username = @"1";
     }
     else
-        _hide_username = @"1";
+        _hide_username = @"0";
 }
 
 - (void)didSelectedButtonWithTag:(NSInteger)currTag
 {
+    [self.noteTextView resignFirstResponder];
     switch (currTag) {
         case 0:
             _comment_rank = @"1";
@@ -348,6 +350,7 @@
  *  发布按钮点击事件
  */
 - (void)submitBtnClicked{
+    [self.noteTextView resignFirstResponder];
     //检查输入
     if (![self checkInput]) {
         return;
@@ -395,18 +398,16 @@
 
     // 可以选择上传大图数据或者小图数据->
 
-    //大图数据
-    NSArray *bigImageDataArray = [self getBigImageArray];
-
-    //小图数组
-    NSArray *smallImageArray = self.imageArray;
+//
+//    //小图数组
+//    NSArray *smallImageArray = self.imageArray;
 
     //小图二进制数据
     NSMutableArray *smallImageDataArray = [NSMutableArray array];
 
-    for (UIImage *smallImg in smallImageArray) {
-        NSData *smallImgData = UIImagePNGRepresentation(smallImg);
-        [smallImageDataArray addObject:smallImgData];
+    for (UIImage *smallImg in self.bigImageArray) {
+         NSData *data = [self resetSizeOfImageData:smallImg maxSize:256]; ;
+        [smallImageDataArray addObject:data];
     }
     NSLog(@"上传服务器... +++ 文本内容:%@",_noteTextView.text);
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -415,7 +416,6 @@
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
     [infos setValue:_goods_id forKey:@"goods_id"];
     [infos setValue:[AppDelegate shareAppDelegate].user_id forKey:@"user_id"];
-    [infos setValue:smallImageDataArray forKey:@"array_file"];
     [infos setValue:_rec_id forKey:@"rec_id"];
     [infos setValue:str_username forKey:@"user_name"];
     [infos setValue:_comment_rank forKey:@"comment_rank"];
@@ -424,9 +424,30 @@
     [infos setValue:_str_miaosuNum forKey:@"debe_comm"];
     [infos setValue:_str_wuliuNum forKey:@"lot_serve"];
     [infos setValue:_str_fuwuNum forKey:@"serve_att"];
-    [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSAddComment] andInfos:infos];
+    [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSAddComment] andInfos:infos andImageDataArr:smallImageDataArray andImageName:@"array_file"];
 }
 
+-(void)processData
+{
+    if([[self.results objectForKey:@"code"] integerValue] == 200)
+    {
+        [self jxt_showAlertWithTitle:@"消息提示" message:@"发表评论成功！" appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
+            alertMaker.
+            addActionCancelTitle(@"确定");
+        } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, JXTAlertController * _Nonnull alertSelf) {
+            if (buttonIndex == 0) {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+
+        }];
+
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:[self
+                                            .results objectForKey:@"msg"]];
+    }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -435,6 +456,7 @@
 }
 - (void)showleft {
     NSLog(@"取消");
+    [self.noteTextView resignFirstResponder];
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *actionCacel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *actionGiveUpCommit = [UIAlertAction actionWithTitle:@"放弃上传" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
@@ -454,6 +476,10 @@
     if (scrollView.contentOffset.y < 0) {
         [self.view endEditing:YES];
     }
+}
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self.noteTextView resignFirstResponder];
 }
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {

@@ -17,6 +17,9 @@
 #import "UIViewController+XWTransition.h"
 #import "WJShopCartClassViewController.h"
 #import "JXButton.h"
+#import "WJConversationViewController.h"
+#import "WJStoreInfoClassViewController.h"
+
 
 @interface WJSSPTDetailClassViewController ()
 
@@ -59,7 +62,7 @@
 -(void)setkMSGetComment
 {
     _serverType = 2;
-    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@/%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetComment,_goods_id]];
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@/%@?start=%d&numb=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetComment,_goods_id,0,kMSPULLtableViewCellNumber]];
 }
 -(void)getProcessData
 {
@@ -75,6 +78,12 @@
                 _goodImageView = self.results[@"data"][@"goods_thumb"];
                 _shufflingArray = self.results[@"data"][@"gallery"];
                 _attributeArray = self.results[@"data"][@"attr"];
+                _supplier_id = self.results[@"data"][@"supplier_id"];
+                id supplierU = [[self.results objectForKey:@"data"] objectForKey:@"supplier_name"];
+                if ([supplierU isKindOfClass:[NSDictionary class]]) {
+                    _supplier_name = [supplierU objectForKey:@"supplier_name"];
+                    _supplier_logo = [supplierU objectForKey:@"logo"];
+                }
                 [self setkMSGetComment];
 
             }
@@ -409,13 +418,44 @@
     if (button.tag == 0) {
         NSLog(@"店铺");
         button.selected = !button.selected;
+        WJStoreInfoClassViewController *storeInfo = [[WJStoreInfoClassViewController alloc]init];
+        storeInfo.storeId = _supplier_id;
+        storeInfo.storeLogo = _supplier_logo;
+        storeInfo.storeName = _supplier_name;
+        storeInfo.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:storeInfo animated:YES];
+        self.hidesBottomBarWhenPushed = YES;
+
     }else if(button.tag == 1){
         NSLog(@"客服");
-//        WJShopCartClassViewController *shopCarVc = [[WJShopCartClassViewController alloc] init];
-//        shopCarVc.isHasTabBarController = NO;
-//        shopCarVc.isHasNavitationController = YES;
-//        self.hidesBottomBarWhenPushed = YES;
-//        [self.navigationController pushViewController:shopCarVc animated:YES];
+        WJConversationViewController *conversationVC = [[WJConversationViewController alloc]init];
+        conversationVC.conversationType = ConversationType_PRIVATE;
+        NSString *kefuUserId = [NSString stringWithFormat:@"kefu%@",_supplier_id];
+        conversationVC.targetId =  kefuUserId;
+        conversationVC.strTitle =_supplier_name;
+
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSArray *friendsList = [userDefaults objectForKey:@"RYFriendsList"];
+        NSMutableArray *allTimeArr = [NSMutableArray arrayWithArray:friendsList];
+        int kk=0;
+        for (NSDictionary *goodsDic in friendsList) {
+            NSString *userId = goodsDic[@"userId"];
+            if([kefuUserId isEqualToString:userId]){
+                kk++;
+            }
+        }
+        if (kk==0) {
+            NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+            [dic setValue:[NSString stringWithFormat:@"kefu%@",_supplier_id] forKey:@"userId"];
+            [dic setValue:_supplier_name forKey:@"name"];
+            [dic setValue:_supplier_logo forKey:@"portrait"];
+            [allTimeArr addObject:dic];
+            [userDefaults setObject:allTimeArr forKey:@"RYFriendsList"];
+            [userDefaults synchronize];
+        }
+        conversationVC.hidesBottomBarWhenPushed = YES;
+        self.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:conversationVC animated:YES];
     }
     else if(button.tag == 2){
         NSLog(@"关注");

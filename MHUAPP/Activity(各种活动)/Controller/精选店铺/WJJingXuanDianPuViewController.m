@@ -11,7 +11,7 @@
 #import "SLCommentsModel.h"
 #import "WJJingXuanDianPuCollectionViewCell.h"
 #import "WJStoreInfoClassViewController.h"
-
+#import "WJConversationViewController.h"
 
 @interface WJJingXuanDianPuViewController ()
 {
@@ -251,6 +251,34 @@
     WEAKSELF
     cell.goToContactServiceBlock = ^{
 
+        WJConversationViewController *conversationVC = [[WJConversationViewController alloc]init];
+        conversationVC.conversationType = ConversationType_PRIVATE;
+        NSString *kefuUserId = [NSString stringWithFormat:@"kefu%@",model.supplier_id];
+        conversationVC.targetId =  kefuUserId;
+        conversationVC.strTitle =model.supplier_name;
+
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSArray *friendsList = [userDefaults objectForKey:@"RYFriendsList"];
+        NSMutableArray *allTimeArr = [NSMutableArray arrayWithArray:friendsList];
+        int kk=0;
+        for (NSDictionary *goodsDic in friendsList) {
+            NSString *userId = goodsDic[@"userId"];
+            if([kefuUserId isEqualToString:userId]){
+                kk++;
+            }
+        }
+        if (kk==0) {
+            NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+            [dic setValue:kefuUserId forKey:@"userId"];
+            [dic setValue:model.supplier_name forKey:@"name"];
+            [dic setValue:model.logo forKey:@"portrait"];
+            [allTimeArr addObject:dic];
+            [userDefaults setObject:allTimeArr forKey:@"RYFriendsList"];
+            [userDefaults synchronize];
+        }
+        
+        self.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:conversationVC animated:YES];
     };
     cell.goToShopInfoBlock = ^{
         WJStoreInfoClassViewController *storeInfo = [[WJStoreInfoClassViewController alloc]init];
@@ -265,7 +293,14 @@
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-
+     SLCommentsModel *model = _arr_infomationresults[indexPath.row];
+    WJStoreInfoClassViewController *storeInfo = [[WJStoreInfoClassViewController alloc]init];
+    storeInfo.storeId = model.supplier_id;
+    storeInfo.storeLogo = model.logo;
+    storeInfo.storeName = model.supplier_name;
+    storeInfo.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:storeInfo animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
 }
 
 

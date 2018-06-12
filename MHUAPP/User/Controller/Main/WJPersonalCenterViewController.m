@@ -24,6 +24,7 @@
 #import "WJMyFollowViewController.h"
 #import <UIImageView+WebCache.h>
 
+#import "RCDCustomerServiceViewController.h"
 
 @interface WJPersonalCenterViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
@@ -243,6 +244,16 @@
                 WJMyFollowViewController *dcVc = [[WJMyFollowViewController alloc] init];
                 self.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:dcVc animated:YES];
+                self.hidesBottomBarWhenPushed = NO;
+            }
+                break;
+            case 3:
+            {
+                RCDCustomerServiceViewController *chatService = [[RCDCustomerServiceViewController alloc] init];
+                chatService.conversationType = ConversationType_CUSTOMERSERVICE;
+                chatService.targetId = @"KEFU152176453929981";
+                self.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:chatService animated:YES];
                 self.hidesBottomBarWhenPushed = NO;
             }
                 break;

@@ -15,7 +15,7 @@
 
 @interface WJGoodCommentViewController ()
 /* 商品评论 */
-@property (strong , nonatomic)NSArray<WJDetailPartCommentItem *> *getCommentArray;
+@property (strong , nonatomic)NSMutableArray <WJDetailPartCommentItem *> *getCommentArray;
 @end
 
 @implementation WJGoodCommentViewController
@@ -81,15 +81,33 @@
     {
         NSMutableArray *arr_Datalist = [NSMutableArray array];
         arr_Datalist = [self.results objectForKey:@"data"];
+
+        NSMutableArray *entities = [NSMutableArray array];
+
         if (![arr_Datalist isEqual:[NSNull null]]) {
-            _getCommentArray = [WJDetailPartCommentItem mj_objectArrayWithKeyValuesArray:arr_Datalist];
+            entities = [WJDetailPartCommentItem mj_objectArrayWithKeyValuesArray:arr_Datalist];
+        }
+        if(_page_Information==0)
+        {
+            _getCommentArray= entities;
+        }else
+        {
+            [_getCommentArray addObjectsFromArray:entities];
         }
         [_collectionV reloadData];
+        if(entities.count<[kMSPULLtableViewCellNumber integerValue])
+        {
+            [_collectionV.mj_footer endRefreshingWithNoMoreData];
+        }
+        else{
+            _collectionV.mj_footer.hidden = NO;
+        }
+
     }
 
     else
     {
-        [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"msg"]];
+//        [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"msg"]];
         return;
     }
 }
@@ -115,7 +133,10 @@
     cell.model = _getCommentArray[indexPath.row];
     return cell;
 }
-
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 0;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

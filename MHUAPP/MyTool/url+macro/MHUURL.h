@@ -130,5 +130,11 @@
 #define   kMSOrderInfo        @"orderInfo"              //用户订单详情
 
 #define   kMSGetOrderStatus        @"getOrderStatus"                 //各订单状态下的订单 （新）
-#define   kMSGetBackGoods        @"getBackGoods"                 //申请退款列表
+#define   kMSGetBackGoods        @"getBackGoods"
+
+
+//各订单状态下的订单 （新）
+#define   kMSGetAccessToken       @"/v1/getAccessToken"  //获取融云Token
+#define   kMSDeleteOrder       @"deleteOrder"  //删除待付款订单
+
 #endif /* MHUURL_h */

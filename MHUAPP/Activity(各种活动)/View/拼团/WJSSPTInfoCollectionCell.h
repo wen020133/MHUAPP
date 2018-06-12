@@ -18,6 +18,8 @@
 @property (assign , nonatomic)NSString *oldPrice;
 /* 结束时间 */
 @property (assign , nonatomic)NSString *endTimeStr;
+/* 已售数量 */
+@property (assign , nonatomic)NSString *soldNum;
 
 - (void)assignmentAllLabel;
 

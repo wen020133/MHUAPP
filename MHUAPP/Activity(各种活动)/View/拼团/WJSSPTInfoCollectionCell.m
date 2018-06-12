@@ -106,7 +106,7 @@
 
     _market_priceLabel.frame = CGRectMake(_goodPriceLabel.Right+DCMargin, 5, 60, 16);
     }
-    _lab_soldNum.text =[NSString stringWithFormat:@"已拼100%@",@"1"];
+    _lab_soldNum.text =[NSString stringWithFormat:@"已售%@件",_soldNum];
     _lab_soldNum.frame = CGRectMake(_goodPriceLabel.Right+DCMargin, _market_priceLabel.Bottom+2, 80, 20);
 
 

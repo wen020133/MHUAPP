@@ -741,6 +741,21 @@
                 waitPayInfoVC.hidesBottomBarWhenPushed = YES;
                 [weakSelf.navigationController pushViewController:waitPayInfoVC animated:YES];
             }
+            else  if ([stateStr isEqualToString:@"取消订单"]) {
+                [self jxt_showAlertWithTitle:@"取消订单?" message:nil appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
+                    alertMaker.
+                    addActionCancelTitle(@"取消").
+                    addActionDestructiveTitle(@"确认");
+                } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, JXTAlertController * _Nonnull alertSelf) {
+                    if ([action.title isEqualToString:@"取消"]) {
+                        NSLog(@"cancel");
+                    }
+                    else if ([action.title isEqualToString:@"确认"]) {
+                        [self requestDeleteAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@&str=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDeleteOrder,[AppDelegate shareAppDelegate].user_id,model.order_id]];
+                    }
+                }];
+
+            }
             else  if ([stateStr isEqualToString:@"我要催单"]) {
                 [self jxt_showAlertWithTitle:@"已通知卖家发货" message:@"请耐心等待" appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
                     alertMaker.
@@ -786,6 +801,21 @@
     return view;
 }
 
+-(void)deleteProcessData
+{
+    if([[self.results objectForKey:@"code"] integerValue] == 200)
+    {
+        [SVProgressHUD showSuccessWithStatus:@"取消成功"];
+        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+        [SVProgressHUD dismissWithDelay:1.0];
+        [self headerRereshing];
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"msg"]];
+        return;
+    }
+}
 -(void)postbackOderData:(NSString *)order_sn
 {
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
