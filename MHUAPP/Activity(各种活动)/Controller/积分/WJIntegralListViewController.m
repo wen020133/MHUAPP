@@ -12,11 +12,11 @@
 #import "WJSSPTTypeHeadView.h"
 #import "WJJRPTItem.h"
 #import "AppDelegate.h"
-
+#import <MJRefresh.h>
 
 #import "WJIntegralInfoClassViewController.h"
 #import "WJIntegralOrderListViewController.h"
-
+#import "WJWordLabelViewController.h"
 
 @interface WJIntegralListViewController ()
 
@@ -107,6 +107,7 @@
         [SVProgressHUD showErrorWithStatus:str_error];
         return;
     }];
+    [_collectionView.mj_header endRefreshing];
 }
 
 -(void)processData
@@ -163,6 +164,7 @@
         [_collectionView registerClass:[WJSSPTTypeHeadView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJSSPTTypeHeadView"];
         [_collectionView registerClass:[WJJiFenItemCell class] forCellWithReuseIdentifier:@"WJJiFenItemCell"];
         [_collectionView registerClass:[WJJIFenListCollectionViewCell class] forCellWithReuseIdentifier:@"WJJIFenListCollectionViewCell"];
+        _collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getUpIntegralData)];
 
     }
     return _collectionView;
@@ -286,7 +288,12 @@
                     break;
                     case 1003:
                 {
-
+                    WJWordLabelViewController *MainWebV = [[WJWordLabelViewController alloc]init];
+                    MainWebV.str_content = @" 超值换购，兑换好礼享不停！\n 购买商品即送积分，\n 买多少送多少，多买多送，\n 会员注册送100分，\n 每日签到领取积分，\n 单品晒单前10名送100分，\n 最高积分可兑换OPPO A57智能手机一部！\n 看中的赶紧来拿走吧!";
+                    MainWebV.str_title = @"赚积分";
+                    MainWebV.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:MainWebV animated:YES];
+                    self.hidesBottomBarWhenPushed = YES;
                 }
                     break;
 

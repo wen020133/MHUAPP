@@ -15,7 +15,6 @@
 #import "WJToolsViewController.h"
 #import "XWDrawerAnimator.h"
 #import "UIViewController+XWTransition.h"
-#import "WJShopCartClassViewController.h"
 #import "JXButton.h"
 #import "WJConversationViewController.h"
 #import "WJStoreInfoClassViewController.h"
@@ -32,6 +31,8 @@
 /* 通知 */
 @property (weak ,nonatomic) id dcObserve;
 
+/* 商品库存 */
+@property  NSInteger goods_number;
 @end
 
 @implementation WJSSPTDetailClassViewController
@@ -63,6 +64,17 @@
 {
     _serverType = 2;
     [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@/%@?start=%d&numb=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetComment,_goods_id,0,kMSPULLtableViewCellNumber]];
+    
+    [self performSelector:@selector(delayMethod) withObject:nil afterDelay:1.0];
+}
+-(void)delayMethod
+{
+    [self setgetSupplierUserId];
+}
+-(void)setgetSupplierUserId
+{
+    _serverType = 3;
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetSupplierUserId,_supplier_id]];
 }
 -(void)getProcessData
 {
@@ -79,6 +91,7 @@
                 _shufflingArray = self.results[@"data"][@"gallery"];
                 _attributeArray = self.results[@"data"][@"attr"];
                 _supplier_id = self.results[@"data"][@"supplier_id"];
+                _goods_number = [self.results[@"data"][@"goods_number"] integerValue];
                 id supplierU = [[self.results objectForKey:@"data"] objectForKey:@"supplier_name"];
                 if ([supplierU isKindOfClass:[NSDictionary class]]) {
                     _supplier_name = [supplierU objectForKey:@"supplier_name"];
@@ -98,6 +111,12 @@
                 }
                 [self setUpChildViewControllers];
                 [self addChildViewController];
+            }
+                break;
+            case KGetPTSupplierUserId:
+            {
+                _supplierUserId = [NSString stringWithFormat:@"kefu%@", [self.results objectForKey:@"data"]];
+                
             }
                 break;
             default:
@@ -290,6 +309,7 @@
         [arr addObject:dic];
     }
     goodBaseVc.attributeArray = arr;
+    goodBaseVc.goods_number =_goods_number;
     goodBaseVc.goodImageView = _goodImageView;
     goodBaseVc.goods_id = _goods_id;
     goodBaseVc.commentArray = _commentArray;
@@ -389,13 +409,13 @@
     self.navigationItem.leftBarButtonItem = leftButtonItem;
 
 
-    UIButton *pulishButton=[UIButton buttonWithType:(UIButtonTypeCustom)];
-    [pulishButton setImage:[UIImage imageNamed:@"goodInfo_share"] forState:UIControlStateNormal];
-    [pulishButton addTarget:self action:@selector(goodInfoshare) forControlEvents:UIControlEventTouchUpInside];
-
-    pulishButton.frame = CGRectMake(0, 0, 19, 18);
-    UIBarButtonItem *pulish = [[UIBarButtonItem alloc] initWithCustomView:pulishButton];
-    [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:pulish,nil]];
+//    UIButton *pulishButton=[UIButton buttonWithType:(UIButtonTypeCustom)];
+//    [pulishButton setImage:[UIImage imageNamed:@"goodInfo_share"] forState:UIControlStateNormal];
+//    [pulishButton addTarget:self action:@selector(goodInfoshare) forControlEvents:UIControlEventTouchUpInside];
+//
+//    pulishButton.frame = CGRectMake(0, 0, 19, 18);
+//    UIBarButtonItem *pulish = [[UIBarButtonItem alloc] initWithCustomView:pulishButton];
+//    [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:pulish,nil]];
 
 }
 
@@ -428,34 +448,49 @@
 
     }else if(button.tag == 1){
         NSLog(@"客服");
-        WJConversationViewController *conversationVC = [[WJConversationViewController alloc]init];
-        conversationVC.conversationType = ConversationType_PRIVATE;
-        NSString *kefuUserId = [NSString stringWithFormat:@"kefu%@",_supplier_id];
-        conversationVC.targetId =  kefuUserId;
-        conversationVC.strTitle =_supplier_name;
-
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        NSArray *friendsList = [userDefaults objectForKey:@"RYFriendsList"];
-        NSMutableArray *allTimeArr = [NSMutableArray arrayWithArray:friendsList];
-        int kk=0;
-        for (NSDictionary *goodsDic in friendsList) {
-            NSString *userId = goodsDic[@"userId"];
-            if([kefuUserId isEqualToString:userId]){
-                kk++;
+        if (![_supplierUserId isEqual:[NSNull null]]) {
+            if (_supplierUserId.length>0) {
+                WJConversationViewController *conversationVC = [[WJConversationViewController alloc]init];
+                conversationVC.conversationType = ConversationType_PRIVATE;
+                NSString *kefuUserId = _supplierUserId;
+                conversationVC.targetId =  kefuUserId;
+                
+                conversationVC.strTitle =_supplier_name;
+                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                
+                NSArray *friendsList = [userDefaults objectForKey:@"RYFriendsList"];
+                NSMutableArray *allTimeArr = [NSMutableArray arrayWithArray:friendsList];
+                int kk=0;
+                for (NSDictionary *goodsDic in friendsList) {
+                    NSString *userId = goodsDic[@"userId"];
+                    if([kefuUserId isEqualToString:userId]){
+                        kk++;
+                    }
+                }
+                if (kk==0) {
+                    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+                    [dic setValue:_supplierUserId forKey:@"userId"];
+                    [dic setValue:_supplier_name forKey:@"name"];
+                    [dic setValue:_supplier_logo forKey:@"portrait"];
+                    [allTimeArr addObject:dic];
+                    [userDefaults setObject:allTimeArr forKey:@"RYFriendsList"];
+                    [userDefaults synchronize];
+                }
+                
+                self.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:conversationVC animated:YES];
+            }
+            else
+            {
+                [self requestFailed:@"获取客服信息失败！"];
+                return;
             }
         }
-        if (kk==0) {
-            NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-            [dic setValue:[NSString stringWithFormat:@"kefu%@",_supplier_id] forKey:@"userId"];
-            [dic setValue:_supplier_name forKey:@"name"];
-            [dic setValue:_supplier_logo forKey:@"portrait"];
-            [allTimeArr addObject:dic];
-            [userDefaults setObject:allTimeArr forKey:@"RYFriendsList"];
-            [userDefaults synchronize];
+        else
+        {
+            [self requestFailed:@"获取客服信息失败！"];
+            return;
         }
-        conversationVC.hidesBottomBarWhenPushed = YES;
-        self.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:conversationVC animated:YES];
     }
     else if(button.tag == 2){
         NSLog(@"关注");

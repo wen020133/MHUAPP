@@ -8,6 +8,7 @@
 
 #import "WJConversationViewController.h"
 
+
 @interface WJConversationViewController ()<RCMessageCellDelegate>
 
 @end
@@ -27,6 +28,8 @@
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
 
     [self initSendReplyWithTitle:_strTitle andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
+    [[IQKeyboardManager sharedManager] setEnable:NO];
+    
 }
 //功能面板点击事件的方法，通过tag区分点击到的哪个item
 - (void)pluginBoardView:(RCPluginBoardView *)pluginBoardView clickedItemWithTag:(NSInteger)tag{

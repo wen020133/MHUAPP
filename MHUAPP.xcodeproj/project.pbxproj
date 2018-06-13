@@ -13,6 +13,7 @@
 		171410DE1FCD96AA00F500A9 /* WJHomeRecommendCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 171410DD1FCD96AA00F500A9 /* WJHomeRecommendCollectionViewCell.m */; };
 		17287DD220AE6E7A004953A9 /* WJWriteIntegralOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17287DD120AE6E7A004953A9 /* WJWriteIntegralOrderViewController.m */; };
 		17287DD520AE8229004953A9 /* WJWirteIntegralTabelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 17287DD420AE8229004953A9 /* WJWirteIntegralTabelCell.m */; };
+		172FEBE720D0A8C400C34366 /* WJWordLabelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 172FEBE620D0A8C400C34366 /* WJWordLabelViewController.m */; };
 		175A09BB20A7DF49001AD885 /* WJStoreInfoClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 175A09BA20A7DF49001AD885 /* WJStoreInfoClassViewController.m */; };
 		175A09BE20A7E85C001AD885 /* WJStoreHeadCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 175A09BD20A7E85C001AD885 /* WJStoreHeadCollectionView.m */; };
 		1774CA6120B799D300A5D892 /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1774CA6020B799D300A5D892 /* WXApiManager.m */; };
@@ -423,6 +424,8 @@
 		17287DD120AE6E7A004953A9 /* WJWriteIntegralOrderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJWriteIntegralOrderViewController.m; sourceTree = "<group>"; };
 		17287DD320AE8229004953A9 /* WJWirteIntegralTabelCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJWirteIntegralTabelCell.h; sourceTree = "<group>"; };
 		17287DD420AE8229004953A9 /* WJWirteIntegralTabelCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJWirteIntegralTabelCell.m; sourceTree = "<group>"; };
+		172FEBE520D0A8C400C34366 /* WJWordLabelViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJWordLabelViewController.h; sourceTree = "<group>"; };
+		172FEBE620D0A8C400C34366 /* WJWordLabelViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJWordLabelViewController.m; sourceTree = "<group>"; };
 		175A09B920A7DF49001AD885 /* WJStoreInfoClassViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJStoreInfoClassViewController.h; sourceTree = "<group>"; };
 		175A09BA20A7DF49001AD885 /* WJStoreInfoClassViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJStoreInfoClassViewController.m; sourceTree = "<group>"; };
 		175A09BC20A7E85C001AD885 /* WJStoreHeadCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJStoreHeadCollectionView.h; sourceTree = "<group>"; };
@@ -2471,6 +2474,8 @@
 				34EB6AA020A97787005C3671 /* WJIntegralInfoClassViewController.m */,
 				17287DD020AE6E7A004953A9 /* WJWriteIntegralOrderViewController.h */,
 				17287DD120AE6E7A004953A9 /* WJWriteIntegralOrderViewController.m */,
+				172FEBE520D0A8C400C34366 /* WJWordLabelViewController.h */,
+				172FEBE620D0A8C400C34366 /* WJWordLabelViewController.m */,
 			);
 			path = "积分";
 			sourceTree = "<group>";
@@ -3052,7 +3057,7 @@
 				TargetAttributes = {
 					17F9F1581FCC527300C71820 = {
 						CreatedOnToolsVersion = 9.1;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -3200,11 +3205,13 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-MHUAPP/Pods-MHUAPP-resources.sh",
+				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/RongCloudIM/RongCloudIM/RongCloud.bundle",
 				"${PODS_ROOT}/RongCloudIM/RongCloudIM/en.lproj",
 				"${PODS_ROOT}/RongCloudIM/RongCloudIM/zh-Hans.lproj",
 				"${PODS_ROOT}/RongCloudIM/RongCloudIM/Emoji.plist",
+				"${PODS_ROOT}/RongCloudIM/RongCloudIM/RCColor.plist",
 				"${PODS_ROOT}/RongCloudIM/RongCloudIM/RCConfig.plist",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
 				"${PODS_ROOT}/UMengUShare/UShareSDK/UMSocialSDK/UMSocialSDKPromptResources.bundle",
@@ -3410,6 +3417,7 @@
 				341072D1205B99B500855C3D /* BadgeButton.m in Sources */,
 				34E9C84320CA7DC7003A592E /* MShowAllGroup.m in Sources */,
 				34014A6820B3FB8000B6A91E /* WJPTPriceCollectionCell.m in Sources */,
+				172FEBE720D0A8C400C34366 /* WJWordLabelViewController.m in Sources */,
 				34E9C82C20CA7CD5003A592E /* WJCommitBaseController.m in Sources */,
 				3411F8FD20410A97007BCEF9 /* WJCountDownHeadView.m in Sources */,
 				34285C402061F95C00008A70 /* PST_MenuView.m in Sources */,
@@ -3573,7 +3581,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -3592,9 +3600,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -3628,7 +3637,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -3641,8 +3650,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -3655,7 +3665,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = FV78E8XR87;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3680,7 +3690,7 @@
 					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = MHUAPP/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3689,8 +3699,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jinri.MHU.MHUAPP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "17cb015a-edb5-4003-b921-7bcec90e281f";
+				PROVISIONING_PROFILE_SPECIFIER = miyoMeiPush;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -3700,9 +3710,9 @@
 			baseConfigurationReference = D31EA1D111F60E55B5B4B4B8 /* Pods-MHUAPP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: SHENZHEN JINRI ELECTRICAL APPLIANCE CO.,LTD. (FV78E8XR87)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: SHENZHEN JINRI ELECTRICAL APPLIANCE CO.,LTD. (FV78E8XR87)";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = FV78E8XR87;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3726,7 +3736,7 @@
 					"$(SRCROOT)/MHUAPP/Pay",
 				);
 				INFOPLIST_FILE = MHUAPP/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3735,8 +3745,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jinri.MHU.MHUAPP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "17cb015a-edb5-4003-b921-7bcec90e281f";
+				PROVISIONING_PROFILE_SPECIFIER = miyoMeiPush;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

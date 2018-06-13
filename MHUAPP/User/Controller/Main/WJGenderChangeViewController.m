@@ -29,12 +29,11 @@
 -(UITableView *)tab_content
 {
     if (!_tab_content) {
-        _tab_content = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight) style:UITableViewStylePlain];
-        _tab_content.backgroundColor = [UIColor clearColor];
-        _tab_content.separatorColor = [UIColor lightGrayColor];
-        _tab_content.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        _tab_content = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
+        _tab_content.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tab_content.scrollEnabled = NO;
         _tab_content.delegate = self;
+        _tab_content.frame = CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight - kMSNaviHight);
         _tab_content.dataSource = self;
 
     }

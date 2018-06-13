@@ -13,6 +13,7 @@
 typedef NS_ENUM(NSInteger, KGetSSPTDetailClassType) {
     KGetSSPTDetailClass = 1 ,//获取商品详情
     KGetSSPTDetailComment = 2 ,//评论数据
+    KGetPTSupplierUserId = 3,
 };
 
 @interface WJSSPTDetailClassViewController : BaseNetworkViewController<UIScrollViewDelegate>
@@ -43,6 +44,8 @@ typedef NS_ENUM(NSInteger, KGetSSPTDetailClassType) {
 
 /* 店铺ID */
 @property (strong , nonatomic) NSString *supplier_id;
+/* 店铺userId */
+@property (strong , nonatomic) NSString *supplierUserId;
 /* 店铺头像 */
 @property (strong , nonatomic) NSString *supplier_logo;
 /* 店铺名 */

@@ -43,6 +43,24 @@ NSString * const UpLoadNoti = @"uploadInfo";
     //设置手机QQ的AppId，指定你的分享url，
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:_TencentAppid_  appSecret:@"9XSVjCRGjtSlYuEn" redirectURL:kRedirectURI];
     
+    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        //注册推送, 用于iOS8以及iOS8之后的系统
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings
+                                                settingsForTypes:(UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert)
+                                                categories:nil];
+        [application registerUserNotificationSettings:settings];
+    }
+    NSDictionary *pushServiceData = [[RCIMClient sharedRCIMClient] getPushExtraFromLaunchOptions:launchOptions];
+    if (pushServiceData) {
+        NSLog(@"该启动事件包含来自融云的推送服务");
+        for (id key in [pushServiceData allKeys]) {
+            NSLog(@"%@", pushServiceData[key]);
+        }
+    } else {
+        NSLog(@"该启动事件不包含来自融云的推送服务");
+    }
+
+
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -50,6 +68,79 @@ NSString * const UpLoadNoti = @"uploadInfo";
 
     
     [[RCDataManager shareManager] getUserInfoWithMiYouMei];
+}
+/**
+ * 推送处理2
+ */
+//注册用户通知设置
+- (void)application:(UIApplication *)application
+didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
+    // register to receive notifications
+    [application registerForRemoteNotifications];
+}
+
+/**
+ * 推送处理3
+ */
+- (void)application:(UIApplication *)application
+didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    NSString *token = [[[[deviceToken description] stringByReplacingOccurrencesOfString:@"<" withString:@""]
+                        stringByReplacingOccurrencesOfString:@">"
+                        withString:@""] stringByReplacingOccurrencesOfString:@" "
+                       withString:@""];
+    
+    [[RCIMClient sharedRCIMClient] setDeviceToken:token];
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+#if TARGET_IPHONE_SIMULATOR
+    // 模拟器不能使用远程推送
+#else
+    // 请检查App的APNs的权限设置，更多内容可以参考文档
+    // http://www.rongcloud.cn/docs/ios_push.html。
+    NSLog(@"获取DeviceToken失败！！！");
+    NSLog(@"ERROR：%@", error);
+#endif
+}
+
+- (void)onlineConfigCallBack:(NSNotification *)note {
+    
+    NSLog(@"online config has fininshed and note = %@", note.userInfo);
+}
+
+/**
+ * 推送处理4
+ * userInfo内容请参考官网文档
+ */
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    /**
+     * 统计推送打开率2
+     */
+    [[RCIMClient sharedRCIMClient] recordRemoteNotificationEvent:userInfo];
+    /**
+     * 获取融云推送服务扩展字段2
+     */
+    NSDictionary *pushServiceData = [[RCIMClient sharedRCIMClient] getPushExtraFromRemoteNotification:userInfo];
+    if (pushServiceData) {
+        NSLog(@"该远程推送包含来自融云的推送服务");
+        for (id key in [pushServiceData allKeys]) {
+            NSLog(@"key = %@, value = %@", key, pushServiceData[key]);
+        }
+    } else {
+        NSLog(@"该远程推送不包含来自融云的推送服务");
+    }
+}
+
+- (void)applicationWillResignActive:(UIApplication *)application {
+    
+    RCConnectionStatus status = [[RCIMClient sharedRCIMClient] getConnectionStatus];
+    if (status != ConnectionStatus_SignUp) {
+        int unreadMsgCount = [[RCIMClient sharedRCIMClient] getUnreadCount:@[
+                                                                             @(ConversationType_PRIVATE), @(ConversationType_DISCUSSION), @(ConversationType_APPSERVICE),
+                                                                             @(ConversationType_PUBLICSERVICE), @(ConversationType_GROUP)
+                                                                             ]];
+        application.applicationIconBadgeNumber = unreadMsgCount;
+    }
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
@@ -158,10 +249,7 @@ NSString * const UpLoadNoti = @"uploadInfo";
     NSLog(@"走了applicationWillEnterForeground方法");
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
-}
+
 
 
 

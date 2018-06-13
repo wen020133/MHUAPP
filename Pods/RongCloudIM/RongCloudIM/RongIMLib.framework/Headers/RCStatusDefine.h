@@ -531,12 +531,12 @@ typedef NS_ENUM(NSUInteger, RCNetworkStatus) {
  */
 typedef NS_ENUM(NSUInteger, RCSDKRunningMode) {
     /*!
-     前台运行状态
+     后台运行状态
      */
     RCSDKRunningMode_Background = 0,
 
     /*!
-     后台运行状态
+     前台运行状态
      */
     RCSDKRunningMode_Foreground = 1
 };
@@ -595,7 +595,12 @@ typedef NS_ENUM(NSUInteger, RCConversationType) {
     /*!
      推送服务会话
      */
-    ConversationType_PUSHSERVICE = 9
+    ConversationType_PUSHSERVICE = 9,
+    
+    /*!
+     无效类型
+     */
+    CoversationType_INVALID
 };
 
 #pragma mark RCConversationNotificationStatus - 会话提醒状态
@@ -725,7 +730,12 @@ typedef NS_ENUM(NSUInteger, RCSentStatus) {
     /*!
      发送已取消
      */
-    SentStatus_CANCELED = 70
+    SentStatus_CANCELED = 70,
+    
+    /*!
+     无效类型
+     */
+    SentStatus_INVALID
 };
 
 #pragma mark RCReceivedStatus - 消息的接收状态
@@ -790,7 +800,12 @@ typedef NS_ENUM(NSUInteger, RCMediaType) {
     /*!
      其他文件
      */
-    MediaType_FILE = 4
+    MediaType_FILE = 4,
+    
+    /*!
+     小视频
+     */
+    MediaType_SIGHT = 5
 };
 
 #pragma mark RCMediaType - 消息中@提醒的类型
@@ -862,6 +877,10 @@ typedef NS_ENUM(NSUInteger, RCSearchType) {
      模糊匹配
      */
     RC_SEARCH_TYPE_FUZZY = 1,
+    /*!
+     无效类型
+     */
+    RCSearchType_INVALID
 };
 
 /*!
@@ -1032,10 +1051,19 @@ typedef NS_ENUM(NSUInteger, RCPlatform) {
     RCPlatform_PC = 4
 };
 
-#pragma mark RCPushLauguageType - push 语音设置
+#pragma mark RCPushLauguageType - push 语言设置
+/*!
+ push 语言设置
+ */
 typedef NS_ENUM(NSUInteger, RCPushLauguage) {
-    RCPushLauguage_EN_US = 1, //英文
-    RCPushLauguage_ZH_CN,     //中文
+    /*!
+     英文
+     */
+    RCPushLauguage_EN_US = 1,
+    /*!
+     中文
+     */
+    RCPushLauguage_ZH_CN
 };
 
 #endif

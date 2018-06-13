@@ -37,4 +37,6 @@
 
 /* 销售数量 */
 @property (strong , nonatomic) NSString *soldNum;
+/* 商品库存 */
+@property NSInteger goods_number;
 @end

@@ -4,12 +4,6 @@
 <array>
 	<dict>
 		<key>flow_title</key>
-		<string>我的优惠活动</string>
-		<key>flowImageView</key>
-		<string>user_icon_youhuihuodong</string>
-	</dict>
-	<dict>
-		<key>flow_title</key>
 		<string>消息中心</string>
 		<key>flowImageView</key>
 		<string>user_icon_xiaoxizhongxin</string>

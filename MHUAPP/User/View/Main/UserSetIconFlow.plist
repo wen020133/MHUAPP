@@ -17,12 +17,6 @@
 			<key>flowImageView</key>
 			<string>user_set_dizhiguanli</string>
 		</dict>
-		<dict>
-			<key>flow_title</key>
-			<string>用户协议</string>
-			<key>flowImageView</key>
-			<string>user_set_yonghuxieyi</string>
-		</dict>
 	</array>
 	<array>
 		<dict>
@@ -36,12 +30,6 @@
 			<string>意见反馈</string>
 			<key>flowImageView</key>
 			<string>user_set_yijianfankui</string>
-		</dict>
-		<dict>
-			<key>flow_title</key>
-			<string>设置</string>
-			<key>flowImageView</key>
-			<string>user_set_shezhi</string>
 		</dict>
 	</array>
 </array>

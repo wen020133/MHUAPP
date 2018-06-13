@@ -37,7 +37,6 @@
     _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, kMSScreenWith, self.height) delegate:self placeholderImage:nil];
     _cycleScrollView.autoScroll = NO; // 不自动滚动
     _cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleNone;
-
     [self addSubview:_cycleScrollView];
 
     _lab_count = LabelInit(kMSScreenWith-40, self.height-20, 30, 15);

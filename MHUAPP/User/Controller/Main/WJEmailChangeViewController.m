@@ -20,6 +20,7 @@
     [self initSendReplyWithTitle:@"修改邮箱" andLeftButtonName:@"ic_back.png" andRightButtonName:@"确定" andTitleLeftOrRight:NO];
     [self initEmailTextf];
     [self.textf_emial becomeFirstResponder];
+    [[IQKeyboardManager sharedManager] setEnable:NO];
     // Do any additional setup after loading the view.
 }
 -(void)initEmailTextf

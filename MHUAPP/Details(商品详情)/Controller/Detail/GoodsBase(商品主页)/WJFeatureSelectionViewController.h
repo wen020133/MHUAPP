@@ -25,4 +25,8 @@
 
 /* 图片数组 */
 @property (copy , nonatomic) NSArray  *arr_goodImage;
+/* 商品库存 */
+@property NSInteger goods_number;
+
+@property (assign, nonatomic) NSString *str_IsmiaoshaPT;
 @end

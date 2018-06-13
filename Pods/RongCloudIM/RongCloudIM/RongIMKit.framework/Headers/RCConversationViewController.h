@@ -134,7 +134,7 @@ typedef NS_ENUM(NSUInteger, RCCustomerServiceStatus) {
 /*!
  右上角未读消息数提示的Label
 
- @discussion 当 150 >= unReadMessage > 10  右上角会显示未读消息数。
+ @discussion 当 unReadMessage > 10  右上角会显示未读消息数。
  */
 @property(nonatomic, strong) UILabel *unReadMessageLabel;
 
@@ -244,6 +244,22 @@ typedef NS_ENUM(NSUInteger, RCCustomerServiceStatus) {
  -1表示不获取任何历史消息，0表示不特殊设置而使用SDK默认的设置（默认为获取10条），0<messageCount<=50为具体获取的消息数量,最大值为50。注：如果是7.x系统获取历史消息数量不要大于30
  */
 @property(nonatomic, assign) int defaultHistoryMessageCountOfChatRoom;
+
+/*!
+ 已经选择的所有消息
+ @discussion 只有在 allowsMessageCellSelection 为 YES,才会有有效值
+ */
+@property(nonatomic, strong, readonly) NSArray<RCMessageModel *> *selectedMessages;
+
+/*!
+ 会话页面消息是否可编辑选择,如果为 YES,消息 cell 会变为多选样式,如果为 NO，页面恢复初始状态。
+ */
+@property(nonatomic, assign) BOOL allowsMessageCellSelection;
+
+/*!
+ 消息编辑选择的状态下页面底部出现的工具视图
+ */
+@property(nonatomic, strong) UIToolbar *messageSelectionToolbar;
 
 /*!
  提示用户信息并推出当前会话界面
@@ -779,8 +795,7 @@ typedef NS_ENUM(NSUInteger, RCCustomerServiceStatus) {
  评价客服服务,然后离开当前VC的。此方法有可能在离开客服会话页面触发，也可能是客服在后台推送评价触发，也可能用户点击机器人知识库评价触发。应用可以重写此方法来自定义客服评价界面。应用不要直接调用此方法。
 
  @param serviceStatus  当前的服务类型。
- @param commentId
- 评论ID。当是用户主动离开客服会话时，这个id是null；当客服在后台推送评价请求时，这个id是对话id；当用户点击机器人应答评价时，这个是机器人知识库id。
+ @param commentId 评论ID。当是用户主动离开客服会话时，这个id是null；当客服在后台推送评价请求时，这个id是对话id；当用户点击机器人应答评价时，这个是机器人知识库id。
  @param isQuit         评价完成后是否离开
 
  @discussion
@@ -812,6 +827,16 @@ typedef NS_ENUM(NSUInteger, RCCustomerServiceStatus) {
  @param newMode  新的客服服务模式。
  */
 - (void)onCustomerServiceModeChanged:(RCCSModeType)newMode;
+
+/*!
+ 客服通告
+ 
+ @param announceMsg  客服通告内容
+ @param announceClickUrl  客服通告链接url
+ 
+ @discussion 此方法带回通告栏的展示内容及点击链接，须 App 自己实现
+ */
+- (void)announceViewWillShow:(NSString *)announceMsg announceClickUrl:(NSString *)announceClickUrl;
 
 /*!
  输入框内输入了@符号，即将显示选人界面的回调

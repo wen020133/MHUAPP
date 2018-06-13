@@ -11,4 +11,7 @@
 
 @interface WJMyFootprintViewController : BaseNetworkViewController
 
+@property (nonatomic,strong) NSMutableArray *chuliQianArr;
+@property (strong , nonatomic) NSMutableArray *setItem;
+
 @end

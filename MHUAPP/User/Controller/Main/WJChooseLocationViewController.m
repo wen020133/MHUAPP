@@ -39,6 +39,7 @@ static  CGFloat  const  kHYTopTabbarHeight = 30; //地址标签栏的高度
     [self setUp];
     self.str_fatherID = @"1";
     [self getAddressArrayData];
+    [[IQKeyboardManager sharedManager] setEnable:NO];
     // Do any additional setup after loading the view.
 }
 #pragma mark - 弹出弹框

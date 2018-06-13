@@ -46,4 +46,8 @@
 @property (assign , nonatomic)NSString *group_price_three;
 
 @property (assign, nonatomic) NSString *info_classType;
+
+/* 商品库存 */
+@property  NSInteger goods_number;
+
 @end

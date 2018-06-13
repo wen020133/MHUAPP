@@ -20,6 +20,7 @@
     [self initSendReplyWithTitle:@"修改昵称" andLeftButtonName:@"ic_back.png" andRightButtonName:@"确定" andTitleLeftOrRight:NO];
     [self initNickNameTextf];
     [self.textf_nickName becomeFirstResponder];
+    [[IQKeyboardManager sharedManager] setEnable:NO];
     // Do any additional setup after loading the view.
 }
 

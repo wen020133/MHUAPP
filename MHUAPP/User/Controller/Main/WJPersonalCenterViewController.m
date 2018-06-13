@@ -114,7 +114,7 @@
     else if(section == 1)
         return 4;
     else if(section == 2)
-        return 3;
+        return 2;
     return 0;
 }
 #pragma mark - <UICollectionViewDelegate>
@@ -265,19 +265,20 @@
     else if (indexPath.section ==2)
         switch (indexPath.row) {
             case 0:
-                {
-                    
-                }
-                break;
-            case 1:
             {
-//                WJMyStoreViewController *dcVc = [[WJMyStoreViewController alloc] init];
-//                self.hidesBottomBarWhenPushed = YES;
-//                [self.navigationController pushViewController:dcVc animated:YES];
-//                self.hidesBottomBarWhenPushed = NO;
+                [self jxt_showAlertWithTitle:@"消息提示" message:@"系统消息暂未开放" appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
+                    alertMaker.
+                    addActionCancelTitle(@"确定");
+                } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, JXTAlertController * _Nonnull alertSelf) {
+                    if (buttonIndex == 0) {
+                        NSLog(@"cancel");
+                    }
+                    
+                    NSLog(@"%@--%@", action.title, action);
+                }];
             }
                 break;
-                case 2:
+                case 1:
             {
                 WJMyFootprintViewController *dcVc = [[WJMyFootprintViewController alloc] init];
                 self.hidesBottomBarWhenPushed = YES;

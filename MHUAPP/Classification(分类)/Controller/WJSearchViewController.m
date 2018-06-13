@@ -143,9 +143,10 @@
 
         self.arr_items = nil;
         [self.arr_items removeAllObjects];
-        self.arr_items = [self.results objectForKey:@"data"];
-        if (self.arr_items&&self.arr_items.count>0) {
-             self.noMoreView.hidden = YES;
+        id data = [self.results objectForKey:@"data"];
+        if ([data isKindOfClass:[NSArray class]]) {
+            _arr_items = data;
+            self.noMoreView.hidden = YES;
             self.tab_infoView.hidden = NO;
             [self.view addSubview:self.menuScrollView];
             [self.tab_infoView reloadData];
@@ -154,7 +155,7 @@
         {
             self.tab_infoView.hidden = YES;
 
-              self.noMoreView = [[NOMoreDataView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 80) withContent:@"暂无数据." withNODataImage:@"noMore_bg.png"];
+              self.noMoreView = [[NOMoreDataView alloc]initWithFrame:CGRectMake(0, 44, kMSScreenWith, 80) withContent:@"暂无数据." withNODataImage:@"noMore_bg.png"];
             self.noMoreView.hidden = NO;
              [self.view addSubview:self.noMoreView];
         }

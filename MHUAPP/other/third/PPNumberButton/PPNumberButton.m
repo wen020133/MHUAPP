@@ -86,8 +86,42 @@
     _textField.text = [NSString stringWithFormat:@"%ld",(long)_minValue];
     
     [self addSubview:_textField];
+
+
+   [[NSNotificationCenter defaultCenter] addObserver:self
+ 
+                                         selector:@selector(keyboardWillShow:)
+ 
+                                             name:UIKeyboardWillShowNotification
+ 
+                                           object:_textField];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:_textField];
+
 }
 
+- (void)keyboardWillShow:(NSNotification *)aNotification
+{
+        [UIView animateWithDuration:0.3 animations:^{
+        CGRect frame = self.frame;
+        frame.origin.y = kMSScreenHeight-216-self.frame.size.height-kMSNaviHight-50-100;
+        self.frame = frame;
+        
+    }];
+    
+}
+- (void)keyboardWillHide:(NSNotification *)aNotification
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        CGRect frame = self.frame;
+        frame.origin.y = kMSScreenHeight-self.frame.size.height-kMSNaviHight-50;
+        self.frame = frame;
+        
+    }];
+    
+}
 //设置加减按钮的公共方法
 - (UIButton *)creatButton
 {

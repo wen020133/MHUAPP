@@ -125,7 +125,14 @@ static NSInteger num_;
 #pragma mark - 底部按钮
 - (void)setUpBottonView
 {
-    NSArray *titles = @[@"加入购物车",@"立即购买"];
+    NSMutableArray *titles = [NSMutableArray array];
+    if ([_str_IsmiaoshaPT isEqualToString:@"秒杀拼团"]) {
+        titles = [NSMutableArray arrayWithObjects:@"立即购买", nil];
+    }
+    else
+    {
+        titles = [NSMutableArray arrayWithObjects:@"加入购物车",@"立即购买", nil];
+    }
     CGFloat buttonH = 50;
     CGFloat buttonW = kMSScreenWith / titles.count;
     CGFloat buttonY = NowScreenH - buttonH;
@@ -157,7 +164,16 @@ static NSInteger num_;
     numberButton.delegate = self;
 
     numberButton.resultBlock = ^(NSInteger num ,BOOL increaseStatus){
-        num_ = num;
+        if (num<=_goods_number) {
+            num_ = num;
+        }
+        else
+        {
+            [SVProgressHUD showSuccessWithStatus:@"库存不足"];
+            [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+            [SVProgressHUD dismissWithDelay:1.0];
+            return ;
+        }
     };
     [self.view addSubview:numberButton];
 }
@@ -200,8 +216,13 @@ static NSInteger num_;
     _cell = cell;
     if (_seleArray.count != _featureAttr.count && _lastSeleArray.count != _featureAttr.count) {
         cell.chooseAttLabel.textColor = [UIColor redColor];
-        cell.chooseAttLabel.text = @"请选择";
-    }else {
+        cell.chooseAttLabel.text = [NSString stringWithFormat:@"库存:%ld",_goods_number];
+    }
+    else if(_featureAttr.count<1)
+    {
+        cell.chooseAttLabel.text = [NSString stringWithFormat:@"库存:%ld",_goods_number];
+    }
+    else {
         cell.chooseAttLabel.textColor = [UIColor darkGrayColor];
         NSString *attString = (_seleArray.count == _featureAttr.count) ? [_seleArray componentsJoinedByString:@"，"] : [_lastSeleArray componentsJoinedByString:@"，"];
         cell.chooseAttLabel.text = [NSString stringWithFormat:@"已选属性：%@",attString];

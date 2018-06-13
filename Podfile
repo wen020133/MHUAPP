@@ -18,4 +18,5 @@ pod ‘UMengUShare/Social/ReducedSina'
 pod ‘UMengUShare/Social/AlipayShare'
 pod 'RongCloudIM/IMKit'
 pod 'WechatOpenSDK'
+pod 'IQKeyboardManager'
 end

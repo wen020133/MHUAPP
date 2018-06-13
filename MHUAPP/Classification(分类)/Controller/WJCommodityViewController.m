@@ -69,6 +69,7 @@
         
     };
     searchBarVc.rightItemClickBlock = ^{
+        self.tabBarController.selectedIndex = 2;
     };
     searchBarVc.searchButtonClickBlock = ^{
         NSLog(@"点击了搜索");

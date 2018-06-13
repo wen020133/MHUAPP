@@ -17,6 +17,13 @@
 {
     CGFloat _cellHeight;
 }
+/* 店铺userId */
+@property (strong , nonatomic) NSString *supplier_id;
+/* 店铺头像 */
+@property (strong , nonatomic) NSString *supplier_logo;
+/* 店铺名 */
+@property (strong , nonatomic) NSString *supplier_name;
+
 @end
 
 @implementation WJJingXuanDianPuViewController
@@ -56,7 +63,7 @@
                 [self addhotsellControlView];
             }
         }
-        else
+        else if(_serverType == 2)
         {
             NSArray *arr_Datalist = [NSArray array];
             arr_Datalist = [self.results objectForKey:@"data"];
@@ -90,11 +97,43 @@
 //                }
             }
         }
+        else
+        {
+            _supplier_id = [NSString stringWithFormat:@"kefu%@", [self.results objectForKey:@"data"]];
+            WJConversationViewController *conversationVC = [[WJConversationViewController alloc]init];
+            conversationVC.conversationType = ConversationType_PRIVATE;
+            NSString *kefuUserId = _supplier_id;
+            conversationVC.targetId =  kefuUserId;
+            conversationVC.strTitle = _supplier_name;
+            
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            NSArray *friendsList = [userDefaults objectForKey:@"RYFriendsList"];
+            NSMutableArray *allTimeArr = [NSMutableArray arrayWithArray:friendsList];
+            int kk=0;
+            for (NSDictionary *goodsDic in friendsList) {
+                NSString *userId = goodsDic[@"userId"];
+                if([kefuUserId isEqualToString:userId]){
+                    kk++;
+                }
+            }
+            if (kk==0) {
+                NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+                [dic setValue:_supplier_id forKey:@"userId"];
+                [dic setValue:_supplier_name forKey:@"name"];
+                [dic setValue:_supplier_logo forKey:@"portrait"];
+                [allTimeArr addObject:dic];
+                [userDefaults setObject:allTimeArr forKey:@"RYFriendsList"];
+                [userDefaults synchronize];
+            }
+            
+            self.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:conversationVC animated:YES];
+        }
 
     }
     else
     {
-        [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"msg"]];
+        [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"data"]];
         return;
     }
 }
@@ -138,6 +177,11 @@
 {
     _serverType = 2;
     [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetStreetGoods,_arr_TypeID[tag]]];
+}
+-(void)setgetSupplierUserId :(NSString *)supplier_id
+{
+    _serverType = 3;
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetSupplierUserId,supplier_id]];
 }
 -(void)showright
 {
@@ -251,34 +295,10 @@
     WEAKSELF
     cell.goToContactServiceBlock = ^{
 
-        WJConversationViewController *conversationVC = [[WJConversationViewController alloc]init];
-        conversationVC.conversationType = ConversationType_PRIVATE;
-        NSString *kefuUserId = [NSString stringWithFormat:@"kefu%@",model.supplier_id];
-        conversationVC.targetId =  kefuUserId;
-        conversationVC.strTitle =model.supplier_name;
-
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        NSArray *friendsList = [userDefaults objectForKey:@"RYFriendsList"];
-        NSMutableArray *allTimeArr = [NSMutableArray arrayWithArray:friendsList];
-        int kk=0;
-        for (NSDictionary *goodsDic in friendsList) {
-            NSString *userId = goodsDic[@"userId"];
-            if([kefuUserId isEqualToString:userId]){
-                kk++;
-            }
-        }
-        if (kk==0) {
-            NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-            [dic setValue:kefuUserId forKey:@"userId"];
-            [dic setValue:model.supplier_name forKey:@"name"];
-            [dic setValue:model.logo forKey:@"portrait"];
-            [allTimeArr addObject:dic];
-            [userDefaults setObject:allTimeArr forKey:@"RYFriendsList"];
-            [userDefaults synchronize];
-        }
+        [self setgetSupplierUserId:model.supplier_id];
+        _supplier_name = model.supplier_name;
+        _supplier_logo = model.logo;
         
-        self.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:conversationVC animated:YES];
     };
     cell.goToShopInfoBlock = ^{
         WJStoreInfoClassViewController *storeInfo = [[WJStoreInfoClassViewController alloc]init];

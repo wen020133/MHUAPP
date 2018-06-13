@@ -179,7 +179,9 @@
 {
 
     if (indexPath.section==0) {
-
+        WJManageUserInfoViewController  *userSettingVC = [[WJManageUserInfoViewController alloc]init];
+        self.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:userSettingVC animated:YES];
     }
     else if (indexPath.section==1)
     {
@@ -189,11 +191,22 @@
             self.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:AddressVC animated:YES];
         }
-        else
-        {
-
-        }
     }
+     else if (indexPath.section==2)
+     {
+         if (indexPath.row==0) {
+             AddAddressViewController *AddressVC = [[AddAddressViewController alloc]init];
+             AddressVC.selectCellIndexpathYES = YES;
+             self.hidesBottomBarWhenPushed = YES;
+             [self.navigationController pushViewController:AddressVC animated:YES];
+         }
+         if (indexPath.row==1) {
+             AddAddressViewController *AddressVC = [[AddAddressViewController alloc]init];
+             AddressVC.selectCellIndexpathYES = YES;
+             self.hidesBottomBarWhenPushed = YES;
+             [self.navigationController pushViewController:AddressVC animated:YES];
+         }
+     }
 }
 - (void)loginoutState {
 

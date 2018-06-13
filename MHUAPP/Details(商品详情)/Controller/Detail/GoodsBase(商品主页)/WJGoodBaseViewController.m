@@ -58,6 +58,7 @@ static NSArray *lastSeleArray_;
     [self setUpSuspendView];
 
     _PostCount =0 ;
+    lastNum_ = @"1";
     [self acceptanceNote];
 
     [self toGetGoodNum];
@@ -404,7 +405,7 @@ static NSArray *lastSeleArray_;
 #pragma mark - head宽高
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
     if (section ==0) {
-        return  CGSizeMake(kMSScreenWith, kMSScreenWith * 0.55);
+        return  CGSizeMake(kMSScreenWith, kMSScreenHeight * 0.55);
     }
 //   else  if (section ==1){
 //       if(_attributeArray.count<1&&_commentArray.count>0)
@@ -443,6 +444,7 @@ static NSArray *lastSeleArray_;
         dcFeaVc.lastSeleArray = [NSMutableArray arrayWithArray:lastSeleArray_];
         dcFeaVc.arr_fuckData = _attributeArray;
         dcFeaVc.arr_goodImage = _shufflingArray;
+        dcFeaVc.goods_number = _goods_number;
         dcFeaVc.goodPrice = _goodPrice;
         dcFeaVc.goodImageView = _goodImageView;
         WEAKSELF

@@ -141,7 +141,7 @@
     if ( [[UMSocialManager defaultManager] isInstall:UMSocialPlatformType_WechatSession])
     {
         [btn_weixin addTarget:self action:@selector(sendAuthRequestWX) forControlEvents:UIControlEventTouchUpInside];
-        [contrVC addSubview:btn_weixin];
+//        [contrVC addSubview:btn_weixin];
     }
 
     UILabel *lab_Wechat= [[UILabel alloc]init];
@@ -151,7 +151,7 @@
     lab_Wechat.textAlignment = NSTextAlignmentCenter;
     if ( [[UMSocialManager defaultManager] isInstall:UMSocialPlatformType_WechatSession]) {
         lab_Wechat.frame = CGRectMake(kMSScreenWith/3*2-40,  AccountInitHeightY+290+48, 80, 20);
-        [contrVC addSubview:lab_Wechat];
+//        [contrVC addSubview:lab_Wechat];
     }
 }
 

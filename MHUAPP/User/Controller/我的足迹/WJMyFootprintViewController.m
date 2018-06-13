@@ -22,8 +22,7 @@
 
 @property NSInteger page_Information;
 
-@property (strong , nonatomic)NSMutableArray *chuliQianArr;
-@property (strong , nonatomic)NSMutableArray *setItem;
+
 
 @end
 
@@ -34,8 +33,6 @@
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
 
     [self initSendReplyWithTitle:@"我的足迹" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
-    _setItem = [NSMutableArray array];
-    _chuliQianArr = [NSMutableArray array];
     [self.view addSubview:self.myTableView];
 
     // Do any additional setup after loading the view.
@@ -43,6 +40,18 @@
 -(void)initGetFootmarkClassData
 {
      [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%ld&user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetFootmark,_page_Information,[AppDelegate shareAppDelegate].user_id]];
+}
+-(NSMutableArray *)chuliQianArr{
+    if (!_chuliQianArr) {
+        _chuliQianArr = [NSMutableArray array];
+    }
+    return _chuliQianArr;
+}
+-(NSMutableArray *)setItem{
+    if (!_setItem) {
+        _setItem = [NSMutableArray array];
+    }
+    return _setItem;
 }
 
 -(void)getProcessData
@@ -52,16 +61,15 @@
     if([[self.results objectForKey:@"code"] integerValue] == 200)
     {
 
-        NSMutableArray *arr_Datalist = [NSMutableArray array];
-        arr_Datalist = [[self.results objectForKey:@"data"]objectForKey:@"data"];
-       if (arr_Datalist&&arr_Datalist.count>0) {
-
+        NSArray *arr_Datalist = [[self.results objectForKey:@"data"] objectForKey:@"data"];
+        if (arr_Datalist&&arr_Datalist.count>0) {
             if(_page_Information==1)
             {
-                _chuliQianArr= arr_Datalist;
+                NSMutableArray *mutableObject = [arr_Datalist mutableCopy];
+                self.chuliQianArr = mutableObject;
             }else
             {
-                [_chuliQianArr addObjectsFromArray:arr_Datalist];
+                [self.chuliQianArr addObjectsFromArray:arr_Datalist];
             }
             [self editTheArray:_chuliQianArr];
             [_myTableView reloadData];
@@ -84,7 +92,7 @@
         [self requestFailed:@"获取数据失败"];
     }
 }
--(void)editTheArray :(NSArray *)chuliqianArr
+-(void)editTheArray :(NSMutableArray *)chuliqianArr
 {
     NSMutableArray *allTimeArr = [NSMutableArray array];
     NSMutableArray *tempArray = [NSMutableArray array];
@@ -110,8 +118,8 @@
          //第二个for循环把对应某个dateTitle的值 加入对应的数组
         }
      _setItem = tempArray;
-    //数组倒序
-    _setItem = (NSMutableArray *)[[_setItem reverseObjectEnumerator]allObjects];
+//    //数组倒序
+//    _setItem = (NSMutableArray *)[[_setItem reverseObjectEnumerator]allObjects];
 }
 
 -(NSString *)timeStamp2Date:(NSString *)datestr
@@ -191,14 +199,23 @@
     }
 
     NSArray *arrAllkeys = _setItem[indexPath.section][@"goodsInfo"];
-    [cell.contentImg sd_setImageWithURL:[NSURL URLWithString:[[[arrAllkeys objectAtIndex:indexPath.row] objectForKey:@"goods"] objectForKey:@"original_img"]] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"] completed:nil];
-    NSString *price =@"";
-    price = [NSString stringWithFormat:@"￥%@",[[[arrAllkeys objectAtIndex:indexPath.row] objectForKey:@"goods"] objectForKey:@"shop_price"]];
-    cell.price.text = price;
-
-
-    NSString *saleCount = [NSString stringWithFormat:@"%@",[[[arrAllkeys objectAtIndex:indexPath.row] objectForKey:@"goods"] objectForKey:@"goods_name"]];
-    cell.title.text  = saleCount;
+    NSDictionary *dic = [[arrAllkeys objectAtIndex:indexPath.row] objectForKey:@"goods"];
+    if (![dic isEqual:[NSNull null]]) {
+        NSString *str_url = [dic objectForKey:@"original_img"];
+        if (![str_url isEqual:[NSNull null]]) {
+            [cell.contentImg sd_setImageWithURL:[NSURL URLWithString:str_url] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"] completed:nil];
+            NSString *price =@"";
+            price = [NSString stringWithFormat:@"￥%@",[[[arrAllkeys objectAtIndex:indexPath.row] objectForKey:@"goods"] objectForKey:@"shop_price"]];
+            cell.price.text = price;
+            
+            
+            NSString *saleCount = [NSString stringWithFormat:@"%@",[[[arrAllkeys objectAtIndex:indexPath.row] objectForKey:@"goods"] objectForKey:@"goods_name"]];
+            cell.title.text  = saleCount;
+        }
+    }
+    
+    
+   
     return cell;
 
 

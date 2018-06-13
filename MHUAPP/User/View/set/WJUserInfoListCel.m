@@ -77,7 +77,7 @@
     [_actionImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         [make.left.mas_equalTo(self.contentView.mas_right)setOffset:-20];
         make.centerY.mas_equalTo(self.contentView.mas_centerY);
-        make.size.mas_equalTo(CGSizeMake(13, 19));
+        make.size.mas_equalTo(CGSizeMake(6, 10));
     }];
     [_lineImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         [make.bottom.mas_equalTo(self.contentView.mas_bottom)setOffset:-1];

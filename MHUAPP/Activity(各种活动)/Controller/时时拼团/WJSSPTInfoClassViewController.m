@@ -54,11 +54,12 @@ static NSArray *lastSeleArray_;
     [self setUpInit];
 
     [self setUpSuspendView];
-
+    lastNum_ = @"1"; 
     [self acceptanceNote];
+    [self toGetPTGoodNum];
     // Do any additional setup after loading the view.
 }
--(void)toGetGoodNum
+-(void)toGetPTGoodNum
 {
     [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSMiYoMeiGetNum,_goods_id]];
 }
@@ -405,7 +406,7 @@ static NSArray *lastSeleArray_;
 #pragma mark - head宽高
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
     if (section ==0) {
-        return  CGSizeMake(kMSScreenWith, kMSScreenWith * 0.55);
+        return  CGSizeMake(kMSScreenWith, kMSScreenHeight * 0.55);
     }
 //    else  if (section ==1){
 //        if(_attributeArray.count<1&&_commentArray.count>0)
@@ -434,6 +435,8 @@ static NSArray *lastSeleArray_;
 //  if (_attributeArray.count>0&&indexPath.section == 1){ //属性选择
         WJFeatureSelectionViewController *dcFeaVc = [WJFeatureSelectionViewController new];
         dcFeaVc.lastNum = lastNum_;
+    dcFeaVc.goods_number = _goods_number;
+    dcFeaVc.str_IsmiaoshaPT = @"秒杀拼团";
         dcFeaVc.lastSeleArray = [NSMutableArray arrayWithArray:lastSeleArray_];
         dcFeaVc.arr_fuckData = _attributeArray;
         dcFeaVc.arr_goodImage = _shufflingArray;

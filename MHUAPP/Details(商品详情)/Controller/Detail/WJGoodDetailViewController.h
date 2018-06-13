@@ -12,6 +12,7 @@
 typedef NS_ENUM(NSInteger, KGetShopInfoClassType) {
     KGetshopInfoClass = 1 ,//获取商品详情
     KGetComment = 2 ,//评论数据
+    KGetSupplierUserId = 3 ,//客服userID
 };
 
 @interface WJGoodDetailViewController : BaseNetworkViewController<UIScrollViewDelegate>
@@ -26,7 +27,8 @@ typedef NS_ENUM(NSInteger, KGetShopInfoClassType) {
 @property (strong , nonatomic)NSString *goodSubtitle;
 /* 商品图片 */
 @property (strong , nonatomic)NSString *goodImageView;
-
+/* 商品库存 */
+@property (assign , nonatomic)NSInteger goods_number;
 /* 商品轮播图 */
 @property (copy , nonatomic)NSArray *shufflingArray;
 /* 商品属性 */
@@ -37,6 +39,8 @@ typedef NS_ENUM(NSInteger, KGetShopInfoClassType) {
 @property (strong , nonatomic) NSString *goods_id;
 /* 店铺ID */
 @property (strong , nonatomic) NSString *supplier_id;
+/* 店铺userId */
+@property (strong , nonatomic) NSString *supplierUserId;
 /* 店铺头像 */
 @property (strong , nonatomic) NSString *supplier_logo;
 /* 店铺名 */

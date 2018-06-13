@@ -66,6 +66,7 @@
 
 
 #define   kMSGetComment            @"getComment"                 //评论
+#define   kMSGetSupplierUserId            @"getSupplierUserId"                 //客服userID
 #define   kMSAddComment          @"/v1/addComment"                 //用户添加评论
 
 #define   kMSGetDetailed           @"getDetailed"                 //商品详情页面

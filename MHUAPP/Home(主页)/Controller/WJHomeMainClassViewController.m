@@ -261,7 +261,7 @@
 //        self.hidesBottomBarWhenPushed = NO;
     };
     searchBarVc.rightItemClickBlock = ^{
-
+        self.tabBarController.selectedIndex = 2;
     };
     searchBarVc.searchButtonClickBlock = ^{
         NSLog(@"点击了搜索");
@@ -331,7 +331,7 @@
             head.goToADAction = ^(NSInteger index) {
                 WJMainWebClassViewController *MainWebV = [[WJMainWebClassViewController alloc]init];
                 MainWebV.str_urlHttp = _adImageArr[index].ad_link;
-                MainWebV.str_urlHttp = _adImageArr[index].ad_name;
+                MainWebV.str_title = _adImageArr[index].ad_name;
                 MainWebV.hidesBottomBarWhenPushed = YES;
                 [weakSelf.navigationController pushViewController:MainWebV animated:YES];
                 weakSelf.hidesBottomBarWhenPushed = NO;
