@@ -68,7 +68,7 @@
     if (self.state == MJRefreshStateRefreshing) {
         self.gifView.mj_y = 5;
     }else{
-        self.gifView.mj_y = (self.mj_h - self.gifView.mj_size.height)/2 - 10;
+        self.gifView.mj_y = (self.mj_h - self.gifView.mj_size.height)/2 - 20;
     }
 
     self.stateLabel.mj_y = self.mj_h - self.stateLabel.mj_h;

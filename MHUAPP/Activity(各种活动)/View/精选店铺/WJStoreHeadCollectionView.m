@@ -121,7 +121,7 @@
 //    _cycleScrollView.autoScrollTimeInterval = 5.0;
 //    _cycleScrollView.backgroundColor = [UIColor whiteColor];
 //    _cycleScrollView.currentPageDotColor = [UIColor redColor];
-//    _cycleScrollView.localizationImageNamesGroup = @[@"home_banner_img.png",@"home_banner_img.png",@"home_banner_img.png",@"home_banner_img.png",@"home_banner_img.png",@"home_banner_img.png"];
+//    _cycleScrollView.localizationImageNamesGroup = @[@"default_nomore.png",@"default_nomore.png",@"default_nomore.png",@"default_nomore.png",@"default_nomore.png",@"default_nomore.png"];
 //    _cycleScrollView.pageDotColor = [UIColor lightGrayColor];
 //    [self addSubview:_cycleScrollView];
 }

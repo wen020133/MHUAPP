@@ -203,7 +203,7 @@
     if (![dic isEqual:[NSNull null]]) {
         NSString *str_url = [dic objectForKey:@"original_img"];
         if (![str_url isEqual:[NSNull null]]) {
-            [cell.contentImg sd_setImageWithURL:[NSURL URLWithString:str_url] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"] completed:nil];
+            [cell.contentImg sd_setImageWithURL:[NSURL URLWithString:str_url] placeholderImage:[UIImage imageNamed:@"default_nomore.png"] completed:nil];
             NSString *price =@"";
             price = [NSString stringWithFormat:@"￥%@",[[[arrAllkeys objectAtIndex:indexPath.row] objectForKey:@"goods"] objectForKey:@"shop_price"]];
             cell.price.text = price;

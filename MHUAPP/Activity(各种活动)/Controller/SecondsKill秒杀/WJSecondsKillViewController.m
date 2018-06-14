@@ -282,7 +282,7 @@
     WJSecondsKissCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WJSecondsKissCell" forIndexPath:indexPath];
     
     NSString *urlStr = [NSString stringWithFormat:@"%@",_countDownItem[indexPath.row][@"goods"][@"goods_thumb"]];
-    [cell.gridImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"] completed:nil];
+    [cell.gridImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"default_nomore.png"] completed:nil];
     cell.gridLabel.text = _countDownItem[indexPath.row][@"goods"] [@"goods_name"];
     cell.goods_briefLabel.text = _countDownItem[indexPath.row][@"goods"] [@"goods_brief"];
     cell.priceLabel.text = [NSString stringWithFormat:@"￥%@",_countDownItem[indexPath.row][@"goods_price"]];

@@ -120,7 +120,7 @@
         _collectionView.showsVerticalScrollIndicator = NO;
         _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.alwaysBounceVertical = YES;
-        _collectionView.frame = CGRectMake(tableViewW, 64, kMSScreenWith - tableViewW, kMSScreenHeight -64 - 49);
+        _collectionView.frame = CGRectMake(tableViewW+DCMargin, 64, kMSScreenWith - tableViewW-DCMargin*2, kMSScreenHeight -64 - 49);
         //注册Cell
         [_collectionView registerClass:[WJGoodsSortCell class] forCellWithReuseIdentifier:@"WJGoodsSortCell"];
         //注册Header
@@ -232,13 +232,13 @@
 #pragma mark - item宽高
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
 
-    return CGSizeMake((kMSScreenWith - tableViewW - 6)/3, (kMSScreenWith - tableViewW - 6)/3 + 20);
+    return CGSizeMake((kMSScreenWith - tableViewW -DCMargin*2- 6)/3, (kMSScreenWith - tableViewW - 6)/3 + 20);
 
 }
 
 #pragma mark - head宽高
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-    return CGSizeMake(kMSScreenWith, 25);
+    return CGSizeMake(kMSScreenWith, 40);
 }
 
 #pragma mark - foot宽高

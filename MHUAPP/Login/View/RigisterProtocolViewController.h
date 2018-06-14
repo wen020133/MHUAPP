@@ -13,5 +13,5 @@
 @property (strong, nonatomic)  UIWebView *mWebView;
 @property (strong, nonatomic) NSString *str_content;
 @property (strong, nonatomic) NSString *str_urlHttp;
-
+@property (strong, nonatomic) NSString *str_title;
 @end

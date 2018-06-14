@@ -71,7 +71,7 @@
         _model = model;
     }
     NSString *urlStr = [NSString stringWithFormat:@"%@%@",kMSBaseUserHeadPortURL,_model.goods_thumb] ;
-    [_img_content sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"] completed:nil];
+    [_img_content sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"default_nomore.png"] completed:nil];
     _lab_title.text = _model.goods_name;
     _lab_describe.text = _model.goods_brief;
     _lab_price.text = [NSString stringWithFormat:@"¥ %.2f",[_model.shop_price floatValue]];

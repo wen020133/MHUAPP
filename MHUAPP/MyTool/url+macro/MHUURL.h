@@ -26,6 +26,7 @@
 #define   kMSUserRegister         @"/user/register"              //注册
 #define   kMSLoginURL             @"/user/login"                 //登陆
 #define   kMSLoginqq             @"/user/qq"                 //第三方登陆
+#define   kMSWeiXinLogin             @"/v1/WeiXinLogin"                 //微信登录
 #define   kMSOutLogin          @"OutLogin"      //退出登录
 
 
@@ -137,5 +138,7 @@
 //各订单状态下的订单 （新）
 #define   kMSGetAccessToken       @"/v1/getAccessToken"  //获取融云Token
 #define   kMSDeleteOrder       @"deleteOrder"  //删除待付款订单
+#define   kMSetArticle       @"getArticle"  //常见问题
+
 
 #endif /* MHUURL_h */

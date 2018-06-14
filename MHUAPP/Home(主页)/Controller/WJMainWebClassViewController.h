@@ -11,7 +11,6 @@
 
 @interface WJMainWebClassViewController : UIViewController<WKNavigationDelegate>
 
-@property (weak, nonatomic) WKWebView *webView;
 @property (weak, nonatomic) CALayer *progresslayer;
 
 @property (strong, nonatomic) NSString *str_content;

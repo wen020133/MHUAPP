@@ -141,7 +141,7 @@
     if ( [[UMSocialManager defaultManager] isInstall:UMSocialPlatformType_WechatSession])
     {
         [btn_weixin addTarget:self action:@selector(sendAuthRequestWX) forControlEvents:UIControlEventTouchUpInside];
-//        [contrVC addSubview:btn_weixin];
+        [contrVC addSubview:btn_weixin];
     }
 
     UILabel *lab_Wechat= [[UILabel alloc]init];
@@ -151,7 +151,7 @@
     lab_Wechat.textAlignment = NSTextAlignmentCenter;
     if ( [[UMSocialManager defaultManager] isInstall:UMSocialPlatformType_WechatSession]) {
         lab_Wechat.frame = CGRectMake(kMSScreenWith/3*2-40,  AccountInitHeightY+290+48, 80, 20);
-//        [contrVC addSubview:lab_Wechat];
+        [contrVC addSubview:lab_Wechat];
     }
 }
 
@@ -263,7 +263,7 @@
                         [dic setValue:logo_img forKey:@"user_icon"];
                     }else
                     {
-                        [dic setValue:@"null" forKey:@"user_icon"];
+                        [dic setValue:@"" forKey:@"user_icon"];
                     }
 
                     [dic setValue:ConvertNullString([[[self.results objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"email" ]) forKey:@"email"];
@@ -272,7 +272,7 @@
                     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
                     [userDefaults setObject:dic forKey:@"userList"];
                     [userDefaults setObject:@"1" forKey:@"loginState"];
-                    [userDefaults setObject:@"qq" forKey:@"loginType"];
+                    [userDefaults setObject:self.outUserType forKey:@"loginType"];
                     [userDefaults synchronize];
                     [self getAccountToken:[[self.results objectForKey:@"data"] objectForKey:@"user_id"]];
 //                    [self.navigationController popViewControllerAnimated:YES];
@@ -333,7 +333,7 @@
 {
     [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_QQ currentViewController:nil completion:^(id result, NSError *error) {
         if (error) {
-            NSLog(@"%@",[NSString stringWithFormat:@"%@",[error localizedDescription]]);
+            NSLog(@"QQ登录失败---%@",[NSString stringWithFormat:@"%@",[error localizedDescription]]);
             [SVProgressHUD showErrorWithStatus:@"QQ登录失败！"];
         } else {
             UMSocialUserInfoResponse *resp = result;
@@ -360,7 +360,32 @@
 }
 -(void)sendAuthRequestWX
 {
-
+    [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_WechatSession currentViewController:nil completion:^(id result, NSError *error) {
+        if (error) {
+            NSLog(@"微信登录失败----%@",[NSString stringWithFormat:@"%@",[error localizedDescription]]);
+            [SVProgressHUD showErrorWithStatus:@"微信登录失败！"];
+        } else {
+            UMSocialUserInfoResponse *resp = result;
+            self.outUserId = resp.uid;
+            self.outUserType = @"weixin";
+            self.outNickName = resp.name;
+            [self gotoAccountBindVC:self.outUserId outUserType:self.outUserType outNickName:self.outNickName outHeadUrl:resp.iconurl outSex:resp.gender];
+            // 授权信息
+            NSLog(@"weixin uid: %@", resp.uid);
+            NSLog(@"weixin openid: %@", resp.openid);
+            NSLog(@"weixin unionid: %@", resp.unionId);
+            NSLog(@"weixin accessToken: %@", resp.accessToken);
+            NSLog(@"weixin expiration: %@", resp.expiration);
+            
+            // 用户信息
+            NSLog(@"weixin name: %@", resp.name);
+            NSLog(@"weixin iconurl: %@", resp.iconurl);
+            NSLog(@"weixin gender: %@", resp.unionGender);
+            
+            // 第三方平台SDK源数据
+            NSLog(@"weixin originalResponse: %@", resp.originalResponse);
+        }
+    }];
 }
 -(void)backAction
 {
@@ -390,13 +415,24 @@
     self.regType = 1;
     if(outUserId.length>1)
     {
-        [SVProgressHUD showWithStatus:@"正在登录..."];
+         [SVProgressHUD showWithStatus:@"正在登录..."];
         NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-        [infos setObject:outUserId forKey:@"usid"];
-        [infos setObject:outNickName forKey:@"user_name"];
-        [infos setObject:outSex forKey:@"sex"];
-        [infos setObject:outHeadUrl forKey:@"user_icon"];
-        [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSLoginqq] andInfos:infos];
+        
+        if ([outUserType isEqualToString:@"qq"]) {
+            [infos setObject:outUserId forKey:@"usid"];
+            [infos setObject:outNickName forKey:@"user_name"];
+            [infos setObject:outSex forKey:@"sex"];
+            [infos setObject:outHeadUrl forKey:@"user_icon"];
+            [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSLoginqq] andInfos:infos];
+        }
+        else if  ([outUserType isEqualToString:@"weixin"]) {
+            [infos setObject:outUserId forKey:@"openid"];
+            [infos setObject:outNickName forKey:@"nickname"];
+            [infos setObject:outSex forKey:@"sex"];
+            [infos setObject:outHeadUrl forKey:@"headimgurl"];
+            [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSWeiXinLogin] andInfos:infos];
+        }
+        
     }
     else
     {

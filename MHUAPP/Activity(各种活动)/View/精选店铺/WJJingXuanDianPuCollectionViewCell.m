@@ -37,14 +37,17 @@
 
 -(void)createContents{
 
-    self.backgroundColor = kMSCellBackColor;
+    self.backgroundColor = [UIColor clearColor];
+    UIImageView *backImg = ImageViewInit(0, DCMargin, kMSScreenWith, 182+(kMSScreenWith-DCMargin*2)/4);
+    backImg.backgroundColor = kMSCellBackColor;
+    [self.contentView addSubview:backImg];
     //头像
-    self.headerIconImgView = ImageViewInit(DCMargin, DCMargin, 50, 50);
+    self.headerIconImgView = ImageViewInit(DCMargin, 2*DCMargin, 50, 50);
     self.headerIconImgView.layer.cornerRadius = 25;
     self.headerIconImgView.layer.masksToBounds = YES;
     [self.contentView addSubview:self.headerIconImgView];
     //名字
-  self.nameLbl = LabelInit(self.headerIconImgView.Right+DCMargin, 20,kMSScreenWith-80, 20);
+  self.nameLbl = LabelInit(self.headerIconImgView.Right+DCMargin, 20+DCMargin,kMSScreenWith-80, 20);
     self.nameLbl.font = [UIFont boldSystemFontOfSize:14];
     self.nameLbl.text = @"adadsdgfglhkkkk";
     self.nameLbl.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
@@ -116,12 +119,12 @@
     line1.backgroundColor = [RegularExpressionsMethod ColorWithHexString:@"E6E6E6"];
     [self.contentView addSubview:line1];
 
-    //总多少商品
-    self.lab_goodNum = LabelInit(DCMargin, line1.Bottom+DCMargin, kMSScreenWith-80, 20);
-    self.lab_goodNum.font = [UIFont systemFontOfSize:14];
-    self.lab_goodNum.text = @"共12件宝贝";
-    self.lab_goodNum.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
-    [self.contentView addSubview:self.lab_goodNum];
+//    //总多少商品
+//    self.lab_goodNum = LabelInit(DCMargin, line1.Bottom+DCMargin, kMSScreenWith-80, 20);
+//    self.lab_goodNum.font = [UIFont systemFontOfSize:14];
+//    self.lab_goodNum.text = @"共12件宝贝";
+//    self.lab_goodNum.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
+//    [self.contentView addSubview:self.lab_goodNum];
 
     self.imgContentView = [self imageContentView];
     [self.contentView addSubview:self.imgContentView];
@@ -176,12 +179,12 @@
 
     //排版说说的图片部分
     [self layoutImgContentViewWithModel:model];
-    self.imgContentView.frame = CGRectMake(DCMargin, self.lab_goodNum.Bottom+DCMargin, kMSScreenWith-DCMargin*2, [self heightForImgContentByCount:model.may_goods.count]);
+    self.imgContentView.frame = CGRectMake(DCMargin, self.lab_BBmiansu.Bottom+2*DCMargin, kMSScreenWith-DCMargin*2, [self heightForImgContentByCount:model.may_goods.count]);
     self.imgContentView.contentMode = UIViewContentModeScaleAspectFill;
     
-    _btn_kefu.frame = CGRectMake(20, self.imgContentView.Bottom, kMSScreenWith/2-40, 40);
+    _btn_kefu.frame = CGRectMake(20, self.imgContentView.Bottom+DCMargin, kMSScreenWith/2-40, 40);
 
-    _btn_shop.frame = CGRectMake(kMSScreenWith/2+20, self.imgContentView.Bottom, kMSScreenWith/2-40, 40);
+    _btn_shop.frame = CGRectMake(kMSScreenWith/2+20, self.imgContentView.Bottom+DCMargin, kMSScreenWith/2-40, 40);
 
     
 
@@ -209,7 +212,7 @@
     
     for (numOfImg = 0; numOfImg < model.may_goods.count; numOfImg++) {
         UIImageView *imageView = [[UIImageView alloc]initWithFrame:  CGRectMake(numOfImg * (img_W + 6), 3, img_W, img_H)];
-        [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[[model.may_goods objectAtIndex:numOfImg] objectForKey:@"original_img"]]] placeholderImage:[UIImage imageNamed:@"noMore_bg"]];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[[model.may_goods objectAtIndex:numOfImg] objectForKey:@"original_img"]]] placeholderImage:[UIImage imageNamed:@"default_nomore.png"]];
         [self.imgContentView addSubview:imageView];
         
         UILabel *labPrice = LabelInit(numOfImg * (img_W + 6), imageView.Bottom-20, img_W, 20);

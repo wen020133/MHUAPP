@@ -49,10 +49,10 @@
     [super setSelected:selected animated:animated];
     if (selected) {
         _titleLabel.textColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor clearColor];
     }else{
         _titleLabel.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = [UIColor whiteColor];
     }
 }
 

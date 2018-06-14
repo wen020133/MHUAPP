@@ -10,6 +10,8 @@
 
 @interface WJMainWebClassViewController ()
 
+@property (strong, nonatomic) WKWebView *webView;
+
 @end
 
 @implementation WJMainWebClassViewController
@@ -20,11 +22,10 @@
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     [self initSendReplyWithTitle:self.str_title andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:NO];
     
-    WKWebView *webView = [[WKWebView alloc]initWithFrame:self.view.bounds];
-    [self.view addSubview:webView];
-    self.webView = webView;
+   _webView = [[WKWebView alloc]initWithFrame:self.view.bounds];
+    [self.view addSubview:_webView];
     //添加属性监听
-    [webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
+    [_webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
 
     //进度条
     UIView *progress = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 3)];
@@ -36,9 +37,18 @@
     layer.backgroundColor = [UIColor blueColor].CGColor;
     [progress.layer addSublayer:layer];
     self.progresslayer = layer;
-    [webView loadHTMLString:self.str_urlHttp baseURL:nil];
+    if(![_str_content isEqual:[NSNull null]]&&_str_content.length>1)
+    {
+         [_webView loadHTMLString:_str_content baseURL:nil];
+    }
+    else
+    {
+        [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_str_urlHttp]]];
+    }
+   
     // Do any additional setup after loading the view.
 }
+
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
     if ([keyPath isEqualToString:@"estimatedProgress"]) {

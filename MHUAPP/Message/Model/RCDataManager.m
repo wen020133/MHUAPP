@@ -179,7 +179,7 @@
         }
 
     }
-    else if ([loginType isEqualToString:@"qq"])
+    else if ([loginType isEqualToString:@"qq"]||[loginType isEqualToString:@"weixin"])
     {
         NSMutableDictionary *infos = [NSMutableDictionary dictionary];
         [infos setObject:str_otherID forKey:@"usid"];

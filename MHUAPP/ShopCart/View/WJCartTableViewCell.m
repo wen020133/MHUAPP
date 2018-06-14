@@ -51,7 +51,7 @@
 #pragma mark - public method
 - (void)reloadDataWithModel:(WJCartGoodsModel*)model {
 
-    [self.lzImageView sd_setImageWithURL:[NSURL URLWithString:model.img] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"] completed:nil];
+    [self.lzImageView sd_setImageWithURL:[NSURL URLWithString:model.img] placeholderImage:[UIImage imageNamed:@"default_nomore.png"] completed:nil];
     [self refreshUIWithTitle:model.goods_name];
     self.attributeLabel.text = model.goods_attr;
     if (model.youhui.length>0) {

@@ -25,18 +25,25 @@
     [self initSendReplyWithTitle:@"物流信息" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
     
     self.dataArry = [NSMutableArray array];
-    _shipping_name = @"中通速递";
-    _invoice_no = @"490850486931";
+//    _shipping_name = @"中通速递";
+//    _invoice_no = @"490850486931";
     [self getMiYouMeiQuery];
     // Do any additional setup after loading the view.
 }
 
 -(void)getMiYouMeiQuery
 {
+    if(![_shipping_name isEqual:[NSNull null]]&&![_invoice_no isEqual:[NSNull null]])
+    {
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
     [infos setObject:_shipping_name forKey:@"shipping_name"];
     [infos setObject:_invoice_no forKey:@"invoice_no"];
     [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSMiYoMeiQuery] andInfos:infos];
+    }
+    else
+    {
+        [self requestFailed:@"获取物流信息失败！"];
+    }
 }
 -(void)processData
 {

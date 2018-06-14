@@ -214,7 +214,7 @@
         }
         else if (_serverType==KGetOrderListWaitPingjia||_serverType == KGetOrderListJiaoyiSuccess) {
         WJOrderWaitPingjiaAndSuccessItem *model = [[WJOrderWaitPingjiaAndSuccessItem alloc]init];
-        model.supplier_name = [[dataArr objectAtIndex:aa] objectForKey:@"supplier_name"];
+        model.supplier_name =[NSString stringWithFormat:@"%@", [[dataArr objectAtIndex:aa] objectForKey:@"supplier_name"]];
                                 model.order_id = [[dataArr objectAtIndex:aa] objectForKey:@"order_id"];
                                 model.supplier_id = [[dataArr objectAtIndex:aa] objectForKey:@"supplier_id"];
                                 model.goods_name = [[dataArr objectAtIndex:aa] objectForKey:@"goods_name"];
@@ -341,7 +341,7 @@
     {
         WJOrderShangJiaHeadModel *shopModel = self.arr_data[indexPath.section];
         WJOrderGoodListModel *model = [shopModel.goodsArray objectAtIndex:indexPath.row];
-        [cell.contentImg sd_setImageWithURL:[NSURL URLWithString:model.img] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"] completed:nil];
+        [cell.contentImg sd_setImageWithURL:[NSURL URLWithString:model.img] placeholderImage:[UIImage imageNamed:@"default_nomore.png"] completed:nil];
         NSString * price = [NSString stringWithFormat:@"￥%@",model.back_goods_price];
 
         CGFloat width = [RegularExpressionsMethod widthOfString:price font:Font(14) height:23];
@@ -664,6 +664,12 @@
                 waitPayInfoVC.hidesBottomBarWhenPushed = YES;
                 [weakSelf.navigationController pushViewController:waitPayInfoVC animated:YES];
                 weakSelf.hidesBottomBarWhenPushed = YES;
+            }
+            else  if ([stateStr isEqualToString:@"再次购买"]) {
+                WJGoodDetailViewController *waitPayInfoVC = [[WJGoodDetailViewController alloc]init];
+                waitPayInfoVC.goods_id = item.goods_id;
+                waitPayInfoVC.hidesBottomBarWhenPushed = YES;
+                [weakSelf.navigationController pushViewController:waitPayInfoVC animated:YES];
             }
         };
     }

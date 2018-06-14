@@ -60,7 +60,7 @@
     if (model!=_model) {
         _model = model;
     }
-     [_img_shopIcon sd_setImageWithURL:[NSURL URLWithString:_model.logo] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"] completed:nil];
+     [_img_shopIcon sd_setImageWithURL:[NSURL URLWithString:_model.logo] placeholderImage:[UIImage imageNamed:@"default_nomore.png"] completed:nil];
     _lab_shopName.text = _model.supplier_name;
     _lab_message.text = _model.supplier_title;
 

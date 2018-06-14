@@ -96,7 +96,7 @@
     if (listModel!=_listModel) {
         _listModel = listModel;
     }
-    [_img_content sd_setImageWithURL:[NSURL URLWithString:_listModel.logo] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"] completed:nil];
+    [_img_content sd_setImageWithURL:[NSURL URLWithString:_listModel.logo] placeholderImage:[UIImage imageNamed:@"default_nomore.png"] completed:nil];
     _selectBtn.selected = _listModel.select;
     _lab_title.text = _listModel.supplier_name;
 

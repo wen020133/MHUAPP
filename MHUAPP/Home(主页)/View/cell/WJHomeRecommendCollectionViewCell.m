@@ -55,7 +55,7 @@
     if (model!=_model) {
         _model = model;
     }
-    [_img_content sd_setImageWithURL:[NSURL URLWithString:_model.goods_thumb] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"] completed:nil];
+    [_img_content sd_setImageWithURL:[NSURL URLWithString:_model.goods_thumb] placeholderImage:[UIImage imageNamed:@"default_nomore.png"] completed:nil];
 //    _title.text = _model.goods_name;
     [self refreshUIWithTitle:_model.goods_name];
 

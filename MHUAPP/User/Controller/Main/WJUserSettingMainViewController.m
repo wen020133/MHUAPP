@@ -13,6 +13,8 @@
 #import <UIImageView+WebCache.h>
 
 #import "WJFlowItem.h"
+#import "WJCommonProblemsViewController.h"
+
 
 @interface WJUserSettingMainViewController ()
 
@@ -195,8 +197,7 @@
      else if (indexPath.section==2)
      {
          if (indexPath.row==0) {
-             AddAddressViewController *AddressVC = [[AddAddressViewController alloc]init];
-             AddressVC.selectCellIndexpathYES = YES;
+             WJCommonProblemsViewController *AddressVC = [[WJCommonProblemsViewController alloc]init];
              self.hidesBottomBarWhenPushed = YES;
              [self.navigationController pushViewController:AddressVC animated:YES];
          }

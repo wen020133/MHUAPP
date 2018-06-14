@@ -59,7 +59,7 @@
         _listModel = listModel;
     }
     NSString *urlStr = [NSString stringWithFormat:@"%@",_listModel.goods_thumb] ;
-    [_contentImg sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"] completed:nil];
+    [_contentImg sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"default_nomore.png"] completed:nil];
     _lab_title.text = _listModel.goods_name;
     CGSize sizeTitle =  [RegularExpressionsMethod dc_calculateTextSizeWithText:_listModel.goods_name WithTextFont:16 WithMaxW:kMSScreenWith- DCMargin * 4-TAG_Height];
     _lab_title.frame = CGRectMake(TAG_Height+15, 5, sizeTitle.width, sizeTitle.height);

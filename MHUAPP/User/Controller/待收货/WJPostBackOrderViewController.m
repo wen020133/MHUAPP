@@ -141,7 +141,7 @@
         {
             cell.imageLine.hidden = NO;
         }
-        [cell.contentImg sd_setImageWithURL:[NSURL URLWithString:_str_contentImg] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"] completed:nil];
+        [cell.contentImg sd_setImageWithURL:[NSURL URLWithString:_str_contentImg] placeholderImage:[UIImage imageNamed:@"default_nomore.png"] completed:nil];
 
         NSString *price = [NSString stringWithFormat:@"￥%@",_str_price];
         CGFloat width = [RegularExpressionsMethod widthOfString:price font:Font(15) height:23];

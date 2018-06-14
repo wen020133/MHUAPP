@@ -98,7 +98,7 @@
     if (listModel!=_listModel) {
         _listModel = listModel;
     }
-    [_lzImageView sd_setImageWithURL:[NSURL URLWithString: _listModel.goods.original_img] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"] completed:nil];
+    [_lzImageView sd_setImageWithURL:[NSURL URLWithString: _listModel.goods.original_img] placeholderImage:[UIImage imageNamed:@"default_nomore.png"] completed:nil];
     _selectBtn.selected = _listModel.select;
     _lab_name.text = _listModel.goods.goods_name;
 

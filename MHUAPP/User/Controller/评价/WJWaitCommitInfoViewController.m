@@ -38,8 +38,8 @@
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     [self initSendReplyWithTitle:@"待收货" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
 
-    _shipping_name = @"中通速递";
-    _invoice_no = @"490850486931";
+//    _shipping_name = @"中通速递";
+//    _invoice_no = @"490850486931";
     _str_LogisticsDes = @"暂无物流信息";
     _str_LogisticsTime = @"";
 
@@ -128,10 +128,13 @@
 }
 -(void)getMiYouMeiQuery
 {
+    if(![_shipping_name isEqual:[NSNull null]]&&![_invoice_no isEqual:[NSNull null]])
+    {
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
     [infos setObject:_shipping_name forKey:@"shipping_name"];
     [infos setObject:_invoice_no forKey:@"invoice_no"];
     [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSMiYoMeiQuery] andInfos:infos];
+    }
 }
 
 
@@ -236,7 +239,7 @@
         {
             cell.imageLine.hidden = NO;
         }
-        [cell.contentImg sd_setImageWithURL:[NSURL URLWithString:_img] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"] completed:nil];
+        [cell.contentImg sd_setImageWithURL:[NSURL URLWithString:_img] placeholderImage:[UIImage imageNamed:@"default_nomore.png"] completed:nil];
 
         NSString *price = [NSString stringWithFormat:@"￥%@",_count_price];
         CGFloat width = [RegularExpressionsMethod widthOfString:price font:Font(15) height:23];

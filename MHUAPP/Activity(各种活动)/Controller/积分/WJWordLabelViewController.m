@@ -22,8 +22,15 @@
     _text_contentView = [[UITextView alloc]initWithFrame:CGRectMake(DCMargin, DCMargin, kMSScreenWith-DCMargin*2, kMSScreenHeight-kMSNaviHight-DCMargin*2)];
     _text_contentView.editable = NO;
     _text_contentView.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
-    _text_contentView.font = Font(20);
-    _text_contentView.text = _str_content;
+    _text_contentView.font = Font(15);
+    if ([_str_title isEqualToString:@"会员协议"]) {
+        NSString *hptxtStr = [[NSString alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"RigisterDelegate" ofType:@"txt"] encoding:NSUTF8StringEncoding error:nil];
+        _text_contentView.text = hptxtStr;
+    }
+    else
+    {
+        _text_contentView.text = _str_content;
+    }
     [self.view addSubview:_text_contentView];
     // Do any additional setup after loading the view.
 }

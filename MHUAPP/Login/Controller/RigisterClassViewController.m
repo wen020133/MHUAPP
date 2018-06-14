@@ -8,7 +8,7 @@
 
 #import "RigisterClassViewController.h"
 #import "XYMKeyChain.h"
-#import "RigisterProtocolViewController.h"
+#import "WJWordLabelViewController.h"
 #import "WJPushCodeViewController.h"
 
 @interface RigisterClassViewController ()
@@ -42,8 +42,8 @@
 }
 -(void)clickStr
 {
-    RigisterProtocolViewController *rigisterPr = [[RigisterProtocolViewController alloc]init];
-    rigisterPr.str_urlHttp = @"https://www.baidu.com/";
+    WJWordLabelViewController *rigisterPr = [[WJWordLabelViewController alloc]init];
+    rigisterPr.str_title = @"会员协议";
     self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:rigisterPr animated:YES];
 }

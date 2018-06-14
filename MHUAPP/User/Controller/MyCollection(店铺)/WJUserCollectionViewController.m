@@ -222,7 +222,7 @@
             }
             else{
                 _tab_collectionView.mj_footer.hidden = NO;
-                self.noMoreView = [[NOMoreDataView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 80) withContent:@"您还没有收藏的店铺" withNODataImage:@"noMore_bg.png"];
+                self.noMoreView = [[NOMoreDataView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 80) withContent:@"您还没有收藏的店铺" withNODataImage:@"default_nomore.png"];
                 self.noMoreView.hidden = NO;
                 [self.view addSubview:self.noMoreView];
             }

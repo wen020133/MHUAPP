@@ -77,7 +77,7 @@
 {
     WJXianShiMiaoShaCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJXianShiMiaoShaCell" forIndexPath:indexPath];
     NSString *urlStr = [NSString stringWithFormat:@"%@",_countDownItem[indexPath.row][@"goods"][@"goods_thumb"]];
-    [cell.img_content sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"] completed:nil];
+    [cell.img_content sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"default_nomore.png"] completed:nil];
     cell.lab_title.text = _countDownItem[indexPath.row][@"goods"] [@"goods_name"];
     cell.lab_price.text = [NSString stringWithFormat:@"￥%@",_countDownItem[indexPath.row][@"goods_price"]];
 

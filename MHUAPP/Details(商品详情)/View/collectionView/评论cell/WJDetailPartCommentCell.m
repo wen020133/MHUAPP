@@ -105,7 +105,7 @@
 
     for (numOfImg = 0; numOfImg < model.imageArr.count; numOfImg++) {
         UIImageView *imageView = [[self.imgContentView subviews] objectAtIndex:numOfImg];
-        [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",kMSBaseLargeCollectionPortURL,[[model.imageArr objectAtIndex:numOfImg] objectForKey:@"thumb_url"]]] placeholderImage:[UIImage imageNamed:@"noMore_bg"]];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",kMSBaseLargeCollectionPortURL,[[model.imageArr objectAtIndex:numOfImg] objectForKey:@"thumb_url"]]] placeholderImage:[UIImage imageNamed:@"default_nomore.png"]];
     }
 
     //布局

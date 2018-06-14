@@ -104,7 +104,7 @@
             else
             {
                 self.records = nil ;
-                self.noMoreView = [[NOMoreDataView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 300) withContent:@"暂无地址" withNODataImage:@"noMore_bg.png"];
+                self.noMoreView = [[NOMoreDataView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 300) withContent:@"暂无地址" withNODataImage:@"default_nomore.png"];
                 self.infoTableView.tableHeaderView.hidden = NO;
                 [self.infoTableView addSubview:self.noMoreView];
             }

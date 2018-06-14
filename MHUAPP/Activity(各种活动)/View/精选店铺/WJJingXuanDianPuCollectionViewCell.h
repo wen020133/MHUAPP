@@ -19,7 +19,7 @@
 @property (nonatomic, strong) UILabel      *lab_BBmiansu;
 @property (nonatomic, strong) UILabel     *lab_MJfuwu;
 @property (nonatomic, strong) UILabel     *lab_WLfwu;
-@property (nonatomic, strong) UILabel     *lab_goodNum;
+//@property (nonatomic, strong) UILabel     *lab_goodNum;
 @property (nonatomic, strong) UIView      *imgContentView;
 
 @property (nonatomic, strong) UIButton     *btn_kefu;

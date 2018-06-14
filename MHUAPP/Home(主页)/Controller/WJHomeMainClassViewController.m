@@ -194,6 +194,7 @@
         }
         if ([urlString isEqualToString:kMSMainGetAdThird]) {
             id arr = [[[responseObject objectForKey:@"data"] objectAtIndex:0] objectForKey:@"items"];
+            NSLog(@"%@====%@",urlString,responseObject);
             if([arr isKindOfClass:[NSArray class]])
             {
                 self.adImageArr =   [WJADThirdItem mj_objectArrayWithKeyValuesArray:arr];

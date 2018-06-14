@@ -280,7 +280,7 @@
 {
     SLCommentsModel *model = _arr_infomationresults[indexPath.row];
     if (model.may_goods.count>0) {
-        return CGSizeMake(kMSScreenWith, 200+(kMSScreenWith-DCMargin*2)/4);
+        return CGSizeMake(kMSScreenWith, 190+(kMSScreenWith-DCMargin*2)/4);
     }
     else
     return CGSizeMake(kMSScreenWith, 176);

@@ -73,9 +73,9 @@
     if (imageArr!=_imageArr) {
         _imageArr = imageArr;
     }
-    [_img_left setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:@"https://www.miyomei.com/mobile/data/afficheimg/1442452784680942491.jpg"] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"]];
-    [_img_right1 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:@"https://www.miyomei.com/mobile/data/afficheimg/1528043747133353224.png"] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"]];
-    [_img_right2 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:@"https://www.miyomei.com/mobile/data/afficheimg/1442452805449188441.jpg"] placeholderImage:[UIImage imageNamed:@"home_banner_img.png"]];
+    [_img_left setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:@"https://www.miyomei.com/mobile/data/afficheimg/1442452784680942491.jpg"] placeholderImage:[UIImage imageNamed:@"default_nomore.png"]];
+    [_img_right1 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:@"https://www.miyomei.com/mobile/data/afficheimg/1528043747133353224.png"] placeholderImage:[UIImage imageNamed:@"default_nomore.png"]];
+    [_img_right2 setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:@"https://www.miyomei.com/mobile/data/afficheimg/1442452805449188441.jpg"] placeholderImage:[UIImage imageNamed:@"default_nomore.png"]];
 }
 
 -(void)didselectAction:(UIButton *)sender
