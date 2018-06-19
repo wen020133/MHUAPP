@@ -22,6 +22,9 @@
 
 //@property (strong, nonatomic) NSArray *arr_HotSellType;
 @property (strong, nonatomic) NSMutableArray <WJJRPTItem *> *arr_jiFen;
+/** 主题标题 */
+@property (nonatomic,strong) NSArray *defaultTitleArr;
+
 @end
 
 @implementation WJIntegralListViewController
@@ -30,7 +33,7 @@
     [super viewDidLoad];
     [self initSendReplyWithTitle:@"积分商城" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
-
+    [self changeDefaultArray];
     [self getUpIntegralData];
     [self.view addSubview:self.collectionView];
     // Do any additional setup after loading the view.
@@ -129,11 +132,11 @@
         [dateformatter setDateFormat:@"YYYY-MM-dd"];
         NSString * locationString=[dateformatter stringFromDate:senddate];
         [userDefaults setValue:locationString forKey:@"tabbarDate"];
-        [userDefaults setValue:@"111" forKey:@"isQiandao"];
+        [userDefaults setValue:[NSString stringWithFormat:@"%@111",[AppDelegate shareAppDelegate].user_id] forKey:@"isQiandao"];
         [userDefaults synchronize];
 
         _str_IntegralNum = [NSString stringWithFormat:@"%d", [_str_IntegralNum intValue]+1];
-
+        [self changeDefaultArray];
         [_collectionView reloadData];
 
     }
@@ -149,6 +152,35 @@
 //    _menu_jifenScrollView.delegate = self;
 //    [self.view addSubview:_menu_jifenScrollView];
 //}
+
+-(void)changeDefaultArray
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *qiandaoIs = [userDefaults objectForKey:@"isQiandao"];
+    NSDate *senddate=[NSDate date];
+    NSDateFormatter  *dateformatter=[[NSDateFormatter alloc] init];
+    [dateformatter setDateFormat:@"YYYY-MM-dd"];
+    NSString * locationString=[dateformatter stringFromDate:senddate];
+    if ([locationString isEqualToString:[userDefaults objectForKey:@"tabbarDate"]]) {
+        if ([qiandaoIs isEqualToString:[NSString stringWithFormat:@"%@111",[AppDelegate shareAppDelegate].user_id]]) {
+            _defaultTitleArr = @[@"积分25000",@"兑换记录",@"已签到",@"如何赚积分"];
+        }
+        else
+        {
+            _defaultTitleArr = @[@"积分25000",@"兑换记录",@"签到",@"如何赚积分"];
+        }
+    }
+    else
+    {
+        _defaultTitleArr = @[@"积分25000",@"兑换记录",@"签到",@"如何赚积分"];
+        [userDefaults setValue:@"00" forKey:@"isQiandao"];
+
+    }
+
+    [userDefaults setValue:locationString forKey:@"tabbarDate"];
+
+    [userDefaults synchronize];
+}
 
 -(UICollectionView *)collectionView
 {
@@ -243,6 +275,8 @@
     if (indexPath.section == 0) {
 
         WJJiFenItemCell *cell = [_collectionView dequeueReusableCellWithReuseIdentifier:@"WJJiFenItemCell" forIndexPath:indexPath];
+        cell.defaultTitleArr = _defaultTitleArr;
+        [cell setupUI];
         cell.str_IntegralNum = _str_IntegralNum;
 
         cell.goToJiFenClassTypeAction = ^(NSInteger typeID) {
@@ -269,7 +303,7 @@
                     [dateformatter setDateFormat:@"YYYY-MM-dd"];
                     NSString * locationString=[dateformatter stringFromDate:senddate];
                     if ([locationString isEqualToString:[userDefaults objectForKey:@"tabbarDate"]]) {
-                        if ([qiandaoIs isEqualToString:@"111"]) {
+                        if ([qiandaoIs isEqualToString:[NSString stringWithFormat:@"%@111",[AppDelegate shareAppDelegate].user_id]]) {
                                [self alectYiQiandao];
                         }
                         else

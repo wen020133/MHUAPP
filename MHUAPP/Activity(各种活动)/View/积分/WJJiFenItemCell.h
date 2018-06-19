@@ -18,4 +18,5 @@
 
 /** 去各活动 */
 @property (nonatomic , copy) void(^goToJiFenClassTypeAction)(NSInteger typeID);
+- (void)setupUI;
 @end

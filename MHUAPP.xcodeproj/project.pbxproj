@@ -39,7 +39,6 @@
 		17DF7C2D1FCD430500FBD9DC /* WJGoodsGridModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 17DF7C2C1FCD430500FBD9DC /* WJGoodsGridModel.m */; };
 		17E99D4820D23B8400A5F875 /* WJCommonProblemsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17E99D4720D23B8400A5F875 /* WJCommonProblemsViewController.m */; };
 		17E99D4C20D248EC00A5F875 /* WJCommonProblemsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 17E99D4B20D248EC00A5F875 /* WJCommonProblemsItem.m */; };
-		17E99D5120D25AF200A5F875 /* RigisterDelegate.txt in Resources */ = {isa = PBXBuildFile; fileRef = 17E99D5020D25AF100A5F875 /* RigisterDelegate.txt */; };
 		17F9F15E1FCC527300C71820 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F9F15D1FCC527300C71820 /* AppDelegate.m */; };
 		17F9F1661FCC527300C71820 /* home_more.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17F9F1651FCC527300C71820 /* home_more.xcassets */; };
 		17F9F16C1FCC527300C71820 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F9F16B1FCC527300C71820 /* main.m */; };
@@ -280,6 +279,7 @@
 		3465647A1FCD561100448C40 /* img_btn_zhuanti@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 346564741FCD561100448C40 /* img_btn_zhuanti@2x.png */; };
 		3468659520C5097200D81DEB /* WJBackOrderReasonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3468659420C5097200D81DEB /* WJBackOrderReasonView.m */; };
 		3472C988209462940048D09E /* WJShopAddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3472C987209462940048D09E /* WJShopAddressTableViewCell.m */; };
+		34764A1E20D341BB00FC609C /* RigisterDelegate.txt in Resources */ = {isa = PBXBuildFile; fileRef = 34764A1D20D341BB00FC609C /* RigisterDelegate.txt */; };
 		34804A05206F098900A94CA9 /* WJHotSellingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34804A04206F098900A94CA9 /* WJHotSellingViewController.m */; };
 		34804A09206F16B400A94CA9 /* WJSegmentedInUpDownView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34804A08206F16B400A94CA9 /* WJSegmentedInUpDownView.m */; };
 		34804A0C206F3E3B00A94CA9 /* WJHotSellCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34804A0B206F3E3B00A94CA9 /* WJHotSellCollectionViewCell.m */; };
@@ -471,7 +471,6 @@
 		17E99D4720D23B8400A5F875 /* WJCommonProblemsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJCommonProblemsViewController.m; sourceTree = "<group>"; };
 		17E99D4A20D248EC00A5F875 /* WJCommonProblemsItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJCommonProblemsItem.h; sourceTree = "<group>"; };
 		17E99D4B20D248EC00A5F875 /* WJCommonProblemsItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJCommonProblemsItem.m; sourceTree = "<group>"; };
-		17E99D5020D25AF100A5F875 /* RigisterDelegate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = RigisterDelegate.txt; path = MHUAPP/Login/Model/RigisterDelegate.txt; sourceTree = SOURCE_ROOT; };
 		17F9F1591FCC527300C71820 /* MHUAPP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MHUAPP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17F9F15C1FCC527300C71820 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		17F9F15D1FCC527300C71820 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -896,6 +895,7 @@
 		3468659420C5097200D81DEB /* WJBackOrderReasonView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJBackOrderReasonView.m; sourceTree = "<group>"; };
 		3472C986209462940048D09E /* WJShopAddressTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJShopAddressTableViewCell.h; sourceTree = "<group>"; };
 		3472C987209462940048D09E /* WJShopAddressTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJShopAddressTableViewCell.m; sourceTree = "<group>"; };
+		34764A1D20D341BB00FC609C /* RigisterDelegate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = RigisterDelegate.txt; sourceTree = "<group>"; };
 		34804A03206F098900A94CA9 /* WJHotSellingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJHotSellingViewController.h; sourceTree = "<group>"; };
 		34804A04206F098900A94CA9 /* WJHotSellingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJHotSellingViewController.m; sourceTree = "<group>"; };
 		34804A07206F16B400A94CA9 /* WJSegmentedInUpDownView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJSegmentedInUpDownView.h; sourceTree = "<group>"; };
@@ -2508,7 +2508,7 @@
 		34D507621FDB8CC700EA1AC5 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				17E99D5020D25AF100A5F875 /* RigisterDelegate.txt */,
+				34764A1D20D341BB00FC609C /* RigisterDelegate.txt */,
 				3421BCE71FF1DC5000263FE9 /* RigisterProtocolViewController.h */,
 				3421BCE81FF1DC5000263FE9 /* RigisterProtocolViewController.m */,
 			);
@@ -3141,7 +3141,7 @@
 				342576BC20205A8A0046D24E /* AddressTableViewCell.xib in Resources */,
 				3435D7AC2004512500F2FE46 /* ShopItem.plist in Resources */,
 				3456C19720BE258A002A6566 /* logistics_SF.png in Resources */,
-				17E99D5120D25AF200A5F875 /* RigisterDelegate.txt in Resources */,
+				34764A1E20D341BB00FC609C /* RigisterDelegate.txt in Resources */,
 				34E9C84420CA7DC7003A592E /* MImaCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

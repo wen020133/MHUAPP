@@ -16,20 +16,24 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];        _defaultImgArr = @[@"jifen_jifen",@"jifen_duihuanjilu",@"jifen_qiandao",@"jifen_ruhezhuan"];
-        [self setupUI];
     }
     return self;
 }
 
 - (void)setupUI
 {
-    [self changeDefaultArray];
+    for(UIView *mylabelview in [self.contentView subviews])
+    {
+        [mylabelview removeFromSuperview];
+    }
+
     CGFloat width = kMSScreenWith/8;
 
     UIImageView *backV = ImageViewInit(0, 0, kMSScreenWith, 84);
     backV.backgroundColor = kMSCellBackColor;
     [self.contentView addSubview:backV];
 
+    
     for (int page = 0; page < _defaultImgArr.count; page ++) {
 
         UIImageView *iamgeV = [[UIImageView alloc]initWithFrame:CGRectMake(width/2+page*kMSScreenWith/4, 5, width, width)];
@@ -52,8 +56,6 @@
         btn.backgroundColor = [UIColor clearColor];
         [btn addTarget:self action:@selector(toJumpClassView:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:btn];
-
-
     }
 }
 -(void)setStr_IntegralNum:(NSString *)str_IntegralNum
@@ -63,38 +65,14 @@
     NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"积分 %@",_str_IntegralNum]];
     [str addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(3,_str_IntegralNum.length)];
     label.attributedText = str;
-    [self changeDefaultArray];
+    
 }
 
--(void)changeDefaultArray
+
+-(void)setDefaultTitleArr:(NSArray *)defaultTitleArr
 {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *qiandaoIs = [userDefaults objectForKey:@"isQiandao"];
-    NSDate *senddate=[NSDate date];
-    NSDateFormatter  *dateformatter=[[NSDateFormatter alloc] init];
-    [dateformatter setDateFormat:@"YYYY-MM-dd"];
-    NSString * locationString=[dateformatter stringFromDate:senddate];
-    if ([locationString isEqualToString:[userDefaults objectForKey:@"tabbarDate"]]) {
-        if ([qiandaoIs isEqualToString:@"111"]) {
-            _defaultTitleArr = @[@"积分25000",@"兑换记录",@"已签到",@"如何赚积分"];
-        }
-        else
-        {
-            _defaultTitleArr = @[@"积分25000",@"兑换记录",@"签到",@"如何赚积分"];
-        }
-    }
-    else
-    {
-        _defaultTitleArr = @[@"积分25000",@"兑换记录",@"签到",@"如何赚积分"];
-        [userDefaults setValue:@"00" forKey:@"isQiandao"];
-        
-    }
-    
-    [userDefaults setValue:locationString forKey:@"tabbarDate"];
-    
-    [userDefaults synchronize];
+    _defaultTitleArr = defaultTitleArr;
 }
-
 - (void)toJumpClassView:(UIButton *)sender
 {
     !_goToJiFenClassTypeAction ? : _goToJiFenClassTypeAction(sender.tag);
