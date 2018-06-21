@@ -470,7 +470,7 @@
 {
     if (indexPath.section == 0)
     {
-            return CGSizeMake(kMSScreenWith, kMSScreenWith/4+80);
+            return CGSizeMake(kMSScreenWith, kMSScreenWith/4+88);
     }
         else if(indexPath.section == 1)
         {

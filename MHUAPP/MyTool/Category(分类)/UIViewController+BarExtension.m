@@ -24,7 +24,7 @@
 //         [btnLeft setImage:[UIImage imageNamed:leftImageName] forState:UIControlStateNormal];
          [btnLeft setImage:[UIImage imageNamed:leftImageName] forState:UIControlStateNormal];
          btnLeft.frame = CGRectMake(0, 0,48, 35);
-        btnLeft.imageEdgeInsets = UIEdgeInsetsMake(6, 10, 5, 14);
+        btnLeft.imageEdgeInsets = UIEdgeInsetsMake(6, 0, 5, 24);
          btnLeft.imageView.contentMode = UIViewContentModeScaleAspectFit;
 
          [btnLeft addTarget:self action:@selector(showleft) forControlEvents:UIControlEventTouchUpInside];

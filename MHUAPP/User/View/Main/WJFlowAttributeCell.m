@@ -7,7 +7,6 @@
 //
 
 #import "WJFlowAttributeCell.h"
-#import "UIView+UIViewFrame.h"
 
 
 @implementation WJFlowAttributeCell
@@ -28,39 +27,32 @@
     self.backgroundColor = kMSCellBackColor;
     _flowImageView = [[UIImageView alloc] init];
     _flowImageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self addSubview:_flowImageView];
     
     _flowTextLabel = [[UILabel alloc] init];
     _flowTextLabel.font = PFR13Font;
     _flowTextLabel.textAlignment = NSTextAlignmentCenter;
+    [self addSubview:_flowTextLabel];
 }
 
 #pragma mark - 布局
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    
-    
-        [self addSubview:_flowImageView];
-        [self addSubview:_flowTextLabel];
-        
-        [self setUpTypeWithTopImageVewBottonLabel];
-}
-
-#pragma mark - typeOne
-- (void)setUpTypeWithTopImageVewBottonLabel
-{
-    
     [_flowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self);
         [make.top.mas_equalTo(self)setOffset:13];
-        make.size.mas_equalTo(CGSizeMake(self.width*0.27, self.width*0.27));
+        make.height.mas_offset(30);
+        make.width.mas_offset(30);
         
     }];
     [_flowTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         [make.top.mas_equalTo(_flowImageView.mas_bottom)setOffset:13];
         make.centerX.mas_equalTo(self);
     }];
+    
 }
+
 
 #pragma mark - Setter Getter Methods
 - (void)setFlowItem:(WJFlowItem *)flowItem

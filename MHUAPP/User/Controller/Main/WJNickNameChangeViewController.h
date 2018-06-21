@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseNetworkViewController.h"
 
-@interface WJNickNameChangeViewController : UIViewController
+@interface WJNickNameChangeViewController : BaseNetworkViewController
 
 @property (strong, nonatomic) UITextField *textf_nickName;
 @end

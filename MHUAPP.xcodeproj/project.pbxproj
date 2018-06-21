@@ -85,7 +85,6 @@
 		340C5C4720C113020069F2E8 /* WJDetailedDeliveryInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 340C5C4620C113020069F2E8 /* WJDetailedDeliveryInfoViewController.m */; };
 		340C5C4B20C11A8B0069F2E8 /* WJDetailedDeliveryThirdTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 340C5C4A20C11A8B0069F2E8 /* WJDetailedDeliveryThirdTableCell.m */; };
 		340CED7F1FECBA92001707EA /* WJOrderListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 340CED7E1FECBA92001707EA /* WJOrderListCell.m */; };
-		340D036820511CCF003E02CB /* shop_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 340D036720511CCE003E02CB /* shop_default.png */; };
 		340DB1B51FEB9C1E003D5A19 /* WJOrderHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 340DB1B41FEB9C1E003D5A19 /* WJOrderHeader.m */; };
 		340DB1B81FEB9C41003D5A19 /* WJOrderFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 340DB1B71FEB9C41003D5A19 /* WJOrderFooter.m */; };
 		340E216120423B8900BA8338 /* WJShiShiPingTuanView.m in Sources */ = {isa = PBXBuildFile; fileRef = 340E216020423B8900BA8338 /* WJShiShiPingTuanView.m */; };
@@ -560,7 +559,6 @@
 		340C5C4A20C11A8B0069F2E8 /* WJDetailedDeliveryThirdTableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJDetailedDeliveryThirdTableCell.m; sourceTree = "<group>"; };
 		340CED7D1FECBA92001707EA /* WJOrderListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJOrderListCell.h; sourceTree = "<group>"; };
 		340CED7E1FECBA92001707EA /* WJOrderListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJOrderListCell.m; sourceTree = "<group>"; };
-		340D036720511CCE003E02CB /* shop_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shop_default.png; sourceTree = "<group>"; };
 		340DB1B31FEB9C1E003D5A19 /* WJOrderHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJOrderHeader.h; sourceTree = "<group>"; };
 		340DB1B41FEB9C1E003D5A19 /* WJOrderHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJOrderHeader.m; sourceTree = "<group>"; };
 		340DB1B61FEB9C41003D5A19 /* WJOrderFooter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJOrderFooter.h; sourceTree = "<group>"; };
@@ -1877,7 +1875,6 @@
 				34EB6A9A20A96BB2005C3671 /* topbg.jpg */,
 				34FBC1DB209C50EA004C0F84 /* img_paysuccess.png */,
 				34FBC1DD209C50F8004C0F84 /* img_successimg.png */,
-				340D036720511CCE003E02CB /* shop_default.png */,
 				3418E7402019738500EDD902 /* cart_addBtn_highlight@2x.png */,
 				3418E73D2019738400EDD902 /* cart_addBtn_nomal@2x.png */,
 				3418E73E2019738400EDD902 /* cart_cutBtn_highlight@2x.png */,
@@ -3060,7 +3057,7 @@
 				TargetAttributes = {
 					17F9F1581FCC527300C71820 = {
 						CreatedOnToolsVersion = 9.1;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -3089,7 +3086,6 @@
 			files = (
 				341EF8E91FFB8245008CF841 /* user_icon_enterShop.png in Resources */,
 				34EB6A9B20A96BB2005C3671 /* topbg.jpg in Resources */,
-				340D036820511CCF003E02CB /* shop_default.png in Resources */,
 				3456C18A20BE258A002A6566 /* logistics_YD.png in Resources */,
 				340626011FDE314100F52953 /* WJPushCodeViewController.xib in Resources */,
 				3456C18D20BE258A002A6566 /* logistics_DBL.png in Resources */,
@@ -3661,8 +3657,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FV78E8XR87;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -3706,9 +3702,9 @@
 			baseConfigurationReference = D31EA1D111F60E55B5B4B4B8 /* Pods-MHUAPP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: SHENZHEN JINRI ELECTRICAL APPLIANCE CO.,LTD. (FV78E8XR87)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: SHENZHEN JINRI ELECTRICAL APPLIANCE CO.,LTD. (FV78E8XR87)";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = FV78E8XR87;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3741,8 +3737,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jinri.MHU.MHUAPP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "17cb015a-edb5-4003-b921-7bcec90e281f";
+				PROVISIONING_PROFILE_SPECIFIER = miyoMeiPush;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

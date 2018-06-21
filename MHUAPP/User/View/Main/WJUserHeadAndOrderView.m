@@ -67,8 +67,8 @@
     [self addSubview:labMyOrder];
 
     _settingButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _settingButton.frame = CGRectMake(kMSScreenWith-40, 25, 30, 29);
-    [_settingButton setBackgroundImage:[UIImage imageNamed:@"user_set"] forState:UIControlStateNormal];
+    _settingButton.frame = CGRectMake(kMSScreenWith-40, 25, 25, 24);
+    [_settingButton setImage:[UIImage imageNamed:@"user_set"] forState:UIControlStateNormal];
     [_settingButton addTarget:self action:@selector(changeHeadClick) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_settingButton];
 

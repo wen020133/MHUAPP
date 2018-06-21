@@ -340,7 +340,7 @@
             self.outUserId = resp.uid;
             self.outUserType = @"qq";
             self.outNickName = resp.name;
-            [self gotoAccountBindVC:self.outUserId outUserType:self.outUserType outNickName:self.outNickName outHeadUrl:resp.iconurl outSex:resp.gender];
+            [self gotoAccountBindVC:self.outUserId outUserType:self.outUserType outNickName:self.outNickName outHeadUrl:resp.iconurl outSex:resp.unionGender];
             // 授权信息
             NSLog(@"QQ uid: %@", resp.uid);
             NSLog(@"QQ openid: %@", resp.openid);
@@ -430,7 +430,7 @@
             [infos setObject:outNickName forKey:@"nickname"];
             [infos setObject:outSex forKey:@"sex"];
             [infos setObject:outHeadUrl forKey:@"headimgurl"];
-            [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSWeiXinLogin] andInfos:infos];
+            [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSWeiXinLogin] andInfos:infos];
         }
         
     }

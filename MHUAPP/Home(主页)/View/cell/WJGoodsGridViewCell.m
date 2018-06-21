@@ -109,13 +109,13 @@
                     return;
                 }
 
-                UIImageView *iamgeV = [[UIImageView alloc]initWithFrame:CGRectMake(page * kMSScreenWith + width/2+y*kMSScreenWith/_columnNumber, 5+ (x * self.height/2), width, width)];
+                UIImageView *iamgeV = [[UIImageView alloc]initWithFrame:CGRectMake(page * kMSScreenWith + width/2+y*kMSScreenWith/_columnNumber, 13+ (x * (self.height-10)/2), width, width)];
                 iamgeV.image = [UIImage imageNamed:_defaultImgArr[countNumber]];
 
                 [self.scrollView addSubview:iamgeV];
 
 
-                UILabel *titleLabel = LabelInit(page * kMSScreenWith + y*kMSScreenWith/_columnNumber, width+10+ (x * self.height/2), kMSScreenWith/_columnNumber, 20);
+                UILabel *titleLabel = LabelInit(page * kMSScreenWith + y*kMSScreenWith/_columnNumber, width+18+ (x * (self.height-10)/2), kMSScreenWith/_columnNumber, 20);
                 titleLabel.font = PFR13Font;
                 titleLabel.text = _defaultTitleArr[countNumber];
                 titleLabel.textColor = [RegularExpressionsMethod ColorWithHexString:@"333333"];

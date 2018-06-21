@@ -27,21 +27,21 @@
 -(void)commonInit{
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    self.titleLabel.font = [UIFont systemFontOfSize:13];
+    self.titleLabel.font = [UIFont systemFontOfSize:11];
 }
 
 -(CGRect)titleRectForContentRect:(CGRect)contentRect{
     CGFloat titleX = 0;
-    CGFloat titleY = contentRect.size.height *0.4;
+    CGFloat titleY = contentRect.size.height *0.6;
     CGFloat titleW = contentRect.size.width;
     CGFloat titleH = contentRect.size.height - titleY;
-    return CGRectMake(titleX, titleY+3, titleW, titleH);
+    return CGRectMake(titleX, titleY+5, titleW, titleH-2);
 }
 
 -(CGRect)imageRectForContentRect:(CGRect)contentRect{
-    CGFloat imageW = CGRectGetWidth(contentRect)*0.5;
-    CGFloat imageH = contentRect.size.height * 0.4;
-    return CGRectMake(imageW/2, 3, imageW, imageH);
+    CGFloat imageW = CGRectGetWidth(contentRect)*0.6;
+    CGFloat imageH = contentRect.size.height * 0.6;
+    return CGRectMake(imageW/3, 0, imageW, imageH);
 }
 
 @end

@@ -372,25 +372,33 @@
 #pragma mark - 收藏 购物车
 - (void)setUpLeftTwoButton
 {
+    
     NSArray *imagesNor = @[@"shop_default",@"customerService",@"home_Like_icon"];
     NSArray *imagesSel = @[@"店铺",@"客服",@"关注"];
     CGFloat buttonW = kMSScreenWith * 0.5/3;
     CGFloat buttonH = 50;
     CGFloat buttonY = kMSScreenHeight -kMSNaviHight- buttonH;
     
+    UIView *imagev = [[UIView alloc]initWithFrame:CGRectMake(0, buttonY, kMSScreenWith * 0.5, buttonH)];
+    imagev.backgroundColor = kMSCellBackColor;
+    imagev.layer.masksToBounds = YES;
+    imagev.layer.shadowColor = [UIColor lightGrayColor].CGColor;//阴影颜色
+    imagev.layer.shadowOffset = CGSizeMake(0, 0);//偏移距离
+    imagev.layer.shadowOpacity = 0.5;//不透明度
+    imagev.layer.shadowRadius = 10.0;//半径
+    [self.view addSubview:imagev];
+    
     for (NSInteger i = 0; i < imagesNor.count; i++) {
         JXButton *button = [JXButton new];
         [button setTitle:imagesSel[i] forState:UIControlStateNormal];
         [button setTitleColor:[RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR] forState:UIControlStateNormal];
-        button.titleLabel.font = Font(14);
-        button.backgroundColor = [UIColor whiteColor];
         [button setImage:[UIImage imageNamed:imagesNor[i]] forState:UIControlStateNormal];
         button.tag = i;
         [button addTarget:self action:@selector(bottomButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-        CGFloat buttonX = (buttonW * i);
-        button.frame = CGRectMake(buttonX, buttonY, buttonW, buttonH);
+        CGFloat buttonX = (buttonW-32)/2+i*buttonW;
+        button.frame = CGRectMake(buttonX, DCMargin, 32, 38);
         
-        [self.view addSubview:button];
+        [imagev addSubview:button];
     }
 }
 #pragma mark - 加入购物车 立即购买

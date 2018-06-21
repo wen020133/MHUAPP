@@ -66,7 +66,7 @@
 
     _searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_searchButton setTitle:@"发现喜欢的话题圈子用户" forState:0];
-    [_searchButton setTitleColor:[UIColor lightGrayColor] forState:0];
+    [_searchButton setTitleColor:[RegularExpressionsMethod ColorWithHexString:@"EEEEEE"] forState:0];
     _searchButton.titleLabel.font = PFR13Font;
     [_searchButton setImage:[UIImage imageNamed:@"home_search"] forState:0];
     [_searchButton adjustsImageWhenHighlighted];

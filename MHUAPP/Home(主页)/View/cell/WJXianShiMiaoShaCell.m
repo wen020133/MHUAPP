@@ -36,7 +36,7 @@
         _lab_price.textAlignment = NSTextAlignmentLeft;
         [_grayView addSubview:_lab_price];
 
-        _oldPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.width-65, _lab_title.Bottom+2, 60, 23)];
+        _oldPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.width-65, _lab_title.Bottom+2, 50, 23)];
         _oldPriceLabel.font = PFR11Font;
         _oldPriceLabel.textAlignment = NSTextAlignmentRight;
         _oldPriceLabel.textColor = [UIColor darkGrayColor];

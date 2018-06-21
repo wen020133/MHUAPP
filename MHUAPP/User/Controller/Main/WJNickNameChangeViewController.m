@@ -44,7 +44,38 @@
 
 -(void)showright
 {
-
+    if (_textf_nickName.text.length<1) {
+        [self requestFailed:@"请输入昵称！"];
+        return;
+    }
+    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+    [infos setValue:[AppDelegate shareAppDelegate].user_id forKey:@"user_id"];
+    [infos setValue:_textf_nickName.text forKey:@"name"];
+    [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSUpdateName] andInfos:infos];
+}
+-(void)processData
+{
+    
+    if([[self.results objectForKey:@"code"] integerValue] == 200)
+    {
+        [SVProgressHUD showSuccessWithStatus:@"修改成功"];
+        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+        [SVProgressHUD dismissWithDelay:1.0];
+        
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSDictionary *userListDic = [userDefaults objectForKey:@"userList"];
+        NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:userListDic];
+        NSLog(@"userListDic===%@",userListDic);
+       [dic setValue:_textf_nickName.text forKey:@"username"];
+        [userDefaults setObject:dic forKey:@"userList"];
+        [userDefaults synchronize];
+        
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"data"]];
+        return;
+    }
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

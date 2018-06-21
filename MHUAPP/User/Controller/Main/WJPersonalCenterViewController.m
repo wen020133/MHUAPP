@@ -46,6 +46,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    //先清除缓存
+    [[SDWebImageManager sharedManager].imageCache clearDisk];
     [self.collectionView reloadData];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
 }

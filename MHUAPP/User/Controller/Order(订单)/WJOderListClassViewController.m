@@ -516,7 +516,7 @@
     {
          WJOrderShangJiaHeadModel *shopmodel = [_arr_data objectAtIndex:section];
           WJOrderGoodListModel *model = [shopmodel.goodsArray objectAtIndex:0];
-        view.shangjiaTitle =  [NSString stringWithFormat:@"%@ >",ConvertNullString(shopmodel.supplier_name)];
+        view.shangjiaTitle =  [NSString stringWithFormat:@"%@ ",ConvertNullString(shopmodel.supplier_name)];
         NSInteger status_refund = [model.status_refund integerValue];
         switch (status_refund) {
             case 1:
@@ -599,7 +599,7 @@
     else
     {
          WJOrderShangJiaHeadModel *shopmodel = [_arr_data objectAtIndex:section];
-    view.shangjiaTitle =  [NSString stringWithFormat:@"%@ >",ConvertNullString(shopmodel.referer)];
+    view.shangjiaTitle =  [NSString stringWithFormat:@"%@ ",ConvertNullString(shopmodel.referer)];
     NSInteger paySt = [shopmodel.pay_status integerValue];
     switch (paySt) {
         case 0:
@@ -884,7 +884,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
 
-    return 45;
+    return 48;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
