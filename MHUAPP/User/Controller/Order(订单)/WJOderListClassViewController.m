@@ -30,7 +30,7 @@
 #import "WJWaitCommitInfoViewController.h"
 #import "WJCommitViewController.h"
 #import "WJOrderSuccessViewController.h"
-
+#import "WJTuiKuanInfoViewController.h"
 
 @interface WJOderListClassViewController ()
 
@@ -199,12 +199,11 @@
         NSArray *arr_goods = [[dataArr objectAtIndex:aa] objectForKey:@"backGoods"];
         if (arr_goods&&arr_goods.count>0) {
                                 WJOrderShangJiaHeadModel *model = [[WJOrderShangJiaHeadModel alloc]init];
-                                model.supplier_name = [[dataArr objectAtIndex:aa] objectForKey:@"supplier_name"];
+                                model.postscript = [[dataArr objectAtIndex:aa] objectForKey:@"postscript"];
                                 model.order_id = [[dataArr objectAtIndex:aa] objectForKey:@"order_id"];
                                 model.order_sn = [[dataArr objectAtIndex:aa] objectForKey:@"order_sn"];
-                                model.address = [[dataArr objectAtIndex:aa] objectForKey:@"address"];
-                                model.consignee = [[dataArr objectAtIndex:aa] objectForKey:@"consignee"];
-                                model.mobile = [[dataArr objectAtIndex:aa] objectForKey:@"mobile"];
+                                model.add_time = [[dataArr objectAtIndex:aa] objectForKey:@"add_time"];
+                                model.back_id = [[dataArr objectAtIndex:aa] objectForKey:@"back_id"];
                                 [model configGoodsArrayWithArray:arr_goods];
 
                                 [self.arr_data addObject:model];
@@ -356,7 +355,7 @@
         cell.type.text  = saleCount;
         cell.type.frame = CGRectMake(TAG_Height+DCMargin, cell.title.Bottom+5, cell.title.width, 20);
 
-        cell.Num.frame =CGRectMake(kMSScreenWith-width-10, cell.oldprice.Bottom+5, width, 20);
+        cell.Num.frame =CGRectMake(kMSScreenWith-width-10, cell.price.Bottom+25, width, 20);
         cell.Num.text =  [NSString stringWithFormat:@"x%@",model.back_goods_number];
     }
    else if(_serverType ==KGetOrderListWaitPingjia||_serverType == KGetOrderListJiaoyiSuccess)
@@ -379,7 +378,21 @@
 
     if(_serverType ==KGetOrderListTuiKuanTuihuo)
     {
-
+        WJOrderShangJiaHeadModel *shopmodel = [_arr_data objectAtIndex:indexPath.section];
+        WJTuiKuanInfoViewController *waitCommit = [[WJTuiKuanInfoViewController alloc]init];
+         WJOrderGoodListModel *model = [shopmodel.goodsArray objectAtIndex:0];
+        waitCommit.goods_id = model.goods_id;
+        waitCommit.img = model.img;
+        waitCommit.order_sn = shopmodel.order_sn;
+        waitCommit.back_id = model.back_id;
+        waitCommit.goods_name = model.goods_name;
+        waitCommit.count_price = model.back_goods_price;
+        waitCommit.str_postscript = shopmodel.postscript;
+        waitCommit.add_time = shopmodel.add_time;
+        waitCommit.back_goods_number = [NSString stringWithFormat:@"%@",model.back_goods_number];
+        waitCommit.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:waitCommit animated:YES];
+        self.hidesBottomBarWhenPushed = YES;
     }
     else if(_serverType ==KGetOrderListWaitPingjia)
     {
@@ -645,6 +658,25 @@
         WJOrderGoodListModel *listmodel = [model.goodsArray objectAtIndex:0];
         view.totalPayPrice.text = [NSString stringWithFormat:@"共%ld件商品 合计：￥%@",model.goodsArray.count,listmodel.back_goods_price];
         view.orderType = 8;
+        view.ClickStateForStrBlock = ^(NSString *stateStr) {
+            if ([stateStr isEqualToString:@"查看详情"]) {
+                WJOrderShangJiaHeadModel *shopmodel = [_arr_data objectAtIndex:section];
+                WJTuiKuanInfoViewController *waitCommit = [[WJTuiKuanInfoViewController alloc]init];
+                WJOrderGoodListModel *model = [shopmodel.goodsArray objectAtIndex:0];
+                waitCommit.goods_id = model.goods_id;
+                waitCommit.img = model.img;
+                waitCommit.order_sn = shopmodel.order_sn;
+                waitCommit.back_id = model.back_id;
+                waitCommit.goods_name = model.goods_name;
+                waitCommit.count_price = model.back_goods_price;
+                waitCommit.str_postscript = shopmodel.postscript;
+                waitCommit.add_time = shopmodel.add_time;
+                waitCommit.back_goods_number = [NSString stringWithFormat:@"%@",model.back_goods_number];
+                waitCommit.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:waitCommit animated:YES];
+                self.hidesBottomBarWhenPushed = YES;
+            }
+        };
     }
     else if(_serverType ==KGetOrderListWaitPingjia||_serverType == KGetOrderListJiaoyiSuccess)
     {

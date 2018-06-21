@@ -117,8 +117,11 @@
         }
         cell.lab_price.text = [NSString stringWithFormat:@"￥%.2f",[_oPrice floatValue]];
         cell.accessoryType = UITableViewCellAccessoryNone;
+        WEAKSELF
         cell.colsePayView = ^{
-            [self dismissViewControllerAnimated:YES completion:nil];
+            [weakSelf dismissViewControllerAnimated:YES completion:nil];
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+
         };
         return cell;
     }
@@ -152,17 +155,20 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-    int newRow = (int)[indexPath row];
-    int oldRow = (int)(_selectPath != nil) ? (int)[_selectPath row]:-1;
-    if (newRow != oldRow) {
-        WJpaySectionTableCell *newCell = [_tb cellForRowAtIndexPath:indexPath];
-        newCell.accessoryType = UITableViewCellAccessoryCheckmark;
+    if (indexPath.section==1) {
+        int newRow = (int)[indexPath row];
+        int oldRow = (int)(_selectPath != nil) ? (int)[_selectPath row]:-1;
+        if (newRow != oldRow) {
+            WJpaySectionTableCell *newCell = [_tb cellForRowAtIndexPath:indexPath];
+            newCell.accessoryType = UITableViewCellAccessoryCheckmark;
 
-        WJpaySectionTableCell *oldCell = [_tb cellForRowAtIndexPath:_selectPath];
-        oldCell.accessoryType = UITableViewCellAccessoryNone;
-        _selectPath = [indexPath copy];
+            WJpaySectionTableCell *oldCell = [_tb cellForRowAtIndexPath:_selectPath];
+            oldCell.accessoryType = UITableViewCellAccessoryNone;
+            _selectPath = [indexPath copy];
 
+        }
     }
+
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
 }

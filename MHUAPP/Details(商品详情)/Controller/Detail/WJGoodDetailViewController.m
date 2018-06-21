@@ -575,7 +575,13 @@
                     [userDefaults setObject:allTimeArr forKey:@"RYFriendsList"];
                     [userDefaults synchronize];
                 }
-                
+                RCRichContentMessage *richMsg = [RCRichContentMessage messageWithTitle:_goodTitle digest:[NSString stringWithFormat:@"￥%@",_goodPrice] imageURL:_goodImageView url:[NSString stringWithFormat:@"https://www.miyomei.com/goods.php?id=%@",_goods_id] extra:nil];
+                RCMessage *message = [[RCIMClient sharedRCIMClient]
+                                      insertOutgoingMessage:ConversationType_PRIVATE
+                                      targetId:kefuUserId
+                                      sentStatus:SentStatus_SENT
+                                      content:richMsg];
+                 [[NSNotificationCenter defaultCenter] postNotificationName:@"RCDSharedMessageInsertSuccess" object:message];
                 self.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:conversationVC animated:YES];
             }

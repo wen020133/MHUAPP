@@ -509,7 +509,7 @@
         cell.countDownItem = [[_miaoshaArr objectAtIndex:0] objectForKey:@"activity"];
         [cell setUpUI];
         cell.goToGoodDetailClass = ^(NSDictionary *dic_goods) {
-            [self gotoGoodDetailWithGoodId:dic_goods];
+            [self gotoMiaoShaGoodDetailWithGoodId:dic_goods];
         };
             gridcell = cell;
         
@@ -520,7 +520,7 @@
         cell.countDownItem = _newshangshiArr;
         [cell setUpUI];
         cell.goToGoodDetailClass = ^(NSDictionary *dic_goods) {
-            [self gotoGoodDetailWithGoodId:dic_goods];
+            [self goToGoodsDetailWithGoodId:dic_goods];
         };
         gridcell = cell;
 
@@ -582,13 +582,21 @@
     }
 }
 
-- (void)gotoGoodDetailWithGoodId:(NSDictionary *)DicGoods
+- (void)gotoMiaoShaGoodDetailWithGoodId:(NSDictionary *)DicGoods
 {
     WJSSPTDetailClassViewController *dcVc = [[WJSSPTDetailClassViewController alloc] init];
     dcVc.goods_id = DicGoods[@"goods_id"];
     dcVc.info_id =  DicGoods[@"info_id"];
     dcVc.endTimeStr = [[_miaoshaArr objectAtIndex:0] objectForKey:@"end_time"];
     dcVc.info_classType = @"秒杀";
+    dcVc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:dcVc animated:YES];
+    self.hidesBottomBarWhenPushed = NO;
+}
+-(void)goToGoodsDetailWithGoodId:(NSDictionary *)DicGoods
+{
+    WJGoodDetailViewController *dcVc = [[WJGoodDetailViewController alloc] init];
+    dcVc.goods_id = DicGoods[@"goods_id"];;
     dcVc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:dcVc animated:YES];
     self.hidesBottomBarWhenPushed = NO;

@@ -99,7 +99,7 @@
     [self.contentView addSubview:labGao2];
 
     //物流服务
-    self.lab_WLfwu = LabelInit(kMSScreenWith-miaosuWidth-40-DCMargin, self.headerIconImgView.Bottom+DCMargin, kMSScreenWith-80, 20);
+    self.lab_WLfwu = LabelInit(kMSScreenWith-miaosuWidth-40-DCMargin, self.headerIconImgView.Bottom+DCMargin, miaosuWidth, 20);
     self.lab_WLfwu.font = [UIFont systemFontOfSize:14];
     self.lab_WLfwu.text = @"物流服务:5.0";
     self.lab_WLfwu.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];

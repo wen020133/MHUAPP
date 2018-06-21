@@ -128,7 +128,7 @@
 -(void)setupMainView {
     //选中按钮
     UIButton* selectBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    selectBtn.center = CGPointMake(20, TAG_Height/2);
+    selectBtn.center = CGPointMake(25, TAG_Height/2);
     selectBtn.bounds = CGRectMake(0, 0, 30, 30);
     [selectBtn setImage:[UIImage imageNamed:@"user_weigouxuan"] forState:UIControlStateNormal];
     [selectBtn setImage:[UIImage imageNamed:@"shipcart_seleHigh"] forState:UIControlStateSelected];

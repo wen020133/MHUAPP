@@ -139,6 +139,5 @@
 #define   kMSGetAccessToken       @"/v1/getAccessToken"  //获取融云Token
 #define   kMSDeleteOrder       @"deleteOrder"  //删除待付款订单
 #define   kMSetArticle       @"getArticle"  //常见问题
-
-
+#define   kMSUpdateName       @"/v1/updateName"  //修改昵称
 #endif /* MHUURL_h */

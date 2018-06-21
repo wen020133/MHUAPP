@@ -29,4 +29,5 @@
 @property (copy,nonatomic) NSString *back_id;   //退款ID
 @property (copy,nonatomic) NSString *status_back;   //退款状态
 @property (copy,nonatomic) NSString *status_refund;   //退款态度
+@property (copy,nonatomic) NSString *back_type;
 @end

@@ -51,6 +51,7 @@
                                              selector:@selector(selectAddressNote:)
                                                  name:@"selectAddressNote"
                                                object:nil];
+
     // Do any additional setup after loading the view.
 }
 -(void)selectAddressNote:(NSNotification *)notification
@@ -150,9 +151,9 @@
         [infos setObject:_str_address forKey:@"assemble_site"];
         [infos setObject:_str_Name forKey:@"consignee"];
         [infos setObject:_str_telephone forKey:@"mobile"];
-        [infos setObject:_str_goodsId forKey:@"goods_id"];
+        [infos setObject:_str_goodsId forKey:@"id"];
         [infos setObject:_str_Num forKey:@"num"];
-        [infos setObject:_str_type forKey:@"norms"];
+        [infos setObject:_str_type forKey:@"norm"];
         [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSMiYoMeiGoodsOrder] andInfos:infos];
     }
 }

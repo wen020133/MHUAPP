@@ -24,6 +24,9 @@
 @property (copy,nonatomic) NSString *shipping_name;//物流公司
 @property (copy,nonatomic) NSString *goods_amount;//订单总价
 @property (copy,nonatomic) NSString *is_group_buy;   //当为2时是积分商城订单
+@property (copy,nonatomic) NSString *back_id;
+@property (copy,nonatomic) NSString *add_time;
+@property (copy,nonatomic) NSString *postscript;
 
 @property (strong,nonatomic,readonly)NSMutableArray *goodsArray;
 

@@ -163,7 +163,7 @@
 }
 -(void)getMiYouMeiQuery
 {
-    if(![_shipping_name isEqual:[NSNull null]]&&![_invoice_no isEqual:[NSNull null]])
+    if(_shipping_name.length>1)
     {
     _postType = 1;
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];

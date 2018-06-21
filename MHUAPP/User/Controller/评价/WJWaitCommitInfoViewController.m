@@ -36,7 +36,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
-    [self initSendReplyWithTitle:@"待收货" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
+    [self initSendReplyWithTitle:@"待评价" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
 
 //    _shipping_name = @"中通速递";
 //    _invoice_no = @"490850486931";
@@ -128,7 +128,7 @@
 }
 -(void)getMiYouMeiQuery
 {
-    if(![_shipping_name isEqual:[NSNull null]]&&![_invoice_no isEqual:[NSNull null]])
+   if(_shipping_name.length>1)
     {
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
     [infos setObject:_shipping_name forKey:@"shipping_name"];

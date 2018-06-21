@@ -100,7 +100,7 @@
     _selectBtn.selected = _listModel.select;
     _lab_title.text = _listModel.supplier_name;
 
-    _lab_num.text =  [NSString stringWithFormat:@"%@人已关注",_listModel.num];
+    _lab_num.text =  [NSString stringWithFormat:@"%@人已收藏",_listModel.num];
 }
 
 @end

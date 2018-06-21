@@ -84,7 +84,7 @@
 }
 -(void)getMiYouMeiQuery
 {
-    if(![_shipping_name isEqual:[NSNull null]]&&![_invoice_no isEqual:[NSNull null]])
+     if(_shipping_name.length>1)
     {
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
     [infos setObject:_shipping_name forKey:@"shipping_name"];
