@@ -125,7 +125,23 @@
                 [userDefaults setObject:allTimeArr forKey:@"RYFriendsList"];
                 [userDefaults synchronize];
             }
-            
+            else
+            {
+                int bb=0;
+                for (int aa=0; aa<friendsList.count; aa++) {
+                    NSString *userId = friendsList[aa][@"userId"];
+                    if([kefuUserId isEqualToString:userId]){
+                        bb=aa;
+                    }
+                }
+                NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+                [dic setValue:_supplier_id forKey:@"userId"];
+                [dic setValue:_supplier_name forKey:@"name"];
+                [dic setValue:_supplier_logo forKey:@"portrait"];
+                [allTimeArr insertObject:dic atIndex:bb];
+                [userDefaults setObject:allTimeArr forKey:@"RYFriendsList"];
+                [userDefaults synchronize];
+            }
             self.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:conversationVC animated:YES];
         }

@@ -20,4 +20,6 @@
 /* 查询类型*/
 @property (strong , nonatomic) NSString *str_type;
 @property NSInteger page_Information;
+
+
 @end

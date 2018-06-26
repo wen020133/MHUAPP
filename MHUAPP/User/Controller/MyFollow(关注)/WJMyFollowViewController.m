@@ -83,7 +83,7 @@
     [self.view addSubview:backgroundView];
 
     //当有tabBarController时,在tabBar的上面
-        backgroundView.frame = CGRectMake(0, kMSScreenHeight -49-kMSNaviHight, kMSScreenWith, 49);
+        backgroundView.frame = CGRectMake(0, kMSScreenHeight -kTabBarHeight-kMSNaviHight, kMSScreenWith, 49);
 
 
 

@@ -17,7 +17,9 @@
 #import "WJWirteOrderClassViewController.h"
 #import "AppDelegate.h"
 #import "WJGoodDetailViewController.h"
-
+#import "WJStoreInfoClassViewController.h"
+#import <UIImageView+WebCache.h>
+#import "WJUnLoginStateTypeView.h"
 
 #define  TAG_CartEmptyView 100
 static NSInteger lz_CartRowHeight = 100;
@@ -31,6 +33,9 @@ static NSInteger lz_CartRowHeight = 100;
 @property (strong,nonatomic)UIButton *allSellectedButton;
 @property (strong,nonatomic)UILabel *totlePriceLabel;
 
+@property (strong, nonatomic) WJUnLoginStateTypeView *unLoginView;
+
+@property BOOL isFirstInitClass;
 @end
 
 @implementation WJShopCartClassViewController
@@ -40,6 +45,28 @@ static NSInteger lz_CartRowHeight = 100;
 
     if([AppDelegate shareAppDelegate].user_id.length<1)
     {
+        [self setupCustomNavigationBar];
+        _myTableView.hidden = YES;
+        UIView *view = [self.view viewWithTag:TAG_CartEmptyView];
+        [view removeFromSuperview];
+        UIView *bottomView = [self.view viewWithTag:TAG_CartEmptyView + 1];
+        [bottomView removeFromSuperview];
+
+        WEAKSELF
+        if (_isFirstInitClass) {
+            [self.unLoginView hide];
+            self.unLoginView = [[WJUnLoginStateTypeView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight-kMSNaviHight-kTabBarHeight) withContent:@"去登录" withImage:@"noMore_bg.png"];
+            self.unLoginView.jumpToLoginPage = ^{
+                WJLoginClassViewController *land = [[WJLoginClassViewController alloc]init];
+                UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:land];
+                [nav.navigationBar setIsMSNavigationBar];
+                [weakSelf presentViewController:nav animated:YES completion:^{
+                }];
+            };
+            [self.view addSubview:self.unLoginView];
+            return;
+        }
+        _isFirstInitClass = YES;
         WJLoginClassViewController *land = [[WJLoginClassViewController alloc]init];
         UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:land];
         [nav.navigationBar setIsMSNavigationBar];
@@ -48,28 +75,19 @@ static NSInteger lz_CartRowHeight = 100;
     }
     else
     {
-        if (self.selectedArray.count > 0) {
-            for (WJCartGoodsModel *model in self.selectedArray) {
-                model.select = NO;//这个其实有点多余,提交订单后的数据源不会包含这些,保险起见,加上了
-            }
-            [self.selectedArray removeAllObjects];
-            //初始化显示状态
-
-        }
-        _allSellectedButton.selected = NO;
-        _totlePriceLabel.attributedText = [self LZSetString:@"￥0.00"];
+        [self.unLoginView hide];
+        _myTableView.hidden = NO;
         [self getGoodsInfoCreatData];
+
     }
+
+
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
-
-//    [self performSelector:@selector(loadData) withObject:nil afterDelay:1];
-    [self getGoodsInfoCreatData];
-    [self setupCustomNavigationBar];
-
+    _selectedArray = [NSMutableArray array];
     [self.view addSubview:self.myTableView];
 
     // Do any additional setup after loading the view.
@@ -88,7 +106,7 @@ static NSInteger lz_CartRowHeight = 100;
 
          [self.myTableView registerClass:[WJCartTableHeaderView class] forHeaderFooterViewReuseIdentifier:@"WJCartTableHeaderView"];
         if (_isHasTabBarController) {
-            self.myTableView.frame = CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight - kMSNaviHight - 2*49);
+            self.myTableView.frame = CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight - kMSNaviHight -kTabBarHeight -49);
         } else {
             self.myTableView.frame = CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight - kMSNaviHight - 49);
         }
@@ -130,7 +148,7 @@ static NSInteger lz_CartRowHeight = 100;
                             WJCartShopModel *model = [[WJCartShopModel alloc]init];
                             model.supplier_id = [[dataArr objectAtIndex:aa] objectForKey:@"supplier_id"];
                             model.supplier_name = [[dataArr objectAtIndex:aa] objectForKey:@"supplier_name"];
-
+                            model.supplier_logo = [[dataArr objectAtIndex:aa] objectForKey:@"logo"];
                             [model configGoodsArrayWithArray:arr_goods];
 
                             [self.dataArray addObject:model];
@@ -140,6 +158,7 @@ static NSInteger lz_CartRowHeight = 100;
                         [self changeView];
                         [self.myTableView reloadData];
                         [self.myTableView.mj_header endRefreshing];
+                        [self setupCustomNavigationBar];
                     }
 
                 }
@@ -193,24 +212,30 @@ static NSInteger lz_CartRowHeight = 100;
     return _dataArray;
 }
 
-- (NSMutableArray *)selectedArray {
-    if (_selectedArray == nil) {
-        _selectedArray = [NSMutableArray arrayWithCapacity:0];
-    }
-
-    return _selectedArray;
-}
 
 #pragma mark - 布局页面视图
 #pragma mark -- 自定义导航
 - (void)setupCustomNavigationBar {
 
     if (self.isHasTabBarController) {
-        [self initSendReplyWithTitle:@"购物车" andLeftButtonName:nil andRightButtonName:@"编辑" andTitleLeftOrRight:NO];
+        if ([AppDelegate shareAppDelegate].user_id.length>1&&self.dataArray.count > 0) {
+             [self initSendReplyWithTitle:@"购物车" andLeftButtonName:nil andRightButtonName: @"编辑" andTitleLeftOrRight:NO];
+        }
+        else
+        {
+            self.navigationItem.rightBarButtonItem = nil;
+        }
+
     }
     else
     {
-        [self initSendReplyWithTitle:@"购物车" andLeftButtonName:@"ic_back.png" andRightButtonName:@"编辑" andTitleLeftOrRight:NO];
+        if ([AppDelegate shareAppDelegate].user_id.length>1&&self.dataArray.count > 0) {
+              [self initSendReplyWithTitle:@"购物车" andLeftButtonName:@"ic_back.png" andRightButtonName:@"编辑" andTitleLeftOrRight:NO];
+        }
+        else
+        {
+            self.navigationItem.rightBarButtonItem = nil;
+        }
     }
 }
 -(void)showright
@@ -273,7 +298,7 @@ static NSInteger lz_CartRowHeight = 100;
 
     //当有tabBarController时,在tabBar的上面
     if (_isHasTabBarController == YES) {
-        backgroundView.frame = CGRectMake(0, kMSScreenHeight -  2*49-kMSNaviHight, kMSScreenWith, 49);
+        backgroundView.frame = CGRectMake(0, kMSScreenHeight - kTabBarHeight -49-kMSNaviHight, kMSScreenWith, 49);
     } else {
         backgroundView.frame = CGRectMake(0, kMSScreenHeight -  49-kMSNaviHight, kMSScreenWith, 49);
     }
@@ -550,7 +575,17 @@ static NSInteger lz_CartRowHeight = 100;
         [tableView reloadData];
         [self countPrice];
     };
-
+    WEAKSELF
+    view.numberSelectBlock = ^{
+        WJStoreInfoClassViewController *storeInfo = [[WJStoreInfoClassViewController alloc]init];
+        storeInfo.storeId = model.supplier_id;
+        storeInfo.storeLogo = model.supplier_logo;
+        storeInfo.storeName = model.supplier_name;
+        storeInfo.hidesBottomBarWhenPushed = YES;
+        [weakSelf.navigationController pushViewController:storeInfo animated:YES];
+        weakSelf.hidesBottomBarWhenPushed = NO;
+    };
+    [view.img_shopIcon sd_setImageWithURL:[NSURL URLWithString:model.supplier_logo] placeholderImage:[UIImage imageNamed:@"shop_default"] completed:nil];
     return view;
 }
 
@@ -666,6 +701,9 @@ static NSInteger lz_CartRowHeight = 100;
     } else {
         for (WJCartShopModel *shop in self.dataArray) {
             shop.select = NO;
+            for (WJCartGoodsModel *model in shop.goodsArray) {
+                model.select = NO;
+            }
         }
     }
 

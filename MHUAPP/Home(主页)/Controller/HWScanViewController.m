@@ -65,7 +65,7 @@
     CGFloat scanW = KMainW * 0.65;
     CGFloat padding = 10.0f;
     CGFloat labelH = 20.0f;
-    CGFloat tabBarH = 64.0f;
+    CGFloat tabBarH = kMSNaviHight;
     CGFloat cornerW = 26.0f;
     CGFloat marginX = (KMainW - scanW) * 0.5;
     CGFloat marginY = (KMainH - scanW - padding - labelH) * 0.5;

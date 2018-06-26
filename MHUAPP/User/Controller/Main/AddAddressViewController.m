@@ -41,7 +41,7 @@
     [self.view addSubview:self.infoTableView];
     self.selectedState = NO;
 
-    UIButton *buttonAdd = [[UIButton alloc]initWithFrame:CGRectMake(0, kMSScreenHeight-kMSNaviHight-49, kMSScreenWith, 49)];
+    UIButton *buttonAdd = [[UIButton alloc]initWithFrame:CGRectMake(0, kMSScreenHeight-kMSNaviHight-kTabBarHeight, kMSScreenWith, 49)];
     buttonAdd.backgroundColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
     buttonAdd.titleLabel.textColor = [UIColor whiteColor];
     [buttonAdd setTitle:@"新增收货地址" forState:UIControlStateNormal] ;

@@ -67,7 +67,7 @@
     [self addSubview:labMyOrder];
 
     _settingButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _settingButton.frame = CGRectMake(kMSScreenWith-40, 25, 25, 24);
+    _settingButton.frame = CGRectMake(kMSScreenWith-40, 5+kStatusBarHeight, 25, 24);
     [_settingButton setImage:[UIImage imageNamed:@"user_set"] forState:UIControlStateNormal];
     [_settingButton addTarget:self action:@selector(changeHeadClick) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_settingButton];
@@ -96,20 +96,20 @@
     [super layoutSubviews];
 
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        [make.top.mas_equalTo(_view_head.mas_top)setOffset:30];
+        [make.top.mas_equalTo(_view_head.mas_top)setOffset:5+kStatusBarHeight];
         make.centerX.mas_equalTo(_view_head.mas_centerX);
-        make.size.mas_equalTo(CGSizeMake(200, 30));
+        make.size.mas_equalTo(CGSizeMake(200, 24));
 
     }];
     [_headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-    [make.top.mas_equalTo(_titleLabel.mas_top)setOffset:55];
+    [make.top.mas_equalTo(_titleLabel.mas_top)setOffset:45];
         make.size.mas_equalTo(CGSizeMake(68, 68));
     make.centerX.mas_equalTo(self.mas_centerX);
     }];
 
 
     [_userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        [make.top.mas_equalTo(_headImageView.mas_bottom)setOffset:6];
+        [make.top.mas_equalTo(_headImageView.mas_bottom)setOffset:DCMargin];
         make.centerX.mas_equalTo(self.mas_centerX);
         make.size.mas_equalTo(CGSizeMake(200, 20));
 

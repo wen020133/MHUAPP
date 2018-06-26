@@ -41,7 +41,7 @@
 
     
     // right button
-    if(rightImageName)
+    if(rightImageName&&rightImageName.length>1)
     {
         UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
         UIImage *rightImage = [UIImage imageNamed:rightImageName];

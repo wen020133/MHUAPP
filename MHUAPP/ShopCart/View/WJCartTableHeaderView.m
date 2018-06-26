@@ -14,7 +14,7 @@
 
 @property (strong,nonatomic) UILabel *titleLabel;
 @property (strong,nonatomic) UIButton *button;
-@property (strong,nonatomic) UIImageView *img_shopIcon;
+
 /* 更多 */
 @property (strong , nonatomic) UIButton *quickButton;
 
@@ -64,6 +64,12 @@
      [_quickButton setBackgroundImage:[UIImage imageNamed:@"home_more"] forState:UIControlStateNormal];
     [_quickButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [self addSubview:_quickButton];
+
+    UIButton *buttonShopInfo = [UIButton buttonWithType:UIButtonTypeCustom];
+    buttonShopInfo.tag = 1000;
+    buttonShopInfo.frame = CGRectMake(80, 5, kMSScreenWith-80, 30);
+    [buttonShopInfo addTarget:self action:@selector(buttonSelectClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.contentView addSubview:buttonShopInfo];
 }
 - (void)buttonClick:(UIButton*)button {
     button.selected = !button.selected;
@@ -84,7 +90,10 @@
     _title = title;
 }
 
-
+-(void)buttonSelectClick:(UIButton *)sender
+{
+    !_numberSelectBlock ? : _numberSelectBlock();
+}
 
 
 /*

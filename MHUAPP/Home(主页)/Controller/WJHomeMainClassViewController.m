@@ -253,7 +253,7 @@
 
 -(void)setHomeViewUpNav
 {
-    WJHomeNavTopView *searchBarVc = [[WJHomeNavTopView alloc] initWithFrame:CGRectMake(0, 0, kMSScreenWith, 64)];
+    WJHomeNavTopView *searchBarVc = [[WJHomeNavTopView alloc] initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSNaviHight)];
     searchBarVc.leftItemClickBlock = ^{
          self.tabBarController.selectedIndex = 1;
 //        HWScanViewController *vc = [[HWScanViewController alloc] init];
@@ -292,7 +292,7 @@
 {
     if (!_collectionV) {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-        _collectionV = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 64, kMSScreenWith, kMSScreenHeight-64-49) collectionViewLayout:layout];
+        _collectionV = [[UICollectionView alloc]initWithFrame:CGRectMake(0, kMSNaviHight, kMSScreenWith, kMSScreenHeight-kMSNaviHight-kTabBarHeight) collectionViewLayout:layout];
         
         _collectionV.backgroundColor = [UIColor clearColor];
         _collectionV.delegate = self;

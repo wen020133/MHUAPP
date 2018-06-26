@@ -74,7 +74,7 @@
     UIView *backgroundView = [[UIView alloc]init];
     backgroundView.backgroundColor = kMSCellBackColor;
     [self.view addSubview:backgroundView];
-    backgroundView.frame = CGRectMake(0, kMSScreenHeight -  49-kMSNaviHight, kMSScreenWith, 49);
+    backgroundView.frame = CGRectMake(0, kMSScreenHeight -  kTabBarHeight-kMSNaviHight, kMSScreenWith, kTabBarHeight);
     
     //结算按钮
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];

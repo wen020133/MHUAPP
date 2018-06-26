@@ -204,6 +204,7 @@
                                 model.order_sn = [[dataArr objectAtIndex:aa] objectForKey:@"order_sn"];
                                 model.add_time = [[dataArr objectAtIndex:aa] objectForKey:@"add_time"];
                                 model.back_id = [[dataArr objectAtIndex:aa] objectForKey:@"back_id"];
+                                 model.supplier_name = [[dataArr objectAtIndex:aa] objectForKey:@"supplier_name"];
                                 [model configGoodsArrayWithArray:arr_goods];
 
                                 [self.arr_data addObject:model];

@@ -17,6 +17,7 @@
 
 #import "WJHoverFlowLayout.h"
 #import "WJSildeBarView.h"
+#import "NOMoreDataView.h"
 
 @interface WJGoodsSetViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 @property (strong , nonatomic)UICollectionView *collectionView;
@@ -27,6 +28,8 @@
 @property (strong , nonatomic) WJCustionGoodsHeadView *custionHeadView;
 /* 具体商品数据 */
 @property (strong , nonatomic)NSMutableArray<WJGoodsListItem *> *setItem;
+
+@property (retain, nonatomic) NOMoreDataView *noMoreView;
 
 /**
  0：列表视图，1：格子视图
@@ -75,8 +78,8 @@ static CGFloat _lastContentOffset;
         NSMutableArray *arr_Datalist = [NSMutableArray array];
                 arr_Datalist = [self.results objectForKey:@"data"];
         NSMutableArray *entities = [NSMutableArray array];
-                if (arr_Datalist&&arr_Datalist.count>0) {
-
+                if (![arr_Datalist isKindOfClass:[NSNull class]]&&arr_Datalist.count>0) {
+                 [self.noMoreView hide];
                     entities = [WJGoodsListItem mj_objectArrayWithKeyValuesArray:arr_Datalist];
                     if(_page_Information==0)
                     {
@@ -96,13 +99,19 @@ static CGFloat _lastContentOffset;
                 }
         else
         {
+            if (_page_Information==0) {
+
+                [self.noMoreView hide];
+                self.noMoreView = [[NOMoreDataView alloc]initWithFrame:CGRectMake(0, 44, kMSScreenWith, 80) withContent:@"暂无数据." withNODataImage:@"noMore_bg.png"];
+                [_collectionView addSubview:self.noMoreView];
+            }
             [_collectionView.mj_footer endRefreshingWithNoMoreData];
         }
 
     }
     else
     {
-        [self requestFailed:@"获取数据失败"];
+        [self requestFailed:[self.results objectForKey:@"msg"]];
     }
 }
 #pragma mark - LazyLoad

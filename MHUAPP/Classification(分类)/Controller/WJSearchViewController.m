@@ -146,7 +146,7 @@
         id data = [self.results objectForKey:@"data"];
         if ([data isKindOfClass:[NSArray class]]) {
             _arr_items = data;
-            self.noMoreView.hidden = YES;
+           [self.noMoreView hide];
             self.tab_infoView.hidden = NO;
             [self.view addSubview:self.menuScrollView];
             [self.tab_infoView reloadData];
@@ -154,17 +154,16 @@
         else
         {
             self.tab_infoView.hidden = YES;
-
+            [self.noMoreView hide];
               self.noMoreView = [[NOMoreDataView alloc]initWithFrame:CGRectMake(0, 44, kMSScreenWith, 80) withContent:@"暂无数据." withNODataImage:@"noMore_bg.png"];
-            self.noMoreView.hidden = NO;
              [self.view addSubview:self.noMoreView];
         }
     }
     else
     {
         self.tab_infoView.hidden = YES;
+        [self.noMoreView hide];
         self.noMoreView = [[NOMoreDataView alloc]initWithFrame:CGRectMake(0, 44, kMSScreenWith, 80) withContent:@"暂无数据." withNODataImage:@"noMore_bg.png"];
-        self.noMoreView.hidden = NO;
         [self.view addSubview:self.noMoreView];
     }
 }

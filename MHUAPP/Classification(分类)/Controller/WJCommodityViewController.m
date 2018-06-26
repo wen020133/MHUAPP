@@ -5,7 +5,7 @@
 //  Created by wenchengjun on 2017/11/28.
 //  Copyright © 2017年 wenchengjun. All rights reserved.
 //
-#define tableViewW  100
+#define tableViewW  110
 #import "WJCommodityViewController.h"
 
 #import "WJGoodsSortCell.h"
@@ -57,14 +57,14 @@
 {
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     self.tableView.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
-    self.collectionView.backgroundColor = [UIColor clearColor];
+    self.collectionView.backgroundColor = kMSViewBackColor;
     self.automaticallyAdjustsScrollViewInsets = NO;
 }
 #pragma mark - 设置导航条
 - (void)setUpNav
 {
 
-    WJHomeNavTopView *searchBarVc = [[WJHomeNavTopView alloc] initWithFrame:CGRectMake(0, 0, kMSScreenWith, 64)];
+    WJHomeNavTopView *searchBarVc = [[WJHomeNavTopView alloc] initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSNaviHight)];
     searchBarVc.leftItemClickBlock = ^{
         
     };
@@ -96,7 +96,7 @@
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.frame = CGRectMake(0, 64, tableViewW, kMSScreenHeight  - 49-64);
+        _tableView.frame = CGRectMake(0, kMSNaviHight, tableViewW, kMSScreenHeight  - kTabBarHeight-kMSNaviHight);
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.showsVerticalScrollIndicator = NO;
@@ -120,7 +120,7 @@
         _collectionView.showsVerticalScrollIndicator = NO;
         _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.alwaysBounceVertical = YES;
-        _collectionView.frame = CGRectMake(tableViewW+DCMargin, 64, kMSScreenWith - tableViewW-DCMargin*2, kMSScreenHeight -64 - 49);
+        _collectionView.frame = CGRectMake(tableViewW, kMSNaviHight, kMSScreenWith - tableViewW, kMSScreenHeight -kMSNaviHight - kTabBarHeight);
         //注册Cell
         [_collectionView registerClass:[WJGoodsSortCell class] forCellWithReuseIdentifier:@"WJGoodsSortCell"];
         //注册Header
@@ -232,7 +232,7 @@
 #pragma mark - item宽高
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
 
-    return CGSizeMake((kMSScreenWith - tableViewW -DCMargin*2- 6)/3, (kMSScreenWith - tableViewW - 6)/3 + 20);
+    return CGSizeMake((kMSScreenWith - tableViewW- 6)/3, (kMSScreenWith - tableViewW - 6)/3 + 20);
 
 }
 

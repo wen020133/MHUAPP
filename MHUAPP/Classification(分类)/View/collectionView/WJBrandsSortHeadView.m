@@ -24,8 +24,8 @@
 - (void)setUpUI
 {
     _headLabel = [[UILabel alloc] init];
-    _headLabel.font = PFR13Font;
-    _headLabel.textColor = [UIColor darkGrayColor];
+    _headLabel.font = PFR14Font;
+    _headLabel.textColor = [UIColor blackColor];
     [self addSubview:_headLabel];
 
     _headLabel.frame = CGRectMake(DCMargin, 0, self.width, self.height);

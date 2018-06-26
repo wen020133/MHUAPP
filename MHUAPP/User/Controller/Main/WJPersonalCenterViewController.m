@@ -84,7 +84,7 @@
             self.collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
 
         }
-        _collectionView.frame = CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight - 49);
+        _collectionView.frame = CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight - kTabBarHeight);
          _collectionView.alwaysBounceVertical = YES;
         //头部
         [_collectionView registerClass:[WJUserHeadAndOrderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJUserHeadAndOrderView"];

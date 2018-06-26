@@ -48,11 +48,12 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
     if (selected) {
-        _titleLabel.textColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
-        self.backgroundColor = [UIColor clearColor];
-    }else{
-        _titleLabel.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
+        _titleLabel.textColor = [UIColor blackColor];
         self.backgroundColor = [UIColor whiteColor];
+
+    }else{
+        _titleLabel.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
+        self.backgroundColor = [UIColor clearColor];
     }
 }
 

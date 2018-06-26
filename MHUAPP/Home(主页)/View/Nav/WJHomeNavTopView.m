@@ -83,7 +83,7 @@
     [super layoutSubviews];
 
     [_leftItemButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.mas_top).offset(25);
+        make.bottom.equalTo(self.mas_bottom).offset(-DCMargin);
         make.left.equalTo(self.mas_left).offset(10);
         make.height.equalTo(@32);
         make.width.equalTo(@42);

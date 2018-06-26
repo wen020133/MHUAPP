@@ -18,10 +18,16 @@
 #import "RCDCustomerServiceViewController.h"
 #import <UserNotifications/UserNotifications.h>
 
+#import "WJUnLoginStateTypeView.h"
+
 @interface WJMessageClassViewController ()<RCIMReceiveMessageDelegate,RCIMConnectionStatusDelegate
 ,UIAlertViewDelegate,UITableViewDataSource,UITableViewDelegate>
 
+@property BOOL isFirstInitClass;
+
 @property (strong ,nonatomic) WJMessageHeadView *tab_headView;
+
+@property (strong, nonatomic) WJUnLoginStateTypeView *unLoginView;
 @end
 
 @implementation WJMessageClassViewController
@@ -89,6 +95,22 @@
     [super viewWillAppear:animated];
      if([AppDelegate shareAppDelegate].user_id.length<1)
     {
+        self.conversationListTableView.hidden = YES;
+        WEAKSELF
+        if (_isFirstInitClass) {
+            [self.unLoginView hide];
+            self.unLoginView = [[WJUnLoginStateTypeView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight-kMSNaviHight-kTabBarHeight) withContent:@"去登录" withImage:@"noMore_bg.png"];
+            self.unLoginView.jumpToLoginPage = ^{
+                WJLoginClassViewController *land = [[WJLoginClassViewController alloc]init];
+                UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:land];
+                [nav.navigationBar setIsMSNavigationBar];
+                [weakSelf presentViewController:nav animated:YES completion:^{
+                }];
+            };
+            [self.view addSubview:self.unLoginView];
+            return;
+        }
+        _isFirstInitClass = YES;
         WJLoginClassViewController *land = [[WJLoginClassViewController alloc]init];
         UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:land];
         [nav.navigationBar setIsMSNavigationBar];
@@ -97,7 +119,8 @@
     }
     else
     {
-
+        [self.unLoginView hide];
+        self.conversationListTableView.hidden = NO;
         [[RCDataManager shareManager] syncFriendList:^(NSMutableArray *friends, BOOL isSuccess) {
         }];
         [[RCDataManager shareManager] refreshBadgeValue];

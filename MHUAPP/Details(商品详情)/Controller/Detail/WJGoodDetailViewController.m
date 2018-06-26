@@ -26,6 +26,7 @@
 
 #import "WJDetailPartCommentItem.h"
 
+
 @interface WJGoodDetailViewController ()<PST_MenuViewDelegate>
 
 @property (strong, nonatomic) UIScrollView *scrollerView;
@@ -452,22 +453,22 @@
     self.navigationItem.leftBarButtonItem = leftButtonItem;
 
 
-//    UIButton *pulishButton=[UIButton buttonWithType:(UIButtonTypeCustom)];
-//    [pulishButton setImage:[UIImage imageNamed:@"goodInfo_share"] forState:UIControlStateNormal];
-//    [pulishButton addTarget:self action:@selector(goodInfoshare) forControlEvents:UIControlEventTouchUpInside];
+    UIButton *pulishButton=[UIButton buttonWithType:(UIButtonTypeCustom)];
+    [pulishButton setImage:[UIImage imageNamed:@"goodInfo_share"] forState:UIControlStateNormal];
+    [pulishButton addTarget:self action:@selector(goodInfoshare) forControlEvents:UIControlEventTouchUpInside];
 
 
     UIButton *saveButton=[UIButton buttonWithType:(UIButtonTypeCustom)];
    [saveButton setImage:[UIImage imageNamed:@"goodInfo_message"] forState:UIControlStateNormal];
     [saveButton addTarget:self action:@selector(messageAction) forControlEvents:UIControlEventTouchUpInside];
 
-//    pulishButton.frame = CGRectMake(0, 0, 19, 18);
+    pulishButton.frame = CGRectMake(0, 0, 19, 18);
     saveButton.frame=CGRectMake(0, 0, 16, 19);
 
 
     UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithCustomView:saveButton];
-//    UIBarButtonItem *pulish = [[UIBarButtonItem alloc] initWithCustomView:pulishButton];
-    [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:save,nil]];
+    UIBarButtonItem *pulish = [[UIBarButtonItem alloc] initWithCustomView:pulishButton];
+    [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:save,pulish,nil]];
 
     _titleArr = @[@"消息",@"首页",@"足迹",@"购物车"];
     _imgArr = @[@"Tab_icon_messsge_normal",@"Tab_icon_Home_normal",@"main_zuji",@"Tab_icon_Cart_normal"];
@@ -580,6 +581,23 @@
                     [dic setValue:_supplier_name forKey:@"name"];
                     [dic setValue:_supplier_logo forKey:@"portrait"];
                     [allTimeArr addObject:dic];
+                    [userDefaults setObject:allTimeArr forKey:@"RYFriendsList"];
+                    [userDefaults synchronize];
+                }
+                else
+                {
+                    int bb=0;
+                    for (int aa=0; aa<friendsList.count; aa++) {
+                        NSString *userId = friendsList[aa][@"userId"];
+                        if([kefuUserId isEqualToString:userId]){
+                            bb=aa;
+                        }
+                    }
+                    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+                    [dic setValue:_supplierUserId forKey:@"userId"];
+                    [dic setValue:_supplier_name forKey:@"name"];
+                    [dic setValue:_supplier_logo forKey:@"portrait"];
+                    [allTimeArr insertObject:dic atIndex:bb];
                     [userDefaults setObject:allTimeArr forKey:@"RYFriendsList"];
                     [userDefaults synchronize];
                 }

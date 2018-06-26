@@ -102,7 +102,7 @@
 #pragma mark -- 自定义底部视图
 - (void)setupShopCustomBottomView {
 
-    UIView *backgroundView = [[UIView alloc]initWithFrame:CGRectMake(0, kMSScreenHeight -  49-kMSNaviHight, kMSScreenWith, 49)];
+    UIView *backgroundView = [[UIView alloc]initWithFrame:CGRectMake(0, kMSScreenHeight -  kTabBarHeight-kMSNaviHight, kMSScreenWith, 49)];
     backgroundView.tag = 1000;
     backgroundView.backgroundColor = kMSCellBackColor;
     [self.view addSubview:backgroundView];

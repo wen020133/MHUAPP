@@ -68,8 +68,11 @@ alpha:1.0]
 
 #define kMSScreenHeight [UIScreen mainScreen].bounds.size.height
 
+#define kStatusBarHeight [[UIApplication sharedApplication] statusBarFrame].size.height
+#define kNavBarHeight 44
+#define kTabBarHeight ([[UIApplication sharedApplication] statusBarFrame].size.height>20?83:49)
+#define kMSNaviHight (kStatusBarHeight + kNavBarHeight)
 
-#define kMSNaviHight  64
 
 #define  TAG_Height 100
 
