@@ -26,7 +26,7 @@
 #define D_LocalizedCardString(s) [[NSBundle mainBundle] localizedStringForKey:s value:nil table:@"CardToolLanguage"]
 
 
-#define kMSVCBackgroundColor    @"F8F8F8"   //APP背景颜色
+#define kMSVCBackgroundColor    @"F7F7F7"   //APP背景颜色
 #define kGrayBgColor            @"999999"  // 灰色字体
 #define BASEBLACKCOLOR          @"333333"  //Cell title字体黑色
 #define BASEPINK                @"fd233c"  //程序基础红色

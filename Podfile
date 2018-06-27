@@ -17,4 +17,6 @@ pod 'IQKeyboardManager'
 pod 'UMCCommon'
 pod 'UMCCommon'
 pod 'UMCShare/UI'
+pod 'UMCShare/Social/ReducedWeChat'
+pod 'UMCShare/Social/ReducedQQ'
 end

@@ -85,6 +85,7 @@
             case KGetSSPTDetailClass:
             {
                 _goodTitle = self.results[@"data"][@"goods_name"];
+                _goods_brief =[NSString stringWithFormat:@"%@", self.results[@"data"][@"goods_brief"]];
                 _goodPrice = self.results[@"data"][@"shop_price"];
                 _oldPrice = self.results[@"data"][@"market_price"];
                 _goodImageView = self.results[@"data"][@"goods_thumb"];
@@ -428,17 +429,14 @@
 
 -(void)goodInfoshare
 {
-    //创建分享消息对象
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
-
+    
     //设置文本
-    messageObject.text = ConvertString(_goodTitle);
-
-    //创建图片内容对象
-    UMShareImageObject *shareObject = [[UMShareImageObject alloc] init];
-    //如果有缩略图，则设置缩略图
-    //    shareObject.thumbImage = [UIImage imageNamed:@"icon"];
-    [shareObject setShareImage:self.goodImageView];
+    messageObject.text = self.goodTitle;
+    
+    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:self.goodTitle descr:self.goods_brief thumImage:self.goodImageView];
+    //设置网页地址
+    shareObject.webpageUrl =[NSString stringWithFormat:@"https://www.miyomei.com/goods.php?id=%@",_goods_id] ;
 
     //分享消息对象设置分享内容对象
     messageObject.shareObject = shareObject;
@@ -449,7 +447,8 @@
         //调用分享接口
         [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
             if (error) {
-                NSLog(@"************Share fail with error %@*********",error);
+                NSString *str_error = [error localizedDescription];
+                [self requestFailed:str_error];
             }else{
                 NSLog(@"response data is %@",data);
             }

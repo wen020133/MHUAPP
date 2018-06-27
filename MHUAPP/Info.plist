@@ -57,12 +57,18 @@
 	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<string>weixin</string>
-		<string>wechat</string>
 		<string>mqqOpensdkSSoLogin</string>
+		<string>mqzone</string>
 		<string>mqq</string>
 		<string>mqqapi</string>
+		<string>mqqopensdkapiV3</string>
 		<string>mqqopensdkapiV2</string>
+		<string>mqqapiwallet</string>
+		<string>mqqwpa</string>
+		<string>mqqbrowser</string>
+		<string>wtloginmqq2</string>
+		<string>weixin</string>
+		<string>wechat</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

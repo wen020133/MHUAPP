@@ -19,6 +19,8 @@ typedef NS_ENUM(NSInteger, KGetShopInfoClassType) {
 
 /* 商品标题 */
 @property (strong , nonatomic)NSString *goodTitle;
+/* 商品描述 */
+@property (strong , nonatomic)NSString *goods_brief;
 /* 商品价格 */
 @property (strong , nonatomic)NSString *goodPrice;
 /* 原价格 */
