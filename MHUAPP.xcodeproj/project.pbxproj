@@ -191,7 +191,6 @@
 		342576BF20205A8A0046D24E /* AddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 342576BB20205A8A0046D24E /* AddressTableViewCell.m */; };
 		342576C220205D7E0046D24E /* WJChooseLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 342576C120205D7E0046D24E /* WJChooseLocationViewController.m */; };
 		342670562085F1E600EB848F /* WJMainMiaoShaItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 342670552085F1E600EB848F /* WJMainMiaoShaItem.m */; };
-		34273C5D1FFC72DB0075A1B0 /* WJUserCollectionShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34273C5C1FFC72DB0075A1B0 /* WJUserCollectionShopViewController.m */; };
 		34285C402061F95C00008A70 /* PST_MenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34285C3F2061F95B00008A70 /* PST_MenuView.m */; };
 		34287B241FCE4B1100C7AE5F /* img_backTop.png in Resources */ = {isa = PBXBuildFile; fileRef = 34287B231FCE4B1100C7AE5F /* img_backTop.png */; };
 		34287B2A1FCE9E8400C7AE5F /* WJGoodsDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 34287B291FCE9E8400C7AE5F /* WJGoodsDataModel.m */; };
@@ -356,6 +355,8 @@
 		34F4E23A20C76E9D00B71B5F /* WJMyFootprintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F4E23920C76E9D00B71B5F /* WJMyFootprintViewController.m */; };
 		34F4E23F20C78B8300B71B5F /* WJMyFootprintCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F4E23E20C78B8300B71B5F /* WJMyFootprintCollectionCell.m */; };
 		34F4E24220C79E6400B71B5F /* WJMyFootPrintHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F4E24120C79E6400B71B5F /* WJMyFootPrintHeadView.m */; };
+		34F5F12520E23EE300EF472F /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 34F5F12320E23EE200EF472F /* AlipaySDK.bundle */; };
+		34F5F12620E23EE300EF472F /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F5F12420E23EE200EF472F /* AlipaySDK.framework */; };
 		34F9AA5E20C613CE00B310BC /* WJBackOrderReasonTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F9AA5D20C613CE00B310BC /* WJBackOrderReasonTableCell.m */; };
 		34FAB6EF2064DB88000C9E3C /* Default-375w-812h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 34FAB6EA2064DB87000C9E3C /* Default-375w-812h@3x.png */; };
 		34FAB6F02064DB88000C9E3C /* Default-375w-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 34FAB6EB2064DB87000C9E3C /* Default-375w-667h@2x.png */; };
@@ -367,8 +368,6 @@
 		34FAB70C2064F458000C9E3C /* PPDragDropBadgeView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 34FAB7012064F457000C9E3C /* PPDragDropBadgeView.bundle */; };
 		34FAB70E2064F458000C9E3C /* PRTween.m in Sources */ = {isa = PBXBuildFile; fileRef = 34FAB7072064F458000C9E3C /* PRTween.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		34FAB70F2064F458000C9E3C /* PRTweenTimingFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 34FAB7092064F458000C9E3C /* PRTweenTimingFunctions.m */; };
-		34FB224A20A1375200D698FA /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 34FB224820A1375100D698FA /* AlipaySDK.bundle */; };
-		34FB224B20A1375200D698FA /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34FB224920A1375200D698FA /* AlipaySDK.framework */; };
 		34FB225120A1428900D698FA /* WJLogisticsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 34FB225020A1428900D698FA /* WJLogisticsModel.m */; };
 		34FB225420A148B300D698FA /* WJLogisticsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34FB225320A148B300D698FA /* WJLogisticsView.m */; };
 		34FB225720A148E600D698FA /* WJLogisticsTableHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34FB225620A148E600D698FA /* WJLogisticsTableHeadView.m */; };
@@ -754,8 +753,6 @@
 		342576C120205D7E0046D24E /* WJChooseLocationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJChooseLocationViewController.m; sourceTree = "<group>"; };
 		342670542085F1E600EB848F /* WJMainMiaoShaItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJMainMiaoShaItem.h; sourceTree = "<group>"; };
 		342670552085F1E600EB848F /* WJMainMiaoShaItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJMainMiaoShaItem.m; sourceTree = "<group>"; };
-		34273C5B1FFC72DB0075A1B0 /* WJUserCollectionShopViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJUserCollectionShopViewController.h; sourceTree = "<group>"; };
-		34273C5C1FFC72DB0075A1B0 /* WJUserCollectionShopViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJUserCollectionShopViewController.m; sourceTree = "<group>"; };
 		34285C3E2061F95B00008A70 /* PST_MenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PST_MenuView.h; sourceTree = "<group>"; };
 		34285C3F2061F95B00008A70 /* PST_MenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PST_MenuView.m; sourceTree = "<group>"; };
 		34287B231FCE4B1100C7AE5F /* img_backTop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img_backTop.png; sourceTree = "<group>"; };
@@ -1040,6 +1037,8 @@
 		34F4E23E20C78B8300B71B5F /* WJMyFootprintCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJMyFootprintCollectionCell.m; sourceTree = "<group>"; };
 		34F4E24020C79E6400B71B5F /* WJMyFootPrintHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJMyFootPrintHeadView.h; sourceTree = "<group>"; };
 		34F4E24120C79E6400B71B5F /* WJMyFootPrintHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJMyFootPrintHeadView.m; sourceTree = "<group>"; };
+		34F5F12320E23EE200EF472F /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
+		34F5F12420E23EE200EF472F /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		34F9AA5C20C613CE00B310BC /* WJBackOrderReasonTableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJBackOrderReasonTableCell.h; sourceTree = "<group>"; };
 		34F9AA5D20C613CE00B310BC /* WJBackOrderReasonTableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJBackOrderReasonTableCell.m; sourceTree = "<group>"; };
 		34FAB6EA2064DB87000C9E3C /* Default-375w-812h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-375w-812h@3x.png"; sourceTree = "<group>"; };
@@ -1057,8 +1056,6 @@
 		34FAB7072064F458000C9E3C /* PRTween.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRTween.m; sourceTree = "<group>"; };
 		34FAB7082064F458000C9E3C /* PRTweenTimingFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRTweenTimingFunctions.h; sourceTree = "<group>"; };
 		34FAB7092064F458000C9E3C /* PRTweenTimingFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRTweenTimingFunctions.m; sourceTree = "<group>"; };
-		34FB224820A1375100D698FA /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
-		34FB224920A1375200D698FA /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		34FB224F20A1428900D698FA /* WJLogisticsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJLogisticsModel.h; sourceTree = "<group>"; };
 		34FB225020A1428900D698FA /* WJLogisticsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJLogisticsModel.m; sourceTree = "<group>"; };
 		34FB225220A148B300D698FA /* WJLogisticsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJLogisticsView.h; sourceTree = "<group>"; };
@@ -1124,8 +1121,8 @@
 				34FBC1C7209C497F004C0F84 /* QuartzCore.framework in Frameworks */,
 				34FBC1C5209C4976004C0F84 /* CoreTelephony.framework in Frameworks */,
 				34FBC1C3209C496C004C0F84 /* SystemConfiguration.framework in Frameworks */,
+				34F5F12620E23EE300EF472F /* AlipaySDK.framework in Frameworks */,
 				34FBC1C1209C4950004C0F84 /* libz.tbd in Frameworks */,
-				34FB224B20A1375200D698FA /* AlipaySDK.framework in Frameworks */,
 				34FBC1BF209C4943004C0F84 /* libc++.tbd in Frameworks */,
 				D630FDAEFBDF2DC478337328 /* libPods-MHUAPP.a in Frameworks */,
 			);
@@ -1376,7 +1373,6 @@
 				34EC45EE20930B8700C99D44 /* 待付款 */,
 				3435E903207EFE3100A156F2 /* MyFollow(关注) */,
 				341320A32074BD83009975AB /* MyStore */,
-				34273C5A1FFC72340075A1B0 /* 商品 */,
 				34387BE81FF5E88700398913 /* MyCollection(店铺) */,
 				3421BCEA1FF2476200263FE9 /* Coupons(优惠券) */,
 				343A8F371FE7B5700017171A /* Order(订单) */,
@@ -1946,15 +1942,6 @@
 				342670552085F1E600EB848F /* WJMainMiaoShaItem.m */,
 			);
 			path = "秒杀";
-			sourceTree = "<group>";
-		};
-		34273C5A1FFC72340075A1B0 /* 商品 */ = {
-			isa = PBXGroup;
-			children = (
-				34273C5B1FFC72DB0075A1B0 /* WJUserCollectionShopViewController.h */,
-				34273C5C1FFC72DB0075A1B0 /* WJUserCollectionShopViewController.m */,
-			);
-			path = "商品";
 			sourceTree = "<group>";
 		};
 		34273C5E1FFCA59C0075A1B0 /* Activity(各种活动) */ = {
@@ -3001,8 +2988,8 @@
 				1774CA6820B7A7EE00A5D892 /* libxml2.tbd */,
 				34FB225820A1541700D698FA /* libcrypto.a */,
 				34FB225920A1541800D698FA /* libssl.a */,
-				34FB224820A1375100D698FA /* AlipaySDK.bundle */,
-				34FB224920A1375200D698FA /* AlipaySDK.framework */,
+				34F5F12320E23EE200EF472F /* AlipaySDK.bundle */,
+				34F5F12420E23EE200EF472F /* AlipaySDK.framework */,
 				34FBC1D2209C49CF004C0F84 /* CoreMotion.framework */,
 				34FBC1D0209C49C2004C0F84 /* CFNetwork.framework */,
 				34FBC1CE209C49B7004C0F84 /* Foundation.framework */,
@@ -3096,7 +3083,6 @@
 				34E9C84220CA7DC7003A592E /* MGroupCell.xib in Resources */,
 				341D718C20CB89C5002D4CCD /* ico_check_nomal.png in Resources */,
 				34F1D3981FD687340080EE3D /* user_set.png in Resources */,
-				34FB224A20A1375200D698FA /* AlipaySDK.bundle in Resources */,
 				171F5BC120D206610089C532 /* default_nomore.png in Resources */,
 				34FAB70C2064F458000C9E3C /* PPDragDropBadgeView.bundle in Resources */,
 				3456C19120BE258A002A6566 /* logistics_HTKY.png in Resources */,
@@ -3123,6 +3109,7 @@
 				3411F95620411278007BCEF9 /* restrictedshine.tiff in Resources */,
 				341D718B20CB89C5002D4CCD /* ico_check_nomal@3x.png in Resources */,
 				34014A6A20B41C5300B6A91E /* Default-414w-736h@3x.png in Resources */,
+				34F5F12520E23EE300EF472F /* AlipaySDK.bundle in Resources */,
 				3456C1B91FD7C3B200B5AEB8 /* MyBuyFlow.plist in Resources */,
 				34D5075F1FDB7E5A00EA1AC5 /* login_weibo.png in Resources */,
 				34FBC1DC209C50EA004C0F84 /* img_paysuccess.png in Resources */,
@@ -3195,8 +3182,7 @@
 				"${PODS_ROOT}/RongCloudIM/RongCloudIM/RCColor.plist",
 				"${PODS_ROOT}/RongCloudIM/RongCloudIM/RCConfig.plist",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
-				"${PODS_ROOT}/UMengUShare/UShareSDK/UMSocialSDK/UMSocialSDKPromptResources.bundle",
-				"${PODS_ROOT}/UMengUShare/UShareSDK/UMSocialUI/UMSocialSDKResources.bundle",
+				"${PODS_ROOT}/UMCShare/UMShare/UMSocialUI/UMSocialSDKResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -3382,7 +3368,6 @@
 				340CED7F1FECBA92001707EA /* WJOrderListCell.m in Sources */,
 				34133C2D1FDA1B8F00C95CA4 /* JXTAlertController.m in Sources */,
 				3411F95B20411278007BCEF9 /* XWCoolAnimator+XWExplode.m in Sources */,
-				34273C5D1FFC72DB0075A1B0 /* WJUserCollectionShopViewController.m in Sources */,
 				340607E5209B04EF00A14EAD /* WJWaitPayOrderInfoViewController.m in Sources */,
 				3460D30420088CC4000F03EB /* WJNickNameChangeViewController.m in Sources */,
 				340574E920429AA900729FD8 /* WJJingXuanShopCell.m in Sources */,

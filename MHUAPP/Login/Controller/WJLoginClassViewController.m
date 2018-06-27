@@ -8,7 +8,7 @@
 #define AccountInitHeightY 100
 #import "WJLoginClassViewController.h"
 #import "XYMKeyChain.h"
-#import <UMSocialCore/UMSocialCore.h>
+#import <UMShare/UMShare.h>
 #import "ForgetPasswordViewController.h"
 #import "RigisterClassViewController.h"
 

@@ -18,7 +18,7 @@
 #import "JXButton.h"
 #import "WJConversationViewController.h"
 #import "WJStoreInfoClassViewController.h"
-
+#import <UShareUI/UShareUI.h>
 
 @interface WJSSPTDetailClassViewController ()
 
@@ -428,7 +428,33 @@
 
 -(void)goodInfoshare
 {
+    //创建分享消息对象
+    UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
 
+    //设置文本
+    messageObject.text = ConvertString(_goodTitle);
+
+    //创建图片内容对象
+    UMShareImageObject *shareObject = [[UMShareImageObject alloc] init];
+    //如果有缩略图，则设置缩略图
+    //    shareObject.thumbImage = [UIImage imageNamed:@"icon"];
+    [shareObject setShareImage:self.goodImageView];
+
+    //分享消息对象设置分享内容对象
+    messageObject.shareObject = shareObject;
+
+    [UMSocialUIManager setPreDefinePlatforms:@[@(UMSocialPlatformType_QQ),@(UMSocialPlatformType_WechatSession)]];
+    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+        // 根据获取的platformType确定所选平台进行下一步操作
+        //调用分享接口
+        [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+            if (error) {
+                NSLog(@"************Share fail with error %@*********",error);
+            }else{
+                NSLog(@"response data is %@",data);
+            }
+        }];
+    }];
 }
 
 

@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import <AlipaySDK/AlipaySDK.h>
-#import <UMSocialCore/UMSocialCore.h>
+#import <UMShare/UMShare.h>
 #import "WXApiManager.h"
 
 NSString * const UpLoadNoti = @"uploadInfo";
