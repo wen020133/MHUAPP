@@ -58,12 +58,12 @@
             break;
         case 2:  //待收货
         {
-            arr_buttonTitle = [NSMutableArray arrayWithObjects:@"确认收货", @"查看物流",nil];
+            arr_buttonTitle = [NSMutableArray arrayWithObjects:@"确认收货", @"查看物流",@"我要退款",nil];
         }
             break;
         case 3:   //已完成
         {
-            arr_buttonTitle = [NSMutableArray arrayWithObjects:@"立即评价",@"再次购买", nil];
+            arr_buttonTitle = [NSMutableArray arrayWithObjects:@"立即评价",@"再次购买",@"我要退款", nil];
         }
             break;
         case 7:  //已评价
@@ -74,7 +74,7 @@
             break;
         case 6:  //待评价
         {
-            arr_buttonTitle = [NSMutableArray arrayWithObjects:@"去评价",nil];
+            arr_buttonTitle = [NSMutableArray arrayWithObjects:@"去评价",@"我要退款",nil];
         }
             break;
         case 5:  //交易关闭

@@ -3681,8 +3681,8 @@
 			baseConfigurationReference = D31EA1D111F60E55B5B4B4B8 /* Pods-MHUAPP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: SHENZHEN JINRI ELECTRICAL APPLIANCE CO.,LTD. (FV78E8XR87)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: SHENZHEN JINRI ELECTRICAL APPLIANCE CO.,LTD. (FV78E8XR87)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FV78E8XR87;
 				FRAMEWORK_SEARCH_PATHS = (

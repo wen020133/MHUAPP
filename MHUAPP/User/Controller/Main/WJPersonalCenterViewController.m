@@ -22,7 +22,7 @@
 
 #import "WJMyFootprintViewController.h"
 #import "WJMyFollowViewController.h"
-#import <UIImageView+WebCache.h>
+#import "UIImageView+AFNetworking.h"
 
 #import "RCDCustomerServiceViewController.h"
 
@@ -46,8 +46,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    //先清除缓存
-    [[SDWebImageManager sharedManager].imageCache clearDisk];
     [self.collectionView reloadData];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
 }
@@ -159,7 +157,7 @@
             NSString *str_username = [[userDefaults objectForKey:@"userList"] objectForKey:@"username"];
             if([loginState isEqualToString:@"1"])
             {
-                 [headerView.headImageView sd_setImageWithURL:[NSURL URLWithString:str_logo_img] placeholderImage:[UIImage imageNamed:@"ic_no_heardPic.png"]];
+                 [headerView.headImageView setImageWithURL:[NSURL URLWithString:str_logo_img] placeholderImage:[UIImage imageNamed:@"ic_no_heardPic.png"]];
 
 
                headerView.userNameLabel.text = str_username;

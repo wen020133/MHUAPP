@@ -704,6 +704,19 @@
                 waitPayInfoVC.hidesBottomBarWhenPushed = YES;
                 [weakSelf.navigationController pushViewController:waitPayInfoVC animated:YES];
             }
+            else  if ([stateStr isEqualToString:@"我要退款"]) {
+                WJPostBackOrderViewController *waitPayInfoVC = [[WJPostBackOrderViewController alloc]init];
+                waitPayInfoVC.str_goodsId = item.rec_id;
+                waitPayInfoVC.str_price = item.count_price;
+                waitPayInfoVC.str_oldprice = item.market_price;
+                waitPayInfoVC.str_title = item.goods_name;
+                waitPayInfoVC.str_Num = [NSString stringWithFormat:@"%@",item.goods_number];
+                waitPayInfoVC.str_contentImg = item.img;
+                waitPayInfoVC.str_order_id = item.order_id;
+                waitPayInfoVC.str_type = item.goods_attr;
+                waitPayInfoVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:waitPayInfoVC animated:YES];
+            }
         };
     }
     else
