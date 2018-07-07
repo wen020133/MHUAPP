@@ -51,7 +51,8 @@ static CGFloat _lastContentOffset;
 
     _isSwitchGrid = NO;
      _str_type = @"1";
-    _type_numb = @"2";
+    _type_sort = @"2";
+    _type_market = @"2";
     [self.view addSubview:self.collectionView];
 
     [self setUpSuspendView];
@@ -59,16 +60,19 @@ static CGFloat _lastContentOffset;
 }
 -(void)initinfomationClassData
 {
-    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-    [infos setValue:kMSPULLtableViewCellNumber forKey:@"numb"];
-    [infos setValue:_category_id forKey:@"category_id"];
-    [infos setValue:_str_type forKey:@"type"];
-    [infos setValue:_type_numb forKey:@"type_numb"];
-    [infos setValue:[NSString stringWithFormat:@"%ld",_page_Information] forKey:@"start"];
-    [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSPostGoodsList] andInfos:infos];
+    if ([_str_type isEqualToString:@"1"]) {
+        [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%@&page=%ld",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGETCategoryId,_category_id,_page_Information]];
+    }
+    else if([_str_type isEqualToString:@"2"]) {
+        [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%@&page=%ld&sort=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGETCategoryId,_category_id,_page_Information,_type_sort]];
+    }
+    else if([_str_type isEqualToString:@"3"]) {
+        [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%@&page=%ld&market=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGETCategoryId,_category_id,_page_Information,_type_market]];
+    }
+    
 }
 
--(void)processData
+-(void)getProcessData
 {
     [_collectionView.mj_header endRefreshing];
     [_collectionView.mj_footer endRefreshing];
@@ -81,7 +85,7 @@ static CGFloat _lastContentOffset;
                 if (![arr_Datalist isKindOfClass:[NSNull class]]&&arr_Datalist.count>0) {
                  [self.noMoreView hide];
                     entities = [WJGoodsListItem mj_objectArrayWithKeyValuesArray:arr_Datalist];
-                    if(_page_Information==0)
+                    if(_page_Information==1)
                     {
                         _setItem= entities;
                     }else
@@ -99,7 +103,7 @@ static CGFloat _lastContentOffset;
                 }
         else
         {
-            if (_page_Information==0) {
+            if (_page_Information==1) {
 
                 [self.noMoreView hide];
                 self.noMoreView = [[NOMoreDataView alloc]initWithFrame:CGRectMake(0, 44, kMSScreenWith, 80) withContent:@"暂无数据." withNODataImage:@"noMore_bg.png"];
@@ -133,7 +137,7 @@ static CGFloat _lastContentOffset;
         _collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRereshingCircle)];
         [_collectionView.mj_header beginRefreshing];
         // 上拉刷新
-        _collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshingCircle)];
+        _collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerGoodsSetRereshingCircle)];
     }
     return _collectionView;
 }
@@ -141,15 +145,15 @@ static CGFloat _lastContentOffset;
 {
     [_collectionView.mj_header endRefreshing];
     [_collectionView.mj_footer endRefreshing];
-    _page_Information = 0;
+    _page_Information = 1;
     [self initinfomationClassData];
 }
 
--(void)footerRereshingCircle
+-(void)footerGoodsSetRereshingCircle
 {
     [_collectionView.mj_header endRefreshing];
     [_collectionView.mj_footer endRefreshing];
-    _page_Information = _page_Information+10;
+    _page_Information++;
     [self initinfomationClassData];
 }
 #pragma mark - 切换Model
@@ -289,23 +293,21 @@ static CGFloat _lastContentOffset;
     switch (tag) {
         case 1000:
             {
-                _page_Information = 0;
+                _page_Information = 1;
                 _str_type = @"1";
-                _type_numb = @"2";
             }
             break;
         case 1001:
         {
-            _page_Information = 0;
+            _page_Information = 1;
             _str_type = @"2";
-            _type_numb = @"2";
+            _type_sort = @"2";
         }
             break;
         case 1002:
         {
-            _page_Information = 0;
+            _page_Information = 1;
             _str_type = @"3";
-            _type_numb = @"2";
         }
             break;
         case 1003:
@@ -315,9 +317,9 @@ static CGFloat _lastContentOffset;
             break;
         case 1004:
         {
-            _page_Information = 0;
+            _page_Information = 1;
             _str_type = @"2";
-            _type_numb = @"1";
+            _type_sort = @"1";
         }
             break;
         default:

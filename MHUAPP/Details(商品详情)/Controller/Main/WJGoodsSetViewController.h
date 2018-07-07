@@ -16,7 +16,9 @@
 /* 分类ID*/
 @property (assign , nonatomic) NSString *category_id;
 /* 价格升/降 */
-@property (strong , nonatomic) NSString *type_numb;
+@property (strong , nonatomic) NSString *type_sort;
+/* 销量升/降 */
+@property (strong , nonatomic) NSString *type_market;
 /* 查询类型*/
 @property (strong , nonatomic) NSString *str_type;
 @property NSInteger page_Information;

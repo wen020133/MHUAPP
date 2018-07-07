@@ -1,31 +1,33 @@
 //
-//  WJPostBackOrderViewController.m
+//  WJBackGoodsAndMoneyViewController.m
 //  MHUAPP
 //
-//  Created by jinri on 2018/5/30.
+//  Created by wenchengjun on 2018/7/3.
 //  Copyright © 2018年 wenchengjun. All rights reserved.
 //
 
-#import "WJPostBackOrderViewController.h"
+#import "WJBackGoodsAndMoneyViewController.h"
 #import "WJWriteListTableCell.h"
 #import "UIView+UIViewFrame.h"
 #import <UIImageView+WebCache.h>
 #import "WJBackOrderReasonView.h"
 
-@interface WJPostBackOrderViewController ()<UITableViewDelegate,UITableViewDataSource,BackOrderReasonSelectDelegate>
+
+@interface WJBackGoodsAndMoneyViewController ()<UITableViewDelegate,UITableViewDataSource,BackOrderReasonSelectDelegate,UITextFieldDelegate>
 
 @property (strong,nonatomic)UITableView *myTableView;
 @property (strong,nonatomic)NSArray  *arr_reason;
 @property (strong,nonatomic)NSString  *str_reason;
+
 @end
 
-@implementation WJPostBackOrderViewController
+@implementation WJBackGoodsAndMoneyViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     [self initSendReplyWithTitle:@"申请退款" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
-
+    
     _arr_reason = [NSArray arrayWithObjects:@"操作有误（商品、地址等选错）",@"重复下单/误下单",@"其他渠道价格更低",@"该商品降价了",@"不想买了",@"商品无货",@"其他原因", nil];
     _str_reason = @"退款原因";
     [self.view addSubview:self.myTableView];
@@ -36,25 +38,25 @@
 {
     if (!_myTableView) {
         _myTableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
-
+        
         _myTableView.delegate = self;
         _myTableView.dataSource = self;
-
+        
         _myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _myTableView.backgroundColor = kMSColorFromRGB(245, 246, 248);
-
+        
         self.myTableView.frame = CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight - kMSNaviHight );
     }
     return _myTableView;
 }
 #pragma mark -- 自定义底部视图
 - (void)setupCustomBottomView {
-
+    
     UIView *backgroundView = [[UIView alloc]init];
     backgroundView.backgroundColor = kMSCellBackColor;
     [self.view addSubview:backgroundView];
     backgroundView.frame = CGRectMake(0, kMSScreenHeight -  kTabBarHeight-kMSNaviHight, kMSScreenWith, 49);
-
+    
     //结算按钮
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.backgroundColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
@@ -62,7 +64,7 @@
     [btn setTitle:@"仅退款" forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(postbackOderData) forControlEvents:UIControlEventTouchUpInside];
     [backgroundView addSubview:btn];
-
+    
     //合计
     _totlePriceLabel = [[UILabel alloc]init];
     _totlePriceLabel.font = [UIFont systemFontOfSize:16];
@@ -78,7 +80,7 @@
     _totlePriceLabel.attributedText = [self LZSetString:string];
 }
 - (NSMutableAttributedString*)LZSetString:(NSString*)string {
-
+    
     NSString *text = [NSString stringWithFormat:@"共计:%@",string];
     NSMutableAttributedString *LZString = [[NSMutableAttributedString alloc]initWithString:text];
     NSRange rang = [text rangeOfString:@"共计:"];
@@ -98,7 +100,7 @@
             if (buttonIndex == 0) {
                 [self.navigationController popViewControllerAnimated:YES];
             }
-
+            
         }];
     }
     else
@@ -116,7 +118,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
+    
     return 1;
 }
 
@@ -126,7 +128,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    
     if (indexPath.section==0)
     {
         WJWriteListTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WJWriteListTableCell"];
@@ -142,46 +144,84 @@
             cell.imageLine.hidden = NO;
         }
         [cell.contentImg sd_setImageWithURL:[NSURL URLWithString:_str_contentImg] placeholderImage:[UIImage imageNamed:@"default_nomore.png"] completed:nil];
-
+        
         NSString *price = [NSString stringWithFormat:@"￥%@",_str_price];
         CGFloat width = [RegularExpressionsMethod widthOfString:price font:Font(15) height:23];
         cell.price.frame = CGRectMake(kMSScreenWith-width-10, 5, width, 23);
         cell.price.text = price;
-
+        
         NSString *oldprice = [NSString stringWithFormat:@"￥%@",_str_oldprice];
         cell.oldprice.frame = CGRectMake(kMSScreenWith-width-10, cell.price.Bottom+5, width, 20);
         NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:oldprice
                                                                                     attributes:@{NSStrikethroughStyleAttributeName : @(NSUnderlineStyleSingle)}];
         cell.oldprice.attributedText = attrStr;
-
+        
         cell.title.text = _str_title;
         cell.title.frame = CGRectMake(TAG_Height+15, 5, kMSScreenWith- DCMargin * 4-TAG_Height-width, 40);
-
+        
         NSString *saleCount = [NSString stringWithFormat:@"%@",_str_type];
         cell.type.text  = saleCount;
         cell.type.frame = CGRectMake(TAG_Height+15, cell.title.Bottom+5, cell.title.width, 20);
-
+        
         cell.Num.frame =CGRectMake(kMSScreenWith-width-10, cell.oldprice.Bottom+5, width, 20);
         cell.Num.text =  [NSString stringWithFormat:@"x%@",_str_Num];
         return cell;
     }
     else
     {
-        NSString *identifier = @"Cell";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        if (indexPath.row==0) {
+            NSString *identifier = @"Cell1";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+            if (!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            }
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            UILabel *label1 = [[UILabel alloc]init];
+            label1.text = @"退还运费：";
+            label1.font = Font(14);
+            label1.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
+            UITextField *textField = [[UITextField alloc] init];
+            textField.delegate = self;
+            textField.placeholder = @"请输入运费";
+            textField.keyboardType = UIKeyboardTypeNumberPad;
+            textField.font = Font(14);
+            
+            [cell addSubview:textField];
+            return cell;
         }
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.textLabel.text = _str_reason;
-        return cell;
+        else if (indexPath.row==1)
+        {
+            NSString *identifier = @"Cell";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+            if (!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            }
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.textLabel.text = _str_reason;
+            cell.textLabel.font = Font(14);
+            return cell;
+        }
+        else
+        {
+            NSString *identifier = @"Cell";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+            if (!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            }
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.textLabel.text = _str_reason;
+            cell.textLabel.font = Font(14);
+            return cell;
+        }
+        
     }
 }
 //section底部间距
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 5;
-
+    
 }
 //section底部视图
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
@@ -206,7 +246,7 @@
 {
     if ([_str_reason isEqualToString:@"退款原因"]) {
         [self requestFailed:@"请选择退款原因"];
-
+        
     }
     else
     {
@@ -218,7 +258,6 @@
     }
 
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

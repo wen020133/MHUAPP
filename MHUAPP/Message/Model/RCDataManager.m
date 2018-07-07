@@ -233,7 +233,8 @@
                NSString *accessToken =  [userDefaults objectForKey:@"accessToken"];
                [[RCDataManager shareManager] loginRongCloudWithUserInfo:[[RCUserInfo alloc]initWithUserId:user_id name:user_name portrait:logo_img] withToken:accessToken];
            }
-           else if ([loginType isEqualToString:@"qq"])
+//           else if ([loginType isEqualToString:@"qq"])
+           else
            {
                NSString *logo_img =ConvertNullString([[[responseObject objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"headimg"]);
                NSString *user_id =[NSString stringWithFormat:@"guke%@", [[responseObject objectForKey:@"data"] objectForKey:@"user_id" ]];

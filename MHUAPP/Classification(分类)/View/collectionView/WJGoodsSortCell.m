@@ -33,7 +33,7 @@
     [self addSubview:_goodsImageView];
 
     _goodsTitleLabel = [[UILabel alloc] init];
-    _goodsTitleLabel.font = PFR13Font;
+    _goodsTitleLabel.font = PFR12Font;
     _goodsTitleLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:_goodsTitleLabel];
 

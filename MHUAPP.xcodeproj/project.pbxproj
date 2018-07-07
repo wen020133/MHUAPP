@@ -16,6 +16,7 @@
 		172FEBE720D0A8C400C34366 /* WJWordLabelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 172FEBE620D0A8C400C34366 /* WJWordLabelViewController.m */; };
 		175A09BB20A7DF49001AD885 /* WJStoreInfoClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 175A09BA20A7DF49001AD885 /* WJStoreInfoClassViewController.m */; };
 		175A09BE20A7E85C001AD885 /* WJStoreHeadCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 175A09BD20A7E85C001AD885 /* WJStoreHeadCollectionView.m */; };
+		1763AB9620EB1C7800BE3ADD /* WJBackGoodsAndMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1763AB9520EB1C7800BE3ADD /* WJBackGoodsAndMoneyViewController.m */; };
 		1774CA6120B799D300A5D892 /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1774CA6020B799D300A5D892 /* WXApiManager.m */; };
 		17833090204179B200321476 /* WJEveryDayMastRobView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1783308E204179B200321476 /* WJEveryDayMastRobView.m */; };
 		179D82621FD6A90A00CC4AA2 /* WJFlowAttributeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 179D82611FD6A90A00CC4AA2 /* WJFlowAttributeCell.m */; };
@@ -419,6 +420,8 @@
 		175A09BA20A7DF49001AD885 /* WJStoreInfoClassViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJStoreInfoClassViewController.m; sourceTree = "<group>"; };
 		175A09BC20A7E85C001AD885 /* WJStoreHeadCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJStoreHeadCollectionView.h; sourceTree = "<group>"; };
 		175A09BD20A7E85C001AD885 /* WJStoreHeadCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJStoreHeadCollectionView.m; sourceTree = "<group>"; };
+		1763AB9420EB1C7800BE3ADD /* WJBackGoodsAndMoneyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJBackGoodsAndMoneyViewController.h; sourceTree = "<group>"; };
+		1763AB9520EB1C7800BE3ADD /* WJBackGoodsAndMoneyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJBackGoodsAndMoneyViewController.m; sourceTree = "<group>"; };
 		1774CA5F20B799D300A5D892 /* WXApiManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXApiManager.h; sourceTree = "<group>"; };
 		1774CA6020B799D300A5D892 /* WXApiManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WXApiManager.m; sourceTree = "<group>"; };
 		1774CA6820B7A7EE00A5D892 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
@@ -1621,6 +1624,8 @@
 			children = (
 				340C5C4520C113020069F2E8 /* WJDetailedDeliveryInfoViewController.h */,
 				340C5C4620C113020069F2E8 /* WJDetailedDeliveryInfoViewController.m */,
+				3456C19D20BE929A002A6566 /* WJPostBackOrderViewController.h */,
+				3456C19E20BE929B002A6566 /* WJPostBackOrderViewController.m */,
 			);
 			path = "待发货";
 			sourceTree = "<group>";
@@ -2307,8 +2312,8 @@
 			children = (
 				341AA4EC20BD47A900CA893B /* WJWaitForGoodInfoViewController.h */,
 				341AA4ED20BD47A900CA893B /* WJWaitForGoodInfoViewController.m */,
-				3456C19D20BE929A002A6566 /* WJPostBackOrderViewController.h */,
-				3456C19E20BE929B002A6566 /* WJPostBackOrderViewController.m */,
+				1763AB9420EB1C7800BE3ADD /* WJBackGoodsAndMoneyViewController.h */,
+				1763AB9520EB1C7800BE3ADD /* WJBackGoodsAndMoneyViewController.m */,
 			);
 			path = "待收货";
 			sourceTree = "<group>";
@@ -3340,6 +3345,7 @@
 				34133C381FDA3D4500C95CA4 /* JSONKit.m in Sources */,
 				3498E88C1FF39D3F007453DF /* WJCouponsItem.m in Sources */,
 				34804A0C206F3E3B00A94CA9 /* WJHotSellCollectionViewCell.m in Sources */,
+				1763AB9620EB1C7800BE3ADD /* WJBackGoodsAndMoneyViewController.m in Sources */,
 				344E91D42088870E005501BE /* WJDetailPartCommentItem.m in Sources */,
 				341E47A4202161B80048B9FA /* AddressCell.m in Sources */,
 				34FBC1DA209C4F28004C0F84 /* SuccessViewController.m in Sources */,

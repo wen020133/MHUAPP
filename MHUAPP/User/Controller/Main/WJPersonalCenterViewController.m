@@ -155,7 +155,7 @@
             NSString *loginState = [userDefaults objectForKey:@"loginState"];
             NSString *str_logo_img = [[userDefaults objectForKey:@"userList"] objectForKey:@"user_icon"];
             NSString *str_username = [[userDefaults objectForKey:@"userList"] objectForKey:@"username"];
-            if([loginState isEqualToString:@"1"])
+            if([loginState isEqualToString:@"1"]&&[AppDelegate shareAppDelegate].user_id.length>1)
             {
                  [headerView.headImageView setImageWithURL:[NSURL URLWithString:str_logo_img] placeholderImage:[UIImage imageNamed:@"ic_no_heardPic.png"]];
 

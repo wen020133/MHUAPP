@@ -61,6 +61,7 @@
     
     self.selectedIndex = 0;
     
+    
     //添加阴影
     self.tabBar.layer.shadowColor = [UIColor lightGrayColor].CGColor;
     self.tabBar.layer.shadowOffset = CGSizeMake(0, -5);

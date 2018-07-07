@@ -98,7 +98,7 @@
 #define   kMSGetGroupList      @"getGroupList"                 //拼团列表
 #define   kMSGetOrderIntegral      @"getOrderIntegral"                 //积分订单
 #define   kMSMiYoMeiGetNum      @"getNum"                 //获取某个商品的销售数量
-#define   kMSPostGoodsList      @"/goods/list"                 //获取分类商品列表
+#define   kMSGETCategoryId      @"categoryId"                 //获取分类商品列表
 
 #define   kMSMiYoMeiQuery        @"/v1/query"                 //物流详情
 #define   kMSPostBackOrder        @"/v1/postBackOrder"                 //申请退款
