@@ -173,8 +173,6 @@
 {
     [_noMoreView hide];
     [_dataArray removeAllObjects];
-    [self.mainTableView.mj_header endRefreshing];
-    [self.mainTableView.mj_footer endRefreshing];
     _page = 1;
     [self loadData];
 }

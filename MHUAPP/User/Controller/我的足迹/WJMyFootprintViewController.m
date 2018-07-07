@@ -171,16 +171,12 @@
 
 -(void)headerRereshingCirclefoot
 {
-    [_myTableView.mj_header endRefreshing];
-    [_myTableView.mj_footer endRefreshing];
     _page_Information = 1;
     [self initGetFootmarkClassData];
 }
 
 -(void)footerRereshingCirclefoot
 {
-    [_myTableView.mj_header endRefreshing];
-    [_myTableView.mj_footer endRefreshing];
     _page_Information ++;
     [self initGetFootmarkClassData];
 }

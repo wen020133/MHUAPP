@@ -176,8 +176,6 @@
 {
     [_noMoreView hide];
     [_dataArr removeAllObjects];
-    [self.tab_collectionView.mj_header endRefreshing];
-    [self.tab_collectionView.mj_footer endRefreshing];
     _page = 1;
     [self loadData];
 }

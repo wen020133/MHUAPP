@@ -143,16 +143,12 @@ static CGFloat _lastContentOffset;
 }
 -(void)headerRereshingCircle
 {
-    [_collectionView.mj_header endRefreshing];
-    [_collectionView.mj_footer endRefreshing];
     _page_Information = 1;
     [self initinfomationClassData];
 }
 
 -(void)footerGoodsSetRereshingCircle
 {
-    [_collectionView.mj_header endRefreshing];
-    [_collectionView.mj_footer endRefreshing];
     _page_Information++;
     [self initinfomationClassData];
 }

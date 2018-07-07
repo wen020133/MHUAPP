@@ -56,8 +56,6 @@
 }
 -(void)headerRereshingCircle
 {
-    [self.collectionV.mj_header endRefreshing];
-    [self.collectionV.mj_footer endRefreshing];
     _page_Information = 0;
     [self initinfomationClassDataCount];
 }
