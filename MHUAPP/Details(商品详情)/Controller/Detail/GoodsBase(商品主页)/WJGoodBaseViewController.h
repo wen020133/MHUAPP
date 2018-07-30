@@ -39,4 +39,7 @@
 @property (strong , nonatomic) NSString *soldNum;
 /* 商品库存 */
 @property NSInteger goods_number;
+
+/** 更改标题 */
+@property (nonatomic , copy) void(^changeTitleBlock)(BOOL isChange);
 @end

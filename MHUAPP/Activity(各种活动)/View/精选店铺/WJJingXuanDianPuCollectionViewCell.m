@@ -56,7 +56,7 @@
     //地址
     self.lab_address = LabelInit(self.headerIconImgView.Right+DCMargin, self.nameLbl.Bottom+2, kMSScreenWith-80, 20);
     self.lab_address.font = [UIFont systemFontOfSize:14];
-    self.lab_address.text = @"深圳市光明新区公明镇";
+//    self.lab_address.text = @"深圳市光明新区公明镇";
     self.lab_address.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
     [self.contentView addSubview:self.lab_address];
 

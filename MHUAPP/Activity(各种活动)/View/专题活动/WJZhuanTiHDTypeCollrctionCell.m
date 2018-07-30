@@ -19,7 +19,7 @@
         _grayView.backgroundColor = [UIColor whiteColor];
         [self.contentView addSubview:_grayView];
 
-        _img_content = [[UIImageView alloc]initWithFrame:CGRectMake(5, 2, _grayView.width-10, 140)];
+        _img_content = [[UIImageView alloc]initWithFrame:CGRectMake(5, DCMargin, _grayView.width-10, 140)];
         _img_content.backgroundColor = kMSCellBackColor;
         _img_content.contentMode = UIViewContentModeScaleAspectFit;
         [_grayView addSubview:_img_content];
@@ -80,8 +80,8 @@
     _lab_price.frame = CGRectMake(10, _title.Bottom+5, width, 20);
     _lab_price.text = price;
 
-    NSString *saleCount = [NSString stringWithFormat:@"%@人已付款",_model.shop_num];
-    _lab_count.frame = CGRectMake(width+12, _title.Bottom+10, self.width-width-12, 20);
+    NSString *saleCount = [NSString stringWithFormat:@"%@人已付款",_model.num];
+    _lab_count.frame = CGRectMake(width+12, _title.Bottom+5, self.width-width-18, 20);
     _lab_count.text = saleCount;
 
 }

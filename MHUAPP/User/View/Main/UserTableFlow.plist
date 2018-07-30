@@ -14,5 +14,11 @@
 		<key>flowImageView</key>
 		<string>user_icon_zuji</string>
 	</dict>
+	<dict>
+		<key>flow_title</key>
+		<string>一级分销</string>
+		<key>flowImageView</key>
+		<string>user_fenxiao</string>
+	</dict>
 </array>
 </plist>

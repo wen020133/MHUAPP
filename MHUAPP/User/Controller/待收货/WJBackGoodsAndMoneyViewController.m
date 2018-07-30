@@ -18,7 +18,11 @@
 @property (strong,nonatomic)UITableView *myTableView;
 @property (strong,nonatomic)NSArray  *arr_reason;
 @property (strong,nonatomic)NSString  *str_reason;
+@property (strong,nonatomic)NSArray  *arr_isGetGoods;
+@property (strong,nonatomic)NSString  *str_isGetGoods;
+@property (strong,nonatomic) UITextField  *text_price;
 
+@property NSInteger selectIndex;
 @end
 
 @implementation WJBackGoodsAndMoneyViewController
@@ -29,7 +33,9 @@
     [self initSendReplyWithTitle:@"申请退款" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
     
     _arr_reason = [NSArray arrayWithObjects:@"操作有误（商品、地址等选错）",@"重复下单/误下单",@"其他渠道价格更低",@"该商品降价了",@"不想买了",@"商品无货",@"其他原因", nil];
+    _arr_isGetGoods = [NSArray arrayWithObjects:@"已收到货",@"未收到货", nil];
     _str_reason = @"退款原因";
+    _str_isGetGoods = @"是否收到货";
     [self.view addSubview:self.myTableView];
     [self setupCustomBottomView];
     // Do any additional setup after loading the view.
@@ -61,7 +67,7 @@
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.backgroundColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
     btn.frame = CGRectMake(kMSScreenWith - 100, 0, 100, 49);
-    [btn setTitle:@"仅退款" forState:UIControlStateNormal];
+    [btn setTitle:@"提交" forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(postbackOderData) forControlEvents:UIControlEventTouchUpInside];
     [backgroundView addSubview:btn];
     
@@ -119,7 +125,11 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 1;
+    if (section==0) {
+        return 1;
+    }
+    else
+        return 3;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -176,17 +186,20 @@
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
             }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            UILabel *label1 = [[UILabel alloc]init];
+            UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake(20, 12, 100, 20)];
             label1.text = @"退还运费：";
             label1.font = Font(14);
             label1.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
-            UITextField *textField = [[UITextField alloc] init];
+            [cell addSubview:label1];
+            
+            
+            UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(90, 5, kMSScreenWith-150, 34)];
             textField.delegate = self;
             textField.placeholder = @"请输入运费";
-            textField.keyboardType = UIKeyboardTypeNumberPad;
             textField.font = Font(14);
             
             [cell addSubview:textField];
+            self.text_price = textField;
             return cell;
         }
         else if (indexPath.row==1)
@@ -198,7 +211,7 @@
             }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.textLabel.text = _str_reason;
+            cell.textLabel.text = _str_isGetGoods;
             cell.textLabel.font = Font(14);
             return cell;
         }
@@ -232,14 +245,30 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section==1) {
-        WJBackOrderReasonView *view = [[WJBackOrderReasonView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight-kMSNaviHight) withTitles:_arr_reason];
-        view.delegate = self;
-        [self.view addSubview:view];
+        if (indexPath.row==1) {
+            self.selectIndex = 1;
+            WJBackOrderReasonView *view = [[WJBackOrderReasonView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight-kMSNaviHight) withTitles:_arr_isGetGoods];
+            view.delegate = self;
+            [self.view addSubview:view];
+        }
+       else if (indexPath.row==2) {
+           self.selectIndex = 2;
+            WJBackOrderReasonView *view = [[WJBackOrderReasonView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight-kMSNaviHight) withTitles:_arr_reason];
+            view.delegate = self;
+            [self.view addSubview:view];
+        }
+       
     }
 }
 - (void)didSelectedReasonBUttonWithString:(NSString *)reasonString
 {
+    if (self.selectIndex ==1) {
+        _str_isGetGoods = reasonString;
+    }
+    else
+    {
     _str_reason = reasonString;
+    }
     [_myTableView reloadData];
 }
 -(void)postbackOderData

@@ -25,6 +25,7 @@
 #import "UIImageView+AFNetworking.h"
 
 #import "RCDCustomerServiceViewController.h"
+#import "WJDistributionMainViewController.h"
 
 @interface WJPersonalCenterViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
@@ -114,7 +115,7 @@
     else if(section == 1)
         return 4;
     else if(section == 2)
-        return 2;
+        return 3;
     return 0;
 }
 #pragma mark - <UICollectionViewDelegate>
@@ -281,6 +282,14 @@
                 case 1:
             {
                 WJMyFootprintViewController *dcVc = [[WJMyFootprintViewController alloc] init];
+                self.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:dcVc animated:YES];
+                self.hidesBottomBarWhenPushed = NO;
+            }
+                break;
+            case 2:
+            {
+                WJDistributionMainViewController *dcVc = [[WJDistributionMainViewController alloc] init];
                 self.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:dcVc animated:YES];
                 self.hidesBottomBarWhenPushed = NO;

@@ -31,6 +31,8 @@
 #import "WJCommitViewController.h"
 #import "WJOrderSuccessViewController.h"
 #import "WJTuiKuanInfoViewController.h"
+#import "WJBackGoodsAndMoneyViewController.h"
+
 
 @interface WJOderListClassViewController ()
 
@@ -705,7 +707,7 @@
                 [weakSelf.navigationController pushViewController:waitPayInfoVC animated:YES];
             }
             else  if ([stateStr isEqualToString:@"我要退款"]) {
-                WJPostBackOrderViewController *waitPayInfoVC = [[WJPostBackOrderViewController alloc]init];
+                WJBackGoodsAndMoneyViewController *waitPayInfoVC = [[WJBackGoodsAndMoneyViewController alloc]init];
                 waitPayInfoVC.str_goodsId = item.rec_id;
                 waitPayInfoVC.str_price = item.count_price;
                 waitPayInfoVC.str_oldprice = item.market_price;

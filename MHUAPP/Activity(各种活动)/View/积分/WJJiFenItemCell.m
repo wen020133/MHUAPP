@@ -45,7 +45,7 @@
         UILabel *titleLabel = LabelInit(page*kMSScreenWith/4, width+10, kMSScreenWith/4, 20);
         titleLabel.font = PFR13Font;
         titleLabel.text = _defaultTitleArr[page];
-        titleLabel.textColor = [RegularExpressionsMethod ColorWithHexString:@"666666"];
+        titleLabel.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
         titleLabel.textAlignment = NSTextAlignmentCenter;
         titleLabel.tag = 10000+page;
         [self.contentView addSubview:titleLabel];

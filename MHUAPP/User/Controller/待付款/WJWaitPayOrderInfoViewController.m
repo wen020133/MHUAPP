@@ -95,7 +95,7 @@
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
     [infos setObject:[AppDelegate shareAppDelegate].user_id forKey:@"user_id"];
     [infos setObject:_str_orderId forKey:@"id"];
-    [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSPlaceAnOrder] andInfos:infos];
+    [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSMiYoMeiAffirmPay] andInfos:infos];
 }
 -(void)processData
 {
@@ -109,7 +109,7 @@
     }
     else
     {
-        [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"data"]];
+        [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"msg"]];
         return;
     }
 }

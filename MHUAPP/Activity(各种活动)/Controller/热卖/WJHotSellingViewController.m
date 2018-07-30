@@ -149,6 +149,7 @@
     dcVc.goods_id = _arr_hotSellData[indexPath.row].goods_id;
     dcVc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:dcVc animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
 }
 //- (void)didSelectedButtonWithTag:(NSInteger)currTag
 //{

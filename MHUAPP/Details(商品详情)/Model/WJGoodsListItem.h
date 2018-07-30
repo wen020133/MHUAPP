@@ -26,4 +26,6 @@
 
 /** 销售数量 */
 @property (nonatomic, copy ,readonly) NSString *goods_number;
+/** 销售数量2 */
+@property (nonatomic, copy ,readonly) NSString *num;
 @end

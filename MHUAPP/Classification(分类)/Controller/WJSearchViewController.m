@@ -10,11 +10,17 @@
 #import "HXSearchBar.h"
 #import "WJGoodDetailViewController.h"
 #import "WJStoreInfoClassViewController.h"
+#import "WJMyFootprintCollectionCell.h"
+#import <UIImageView+WebCache.h>
+#import "WJCollectionTabCell.h"
+#import "WJCollectionItem.h"
+#import "MJRefresh.h"
 
 
 @interface WJSearchViewController ()<UISearchBarDelegate>
 @property (strong, nonatomic) HXSearchBar *searchBar;
 @property NSInteger int_goodOrshop;
+@property NSInteger page_Information;
 @end
 
 @implementation WJSearchViewController
@@ -24,6 +30,7 @@
     self.view.backgroundColor =[RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     [self addSearchBar];
     self.int_goodOrshop = 0;
+    self.page_Information = 1;
     // Do any additional setup after loading the view.
 }
 //添加搜索条
@@ -145,7 +152,14 @@
         [self.arr_items removeAllObjects];
         id data = [self.results objectForKey:@"data"];
         if ([data isKindOfClass:[NSArray class]]) {
-            _arr_items = data;
+            if(self.int_goodOrshop==0)
+            {
+              _arr_items = data;
+            }
+            else
+            {
+                _arr_items = [WJCollectionItem mj_objectArrayWithKeyValuesArray:data];
+            }
            [self.noMoreView hide];
             self.tab_infoView.hidden = NO;
             [self.view addSubview:self.menuScrollView];
@@ -175,9 +189,15 @@
         self.tab_infoView.backgroundColor = [UIColor clearColor];
         self.tab_infoView.dataSource = self;
         self.tab_infoView.delegate = self;
+        // 上拉刷新
+        self.tab_infoView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerSearchRereshing)];
         [self.view addSubview:self.tab_infoView];
     }
     return _tab_infoView;
+}
+-(void)footerSearchRereshing
+{
+    _page_Information++;
 }
 //搜索按钮
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
@@ -205,7 +225,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 44;
+    return 100;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -213,20 +233,36 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIndentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIndentifier];
-    if (cell == nil)
-    {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIndentifier];
-    }
+    
     if (self.int_goodOrshop==0) {
-        cell.textLabel.text = [NSString stringWithFormat:@"%@",[[self.arr_items objectAtIndex:indexPath.row] objectForKey:@"goods_name"]];
+        WJMyFootprintCollectionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WJMyFootprintCollectionCell"];
+        if (cell == nil) {
+            cell = [[WJMyFootprintCollectionCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"WJMyFootprintCollectionCell"];
+        }
+       
+      NSString *str_url = [NSString stringWithFormat:@"%@%@",kMSBaseUserHeadPortURL,[[self.arr_items objectAtIndex:indexPath.row] objectForKey:@"original_img"]];
+        [cell.contentImg sd_setImageWithURL:[NSURL URLWithString:str_url] placeholderImage:[UIImage imageNamed:@"default_nomore.png"] completed:nil];
+        NSString *price = [NSString stringWithFormat:@"%@",[[self.arr_items objectAtIndex:indexPath.row] objectForKey:@"shop_price"]];
+        cell.price.text = price;
+        
+        NSString *saleCount = [NSString stringWithFormat:@"%@",[[self.arr_items objectAtIndex:indexPath.row] objectForKey:@"goods_name"]];
+                cell.title.text  = saleCount;
+        return cell;
     }
     else
     {
-      cell.textLabel.text = [NSString stringWithFormat:@"%@",[[self.arr_items objectAtIndex:indexPath.row] objectForKey:@"supplier_name"]];
+        WJCollectionTabCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WJCollectionTabCell"];
+        if (cell == nil) {
+            cell = [[WJCollectionTabCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"WJCollectionTabCell"];
+        }
+        cell.selectIsHidden = YES;
+        WJCollectionItem *item = self.arr_items[indexPath.row];
+        [cell.img_content sd_setImageWithURL:[NSURL URLWithString:item.logo] placeholderImage:[UIImage imageNamed:@"default_nomore.png"] completed:nil];
+        cell.lab_title.text = item.supplier_name;
+        cell.lab_num.text =  item.supplier_title;
+        return cell;
     }
-    return cell;
+    
 }
 
 
@@ -243,9 +279,10 @@
 else
 {
     WJStoreInfoClassViewController *storeInfo = [[WJStoreInfoClassViewController alloc]init];
-    storeInfo.storeId = [[self.arr_items objectAtIndex:indexPath.row] objectForKey:@"supplier_id"];
-    storeInfo.storeLogo = [[self.arr_items objectAtIndex:indexPath.row] objectForKey:@"goods_id"];;
-    storeInfo.storeName = [[self.arr_items objectAtIndex:indexPath.row] objectForKey:@"supplier_name"];;
+    WJCollectionItem *item = self.arr_items[indexPath.row];
+    storeInfo.storeId = item.supplier_id;
+    storeInfo.storeLogo = item.logo;
+    storeInfo.storeName = item.supplier_name;
     storeInfo.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:storeInfo animated:YES];
 }

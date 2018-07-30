@@ -29,7 +29,7 @@
 /* 具体商品数据 */
 @property (strong , nonatomic)NSMutableArray<WJGoodsListItem *> *setItem;
 
-@property (retain, nonatomic) NOMoreDataView *noMoreView;
+@property (strong, nonatomic) NOMoreDataView *noMoreView;
 
 /**
  0：列表视图，1：格子视图
@@ -117,6 +117,11 @@ static CGFloat _lastContentOffset;
     {
         [self requestFailed:[self.results objectForKey:@"msg"]];
     }
+}
+- (void)requestFailedDisMJFoot
+{
+    [_collectionView.mj_header endRefreshing];
+    [_collectionView.mj_footer endRefreshing];
 }
 #pragma mark - LazyLoad
 - (UICollectionView *)collectionView

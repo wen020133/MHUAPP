@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>flow_title</key>
+		<string>我要提现</string>
+		<key>flowImageView</key>
+		<string>fenxiao_tiXian</string>
+	</dict>
+	<dict>
+		<key>flow_title</key>
+		<string>提现纪录</string>
+		<key>flowImageView</key>
+		<string>fenxiao_txHistroy</string>
+	</dict>
+	<dict>
+		<key>flow_title</key>
+		<string>银行卡</string>
+		<key>flowImageView</key>
+		<string>fenxiao_card</string>
+	</dict>
+</array>
+</plist>

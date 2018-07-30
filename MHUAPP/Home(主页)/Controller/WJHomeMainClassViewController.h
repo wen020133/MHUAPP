@@ -8,9 +8,9 @@
 
 
 #import <UIKit/UIKit.h>
+#import "BaseNetworkViewController.h"
 
-
-@interface WJHomeMainClassViewController : UIViewController<UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource>
+@interface WJHomeMainClassViewController : BaseNetworkViewController<UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource>
 
 
 @property (strong, nonatomic) UICollectionView *collectionV;

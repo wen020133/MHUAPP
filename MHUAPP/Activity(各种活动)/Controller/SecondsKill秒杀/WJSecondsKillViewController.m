@@ -14,12 +14,15 @@
 #import <UIImageView+WebCache.h>
 #import "WJSSPTDetailClassViewController.h"
 
+#import "NOMoreDataView.h"
 
 @interface WJSecondsKillViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (strong , nonatomic) WJTimeLabel *timeView;
 /* 商品数据 */
 @property (strong , nonatomic) NSArray  *countDownItem;
+
+@property (strong, nonatomic) NOMoreDataView *noMoreView;
 
 @end
 
@@ -44,20 +47,30 @@
         if([[self.results objectForKey:@"code"] integerValue] == 200)
         {
 
-          NSArray *arr_Datalist = [[[self.results objectForKey:@"data"] objectAtIndex:0] objectForKey:@"activity"];
-            if (arr_Datalist&&arr_Datalist.count>0) {
-
-              _countDownItem= arr_Datalist;
-
-                [_mainTableView reloadData];
-
-                [_mainTableView.mj_footer endRefreshingWithNoMoreData];
-            [self addTimeViewHead];
+            NSArray *array = [self.results objectForKey:@"data"];
+            if (array&&array.count>0) {
+                [self.noMoreView hide];
+                NSArray *arr_Datalist = [[[self.results objectForKey:@"data"] objectAtIndex:0] objectForKey:@"activity"];
+                if (arr_Datalist&&arr_Datalist.count>0) {
+                    
+                    _countDownItem= arr_Datalist;
+                    
+                    [_mainTableView reloadData];
+                    
+                    [_mainTableView.mj_footer endRefreshingWithNoMoreData];
+                    [self addTimeViewHead];
+                }
+                else
+                {
+                    [_mainTableView.mj_footer endRefreshingWithNoMoreData];
+                }
             }
-            else
-            {
-                [_mainTableView.mj_footer endRefreshingWithNoMoreData];
-            }
+          else
+          {
+              [self.noMoreView hide];
+              self.noMoreView = [[NOMoreDataView alloc]initWithFrame:CGRectMake(0, 44, kMSScreenWith, 80) withContent:@"暂无秒杀商品." withNODataImage:@"noMore_bg.png"];
+              [_mainTableView addSubview:self.noMoreView];
+          }
 
         }
         else
@@ -309,6 +322,7 @@
     dcVc.info_classType = @"秒杀";
     dcVc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:dcVc animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
 }
 - (void)firstLoadViewRefresh
 {

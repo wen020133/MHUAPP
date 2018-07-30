@@ -24,9 +24,10 @@
 
 #import "XWDrawerAnimator.h"
 #import "UIViewController+XWTransition.h"
-
+#import <MJRefresh.h>
 #import <SVProgressHUD.h>
 #import "DCLIRLButton.h"
+#import <WebKit/WebKit.h>
 
 #import "WJPTNewBuyViewController.h"
 
@@ -35,9 +36,10 @@
 
 @property (strong, nonatomic) UIScrollView *scrollerView;
 @property (strong, nonatomic) UICollectionView *collectionView;
+@property (strong, nonatomic) WKWebView *webView;
 
 /* 滚回顶部按钮 */
-@property (strong , nonatomic)UIButton *backTopButton;
+@property (strong , nonatomic) UIButton *backTopButton;
 /* 通知 */
 @property (weak ,nonatomic) id dcObj;
 
@@ -54,20 +56,26 @@ static NSArray *lastSeleArray_;
     [super viewDidLoad];
 
     [self setUpInit];
-
+    [self setUpGoodsWKWebView];
     [self setUpSuspendView];
-
-    _PostCount =0 ;
+    [self setUpViewScroller];
+   
     lastNum_ = @"1";
     [self acceptanceNote];
-
-    [self toGetGoodNum];
+    [self getGoodsDescData];
+    
 
     // Do any additional setup after loading the view.
+}
+-(void)getGoodsDescData
+{
+     _PostCount =0;
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetGoodsDesc,self.goods_id]];
 }
 
 -(void)toGetGoodNum
 {
+    _PostCount = 1;
     [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSMiYoMeiGetNum,_goods_id]];
 }
 
@@ -75,8 +83,18 @@ static NSArray *lastSeleArray_;
 {
     if([[self.results objectForKey:@"code"] integerValue] == 200)
     {
-        _soldNum = [self.results objectForKey:@"data"];
-        [_collectionView reloadData];
+        if (self.PostCount==0) {
+            NSString *goods_desc = [[self.results objectForKey:@"data"] objectForKey:@"goods_desc"];
+            
+            NSString *str1 = [RegularExpressionsMethod htmlEntityDecode:goods_desc];
+            [_webView loadHTMLString:str1 baseURL:nil];
+            [self toGetGoodNum];
+        }
+        else
+        {
+          _soldNum = [self.results objectForKey:@"data"];
+          [_collectionView reloadData];
+        }
     }
     else
     {
@@ -450,6 +468,56 @@ static NSArray *lastSeleArray_;
         WEAKSELF
         [weakSelf setUpAlterViewControllerWith:dcFeaVc WithDistance:kMSScreenHeight * 0.8 WithDirection:XWDrawerAnimatorDirectionBottom WithParallaxEnable:YES WithFlipEnable:YES];
     }
+}
+#pragma mark - 视图滚动
+- (void)setUpViewScroller{
+    WEAKSELF
+    self.collectionView.mj_footer = [MJRefreshBackFooter footerWithRefreshingBlock:^{
+        [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionLayoutSubviews animations:^{
+            !weakSelf.changeTitleBlock ? : weakSelf.changeTitleBlock(YES);
+            weakSelf.scrollerView.contentOffset = CGPointMake(0, kMSScreenHeight);
+        } completion:^(BOOL finished) {
+            [weakSelf.collectionView.mj_footer endRefreshing];
+        }];
+    }];
+    
+    self.webView.scrollView.mj_header = [MJRefreshHeader headerWithRefreshingBlock:^{
+        [UIView animateWithDuration:0.8 animations:^{
+            !weakSelf.changeTitleBlock ? : weakSelf.changeTitleBlock(NO);
+            weakSelf.scrollerView.contentOffset = CGPointMake(0, 0);
+        } completion:^(BOOL finished) {
+            [weakSelf.webView.scrollView.mj_header endRefreshing];
+        }];
+        
+    }];
+}
+- (WKWebView *)webView
+{
+    if (!_webView) {
+        _webView = [[WKWebView alloc] initWithFrame:CGRectZero];
+        _webView.frame = CGRectMake(0,kMSScreenHeight , kMSScreenWith, kMSScreenHeight - 50-kMSNaviHight);
+        _webView.scrollView.contentInset = UIEdgeInsetsMake(kMSNaviHight, 0, 0, 0);
+        _webView.scrollView.scrollIndicatorInsets = _webView.scrollView.contentInset;
+        [self.scrollerView addSubview:_webView];
+    }
+    return _webView;
+}
+#pragma mark - 记载图文详情
+- (void)setUpGoodsWKWebView
+{
+    //下拉返回商品详情View
+    UIView *topHitView = [[UIView alloc] init];
+    topHitView.frame = CGRectMake(0, -35, kMSScreenWith, 35);
+    DCLIRLButton *topHitButton = [DCLIRLButton buttonWithType:UIButtonTypeCustom];
+    topHitButton.imageView.transform = CGAffineTransformRotate(topHitButton.imageView.transform, M_PI); //旋转
+    [topHitButton setImage:[UIImage imageNamed:@"Details_Btn_Up"] forState:UIControlStateNormal];
+    [topHitButton setTitle:@"下拉返回商品详情" forState:UIControlStateNormal];
+    topHitButton.titleLabel.font = PFR12Font;
+    [topHitButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    [topHitView addSubview:topHitButton];
+    topHitButton.frame = topHitView.bounds;
+    
+    [self.webView.scrollView addSubview:topHitView];
 }
 
 #pragma mark - 滚动到详情页面

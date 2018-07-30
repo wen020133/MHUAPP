@@ -120,8 +120,12 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     WJSSPTTypeCollectionViewCell *cell = [self.collectionV dequeueReusableCellWithReuseIdentifier:@"WJSSPTTypeCollectionViewCell" forIndexPath:indexPath];
-    NSString *urlStr = [NSString stringWithFormat:@"%@",[[[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"goods"] objectAtIndex:0]objectForKey:@"original_img"]] ;
-    [cell.img_content sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"default_nomore.png"] completed:nil];
+    NSArray *arrGoods = [[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"goods"];
+    if (arrGoods.count>0) {
+        NSString *urlStr = [NSString stringWithFormat:@"%@",[[arrGoods objectAtIndex:0]objectForKey:@"original_img"]] ;
+        [cell.img_content sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"default_nomore.png"] completed:nil];
+    }
+    
     cell.lab_title.text = [NSString stringWithFormat:@"%@",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"goods_name"]] ;
 //    cell.lab_describe.text = [NSString stringWithFormat:@"%@",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"goods_content"]];
     cell.priceLabel.text = [NSString stringWithFormat:@"¥ %.2f",[[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"shop_price"] floatValue]];

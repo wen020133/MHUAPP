@@ -11,6 +11,8 @@
 @interface WJGoodsDataModel : NSObject
 /** 图片  */
 @property (nonatomic, copy ,readonly) NSString *goods_thumb;
+/** 图片  */
+@property (nonatomic, copy ,readonly) NSString *original_img;
 /** 标题  */
 @property (nonatomic, copy ,readonly) NSString *goods_name;
 /** 副标题  */
@@ -18,7 +20,7 @@
 /** 价格  */
 @property (nonatomic, copy ,readonly) NSString *shop_price;
 /** 销量  */
-@property (nonatomic, copy ,readonly) NSString *shop_num;
+@property (nonatomic, copy ,readonly) NSString *num;
 /** ID  */
 @property (nonatomic, copy ,readonly) NSString *goods_id;
 /** 销量  */

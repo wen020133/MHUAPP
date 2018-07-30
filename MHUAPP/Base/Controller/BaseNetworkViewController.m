@@ -59,7 +59,7 @@
              NSString *str_error = [error localizedDescription];
              [SVProgressHUD dismiss];
              [self requestFailed:str_error];
-
+             [self requestFailedDisMJFoot];
                   }];
        
        }
@@ -68,6 +68,10 @@
 - (void)processData
 {
     NSLog(@"返回数据====%@",_results);
+}
+-(void)requestFailedDisMJFoot
+{
+    
 }
 - (void)requestGetAPIWithServe:(NSString *)urlString
 {
@@ -108,7 +112,7 @@
         NSString *str_error = [error localizedDescription];
         [SVProgressHUD dismiss];
         [self requestFailed:str_error];
-
+        [self requestFailedDisMJFoot];
     }];
 
 }
@@ -152,7 +156,7 @@
         NSString *str_error = [error localizedDescription];
         [SVProgressHUD dismiss];
         [self requestFailed:str_error];
-
+        [self requestFailedDisMJFoot];
     }];
 }
 - (void)getProcessData
@@ -223,7 +227,7 @@
             NSLog(@"ada===%@",error);
             NSString *adasa = [NSString stringWithFormat:@"%@", error];
             [self requestFailed:adasa];
-            
+            [self requestFailedDisMJFoot];
         }];
         
     }

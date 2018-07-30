@@ -81,12 +81,12 @@
 
     [_priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         [make.left.mas_equalTo(_gridImageView.mas_right)setOffset:DCMargin];
-        [make.top.mas_equalTo(_freeSuitImageView.mas_bottom)setOffset:20];
+        [make.bottom.mas_equalTo(self.mas_bottom)setOffset:-DCMargin];
     }];
 
     [_commentNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         [make.right.mas_equalTo(self)setOffset:-DCMargin];
-        [make.top.mas_equalTo(_freeSuitImageView.mas_bottom)setOffset:20];
+        [make.bottom.mas_equalTo(self.mas_bottom)setOffset:-DCMargin];
     }];
 }
 -(void)setGoodsItem:(WJGoodsListItem *)goodsItem
@@ -99,7 +99,7 @@
     _priceLabel.attributedText =LZString;
 
 
-     _commentNumLabel.text = [NSString stringWithFormat:@"已售%@件",ConvertString(_goodsItem.goods_number)];
+     _commentNumLabel.text = [NSString stringWithFormat:@"已售%@件",ConvertString(_goodsItem.num)];
 
     _gridLabel.text = _goodsItem.goods_name;
 }

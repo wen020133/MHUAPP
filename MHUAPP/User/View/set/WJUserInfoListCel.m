@@ -58,7 +58,7 @@
     [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         [make.left.mas_equalTo(self.contentView.mas_left)setOffset:10];
         make.centerY.mas_equalTo(self.contentView.mas_centerY);
-        make.size.mas_equalTo(CGSizeMake(100, 28));
+        make.size.mas_equalTo(CGSizeMake(200, 28));
 
     }];
 

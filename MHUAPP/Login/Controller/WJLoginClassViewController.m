@@ -304,7 +304,7 @@
 //                [[RCIM sharedRCIM]refreshUserInfoCache:[[RCUserInfo alloc]initWithUserId:user_id name:str_username portrait:str_logo_img] withUserId:user_id];
                 [[RCDataManager shareManager] loginRongCloudWithUserInfo:[[RCUserInfo alloc]initWithUserId:user_id name:str_username portrait:str_logo_img] withToken:data];
                 [self.navigationController popViewControllerAnimated:YES];
-                [self dismissViewControllerAnimated:YES completion:^{
+                [self dismissViewControllerAnimated:NO completion:^{
 
                 }];
             }
@@ -393,7 +393,7 @@
 }
 - (void)backToPreviousPageAction:(id)sender
 {
-    [self dismissViewControllerAnimated:YES completion:^{
+    [self dismissViewControllerAnimated:NO completion:^{
 
     }];
 }

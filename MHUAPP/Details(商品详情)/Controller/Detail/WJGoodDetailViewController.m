@@ -186,7 +186,6 @@
                 case KGetSupplierUserId:
             {
                 _supplierUserId = [NSString stringWithFormat:@"kefu%@", [self.results objectForKey:@"data"]];
-                
             }
                 break;
             default:

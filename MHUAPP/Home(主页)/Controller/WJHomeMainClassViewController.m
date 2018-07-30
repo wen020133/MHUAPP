@@ -48,13 +48,15 @@
 
 @interface WJHomeMainClassViewController ()
 
-@property (strong, nonatomic) NSArray <WJGoodsDataModel *>  *headImageArr;
+@property (strong, nonatomic) NSMutableArray <WJGoodsDataModel *>  *headImageArr;
 @property (strong, nonatomic) NSArray <WJADThirdItem *>  *adImageArr;
 @property (strong, nonatomic) NSArray <WJMainZhuanTiHDItem *>  *zhuantiHDImageArr;
 
 @property (strong, nonatomic) NSArray  *newshangshiArr;
 @property (strong, nonatomic) NSArray  *miaoshaArr;
 @property (strong, nonatomic) NSArray  *jingXuanShopArr;
+
+@property NSInteger page_Information;
 
 @end
 
@@ -76,9 +78,9 @@
     [super viewDidLoad];
 
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
-
+    self.page_Information = 1;
     [self setHomeViewUpNav];
-
+    self.headImageArr = [NSMutableArray array];
     [self.view addSubview:self.collectionV];
 
     //返回顶部
@@ -103,16 +105,18 @@
 - (void)setUpGIFRrfresh
 {
     _collectionV.mj_header = [WJHomeRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(setUpRecData)];
+    _collectionV.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footGoodsRereshingCircle)];
 }
 
 -(void)setUpRecData
 {
+    self.page_Information = 1;
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_group_t group = dispatch_group_create();
     dispatch_group_async(group, queue, ^{
         NSLog(@"处理事件A");
-        [self getServiceData:kMSMainGoods100];
+        [self getServiceData:@"goods?id=1"];
         dispatch_semaphore_signal(semaphore);
     });
     dispatch_group_async(group, queue, ^{
@@ -182,7 +186,7 @@
          [SVProgressHUD dismiss];
         if([[responseObject objectForKey:@"code"] integerValue] == 200)
         {
-          if ([urlString isEqualToString:kMSMainGoods100]) {
+          if ([urlString isEqualToString:@"goods?id=1"]) {
             NSLog(@"%@====%@",urlString,responseObject);
          id arr = [responseObject objectForKey:@"data"];
         if([arr isKindOfClass:[NSArray class]])
@@ -250,7 +254,52 @@
     }];
 }
 
+-(void)footGoodsRereshingCircle
+{
+    _page_Information++;
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%ld",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSMainGoods100,_page_Information]];
+}
+-(void)getProcessData
+{
+    [_collectionV.mj_header endRefreshing];
+    [_collectionV.mj_footer endRefreshing];
+    if([[self.results objectForKey:@"code"] integerValue] == 200)
+    {
+        
+        NSMutableArray *arr_Datalist = [NSMutableArray array];
+        arr_Datalist = [self.results objectForKey:@"data"];
+        NSMutableArray *entities = [NSMutableArray array];
+        if (![arr_Datalist isKindOfClass:[NSNull class]]&&arr_Datalist.count>0) {
+            entities = [WJGoodsDataModel mj_objectArrayWithKeyValuesArray:arr_Datalist];
 
+            if(_page_Information==1)
+            {
+                 self.headImageArr = entities;
+            }else
+            {
+                [self.headImageArr addObjectsFromArray:entities];
+            }
+            [_collectionV reloadData];
+            if(entities.count<[kMSPULLtableViewCellNumber integerValue])
+            {
+                [_collectionV.mj_footer endRefreshingWithNoMoreData];
+            }
+            else{
+                _collectionV.mj_footer.hidden = NO;
+            }
+        }
+        else
+        {
+           
+            [_collectionV.mj_footer endRefreshingWithNoMoreData];
+        }
+        
+    }
+    else
+    {
+        [self requestFailed:[self.results objectForKey:@"msg"]];
+    }
+}
 -(void)setHomeViewUpNav
 {
     WJHomeNavTopView *searchBarVc = [[WJHomeNavTopView alloc] initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSNaviHight)];
@@ -343,8 +392,11 @@
        else if(indexPath.section == 1)// 秒杀
         {
             WJCountDownHeadView *head = [_collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJCountDownHeadView" forIndexPath:indexPath];
-            head.end_time = [[self.miaoshaArr objectAtIndex:0] objectForKey:@"end_time"];
-            [head setUpUI];
+            if (self.miaoshaArr.count>0) {
+                head.end_time = [[self.miaoshaArr objectAtIndex:0] objectForKey:@"end_time"];
+                [head setUpUI];
+            }
+           
             reusableview = head;
         }
 //       else if(indexPath.section == 2)// 时时拼团
@@ -437,6 +489,13 @@
     if (section == 0) {
         return CGSizeMake(kMSScreenWith, kMSScreenWith/2);
     }
+    else if(section ==1)
+    {
+        if (self.miaoshaArr.count<1) {
+            return CGSizeZero;
+        }
+        return CGSizeMake(kMSScreenWith, 40);
+    }
     else
         return CGSizeMake(kMSScreenWith, 40);  //推荐适合的宽高
 
@@ -474,6 +533,9 @@
     }
         else if(indexPath.section == 1)
         {
+            if (self.miaoshaArr.count<1) {
+                return CGSizeZero;
+            }
             return CGSizeMake(kMSScreenWith, 210);
         }
         else if(indexPath.section ==2)
@@ -486,7 +548,7 @@
 //        }
     else
     {
-        return CGSizeMake(kMSScreenWith/2-1, 200);
+        return CGSizeMake(kMSScreenWith/2-1, 260);
     }
     
 }
@@ -506,11 +568,13 @@
     else if (indexPath.section == 1)
     {
         WJGoodsCountDownCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJGoodsCountDownCell" forIndexPath:indexPath];
-        cell.countDownItem = [[_miaoshaArr objectAtIndex:0] objectForKey:@"activity"];
-        [cell setUpUI];
-        cell.goToGoodDetailClass = ^(NSDictionary *dic_goods) {
-            [self gotoMiaoShaGoodDetailWithGoodId:dic_goods];
-        };
+        if (self.miaoshaArr.count>0) {
+            cell.countDownItem = [[_miaoshaArr objectAtIndex:0] objectForKey:@"activity"];
+            [cell setUpUI];
+            cell.goToGoodDetailClass = ^(NSDictionary *dic_goods) {
+                [self gotoMiaoShaGoodDetailWithGoodId:dic_goods];
+            };
+        }
             gridcell = cell;
         
     }
@@ -669,7 +733,7 @@
                 WJLoginClassViewController *land = [[WJLoginClassViewController alloc]init];
                 UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:land];
                 [nav.navigationBar setIsMSNavigationBar];
-                [self presentViewController:nav animated:YES completion:^{
+                [self presentViewController:nav animated:NO completion:^{
                 }];
                 return;
             }

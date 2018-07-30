@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		170240EB21002AA900507B79 /* WJDistributionMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 170240EA21002AA900507B79 /* WJDistributionMainViewController.m */; };
 		17049992203035EF007DBD89 /* zhPopupController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17049991203035EF007DBD89 /* zhPopupController.m */; };
 		171410D81FCD7FA900F500A9 /* WJHeadScrModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 171410D71FCD7FA900F500A9 /* WJHeadScrModel.m */; };
 		171410DE1FCD96AA00F500A9 /* WJHomeRecommendCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 171410DD1FCD96AA00F500A9 /* WJHomeRecommendCollectionViewCell.m */; };
 		171F5BC120D206610089C532 /* default_nomore.png in Resources */ = {isa = PBXBuildFile; fileRef = 171F5BC020D206600089C532 /* default_nomore.png */; };
+		1723502B210EED45006EFAAF /* WJMyFenXiaoListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1723502A210EED45006EFAAF /* WJMyFenXiaoListCell.m */; };
 		17287DD220AE6E7A004953A9 /* WJWriteIntegralOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17287DD120AE6E7A004953A9 /* WJWriteIntegralOrderViewController.m */; };
 		17287DD520AE8229004953A9 /* WJWirteIntegralTabelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 17287DD420AE8229004953A9 /* WJWirteIntegralTabelCell.m */; };
 		172FEBE720D0A8C400C34366 /* WJWordLabelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 172FEBE620D0A8C400C34366 /* WJWordLabelViewController.m */; };
@@ -22,6 +24,11 @@
 		179D82621FD6A90A00CC4AA2 /* WJFlowAttributeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 179D82611FD6A90A00CC4AA2 /* WJFlowAttributeCell.m */; };
 		179D82651FD6AA5E00CC4AA2 /* WJFlowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 179D82641FD6AA5E00CC4AA2 /* WJFlowItem.m */; };
 		17C617CF20CBD34A001F47A1 /* WJOrderSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17C617CE20CBD34A001F47A1 /* WJOrderSuccessViewController.m */; };
+		17C96B51210AB01D00A655BD /* WJKeFenXiaoListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17C96B50210AB01D00A655BD /* WJKeFenXiaoListViewController.m */; };
+		17C96B54210AB16D00A655BD /* WJDistributionHeadTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17C96B53210AB16D00A655BD /* WJDistributionHeadTypeView.m */; };
+		17C96B57210AB65D00A655BD /* WJMyFenxiaoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17C96B56210AB65D00A655BD /* WJMyFenxiaoViewController.m */; };
+		17C96B5D210B001500A655BD /* WJClassificationCollectionHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17C96B5C210B001500A655BD /* WJClassificationCollectionHeadView.m */; };
+		17C96B60210B149900A655BD /* WJKeFenxiaoListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 17C96B5F210B149900A655BD /* WJKeFenxiaoListCell.m */; };
 		17D6D4FA20AFBE7B00674875 /* WJIntegralOrderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17D6D4F920AFBE7B00674875 /* WJIntegralOrderListViewController.m */; };
 		17DF7BE81FCCFF7100FBD9DC /* UIView+UIViewFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 17DF7BE61FCCFF7100FBD9DC /* UIView+UIViewFrame.m */; };
 		17DF7BE91FCCFF7100FBD9DC /* UIButton+LZCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 17DF7BE71FCCFF7100FBD9DC /* UIButton+LZCategory.m */; };
@@ -43,6 +50,9 @@
 		17F9F15E1FCC527300C71820 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F9F15D1FCC527300C71820 /* AppDelegate.m */; };
 		17F9F1661FCC527300C71820 /* home_more.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17F9F1651FCC527300C71820 /* home_more.xcassets */; };
 		17F9F16C1FCC527300C71820 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F9F16B1FCC527300C71820 /* main.m */; };
+		17FCBFF6210EFACB004C66D3 /* WJZijinManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17FCBFF4210EFACB004C66D3 /* WJZijinManagerViewController.m */; };
+		17FCBFF7210EFACB004C66D3 /* WJZijinManagerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17FCBFF5210EFACB004C66D3 /* WJZijinManagerViewController.xib */; };
+		17FCBFF9210EFF74004C66D3 /* fenXiaoTableListItem.plist in Resources */ = {isa = PBXBuildFile; fileRef = 17FCBFF8210EFF74004C66D3 /* fenXiaoTableListItem.plist */; };
 		340017591FD22BA3009A027A /* WJHoverFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 340017581FD22BA3009A027A /* WJHoverFlowLayout.m */; };
 		3400175F1FD24600009A027A /* WJFiltrateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3400175E1FD24600009A027A /* WJFiltrateViewController.m */; };
 		34014A5F20B3BEC200B6A91E /* WJSSPTDetailClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34014A5E20B3BEC200B6A91E /* WJSSPTDetailClassViewController.m */; };
@@ -403,6 +413,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		170240E921002AA900507B79 /* WJDistributionMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJDistributionMainViewController.h; sourceTree = "<group>"; };
+		170240EA21002AA900507B79 /* WJDistributionMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJDistributionMainViewController.m; sourceTree = "<group>"; };
 		17049990203035EF007DBD89 /* zhPopupController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zhPopupController.h; sourceTree = "<group>"; };
 		17049991203035EF007DBD89 /* zhPopupController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = zhPopupController.m; sourceTree = "<group>"; };
 		171410D61FCD7FA900F500A9 /* WJHeadScrModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJHeadScrModel.h; sourceTree = "<group>"; };
@@ -410,6 +422,8 @@
 		171410DC1FCD96AA00F500A9 /* WJHomeRecommendCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJHomeRecommendCollectionViewCell.h; sourceTree = "<group>"; };
 		171410DD1FCD96AA00F500A9 /* WJHomeRecommendCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJHomeRecommendCollectionViewCell.m; sourceTree = "<group>"; };
 		171F5BC020D206600089C532 /* default_nomore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_nomore.png; sourceTree = "<group>"; };
+		17235029210EED45006EFAAF /* WJMyFenXiaoListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJMyFenXiaoListCell.h; sourceTree = "<group>"; };
+		1723502A210EED45006EFAAF /* WJMyFenXiaoListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJMyFenXiaoListCell.m; sourceTree = "<group>"; };
 		17287DD020AE6E7A004953A9 /* WJWriteIntegralOrderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJWriteIntegralOrderViewController.h; sourceTree = "<group>"; };
 		17287DD120AE6E7A004953A9 /* WJWriteIntegralOrderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJWriteIntegralOrderViewController.m; sourceTree = "<group>"; };
 		17287DD320AE8229004953A9 /* WJWirteIntegralTabelCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJWirteIntegralTabelCell.h; sourceTree = "<group>"; };
@@ -434,6 +448,16 @@
 		179D82661FD6E1AB00CC4AA2 /* MyBuyFlow.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = MyBuyFlow.plist; sourceTree = "<group>"; };
 		17C617CD20CBD34A001F47A1 /* WJOrderSuccessViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJOrderSuccessViewController.h; sourceTree = "<group>"; };
 		17C617CE20CBD34A001F47A1 /* WJOrderSuccessViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJOrderSuccessViewController.m; sourceTree = "<group>"; };
+		17C96B4F210AB01D00A655BD /* WJKeFenXiaoListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJKeFenXiaoListViewController.h; sourceTree = "<group>"; };
+		17C96B50210AB01D00A655BD /* WJKeFenXiaoListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJKeFenXiaoListViewController.m; sourceTree = "<group>"; };
+		17C96B52210AB16D00A655BD /* WJDistributionHeadTypeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJDistributionHeadTypeView.h; sourceTree = "<group>"; };
+		17C96B53210AB16D00A655BD /* WJDistributionHeadTypeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJDistributionHeadTypeView.m; sourceTree = "<group>"; };
+		17C96B55210AB65D00A655BD /* WJMyFenxiaoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJMyFenxiaoViewController.h; sourceTree = "<group>"; };
+		17C96B56210AB65D00A655BD /* WJMyFenxiaoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJMyFenxiaoViewController.m; sourceTree = "<group>"; };
+		17C96B5B210B001500A655BD /* WJClassificationCollectionHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJClassificationCollectionHeadView.h; sourceTree = "<group>"; };
+		17C96B5C210B001500A655BD /* WJClassificationCollectionHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJClassificationCollectionHeadView.m; sourceTree = "<group>"; };
+		17C96B5E210B149900A655BD /* WJKeFenxiaoListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJKeFenxiaoListCell.h; sourceTree = "<group>"; };
+		17C96B5F210B149900A655BD /* WJKeFenxiaoListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJKeFenxiaoListCell.m; sourceTree = "<group>"; };
 		17D6D4F820AFBE7B00674875 /* WJIntegralOrderListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJIntegralOrderListViewController.h; sourceTree = "<group>"; };
 		17D6D4F920AFBE7B00674875 /* WJIntegralOrderListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJIntegralOrderListViewController.m; sourceTree = "<group>"; };
 		17DF7BE51FCCFF7100FBD9DC /* UIButton+LZCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+LZCategory.h"; sourceTree = "<group>"; };
@@ -478,6 +502,10 @@
 		17F9F1651FCC527300C71820 /* home_more.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = home_more.xcassets; sourceTree = "<group>"; };
 		17F9F16A1FCC527300C71820 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		17F9F16B1FCC527300C71820 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		17FCBFF3210EFACB004C66D3 /* WJZijinManagerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJZijinManagerViewController.h; sourceTree = "<group>"; };
+		17FCBFF4210EFACB004C66D3 /* WJZijinManagerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJZijinManagerViewController.m; sourceTree = "<group>"; };
+		17FCBFF5210EFACB004C66D3 /* WJZijinManagerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WJZijinManagerViewController.xib; sourceTree = "<group>"; };
+		17FCBFF8210EFF74004C66D3 /* fenXiaoTableListItem.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = fenXiaoTableListItem.plist; sourceTree = "<group>"; };
 		33FC6ACB0A2BBFE67E9323C4 /* libPods-MHUAPP.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MHUAPP.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		340017571FD22BA3009A027A /* WJHoverFlowLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJHoverFlowLayout.h; sourceTree = "<group>"; };
 		340017581FD22BA3009A027A /* WJHoverFlowLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJHoverFlowLayout.m; sourceTree = "<group>"; };
@@ -1134,6 +1162,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		170240E821000D3F00507B79 /* 分销 */ = {
+			isa = PBXGroup;
+			children = (
+				170240E921002AA900507B79 /* WJDistributionMainViewController.h */,
+				170240EA21002AA900507B79 /* WJDistributionMainViewController.m */,
+				17C96B4F210AB01D00A655BD /* WJKeFenXiaoListViewController.h */,
+				17C96B50210AB01D00A655BD /* WJKeFenXiaoListViewController.m */,
+				17C96B55210AB65D00A655BD /* WJMyFenxiaoViewController.h */,
+				17C96B56210AB65D00A655BD /* WJMyFenxiaoViewController.m */,
+				17FCBFF3210EFACB004C66D3 /* WJZijinManagerViewController.h */,
+				17FCBFF4210EFACB004C66D3 /* WJZijinManagerViewController.m */,
+				17FCBFF5210EFACB004C66D3 /* WJZijinManagerViewController.xib */,
+			);
+			path = "分销";
+			sourceTree = "<group>";
+		};
 		1704998F203035C8007DBD89 /* zhPopupController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1141,6 +1185,22 @@
 				17049991203035EF007DBD89 /* zhPopupController.m */,
 			);
 			path = zhPopupController;
+			sourceTree = "<group>";
+		};
+		1758C7ED2108752900863FED /* 分销 */ = {
+			isa = PBXGroup;
+			children = (
+				17C96B52210AB16D00A655BD /* WJDistributionHeadTypeView.h */,
+				17C96B53210AB16D00A655BD /* WJDistributionHeadTypeView.m */,
+				17C96B5B210B001500A655BD /* WJClassificationCollectionHeadView.h */,
+				17C96B5C210B001500A655BD /* WJClassificationCollectionHeadView.m */,
+				17C96B5E210B149900A655BD /* WJKeFenxiaoListCell.h */,
+				17C96B5F210B149900A655BD /* WJKeFenxiaoListCell.m */,
+				17235029210EED45006EFAAF /* WJMyFenXiaoListCell.h */,
+				1723502A210EED45006EFAAF /* WJMyFenXiaoListCell.m */,
+				17FCBFF8210EFF74004C66D3 /* fenXiaoTableListItem.plist */,
+			);
+			path = "分销";
 			sourceTree = "<group>";
 		};
 		178330892041785400321476 /* foot */ = {
@@ -1365,6 +1425,7 @@
 		17DF7BFA1FCD013A00FBD9DC /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				170240E821000D3F00507B79 /* 分销 */,
 				342AD6A720D9011700936869 /* 退款 */,
 				17C617CC20CBD30F001F47A1 /* 交易成功 */,
 				34E9C80F20CA093D003A592E /* 评价 */,
@@ -2815,6 +2876,7 @@
 		34F1D3951FD6797B0080EE3D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1758C7ED2108752900863FED /* 分销 */,
 				3404FB8D20DA2A0200EA12E2 /* 退款 */,
 				34E9C81A20CA5BCD003A592E /* 评价 */,
 				34F4E23C20C78B6300B71B5F /* 我的足迹 */,
@@ -3045,7 +3107,7 @@
 				TargetAttributes = {
 					17F9F1581FCC527300C71820 = {
 						CreatedOnToolsVersion = 9.1;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -3105,6 +3167,7 @@
 				3456C18F20BE258A002A6566 /* logistics_YZPY.png in Resources */,
 				341944B92058C78F00AAAD61 /* user_backImageHead.png in Resources */,
 				344731562084768800F89D7F /* home_sentiment01_icon.png in Resources */,
+				17FCBFF9210EFF74004C66D3 /* fenXiaoTableListItem.plist in Resources */,
 				34E9C85120CA7F31003A592E /* DWQPhotoCell.xib in Resources */,
 				346564791FCD561100448C40 /* img_btn_jipiao@2x.png in Resources */,
 				3418E7412019738500EDD902 /* cart_addBtn_nomal@2x.png in Resources */,
@@ -3121,6 +3184,7 @@
 				344EDDAB206A2D3100E283DA /* main_sspt_haowuyiqipin.jpg in Resources */,
 				34E9C82620CA7C71003A592E /* none.png in Resources */,
 				341072CB205B6E1C00855C3D /* UserSetIconFlow.plist in Resources */,
+				17FCBFF7210EFACB004C66D3 /* WJZijinManagerViewController.xib in Resources */,
 				34D5075C1FDB7E5A00EA1AC5 /* login_mima.png in Resources */,
 				340625FC1FDE28A900F52953 /* RigisterClassViewController.xib in Resources */,
 				346564761FCD561100448C40 /* img_btn_shiping@2x.png in Resources */,
@@ -3226,6 +3290,7 @@
 				341878CF1FD5313A00D3F860 /* WJDeatilCustomHeadView.m in Sources */,
 				344EDDA32069F86F00E283DA /* WJSSPTFirstViewController.m in Sources */,
 				3418E73B2019636E00EDD902 /* WJCartGoodsModel.m in Sources */,
+				17C96B57210AB65D00A655BD /* WJMyFenxiaoViewController.m in Sources */,
 				343A8F3A1FE7B65C0017171A /* WJOrderMainViewController.m in Sources */,
 				34E9C81220CA0994003A592E /* WJCommitViewController.m in Sources */,
 				34014A6220B3CA1800B6A91E /* WJSSPTInfoCollectionCell.m in Sources */,
@@ -3252,6 +3317,7 @@
 				340626051FDE32C000F52953 /* WJPushPasswordViewController.m in Sources */,
 				34FB225720A148E600D698FA /* WJLogisticsTableHeadView.m in Sources */,
 				34FB72112079B0CF00585866 /* WJMyStoreTableCell.m in Sources */,
+				17C96B54210AB16D00A655BD /* WJDistributionHeadTypeView.m in Sources */,
 				342C82551FFDBE6800F1ECCC /* WJSecondsKillViewController.m in Sources */,
 				3421BCE91FF1DC5000263FE9 /* RigisterProtocolViewController.m in Sources */,
 				171410D81FCD7FA900F500A9 /* WJHeadScrModel.m in Sources */,
@@ -3354,8 +3420,10 @@
 				341878DA1FD545D100D3F860 /* WJShowTypeGoodsPropertyCell.m in Sources */,
 				34E9C82820CA7C71003A592E /* JJPhotoManeger.m in Sources */,
 				3421BCED1FF2485D00263FE9 /* WJCouponsClassViewController.m in Sources */,
+				1723502B210EED45006EFAAF /* WJMyFenXiaoListCell.m in Sources */,
 				340607DF209AA3FD00A14EAD /* WJOrderShangJiaHeadModel.m in Sources */,
 				340C5C4720C113020069F2E8 /* WJDetailedDeliveryInfoViewController.m in Sources */,
+				17C96B5D210B001500A655BD /* WJClassificationCollectionHeadView.m in Sources */,
 				34F4E23A20C76E9D00B71B5F /* WJMyFootprintViewController.m in Sources */,
 				342576C220205D7E0046D24E /* WJChooseLocationViewController.m in Sources */,
 				341D717F20CB6C16002D4CCD /* SDBaseProgressView.m in Sources */,
@@ -3367,6 +3435,7 @@
 				341B51AF206C86650074492C /* WJHuoDongZhuanTiMainViewController.m in Sources */,
 				3452FA2D1FFF29E8009F60AE /* WJSecondsKissCell.m in Sources */,
 				3456C1BD1FD7DB7D00B5AEB8 /* WJUserSettingMainViewController.m in Sources */,
+				17C96B51210AB01D00A655BD /* WJKeFenXiaoListViewController.m in Sources */,
 				17DF7C271FCD3BAE00FBD9DC /* WJHomeScrollAdHeadView.m in Sources */,
 				340BB0912081EEB700B1C1A4 /* WJMainZhuanTiHDItem.m in Sources */,
 				34F1D3811FD61C770080EE3D /* WJDetailShowTypeCell.m in Sources */,
@@ -3427,6 +3496,7 @@
 				341B51AB206C6E020074492C /* WJSSPTTypeCollectionViewCell.m in Sources */,
 				340723542005C6A5002E6058 /* WJFeatureHeaderView.m in Sources */,
 				3412D5BA20464CB2000EB1A0 /* WJXianShiMiaoShaModel.m in Sources */,
+				17C96B60210B149900A655BD /* WJKeFenxiaoListCell.m in Sources */,
 				17DF7BF11FCCFFAE00FBD9DC /* UINavigationBar+MSExtension.m in Sources */,
 				34F30E8C20B64AF700939BE9 /* HYSlider.m in Sources */,
 				341B51B9206CB6FC0074492C /* WJZhuanTiHDBenZhouZuiLXCell.m in Sources */,
@@ -3477,12 +3547,14 @@
 				34133C311FDA39E100C95CA4 /* BaseNetworkViewController.m in Sources */,
 				341D718320CB6C28002D4CCD /* SDDemoItemView.m in Sources */,
 				3460D30A2008B7B8000F03EB /* WJEmailChangeViewController.m in Sources */,
+				17FCBFF6210EFACB004C66D3 /* WJZijinManagerViewController.m in Sources */,
 				340DB1B51FEB9C1E003D5A19 /* WJOrderHeader.m in Sources */,
 				34FB226120A16FC700D698FA /* WJLogisticsCustomTableCell.m in Sources */,
 				17049992203035EF007DBD89 /* zhPopupController.m in Sources */,
 				34EB6A9E20A96F72005C3671 /* WJStoreInfoCollectionCell.m in Sources */,
 				3456C1A220BE96B2002A6566 /* WJWAaitForGoodThridTableCell.m in Sources */,
 				3411F95D20411278007BCEF9 /* XWCoolAnimator+XWLines.m in Sources */,
+				170240EB21002AA900507B79 /* WJDistributionMainViewController.m in Sources */,
 				340626001FDE314100F52953 /* WJPushCodeViewController.m in Sources */,
 				341320A22074A6F8009975AB /* WJHDZTFatherClassViewCell.m in Sources */,
 				341878321FD4F10500D3F860 /* WJGoodParticularsViewController.m in Sources */,
@@ -3558,7 +3630,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -3642,7 +3714,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = FV78E8XR87;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3676,8 +3748,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jinri.MHU.MHUAPP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "29bc745d-7443-498c-ad87-4599f593553a";
+				PROVISIONING_PROFILE_SPECIFIER = mhuDevelopment2018730;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -3687,9 +3759,9 @@
 			baseConfigurationReference = D31EA1D111F60E55B5B4B4B8 /* Pods-MHUAPP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: SHENZHEN JINRI ELECTRICAL APPLIANCE CO.,LTD. (FV78E8XR87)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: SHENZHEN JINRI ELECTRICAL APPLIANCE CO.,LTD. (FV78E8XR87)";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = FV78E8XR87;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3722,8 +3794,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jinri.MHU.MHUAPP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "17cb015a-edb5-4003-b921-7bcec90e281f";
+				PROVISIONING_PROFILE_SPECIFIER = miyoMeiPush;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

@@ -85,9 +85,10 @@
 
 
    _lab_soldNum.text =[NSString stringWithFormat:@"已售%@件",_soldNum];
-    _lab_soldNum.frame = CGRectMake(kMSScreenWith/2-40, _goodTitleLabel.Bottom+12, 80, 20);
-   _lab_address.text =@"广东 深圳";
-   _lab_address.frame = CGRectMake(kMSScreenWith-100, _goodTitleLabel.Bottom+12, 80, 20);
+//    _lab_soldNum.frame = CGRectMake(kMSScreenWith/2-40, _goodTitleLabel.Bottom+12, 80, 20);
+    _lab_soldNum.frame =  CGRectMake(kMSScreenWith-100, _goodTitleLabel.Bottom+12, 80, 20);
+//   _lab_address.text =@"广东 深圳";
+//   _lab_address.frame = CGRectMake(kMSScreenWith-100, _goodTitleLabel.Bottom+12, 80, 20);
 
 }
 
