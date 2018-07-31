@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import <AlipaySDK/AlipaySDK.h>
+#import <UMCommon/UMCommon.h>
 #import <UMShare/UMShare.h>
 #import "WXApiManager.h"
 
@@ -33,8 +34,7 @@ NSString * const UpLoadNoti = @"uploadInfo";
     
     [WXApi registerApp:kAppIDWeixin];
     //设置友盟Appkey
-    [[UMSocialManager defaultManager] setUmSocialAppkey:UmengAppkey];
-
+    [UMConfigure initWithAppkey:UmengAppkey channel:@"App Store"];
     //设置微信AppId，设置分享url，
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:kAppIDWeixin appSecret:kAppSecret redirectURL:kRedirectURI];
     //初始化融云相关

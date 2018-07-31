@@ -10,6 +10,8 @@
 #import <UIImageView+WebCache.h>
 #import "WJSetHeadTableCell.h"
 #import "WJFlowItem.h"
+#import "WJMoneyManagementViewController.h"
+
 
 @interface WJZijinManagerViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -84,10 +86,6 @@
             
         }
      else  if (indexPath.row==1) {
-//            AddAddressViewController *AddressVC = [[AddAddressViewController alloc]init];
-//            AddressVC.selectCellIndexpathYES = YES;
-//            self.hidesBottomBarWhenPushed = YES;
-//            [self.navigationController pushViewController:AddressVC animated:YES];
         }
 }
 
@@ -108,5 +106,11 @@
 */
 
 - (IBAction)goToManagerListView:(id)sender {
+    
+    WJMoneyManagementViewController *AddressVC = [[WJMoneyManagementViewController alloc]init];
+    AddressVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:AddressVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
+
 }
 @end
