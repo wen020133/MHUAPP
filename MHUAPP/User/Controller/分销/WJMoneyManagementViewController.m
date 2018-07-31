@@ -1,32 +1,27 @@
 //
-//  WJZijinManagerViewController.m
+//  WJMoneyManagementViewController.m
 //  MHUAPP
 //
-//  Created by wenchengjun on 2018/7/30.
+//  Created by wenchengjun on 2018/7/31.
 //  Copyright © 2018年 wenchengjun. All rights reserved.
 //
 
-#import "WJZijinManagerViewController.h"
-#import <UIImageView+WebCache.h>
-#import "WJSetHeadTableCell.h"
-#import "WJFlowItem.h"
+#import "WJMoneyManagementViewController.h"
+#import "WJMoneyListTableCell.h"
 
-@interface WJZijinManagerViewController ()<UITableViewDelegate,UITableViewDataSource>
 
-@property (strong, nonatomic) NSArray   *arr_typeName;
+@interface WJMoneyManagementViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (strong, nonatomic) UITableView *infoTableView;
 
 @end
 
-@implementation WJZijinManagerViewController
+@implementation WJMoneyManagementViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"fenXiaoTableListItem" ofType:@"plist" inDirectory:nil];
-    _arr_typeName = [[NSArray alloc]initWithContentsOfFile:path];
-    
+    [self initSendReplyWithTitle:@"资金明细" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
     [self.view addSubview:self.infoTableView];
     // Do any additional setup after loading the view from its nib.
 }
@@ -39,10 +34,10 @@
         _infoTableView.dataSource = self;
         _infoTableView.backgroundColor =[UIColor clearColor];
         _infoTableView.showsHorizontalScrollIndicator = NO;
-    _infoTableView.separatorStyle=UITableViewCellSeparatorStyleNone;
-        [_infoTableView registerClass:[WJSetHeadTableCell class] forCellReuseIdentifier:@"WJSetHeadTableCell"];
+        _infoTableView.separatorStyle=UITableViewCellSeparatorStyleNone;
+        [_infoTableView registerClass:[WJMoneyListTableCell class] forCellReuseIdentifier:@"WJMoneyListTableCell"];
         
-        _infoTableView.tableHeaderView = self.tab_headNumView;
+        _infoTableView.tableHeaderView = self.view_tabHead;
     }
     return _infoTableView;
 }
@@ -51,7 +46,7 @@
 #pragma mark - UITableViewDelegate UITableViewDataSource Methods
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2;
+    return 5;
 }
 
 //section头部视图
@@ -69,27 +64,12 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *CellIndentifier = @"WJSetHeadTableCell";
-    WJSetHeadTableCell *cell = (WJSetHeadTableCell *)[tableView dequeueReusableCellWithIdentifier:CellIndentifier];
+    static NSString *CellIndentifier = @"WJMoneyListTableCell";
+    WJMoneyListTableCell *cell = (WJMoneyListTableCell *)[tableView dequeueReusableCellWithIdentifier:CellIndentifier];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    NSArray *data = [WJFlowItem mj_objectArrayWithKeyValuesArray:self.arr_typeName];
-    cell.flowItem = [data objectAtIndex:indexPath.row];
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-        if (indexPath.row==0) {
-            
-        }
-     else  if (indexPath.row==1) {
-//            AddAddressViewController *AddressVC = [[AddAddressViewController alloc]init];
-//            AddressVC.selectCellIndexpathYES = YES;
-//            self.hidesBottomBarWhenPushed = YES;
-//            [self.navigationController pushViewController:AddressVC animated:YES];
-        }
-}
 
 
 - (void)didReceiveMemoryWarning {
@@ -107,6 +87,4 @@
 }
 */
 
-- (IBAction)goToManagerListView:(id)sender {
-}
 @end

@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "BaseNetworkViewController.h"
 
-@interface WJKeFenXiaoListViewController : UIViewController
+@interface WJKeFenXiaoListViewController : BaseNetworkViewController
 
 @end

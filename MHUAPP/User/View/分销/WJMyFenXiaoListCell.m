@@ -52,7 +52,7 @@
         _lab_num.text = @"已分销:10件";
         [self.contentView addSubview:_lab_num];
         
-        _lab_profitPrice = [[UILabel alloc]initWithFrame:CGRectMake(_lab_num.Right+5, _lab_title.Bottom+5, kMSScreenWith/2-110, 20)];
+        _lab_profitPrice = [[UILabel alloc]initWithFrame:CGRectMake(_lab_num.Right+5, _lab_yongjin.Bottom+5, kMSScreenWith/2-110, 20)];
         _lab_profitPrice.font = PFR11Font;
         _lab_profitPrice.textColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
         _lab_profitPrice.text = @"获利:￥80.00";

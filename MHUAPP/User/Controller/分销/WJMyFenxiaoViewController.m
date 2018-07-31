@@ -27,7 +27,7 @@
 {
     if (!_collectionV) {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-        _collectionV = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight-kMSNaviHight) collectionViewLayout:layout];
+        _collectionV = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 5, kMSScreenWith, kMSScreenHeight-kMSNaviHight-5) collectionViewLayout:layout];
         
         _collectionV.backgroundColor = [UIColor clearColor];
         _collectionV.delegate = self;
