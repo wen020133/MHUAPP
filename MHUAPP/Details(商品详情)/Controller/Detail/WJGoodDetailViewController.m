@@ -27,6 +27,8 @@
 #import "WJDetailPartCommentItem.h"
 #import <UShareUI/UShareUI.h>
 
+#import "WJMainWebClassViewController.h"
+
 
 @interface WJGoodDetailViewController ()<PST_MenuViewDelegate>
 
@@ -591,10 +593,10 @@
                 conversationVC.conversationType = ConversationType_PRIVATE;
                 NSString *kefuUserId = _supplierUserId;
                 conversationVC.targetId =  kefuUserId;
-                
+
                 conversationVC.strTitle =_supplier_name;
                 NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-                
+
                 NSArray *friendsList = [userDefaults objectForKey:@"RYFriendsList"];
                 NSMutableArray *allTimeArr = [NSMutableArray arrayWithArray:friendsList];
                 int kk=0;
@@ -637,6 +639,7 @@
                                       sentStatus:SentStatus_SENT
                                       content:richMsg];
                  [[NSNotificationCenter defaultCenter] postNotificationName:@"RCDSharedMessageInsertSuccess" object:message];
+//                WJMainWebClassViewController *conversationVC = [[WJMainWebClassViewController alloc]init];
                 self.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:conversationVC animated:YES];
             }

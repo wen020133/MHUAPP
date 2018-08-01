@@ -10,7 +10,7 @@
 
 @interface WJMainWebClassViewController ()
 
-@property (strong, nonatomic) WKWebView *webView;
+@property (strong, nonatomic) UIWebView *webView;
 
 @end
 
@@ -22,7 +22,12 @@
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     [self initSendReplyWithTitle:self.str_title andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:NO];
     
-   _webView = [[WKWebView alloc]initWithFrame:self.view.bounds];
+   _webView = [[UIWebView alloc]initWithFrame:self.view.bounds];
+// _webView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+//    _webView.scrollView.bounces = NO;
+//    _webView.delegate = self;
+//    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"mobile_chat_online" ofType:@"html" inDirectory:@"mobile"]]]];
+    
     [self.view addSubview:_webView];
     //添加属性监听
     [_webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
@@ -49,7 +54,10 @@
     // Do any additional setup after loading the view.
 }
 
-
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    
+}
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
     if ([keyPath isEqualToString:@"estimatedProgress"]) {
         NSLog(@"%@", change);

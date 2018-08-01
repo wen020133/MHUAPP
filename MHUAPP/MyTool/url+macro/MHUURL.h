@@ -140,4 +140,7 @@
 #define   kMSDeleteOrder       @"deleteOrder"  //删除待付款订单
 #define   kMSetArticle       @"getArticle"  //常见问题
 #define   kMSUpdateName       @"/v1/updateName"  //修改昵称
+
+#define   kMSDistributionList       @"/v1/distributionList"  //可分销商品列表
+#define   kMSDetailList       @"/v1/detailList"  //分销明细表
 #endif /* MHUURL_h */

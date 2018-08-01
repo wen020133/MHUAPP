@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <WebKit/WebKit.h>
 
-@interface WJMainWebClassViewController : UIViewController<WKNavigationDelegate>
+@interface WJMainWebClassViewController : UIViewController<UIWebViewDelegate>
 
 @property (weak, nonatomic) CALayer *progresslayer;
 
