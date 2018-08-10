@@ -42,7 +42,7 @@
     [self addSubview:_lab_title];
 
     _priceLabel = [[UILabel alloc] init];
-    _priceLabel.font = PFR15Font;
+    _priceLabel.font = PFR13Font;
     _priceLabel.textColor = [UIColor redColor];
     [self addSubview:_priceLabel];
 
@@ -83,12 +83,14 @@
 
     [_priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         [make.left.mas_equalTo(self) setOffset:6];
-        [make.top.mas_equalTo(_lab_title.mas_bottom)setOffset:6];
+    [make.top.mas_equalTo(_lab_title.mas_bottom)setOffset:6];
+        make.height.equalTo(@20);
     }];
 
     [_lab_count mas_makeConstraints:^(MASConstraintMaker *make) {
         [make.right.mas_equalTo(self) setOffset:-DCMargin];
         [make.top.mas_equalTo(_lab_title.mas_bottom)setOffset:6];
+         make.height.equalTo(@20);
     }];
 
     [_btn_price mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -51,20 +51,15 @@
     [self addSubview:imgblack];
 
     _goodPriceLabel = [[UILabel alloc] init];
-    _goodPriceLabel.font = Font(22);
+    _goodPriceLabel.font = Font(30);
     _goodPriceLabel.textColor = [UIColor redColor];
     [self addSubview:_goodPriceLabel];
     
     _goodTitleLabel = [[UILabel alloc] init];
     _goodTitleLabel.font = PFR16Font;
-    _goodPriceLabel.textColor = [RegularExpressionsMethod ColorWithHexString:@"2B2B2B"];
+    _goodTitleLabel.textColor = [RegularExpressionsMethod ColorWithHexString:@"2B2B2B"];
     _goodTitleLabel.numberOfLines = 0;
     [self addSubview:_goodTitleLabel];
-
-    _goodPriceLabel = [[UILabel alloc] init];
-    _goodPriceLabel.font = PFR20Font;
-    _goodPriceLabel.textColor = [UIColor redColor];
-    [self addSubview:_goodPriceLabel];
 
     _market_priceLabel = [[UILabel alloc] init];
     _market_priceLabel.font = PFR12Font;
@@ -94,7 +89,7 @@
 
     NSString *stringPrice =
     [NSString stringWithFormat:@"¥ %@",_goodPrice];
-    _goodPriceLabel.frame = CGRectMake(DCMargin, 6, [RegularExpressionsMethod widthOfString:stringPrice font:Font(22) height:30], 30);
+    _goodPriceLabel.frame = CGRectMake(DCMargin, 6, [RegularExpressionsMethod widthOfString:stringPrice font:Font(30) height:30], 30);
      NSMutableAttributedString *LZString = [[NSMutableAttributedString alloc]initWithString:stringPrice];
     [LZString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:16] range:NSMakeRange(0, 2)];
     _goodPriceLabel.attributedText = LZString;

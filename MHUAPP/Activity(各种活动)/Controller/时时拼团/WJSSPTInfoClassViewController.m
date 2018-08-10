@@ -260,7 +260,13 @@ static NSArray *lastSeleArray_;
         if (indexPath.row == 0) {
             WJSSPTInfoCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJSSPTInfoCollectionCell" forIndexPath:indexPath];
             cell.goodTitle = _goodTitle;
-            cell.goodPrice = _goodPrice;
+            if ([_info_classType isEqualToString:@"秒杀"]) {
+                cell.goodPrice = _goodPrice;
+            }
+            else
+            {
+               cell.goodPrice = _group_price_one;
+            }
             cell.endTimeStr = _endTimeStr;
             cell.soldNum = _soldNum;
             cell.oldPrice = _oldPrice;
@@ -432,7 +438,7 @@ static NSArray *lastSeleArray_;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-//  if (_attributeArray.count>0&&indexPath.section == 1){ //属性选择
+  if (indexPath.section == 1){ //属性选择
         WJFeatureSelectionViewController *dcFeaVc = [WJFeatureSelectionViewController new];
         dcFeaVc.lastNum = lastNum_;
     dcFeaVc.goods_number = _goods_number;
@@ -444,7 +450,7 @@ static NSArray *lastSeleArray_;
         dcFeaVc.goodImageView = _goodImageView;
         WEAKSELF
         [weakSelf setUpAlterViewControllerWith:dcFeaVc WithDistance:kMSScreenHeight * 0.8 WithDirection:XWDrawerAnimatorDirectionBottom WithParallaxEnable:YES WithFlipEnable:YES];
-//    }
+    }
 }
 
 
@@ -484,6 +490,8 @@ static NSArray *lastSeleArray_;
         else {
             WJFeatureSelectionViewController *dcFeaVc = [WJFeatureSelectionViewController new];
             dcFeaVc.lastNum = lastNum_;
+            dcFeaVc.goods_number = _goods_number;
+            dcFeaVc.str_IsmiaoshaPT = @"秒杀拼团";
             dcFeaVc.lastSeleArray = [NSMutableArray arrayWithArray:lastSeleArray_];
             dcFeaVc.arr_fuckData = _attributeArray;
             dcFeaVc.arr_goodImage = _shufflingArray;
@@ -509,11 +517,35 @@ static NSArray *lastSeleArray_;
         }];
         return;
     }
+    if ([_info_classType isEqualToString:@"秒杀"]) {
+        [self goToPTNEwBuyClassView];
+    }
+    else
+    {
+    [self jxt_showAlertWithTitle:@"拼团规则" message:@" 1、拼团买家支付呼模式：参与拼团的买家需要先支付第一梯度对应的最高价格，拼团结束后产生对应拼团梯度价格， 卖家按照最后的拼团达成价格获取相应收益；如果最后拼团达成的梯度价格小于买家参与拼团支付的价格，商城按差价额按支付途经原路返还买家多支出的费用。\n2、恶意拼团：如果参与拼团的买家最后不想参与拼团，卖家没有发货，扣除买家参与拼团支付费用的10%作为惩罚， 扣除金额归平台所有；如遇到卖家发货途中退货，以恶意拼团处理，扣除参与拼团支付费用的10%作为惩罚。扣除金额归商家所有\n3、成功参与拼团的买家：参与拼在收到货物后，在不影响二次销售的情况下，享有平台的无理由退货权利，部分商品除外 （洗发/定型、染发/烫发、美妆/个户、美甲/纹绣）不在无理由退货的范围内的商品进行退货由商家和卖家自行沟通解决。 " appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
+        alertMaker.
+        addActionCancelTitle(@"取消").
+        addActionDestructiveTitle(@"立即购买");
+    } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, JXTAlertController * _Nonnull alertSelf) {
+        if (buttonIndex == 0) {
+            NSLog(@"cancel");
+        }
+        else
+        {
+            [self goToPTNEwBuyClassView];
+        }
+        
+    }];
+    }
 
+}
+
+-(void)goToPTNEwBuyClassView
+{
     NSString *result ;
     if (_attributeArray.count>0) {
         result  = [NSString stringWithFormat:@"%@",[lastSeleArray_ componentsJoinedByString:@","]];
-
+        
     }
     else
     {
@@ -524,7 +556,13 @@ static NSArray *lastSeleArray_;
     newBuyVC.str_title = _goodTitle;
     newBuyVC.str_type = result;
     newBuyVC.str_Num = lastNum_;
-    newBuyVC.str_price = _goodPrice;
+    if ([_info_classType isEqualToString:@"秒杀"]) {
+        newBuyVC.str_price = _goodPrice;
+    }
+    else
+    {
+        newBuyVC.str_price = _group_price_one;
+    }
     newBuyVC.str_oldprice = _oldPrice;
     newBuyVC.str_goodsId = _goods_id;
     newBuyVC.info_classType = _info_classType;
@@ -533,8 +571,8 @@ static NSArray *lastSeleArray_;
     newBuyVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:newBuyVC animated:YES];
     self.hidesBottomBarWhenPushed = YES;
-
 }
+
 #pragma mark - 加入购物车成功
 -(void)processData
 {

@@ -141,6 +141,7 @@
 #define   kMSetArticle       @"getArticle"  //常见问题
 #define   kMSUpdateName       @"/v1/updateName"  //修改昵称
 
-#define   kMSDistributionList       @"/v1/distributionList"  //可分销商品列表
-#define   kMSDetailList       @"/v1/detailList"  //分销明细表
+#define   kMSDistributionList       @"distributionList"  //可分销商品列表
+#define   kMSDetailList       @"detailList"  //分销明细表
+#define   kMSDepositCate       @"depositCate"  //分销商品分类
 #endif /* MHUURL_h */

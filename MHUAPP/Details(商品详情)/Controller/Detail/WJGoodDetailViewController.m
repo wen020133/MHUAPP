@@ -133,7 +133,7 @@
 -(void)setkMSGetComment
 {
     _serverType = 2;
-    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@/%@?start=%d&numb=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetComment,_goods_id,0,kMSPULLtableViewCellNumber]];
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@/?goods_id=%@&start=%d&numb=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetComment,_goods_id,0,kMSPULLtableViewCellNumber]];
     
     [self performSelector:@selector(delayMethod) withObject:nil afterDelay:1.0];
 }

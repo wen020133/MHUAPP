@@ -32,9 +32,14 @@
 {
     self.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     
-    UIImageView *imageBV = [[UIImageView alloc]initWithFrame:CGRectMake(0, 5, kMSScreenWith, 40  )];
+    
+    UIImageView *imageBV = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 45)];
     imageBV.backgroundColor = kMSCellBackColor;
     [self addSubview:imageBV];
+    
+    UIImageView *line = ImageViewInit(0, 0, kMSScreenWith, 1);
+    line.backgroundColor = [[UIColor lightGrayColor]colorWithAlphaComponent:0.3];
+    [self addSubview:line];
     
     NSArray *titles = @[@"新品",@"销量", @"价格 ",@"佣金 "];
     CGFloat btnW = self.width / titles.count;
@@ -54,21 +59,21 @@
         }
         else if (i==2)
         {
-            _img_upPrice = ImageViewInit(button.dc_centerX+20, 13, 9, 5);
+            _img_upPrice = ImageViewInit(button.dc_centerX+20, 18, 9, 5);
             _img_upPrice.image = [UIImage imageNamed:@"price_no_up"];
             [self addSubview:_img_upPrice];
             
-            _img_downPrice = ImageViewInit(button.dc_centerX+20, self.height-18, 9, 5);
+            _img_downPrice = ImageViewInit(button.dc_centerX+20, self.height-23, 9, 5);
             _img_downPrice.image = [UIImage imageNamed:@"price_no_down"];
             [self addSubview:_img_downPrice];
         }
         else if (i==3)
         {
-            _img_upCom = ImageViewInit(button.dc_centerX+20, 13, 9, 5);
+            _img_upCom = ImageViewInit(button.dc_centerX+20, 18, 9, 5);
             _img_upCom.image = [UIImage imageNamed:@"price_no_up"];
             [self addSubview:_img_upCom];
             
-            _img_downCom = ImageViewInit(button.dc_centerX+20, self.height-18, 9, 5);
+            _img_downCom = ImageViewInit(button.dc_centerX+20, self.height-23, 9, 5);
             _img_downCom.image = [UIImage imageNamed:@"price_no_down"];
             [self addSubview:_img_downCom];
         }

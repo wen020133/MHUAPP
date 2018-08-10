@@ -68,7 +68,8 @@
 
 -(void)initinfomationClassDataCount
 {
-    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@/%@?start=%ld&numb=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetComment,_goods_id,_page_Information,kMSPULLtableViewCellNumber]];
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@/?goods_id=%@&start=%d&numb=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetComment,_goods_id,0,kMSPULLtableViewCellNumber]];
+
 }
 
 -(void)getProcessData

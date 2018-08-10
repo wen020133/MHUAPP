@@ -128,8 +128,8 @@
     
     cell.lab_title.text = [NSString stringWithFormat:@"%@",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"goods_name"]] ;
 //    cell.lab_describe.text = [NSString stringWithFormat:@"%@",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"goods_content"]];
-    cell.priceLabel.text = [NSString stringWithFormat:@"¥ %.2f",[[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"shop_price"] floatValue]];
-    cell.lab_count.text = [NSString stringWithFormat:@"已拼%@件",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"buy_numb"]];
+    cell.priceLabel.text = [NSString stringWithFormat:@"拼团价：¥%@~￥%@元",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"group_price_one"],[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"group_price_three"]];
+    cell.lab_count.text = [NSString stringWithFormat:@"已拼%@件",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"num"]];
     return cell;
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath

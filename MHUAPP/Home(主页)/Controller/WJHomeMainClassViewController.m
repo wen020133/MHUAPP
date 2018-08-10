@@ -491,7 +491,8 @@
     }
     else if(section ==1)
     {
-        if (self.miaoshaArr.count<1) {
+     NSArray *arr = [[self.miaoshaArr objectAtIndex:0] objectForKey:@"activity"];
+        if (arr.count<1) {
             return CGSizeZero;
         }
         return CGSizeMake(kMSScreenWith, 40);
@@ -533,7 +534,8 @@
     }
         else if(indexPath.section == 1)
         {
-            if (self.miaoshaArr.count<1) {
+            NSArray *arr = [[self.miaoshaArr objectAtIndex:0] objectForKey:@"activity"];
+            if (arr.count<1) {
                 return CGSizeZero;
             }
             return CGSizeMake(kMSScreenWith, 210);
