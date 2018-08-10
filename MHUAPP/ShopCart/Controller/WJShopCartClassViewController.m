@@ -80,7 +80,20 @@ static NSInteger lz_CartRowHeight = 100;
         [self getGoodsInfoCreatData];
 
     }
+    for (WJCartGoodsModel *model in _selectedArray) {
+        model.select = NO;
+    }
 
+    [_selectedArray removeAllObjects];
+
+
+    for (WJCartShopModel *shop in self.dataArray) {
+        shop.select = NO;
+    }
+
+
+    [self.myTableView reloadData];
+    [self countPrice];
 
 }
 

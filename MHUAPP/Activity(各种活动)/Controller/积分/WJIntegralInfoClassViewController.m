@@ -88,7 +88,6 @@
         _scrollerView.frame = self.view.bounds;
         _scrollerView.contentSize = CGSizeMake(kMSScreenWith, kMSScreenHeight+220+kMSScreenWith/2);
         _scrollerView.pagingEnabled = YES;
-        _scrollerView.scrollEnabled = NO;
         [self.view addSubview:_scrollerView];
         
         _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, kMSScreenWith/2+44*4+44, kMSScreenWith,kMSScreenHeight)];
@@ -96,7 +95,6 @@
         _webView.delegate = self;
         _webView.scrollView.bounces = NO;
         _webView.scrollView.showsHorizontalScrollIndicator = NO;
-        _webView.scrollView.scrollEnabled = NO;
         _webView.scalesPageToFit = YES;
         [self.scrollerView addSubview:_webView];
         [self.webView.scrollView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
@@ -115,6 +113,7 @@
         _collectionView.dataSource = self;
         _collectionView.frame = CGRectMake(0, 0, kMSScreenWith, kMSScreenWith/2+44*4+40);
         _collectionView.showsVerticalScrollIndicator = NO;
+        _collectionView.scrollEnabled = NO;
         [self.scrollerView addSubview:_collectionView];
 
         //注册header

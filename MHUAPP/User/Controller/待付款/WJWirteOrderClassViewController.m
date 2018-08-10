@@ -106,10 +106,12 @@
 
     for (WJCartGoodsModel *model in _dataArray) {
 
-        double price = [model.count_price doubleValue];
 
-        totlePrice += price * model.goods_number;
+        totlePrice = [model.count_price doubleValue];
+//        double price = [model.count_price doubleValue];
+//        totlePrice += price * model.goods_number;
     }
+
     NSString *string = [NSString stringWithFormat:@"￥%.2f",totlePrice];
     _totlePriceLabel.attributedText = [self LZSetString:string];
 }
