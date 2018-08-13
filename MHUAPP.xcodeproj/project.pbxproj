@@ -304,6 +304,10 @@
 		34804A1F206F762200A94CA9 /* WJIntegralListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34804A1E206F762200A94CA9 /* WJIntegralListViewController.m */; };
 		34804A22206F78D200A94CA9 /* WJJiFenItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34804A21206F78D200A94CA9 /* WJJiFenItemCell.m */; };
 		34804A25206F78EA00A94CA9 /* WJJIFenListCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34804A24206F78EA00A94CA9 /* WJJIFenListCollectionViewCell.m */; };
+		3492E6EA211D7C53005657AB /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 3492E6E9211D7C53005657AB /* AESCrypt.m */; };
+		3492E6F1211D7C96005657AB /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 3492E6ED211D7C95005657AB /* NSData+Base64.m */; };
+		3492E6F2211D7C96005657AB /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 3492E6EF211D7C96005657AB /* NSString+Base64.m */; };
+		3492E6F3211D7C96005657AB /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 3492E6F0211D7C96005657AB /* NSData+CommonCrypto.m */; };
 		3498E8831FF33E25007453DF /* WJCouponsMunuScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3498E8821FF33E25007453DF /* WJCouponsMunuScrollView.m */; };
 		3498E8861FF34B4B007453DF /* WJCouponsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3498E8851FF34B4B007453DF /* WJCouponsListViewController.m */; };
 		3498E8891FF34E2B007453DF /* WJCouponsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3498E8881FF34E2B007453DF /* WJCouponsListCell.m */; };
@@ -957,6 +961,14 @@
 		34804A21206F78D200A94CA9 /* WJJiFenItemCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJJiFenItemCell.m; sourceTree = "<group>"; };
 		34804A23206F78EA00A94CA9 /* WJJIFenListCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJJIFenListCollectionViewCell.h; sourceTree = "<group>"; };
 		34804A24206F78EA00A94CA9 /* WJJIFenListCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJJIFenListCollectionViewCell.m; sourceTree = "<group>"; };
+		3492E6E8211D7C53005657AB /* AESCrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESCrypt.h; sourceTree = "<group>"; };
+		3492E6E9211D7C53005657AB /* AESCrypt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AESCrypt.m; sourceTree = "<group>"; };
+		3492E6EB211D7C94005657AB /* NSData+CommonCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+CommonCrypto.h"; sourceTree = "<group>"; };
+		3492E6EC211D7C95005657AB /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		3492E6ED211D7C95005657AB /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		3492E6EE211D7C96005657AB /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
+		3492E6EF211D7C96005657AB /* NSString+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Base64.m"; sourceTree = "<group>"; };
+		3492E6F0211D7C96005657AB /* NSData+CommonCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CommonCrypto.m"; sourceTree = "<group>"; };
 		3498E8811FF33E25007453DF /* WJCouponsMunuScrollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJCouponsMunuScrollView.h; sourceTree = "<group>"; };
 		3498E8821FF33E25007453DF /* WJCouponsMunuScrollView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJCouponsMunuScrollView.m; sourceTree = "<group>"; };
 		3498E8841FF34B4B007453DF /* WJCouponsListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJCouponsListViewController.h; sourceTree = "<group>"; };
@@ -2433,6 +2445,7 @@
 		346564691FCD4E9200448C40 /* third */ = {
 			isa = PBXGroup;
 			children = (
+				3492E6E7211D7C44005657AB /* AES */,
 				341D717920CB6BFC002D4CCD /* SDProgressView */,
 				34E9C83020CA7DB3003A592E /* MImgpicker */,
 				34E9C81B20CA7C5F003A592E /* JJPhotoManeger.h */,
@@ -2565,6 +2578,21 @@
 				17287DD420AE8229004953A9 /* WJWirteIntegralTabelCell.m */,
 			);
 			path = "积分";
+			sourceTree = "<group>";
+		};
+		3492E6E7211D7C44005657AB /* AES */ = {
+			isa = PBXGroup;
+			children = (
+				3492E6EC211D7C95005657AB /* NSData+Base64.h */,
+				3492E6ED211D7C95005657AB /* NSData+Base64.m */,
+				3492E6EB211D7C94005657AB /* NSData+CommonCrypto.h */,
+				3492E6F0211D7C96005657AB /* NSData+CommonCrypto.m */,
+				3492E6EE211D7C96005657AB /* NSString+Base64.h */,
+				3492E6EF211D7C96005657AB /* NSString+Base64.m */,
+				3492E6E8211D7C53005657AB /* AESCrypt.h */,
+				3492E6E9211D7C53005657AB /* AESCrypt.m */,
+			);
+			path = AES;
 			sourceTree = "<group>";
 		};
 		3498E8801FF33D7F007453DF /* Coupons */ = {
@@ -3354,6 +3382,7 @@
 				341878CC1FD527B600D3F860 /* WJDetailShufflingHeadView.m in Sources */,
 				34F1D3841FD625BE0080EE3D /* WJShowTypeFreightCell.m in Sources */,
 				34F4E24220C79E6400B71B5F /* WJMyFootPrintHeadView.m in Sources */,
+				3492E6EA211D7C53005657AB /* AESCrypt.m in Sources */,
 				3433F2A220E0ED3F0079ABB5 /* WJUnLoginStateTypeView.m in Sources */,
 				341878351FD4F19E00D3F860 /* WJGoodCommentViewController.m in Sources */,
 				3406262F1FDFAB6500F52953 /* NOMoreDataView.m in Sources */,
@@ -3507,6 +3536,7 @@
 				3418E732201960E800EDD902 /* WJCartTableViewCell.m in Sources */,
 				340DB1B81FEB9C41003D5A19 /* WJOrderFooter.m in Sources */,
 				34EEB6021FD9376E00B4BE0A /* WJLoginClassViewController.m in Sources */,
+				3492E6F2211D7C96005657AB /* NSString+Base64.m in Sources */,
 				34D6C53E20293949006C4310 /* WJHomeNavTopView.m in Sources */,
 				17DF7BF01FCCFFAE00FBD9DC /* UIViewController+BarExtension.m in Sources */,
 				3411F94F20411278007BCEF9 /* UINavigationController+XWTransition.m in Sources */,
@@ -3550,6 +3580,7 @@
 				17DF7BE81FCCFF7100FBD9DC /* UIView+UIViewFrame.m in Sources */,
 				3498E8831FF33E25007453DF /* WJCouponsMunuScrollView.m in Sources */,
 				17DF7C221FCD30F200FBD9DC /* MenuScrollView.m in Sources */,
+				3492E6F1211D7C96005657AB /* NSData+Base64.m in Sources */,
 				34133C201FDA158000C95CA4 /* KeychainItemWrapper.m in Sources */,
 				1729D71B211052580057B6EA /* WJMoneyManagementViewController.m in Sources */,
 				3411F96420411278007BCEF9 /* XWFilterAnimator+XWBarSwipe.m in Sources */,
@@ -3583,6 +3614,7 @@
 				17049992203035EF007DBD89 /* zhPopupController.m in Sources */,
 				34EB6A9E20A96F72005C3671 /* WJStoreInfoCollectionCell.m in Sources */,
 				3456C1A220BE96B2002A6566 /* WJWAaitForGoodThridTableCell.m in Sources */,
+				3492E6F3211D7C96005657AB /* NSData+CommonCrypto.m in Sources */,
 				3411F95D20411278007BCEF9 /* XWCoolAnimator+XWLines.m in Sources */,
 				340626001FDE314100F52953 /* WJPushCodeViewController.m in Sources */,
 				341320A22074A6F8009975AB /* WJHDZTFatherClassViewCell.m in Sources */,

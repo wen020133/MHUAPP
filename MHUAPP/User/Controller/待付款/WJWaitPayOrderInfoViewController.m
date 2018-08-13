@@ -45,11 +45,19 @@
     if([[self.results objectForKey:@"code"] integerValue] == 200)
     {
         [self.arr_dataList removeAllObjects];
-        id arr_data = [[[self.results objectForKey:@"data"] objectAtIndex:0] objectForKey:@"order_info"];;
-        if ([arr_data isKindOfClass:[NSArray class]]) {
-            _arr_dataList = [WJCartGoodsModel mj_objectArrayWithKeyValuesArray:arr_data];
+        NSArray *data =[self.results objectForKey:@"data"];
+        if (data.count>0) {
+            id arr_data = [[data objectAtIndex:0] objectForKey:@"order_info"];;
+            if ([arr_data isKindOfClass:[NSArray class]]) {
+                _arr_dataList = [WJCartGoodsModel mj_objectArrayWithKeyValuesArray:arr_data];
+            }
+            [_myTableView reloadData];
         }
-        [_myTableView reloadData];
+        else
+        {
+            [SVProgressHUD showErrorWithStatus:@"获取数据失败！"];
+        }
+
     }
     else
     {

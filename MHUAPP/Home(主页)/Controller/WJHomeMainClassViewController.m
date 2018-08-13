@@ -46,6 +46,11 @@
 #import <MJRefresh.h>
 #import "WJHomeRefreshGifHeader.h"
 
+
+#import "AESCrypt.h"
+
+
+
 @interface WJHomeMainClassViewController ()
 
 @property (strong, nonatomic) NSMutableArray <WJGoodsDataModel *>  *headImageArr;
@@ -82,6 +87,10 @@
     [self setHomeViewUpNav];
     self.headImageArr = [NSMutableArray array];
     [self.view addSubview:self.collectionV];
+
+    NSString *encryptedData = [AESCrypt encrypt:@"654321" password:@"123456"];
+    NSString *message = [AESCrypt decrypt:@"4xSD3MgeL0s+6RHoZntwuA==" password:@"123456"];
+    NSLog(@"654321==%@",message);
 
     //返回顶部
     CGRect loginImageViewRect = CGRectMake(kMSScreenWith - 40,kMSScreenHeight-kMSNaviHight - 100 , 27, 27);
