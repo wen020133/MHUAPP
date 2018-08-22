@@ -12,9 +12,12 @@
 
 /* 商品图片 */
 @property (strong , nonatomic)NSString *goodImageView;
+/* 属性图片 */
+@property (strong , nonatomic)NSString *attrImageUrl;
 /* 商品价格 */
 @property (strong , nonatomic)NSString *goodPrice;
-
+/* 属性价格 */
+@property (strong , nonatomic) NSString *attrPrice;
 /* 上一次选择的属性 */
 @property (strong , nonatomic)NSMutableArray *lastSeleArray;
 /* 上一次选择的数量 */

@@ -95,6 +95,7 @@ static NSInteger num_;
     [self setUpBase];
 
     [self setUpBottonView];
+    self.attrPrice = @"0";
     // Do any additional setup after loading the view.
 }
 
@@ -214,21 +215,26 @@ static NSInteger num_;
 {
     WJFeatureChoseTopCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WJFeatureChoseTopCell" forIndexPath:indexPath];
     _cell = cell;
-    if (_seleArray.count != _featureAttr.count && _lastSeleArray.count != _featureAttr.count) {
-        cell.chooseAttLabel.textColor = [UIColor redColor];
-        cell.chooseAttLabel.text = [NSString stringWithFormat:@"库存:%ld",_goods_number];
-    }
-    else if(_featureAttr.count<1)
+   
+    if(_featureAttr.count<1)
     {
         cell.chooseAttLabel.text = [NSString stringWithFormat:@"库存:%ld",_goods_number];
     }
-    else {
-        cell.chooseAttLabel.textColor = [UIColor darkGrayColor];
-        NSString *attString = (_seleArray.count == _featureAttr.count) ? [_seleArray componentsJoinedByString:@"，"] : [_lastSeleArray componentsJoinedByString:@"，"];
-        cell.chooseAttLabel.text = [NSString stringWithFormat:@"已选属性：%@",attString];
+    else if (_seleArray.count != _featureAttr.count && _lastSeleArray.count != _featureAttr.count) {
+        cell.chooseAttLabel.textColor = [UIColor redColor];
+        cell.chooseAttLabel.text = [NSString stringWithFormat:@"库存:%ld",_goods_number];
     }
-    cell.goodPriceLabel.text = [NSString stringWithFormat:@"¥ %@",self.goodPrice];
-    [cell.goodImageView sd_setImageWithURL:[NSURL URLWithString:_goodImageView]];
+    else {
+         cell.chooseAttLabel.text = [NSString stringWithFormat:@"库存:%ld",_goods_number];
+    }
+    cell.goodPriceLabel.text = [NSString stringWithFormat:@"¥ %.2f",[self.goodPrice floatValue]+[self.attrPrice floatValue]];
+    if (_attrImageUrl.length>24) {
+        [cell.goodImageView sd_setImageWithURL:[NSURL URLWithString:_attrImageUrl]];
+    }
+    else
+    {
+        [cell.goodImageView sd_setImageWithURL:[NSURL URLWithString:_goodImageView]];
+    }
     WEAKSELF
     cell.crossButtonClickBlock = ^{
         [weakSelf dismissFeatureViewControllerWithTag:100];
@@ -318,6 +324,9 @@ static NSInteger num_;
         for (NSInteger j = 0; j < _featureAttr[i].list.count; j++) {
             if (_featureAttr[i].list[j].isSelect == YES) {
                 [_seleArray addObject:_featureAttr[i].list[j].attr_value];
+                _attrPrice = _featureAttr[i].list[j].attr_price;
+                _goods_number = [_featureAttr[i].list[j].product_number integerValue];
+                _attrImageUrl = _featureAttr[i].list[j].thumb_url;
             }else{
                 [_seleArray removeObject:_featureAttr[i].list[j].attr_value];
                 [_lastSeleArray removeAllObjects];

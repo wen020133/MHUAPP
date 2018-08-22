@@ -12,13 +12,18 @@
 #import "WJJingXuanDianPuCollectionViewCell.h"
 #import "WJStoreInfoClassViewController.h"
 #import "WJConversationViewController.h"
+#import "AESCrypt.h"
+#import "WJMainWebClassViewController.h"
+
 
 @interface WJJingXuanDianPuViewController ()
 {
     CGFloat _cellHeight;
 }
 /* 店铺userId */
-@property (strong , nonatomic) NSString *supplier_id;
+@property (strong , nonatomic) NSString *supplierUserId;
+/* 店铺Id */
+@property (strong , nonatomic) NSString *supplierID;
 /* 店铺头像 */
 @property (strong , nonatomic) NSString *supplier_logo;
 /* 店铺名 */
@@ -99,49 +104,61 @@
         }
         else
         {
-            _supplier_id = [NSString stringWithFormat:@"kefu%@", [self.results objectForKey:@"data"]];
-            WJConversationViewController *conversationVC = [[WJConversationViewController alloc]init];
-            conversationVC.conversationType = ConversationType_PRIVATE;
-            NSString *kefuUserId = _supplier_id;
-            conversationVC.targetId =  kefuUserId;
-            conversationVC.strTitle = _supplier_name;
+            _supplierUserId = [NSString stringWithFormat:@"%@", [self.results objectForKey:@"data"]];
+//            WJConversationViewController *conversationVC = [[WJConversationViewController alloc]init];
+//            conversationVC.conversationType = ConversationType_PRIVATE;
+//            NSString *kefuUserId = _supplier_id;
+//            conversationVC.targetId =  kefuUserId;
+//            conversationVC.strTitle = _supplier_name;
+//
+//            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//            NSArray *friendsList = [userDefaults objectForKey:@"RYFriendsList"];
+//            NSMutableArray *allTimeArr = [NSMutableArray arrayWithArray:friendsList];
+//            int kk=0;
+//            for (NSDictionary *goodsDic in friendsList) {
+//                NSString *userId = goodsDic[@"userId"];
+//                if([kefuUserId isEqualToString:userId]){
+//                    kk++;
+//                }
+//            }
+//            if (kk==0) {
+//                NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+//                [dic setValue:_supplier_id forKey:@"userId"];
+//                [dic setValue:_supplier_name forKey:@"name"];
+//                [dic setValue:_supplier_logo forKey:@"portrait"];
+//                [allTimeArr addObject:dic];
+//                [userDefaults setObject:allTimeArr forKey:@"RYFriendsList"];
+//                [userDefaults synchronize];
+//            }
+//            else
+//            {
+//                int bb=0;
+//                for (int aa=0; aa<friendsList.count; aa++) {
+//                    NSString *userId = friendsList[aa][@"userId"];
+//                    if([kefuUserId isEqualToString:userId]){
+//                        bb=aa;
+//                    }
+//                }
+//                NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+//                [dic setValue:_supplier_id forKey:@"userId"];
+//                [dic setValue:_supplier_name forKey:@"name"];
+//                [dic setValue:_supplier_logo forKey:@"portrait"];
+//                [allTimeArr insertObject:dic atIndex:bb];
+//                [userDefaults setObject:allTimeArr forKey:@"RYFriendsList"];
+//                [userDefaults synchronize];
+//            }
+            WJMainWebClassViewController *conversationVC = [[WJMainWebClassViewController alloc]init];
+            NSString *encryptedData = [AESCrypt encrypt:[NSString stringWithFormat:@"uid=%@@sid=%@",[AppDelegate shareAppDelegate].user_id,_supplierUserId] password:@"miyomei2018"];
             
-            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-            NSArray *friendsList = [userDefaults objectForKey:@"RYFriendsList"];
-            NSMutableArray *allTimeArr = [NSMutableArray arrayWithArray:friendsList];
-            int kk=0;
-            for (NSDictionary *goodsDic in friendsList) {
-                NSString *userId = goodsDic[@"userId"];
-                if([kefuUserId isEqualToString:userId]){
-                    kk++;
-                }
-            }
-            if (kk==0) {
-                NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-                [dic setValue:_supplier_id forKey:@"userId"];
-                [dic setValue:_supplier_name forKey:@"name"];
-                [dic setValue:_supplier_logo forKey:@"portrait"];
-                [allTimeArr addObject:dic];
-                [userDefaults setObject:allTimeArr forKey:@"RYFriendsList"];
-                [userDefaults synchronize];
-            }
-            else
-            {
-                int bb=0;
-                for (int aa=0; aa<friendsList.count; aa++) {
-                    NSString *userId = friendsList[aa][@"userId"];
-                    if([kefuUserId isEqualToString:userId]){
-                        bb=aa;
-                    }
-                }
-                NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-                [dic setValue:_supplier_id forKey:@"userId"];
-                [dic setValue:_supplier_name forKey:@"name"];
-                [dic setValue:_supplier_logo forKey:@"portrait"];
-                [allTimeArr insertObject:dic atIndex:bb];
-                [userDefaults setObject:allTimeArr forKey:@"RYFriendsList"];
-                [userDefaults synchronize];
-            }
+            NSString *encodedString =[RegularExpressionsMethod encodeString:encryptedData];
+            
+            
+            NSString *str_url = [NSString stringWithFormat:@"https://www.miyomei.com/mobile/mobile_chat_online.php?suppId=%@&appToken=%@",_supplierID,encodedString];
+            conversationVC.str_urlHttp =str_url;
+            
+            NSString *message = [AESCrypt decrypt:encryptedData password:@"miyomei2018"];
+            NSLog(@"%@    %@",message,str_url);
+            conversationVC.str_title = _supplier_name;
             self.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:conversationVC animated:YES];
         }
@@ -312,6 +329,7 @@
     cell.goToContactServiceBlock = ^{
 
         [self setgetSupplierUserId:model.supplier_id];
+        _supplierID = model.supplier_id;
         _supplier_name = model.supplier_name;
         _supplier_logo = model.logo;
         

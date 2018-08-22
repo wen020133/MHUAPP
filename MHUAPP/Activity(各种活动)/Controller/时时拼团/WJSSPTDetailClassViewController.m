@@ -19,6 +19,9 @@
 #import "WJConversationViewController.h"
 #import "WJStoreInfoClassViewController.h"
 #import <UShareUI/UShareUI.h>
+#import "AESCrypt.h"
+#import "WJMainWebClassViewController.h"
+
 
 @interface WJSSPTDetailClassViewController ()
 
@@ -117,7 +120,7 @@
                 break;
             case KGetPTSupplierUserId:
             {
-                _supplierUserId = [NSString stringWithFormat:@"kefu%@", [self.results objectForKey:@"data"]];
+                _supplierUserId = [NSString stringWithFormat:@"%@", [self.results objectForKey:@"data"]];
                 
             }
                 break;
@@ -371,7 +374,7 @@
           titles = @"立即购买";
       }
     else
-        titles = @"立即拼团";
+        titles = @"立即批发";
 
     CGFloat buttonW = kMSScreenWith * 0.4;
     CGFloat buttonH = 50;
@@ -436,8 +439,16 @@
     messageObject.text = self.goodTitle;
     
     UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:self.goodTitle descr:self.goods_brief thumImage:self.goodImageView];
-    //设置网页地址
-    shareObject.webpageUrl =[NSString stringWithFormat:@"https://www.miyomei.com/goods.php?id=%@",_goods_id] ;
+    if ([self.info_classType isEqualToString:@"秒杀"]) {
+        //设置网页地址
+        shareObject.webpageUrl =[NSString stringWithFormat:@"https://www.miyomei.com/mobile/seckill_goods.php?id=%@",_goods_id] ;
+    }
+    else
+    {
+        //设置网页地址
+        shareObject.webpageUrl =[NSString stringWithFormat:@"https://www.miyomei.com/mobile/group_buy_goods.php?id=%@",_goods_id] ;
+    }
+    
 
     //分享消息对象设置分享内容对象
     messageObject.shareObject = shareObject;
@@ -483,56 +494,68 @@
         NSLog(@"客服");
         if (![_supplierUserId isEqual:[NSNull null]]) {
             if (_supplierUserId.length>0) {
-                WJConversationViewController *conversationVC = [[WJConversationViewController alloc]init];
-                conversationVC.conversationType = ConversationType_PRIVATE;
-                NSString *kefuUserId = _supplierUserId;
-                conversationVC.targetId =  kefuUserId;
+//                WJConversationViewController *conversationVC = [[WJConversationViewController alloc]init];
+//                conversationVC.conversationType = ConversationType_PRIVATE;
+//                NSString *kefuUserId = _supplierUserId;
+//                conversationVC.targetId =  kefuUserId;
+//
+//                conversationVC.strTitle =_supplier_name;
+//                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//
+//                NSArray *friendsList = [userDefaults objectForKey:@"RYFriendsList"];
+//                NSMutableArray *allTimeArr = [NSMutableArray arrayWithArray:friendsList];
+//                int kk=0;
+//                for (NSDictionary *goodsDic in friendsList) {
+//                    NSString *userId = goodsDic[@"userId"];
+//                    if([kefuUserId isEqualToString:userId]){
+//                        kk++;
+//                    }
+//                }
+//                if (kk==0) {
+//                    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+//                    [dic setValue:_supplierUserId forKey:@"userId"];
+//                    [dic setValue:_supplier_name forKey:@"name"];
+//                    [dic setValue:_supplier_logo forKey:@"portrait"];
+//                    [allTimeArr addObject:dic];
+//                    [userDefaults setObject:allTimeArr forKey:@"RYFriendsList"];
+//                    [userDefaults synchronize];
+//                }
+//                else
+//                {
+//                    int bb=0;
+//                    for (int aa=0; aa<friendsList.count; aa++) {
+//                        NSString *userId = friendsList[aa][@"userId"];
+//                        if([kefuUserId isEqualToString:userId]){
+//                            bb=aa;
+//                        }
+//                    }
+//                    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+//                    [dic setValue:_supplierUserId forKey:@"userId"];
+//                    [dic setValue:_supplier_name forKey:@"name"];
+//                    [dic setValue:_supplier_logo forKey:@"portrait"];
+//                    [allTimeArr insertObject:dic atIndex:bb];
+//                    [userDefaults setObject:allTimeArr forKey:@"RYFriendsList"];
+//                    [userDefaults synchronize];
+//                }
+//                RCRichContentMessage *richMsg = [RCRichContentMessage messageWithTitle:_goodTitle digest:[NSString stringWithFormat:@"￥%@",_goodPrice] imageURL:_goodImageView url:[NSString stringWithFormat:@"https://www.miyomei.com/goods.php?id=%@",_goods_id] extra:nil];
+//                RCMessage *message = [[RCIMClient sharedRCIMClient]
+//                                      insertOutgoingMessage:ConversationType_PRIVATE
+//                                      targetId:kefuUserId
+//                                      sentStatus:SentStatus_SENT
+//                                      content:richMsg];
+//                [[NSNotificationCenter defaultCenter] postNotificationName:@"RCDSharedMessageInsertSuccess" object:message];
+                WJMainWebClassViewController *conversationVC = [[WJMainWebClassViewController alloc]init];
+                NSString *encryptedData = [AESCrypt encrypt:[NSString stringWithFormat:@"uid=%@@sid=%@",[AppDelegate shareAppDelegate].user_id,_supplierUserId] password:@"miyomei2018"];
                 
-                conversationVC.strTitle =_supplier_name;
-                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                NSString *encodedString =[RegularExpressionsMethod encodeString:encryptedData];
                 
-                NSArray *friendsList = [userDefaults objectForKey:@"RYFriendsList"];
-                NSMutableArray *allTimeArr = [NSMutableArray arrayWithArray:friendsList];
-                int kk=0;
-                for (NSDictionary *goodsDic in friendsList) {
-                    NSString *userId = goodsDic[@"userId"];
-                    if([kefuUserId isEqualToString:userId]){
-                        kk++;
-                    }
-                }
-                if (kk==0) {
-                    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-                    [dic setValue:_supplierUserId forKey:@"userId"];
-                    [dic setValue:_supplier_name forKey:@"name"];
-                    [dic setValue:_supplier_logo forKey:@"portrait"];
-                    [allTimeArr addObject:dic];
-                    [userDefaults setObject:allTimeArr forKey:@"RYFriendsList"];
-                    [userDefaults synchronize];
-                }
-                else
-                {
-                    int bb=0;
-                    for (int aa=0; aa<friendsList.count; aa++) {
-                        NSString *userId = friendsList[aa][@"userId"];
-                        if([kefuUserId isEqualToString:userId]){
-                            bb=aa;
-                        }
-                    }
-                    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-                    [dic setValue:_supplierUserId forKey:@"userId"];
-                    [dic setValue:_supplier_name forKey:@"name"];
-                    [dic setValue:_supplier_logo forKey:@"portrait"];
-                    [allTimeArr insertObject:dic atIndex:bb];
-                    [userDefaults setObject:allTimeArr forKey:@"RYFriendsList"];
-                    [userDefaults synchronize];
-                }
-                RCRichContentMessage *richMsg = [RCRichContentMessage messageWithTitle:_goodTitle digest:[NSString stringWithFormat:@"￥%@",_goodPrice] imageURL:_goodImageView url:[NSString stringWithFormat:@"https://www.miyomei.com/goods.php?id=%@",_goods_id] extra:nil];
-                RCMessage *message = [[RCIMClient sharedRCIMClient]
-                                      insertOutgoingMessage:ConversationType_PRIVATE
-                                      targetId:kefuUserId
-                                      sentStatus:SentStatus_SENT
-                                      content:richMsg];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"RCDSharedMessageInsertSuccess" object:message];
+                
+                NSString *str_url = [NSString stringWithFormat:@"https://www.miyomei.com/mobile/mobile_chat_online.php?suppId=%@&goodsId=%@&appToken=%@",_supplier_id,_goods_id,encodedString];
+                conversationVC.str_urlHttp =str_url;
+                
+                NSString *message = [AESCrypt decrypt:encryptedData password:@"miyomei2018"];
+                NSLog(@"%@    %@",message,str_url);
+                conversationVC.str_title = _supplier_name;
                 self.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:conversationVC animated:YES];
             }

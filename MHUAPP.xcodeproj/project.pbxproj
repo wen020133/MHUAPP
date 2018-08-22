@@ -10,7 +10,11 @@
 		17049992203035EF007DBD89 /* zhPopupController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17049991203035EF007DBD89 /* zhPopupController.m */; };
 		171410D81FCD7FA900F500A9 /* WJHeadScrModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 171410D71FCD7FA900F500A9 /* WJHeadScrModel.m */; };
 		171410DE1FCD96AA00F500A9 /* WJHomeRecommendCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 171410DD1FCD96AA00F500A9 /* WJHomeRecommendCollectionViewCell.m */; };
+		17152E1B2122AB4E00E8789B /* WJDetailListFenxiao.m in Sources */ = {isa = PBXBuildFile; fileRef = 17152E1A2122AB4E00E8789B /* WJDetailListFenxiao.m */; };
 		171F5BC120D206610089C532 /* default_nomore.png in Resources */ = {isa = PBXBuildFile; fileRef = 171F5BC020D206600089C532 /* default_nomore.png */; };
+		172289CC212CE0A90053788D /* NSTimer+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 172289CB212CE0A90053788D /* NSTimer+Addition.m */; };
+		172289CE212D1CD60053788D /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 172289CD212D1CD60053788D /* JavaScriptCore.framework */; };
+		1723C941212A6CB1009ECDBF /* WJMyFenXiaoOrderItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1723C940212A6CB1009ECDBF /* WJMyFenXiaoOrderItemCell.m */; };
 		17287DD220AE6E7A004953A9 /* WJWriteIntegralOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17287DD120AE6E7A004953A9 /* WJWriteIntegralOrderViewController.m */; };
 		17287DD520AE8229004953A9 /* WJWirteIntegralTabelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 17287DD420AE8229004953A9 /* WJWirteIntegralTabelCell.m */; };
 		1729D715211052580057B6EA /* WJMoneyManagementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1729D709211052500057B6EA /* WJMoneyManagementViewController.xib */; };
@@ -24,6 +28,7 @@
 		1729D7212110528E0057B6EA /* WJMoneyListTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1729D71F2110528E0057B6EA /* WJMoneyListTableCell.m */; };
 		172FEBE720D0A8C400C34366 /* WJWordLabelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 172FEBE620D0A8C400C34366 /* WJWordLabelViewController.m */; };
 		1734D707211BE97900BB8697 /* WJDepositCateList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1734D706211BE97900BB8697 /* WJDepositCateList.m */; };
+		175235B6212B9D2C0069C61E /* WJWebProgressLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 175235B5212B9D2C0069C61E /* WJWebProgressLayer.m */; };
 		175A09BB20A7DF49001AD885 /* WJStoreInfoClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 175A09BA20A7DF49001AD885 /* WJStoreInfoClassViewController.m */; };
 		175A09BE20A7E85C001AD885 /* WJStoreHeadCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 175A09BD20A7E85C001AD885 /* WJStoreHeadCollectionView.m */; };
 		1763AB9620EB1C7800BE3ADD /* WJBackGoodsAndMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1763AB9520EB1C7800BE3ADD /* WJBackGoodsAndMoneyViewController.m */; };
@@ -427,7 +432,14 @@
 		171410D71FCD7FA900F500A9 /* WJHeadScrModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJHeadScrModel.m; sourceTree = "<group>"; };
 		171410DC1FCD96AA00F500A9 /* WJHomeRecommendCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJHomeRecommendCollectionViewCell.h; sourceTree = "<group>"; };
 		171410DD1FCD96AA00F500A9 /* WJHomeRecommendCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJHomeRecommendCollectionViewCell.m; sourceTree = "<group>"; };
+		17152E192122AB4E00E8789B /* WJDetailListFenxiao.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJDetailListFenxiao.h; sourceTree = "<group>"; };
+		17152E1A2122AB4E00E8789B /* WJDetailListFenxiao.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJDetailListFenxiao.m; sourceTree = "<group>"; };
 		171F5BC020D206600089C532 /* default_nomore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_nomore.png; sourceTree = "<group>"; };
+		172289CA212CE0A90053788D /* NSTimer+Addition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSTimer+Addition.h"; sourceTree = "<group>"; };
+		172289CB212CE0A90053788D /* NSTimer+Addition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+Addition.m"; sourceTree = "<group>"; };
+		172289CD212D1CD60053788D /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		1723C93F212A6CB1009ECDBF /* WJMyFenXiaoOrderItemCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJMyFenXiaoOrderItemCell.h; sourceTree = "<group>"; };
+		1723C940212A6CB1009ECDBF /* WJMyFenXiaoOrderItemCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJMyFenXiaoOrderItemCell.m; sourceTree = "<group>"; };
 		17287DD020AE6E7A004953A9 /* WJWriteIntegralOrderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJWriteIntegralOrderViewController.h; sourceTree = "<group>"; };
 		17287DD120AE6E7A004953A9 /* WJWriteIntegralOrderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJWriteIntegralOrderViewController.m; sourceTree = "<group>"; };
 		17287DD320AE8229004953A9 /* WJWirteIntegralTabelCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJWirteIntegralTabelCell.h; sourceTree = "<group>"; };
@@ -452,6 +464,8 @@
 		172FEBE620D0A8C400C34366 /* WJWordLabelViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJWordLabelViewController.m; sourceTree = "<group>"; };
 		1734D705211BE97900BB8697 /* WJDepositCateList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJDepositCateList.h; sourceTree = "<group>"; };
 		1734D706211BE97900BB8697 /* WJDepositCateList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJDepositCateList.m; sourceTree = "<group>"; };
+		175235B4212B9D2C0069C61E /* WJWebProgressLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJWebProgressLayer.h; sourceTree = "<group>"; };
+		175235B5212B9D2C0069C61E /* WJWebProgressLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJWebProgressLayer.m; sourceTree = "<group>"; };
 		175A09B920A7DF49001AD885 /* WJStoreInfoClassViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJStoreInfoClassViewController.h; sourceTree = "<group>"; };
 		175A09BA20A7DF49001AD885 /* WJStoreInfoClassViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJStoreInfoClassViewController.m; sourceTree = "<group>"; };
 		175A09BC20A7E85C001AD885 /* WJStoreHeadCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJStoreHeadCollectionView.h; sourceTree = "<group>"; };
@@ -1164,6 +1178,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				172289CE212D1CD60053788D /* JavaScriptCore.framework in Frameworks */,
 				34FBC1D3209C49CF004C0F84 /* CoreMotion.framework in Frameworks */,
 				34FBC1D1209C49C2004C0F84 /* CFNetwork.framework in Frameworks */,
 				34FBC1CF209C49B7004C0F84 /* Foundation.framework in Frameworks */,
@@ -1218,8 +1233,21 @@
 			children = (
 				1734D705211BE97900BB8697 /* WJDepositCateList.h */,
 				1734D706211BE97900BB8697 /* WJDepositCateList.m */,
+				17152E192122AB4E00E8789B /* WJDetailListFenxiao.h */,
+				17152E1A2122AB4E00E8789B /* WJDetailListFenxiao.m */,
 			);
 			path = "分销";
+			sourceTree = "<group>";
+		};
+		175235B3212B9C4E0069C61E /* slider */ = {
+			isa = PBXGroup;
+			children = (
+				175235B4212B9D2C0069C61E /* WJWebProgressLayer.h */,
+				175235B5212B9D2C0069C61E /* WJWebProgressLayer.m */,
+				172289CA212CE0A90053788D /* NSTimer+Addition.h */,
+				172289CB212CE0A90053788D /* NSTimer+Addition.m */,
+			);
+			path = slider;
 			sourceTree = "<group>";
 		};
 		1758C7ED2108752900863FED /* 分销 */ = {
@@ -1235,6 +1263,8 @@
 				1729D71F2110528E0057B6EA /* WJMoneyListTableCell.m */,
 				1729D71E2110528D0057B6EA /* WJMyFenXiaoListCell.h */,
 				1729D71D2110528D0057B6EA /* WJMyFenXiaoListCell.m */,
+				1723C93F212A6CB1009ECDBF /* WJMyFenXiaoOrderItemCell.h */,
+				1723C940212A6CB1009ECDBF /* WJMyFenXiaoOrderItemCell.m */,
 				17FCBFF8210EFF74004C66D3 /* fenXiaoTableListItem.plist */,
 			);
 			path = "分销";
@@ -1548,6 +1578,7 @@
 		17DF7C241FCD382400FBD9DC /* View */ = {
 			isa = PBXGroup;
 			children = (
+				175235B3212B9C4E0069C61E /* slider */,
 				178330892041785400321476 /* foot */,
 				34DE250A2041638700066E42 /* Nav */,
 				34DE25092041637E00066E42 /* cell */,
@@ -3106,6 +3137,7 @@
 		445C98F897355C9C327B4939 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				172289CD212D1CD60053788D /* JavaScriptCore.framework */,
 				1774CA6820B7A7EE00A5D892 /* libxml2.tbd */,
 				34FB225820A1541700D698FA /* libcrypto.a */,
 				34FB225920A1541800D698FA /* libssl.a */,
@@ -3161,7 +3193,7 @@
 				TargetAttributes = {
 					17F9F1581FCC527300C71820 = {
 						CreatedOnToolsVersion = 9.1;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -3448,6 +3480,7 @@
 				34FAB70F2064F458000C9E3C /* PRTweenTimingFunctions.m in Sources */,
 				34FB225120A1428900D698FA /* WJLogisticsModel.m in Sources */,
 				342CDEF11FE3610500625F23 /* WJAddressItem.m in Sources */,
+				175235B6212B9D2C0069C61E /* WJWebProgressLayer.m in Sources */,
 				17DF7C1F1FCD09D300FBD9DC /* WJShopCartClassViewController.m in Sources */,
 				17D6D4FA20AFBE7B00674875 /* WJIntegralOrderListViewController.m in Sources */,
 				3404FB9020DA2B6100EA12E2 /* WJTuiKuanThridTableCell.m in Sources */,
@@ -3504,6 +3537,7 @@
 				3460D30420088CC4000F03EB /* WJNickNameChangeViewController.m in Sources */,
 				340574E920429AA900729FD8 /* WJJingXuanShopCell.m in Sources */,
 				34287B3E1FCF9EB300C7AE5F /* WJClassCategoryCell.m in Sources */,
+				17152E1B2122AB4E00E8789B /* WJDetailListFenxiao.m in Sources */,
 				34E3D2451FE89DFE005C7B2B /* WJOderListClassViewController.m in Sources */,
 				341878DD1FD546BB00D3F860 /* WJShowTypeAddressCell.m in Sources */,
 				17DF7C101FCD048E00FBD9DC /* WJCommodityViewController.m in Sources */,
@@ -3587,6 +3621,7 @@
 				3411F96920411278007BCEF9 /* XWFilterAnimator+XWMod.m in Sources */,
 				3406261E1FDF8B2A00F52953 /* WJManageUserInfoViewController.m in Sources */,
 				3411F95A20411278007BCEF9 /* XWCircleSpreadAnimator.m in Sources */,
+				172289CC212CE0A90053788D /* NSTimer+Addition.m in Sources */,
 				1729D718211052580057B6EA /* WJMyFenxiaoViewController.m in Sources */,
 				34804A10206F5F5F00A94CA9 /* WJYouZhiXinPinViewController.m in Sources */,
 				17DF7C2A1FCD42D800FBD9DC /* WJGoodsGridViewCell.m in Sources */,
@@ -3616,6 +3651,7 @@
 				3456C1A220BE96B2002A6566 /* WJWAaitForGoodThridTableCell.m in Sources */,
 				3492E6F3211D7C96005657AB /* NSData+CommonCrypto.m in Sources */,
 				3411F95D20411278007BCEF9 /* XWCoolAnimator+XWLines.m in Sources */,
+				1723C941212A6CB1009ECDBF /* WJMyFenXiaoOrderItemCell.m in Sources */,
 				340626001FDE314100F52953 /* WJPushCodeViewController.m in Sources */,
 				341320A22074A6F8009975AB /* WJHDZTFatherClassViewCell.m in Sources */,
 				341878321FD4F10500D3F860 /* WJGoodParticularsViewController.m in Sources */,
@@ -3776,7 +3812,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FV78E8XR87;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3810,8 +3846,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jinri.MHU.MHUAPP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "29bc745d-7443-498c-ad87-4599f593553a";
-				PROVISIONING_PROFILE_SPECIFIER = mhuDevelopment2018730;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -3821,9 +3857,9 @@
 			baseConfigurationReference = D31EA1D111F60E55B5B4B4B8 /* Pods-MHUAPP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: SHENZHEN JINRI ELECTRICAL APPLIANCE CO.,LTD. (FV78E8XR87)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: SHENZHEN JINRI ELECTRICAL APPLIANCE CO.,LTD. (FV78E8XR87)";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FV78E8XR87;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3856,8 +3892,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jinri.MHU.MHUAPP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "17cb015a-edb5-4003-b921-7bcec90e281f";
-				PROVISIONING_PROFILE_SPECIFIER = miyoMeiPush;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

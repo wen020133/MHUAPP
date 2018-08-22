@@ -40,7 +40,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         _defaultImgArr = @[@"Home_icon_xianshimiaosha",@"Home_icon_shishipintuan",@"Home_icon_huodongzhuanqu",@"Home_icon_jingxuandianpu",@"Home_icon_remaishangpin",@"Home_icon_youzhixinpin",@"Home_icon_jifenshangcheng",@"Home_icon_quanbushangpin"];
-        _defaultTitleArr = @[@"限时秒杀",@"时时拼团",@"活动专区",@"精选店铺",@"热卖商品",@"优质新品",@"积分商城",@"全部商品"];
+        _defaultTitleArr = @[@"限时秒杀",@"时时批发",@"活动专区",@"精选店铺",@"热卖商品",@"优质新品",@"积分商城",@"全部商品"];
         _itemCounts = _defaultImgArr.count;
         _lineNumber = 2;
         _columnNumber = 4;

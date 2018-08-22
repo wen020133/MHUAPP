@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface WJMyFenxiaoViewController : UIViewController
+#import "BaseNetworkViewController.h"
+@interface WJMyFenxiaoViewController : BaseNetworkViewController
 
 @end

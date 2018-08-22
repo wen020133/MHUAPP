@@ -110,7 +110,7 @@
     if([[self.results objectForKey:@"code"] integerValue] == 200)
     {
         PayViewController *pay = [[PayViewController alloc]init];
-        pay.orderNo = self.results[@"data"][@"orderNo"];
+        pay.orderNo = self.results[@"data"][@"order_sn"];
         pay.oPrice = self.results[@"data"][@"oPrice"];
         self.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:pay animated:YES];

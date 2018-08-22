@@ -19,6 +19,7 @@
 #import <UserNotifications/UserNotifications.h>
 
 #import "WJUnLoginStateTypeView.h"
+#import "AESCrypt.h"
 
 @interface WJMessageClassViewController ()<RCIMReceiveMessageDelegate,RCIMConnectionStatusDelegate
 ,UIAlertViewDelegate,UITableViewDataSource,UITableViewDelegate>

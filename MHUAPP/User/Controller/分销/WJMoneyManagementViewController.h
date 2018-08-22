@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseNetworkViewController.h"
 
-@interface WJMoneyManagementViewController : UIViewController
+@interface WJMoneyManagementViewController : BaseNetworkViewController
 @property (weak, nonatomic) IBOutlet UIButton *btn_tiXian;
 @property (weak, nonatomic) IBOutlet UILabel *lab_totalPrice;
 @property (weak, nonatomic) IBOutlet UILabel *lab_canBeNumPrice;

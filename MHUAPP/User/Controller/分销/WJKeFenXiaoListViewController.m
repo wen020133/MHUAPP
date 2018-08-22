@@ -75,7 +75,6 @@
             if (arr_Datalist&&arr_Datalist.count>0) {
                 [self.noMoreView hide];
                 _arr_infomationresults=[WJDepositCateList mj_objectArrayWithKeyValuesArray:arr_Datalist];
-                
             }
             else
             {
@@ -124,11 +123,11 @@
    
     _serverType = 2;
     if (_type_com.length>0) {
-         [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%@?com=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDistributionList,_arr_TypeID[tag],_type_com]];
+         [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%@&com=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDistributionList,_arr_TypeID[tag],_type_com]];
     }
     else if (_type_price.length>0)
     {
-         [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%@?price=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDistributionList,_arr_TypeID[tag],_type_price]];
+         [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%@&price=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDistributionList,_arr_TypeID[tag],_type_price]];
     }
     else
     {
@@ -141,6 +140,7 @@
     _type_title = currTag;
     _type_price = @"";
     _type_com = @"";
+    _menu_ScrollView.selectIndex = 0;
 }
 -(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
@@ -242,7 +242,7 @@
         
         UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:self.arr_infomationresults[selectTag].goods_name descr:nil thumImage:self.arr_infomationresults[selectTag].original_img];
         //设置网页地址
-        shareObject.webpageUrl = [NSString stringWithFormat:@"https://www.miyomei.com/goods.php?id=%@",self.arr_infomationresults[selectTag].goods_id] ;
+        shareObject.webpageUrl = [NSString stringWithFormat:@"https://www.miyomei.com/goods.php?id=%@&u=%@",self.arr_infomationresults[selectTag].goods_id,[AppDelegate shareAppDelegate].user_id] ;
         
         
         //分享消息对象设置分享内容对象

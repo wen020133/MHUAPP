@@ -8,15 +8,13 @@
 
 #import "WJShiShiPingTuanView.h"
 #import "UIView+UIViewFrame.h"
-#import "DCZuoWenRightButton.h"
+
 
 @interface WJShiShiPingTuanView ()
 
-
-/* 更多 */
-@property (strong , nonatomic) DCZuoWenRightButton *quickButton;
-
 @end
+
+
 @implementation WJShiShiPingTuanView
 #pragma mark - Intial
 - (instancetype)initWithFrame:(CGRect)frame {

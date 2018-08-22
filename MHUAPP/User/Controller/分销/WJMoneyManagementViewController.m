@@ -14,6 +14,7 @@
 
 @property (strong, nonatomic) UITableView *infoTableView;
 
+
 @end
 
 @implementation WJMoneyManagementViewController
@@ -23,6 +24,7 @@
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     [self initSendReplyWithTitle:@"资金明细" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
     [self.view addSubview:self.infoTableView];
+   
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -38,10 +40,15 @@
         [_infoTableView registerClass:[WJMoneyListTableCell class] forCellReuseIdentifier:@"WJMoneyListTableCell"];
         
         _infoTableView.tableHeaderView = self.view_tabHead;
+        
     }
     return _infoTableView;
 }
 
+-(void)getMoneyManData
+{
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%@&user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDistributionList,@"1",[AppDelegate shareAppDelegate].user_id]];
+}
 
 #pragma mark - UITableViewDelegate UITableViewDataSource Methods
 

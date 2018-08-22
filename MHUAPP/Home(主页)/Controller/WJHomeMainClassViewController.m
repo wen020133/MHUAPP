@@ -47,7 +47,7 @@
 #import "WJHomeRefreshGifHeader.h"
 
 
-#import "AESCrypt.h"
+
 
 
 
@@ -88,9 +88,9 @@
     self.headImageArr = [NSMutableArray array];
     [self.view addSubview:self.collectionV];
 
-    NSString *encryptedData = [AESCrypt encrypt:@"654321" password:@"123456"];
-    NSString *message = [AESCrypt decrypt:@"4xSD3MgeL0s+6RHoZntwuA==" password:@"123456"];
-    NSLog(@"654321==%@",message);
+//    NSString *encryptedData = [AESCrypt encrypt:@"654321" password:@"123456"];
+//    NSString *message = [AESCrypt decrypt:@"4xSD3MgeL0s+6RHoZntwuA==" password:@"123456"];
+//    NSLog(@"654321==%@",message);
 
     //返回顶部
     CGRect loginImageViewRect = CGRectMake(kMSScreenWith - 40,kMSScreenHeight-kMSNaviHight - 100 , 27, 27);
@@ -430,6 +430,8 @@
        {
            WJShiShiPingTuanView *head = [_collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJShiShiPingTuanView" forIndexPath:indexPath];
            head.titleLabel.text = @"新品上市";
+           [head.quickButton addTarget:self action:@selector(gotoNewClassView) forControlEvents:UIControlEventTouchUpInside
+            ];
            reusableview = head;
        }
 //       else if(indexPath.section == 5)// 最新推荐
@@ -765,7 +767,13 @@
     }
 }
 
-
+-(void)gotoNewClassView
+{
+    self.hidesBottomBarWhenPushed = YES;
+    WJHotSellingViewController *dcVc = [[WJHotSellingViewController alloc] init];
+    [self.navigationController pushViewController:dcVc animated:YES];
+    self.hidesBottomBarWhenPushed = NO;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

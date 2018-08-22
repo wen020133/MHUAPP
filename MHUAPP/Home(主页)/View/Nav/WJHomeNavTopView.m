@@ -65,7 +65,7 @@
     [self addSubview:_topSearchView];
 
     _searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_searchButton setTitle:@"发现喜欢的话题圈子用户" forState:0];
+    [_searchButton setTitle:@"搜索米优美商品/店铺" forState:0];
     [_searchButton setTitleColor:[RegularExpressionsMethod ColorWithHexString:@"EEEEEE"] forState:0];
     _searchButton.titleLabel.font = PFR13Font;
     [_searchButton setImage:[UIImage imageNamed:@"home_search"] forState:0];

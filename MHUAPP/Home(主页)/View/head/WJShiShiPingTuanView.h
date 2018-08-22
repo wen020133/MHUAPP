@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DCZuoWenRightButton.h"
+
 
 @interface WJShiShiPingTuanView : UICollectionReusableView
 /* title */
 @property (strong , nonatomic) UILabel *titleLabel;
+/* 更多 */
+@property (strong , nonatomic) DCZuoWenRightButton *quickButton;
 
 @end

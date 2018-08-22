@@ -8,10 +8,19 @@
 
 #import "WJMyFenxiaoViewController.h"
 #import "WJMyFenXiaoListCell.h"
+#import "NOMoreDataView.h"
+#import <MJRefresh.h>
+#import "WJDetailListFenxiao.h"
+
+
 
 @interface WJMyFenxiaoViewController ()<UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property (strong, nonatomic) UICollectionView *collectionV;
+@property NSInteger page_Information;
+@property (strong, nonatomic)  NSMutableArray  <WJDetailListFenxiao *>*arr_infoResults;
+
+@property (strong, nonatomic) NOMoreDataView *noMoreView;
 
 @end
 
@@ -34,10 +43,71 @@
         _collectionV.dataSource = self;
         _collectionV.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
         [_collectionV registerClass:[WJMyFenXiaoListCell class] forCellWithReuseIdentifier:@"WJMyFenXiaoListCell"];
+        // 下拉刷新
+        _collectionV.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRereshingCircle)];
+        [_collectionV.mj_header beginRefreshing];
+        // 上拉刷新
+        _collectionV.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerGoodsSetRereshingCircle)];
     }
     return _collectionV;
 }
-
+-(void)getMoneyManData
+{
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%ld&user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDetailList,_page_Information,[AppDelegate shareAppDelegate].user_id]];
+}
+-(void)headerRereshingCircle
+{
+    _page_Information = 1;
+    [self getMoneyManData];
+}
+-(void)footerGoodsSetRereshingCircle
+{
+    _page_Information ++;
+    [self getMoneyManData];
+}
+-(void)getProcessData
+{
+    [_collectionV.mj_header endRefreshing];
+    [_collectionV.mj_footer endRefreshing];
+    if([[self.results objectForKey:@"code"] integerValue] == 200)
+    {
+        
+        NSArray *arr_Datalist = [NSArray array];
+        arr_Datalist = [self.results objectForKey:@"data"];
+            NSMutableArray *entities = [NSMutableArray array];
+            if (![arr_Datalist isKindOfClass:[NSNull class]]&&arr_Datalist.count>0) {
+                 [self.noMoreView hide];
+             entities = [WJDetailListFenxiao mj_objectArrayWithKeyValuesArray:arr_Datalist];
+                if(_page_Information==1)
+                {
+                    self.arr_infoResults = entities;
+                }else
+                {
+                    [self.arr_infoResults addObjectsFromArray:entities];
+                }
+                [_collectionV reloadData];
+                if(entities.count<[kMSPULLtableViewCellNumber integerValue])
+                {
+                    [_collectionV.mj_footer endRefreshingWithNoMoreData];
+                }
+                else{
+                    _collectionV.mj_footer.hidden = NO;
+                }
+            }
+            else
+            {
+                
+                [self.noMoreView hide];
+                self.noMoreView = [[NOMoreDataView alloc]initWithFrame:CGRectMake(0, 44, kMSScreenWith, 80) withContent:@"暂无记录." withNODataImage:@"noMore_bg.png"];
+                [self.collectionV addSubview:self.noMoreView];
+            }
+        }
+     else
+{
+    [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"data"]];
+    return;
+}
+}
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
@@ -45,7 +115,7 @@
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 5;
+    return self.arr_infoResults.count;
 }
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section;
 {

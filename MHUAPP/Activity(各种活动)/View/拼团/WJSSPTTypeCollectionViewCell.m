@@ -57,7 +57,7 @@
     _btn_price.titleLabel.textColor = kMSCellBackColor;
     _btn_price.layer.cornerRadius = 15;
     _btn_price.layer.masksToBounds = YES;//设置圆角
-    [_btn_price setTitle:@"立即拼团" forState:UIControlStateNormal];
+    [_btn_price setTitle:@"立即批发" forState:UIControlStateNormal];
     [_btn_price setEnabled:NO];
     [self addSubview:_btn_price];
 }

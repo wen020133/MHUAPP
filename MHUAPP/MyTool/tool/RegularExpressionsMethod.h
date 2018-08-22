@@ -55,4 +55,8 @@
 + (BOOL)isBlankString:(NSString *)string;  //判断空字符串
 
 + (NSString *)htmlEntityDecode:(NSString *)string;  //转换成标准的HTMLString
+
+
++(NSString*)encodeString:(NSString*)unencodedString;
+    
 @end

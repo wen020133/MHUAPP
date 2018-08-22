@@ -267,4 +267,33 @@
               "</html>",string];
     return string;
 }
+
+
++(NSString*)encodeString:(NSString*)unencodedString{
+    
+    
+    
+    // CharactersToBeEscaped = @":/?&=;+!@#$()~',*";
+    
+    // CharactersToLeaveUnescaped = @"[].";
+    
+    
+    
+    NSString *encodedString = (NSString *)
+    
+ CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                              
+                                                              (CFStringRef)unencodedString,
+                                                              
+                                                              NULL,
+                                                              
+                                                              (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                              
+                                                              kCFStringEncodingUTF8));
+    
+    
+    
+    return encodedString;
+    
+}
 @end

@@ -21,7 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initSendReplyWithTitle:@"时时拼团" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
+    [self initSendReplyWithTitle:@"时时批发" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     [self.view addSubview:self.collectionV];
     [self getGetGroupList];
@@ -128,8 +128,8 @@
     
     cell.lab_title.text = [NSString stringWithFormat:@"%@",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"goods_name"]] ;
 //    cell.lab_describe.text = [NSString stringWithFormat:@"%@",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"goods_content"]];
-    cell.priceLabel.text = [NSString stringWithFormat:@"拼团价：¥%@~￥%@元",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"group_price_one"],[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"group_price_three"]];
-    cell.lab_count.text = [NSString stringWithFormat:@"已拼%@件",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"num"]];
+    cell.priceLabel.text = [NSString stringWithFormat:@"批发价：¥%@~￥%@元",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"group_price_one"],[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"group_price_three"]];
+    cell.lab_count.text = [NSString stringWithFormat:@"已售%@件",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"num"]];
     return cell;
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath

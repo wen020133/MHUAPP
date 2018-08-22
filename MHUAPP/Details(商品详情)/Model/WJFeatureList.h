@@ -14,7 +14,12 @@
 @property (nonatomic, copy) NSString *attr_value;
 /** 额外价格 */
 @property (nonatomic, copy) NSString *attr_price;
-
+/** 属性库存 */
+@property (nonatomic, copy) NSString *product_number;
+/** 属性缩略图片 */
+@property (nonatomic, copy) NSString *thumb_url;
+/** 属性图片 */
+@property (nonatomic, copy) NSString *img_url;
 /** 是否点击 */
 @property (nonatomic,assign)BOOL isSelect;
 

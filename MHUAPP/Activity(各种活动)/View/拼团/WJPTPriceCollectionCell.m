@@ -49,7 +49,7 @@
     UILabel *labelNum = LabelInit(DCMargin, 12, 60, 20);
     labelNum.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
     labelNum.font = Font(14);
-    labelNum.text = @"拼团数量";
+    labelNum.text = @"批发数量";
     [self addSubview:labelNum];
 
     _lab_NumScope1 = LabelInit(labelNum.Right+30, 12, 60, 20);;
@@ -78,7 +78,7 @@
     UILabel *labelPrice = LabelInit(DCMargin, 47, 60, 20);
     labelPrice.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
     labelPrice.font = Font(14);
-    labelPrice.text = @"拼团价格";
+    labelPrice.text = @"批发价格";
     [self addSubview:labelPrice];
 
     _lab_PriceScope1 = LabelInit(labelNum.Right+30, 47, 60, 20);

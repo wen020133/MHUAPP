@@ -28,7 +28,7 @@
 #import <UShareUI/UShareUI.h>
 
 #import "WJMainWebClassViewController.h"
-
+#import "AESCrypt.h"
 
 @interface WJGoodDetailViewController ()<PST_MenuViewDelegate>
 
@@ -187,7 +187,7 @@
                 break;
                 case KGetSupplierUserId:
             {
-                _supplierUserId = [NSString stringWithFormat:@"kefu%@", [self.results objectForKey:@"data"]];
+                _supplierUserId = [NSString stringWithFormat:@"%@", [self.results objectForKey:@"data"]];
             }
                 break;
             default:
@@ -487,7 +487,7 @@
 
     UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:self.goodTitle descr:self.goods_brief thumImage:self.goodImageView];
     //设置网页地址
-    shareObject.webpageUrl = [NSString stringWithFormat:@"https://www.miyomei.com/goods.php?id=%@",_goods_id] ;
+    shareObject.webpageUrl = [NSString stringWithFormat:@"https://www.miyomei.com/mobile/goods.php?id=%@",_goods_id] ;
     
 
     //分享消息对象设置分享内容对象
@@ -640,7 +640,17 @@
 //                                      content:richMsg];
 //                 [[NSNotificationCenter defaultCenter] postNotificationName:@"RCDSharedMessageInsertSuccess" object:message];
                 WJMainWebClassViewController *conversationVC = [[WJMainWebClassViewController alloc]init];
-                conversationVC.str_urlHttp = @"http://www.mhupro.com/mobile/mobile_chat_online.php?suppId=197&goodsId=2994&appToken=whcVUQHjwo5pE4HhCT9MKw==";
+                NSString *encryptedData = [AESCrypt encrypt:[NSString stringWithFormat:@"uid=%@@sid=%@",[AppDelegate shareAppDelegate].user_id,_supplierUserId] password:@"miyomei2018"];
+                
+                NSString *encodedString =[RegularExpressionsMethod encodeString:encryptedData];
+
+                
+                NSString *str_url = [NSString stringWithFormat:@"https://www.miyomei.com/mobile/mobile_chat_online.php?suppId=%@&goodsId=%@&appToken=%@",_supplier_id,_goods_id,encodedString];
+                conversationVC.str_urlHttp =str_url;
+                
+                NSString *message = [AESCrypt decrypt:encryptedData password:@"miyomei2018"];
+                  NSLog(@"%@    %@",message,str_url);
+                conversationVC.str_title = _supplier_name;
                 self.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:conversationVC animated:YES];
             }
