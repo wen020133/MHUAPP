@@ -44,12 +44,14 @@
 
 -(void)showright
 {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
     if (_textf_nickName.text.length<1) {
         [self requestFailed:@"请输入昵称！"];
         return;
     }
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-    [infos setValue:[AppDelegate shareAppDelegate].user_id forKey:@"user_id"];
+    [infos setValue:uid forKey:@"user_id"];
     [infos setValue:_textf_nickName.text forKey:@"name"];
     [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSUpdateName] andInfos:infos];
 }

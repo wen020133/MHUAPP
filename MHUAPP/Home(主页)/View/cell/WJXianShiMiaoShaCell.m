@@ -47,6 +47,12 @@
         _lab_count.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
         _lab_count.textAlignment = NSTextAlignmentLeft;
         [_grayView addSubview:_lab_count];
+        
+        _hongbaoLabel = LabelInit(self.width-35, _lab_price.Bottom+2, 30, 20);
+        _hongbaoLabel.textColor = kMSCellBackColor;
+        _hongbaoLabel.backgroundColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
+        _hongbaoLabel.text = @"红包";
+        [_grayView addSubview:_hongbaoLabel];
 
     }
     return self;

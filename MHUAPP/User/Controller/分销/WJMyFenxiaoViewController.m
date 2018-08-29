@@ -7,7 +7,7 @@
 //
 
 #import "WJMyFenxiaoViewController.h"
-#import "WJMyFenXiaoListCell.h"
+#import "WJMyFenXiaoOrderItemCell.h"
 #import "NOMoreDataView.h"
 #import <MJRefresh.h>
 #import "WJDetailListFenxiao.h"
@@ -42,7 +42,7 @@
         _collectionV.delegate = self;
         _collectionV.dataSource = self;
         _collectionV.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-        [_collectionV registerClass:[WJMyFenXiaoListCell class] forCellWithReuseIdentifier:@"WJMyFenXiaoListCell"];
+        [_collectionV registerClass:[WJMyFenXiaoOrderItemCell class] forCellWithReuseIdentifier:@"WJMyFenXiaoOrderItemCell"];
         // 下拉刷新
         _collectionV.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRereshingCircle)];
         [_collectionV.mj_header beginRefreshing];
@@ -53,7 +53,9 @@
 }
 -(void)getMoneyManData
 {
-    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%ld&user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDetailList,_page_Information,[AppDelegate shareAppDelegate].user_id]];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%ld&user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDetailList,_page_Information,uid]];
 }
 -(void)headerRereshingCircle
 {
@@ -115,7 +117,7 @@
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.arr_infoResults.count;
+    return self.arr_infoResults.count+1;
 }
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section;
 {
@@ -124,11 +126,14 @@
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(kMSScreenWith, 100);
+    return CGSizeMake(kMSScreenWith, 44);
 }
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    WJMyFenXiaoListCell *cell = [self.collectionV dequeueReusableCellWithReuseIdentifier:@"WJMyFenXiaoListCell" forIndexPath:indexPath];
+    WJMyFenXiaoOrderItemCell *cell = [self.collectionV dequeueReusableCellWithReuseIdentifier:@"WJMyFenXiaoOrderItemCell" forIndexPath:indexPath];
+    if (indexPath.row>0) {
+        cell.model = self.arr_infoResults[indexPath.row-1];
+    }
     return cell;
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath

@@ -42,8 +42,8 @@
     [_flowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self);
         [make.top.mas_equalTo(self)setOffset:13];
-        make.height.mas_offset(30);
-        make.width.mas_offset(30);
+        make.height.mas_offset(27);
+        make.width.mas_offset(27);
         
     }];
     [_flowTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WJDetailListFenxiao.h"
 
 @interface WJMyFenXiaoOrderItemCell : UICollectionViewCell
 
@@ -14,5 +15,7 @@
 @property (nonatomic, strong) UILabel *lab_yongjin;
 @property (nonatomic, strong) UILabel *lab_name;
 @property (nonatomic, strong) UILabel *lab_orderState;
+
+@property (nonatomic, strong) WJDetailListFenxiao *model;
 
 @end

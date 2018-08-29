@@ -118,7 +118,7 @@
 +(NSString *)hiddenAccountMiddleRange:(NSString*)accountString
 {
     NSString *outputStr = @"";
-    outputStr = [accountString stringByReplacingCharactersInRange:NSMakeRange(2, accountString.length-4) withString:@"***"];
+    outputStr = [accountString stringByReplacingCharactersInRange:NSMakeRange(7, 3) withString:@"***"];
     return outputStr;
 }
 
@@ -141,7 +141,7 @@
 {
     NSDictionary * dict=[NSDictionary dictionaryWithObject: font forKey:NSFontAttributeName];
     CGRect rect=[string boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, height) options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil];
-    return rect.size.width+2;
+    return rect.size.width;
 }
 
 #pragma mark - 下划线

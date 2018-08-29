@@ -41,6 +41,9 @@
 
 -(void)getUpIntegralData
 {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
+    
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_group_t group = dispatch_group_create();
@@ -52,7 +55,7 @@
     });
     dispatch_group_async(group, queue, ^{
         NSLog(@"处理事件2");
-        [weakSelf getServiceData:[NSString stringWithFormat:@"%@?user_id=%@",kMSGetIntegral,[AppDelegate shareAppDelegate].user_id]];
+        [weakSelf getServiceData:[NSString stringWithFormat:@"%@?user_id=%@",kMSGetIntegral,uid]];
         dispatch_semaphore_signal(semaphore);
     });
 
@@ -127,12 +130,13 @@
             }
         }];
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
         NSDate *senddate=[NSDate date];
         NSDateFormatter  *dateformatter=[[NSDateFormatter alloc] init];
         [dateformatter setDateFormat:@"YYYY-MM-dd"];
         NSString * locationString=[dateformatter stringFromDate:senddate];
         [userDefaults setValue:locationString forKey:@"tabbarDate"];
-        [userDefaults setValue:[NSString stringWithFormat:@"%@111",[AppDelegate shareAppDelegate].user_id] forKey:@"isQiandao"];
+        [userDefaults setValue:[NSString stringWithFormat:@"%@111",uid] forKey:@"isQiandao"];
         [userDefaults synchronize];
 
         _str_IntegralNum = [NSString stringWithFormat:@"%d", [_str_IntegralNum intValue]+1];
@@ -156,13 +160,14 @@
 -(void)changeDefaultArray
 {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
     NSString *qiandaoIs = [userDefaults objectForKey:@"isQiandao"];
     NSDate *senddate=[NSDate date];
     NSDateFormatter  *dateformatter=[[NSDateFormatter alloc] init];
     [dateformatter setDateFormat:@"YYYY-MM-dd"];
     NSString * locationString=[dateformatter stringFromDate:senddate];
     if ([locationString isEqualToString:[userDefaults objectForKey:@"tabbarDate"]]) {
-        if ([qiandaoIs isEqualToString:[NSString stringWithFormat:@"%@111",[AppDelegate shareAppDelegate].user_id]]) {
+        if ([qiandaoIs isEqualToString:[NSString stringWithFormat:@"%@111",uid]]) {
             _defaultTitleArr = @[@"积分25000",@"兑换记录",@"已签到",@"如何赚积分"];
         }
         else
@@ -297,19 +302,20 @@
                 {
                     
                     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
                     NSString *qiandaoIs = [userDefaults objectForKey:@"isQiandao"];
                     NSDate *senddate=[NSDate date];
                     NSDateFormatter  *dateformatter=[[NSDateFormatter alloc] init];
                     [dateformatter setDateFormat:@"YYYY-MM-dd"];
                     NSString * locationString=[dateformatter stringFromDate:senddate];
                     if ([locationString isEqualToString:[userDefaults objectForKey:@"tabbarDate"]]) {
-                        if ([qiandaoIs isEqualToString:[NSString stringWithFormat:@"%@111",[AppDelegate shareAppDelegate].user_id]]) {
+                        if ([qiandaoIs isEqualToString:[NSString stringWithFormat:@"%@111",uid]]) {
                                [self alectYiQiandao];
                         }
                         else
                         {
                         NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-                        [infos setObject:[AppDelegate shareAppDelegate].user_id forKey:@"user_id"];
+                        [infos setObject:uid forKey:@"user_id"];
                         [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSRegister] andInfos:infos];
                         }
                     }

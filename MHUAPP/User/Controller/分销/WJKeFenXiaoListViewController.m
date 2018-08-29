@@ -140,7 +140,6 @@
     _type_title = currTag;
     _type_price = @"";
     _type_com = @"";
-    _menu_ScrollView.selectIndex = 0;
 }
 -(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
@@ -230,6 +229,8 @@
 }
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
     WJKeFenxiaoListCell *cell = [self.collectionV dequeueReusableCellWithReuseIdentifier:@"WJKeFenxiaoListCell" forIndexPath:indexPath];
     cell.btn_fenXiao.tag = indexPath.row;
     cell.model  = self.arr_infomationresults[indexPath.row];
@@ -242,7 +243,7 @@
         
         UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:self.arr_infomationresults[selectTag].goods_name descr:nil thumImage:self.arr_infomationresults[selectTag].original_img];
         //设置网页地址
-        shareObject.webpageUrl = [NSString stringWithFormat:@"https://www.miyomei.com/goods.php?id=%@&u=%@",self.arr_infomationresults[selectTag].goods_id,[AppDelegate shareAppDelegate].user_id] ;
+        shareObject.webpageUrl = [NSString stringWithFormat:@"https://www.miyomei.com/goods.php?id=%@&u=%@",self.arr_infomationresults[selectTag].goods_id,uid] ;
         
         
         //分享消息对象设置分享内容对象

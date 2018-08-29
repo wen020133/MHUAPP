@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MHUAPP/User/Controller/&#x5f85;&#x4ed8;&#x6b3e;/WJWaitPayOrderInfoViewController.m"
-            timestampString = "556448686.277108"
+            timestampString = "556703120.172207"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
             landmarkName = "-getProcessData"
             landmarkType = "7">
          </BreakpointContent>

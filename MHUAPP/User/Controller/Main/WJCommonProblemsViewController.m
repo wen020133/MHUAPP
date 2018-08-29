@@ -30,7 +30,9 @@
 
 -(void)initkMSGetArticleClassData
 {
-    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSetArticle,[AppDelegate shareAppDelegate].user_id]];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSetArticle,uid]];
 }
 -(void)getProcessData
 {

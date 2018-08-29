@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WJMoneyListItem.h"
 
 @interface WJMoneyListTableCell : UITableViewCell
 
 @property (nonatomic, strong) UILabel *lab_price;
 @property (nonatomic, strong) UILabel *lab_date;
 @property (nonatomic, strong) UILabel *lab_num;  
+
+@property (nonatomic, strong) WJMoneyListItem *model;
 
 @end

@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <RongIMKit/RongIMKit.h>
 
 
-@interface WJConversationViewController : RCConversationViewController
+@interface WJConversationViewController : UIViewController
 @property (assign ,nonatomic) NSString *strTitle;
 @end

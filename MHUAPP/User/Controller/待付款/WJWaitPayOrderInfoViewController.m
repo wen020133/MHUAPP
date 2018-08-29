@@ -37,7 +37,9 @@
 
 -(void)getOrderWaitPayInfo
 {
-    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?order_sn=%@&user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDetailedPay,_str_orderId,[AppDelegate shareAppDelegate].user_id]];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?order_sn=%@&user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDetailedPay,_str_orderId,uid]];
 }
 
 -(void)getProcessData
@@ -100,8 +102,10 @@
 }
 -(void)gotoPayNew:(UIButton *)sender
 {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-    [infos setObject:[AppDelegate shareAppDelegate].user_id forKey:@"user_id"];
+    [infos setObject:uid forKey:@"user_id"];
     [infos setObject:_str_orderId forKey:@"id"];
     [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSMiYoMeiAffirmPay] andInfos:infos];
 }

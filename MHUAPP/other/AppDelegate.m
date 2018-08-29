@@ -25,8 +25,6 @@ NSString * const UpLoadNoti = @"uploadInfo";
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.friendsArray = [[NSMutableArray alloc]init];
-    self.groupsArray = [[NSMutableArray alloc]init];
     
     self.tabbarVC  = [[WJMainTabBarViewController alloc]init];
     [self.window setRootViewController:self.tabbarVC];
@@ -37,8 +35,7 @@ NSString * const UpLoadNoti = @"uploadInfo";
     [UMConfigure initWithAppkey:UmengAppkey channel:@"App Store"];
     //设置微信AppId，设置分享url，
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:kAppIDWeixin appSecret:kAppSecret redirectURL:kRedirectURI];
-    //初始化融云相关
-    [self initRongClould];
+
 
     //设置手机QQ的AppId，指定你的分享url，
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:_TencentAppid_  appSecret:@"9XSVjCRGjtSlYuEn" redirectURL:kRedirectURI];
@@ -50,25 +47,21 @@ NSString * const UpLoadNoti = @"uploadInfo";
                                                 categories:nil];
         [application registerUserNotificationSettings:settings];
     }
-    NSDictionary *pushServiceData = [[RCIMClient sharedRCIMClient] getPushExtraFromLaunchOptions:launchOptions];
-    if (pushServiceData) {
-        NSLog(@"该启动事件包含来自融云的推送服务");
-        for (id key in [pushServiceData allKeys]) {
-            NSLog(@"%@", pushServiceData[key]);
-        }
-    } else {
-        NSLog(@"该启动事件不包含来自融云的推送服务");
-    }
+    
+//    if (pushServiceData) {
+//        NSLog(@"该启动事件包含来自融云的推送服务");
+//        for (id key in [pushServiceData allKeys]) {
+//            NSLog(@"%@", pushServiceData[key]);
+//        }
+//    } else {
+//        NSLog(@"该启动事件不包含来自融云的推送服务");
+//    }
 
 
     [self.window makeKeyAndVisible];
     return YES;
 }
--(void)initRongClould{
 
-    
-    [[RCDataManager shareManager] getUserInfoWithMiYouMei];
-}
 /**
  * 推送处理2
  */
@@ -84,12 +77,11 @@ didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSe
  */
 - (void)application:(UIApplication *)application
 didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    NSString *token = [[[[deviceToken description] stringByReplacingOccurrencesOfString:@"<" withString:@""]
-                        stringByReplacingOccurrencesOfString:@">"
-                        withString:@""] stringByReplacingOccurrencesOfString:@" "
-                       withString:@""];
-    
-    [[RCIMClient sharedRCIMClient] setDeviceToken:token];
+//    NSString *token = [[[[deviceToken description] stringByReplacingOccurrencesOfString:@"<" withString:@""]
+//                        stringByReplacingOccurrencesOfString:@">"
+//                        withString:@""] stringByReplacingOccurrencesOfString:@" "
+//                       withString:@""];
+//    
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
@@ -116,31 +108,12 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     /**
      * 统计推送打开率2
      */
-    [[RCIMClient sharedRCIMClient] recordRemoteNotificationEvent:userInfo];
-    /**
-     * 获取融云推送服务扩展字段2
-     */
-    NSDictionary *pushServiceData = [[RCIMClient sharedRCIMClient] getPushExtraFromRemoteNotification:userInfo];
-    if (pushServiceData) {
-        NSLog(@"该远程推送包含来自融云的推送服务");
-        for (id key in [pushServiceData allKeys]) {
-            NSLog(@"key = %@, value = %@", key, pushServiceData[key]);
-        }
-    } else {
-        NSLog(@"该远程推送不包含来自融云的推送服务");
-    }
+
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     
-    RCConnectionStatus status = [[RCIMClient sharedRCIMClient] getConnectionStatus];
-    if (status != ConnectionStatus_SignUp) {
-        int unreadMsgCount = [[RCIMClient sharedRCIMClient] getUnreadCount:@[
-                                                                             @(ConversationType_PRIVATE), @(ConversationType_DISCUSSION), @(ConversationType_APPSERVICE),
-                                                                             @(ConversationType_PUBLICSERVICE), @(ConversationType_GROUP)
-                                                                             ]];
-        application.applicationIconBadgeNumber = unreadMsgCount;
-    }
+//        application.applicationIconBadgeNumber = unreadMsgCount;
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
@@ -239,8 +212,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    NSInteger ToatalunreadMsgCount = (NSInteger)[[RCIMClient sharedRCIMClient] getUnreadCount:@[@(ConversationType_PRIVATE),@(ConversationType_DISCUSSION),@(ConversationType_GROUP),@(ConversationType_CHATROOM)]];
-    [UIApplication sharedApplication].applicationIconBadgeNumber = ToatalunreadMsgCount;
+//    [UIApplication sharedApplication].applicationIconBadgeNumber = ToatalunreadMsgCount;
 
 }
 

@@ -108,8 +108,10 @@
 }
 -(void)initgetFollowData
 {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-    [infos setValue:[AppDelegate shareAppDelegate].user_id forKey:@"user_id"];
+    [infos setValue:uid forKey:@"user_id"];
     [infos setValue:_storeId forKey:@"id"];
     [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSGetFollow] andInfos:infos];
 }

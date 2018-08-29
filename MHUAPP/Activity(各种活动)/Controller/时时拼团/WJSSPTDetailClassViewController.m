@@ -21,9 +21,13 @@
 #import <UShareUI/UShareUI.h>
 #import "AESCrypt.h"
 #import "WJMainWebClassViewController.h"
+#import "WJGoodDetailViewController.h"
 
 
-@interface WJSSPTDetailClassViewController ()
+#import "SRWebSocket.h"
+#import "WJToast.h"
+
+@interface WJSSPTDetailClassViewController ()<SRWebSocketDelegate>
 
 @property (strong, nonatomic) UIScrollView *scrollerView;
 @property (strong, nonatomic) UIView *bgView;
@@ -36,9 +40,94 @@
 
 /* 商品库存 */
 @property  NSInteger goods_number;
+
+@property(nonatomic,strong) SRWebSocket *webSocket;
 @end
 
 @implementation WJSSPTDetailClassViewController
+
+
+//初始化
+- (void)Reconnect{
+    
+    NSLog(@"1221---open");
+    
+    self.webSocket.delegate = nil;
+    [self.webSocket close];
+    
+    NSString *str_url = @"";
+    str_url =  @"wss://www.miyomei.com:8080/order";
+    self.webSocket = [[SRWebSocket alloc] initWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str_url]]];
+    self.webSocket.delegate = self;
+    
+    [self.webSocket open];
+}
+
+#pragma mark - LifeCyle
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self Reconnect];
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+    // Close WebSocket
+    self.webSocket.delegate = nil;
+    [self.webSocket close];
+    self.webSocket = nil;
+}
+
+//连接成功
+//代理方法实现
+#pragma mark - SRWebSocketDelegate
+- (void)webSocketDidOpen:(SRWebSocket *)webSocket{
+    NSLog(@"Websocket Connected");
+}
+//连接失败
+- (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error{
+    NSLog(@":( Websocket Failed With Error %@", error);
+    
+    self.title = @"Connection Failed! (see logs)";
+    self.webSocket = nil;
+}
+//接收到新消息的处理
+- (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message{
+    
+    NSLog(@"%@--askl",message);
+    NSData *jsonData = [message dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSError *err;
+    
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&err];
+    if(err) {
+        NSLog(@"json解析失败：%@",err);
+    }
+    else
+    {
+        WEAKSELF
+        [WJToast showToastWithMessage:[dic objectForKey:@"user_name"] checkCouponButtonClickedBlock:^{
+            WJGoodDetailViewController *dcVc = [[WJGoodDetailViewController alloc] init];
+            dcVc.goods_id = dic[@"goods_id"];;
+            dcVc.hidesBottomBarWhenPushed = YES;
+            [weakSelf.navigationController pushViewController:dcVc animated:YES];
+            weakSelf.hidesBottomBarWhenPushed = NO;
+        }];
+    }
+    
+}
+//连接关闭
+- (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean{
+    NSLog(@"Closed Reason:%@",reason);
+    self.title = @"Connection Closed! (see logs)";
+    self.webSocket = nil;
+}
+
+- (void)webSocket:(SRWebSocket *)webSocket didReceivePong:(NSData *)pongPayload{
+    
+    NSString *reply = [[NSString alloc] initWithData:pongPayload encoding:NSUTF8StringEncoding];
+    NSLog(@"reply==%@",reply);
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -199,8 +288,10 @@
 }
 -(void)initPTPostCollectGoodsData
 {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-    [infos setValue:[AppDelegate shareAppDelegate].user_id forKey:@"user_id"];
+    [infos setValue:uid forKey:@"user_id"];
     [infos setValue:_goods_id forKey:@"id"];
     [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSPostCollectGoods] andInfos:infos];
 }
@@ -545,7 +636,9 @@
 //                                      content:richMsg];
 //                [[NSNotificationCenter defaultCenter] postNotificationName:@"RCDSharedMessageInsertSuccess" object:message];
                 WJMainWebClassViewController *conversationVC = [[WJMainWebClassViewController alloc]init];
-                NSString *encryptedData = [AESCrypt encrypt:[NSString stringWithFormat:@"uid=%@@sid=%@",[AppDelegate shareAppDelegate].user_id,_supplierUserId] password:@"miyomei2018"];
+                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
+                NSString *encryptedData = [AESCrypt encrypt:[NSString stringWithFormat:@"uid=%@@sid=%@",uid,_supplierUserId] password:@"miyomei2018"];
                 
                 NSString *encodedString =[RegularExpressionsMethod encodeString:encryptedData];
                 

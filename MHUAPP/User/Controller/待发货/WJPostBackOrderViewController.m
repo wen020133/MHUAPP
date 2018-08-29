@@ -205,6 +205,8 @@
 }
 -(void)postbackOderData
 {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
     if ([_str_reason isEqualToString:@"退款原因"]) {
         [self requestFailed:@"请选择退款原因"];
 
@@ -214,7 +216,7 @@
         NSMutableDictionary *infos = [NSMutableDictionary dictionary];
         [infos setValue:_str_reason forKey:@"content"];
         [infos setValue:_str_goodsId forKey:@"id"];
-        [infos setValue:[AppDelegate shareAppDelegate].user_id forKey:@"user_id"];
+        [infos setValue:uid forKey:@"user_id"];
         [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSPostBackOrder] andInfos:infos];
     }
 

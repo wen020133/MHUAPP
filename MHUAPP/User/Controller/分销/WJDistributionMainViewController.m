@@ -79,7 +79,6 @@
         _scrollerView.showsHorizontalScrollIndicator = NO;
         _scrollerView.pagingEnabled = YES;
         _scrollerView.bounces = NO;
-        _scrollerView.delegate = self;
     }
     return _scrollerView;
 }

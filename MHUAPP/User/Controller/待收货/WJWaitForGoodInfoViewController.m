@@ -100,9 +100,11 @@
 }
 -(void)postbackOderData
 {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
     _postType = 2;
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-    [infos setValue:[AppDelegate shareAppDelegate].user_id forKey:@"user_id"];
+    [infos setValue:uid forKey:@"user_id"];
     [infos setValue:_str_orderId forKey:@"id"];
     [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSMiYoMeiAffirmGoods] andInfos:infos];
 }
@@ -158,8 +160,9 @@
 
 -(void)getDetailedReceiveInfo
 {
-
-    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?order_sn=%@&user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetDetailedReceive,_str_orderId,[AppDelegate shareAppDelegate].user_id]];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?order_sn=%@&user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetDetailedReceive,_str_orderId,uid]];
 }
 -(void)getMiYouMeiQuery
 {

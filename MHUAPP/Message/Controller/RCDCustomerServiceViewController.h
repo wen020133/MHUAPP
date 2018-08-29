@@ -6,8 +6,7 @@
 //  Copyright © 2016年 RongCloud. All rights reserved.
 //
 
-#import <RongIMKit/RongIMKit.h>
 
-@interface RCDCustomerServiceViewController : RCConversationViewController
+@interface RCDCustomerServiceViewController : UIViewController
 
 @end

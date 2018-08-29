@@ -80,7 +80,7 @@
     }
     else
     {
-    price = [NSString stringWithFormat:@"￥%@",_listModel.count_price];
+    price = [NSString stringWithFormat:@"￥%@",_listModel.goods_price];
 
     }
     CGFloat width = [RegularExpressionsMethod widthOfString:price font:Font(14) height:23];

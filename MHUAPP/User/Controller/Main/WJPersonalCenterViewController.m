@@ -156,7 +156,7 @@
             NSString *loginState = [userDefaults objectForKey:@"loginState"];
             NSString *str_logo_img = [[userDefaults objectForKey:@"userList"] objectForKey:@"user_icon"];
             NSString *str_username = [[userDefaults objectForKey:@"userList"] objectForKey:@"username"];
-            if([loginState isEqualToString:@"1"]&&[AppDelegate shareAppDelegate].user_id.length>1)
+            if([loginState isEqualToString:@"1"])
             {
                  [headerView.headImageView setImageWithURL:[NSURL URLWithString:str_logo_img] placeholderImage:[UIImage imageNamed:@"ic_no_heardPic.png"]];
 
@@ -195,7 +195,10 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if([AppDelegate shareAppDelegate].user_id.length<1)
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    NSString *loginState = [userDefaults objectForKey:@"loginState"];
+    if(![loginState isEqualToString:@"1"])
     {
         WJLoginClassViewController *loginVC = [[WJLoginClassViewController alloc]init];
         self.hidesBottomBarWhenPushed = YES;
@@ -251,8 +254,6 @@
             case 3:
             {
                 RCDCustomerServiceViewController *chatService = [[RCDCustomerServiceViewController alloc] init];
-                chatService.conversationType = ConversationType_CUSTOMERSERVICE;
-                chatService.targetId = @"KEFU152176453929981";
                 self.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:chatService animated:YES];
                 self.hidesBottomBarWhenPushed = NO;
@@ -302,10 +303,10 @@
 #pragma mark - item宽高
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0 ) {//属性
-        return CGSizeMake(kMSScreenWith/5 , 80);
+        return CGSizeMake(kMSScreenWith/5 , 88);
     }
     if (indexPath.section == 1) {//属性
-        return CGSizeMake(kMSScreenWith/4, 80);
+        return CGSizeMake(kMSScreenWith/4, 88);
     }
     if (indexPath.section == 2) {//猜你喜欢
         return CGSizeMake(kMSScreenWith, 44);
@@ -370,7 +371,10 @@
 }
 -(void)goToOrderVC
 {
-    if([AppDelegate shareAppDelegate].user_id.length<1)
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    NSString *loginState = [userDefaults objectForKey:@"loginState"];
+    if(![loginState isEqualToString:@"1"])
     {
         WJLoginClassViewController *loginVC = [[WJLoginClassViewController alloc]init];
         self.hidesBottomBarWhenPushed = YES;

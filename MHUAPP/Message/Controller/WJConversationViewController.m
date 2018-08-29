@@ -9,7 +9,7 @@
 #import "WJConversationViewController.h"
 
 
-@interface WJConversationViewController ()<RCMessageCellDelegate>
+@interface WJConversationViewController ()
 
 @end
 
@@ -31,47 +31,7 @@
     [[IQKeyboardManager sharedManager] setEnable:NO];
     
 }
-//功能面板点击事件的方法，通过tag区分点击到的哪个item
-- (void)pluginBoardView:(RCPluginBoardView *)pluginBoardView clickedItemWithTag:(NSInteger)tag{
-    switch (tag) {
-        case 201:
-        {
-            [super pluginBoardView:pluginBoardView clickedItemWithTag:tag];//记得调用super父类的方法
-        }
-            break;
-        default:
-            [super pluginBoardView:pluginBoardView clickedItemWithTag:tag];
-            NSLog(@"%ld",(long)pluginBoardView.tag);
-            break;
-    }
-}
-- (RCMessageBaseCell *)rcConversationCollectionView:(UICollectionView *)collectionView
-                             cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    RCMessageModel *model =
-    [self.conversationDataRepository objectAtIndex:indexPath.row];
 
-    if (!self.displayUserNameInCell) {
-        if (model.messageDirection == MessageDirection_RECEIVE) {
-            model.isDisplayNickname = NO;
-        }
-    }
-    return [super rcConversationCollectionView:collectionView cellForItemAtIndexPath:indexPath];
-}
-- (CGSize)rcConversationCollectionView:(UICollectionView *)collectionView
-                                layout:(UICollectionViewLayout *)collectionViewLayout
-                sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    RCMessageModel *model = [self.conversationDataRepository objectAtIndex:indexPath.row];
-    RCMessageContent *messageContent = model.content;
-    if ([messageContent isMemberOfClass:[RCRealTimeLocationStartMessage class]]) {
-        if (model.isDisplayMessageTime) {
-            return CGSizeMake(collectionView.frame.size.width, 66);
-        }
-        return CGSizeMake(collectionView.frame.size.width, 66);
-    }
-    else {
-        return [super rcConversationCollectionView:collectionView layout:collectionViewLayout sizeForItemAtIndexPath:indexPath];
-    }
-}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

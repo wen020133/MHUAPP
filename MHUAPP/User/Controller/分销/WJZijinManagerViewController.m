@@ -109,8 +109,8 @@
     
     WJMoneyManagementViewController *AddressVC = [[WJMoneyManagementViewController alloc]init];
     AddressVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:AddressVC animated:YES];
     self.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:AddressVC animated:YES];
 
 }
 @end

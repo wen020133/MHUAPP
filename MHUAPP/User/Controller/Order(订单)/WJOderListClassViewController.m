@@ -125,6 +125,8 @@
 //加载数据
 - (void)loadData
 {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
     switch (_serverType) {
         case KGetOrderServerwholeOrder:
             {
@@ -156,32 +158,34 @@
             break;
             case KGetOrderListTuiKuanTuihuo:
         {
-               [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetBackGoods,[AppDelegate shareAppDelegate].user_id]];
+               [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetBackGoods,uid]];
             return;
         }
             break;
         case KGetOrderListWaitPingjia:
         {
-             [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@&id=0",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSCommentList,[AppDelegate shareAppDelegate].user_id]];
+             [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@&id=0",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSCommentList,uid]];
             return;
         }
             break;
             case KGetOrderListJiaoyiSuccess:
         {
-            [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@&id=1",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSCommentList,[AppDelegate shareAppDelegate].user_id]];
+            [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@&id=1",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSCommentList,uid]];
             return;
         }
             break;
         default:
             break;
     }
- [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?order_status=%@&id=%ld&pay_status=%@&shipping_status=%@&user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetOrderStatus,_order_status,_page_data,_pay_status,_shipping_status,[AppDelegate shareAppDelegate].user_id]];
+ [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?order_status=%@&id=%ld&pay_status=%@&shipping_status=%@&user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetOrderStatus,_order_status,_page_data,_pay_status,_shipping_status,uid]];
 
 }
 -(void)getProcessData
 {
     [_mainTableView.mj_header endRefreshing];
     [_mainTableView.mj_footer endRefreshing];
+    if([self.results isKindOfClass:[NSDictionary class]])
+    {
     if([[self.results objectForKey:@"code"] integerValue] == 200)
     {
 
@@ -298,6 +302,12 @@
                 return;
             }
 
+    }
+    else
+    {
+        [self.mainTableView.mj_header endRefreshing];
+        return;
+    }
     }
     else
     {
@@ -653,6 +663,8 @@
 }
 - (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
     WJOrderFooter *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"WJOrderFooter"];
 
     if(_serverType ==KGetOrderListTuiKuanTuihuo)
@@ -805,7 +817,7 @@
                         NSLog(@"cancel");
                     }
                     else if ([action.title isEqualToString:@"确认"]) {
-                        [self requestDeleteAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@&str=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDeleteOrder,[AppDelegate shareAppDelegate].user_id,model.order_id]];
+                        [self requestDeleteAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@&str=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDeleteOrder,uid,model.order_id]];
                     }
                 }];
 
@@ -872,8 +884,10 @@
 }
 -(void)postbackOderData:(NSString *)order_sn
 {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-    [infos setValue:[AppDelegate shareAppDelegate].user_id forKey:@"user_id"];
+    [infos setValue:uid forKey:@"user_id"];
     [infos setValue:order_sn forKey:@"id"];
     [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSMiYoMeiAffirmGoods] andInfos:infos];
 }

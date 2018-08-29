@@ -20,6 +20,7 @@
 @property (strong , nonatomic)UIButton *searchButton;
 
 @end
+
 @implementation WJHomeNavTopView
 
 #pragma mark - Intial

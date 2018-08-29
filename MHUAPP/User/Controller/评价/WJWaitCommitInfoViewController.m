@@ -124,7 +124,9 @@
 
 -(void)getDetailedReceiveInfo
 {
-    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%@&user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSOrderInfo,_order_id,[AppDelegate shareAppDelegate].user_id]];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%@&user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSOrderInfo,_order_id,uid]];
 }
 -(void)getMiYouMeiQuery
 {

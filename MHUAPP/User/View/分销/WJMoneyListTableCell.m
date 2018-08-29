@@ -44,6 +44,16 @@
     }
     return self;
 }
+
+-(void)setModel:(WJMoneyListItem *)model
+{
+    if (model!=_model) {
+    _model = model;
+     }
+    _lab_price.text = [NSString stringWithFormat:@"增加：￥%@元", model.market_price];
+    _lab_date.text = [NSString stringWithFormat:@"%@", model.pay_status];
+    _lab_date.text = [NSString stringWithFormat:@"订单号 %@", model.order_sn];
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

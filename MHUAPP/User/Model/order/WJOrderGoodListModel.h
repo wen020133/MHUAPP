@@ -13,7 +13,7 @@
 @property (assign,nonatomic) NSInteger goods_number;
 @property (copy,nonatomic) NSString *goods_id;
 @property (copy,nonatomic) NSString *goods_name;
-@property (copy,nonatomic) NSString *shop_price; //现价
+@property (copy,nonatomic) NSString *goods_price; //现价
 @property (copy,nonatomic) NSString *count_price; //现价
 @property (copy,nonatomic) NSString *market_price;  //原价
 @property (copy,nonatomic) NSString *rec_id;  //在购物车的ID

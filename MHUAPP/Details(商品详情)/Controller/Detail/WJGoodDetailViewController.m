@@ -30,7 +30,10 @@
 #import "WJMainWebClassViewController.h"
 #import "AESCrypt.h"
 
-@interface WJGoodDetailViewController ()<PST_MenuViewDelegate>
+#import "SRWebSocket.h"
+#import "WJToast.h"
+
+@interface WJGoodDetailViewController ()<PST_MenuViewDelegate,SRWebSocketDelegate>
 
 @property (strong, nonatomic) UIScrollView *scrollerView;
 @property (strong, nonatomic) UIView *bgView;
@@ -50,6 +53,8 @@
 @property (strong , nonatomic)NSArray<WJDetailPartCommentItem *> *getCommentArray;
 
 @property NSInteger postDataType;
+
+@property(nonatomic,strong) SRWebSocket *webSocket;
 @end
 
 @implementation WJGoodDetailViewController
@@ -58,9 +63,87 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self Reconnect];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
+
+
+//初始化
+- (void)Reconnect{
+    
+    NSLog(@"1221---open");
+    
+    self.webSocket.delegate = nil;
+    [self.webSocket close];
+    
+    NSString *str_url = @"";
+    str_url =  @"wss://www.miyomei.com:8080/order";
+    self.webSocket = [[SRWebSocket alloc] initWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str_url]]];
+    self.webSocket.delegate = self;
+    
+    [self.webSocket open];
+}
+
+
+
+- (void)viewDidDisappear:(BOOL)animated{
+    // Close WebSocket
+    self.webSocket.delegate = nil;
+    [self.webSocket close];
+    self.webSocket = nil;
+}
+
+//连接成功
+//代理方法实现
+#pragma mark - SRWebSocketDelegate
+- (void)webSocketDidOpen:(SRWebSocket *)webSocket{
+    NSLog(@"Websocket Connected");
+}
+//连接失败
+- (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error{
+    NSLog(@":( Websocket Failed With Error %@", error);
+    
+    self.title = @"Connection Failed! (see logs)";
+    self.webSocket = nil;
+}
+//接收到新消息的处理
+- (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message{
+    
+    NSLog(@"%@--askl",message);
+    NSData *jsonData = [message dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSError *err;
+    
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&err];
+    if(err) {
+        NSLog(@"json解析失败：%@",err);
+    }
+    else
+    {
+        WEAKSELF
+        [WJToast showToastWithMessage:[dic objectForKey:@"user_name"] checkCouponButtonClickedBlock:^{
+            WJGoodDetailViewController *dcVc = [[WJGoodDetailViewController alloc] init];
+            dcVc.goods_id = dic[@"goods_id"];;
+            dcVc.hidesBottomBarWhenPushed = YES;
+            [weakSelf.navigationController pushViewController:dcVc animated:YES];
+            weakSelf.hidesBottomBarWhenPushed = NO;
+        }];
+    }
+    
+}
+//连接关闭
+- (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean{
+    NSLog(@"Closed Reason:%@",reason);
+    self.title = @"Connection Closed! (see logs)";
+    self.webSocket = nil;
+}
+
+- (void)webSocket:(SRWebSocket *)webSocket didReceivePong:(NSData *)pongPayload{
+    
+    NSString *reply = [[NSString alloc] initWithData:pongPayload encoding:NSUTF8StringEncoding];
+    NSLog(@"reply==%@",reply);
+}
 - (void)viewDidLoad {
 
     [super viewDidLoad];
@@ -83,17 +166,21 @@
 
 -(void)initPostFootmarkData
 {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
     _postDataType =1;
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-    [infos setValue:[AppDelegate shareAppDelegate].user_id forKey:@"user_id"];
+    [infos setValue:uid forKey:@"user_id"];
     [infos setValue:_goods_id forKey:@"id"];
     [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSPostFootmark] andInfos:infos];
 }
 -(void)initPostCollectGoodsData
 {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
     _postDataType =2;
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-    [infos setValue:[AppDelegate shareAppDelegate].user_id forKey:@"user_id"];
+    [infos setValue:uid forKey:@"user_id"];
     [infos setValue:_goods_id forKey:@"id"];
     [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSPostCollectGoods] andInfos:infos];
 }
@@ -151,9 +238,14 @@
     if([[self.results objectForKey:@"code"] integerValue] == 200)
     {
 
+        
         switch (_serverType) {
             case KGetshopInfoClass:
             {
+                if([[self.results objectForKey:@"data"] isKindOfClass:[NSNull class]])
+                {
+                    return;
+                }
                 _goodTitle =[NSString stringWithFormat:@"%@", self.results[@"data"][@"goods_name"]];
                 _goods_brief =[NSString stringWithFormat:@"%@", self.results[@"data"][@"goods_brief"]];
                 _goodPrice =[NSString stringWithFormat:@"%@", self.results[@"data"][@"shop_price"]];
@@ -193,7 +285,6 @@
             default:
                 break;
         }
-
 
     }
     else
@@ -639,8 +730,10 @@
 //                                      sentStatus:SentStatus_SENT
 //                                      content:richMsg];
 //                 [[NSNotificationCenter defaultCenter] postNotificationName:@"RCDSharedMessageInsertSuccess" object:message];
+                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
                 WJMainWebClassViewController *conversationVC = [[WJMainWebClassViewController alloc]init];
-                NSString *encryptedData = [AESCrypt encrypt:[NSString stringWithFormat:@"uid=%@@sid=%@",[AppDelegate shareAppDelegate].user_id,_supplierUserId] password:@"miyomei2018"];
+                NSString *encryptedData = [AESCrypt encrypt:[NSString stringWithFormat:@"uid=%@@sid=%@",uid,_supplierUserId] password:@"miyomei2018"];
                 
                 NSString *encodedString =[RegularExpressionsMethod encodeString:encryptedData];
 
@@ -648,8 +741,8 @@
                 NSString *str_url = [NSString stringWithFormat:@"https://www.miyomei.com/mobile/mobile_chat_online.php?suppId=%@&goodsId=%@&appToken=%@",_supplier_id,_goods_id,encodedString];
                 conversationVC.str_urlHttp =str_url;
                 
-                NSString *message = [AESCrypt decrypt:encryptedData password:@"miyomei2018"];
-                  NSLog(@"%@    %@",message,str_url);
+                NSString *message = [AESCrypt decrypt:@"piaJVqHq3yBxT0H3QORtQ==" password:@"miyomei2018"];
+                  NSLog(@"message==%@    %@",message,str_url);
                 conversationVC.str_title = _supplier_name;
                 self.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:conversationVC animated:YES];

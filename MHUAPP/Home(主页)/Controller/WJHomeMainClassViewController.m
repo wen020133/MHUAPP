@@ -47,11 +47,11 @@
 #import "WJHomeRefreshGifHeader.h"
 
 
+#import "AESCrypt.h"
+#import "SRWebSocket.h"
+#import "WJToast.h"
 
-
-
-
-@interface WJHomeMainClassViewController ()
+@interface WJHomeMainClassViewController ()<SRWebSocketDelegate>
 
 @property (strong, nonatomic) NSMutableArray <WJGoodsDataModel *>  *headImageArr;
 @property (strong, nonatomic) NSArray <WJADThirdItem *>  *adImageArr;
@@ -63,6 +63,7 @@
 
 @property NSInteger page_Information;
 
+@property(nonatomic,strong) SRWebSocket *webSocket;
 @end
 
 @implementation WJHomeMainClassViewController
@@ -71,6 +72,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self Reconnect];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
 }
 
@@ -79,6 +81,84 @@
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
+
+//初始化
+- (void)Reconnect{
+    
+    NSLog(@"1221---open");
+    
+    self.webSocket.delegate = nil;
+    [self.webSocket close];
+    
+    NSString *str_url = @"";
+    str_url =  @"wss://www.miyomei.com:8080/order";
+    self.webSocket = [[SRWebSocket alloc] initWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str_url]]];
+    self.webSocket.delegate = self;
+    
+    [self.webSocket open];
+}
+
+
+
+- (void)viewDidDisappear:(BOOL)animated{
+    // Close WebSocket
+    self.webSocket.delegate = nil;
+    [self.webSocket close];
+    self.webSocket = nil;
+}
+
+//连接成功
+//代理方法实现
+#pragma mark - SRWebSocketDelegate
+- (void)webSocketDidOpen:(SRWebSocket *)webSocket{
+    NSLog(@"Websocket Connected");
+}
+//连接失败
+- (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error{
+    NSLog(@":( Websocket Failed With Error %@", error);
+    
+    self.title = @"Connection Failed! (see logs)";
+    self.webSocket = nil;
+}
+//接收到新消息的处理
+- (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message{
+   
+    NSLog(@"%@--askl",message);
+    NSData *jsonData = [message dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSError *err;
+    
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&err];
+    if(err) {
+        NSLog(@"json解析失败：%@",err);
+    }
+    else
+    {
+        WEAKSELF
+        [WJToast showToastWithMessage:[dic objectForKey:@"user_name"] checkCouponButtonClickedBlock:^{
+            WJGoodDetailViewController *dcVc = [[WJGoodDetailViewController alloc] init];
+            dcVc.goods_id = dic[@"goods_id"];;
+            dcVc.hidesBottomBarWhenPushed = YES;
+            [weakSelf.navigationController pushViewController:dcVc animated:YES];
+            weakSelf.hidesBottomBarWhenPushed = NO;
+        }];
+    }
+    
+}
+//连接关闭
+- (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean{
+    NSLog(@"Closed Reason:%@",reason);
+    self.title = @"Connection Closed! (see logs)";
+    self.webSocket = nil;
+}
+
+- (void)webSocket:(SRWebSocket *)webSocket didReceivePong:(NSData *)pongPayload{
+    
+    NSString *reply = [[NSString alloc] initWithData:pongPayload encoding:NSUTF8StringEncoding];
+    NSLog(@"reply==%@",reply);
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -86,11 +166,14 @@
     self.page_Information = 1;
     [self setHomeViewUpNav];
     self.headImageArr = [NSMutableArray array];
+    
+    [self setUpRecData];
+    
     [self.view addSubview:self.collectionV];
 
-//    NSString *encryptedData = [AESCrypt encrypt:@"654321" password:@"123456"];
-//    NSString *message = [AESCrypt decrypt:@"4xSD3MgeL0s+6RHoZntwuA==" password:@"123456"];
-//    NSLog(@"654321==%@",message);
+//    NSString *encryptedData = [AESCrypt encrypt:@"123456" password:@"miyomei2018"];
+//    NSString *message = [AESCrypt decrypt:encryptedData password:@"miyomei2018"];
+//    NSLog(@"654321==%@  ",encryptedData);
 
     //返回顶部
     CGRect loginImageViewRect = CGRectMake(kMSScreenWith - 40,kMSScreenHeight-kMSNaviHight - 100 , 27, 27);
@@ -103,7 +186,7 @@
     [self.view addSubview:_backTopImageView];
     _backTopImageView.hidden = YES;
 
-    [self setUpRecData];
+    
 
     [self setUpGIFRrfresh];
 
@@ -502,11 +585,21 @@
     }
     else if(section ==1)
     {
+        if(self.miaoshaArr&&self.miaoshaArr.count>0)
+        {
      NSArray *arr = [[self.miaoshaArr objectAtIndex:0] objectForKey:@"activity"];
         if (arr.count<1) {
             return CGSizeZero;
         }
-        return CGSizeMake(kMSScreenWith, 40);
+            else
+            {
+                return CGSizeMake(kMSScreenWith, 40);
+            }
+        }
+        else
+        {
+            return CGSizeZero;
+        }
     }
     else
         return CGSizeMake(kMSScreenWith, 40);  //推荐适合的宽高
@@ -545,11 +638,20 @@
     }
         else if(indexPath.section == 1)
         {
+            if(self.miaoshaArr&&self.miaoshaArr.count>0)
+            {
             NSArray *arr = [[self.miaoshaArr objectAtIndex:0] objectForKey:@"activity"];
             if (arr.count<1) {
                 return CGSizeZero;
             }
-            return CGSizeMake(kMSScreenWith, 210);
+                else
+                {
+                     return CGSizeMake(kMSScreenWith, 210);
+                }
+            }
+            else
+                return CGSizeZero;
+           
         }
         else if(indexPath.section ==2)
         {
@@ -741,7 +843,10 @@
             break;
         case 1006:
         {
-           if([AppDelegate shareAppDelegate].user_id.length<1)
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            
+            NSString *loginState = [userDefaults objectForKey:@"loginState"];
+            if(![loginState isEqualToString:@"1"])
             {
                 WJLoginClassViewController *land = [[WJLoginClassViewController alloc]init];
                 UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:land];

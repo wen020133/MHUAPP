@@ -147,8 +147,10 @@
 //                [userDefaults setObject:allTimeArr forKey:@"RYFriendsList"];
 //                [userDefaults synchronize];
 //            }
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
             WJMainWebClassViewController *conversationVC = [[WJMainWebClassViewController alloc]init];
-            NSString *encryptedData = [AESCrypt encrypt:[NSString stringWithFormat:@"uid=%@@sid=%@",[AppDelegate shareAppDelegate].user_id,_supplierUserId] password:@"miyomei2018"];
+            NSString *encryptedData = [AESCrypt encrypt:[NSString stringWithFormat:@"uid=%@@sid=%@",uid,_supplierUserId] password:@"miyomei2018"];
             
             NSString *encodedString =[RegularExpressionsMethod encodeString:encryptedData];
             

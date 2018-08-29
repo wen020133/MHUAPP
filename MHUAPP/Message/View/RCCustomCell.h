@@ -6,11 +6,10 @@
 //  Copyright © 2015年 郑文明. All rights reserved.
 //
 
-#import <RongIMKit/RongIMKit.h>
 #import "PPDragDropBadgeView.h"
 #define kCellHeight 80
 
-@interface RCCustomCell : RCConversationBaseCell
+@interface RCCustomCell : UITableViewCell
 ///头像
 @property (nonatomic,retain) UIImageView *avatarIV;
 ///真实姓名

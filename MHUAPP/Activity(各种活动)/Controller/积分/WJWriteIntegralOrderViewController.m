@@ -112,9 +112,10 @@
         [self requestFailed:@"请选择收货地址！"];
         return;
     }
-   
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
-    [infos setObject:[AppDelegate shareAppDelegate].user_id forKey:@"user_id"];
+    [infos setObject:uid forKey:@"user_id"];
     [infos setObject:_str_address forKey:@"assemble_site"];
     [infos setObject:_str_Name forKey:@"consignee"];
     [infos setObject:_str_telephone forKey:@"mobile"];

@@ -39,7 +39,9 @@
 }
 -(void)initGetFootmarkClassData
 {
-     [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%ld&user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetFootmark,_page_Information,[AppDelegate shareAppDelegate].user_id]];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
+     [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%ld&user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetFootmark,_page_Information,uid]];
 }
 -(NSMutableArray *)chuliQianArr{
     if (!_chuliQianArr) {
@@ -270,8 +272,9 @@
 
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSMutableArray *arrAllkeys = _setItem[indexPath.section][@"goodsInfo"];
-
-         [self requestDeleteAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@&str=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDeleteFootmark,[AppDelegate shareAppDelegate].user_id,[[arrAllkeys objectAtIndex:indexPath.row] objectForKey:@"footmark_id"]]];
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
+         [self requestDeleteAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@&str=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDeleteFootmark,uid,[[arrAllkeys objectAtIndex:indexPath.row] objectForKey:@"footmark_id"]]];
             //    删除
 
 

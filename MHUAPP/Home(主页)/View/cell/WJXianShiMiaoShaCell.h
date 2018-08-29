@@ -16,5 +16,5 @@
 @property (nonatomic, strong) UILabel *lab_price;
 @property (nonatomic, strong) UILabel *lab_count;
 @property (nonatomic, strong) UILabel *oldPriceLabel;
-
+@property (nonatomic, strong) UILabel *hongbaoLabel;
 @end

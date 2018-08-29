@@ -7,9 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <RongIMKit/RongIMKit.h>
 #import "WJMainTabBarViewController.h"
-#import "RCDataManager.h"
 #import "WXApi.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate,WXApiDelegate>
@@ -18,11 +16,5 @@
 
 @property (nonatomic, strong) WJMainTabBarViewController *tabbarVC;
 
-@property(nonatomic,strong) NSMutableArray *friendsArray;
-@property(nonatomic,strong) NSMutableArray *groupsArray;
-@property(nonatomic,strong) NSString *user_id;
-
-/// func
-+ (AppDelegate* )shareAppDelegate;
 @end
 

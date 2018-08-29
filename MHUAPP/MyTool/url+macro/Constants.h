@@ -45,7 +45,7 @@
 #define kMSButtonBackColor [UIColor colorWithRed:249/255.0 green:125/255.0 blue:10/255.0 alpha:1]
 #define kMSNavBarBackColor [UIColor colorWithRed:253/255.0 green:35/255.0 blue:60/255.0 alpha:1]
 #define kMSViewBorderColor [[UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1] CGColor]
-
+#define kMSToastViewBackColor [UIColor colorWithRed:84/255.0 green:84/255.0 blue:84/255.0 alpha:1]
 #define HEXCOLOR(rgbValue)                                                                                             \
 [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16)) / 255.0                                               \
 green:((float)((rgbValue & 0xFF00) >> 8)) / 255.0                                                  \

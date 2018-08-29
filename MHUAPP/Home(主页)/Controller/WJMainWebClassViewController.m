@@ -31,7 +31,7 @@
 //    _webView.scrollView.bounces = NO;
 //    _webView.delegate = self;
 //    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"mobile_chat_online" ofType:@"html" inDirectory:@"mobile"]]]];
-    
+    _webView.delegate = self;
     [self.view addSubview:_webView];
 
     //进度条

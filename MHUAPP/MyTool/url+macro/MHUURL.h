@@ -144,4 +144,6 @@
 #define   kMSDistributionList       @"distributionList"  //可分销商品列表
 #define   kMSDetailList       @"detailList"  //分销明细表
 #define   kMSDepositCate       @"depositCate"  //分销商品分类
+#define   kMSDepositMoney       @"depositMoney"  //分销资金管理
+
 #endif /* MHUURL_h */

@@ -18,14 +18,18 @@ PODS:
   - Masonry (1.1.0)
   - MJExtension (3.0.15.1)
   - MJRefresh (3.1.15.3)
-  - RongCloudIM/IMKit (2.9.2):
-    - RongCloudIM/IMLib
-  - RongCloudIM/IMLib (2.9.2)
+  - ReactiveCocoa (2.1.8):
+    - ReactiveCocoa/Core (= 2.1.8)
+    - ReactiveCocoa/no-arc (= 2.1.8)
+  - ReactiveCocoa/Core (2.1.8):
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/no-arc (2.1.8)
   - SDCycleScrollView (1.65):
     - SDWebImage (~> 3.7)
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
+  - SocketRocket (0.5.1)
   - SVProgressHUD (2.2.5)
   - UITableView+FDTemplateLayoutCell (1.6)
   - UMCCommon (1.5.2)
@@ -51,9 +55,10 @@ DEPENDENCIES:
   - Masonry
   - MJExtension
   - MJRefresh
-  - RongCloudIM/IMKit
+  - ReactiveCocoa (~> 2.1.8)
   - SDCycleScrollView
   - SDWebImage (= 3.8.2)
+  - SocketRocket (~> 0.5.1)
   - SVProgressHUD
   - UITableView+FDTemplateLayoutCell (~> 1.5.beta)
   - UMCCommon
@@ -69,9 +74,10 @@ SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJExtension: 19bc33ce2eee2d319760f5622562cf581a6ff756
   MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
-  RongCloudIM: fdfa42630aec09c92d6054753ea3e7a7db75bec2
+  ReactiveCocoa: f89f2e009a87951b50321bf9feb958823fcc617e
   SDCycleScrollView: f72904c77698a7f93a41bcbbc2d78b073bf7326c
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+  SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   UITableView+FDTemplateLayoutCell: 5c949b4a5059c404b442926c0e80f81d10a2d66f
   UMCCommon: 4392868ac47ff1b101663106bb114ba616fabbad
@@ -79,6 +85,6 @@ SPEC CHECKSUMS:
   WechatOpenSDK: 676feec516a11173eafd1fe64b10d27babf28701
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 6bf4ad6b5201a2b00387ef77437f4555edc55ee2
+PODFILE CHECKSUM: 02685b6bc4a2cc90490afee6ccc07b3c4114431a
 
 COCOAPODS: 1.3.1

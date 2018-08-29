@@ -13,7 +13,6 @@
 #import "RigisterClassViewController.h"
 
 #import "AppDelegate.h"
-#import "RCDataManager.h"
 
 @interface WJLoginClassViewController ()
 
@@ -216,7 +215,6 @@
 
                 NSMutableDictionary *dic = [NSMutableDictionary dictionary];
                 [dic setValue:[[self.results objectForKey:@"data"] objectForKey:@"user_id" ] forKey:@"uid"];
-                 [AppDelegate shareAppDelegate].user_id = [NSString stringWithFormat:@"%@",[[self.results objectForKey:@"data"] objectForKey:@"user_id"]];
                 [dic setValue:[[self.results objectForKey:@"data"] objectForKey:@"user_name" ] forKey:@"username"];
                 [dic setValue:ConvertNullString([[self.results objectForKey:@"data"] objectForKey:@"mobile_phone" ]) forKey:@"phone"];
                 NSString *logo_img =ConvertNullString([[self.results objectForKey:@"data"] objectForKey:@"headimg" ]);
@@ -254,7 +252,6 @@
                     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
 
                     [dic setValue:[NSString stringWithFormat:@"%@",[[self.results objectForKey:@"data"] objectForKey:@"user_id"]] forKey:@"uid"];
-                    [AppDelegate shareAppDelegate].user_id = [NSString stringWithFormat:@"%@",[[self.results objectForKey:@"data"] objectForKey:@"user_id"]];
                     [dic setValue:self.outUserId forKey:@"other_uid"];
                     [dic setValue:ConvertNullString([[[self.results objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"user_name" ]) forKey:@"username"];
                     [dic setValue:ConvertNullString([[[self.results objectForKey:@"data"] objectForKey:@"info"] objectForKey:@"user_tel" ]) forKey:@"phone"];
@@ -293,16 +290,6 @@
                 NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
                 [userDefaults setObject:data forKey:@"accessToken"];
                 [userDefaults synchronize];
-                NSString *str_username = [[userDefaults objectForKey:@"userList"] objectForKey:@"username"];
-                NSString *str_logo_img = [[userDefaults objectForKey:@"userList"] objectForKey:@"user_icon"];
-                NSString *user_id =[NSString stringWithFormat:@"guke%@", [AppDelegate shareAppDelegate].user_id];
-                //融云
-                [[RCIM sharedRCIM] initWithAppKey:RONGClOUDAPPKEY];
-                [RCIM sharedRCIM].userInfoDataSource = [RCDataManager shareManager];
-                [RCIM sharedRCIM].enablePersistentUserInfoCache = YES;
-                [RCIM sharedRCIM].enableMessageAttachUserInfo = YES;
-//                [[RCIM sharedRCIM]refreshUserInfoCache:[[RCUserInfo alloc]initWithUserId:user_id name:str_username portrait:str_logo_img] withUserId:user_id];
-                [[RCDataManager shareManager] loginRongCloudWithUserInfo:[[RCUserInfo alloc]initWithUserId:user_id name:str_username portrait:str_logo_img] withToken:data];
                 [self.navigationController popViewControllerAnimated:YES];
                 [self dismissViewControllerAnimated:NO completion:^{
 

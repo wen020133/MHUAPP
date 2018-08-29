@@ -43,7 +43,10 @@ static NSInteger lz_CartRowHeight = 100;
 #pragma mark - viewController life cicle
 - (void)viewWillAppear:(BOOL)animated {
 
-    if([AppDelegate shareAppDelegate].user_id.length<1)
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    NSString *loginState = [userDefaults objectForKey:@"loginState"];
+    if(![loginState isEqualToString:@"1"])
     {
         [self setupCustomNavigationBar];
         _myTableView.hidden = YES;
@@ -229,9 +232,10 @@ static NSInteger lz_CartRowHeight = 100;
 #pragma mark - 布局页面视图
 #pragma mark -- 自定义导航
 - (void)setupCustomNavigationBar {
-
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid =[NSString stringWithFormat:@"%@", [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ]];
     if (self.isHasTabBarController) {
-        if ([AppDelegate shareAppDelegate].user_id.length>1&&self.dataArray.count > 0) {
+        if (uid.length>1&&self.dataArray.count > 0) {
              [self initSendReplyWithTitle:@"购物车" andLeftButtonName:nil andRightButtonName: @"编辑" andTitleLeftOrRight:NO];
         }
         else
@@ -242,7 +246,7 @@ static NSInteger lz_CartRowHeight = 100;
     }
     else
     {
-        if ([AppDelegate shareAppDelegate].user_id.length>1&&self.dataArray.count > 0) {
+        if (uid.length>1&&self.dataArray.count > 0) {
               [self initSendReplyWithTitle:@"购物车" andLeftButtonName:@"ic_back.png" andRightButtonName:@"编辑" andTitleLeftOrRight:NO];
         }
         else
@@ -620,7 +624,8 @@ static NSInteger lz_CartRowHeight = 100;
 }
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
     if (editingStyle == UITableViewCellEditingStyleDelete) {
 
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"确定要删除该商品?删除后无法恢复!" preferredStyle:1];
@@ -631,7 +636,7 @@ static NSInteger lz_CartRowHeight = 100;
 
 
             NSString *attString =  model.rec_id;
-            [self requestDeleteAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@&rec_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDeleteCart,[AppDelegate shareAppDelegate].user_id,attString]];
+            [self requestDeleteAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@&rec_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDeleteCart,uid,attString]];
 
             [shop.goodsArray removeObjectAtIndex:indexPath.row];
             //    删除
@@ -741,6 +746,8 @@ static NSInteger lz_CartRowHeight = 100;
 }
 -(void)deleteGoodsInCart:(UIButton *)sender
 {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
     if (_selectedArray.count > 0) {
         NSMutableArray *arr_recId = [NSMutableArray array];
         for (WJCartGoodsModel *model in _selectedArray) {
@@ -749,7 +756,7 @@ static NSInteger lz_CartRowHeight = 100;
         }
          NSString *attString =  [arr_recId componentsJoinedByString:@","];
 
-         [self requestDeleteAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@&rec_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDeleteCart,[AppDelegate shareAppDelegate].user_id,attString]];
+         [self requestDeleteAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@&rec_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDeleteCart,uid,attString]];
         
     } else {
         [SVProgressHUD showErrorWithStatus:@"你还没有选择任何商品"];

@@ -23,11 +23,12 @@
             model.img = [dic objectForKey:@"img"];
             model.goods_name = [dic objectForKey:@"goods_name"];
             model.count_price = [NSString stringWithFormat:@"%@",[dic objectForKey:@"count_price"]];
+            model.goods_price = [NSString stringWithFormat:@"%@",[dic objectForKey:@"goods_price"]];
             model.goods_attr = [dic objectForKey:@"goods_attr"];
             model.rec_id = [dic objectForKey:@"rec_id"];
             model.youhui = [dic objectForKey:@"youhui"];
             model.market_price = [NSString stringWithFormat:@"%@",[dic objectForKey:@"market_price"]];
-             model.shop_price = [NSString stringWithFormat:@"%@",[dic objectForKey:@"shop_price"]];
+             model.count_price = [NSString stringWithFormat:@"%@",[dic objectForKey:@"count_price"]];
             model.back_goods_number = [NSString stringWithFormat:@"%@",[dic objectForKey:@"back_goods_number"]];
             model.back_goods_price = [NSString stringWithFormat:@"%@",[dic objectForKey:@"back_goods_price"]];
             model.back_id = [NSString stringWithFormat:@"%@",[dic objectForKey:@"back_id"]];

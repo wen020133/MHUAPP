@@ -412,10 +412,10 @@
     NSLog(@"上传服务器... +++ 文本内容:%@",_noteTextView.text);
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *str_username = [[userDefaults objectForKey:@"userList"] objectForKey:@"username"];
-
+     NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
     [infos setValue:_goods_id forKey:@"goods_id"];
-    [infos setValue:[AppDelegate shareAppDelegate].user_id forKey:@"user_id"];
+    [infos setValue:uid forKey:@"user_id"];
     [infos setValue:_rec_id forKey:@"rec_id"];
     [infos setValue:str_username forKey:@"user_name"];
     [infos setValue:_comment_rank forKey:@"comment_rank"];

@@ -156,6 +156,8 @@
 }
 -(void)cancelTheAttention:(UIButton *)button
 {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
     if (_selectedArray.count > 0) {
         NSMutableArray *arr_recId = [NSMutableArray array];
         for (WJCollectionItem *model in _selectedArray) {
@@ -164,7 +166,7 @@
         }
         NSString *attString =  [arr_recId componentsJoinedByString:@","];
 
-        [self requestDeleteAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@&str=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDeleteSupplier,[AppDelegate shareAppDelegate].user_id,attString]];
+        [self requestDeleteAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@&str=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDeleteSupplier,uid,attString]];
 
     } else {
         [SVProgressHUD showErrorWithStatus:@"你还没有选择任何店铺"];
@@ -190,8 +192,9 @@
 //加载数据
 - (void)loadData
 {
-
-    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%ld&user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetSupplierGuanzhu,_page,[AppDelegate shareAppDelegate].user_id]];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%ld&user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetSupplierGuanzhu,_page,uid]];
 }
 
 -(void)getProcessData
@@ -310,10 +313,11 @@
 
 {
     [tableView setEditing:NO animated:YES];
-
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSString *attString = _dataArr[indexPath.row].guanzhu_id;
-        [self requestDeleteAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@&str=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDeleteSupplier,[AppDelegate shareAppDelegate].user_id,attString]];
+        [self requestDeleteAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@&str=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDeleteSupplier,uid,attString]];
 
     }
 

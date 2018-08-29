@@ -508,7 +508,10 @@ static NSArray *lastSeleArray_;
 
 - (void)setUpWithAddSuccess
 {
-    if([AppDelegate shareAppDelegate].user_id.length<1)
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    NSString *loginState = [userDefaults objectForKey:@"loginState"];
+    if(![loginState isEqualToString:@"1"])
     {
         WJLoginClassViewController *land = [[WJLoginClassViewController alloc]init];
         UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:land];
