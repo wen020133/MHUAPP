@@ -15,7 +15,6 @@
 #import "UIView+UIViewFrame.h"
 #import "WJLoginClassViewController.h"
 #import "WJWirteOrderClassViewController.h"
-#import "AppDelegate.h"
 #import "WJGoodDetailViewController.h"
 #import "WJStoreInfoClassViewController.h"
 #import <UIImageView+WebCache.h>

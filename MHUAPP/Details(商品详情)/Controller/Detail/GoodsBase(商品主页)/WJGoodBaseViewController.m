@@ -17,6 +17,7 @@
 #import "WJShowTypeGoodsPropertyCell.h"
 //#import "WJShowTypeAddressCell.h"
 #import "WJShowTypeFreightCell.h"
+#import "WJHongBaoIntroductionCell.h"
 #import "WJDetailPartCommentCell.h"
 #import "WJFeatureSelectionViewController.h"
 #import "WJDetailOverFooterView.h"
@@ -63,7 +64,8 @@ static NSArray *lastSeleArray_;
     lastNum_ = @"1";
     [self acceptanceNote];
     [self getGoodsDescData];
-    
+//    self.is_use_bonus = @"1";
+//    self.bonus_tips = @"sadkdhklasdhsaldaskjdhsajhdjkashdkashdkashdha;flkakshakjh";
 
     // Do any additional setup after loading the view.
 }
@@ -148,6 +150,7 @@ static NSArray *lastSeleArray_;
 //        [_collectionView registerClass:[WJShowTypeAddressCell class] forCellWithReuseIdentifier:@"WJShowTypeAddressCell"];
         [_collectionView registerClass:[WJShowTypeFreightCell class] forCellWithReuseIdentifier:@"WJShowTypeFreightCell"];
         [_collectionView registerClass:[WJDetailPartCommentCell class] forCellWithReuseIdentifier:@"WJDetailPartCommentCell"];
+         [_collectionView registerClass:[WJHongBaoIntroductionCell class] forCellWithReuseIdentifier:@"WJHongBaoIntroductionCell"];
 
         //注册Footer
         [_collectionView registerClass:[WJDetailOverFooterView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"WJDetailOverFooterView"];
@@ -259,7 +262,7 @@ static NSArray *lastSeleArray_;
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     switch (section) {
         case 0:
-            return 2;
+            return 3;
             break;
         case 1:
         {
@@ -307,6 +310,12 @@ static NSArray *lastSeleArray_;
         }else if (indexPath.row == 1){
             WJShowTypeCouponCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJShowTypeCouponCell" forIndexPath:indexPath];
 
+            gridcell = cell;
+        }
+        else
+        {
+            WJHongBaoIntroductionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJHongBaoIntroductionCell" forIndexPath:indexPath];
+            cell.str_bonus_tips = _bonus_tips;
             gridcell = cell;
         }
 
@@ -401,7 +410,22 @@ static NSArray *lastSeleArray_;
 #pragma mark - item宽高
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) { //商品详情
-        return (indexPath.row == 0) ? CGSizeMake(kMSScreenWith, [RegularExpressionsMethod dc_calculateTextSizeWithText:_goodTitle WithTextFont:16 WithMaxW:kMSScreenWith - DCMargin * 2].height + 40) : CGSizeMake(kMSScreenWith, 35);
+        if (indexPath.row == 0)
+            return  CGSizeMake(kMSScreenWith, [RegularExpressionsMethod dc_calculateTextSizeWithText:_goodTitle WithTextFont:16 WithMaxW:kMSScreenWith - DCMargin * 2].height + 40);
+        else if(indexPath.row==1)
+           return CGSizeMake(kMSScreenWith, 35);
+        else
+        {
+            if([_is_use_bonus integerValue]==1)
+            {
+                return CGSizeMake(kMSScreenWith,  [RegularExpressionsMethod contentCellHeightWithText:_bonus_tips font:Font(12) width:kMSScreenWith-56]+12);
+            }
+            else
+            {
+                 return CGSizeZero;
+            }
+            
+        }
     }
 
    else  if(indexPath.section == 1)

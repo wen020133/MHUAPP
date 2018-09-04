@@ -14,8 +14,8 @@
 /* 推荐数据 */
 @property (strong , nonatomic) WJGoodsListItem *goodsItem;
 
-/* 优惠套装 */
-@property (strong , nonatomic)UIImageView *freeSuitImageView;
+///* 优惠套装 */
+//@property (strong , nonatomic)UIImageView *freeSuitImageView;
 /* 商品图片 */
 @property (strong , nonatomic)UIImageView *gridImageView;
 /* 商品标题 */
@@ -24,5 +24,7 @@
 @property (strong , nonatomic)UILabel *priceLabel;
 /* 评价数量 */
 @property (strong , nonatomic)UILabel *commentNumLabel;
+
+@property (nonatomic, strong) UILabel *hongbaoLabel;
 
 @end

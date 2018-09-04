@@ -81,7 +81,14 @@
     [cell.img_content sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"default_nomore.png"] completed:nil];
     cell.lab_title.text = _countDownItem[indexPath.row][@"goods_name"];
     cell.lab_price.text = [NSString stringWithFormat:@"￥%@",_countDownItem[indexPath.row][@"shop_price"]];
-
+    if([_countDownItem[indexPath.row][@"is_use_bonus"] integerValue]==1)
+    {
+        cell.hongbaoLabel.hidden = NO;
+    }
+    else
+    {
+        cell.hongbaoLabel.hidden = YES;
+    }
 //    NSString *oldprice = _countDownItem[indexPath.row][@"market_price"];
 //    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:oldprice
 //                                                                                attributes:@{NSStrikethroughStyleAttributeName : @(NSUnderlineStyleSingle)}];

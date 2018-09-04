@@ -25,6 +25,7 @@
 
 #define D_LocalizedCardString(s) [[NSBundle mainBundle] localizedStringForKey:s value:nil table:@"CardToolLanguage"]
 
+#define kHistroySearchData    @"HistroySearchData"   ///key
 
 #define kMSVCBackgroundColor    @"F7F7F7"   //APP背景颜色
 #define kGrayBgColor            @"999999"  // 灰色字体
@@ -81,8 +82,8 @@ alpha:1.0]
 #define kAppIDWeixin         @"wx586d8045169c86f1"
 #define kAppSecret         @"b97c4cb8386368a799296656539a4e9e"
 #define kRedirectURI    @"https://itunes.apple.com/cn/app/omynail/id1115575145?mt=8"
-#define RONGClOUDAPPKEY    @"3argexb63mdle"
-#define RONGClOUDAPPSecret     @"omGLVnwCHwubOP"
+//#define RONGClOUDAPPKEY    @"3argexb63mdle"
+//#define RONGClOUDAPPSecret     @"omGLVnwCHwubOP"
 //#define RONGClOUDAPPKEY    @"ik1qhw09ipobp"
 //#define RONGClOUDAPPSecret     @"b7ZF67z1xe9H4C"
 

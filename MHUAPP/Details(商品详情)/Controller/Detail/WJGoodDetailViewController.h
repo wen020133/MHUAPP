@@ -49,4 +49,7 @@ typedef NS_ENUM(NSInteger, KGetShopInfoClassType) {
 @property (strong , nonatomic) NSString *supplier_name;
 @property (assign, nonatomic) KGetShopInfoClassType serverType;
 
+/* 红包提示 */
+@property (strong, nonatomic) NSString *bonus_tips;
+@property (strong, nonatomic) NSString *is_use_bonus;
 @end

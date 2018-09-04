@@ -27,9 +27,9 @@
 - (void)setUpUI
 {
     self.backgroundColor = [UIColor whiteColor];
-    _freeSuitImageView = [[UIImageView alloc] init];
-    _freeSuitImageView.image = [UIImage imageNamed:@"taozhuang_tag"];
-    [self addSubview:_freeSuitImageView];
+//    _freeSuitImageView = [[UIImageView alloc] init];
+//    _freeSuitImageView.image = [UIImage imageNamed:@"taozhuang_tag"];
+//    [self addSubview:_freeSuitImageView];
 
     _gridImageView = [[UIImageView alloc] init];
     _gridImageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -52,6 +52,16 @@
     _commentNumLabel.textColor = [UIColor darkGrayColor];
     [self addSubview:_commentNumLabel];
 
+    _hongbaoLabel = [[UILabel alloc] init];
+    _hongbaoLabel.textColor = kMSCellBackColor;
+    _hongbaoLabel.backgroundColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
+    _hongbaoLabel.font = Font(11);
+    _hongbaoLabel.textAlignment = NSTextAlignmentCenter;
+    _hongbaoLabel.layer.cornerRadius = 5;
+    _hongbaoLabel.layer.masksToBounds = YES;//设置圆角
+    _hongbaoLabel.text = @"红包";
+    [self addSubview:_hongbaoLabel];
+    
     [RegularExpressionsMethod dc_setUpAcrossPartingLineWith:self WithColor:[[UIColor lightGrayColor]colorWithAlphaComponent:0.4]];
 }
 
@@ -74,9 +84,14 @@
     }];
 
 
-    [_freeSuitImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(_gridImageView.mas_right);
-        [make.top.mas_equalTo(_gridLabel.mas_bottom)setOffset:2];
+//    [_freeSuitImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.mas_equalTo(_gridImageView.mas_right);
+//        [make.top.mas_equalTo(_gridLabel.mas_bottom)setOffset:2];
+//    }];
+    [_hongbaoLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+         [make.right.mas_equalTo(self)setOffset:-DCMargin];
+        [make.top.mas_equalTo(_gridLabel.mas_bottom)setOffset:3];
+        make.size.mas_equalTo(CGSizeMake(30, 15));
     }];
 
     [_priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -102,5 +117,13 @@
      _commentNumLabel.text = [NSString stringWithFormat:@"已售%@件",ConvertString(_goodsItem.num)];
 
     _gridLabel.text = _goodsItem.goods_name;
+    if([_goodsItem.is_use_bonus integerValue]==1)
+    {
+        _hongbaoLabel.hidden = NO;
+    }
+    else
+    {
+        _hongbaoLabel.hidden = YES;
+    }
 }
 @end

@@ -84,17 +84,13 @@
 
 //初始化
 - (void)Reconnect{
-    
-    NSLog(@"1221---open");
-    
+
     self.webSocket.delegate = nil;
     [self.webSocket close];
     
-    NSString *str_url = @"";
-    str_url =  @"wss://www.miyomei.com:8080/order";
+    NSString *str_url =  @"wss://www.miyomei.com:8080/order";
     self.webSocket = [[SRWebSocket alloc] initWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str_url]]];
     self.webSocket.delegate = self;
-    
     [self.webSocket open];
 }
 

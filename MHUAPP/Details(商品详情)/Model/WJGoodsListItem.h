@@ -28,4 +28,7 @@
 @property (nonatomic, copy ,readonly) NSString *goods_number;
 /** 销售数量2 */
 @property (nonatomic, copy ,readonly) NSString *num;
+
+/** 是否红包 */
+@property (nonatomic, copy ,readonly) NSString *is_use_bonus;
 @end

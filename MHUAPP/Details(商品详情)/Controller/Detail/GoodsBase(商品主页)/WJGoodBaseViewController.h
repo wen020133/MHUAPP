@@ -42,4 +42,8 @@
 
 /** 更改标题 */
 @property (nonatomic , copy) void(^changeTitleBlock)(BOOL isChange);
+
+/* 红包提示 */
+@property (strong, nonatomic) NSString *bonus_tips;
+@property (strong, nonatomic) NSString *is_use_bonus;
 @end

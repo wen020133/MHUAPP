@@ -90,6 +90,7 @@
     NSString *goods_num = _countDownItem[indexPath.row][@"goods_num"];
     NSInteger num =  [kill_num integerValue]-[goods_num integerValue];
     cell.lab_count.text = [NSString stringWithFormat:@"%ld人已付款",num];
+    cell.hongbaoLabel.hidden=YES;
     return cell;
 }
 

@@ -20,17 +20,27 @@
         _grayView.backgroundColor = [UIColor whiteColor];
         [self.contentView addSubview:_grayView];
         
-        _img_content = [[UIImageView alloc]initWithFrame:CGRectMake(0, DCMargin, _grayView.width, _grayView.height-70)];
+        _img_content = [[UIImageView alloc]initWithFrame:CGRectMake(0, DCMargin, _grayView.width, _grayView.height-90)];
         _img_content.backgroundColor = kMSCellBackColor;
         _img_content.contentMode = UIViewContentModeScaleAspectFit;
         [_grayView addSubview:_img_content];
         
-        _title = [[UILabel alloc]initWithFrame:CGRectMake(10, _grayView.height-71, _grayView.width-20, 40)];
+        _title = [[UILabel alloc]initWithFrame:CGRectMake(10, _grayView.height-91, _grayView.width-20, 40)];
         _title.font = PFR14Font;
         _title.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
         _title.textAlignment = NSTextAlignmentLeft;
         _title.numberOfLines = 0;
         [_grayView addSubview:_title];
+        
+        _hongbaoLabel = LabelInit(self.width-35, _title.Bottom, 30, 15);
+        _hongbaoLabel.textColor = kMSCellBackColor;
+        _hongbaoLabel.backgroundColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
+        _hongbaoLabel.font = Font(11);
+        _hongbaoLabel.textAlignment = NSTextAlignmentCenter;
+        _hongbaoLabel.layer.cornerRadius = 5;
+        _hongbaoLabel.layer.masksToBounds = YES;//设置圆角
+        _hongbaoLabel.text = @"红包";
+        [_grayView addSubview:_hongbaoLabel];
         
         _lab_price = [[UILabel alloc]init];
         _lab_price.font = PFR15Font;
@@ -61,11 +71,11 @@
 
     NSString *price = [NSString stringWithFormat:@"￥%@",_model.shop_price];
     CGFloat width = [RegularExpressionsMethod widthOfString:price font:Font(15) height:20];
-    _lab_price.frame = CGRectMake(10, _title.Bottom+5, width, 20);
+    _lab_price.frame = CGRectMake(10, _hongbaoLabel.Bottom+5, width, 20);
     _lab_price.text = price;
     
     NSString *saleCount = [NSString stringWithFormat:@"%@人已付款",_model.num];
-    _lab_count.frame = CGRectMake(width+12, _title.Bottom+5, self.width-width-18, 20);
+    _lab_count.frame = CGRectMake(width+12, _hongbaoLabel.Bottom+5, self.width-width-18, 20);
     _lab_count.text = saleCount;
     
 }

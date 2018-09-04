@@ -22,7 +22,7 @@
 #import "AESCrypt.h"
 #import "WJMainWebClassViewController.h"
 #import "WJGoodDetailViewController.h"
-
+#import "WJLoginClassViewController.h"
 
 #import "SRWebSocket.h"
 #import "WJToast.h"
@@ -583,6 +583,19 @@
 
     }else if(button.tag == 1){
         NSLog(@"客服");
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        
+        NSString *loginState = [userDefaults objectForKey:@"loginState"];
+        if(![loginState isEqualToString:@"1"])
+        {
+            WJLoginClassViewController *land = [[WJLoginClassViewController alloc]init];
+            UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:land];
+            [nav.navigationBar setIsMSNavigationBar];
+            [self presentViewController:nav animated:YES completion:^{
+            }];
+        }
+        else
+        {
         if (![_supplierUserId isEqual:[NSNull null]]) {
             if (_supplierUserId.length>0) {
 //                WJConversationViewController *conversationVC = [[WJConversationViewController alloc]init];
@@ -662,6 +675,7 @@
         {
             [self requestFailed:@"获取客服信息失败！"];
             return;
+        }
         }
     }
     else if(button.tag == 2){

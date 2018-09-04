@@ -26,7 +26,7 @@
 
 #import "WJDetailPartCommentItem.h"
 #import <UShareUI/UShareUI.h>
-
+#import "WJLoginClassViewController.h"
 #import "WJMainWebClassViewController.h"
 #import "AESCrypt.h"
 
@@ -161,6 +161,7 @@
     [self acceptanceNote];
 
     [self initPostFootmarkData];
+    
     // Do any additional setup after loading the view.
 }
 
@@ -250,6 +251,8 @@
                 _goods_brief =[NSString stringWithFormat:@"%@", self.results[@"data"][@"goods_brief"]];
                 _goodPrice =[NSString stringWithFormat:@"%@", self.results[@"data"][@"shop_price"]];
                 _oldPrice = [NSString stringWithFormat:@"%@",self.results[@"data"][@"market_price"]];
+                _is_use_bonus = [NSString stringWithFormat:@"%@",self.results[@"data"][@"is_use_bonus"]];
+                _bonus_tips = [NSString stringWithFormat:@"%@",self.results[@"data"][@"bonus_tips"]];
                 _goodImageView =[NSString stringWithFormat:@"%@", self.results[@"data"][@"goods_thumb"]];
                 _shufflingArray = self.results[@"data"][@"gallery"];
                 _attributeArray = self.results[@"data"][@"attr"];
@@ -426,6 +429,7 @@
     goodBaseVc.goodSubtitle = _goodSubtitle;
     goodBaseVc.shufflingArray = _shufflingArray;
     goodBaseVc.oldPrice = _oldPrice;
+    goodBaseVc.bonus_tips = _bonus_tips;
     NSMutableArray *arr = [NSMutableArray array];
     if(_attributeArray&&_attributeArray.count>0)
     {
@@ -678,8 +682,50 @@
         self.hidesBottomBarWhenPushed = YES;
     }else if(button.tag == 1){
         NSLog(@"客服");
-        if (![_supplierUserId isEqual:[NSNull null]]) {
-            if (_supplierUserId.length>0) {
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        
+        NSString *loginState = [userDefaults objectForKey:@"loginState"];
+        if(![loginState isEqualToString:@"1"])
+        {
+            WJLoginClassViewController *land = [[WJLoginClassViewController alloc]init];
+            UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:land];
+            [nav.navigationBar setIsMSNavigationBar];
+            [self presentViewController:nav animated:YES completion:^{
+            }];
+        }
+        else
+        {
+            if (![_supplierUserId isEqual:[NSNull null]]) {
+                if (_supplierUserId.length>0) {
+            NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
+            WJMainWebClassViewController *conversationVC = [[WJMainWebClassViewController alloc]init];
+            NSString *encryptedData = [AESCrypt encrypt:[NSString stringWithFormat:@"uid=%@@sid=%@",uid,_supplierUserId] password:@"miyomei2018"];
+            
+            NSString *encodedString =[RegularExpressionsMethod encodeString:encryptedData];
+            
+            
+            NSString *str_url = [NSString stringWithFormat:@"https://www.miyomei.com/mobile/mobile_chat_online.php?suppId=%@&goodsId=%@&appToken=%@",_supplier_id,_goods_id,encodedString];
+            conversationVC.str_urlHttp =str_url;
+            
+            NSString *message = [AESCrypt decrypt:@"piaJVqHq3yBxT0H3QORtQ==" password:@"miyomei2018"];
+            NSLog(@"message==%@    %@",message,str_url);
+            conversationVC.str_title = _supplier_name;
+            self.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:conversationVC animated:YES];
+        }
+        else
+        {
+            [self requestFailed:@"获取客服信息失败！"];
+            return;
+        }
+    }
+    else
+    {
+        [self requestFailed:@"获取客服信息失败！"];
+        return;
+    }
+        }
+
 //                WJConversationViewController *conversationVC = [[WJConversationViewController alloc]init];
 //                conversationVC.conversationType = ConversationType_PRIVATE;
 //                NSString *kefuUserId = _supplierUserId;
@@ -730,34 +776,7 @@
 //                                      sentStatus:SentStatus_SENT
 //                                      content:richMsg];
 //                 [[NSNotificationCenter defaultCenter] postNotificationName:@"RCDSharedMessageInsertSuccess" object:message];
-                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-                NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
-                WJMainWebClassViewController *conversationVC = [[WJMainWebClassViewController alloc]init];
-                NSString *encryptedData = [AESCrypt encrypt:[NSString stringWithFormat:@"uid=%@@sid=%@",uid,_supplierUserId] password:@"miyomei2018"];
-                
-                NSString *encodedString =[RegularExpressionsMethod encodeString:encryptedData];
-
-                
-                NSString *str_url = [NSString stringWithFormat:@"https://www.miyomei.com/mobile/mobile_chat_online.php?suppId=%@&goodsId=%@&appToken=%@",_supplier_id,_goods_id,encodedString];
-                conversationVC.str_urlHttp =str_url;
-                
-                NSString *message = [AESCrypt decrypt:@"piaJVqHq3yBxT0H3QORtQ==" password:@"miyomei2018"];
-                  NSLog(@"message==%@    %@",message,str_url);
-                conversationVC.str_title = _supplier_name;
-                self.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:conversationVC animated:YES];
-            }
-            else
-            {
-                [self requestFailed:@"获取客服信息失败！"];
-                return;
-            }
-        }
-        else
-        {
-           [self requestFailed:@"获取客服信息失败！"];
-           return;
-        }
+            
     }
     else if(button.tag == 2){
         NSLog(@"关注");

@@ -48,6 +48,16 @@
     _type.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
     _type.font = Font(12);
     [self.contentView addSubview:_type];
+    
+    _hongbaoLabel = LabelInit(kMSScreenWith-55,_title.Bottom+25, 30, 15);
+    _hongbaoLabel.textColor = kMSCellBackColor;
+    _hongbaoLabel.backgroundColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
+    _hongbaoLabel.font = Font(11);
+    _hongbaoLabel.textAlignment = NSTextAlignmentCenter;
+    _hongbaoLabel.layer.cornerRadius = 5;
+    _hongbaoLabel.layer.masksToBounds = YES;//设置圆角
+    _hongbaoLabel.text = @"红包";
+    [self.contentView addSubview:_hongbaoLabel];
 
     self.imageLine = ImageViewInit(self.contentImg.Right + 5, 99, kMSScreenWith-self.contentImg.Right -15, 1);
     self.imageLine.backgroundColor = [[UIColor lightGrayColor]colorWithAlphaComponent:0.4];

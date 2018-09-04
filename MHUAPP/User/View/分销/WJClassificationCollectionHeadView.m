@@ -50,6 +50,7 @@
         [button setTitle:titles[i] forState:UIControlStateNormal];
         [self addSubview:button];
         [button setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        button.titleLabel.font = Font(15);
         button.tag = i + 1000;
         CGFloat btnX = i * btnW;
         button.frame = CGRectMake(btnX, btnY, btnW, btnH);

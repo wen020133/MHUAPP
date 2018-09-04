@@ -38,7 +38,7 @@
         
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button addTarget:self action:@selector(menuSelected:) forControlEvents:UIControlEventTouchUpInside];
-        [button.titleLabel setFont:[UIFont systemFontOfSize:18]];
+        [button.titleLabel setFont:[UIFont systemFontOfSize:15]];
         UIFont *font = button.titleLabel.font;
         CGSize size = CGSizeMake(MAXFLOAT, 44.0f);
         CGSize buttonSize = [[self.Menu_titles objectAtIndex:i] boundingRectWithSize:size

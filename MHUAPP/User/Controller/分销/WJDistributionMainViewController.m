@@ -43,7 +43,7 @@
     
     
     [self setUpChildViewControllers];
-    
+    self.hidesBottomBarWhenPushed = YES;
     // Do any additional setup after loading the view.
 }
 

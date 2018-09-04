@@ -45,7 +45,7 @@
         
         
         UILabel *titleLabel = LabelInit(page*kMSScreenWith/3, width+130, kMSScreenWith/3, 20);
-        titleLabel.font = PFR13Font;
+        titleLabel.font = Font(15);
         titleLabel.text = _defaultTitleArr[page];
         
         titleLabel.textAlignment = NSTextAlignmentCenter;

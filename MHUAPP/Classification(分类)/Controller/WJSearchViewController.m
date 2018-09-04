@@ -16,11 +16,17 @@
 #import "WJCollectionItem.h"
 #import "MJRefresh.h"
 
+#import "CJSearchHotView.h"
+#import "CJSearchTbView.h"
+
 
 @interface WJSearchViewController ()<UISearchBarDelegate>
 @property (strong, nonatomic) HXSearchBar *searchBar;
 @property NSInteger int_goodOrshop;
 @property NSInteger page_Information;
+@property (nonatomic, strong) NSMutableArray *historyData;
+@property (nonatomic, strong) CJSearchTbView *historyTBView;
+@property (nonatomic, strong) CJSearchHotView *hotHeadView;
 @end
 
 @implementation WJSearchViewController
@@ -31,8 +37,109 @@
     [self addSearchBar];
     self.int_goodOrshop = 0;
     self.page_Information = 1;
+    
+    [self.view addSubview:self.historyTBView];
+    
+    //加载历史
+    [self loadSearchHistoryData];
     // Do any additional setup after loading the view.
 }
+#pragma mark 本地搜索历史记录
+/**
+ *  本地搜索历史记录
+ */
+- (void)loadSearchHistoryData
+{
+    NSArray *originData = [[NSUserDefaults standardUserDefaults] objectForKey:kHistroySearchData];
+    
+    if (originData.count > 0) {
+        [self.historyData addObjectsFromArray:originData];
+    }
+    [self.historyTBView.sourceData removeAllObjects];
+    [self.historyTBView.sourceData addObjectsFromArray:self.historyData];
+    [self.historyTBView reloadData];
+}
+/**
+ *  保存搜索记录
+ */
+- (void)saveHistoryKeyWord:(NSString *)keyword
+{
+    NSString *searchKey = [keyword stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];;
+    if ([searchKey length] == 0) return;
+    
+    if ([self.historyData containsObject:searchKey]) {
+        //如果之前存在，则排序置顶
+        [self.historyData removeObject:searchKey];
+        [self.historyData insertObject:searchKey atIndex:0];
+    } else {
+        //如果之前不存在，则插入置顶
+        [self.historyData insertObject:searchKey atIndex:0];
+    }
+    
+    //保存最大数量
+    if (self.historyData.count > 7) {
+        [self.historyData removeLastObject];
+    }
+    
+    [[NSUserDefaults standardUserDefaults] setObject:self.historyData forKey:kHistroySearchData];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self.historyTBView.sourceData removeAllObjects];
+    [self.historyTBView.sourceData addObjectsFromArray:self.historyData];
+    [self.historyTBView reloadData];
+    
+    self.searchBar.searchBarTextField.text = keyword;
+    [self getGoodsOrShopDataList:keyword];
+}
+/**
+ *  清除搜索记录
+ */
+- (void)deleteHistoryData
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"清除搜索记录么？" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        [self.historyData removeAllObjects];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:self.historyData forKey:kHistroySearchData];
+        
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        [self.historyTBView.sourceData removeAllObjects];
+        [self.historyTBView.sourceData addObjectsFromArray:self.historyData];
+        [self.historyTBView reloadData];
+    }]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];
+    
+    [self presentViewController:alertController animated:YES completion:NULL];
+}
+
+//历史搜索列表
+- (CJSearchTbView *)historyTBView
+{
+    if (!_historyTBView) {
+        _historyTBView = [[CJSearchTbView alloc] initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight-kMSNaviHight) style:UITableViewStyleGrouped];
+        _historyTBView.type = @"0";
+        _historyTBView.backgroundColor = [UIColor whiteColor];
+        _historyTBView.separatorColor = [RegularExpressionsMethod ColorWithHexString:@"0xf0f0f0"];
+        _historyTBView.rowHeight = 44;
+        _historyTBView.tableHeaderView = self.hotHeadView;
+        __weak typeof(self) weakSelf = self;
+        _historyTBView.clickResultBlock = ^(NSString *key){
+            __strong typeof(weakSelf) strongSelf = weakSelf;
+            strongSelf.searchBar.searchBarTextField.text = key;
+            [strongSelf getGoodsOrShopDataList:key];
+        };
+        
+        _historyTBView.clickDeleteBlock = ^(){
+            __strong typeof(weakSelf)  strongSelf = weakSelf;
+            [strongSelf deleteHistoryData];
+        };
+    }
+    
+    return _historyTBView;
+}
+
 //添加搜索条
 - (void)addSearchBar {
 
@@ -86,7 +193,9 @@
         [infos setObject:text forKey:@"store_keywords"];
         [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSGoodsStoreQuery] andInfos:infos];
     }
-
+    self.historyTBView.hidden = YES;
+    self.hotHeadView.hidden = YES;
+    self.menuScrollView.hidden = NO;
 }
 //取消按钮点击的回调
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
@@ -99,10 +208,6 @@
     return NO;
 }
 
-
-- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
-    [searchBar resignFirstResponder];
-}
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
@@ -123,10 +228,17 @@
     if (searchBar.text.length>0) {
         self.menuScrollView.hidden = NO;
         [self getGoodsOrShopDataList:searchBar.text];
+        self.historyTBView.hidden = YES;
+        self.hotHeadView.hidden = YES;
     }
     else
     {
         self.tab_infoView.hidden = YES;
+        self.historyTBView.hidden = NO;
+        self.hotHeadView.hidden = NO;
+        [self.noMoreView hide];
+        self.menuScrollView.hidden = YES;
+        
     }
 }
 
@@ -136,10 +248,16 @@
     if (searchText.length>0) {
         self.menuScrollView.hidden = NO;
         [self getGoodsOrShopDataList:searchText];
+        self.historyTBView.hidden = YES;
+        self.hotHeadView.hidden = YES;
     }
     else
     {
         self.tab_infoView.hidden = YES;
+        self.historyTBView.hidden = NO;
+        self.hotHeadView.hidden = NO;
+        self.menuScrollView.hidden = YES;
+        [self.noMoreView hide];
     }
 
 }
@@ -162,7 +280,6 @@
             }
            [self.noMoreView hide];
             self.tab_infoView.hidden = NO;
-            [self.view addSubview:self.menuScrollView];
             [self.tab_infoView reloadData];
         }
         else
@@ -189,8 +306,8 @@
         self.tab_infoView.backgroundColor = [UIColor clearColor];
         self.tab_infoView.dataSource = self;
         self.tab_infoView.delegate = self;
-        // 上拉刷新
-        self.tab_infoView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerSearchRereshing)];
+//        // 上拉刷新
+//        self.tab_infoView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerSearchRereshing)];
         [self.view addSubview:self.tab_infoView];
     }
     return _tab_infoView;
@@ -202,12 +319,10 @@
 //搜索按钮
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
       NSLog(@"searchText开始了");
+    [self saveHistoryKeyWord:searchBar.text];
+    [searchBar resignFirstResponder];
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    [self.view endEditing:YES];
-    [self.searchBar resignFirstResponder];
-}
 
 -(MuluScrollView *)menuScrollView
 {
@@ -215,10 +330,33 @@
         NSArray *arrType = [NSArray arrayWithObjects:@"商品",@"店铺", nil];
         _menuScrollView = [[MuluScrollView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 44) withTitles:arrType];
         _menuScrollView.delegate = self;
+        [self.view addSubview:self.menuScrollView];
     }
     return _menuScrollView;
 }
 
+//历史搜索数据源
+- (NSMutableArray *)historyData
+{
+    if (!_historyData) {
+        _historyData = @[].mutableCopy;
+    }
+    return _historyData;
+}
+
+//热门视图搜索
+- (CJSearchHotView *)hotHeadView {
+    if (!_hotHeadView) {
+        __weak typeof(self) weakSelf = self;
+        _hotHeadView = [[CJSearchHotView alloc] initWithFrame:CGRectMake(0, 0, kMSScreenWith, 0) tagColor:[RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR] tagBlock:^(NSString *key) {
+            NSLog(@"点击热搜%@",key);
+            __strong typeof(weakSelf) strongSelf = weakSelf;
+            [strongSelf saveHistoryKeyWord:key];
+        }];
+        _hotHeadView.hotKeyArr = @[@"染发剂",@"吹风机",@"直发器",@"美甲",@"香水",@"面膜",@"去屑",@"脱毛器"];
+    }
+    return _hotHeadView;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -244,7 +382,14 @@
         [cell.contentImg sd_setImageWithURL:[NSURL URLWithString:str_url] placeholderImage:[UIImage imageNamed:@"default_nomore.png"] completed:nil];
         NSString *price = [NSString stringWithFormat:@"%@",[[self.arr_items objectAtIndex:indexPath.row] objectForKey:@"shop_price"]];
         cell.price.text = price;
-        
+        if([self.arr_items[indexPath.row][@"is_use_bonus"] integerValue]==1)
+        {
+            cell.hongbaoLabel.hidden = NO;
+        }
+        else
+        {
+            cell.hongbaoLabel.hidden = NO;
+        }
         NSString *saleCount = [NSString stringWithFormat:@"%@",[[self.arr_items objectAtIndex:indexPath.row] objectForKey:@"goods_name"]];
                 cell.title.text  = saleCount;
         return cell;

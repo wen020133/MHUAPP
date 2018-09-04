@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseNetworkViewController.h"
 
-@interface WJMessageClassViewController : UIViewController
+@interface WJMessageClassViewController : BaseNetworkViewController
 
 @end

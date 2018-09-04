@@ -14,7 +14,7 @@
 #import "WJConversationViewController.h"
 #import "AESCrypt.h"
 #import "WJMainWebClassViewController.h"
-
+#import "WJLoginClassViewController.h"
 
 @interface WJJingXuanDianPuViewController ()
 {
@@ -330,10 +330,24 @@
     WEAKSELF
     cell.goToContactServiceBlock = ^{
 
-        [self setgetSupplierUserId:model.supplier_id];
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        
+        NSString *loginState = [userDefaults objectForKey:@"loginState"];
+        if(![loginState isEqualToString:@"1"])
+        {
+            WJLoginClassViewController *land = [[WJLoginClassViewController alloc]init];
+            UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:land];
+            [nav.navigationBar setIsMSNavigationBar];
+            [self presentViewController:nav animated:YES completion:^{
+            }];
+        }
+        else
+        {
+         [self setgetSupplierUserId:model.supplier_id];
         _supplierID = model.supplier_id;
         _supplier_name = model.supplier_name;
         _supplier_logo = model.logo;
+        }
         
     };
     cell.goToShopInfoBlock = ^{

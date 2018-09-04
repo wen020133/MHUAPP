@@ -146,4 +146,8 @@
 #define   kMSDepositCate       @"depositCate"  //分销商品分类
 #define   kMSDepositMoney       @"depositMoney"  //分销资金管理
 
+
+/* 聊天记录好友列表 */
+#define   kMSGetChatMsg          @"chat/getChatMsg"                 //好友列表
+#define   kMSGetAllChatList          @"chat/getAllChatList"                 //未读条数
 #endif /* MHUURL_h */

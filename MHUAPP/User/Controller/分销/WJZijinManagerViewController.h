@@ -11,6 +11,6 @@
 @interface WJZijinManagerViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIView *tab_headNumView;
 @property (weak, nonatomic) IBOutlet UILabel *lab_Num;
-- (IBAction)goToManagerListView:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *lab_keTiXian;
 
 @end

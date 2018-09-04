@@ -46,6 +46,11 @@
         _lab_orderState.text = @"分成状态";
         [self.contentView addSubview:_lab_orderState];
         
+        for (int aa=1; aa<4; aa++) {
+            UIImageView *line = ImageViewInit(kMSScreenWith/4*aa-1, 0, 1, 44);
+             line.backgroundColor = [RegularExpressionsMethod ColorWithHexString:@"E6E6E6"];
+            [self.contentView addSubview:line];
+        }
        
         [RegularExpressionsMethod dc_setUpAcrossPartingLineWith:self WithColor:[[UIColor lightGrayColor]colorWithAlphaComponent:0.3]];
         

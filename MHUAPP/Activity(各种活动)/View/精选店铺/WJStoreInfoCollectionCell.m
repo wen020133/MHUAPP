@@ -37,7 +37,15 @@
         _lab_price.textAlignment = NSTextAlignmentLeft;
         [_grayView addSubview:_lab_price];
 
-
+        _hongbaoLabel = LabelInit(self.width-40,_title.Bottom+5, 30, 15);
+        _hongbaoLabel.textColor = kMSCellBackColor;
+        _hongbaoLabel.backgroundColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
+        _hongbaoLabel.font = Font(11);
+        _hongbaoLabel.textAlignment = NSTextAlignmentCenter;
+        _hongbaoLabel.layer.cornerRadius = 5;
+        _hongbaoLabel.layer.masksToBounds = YES;//设置圆角
+        _hongbaoLabel.text = @"红包";
+        [_grayView addSubview:_hongbaoLabel];
     }
     return self;
 }

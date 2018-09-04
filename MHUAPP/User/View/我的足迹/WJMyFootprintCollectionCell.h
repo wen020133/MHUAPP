@@ -15,6 +15,7 @@
 @property (nonatomic, strong) UILabel *type;
 @property (nonatomic, strong) UILabel *price;
 
+@property (nonatomic, strong) UILabel *hongbaoLabel;
 //Cell分割线
 @property (nonatomic,strong)UIImageView *imageLine;
 

@@ -231,11 +231,11 @@
                 [userDefaults setObject:@"1" forKey:@"loginState"];
                 [userDefaults setObject:@"phone" forKey:@"loginType"];
                 [userDefaults synchronize];
-                [self getAccountToken:[[self.results objectForKey:@"data"] objectForKey:@"user_id"]];
-//                [self.navigationController popViewControllerAnimated:YES];
-//                [self dismissViewControllerAnimated:YES completion:^{
-//
-//                }];
+//                [self getAccountToken:[[self.results objectForKey:@"data"] objectForKey:@"user_id"]];
+                [self.navigationController popViewControllerAnimated:YES];
+                [self dismissViewControllerAnimated:YES completion:^{
+
+                }];
             }
                 break;
             case 1:
@@ -271,11 +271,11 @@
                     [userDefaults setObject:@"1" forKey:@"loginState"];
                     [userDefaults setObject:self.outUserType forKey:@"loginType"];
                     [userDefaults synchronize];
-                    [self getAccountToken:[[self.results objectForKey:@"data"] objectForKey:@"user_id"]];
-//                    [self.navigationController popViewControllerAnimated:YES];
-//                    [self dismissViewControllerAnimated:YES completion:^{
-//
-//                    }];
+//                    [self getAccountToken:[[self.results objectForKey:@"data"] objectForKey:@"user_id"]];
+                    [self.navigationController popViewControllerAnimated:YES];
+                    [self dismissViewControllerAnimated:YES completion:^{
+
+                    }];
                 }
                 else
                 {

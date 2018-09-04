@@ -11,7 +11,7 @@
 #import "WJSetHeadTableCell.h"
 #import "WJFlowItem.h"
 #import "WJMoneyManagementViewController.h"
-
+#import "WJWithdrawViewController.h"
 
 @interface WJZijinManagerViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -83,9 +83,16 @@
 {
     
         if (indexPath.row==0) {
-            
+            WJWithdrawViewController *AddressVC = [[WJWithdrawViewController alloc]init];
+            AddressVC.hidesBottomBarWhenPushed = YES;
+            self.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:AddressVC animated:YES];
         }
      else  if (indexPath.row==1) {
+         WJMoneyManagementViewController *AddressVC = [[WJMoneyManagementViewController alloc]init];
+         AddressVC.hidesBottomBarWhenPushed = YES;
+         self.hidesBottomBarWhenPushed = YES;
+         [self.navigationController pushViewController:AddressVC animated:YES];
         }
 }
 
@@ -105,12 +112,5 @@
 }
 */
 
-- (IBAction)goToManagerListView:(id)sender {
-    
-    WJMoneyManagementViewController *AddressVC = [[WJMoneyManagementViewController alloc]init];
-    AddressVC.hidesBottomBarWhenPushed = YES;
-    self.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:AddressVC animated:YES];
 
-}
 @end
