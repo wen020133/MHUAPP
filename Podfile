@@ -18,7 +18,6 @@ pod 'UMCCommon'
 pod 'UMCShare/UI'
 pod 'UMCShare/Social/ReducedWeChat'
 pod 'UMCShare/Social/ReducedQQ'
-
 pod 'SocketRocket', '~> 0.5.1'
 pod 'ReactiveCocoa','~>2.1.8'
 end

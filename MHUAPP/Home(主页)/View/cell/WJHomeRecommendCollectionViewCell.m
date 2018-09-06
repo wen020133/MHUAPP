@@ -77,7 +77,14 @@
     NSString *saleCount = [NSString stringWithFormat:@"%@人已付款",_model.num];
     _lab_count.frame = CGRectMake(width+12, _hongbaoLabel.Bottom+5, self.width-width-18, 20);
     _lab_count.text = saleCount;
-    
+    if([model.is_use_bonus integerValue]==1)
+    {
+        _hongbaoLabel.alpha = 1.0f;
+    }
+    else
+    {
+        _hongbaoLabel.alpha = 0.0f;
+    }
 }
 
 -(void)refreshUIWithTitle:(NSString *)title{

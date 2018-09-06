@@ -26,7 +26,6 @@
 
 @property BOOL isFirstInitClass;
 
-//@property (strong ,nonatomic) WJMessageHeadView *tab_headView;
 @property (strong, nonatomic) UITableView *myTableView;
 @property (strong, nonatomic) WJUnLoginStateTypeView *unLoginView;
 @property (strong , nonatomic) NSMutableArray <WJMessageItem *>  *dataArray;
@@ -41,8 +40,6 @@
     [super viewDidLoad];
     self.view.backgroundColor= [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     [self initSendReplyWithTitle:@"消息" andLeftButtonName:nil andRightButtonName:nil andTitleLeftOrRight:YES];
-     self.edgesForExtendedLayout = UIRectEdgeNone;
-  
   
     // Do any additional setup after loading the view.
 }
@@ -69,7 +66,7 @@
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-            
+            [weakSelf.myTableView reloadData];
         });
     });
     
@@ -95,10 +92,11 @@
         {
             NSLog(@"%@====%@",urlString,responseObject);
             if ([urlString isEqualToString:kMSGetChatMsg]) {
-                id arr_data = [self.results objectForKey:@"data"];
+                [_dataArray removeAllObjects];
+                id arr_data = [responseObject objectForKey:@"data"];
                 if ([arr_data isKindOfClass:[NSArray class]]) {
                     NSArray *dataArr = arr_data;
-                    if ([dataArr  count]>1 ) {
+                    if ([dataArr  count]>0 ) {
                     _dataArray =   [WJMessageItem mj_objectArrayWithKeyValuesArray:arr_data];
                     [self.myTableView reloadData];
                     [self.noMoreView hide];
@@ -156,11 +154,11 @@
         _myTableView.delegate = self;
         _myTableView.dataSource = self;
         
-        _myTableView.rowHeight = 100;
+        _myTableView.rowHeight = 80;
         _myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _myTableView.backgroundColor = kMSColorFromRGB(245, 246, 248);
         
-        self.myTableView.frame = CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight - kMSNaviHight -kTabBarHeight -49);
+        self.myTableView.frame = CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight - kMSNaviHight -kTabBarHeight);
        self.myTableView.mj_header = [WJHomeRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(getChatMsgData)];
         [self.view addSubview:self.myTableView];
     }
@@ -226,14 +224,22 @@
             cell = [[RCCustomCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"RCCustomCell"];
         }
     [cell.avatarIV  sd_setImageWithURL:[NSURL URLWithString:_dataArray[indexPath.row].headimg] placeholderImage:[UIImage imageNamed:@"default_nomore.png"] completed:nil];
-    cell.timeLabel.text = [NSString stringWithFormat:@"%@",_dataArray[indexPath.row].sendtime] ;
-    cell.contentLabel.text = [NSString stringWithFormat:@"%@",_dataArray[indexPath.row].content] ;
-    cell.nameLabel.text =  [NSString stringWithFormat:@"%@",_dataArray[indexPath.row].user_name];
-    if ([_dataArray[indexPath.row].unread integerValue]==0) {
-        cell.ppBadgeView.text = nil;
+    NSString *dateStr = [NSString stringWithFormat:@"%@",_dataArray[indexPath.row].sendtime];
+    if (dateStr.length>16) {
+        cell.timeLabel.text = [dateStr substringToIndex:16];
     }
     else
     {
+        cell.timeLabel.text = dateStr;
+    }
+    cell.contentLabel.text = [NSString stringWithFormat:@"%@",_dataArray[indexPath.row].content] ;
+    cell.nameLabel.text =  [NSString stringWithFormat:@"%@",_dataArray[indexPath.row].user_name];
+    if ([_dataArray[indexPath.row].unread integerValue]==0) {
+        cell.ppBadgeView.hidden = YES;
+    }
+    else
+    {
+        cell.ppBadgeView.hidden = NO;
         cell.ppBadgeView.text = [NSString stringWithFormat:@"%@",_dataArray[indexPath.row].unread];
     }
         return cell;
@@ -258,8 +264,9 @@
     NSString *message = [AESCrypt decrypt:@"piaJVqHq3yBxT0H3QORtQ==" password:@"miyomei2018"];
     NSLog(@"message==%@    %@",message,str_url);
     conversationVC.str_title = _dataArray[indexPath.row].supplier_name;
-    self.hidesBottomBarWhenPushed = YES;
+    conversationVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:conversationVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
    
 }
 

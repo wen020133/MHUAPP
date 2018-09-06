@@ -127,7 +127,7 @@
         __weak typeof(self) weakSelf = self;
         _historyTBView.clickResultBlock = ^(NSString *key){
             __strong typeof(weakSelf) strongSelf = weakSelf;
-            strongSelf.searchBar.searchBarTextField.text = key;
+            [strongSelf.searchBar resignFirstResponder]; strongSelf.searchBar.searchBarTextField.text = key;
             [strongSelf getGoodsOrShopDataList:key];
         };
         
@@ -225,14 +225,14 @@
 //已经开始编辑时的回调
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
      NSLog(@"searchText开始");
-    if (searchBar.text.length>0) {
-        self.menuScrollView.hidden = NO;
-        [self getGoodsOrShopDataList:searchBar.text];
-        self.historyTBView.hidden = YES;
-        self.hotHeadView.hidden = YES;
-    }
-    else
-    {
+    if (searchBar.text.length==0) {
+//        self.menuScrollView.hidden = NO;
+//        [self getGoodsOrShopDataList:searchBar.text];
+//        self.historyTBView.hidden = YES;
+//        self.hotHeadView.hidden = YES;
+//    }
+//    else
+//    {
         self.tab_infoView.hidden = YES;
         self.historyTBView.hidden = NO;
         self.hotHeadView.hidden = NO;
@@ -245,14 +245,14 @@
 //编辑文字改变的回调
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     NSLog(@"searchText:%@",searchText);
-    if (searchText.length>0) {
-        self.menuScrollView.hidden = NO;
-        [self getGoodsOrShopDataList:searchText];
-        self.historyTBView.hidden = YES;
-        self.hotHeadView.hidden = YES;
-    }
-    else
-    {
+    if (searchText.length==0) {
+//        self.menuScrollView.hidden = NO;
+//        [self getGoodsOrShopDataList:searchText];
+//        self.historyTBView.hidden = YES;
+//        self.hotHeadView.hidden = YES;
+//    }
+//    else
+//    {
         self.tab_infoView.hidden = YES;
         self.historyTBView.hidden = NO;
         self.hotHeadView.hidden = NO;
@@ -352,6 +352,7 @@
             NSLog(@"点击热搜%@",key);
             __strong typeof(weakSelf) strongSelf = weakSelf;
             [strongSelf saveHistoryKeyWord:key];
+            [strongSelf.searchBar resignFirstResponder];
         }];
         _hotHeadView.hotKeyArr = @[@"染发剂",@"吹风机",@"直发器",@"美甲",@"香水",@"面膜",@"去屑",@"脱毛器"];
     }

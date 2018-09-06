@@ -11,6 +11,9 @@
 #import <UMCommon/UMCommon.h>
 #import <UMShare/UMShare.h>
 #import "WXApiManager.h"
+#import "RCDataManager.h"
+#import "HcdGuideView.h"
+
 
 NSString * const UpLoadNoti = @"uploadInfo";
 
@@ -29,13 +32,14 @@ NSString * const UpLoadNoti = @"uploadInfo";
     self.tabbarVC  = [[WJMainTabBarViewController alloc]init];
     [self.window setRootViewController:self.tabbarVC];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    [self.window makeKeyAndVisible];
     
     [WXApi registerApp:kAppIDWeixin];
     //设置友盟Appkey
     [UMConfigure initWithAppkey:UmengAppkey channel:@"App Store"];
     //设置微信AppId，设置分享url，
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:kAppIDWeixin appSecret:kAppSecret redirectURL:kRedirectURI];
-
+    [self initLogin];
 
     //设置手机QQ的AppId，指定你的分享url，
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:_TencentAppid_  appSecret:@"9XSVjCRGjtSlYuEn" redirectURL:kRedirectURI];
@@ -57,11 +61,26 @@ NSString * const UpLoadNoti = @"uploadInfo";
 //        NSLog(@"该启动事件不包含来自融云的推送服务");
 //    }
 
-
-    [self.window makeKeyAndVisible];
+    NSMutableArray *images = [NSMutableArray new];
+    
+    [images addObject:[UIImage imageNamed:@"project_iphone_1"]];
+    [images addObject:[UIImage imageNamed:@"project_iphone_2"]];
+    [images addObject:[UIImage imageNamed:@"project_iphone_3"]];
+    
+    HcdGuideView *guideView = [HcdGuideView sharedInstance];
+    guideView.window = self.window;
+    [guideView showGuideViewWithImages:images
+                        andButtonTitle:nil
+                   andButtonTitleColor:[UIColor clearColor]
+                      andButtonBGColor:[UIColor clearColor]
+                  andButtonBorderColor:[UIColor clearColor]];
+    
     return YES;
 }
-
+-(void)initLogin{
+    
+    [[RCDataManager shareManager] getUserInfoWithMiYouMei];
+}
 /**
  * 推送处理2
  */
