@@ -430,6 +430,7 @@
     goodBaseVc.shufflingArray = _shufflingArray;
     goodBaseVc.oldPrice = _oldPrice;
     goodBaseVc.bonus_tips = _bonus_tips;
+    goodBaseVc.is_use_bonus = _is_use_bonus;
     NSMutableArray *arr = [NSMutableArray array];
     if(_attributeArray&&_attributeArray.count>0)
     {

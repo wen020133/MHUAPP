@@ -20,6 +20,8 @@
 @property (nonatomic, copy) NSString *thumb_url;
 /** 属性图片 */
 @property (nonatomic, copy) NSString *img_url;
+/** 属性ID */
+@property (nonatomic, copy) NSString *goods_attr_id;
 /** 是否点击 */
 @property (nonatomic,assign)BOOL isSelect;
 

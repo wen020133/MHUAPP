@@ -20,6 +20,8 @@
 @property (strong , nonatomic) NSString *attrPrice;
 /* 上一次选择的属性 */
 @property (strong , nonatomic)NSMutableArray *lastSeleArray;
+/* 上一次选择的属性 */
+@property (strong , nonatomic)NSMutableArray *lastSeleIDArray;
 /* 上一次选择的数量 */
 @property (assign , nonatomic)NSString *lastNum;
 

@@ -49,6 +49,8 @@
 
 static NSString *lastNum_;
 static NSArray *lastSeleArray_;
+static NSArray *lastSeleIDArray_;
+
 
 @implementation WJGoodBaseViewController
 
@@ -201,12 +203,13 @@ static NSArray *lastSeleArray_;
     _dcObj = [[NSNotificationCenter defaultCenter]addObserverForName:@"itemSelectBack" object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
 
         NSArray *selectArray = note.userInfo[@"Array"];
+         NSArray *selectIDArray = note.userInfo[@"ArrayID"];
         NSString *num = note.userInfo[@"Num"];
         NSString *buttonTag = note.userInfo[@"Tag"];
 
         lastNum_ = num;
         lastSeleArray_ = selectArray;
-
+        lastSeleIDArray_ = selectIDArray;
         [weakSelf.collectionView reloadData];
 
         if ([buttonTag isEqualToString:@"0"]) { //加入购物车
@@ -484,6 +487,7 @@ static NSArray *lastSeleArray_;
         WJFeatureSelectionViewController *dcFeaVc = [WJFeatureSelectionViewController new];
         dcFeaVc.lastNum = lastNum_;
         dcFeaVc.lastSeleArray = [NSMutableArray arrayWithArray:lastSeleArray_];
+        dcFeaVc.lastSeleIDArray = [NSMutableArray arrayWithArray:lastSeleIDArray_];
         dcFeaVc.arr_fuckData = _attributeArray;
         dcFeaVc.arr_goodImage = _shufflingArray;
         dcFeaVc.goods_number = _goods_number;
@@ -605,13 +609,15 @@ static NSArray *lastSeleArray_;
 - (void)setUpWithAddSuccess :(NSInteger)tagSender
 {
     NSString *result ;
+    NSString *resultID ;
     if (_attributeArray.count>0) {
         result  = [NSString stringWithFormat:@"%@",[lastSeleArray_ componentsJoinedByString:@","]];
-
+        resultID = [NSString stringWithFormat:@"%@",[lastSeleIDArray_ componentsJoinedByString:@","]];
     }
     else
     {
         result = @"";
+        resultID = @"";
     }
     if (tagSender==100) {
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -633,7 +639,7 @@ static NSArray *lastSeleArray_;
         [infos setObject:_goodPrice forKey:@"price"];
         [infos setObject:lastNum_ forKey:@"num"];
         [infos setObject:result forKey:@"norms"];
-//        [infos setObject:self.supplier_id forKey:@"supplier_id"];
+        [infos setObject:resultID forKey:@"goods_attr_id"];
         [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSPostCart] andInfos:infos];
     }
     else

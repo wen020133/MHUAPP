@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseNetworkViewController.h"
+typedef NS_ENUM(NSInteger, KGetMessageClassType) {
+    KGetAllChatList = 1 ,//获取未读条数
+    KGetChatMsg = 2 ,//好友列表
+};
 
-@interface WJMessageClassViewController : UIViewController
-
+@interface WJMessageClassViewController : BaseNetworkViewController
+@property (assign, nonatomic) KGetMessageClassType serverType;
 @end

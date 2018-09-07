@@ -12,6 +12,8 @@
 #import "WJWriteListTableCell.h"
 #import "UIView+UIViewFrame.h"
 #import "PayViewController.h"
+#import "WJHongBaoStoreCell.h"
+
 
 @interface WJWirteOrderClassViewController ()
 
@@ -167,17 +169,32 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return (section==0)? 1:self.dataArray.count;
+    return (section==1)? self.dataArray.count:1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-     return (indexPath.section==0)? [RegularExpressionsMethod dc_calculateTextSizeWithText:_str_address WithTextFont:16 WithMaxW:kMSScreenWith-70].height+60:100;
+    if (indexPath.section==0) {
+        return [RegularExpressionsMethod dc_calculateTextSizeWithText:_str_address WithTextFont:16 WithMaxW:kMSScreenWith-70].height+60;
+    }
+    else if(indexPath.section==1)
+        return 100;
+    else
+    {
+        if([_is_use_bonus integerValue]==1)
+        {
+            return 200;
+        }
+        else
+        {
+            return 0;
+        }
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -194,7 +211,7 @@
 
         return cell;
     }
-    else
+    else if (indexPath.section==1)
     {
     WJWriteListTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WJWriteListTableCell"];
     if (cell == nil) {
@@ -210,6 +227,14 @@
     }
     cell.listModel = self.dataArray[indexPath.row];
     return cell;
+    }
+    else
+    {
+        WJHongBaoStoreCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WJHongBaoStoreCell"];
+        if (cell == nil) {
+            cell = [[WJHongBaoStoreCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"WJHongBaoStoreCell"];
+        }
+        return cell;
     }
 }
 //section底部间距

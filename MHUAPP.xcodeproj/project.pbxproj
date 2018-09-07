@@ -59,6 +59,7 @@
 		179D82651FD6AA5E00CC4AA2 /* WJFlowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 179D82641FD6AA5E00CC4AA2 /* WJFlowItem.m */; };
 		17A8074B213E697900A95D45 /* WJMessageItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A8074A213E697900A95D45 /* WJMessageItem.m */; };
 		17A8074E213E698500A95D45 /* WJMessageList.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A8074D213E698500A95D45 /* WJMessageList.m */; };
+		17AEA6412142789800D6B523 /* WJHongBaoStoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 17AEA6402142789800D6B523 /* WJHongBaoStoreCell.m */; };
 		17C617CF20CBD34A001F47A1 /* WJOrderSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17C617CE20CBD34A001F47A1 /* WJOrderSuccessViewController.m */; };
 		17C96B54210AB16D00A655BD /* WJDistributionHeadTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17C96B53210AB16D00A655BD /* WJDistributionHeadTypeView.m */; };
 		17C96B5D210B001500A655BD /* WJClassificationCollectionHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17C96B5C210B001500A655BD /* WJClassificationCollectionHeadView.m */; };
@@ -541,6 +542,8 @@
 		17A8074A213E697900A95D45 /* WJMessageItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJMessageItem.m; sourceTree = "<group>"; };
 		17A8074C213E698500A95D45 /* WJMessageList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJMessageList.h; sourceTree = "<group>"; };
 		17A8074D213E698500A95D45 /* WJMessageList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJMessageList.m; sourceTree = "<group>"; };
+		17AEA63F2142789800D6B523 /* WJHongBaoStoreCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJHongBaoStoreCell.h; sourceTree = "<group>"; };
+		17AEA6402142789800D6B523 /* WJHongBaoStoreCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJHongBaoStoreCell.m; sourceTree = "<group>"; };
 		17C617CD20CBD34A001F47A1 /* WJOrderSuccessViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJOrderSuccessViewController.h; sourceTree = "<group>"; };
 		17C617CE20CBD34A001F47A1 /* WJOrderSuccessViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJOrderSuccessViewController.m; sourceTree = "<group>"; };
 		17C96B52210AB16D00A655BD /* WJDistributionHeadTypeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJDistributionHeadTypeView.h; sourceTree = "<group>"; };
@@ -2636,6 +2639,8 @@
 			children = (
 				3472C986209462940048D09E /* WJShopAddressTableViewCell.h */,
 				3472C987209462940048D09E /* WJShopAddressTableViewCell.m */,
+				17AEA63F2142789800D6B523 /* WJHongBaoStoreCell.h */,
+				17AEA6402142789800D6B523 /* WJHongBaoStoreCell.m */,
 				34090ABF2095B0E2003E0BFD /* WJWriteListTableCell.h */,
 				34090AC02095B0E2003E0BFD /* WJWriteListTableCell.m */,
 				344B975A20A2EBED00435B11 /* WJWaitPayThridTableCell.h */,
@@ -3625,6 +3630,7 @@
 				17DF7BE91FCCFF7100FBD9DC /* UIButton+LZCategory.m in Sources */,
 				34164C7B20CF8BF2006062FD /* RCDCustomerServiceViewController.m in Sources */,
 				34F1D3881FD629480080EE3D /* WJDetailPartCommentCell.m in Sources */,
+				17AEA6412142789800D6B523 /* WJHongBaoStoreCell.m in Sources */,
 				343F78232071CBD7000BEE81 /* WJZhuanTiHDGridFootView.m in Sources */,
 				344A14FE2044027500C14CFE /* HXSearchBar.m in Sources */,
 				34FB720D20799E5800585866 /* WJMyStoreViewController.m in Sources */,

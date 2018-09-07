@@ -40,74 +40,48 @@
     [super viewDidLoad];
     self.view.backgroundColor= [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     [self initSendReplyWithTitle:@"消息" andLeftButtonName:nil andRightButtonName:nil andTitleLeftOrRight:YES];
-  
     // Do any additional setup after loading the view.
 }
 
 
--(void)getChatMsgData
+-(void)getAllChatList
 {
-    dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_group_t group = dispatch_group_create();
-    WEAKSELF
-    dispatch_group_async(group, queue, ^{
-        NSLog(@"处理事件1");
-        [weakSelf getMSGServiceData:kMSGetAllChatList];
-        dispatch_semaphore_signal(semaphore);
-    });
-    dispatch_group_async(group, queue, ^{
-        NSLog(@"处理事件2");
-        [weakSelf getMSGServiceData:kMSGetChatMsg];
-        dispatch_semaphore_signal(semaphore);
-    });
-    
-    dispatch_group_notify(group, queue, ^{
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-            [weakSelf.myTableView reloadData];
-        });
-    });
-    
-}
--(void)getMSGServiceData:(NSString *)urlString
-{
+    [self.myTableView.mj_header endRefreshing];
+    _serverType = 1;
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/xml",@"text/html", nil];
-    
-    
-    NSString *url  = [NSString stringWithFormat:@"%@/%@/%@?user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,urlString,uid];
-    NSLog(@"url====%@",url);
-    
-    [manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetAllChatList,uid]];
+}
+-(void)getChatMsgData
+{
+    _serverType = 2;
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetChatMsg,uid]];
+}
+-(void)getProcessData
+{
+    if([[self.results objectForKey:@"code"] integerValue] == 200)
+    {
         
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [SVProgressHUD dismiss];
-        if([[responseObject objectForKey:@"code"] integerValue] == 200)
-        {
-            NSLog(@"%@====%@",urlString,responseObject);
-            if ([urlString isEqualToString:kMSGetChatMsg]) {
-                [_dataArray removeAllObjects];
-                id arr_data = [responseObject objectForKey:@"data"];
+        switch (_serverType) {
+            case KGetChatMsg :
+            {[_dataArray removeAllObjects];
+                id arr_data = [self.results objectForKey:@"data"];
                 if ([arr_data isKindOfClass:[NSArray class]]) {
                     NSArray *dataArr = arr_data;
                     if ([dataArr  count]>0 ) {
-                    _dataArray =   [WJMessageItem mj_objectArrayWithKeyValuesArray:arr_data];
-                    [self.myTableView reloadData];
-                    [self.noMoreView hide];
-                }
-                else
-                {
-                    [_dataArray removeAllObjects];
-                    [self.noMoreView hide];
-                    self.noMoreView = [[NOMoreDataView alloc]initWithFrame:CGRectMake(0, 44, kMSScreenWith, 80) withContent:@"暂无数据." withNODataImage:@"noMore_bg.png"];
-                    [self.myTableView addSubview:self.noMoreView];
-                }
+                        _dataArray =   [WJMessageItem mj_objectArrayWithKeyValuesArray:arr_data];
+                        [self.myTableView reloadData];
+                        [self.noMoreView hide];
+                    }
+                    else
+                    {
+                        [_dataArray removeAllObjects];
+                        [self.noMoreView hide];
+                        self.noMoreView = [[NOMoreDataView alloc]initWithFrame:CGRectMake(0, 44, kMSScreenWith, 80) withContent:@"暂无数据." withNODataImage:@"noMore_bg.png"];
+                        [self.myTableView addSubview:self.noMoreView];
+                    }
                 }
                 else
                 {
@@ -117,35 +91,36 @@
                     [self.myTableView addSubview:self.noMoreView];
                 }
                 
+                
             }
-            else {
-                if([[responseObject objectForKey:@"data"] integerValue]==0)
-               {
-                   self.tabBarItem.badgeValue = nil;
-               }
+                break;
+            case KGetAllChatList:
+            {
+                if([[self.results objectForKey:@"data"] integerValue]==0)
+                {
+                    UITabBarItem * item=[self.tabBarController.tabBar.items objectAtIndex:2];
+                    item.badgeValue = nil;
+                }
                 else
                 {
-                UITabBarItem * item=[self.tabBarController.tabBar.items objectAtIndex:2];
-                item.badgeValue=[NSString stringWithFormat:@"%@",[responseObject objectForKey:@"data"]];
+                    UITabBarItem * item=[self.tabBarController.tabBar.items objectAtIndex:2];
+                    item.badgeValue=[NSString stringWithFormat:@"%@",[self.results objectForKey:@"data"]];
                 }
+                [self getChatMsgData];
             }
+                break;
+            default:
+                break;
         }
-        else
-        {
-            [SVProgressHUD showErrorWithStatus:[responseObject objectForKey:@"msg"]];
-            return;
-        }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        // 失败，关闭网络指示器
-        NSLog(@"ada===%@",[error localizedDescription]);
-        NSString *str_error = [error localizedDescription];
-        [SVProgressHUD dismiss];
-        [SVProgressHUD showErrorWithStatus:str_error];
+        
+        
+    }
+    else
+    {
+        [self.myTableView.mj_header endRefreshing];
         return;
-    }];
-    [self.myTableView.mj_header endRefreshing];
+    }
 }
-
 -(UITableView *)myTableView
 {
     if (!_myTableView) {
@@ -159,7 +134,7 @@
         _myTableView.backgroundColor = kMSColorFromRGB(245, 246, 248);
         
         self.myTableView.frame = CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight - kMSNaviHight -kTabBarHeight);
-       self.myTableView.mj_header = [WJHomeRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(getChatMsgData)];
+       self.myTableView.mj_header = [WJHomeRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(getAllChatList)];
         [self.view addSubview:self.myTableView];
     }
     return _myTableView;
@@ -197,7 +172,7 @@
     else
     {
         [self.unLoginView hide];
-        [self getChatMsgData];
+        [self getAllChatList];
     }
 
 }
@@ -266,7 +241,7 @@
     conversationVC.str_title = _dataArray[indexPath.row].supplier_name;
     conversationVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:conversationVC animated:YES];
-    self.hidesBottomBarWhenPushed = YES;
+    self.hidesBottomBarWhenPushed = NO;
    
 }
 

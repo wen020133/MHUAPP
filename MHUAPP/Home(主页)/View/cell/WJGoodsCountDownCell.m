@@ -56,7 +56,7 @@
     self.collectionView.backgroundColor = self.backgroundColor;
     
     [self addSubview:self.collectionView];
-
+    [self.collectionView reloadData];
 }
 
 #pragma mark - 布局

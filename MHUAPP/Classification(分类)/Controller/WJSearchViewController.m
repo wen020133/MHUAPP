@@ -389,7 +389,7 @@
         }
         else
         {
-            cell.hongbaoLabel.hidden = NO;
+            cell.hongbaoLabel.hidden = YES;
         }
         NSString *saleCount = [NSString stringWithFormat:@"%@",[[self.arr_items objectAtIndex:indexPath.row] objectForKey:@"goods_name"]];
                 cell.title.text  = saleCount;

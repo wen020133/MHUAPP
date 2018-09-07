@@ -37,6 +37,7 @@
 @property (strong , nonatomic) NSMutableArray <WJFeatureItem *>  *featureAttr;
 /* 选择属性 */
 @property (strong , nonatomic)NSMutableArray *seleArray;
+
 /* 商品选择结果Cell */
 @property (weak , nonatomic) WJFeatureChoseTopCell *cell;
 
@@ -154,10 +155,10 @@ static NSInteger num_;
     [self.view addSubview:numLabel];
     numLabel.frame = CGRectMake(DCMargin, NowScreenH - 90, 50, 35);
 
-    PPNumberButton *numberButton = [PPNumberButton numberButtonWithFrame:CGRectMake(CGRectGetMaxX(numLabel.frame), numLabel.y, 110, numLabel.height)];
+    PPNumberButton *numberButton = [PPNumberButton numberButtonWithFrame:CGRectMake(CGRectGetMaxX(numLabel.frame), numLabel.y, 210, numLabel.height)];
     numberButton.shakeAnimation = YES;
     numberButton.minValue = 1;
-    numberButton.inputFieldFont = 23;
+    numberButton.inputFieldFont = 20;
     numberButton.increaseTitle = @"＋";
     numberButton.decreaseTitle = @"－";
     num_ = (_lastNum == 0) ?  1 : [_lastNum integerValue];
@@ -255,7 +256,8 @@ static NSInteger num_;
                     NSDictionary *paDict = @{
                                              @"Tag" : [NSString stringWithFormat:@"%zd",tag],
                                              @"Num" : [NSString stringWithFormat:@"%zd",num_],
-                                             @"Array" : numArray
+                                             @"Array" : numArray,
+                                             @"ArrayID" : numArray
                                              };
                     NSDictionary *dict = [[NSDictionary alloc] initWithDictionary:paDict];
                     [[NSNotificationCenter defaultCenter]postNotificationName:@"itemSelectBack" object:nil userInfo:dict];
@@ -263,7 +265,8 @@ static NSInteger num_;
                     NSDictionary *paDict = @{
                                              @"Tag" : [NSString stringWithFormat:@"%zd",tag],
                                              @"Num" : [NSString stringWithFormat:@"%zd",num_],
-                                             @"Array" : _seleArray
+                                             @"Array" : _seleArray,
+                                             @"ArrayID" : _lastSeleIDArray
                                              };
                     NSDictionary *dict = [[NSDictionary alloc] initWithDictionary:paDict];
                     [[NSNotificationCenter defaultCenter]postNotificationName:@"itemSelectBack" object:nil userInfo:dict];
@@ -320,15 +323,18 @@ static NSInteger num_;
 
     //section，item 循环讲选中的所有Item加入数组中 ，数组mutableCopy初始化
     _seleArray = [@[] mutableCopy];
+    _lastSeleIDArray = [@[] mutableCopy];
     for (NSInteger i = 0; i < _featureAttr.count; i++) {
         for (NSInteger j = 0; j < _featureAttr[i].list.count; j++) {
             if (_featureAttr[i].list[j].isSelect == YES) {
                 [_seleArray addObject:_featureAttr[i].list[j].attr_value];
+                [_lastSeleIDArray addObject:_featureAttr[i].list[j].goods_attr_id];
                 _attrPrice = _featureAttr[i].list[j].attr_price;
                 _goods_number = [_featureAttr[i].list[j].product_number integerValue];
                 _attrImageUrl = _featureAttr[i].list[j].thumb_url;
             }else{
                 [_seleArray removeObject:_featureAttr[i].list[j].attr_value];
+               [_lastSeleIDArray removeObject:_featureAttr[i].list[j].goods_attr_id];
                 [_lastSeleArray removeAllObjects];
             }
         }

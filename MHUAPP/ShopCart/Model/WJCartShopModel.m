@@ -25,6 +25,7 @@
              model.goods_price = [NSString stringWithFormat:@"%@",[dic objectForKey:@"goods_price"]];
              model.count_price = [NSString stringWithFormat:@"%@",[dic objectForKey:@"count_price"]];
             model.goods_attr = [dic objectForKey:@"goods_attr"];
+            model.goods_attr_id = [dic objectForKey:@"goods_attr_id"];
             model.rec_id = [dic objectForKey:@"rec_id"];
             model.youhui = [dic objectForKey:@"youhui"];
             model.market_price = [NSString stringWithFormat:@"%@",[dic objectForKey:@"market_price"]];

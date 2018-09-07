@@ -45,6 +45,8 @@
 
 static NSString *lastNum_;
 static NSArray *lastSeleArray_;
+static NSArray *lastSeleIDArray_;
+
 
 @implementation WJSSPTInfoClassViewController
 
@@ -160,14 +162,14 @@ static NSArray *lastSeleArray_;
 
     //选择Item通知
     _dcObj = [[NSNotificationCenter defaultCenter]addObserverForName:@"itemSelectBack" object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
-
         NSArray *selectArray = note.userInfo[@"Array"];
+        NSArray *selectIDArray = note.userInfo[@"ArrayID"];
         NSString *num = note.userInfo[@"Num"];
         NSString *buttonTag = note.userInfo[@"Tag"];
 
         lastNum_ = num;
         lastSeleArray_ = selectArray;
-
+        lastSeleIDArray_ = selectIDArray;
         [weakSelf.collectionView reloadData];
 
         if ([buttonTag isEqualToString:@"0"]) { //加入购物车
