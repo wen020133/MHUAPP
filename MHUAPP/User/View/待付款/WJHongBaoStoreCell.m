@@ -52,7 +52,7 @@
     
     UIImageView *line1 = ImageViewInit(0, 40, kMSScreenWith, 1);
     line1.backgroundColor = [RegularExpressionsMethod ColorWithHexString:@"E6E6E6"];
-    [self addSubview:line1];
+    [self.contentView addSubview:line1];
     
     UILabel *lab_hongbaoT = LabelInit(DCMargin, 50, 80, 20);
     lab_hongbaoT.text = @"红包";
@@ -71,6 +71,15 @@
     actionImageView.image = [UIImage imageNamed:@"price_no_down"];
     [self.contentView addSubview:actionImageView];
     
+    UIImageView *line2 = ImageViewInit(0, 84, kMSScreenWith, 1);
+    line2.backgroundColor = [RegularExpressionsMethod ColorWithHexString:@"E6E6E6"];
+    [self.contentView addSubview:line2];
+    
+    UILabel *lab_jifenT = LabelInit(DCMargin, 100, 80, 20);
+    lab_jifenT.text = @"积分";
+    lab_jifenT.font = Font(14);
+    lab_jifenT.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
+    [self.contentView addSubview:lab_jifenT];
 }
 
 

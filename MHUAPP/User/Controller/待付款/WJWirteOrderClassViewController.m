@@ -188,7 +188,7 @@
     {
         if([_is_use_bonus integerValue]==1)
         {
-            return 200;
+            return 170;
         }
         else
         {
