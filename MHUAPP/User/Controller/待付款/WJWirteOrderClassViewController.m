@@ -18,7 +18,7 @@
 @interface WJWirteOrderClassViewController ()
 
 @property (strong,nonatomic)UITableView *myTableView;
-
+@property  NSInteger serverType;
 @end
 
 @implementation WJWirteOrderClassViewController
@@ -28,22 +28,10 @@
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
      [self initSendReplyWithTitle:@"填写订单" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
 
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *mobile = [[userDefaults objectForKey:@"userAddress"] objectForKey:@"mobile"];
-    if (mobile&&mobile.length>1) {
-        _str_Name = [[userDefaults objectForKey:@"userAddress"] objectForKey:@"consignee"];
-        _str_address = [[userDefaults objectForKey:@"userAddress"] objectForKey:@"assemble_site"];
-        _str_telephone = mobile;
-    }
-    else
-    {
-        _str_telephone = @"请选择收货地址";
-    }
-    [userDefaults synchronize];
     
     
     [self.view addSubview:self.myTableView];
-
+    [self getGoodsInfoCreatData];
     [self setupCustomBottomView];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -55,11 +43,31 @@
 }
 -(void)selectAddressNote:(NSNotification *)notification
 {
-    _str_Name = [notification.userInfo objectForKey:@"name"];
-    _str_telephone = [notification.userInfo objectForKey:@"telephone"];
-    _str_address = [notification.userInfo objectForKey:@"address"];
+    _str_Name = [notification.userInfo objectForKey:@"consignee"];
+    _str_telephone = [notification.userInfo objectForKey:@"mobile"];
+    _str_address = [notification.userInfo objectForKey:@"assemble_site"];
+    _str_site_id = [notification.userInfo objectForKey:@"site_id"];
     [self.myTableView reloadData];
 }
+
+-(void)getGoodsInfoCreatData
+{
+    _serverType = 1;
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
+    
+    NSMutableArray *arr_recId = [NSMutableArray array];
+    for (WJCartGoodsModel *model in _dataArray) {
+        [arr_recId addObject:model.rec_id];
+    }
+//    NSString *attString =  [arr_recId componentsJoinedByString:@","];
+    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+    [infos setObject:uid forKey:@"user_id"];
+    [infos setObject:_is_cart forKey:@"is_cart"];
+    [infos setObject:arr_recId forKey:@"rec_id"];
+    [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSOrderCheckOut] andInfos:infos];
+}
+
 
 -(UITableView *)myTableView
 {
@@ -70,7 +78,7 @@
         _myTableView.dataSource = self;
 
         _myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _myTableView.backgroundColor = kMSColorFromRGB(245, 246, 248);
+        _myTableView.backgroundColor = self.view.backgroundColor;
 
 //        [self.myTableView registerClass:[WJCartTableHeaderView class] forHeaderFooterViewReuseIdentifier:@"WJCartTableHeaderView"];
         self.myTableView.frame = CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight - kMSNaviHight );
@@ -142,9 +150,10 @@
     NSString *attString =  [arr_recId componentsJoinedByString:@","];
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
     [infos setObject:uid forKey:@"user_id"];
-    [infos setObject:_str_address forKey:@"assemble_site"];
-    [infos setObject:_str_Name forKey:@"consignee"];
-    [infos setObject:_str_telephone forKey:@"mobile"];
+//    [infos setObject:_str_address forKey:@"assemble_site"];
+//    [infos setObject:_str_Name forKey:@"consignee"];
+//    [infos setObject:_str_telephone forKey:@"mobile"];
+    [infos setObject:_str_site_id forKey:@"address_id"];
     [infos setObject:attString forKey:@"products"];
     [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSPlaceAnOrder] andInfos:infos];
 }
@@ -152,17 +161,39 @@
 {
     if([[self.results objectForKey:@"code"] integerValue] == 200)
     {
-        PayViewController *pay = [[PayViewController alloc]init];
-        pay.orderNo = self.results[@"data"][@"orderNo"];
-        pay.oPrice = self.results[@"data"][@"oPrice"];
-        self.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:pay animated:YES];
+        switch (_serverType) {
+            case 1:
+                {
+                    id address_default = self.results[@"data"][@"address_default"];
+                    if (address_default&&[address_default isKindOfClass:[NSDictionary class] ]) {
+                        _str_Name = [address_default objectForKey:@"consignee"];
+                        _str_telephone = [address_default objectForKey:@"mobile"];
+                        _str_address = [address_default objectForKey:@"assemble_site"];
+                        _str_site_id = [address_default objectForKey:@"site_id"];
+                    }
+                }
+                break;
+                case 2:
+            {
+                PayViewController *pay = [[PayViewController alloc]init];
+                pay.orderNo = self.results[@"data"][@"orderNo"];
+                pay.oPrice = self.results[@"data"][@"oPrice"];
+                self.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:pay animated:YES];
+            }
+            default:
+                break;
+        }
+        
+        
+       
     }
     else
     {
         [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"msg"]];
         return;
     }
+    NSLog(@"msg ===  %@",self.results[@"msg"]);
 }
 
 #pragma mark --- UITableViewDataSource & UITableViewDelegate
@@ -186,14 +217,14 @@
         return 100;
     else
     {
-        if([_is_use_bonus integerValue]==1)
-        {
-            return 170;
-        }
-        else
-        {
-            return 0;
-        }
+//        if([_is_use_bonus integerValue]==1)
+//        {
+            return 200;
+//        }
+//        else
+//        {
+//            return 200;
+//        }
     }
 }
 
@@ -214,19 +245,19 @@
     else if (indexPath.section==1)
     {
     WJWriteListTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WJWriteListTableCell"];
-    if (cell == nil) {
-        cell = [[WJWriteListTableCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"WJWriteListTableCell"];
-    }
-    if(indexPath.row==0)
-    {
-        cell.imageLine.hidden = YES;
-    }
-    else
-    {
-        cell.imageLine.hidden = NO;
-    }
-    cell.listModel = self.dataArray[indexPath.row];
-    return cell;
+         if (cell == nil) {
+                 cell = [[WJWriteListTableCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"WJWriteListTableCell"];
+          }
+          if(indexPath.row==0)
+          {
+               cell.imageLine.hidden = YES;
+          }
+          else
+         {
+           cell.imageLine.hidden = NO;
+         }
+         cell.listModel = self.dataArray[indexPath.row];
+         return cell;
     }
     else
     {

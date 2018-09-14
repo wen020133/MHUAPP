@@ -617,7 +617,7 @@ static NSArray *lastSeleIDArray_;
     else
     {
         result = @"";
-        resultID = @"";
+        resultID = @"0";
     }
     if (tagSender==100) {
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -673,7 +673,7 @@ static NSArray *lastSeleIDArray_;
     }
     else
     {
-       [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"data"]];
+       [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"msg"]];
         return;
     }
 }

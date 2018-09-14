@@ -33,6 +33,7 @@
     if (mobile&&mobile.length>1) {
         _str_Name = [[userDefaults objectForKey:@"userAddress"] objectForKey:@"consignee"];
         _str_address = [[userDefaults objectForKey:@"userAddress"] objectForKey:@"assemble_site"];
+        _str_site_id = [[userDefaults objectForKey:@"userAddress"] objectForKey:@"site_id"];
         _str_telephone = mobile;
     }
     else
@@ -56,9 +57,10 @@
 }
 -(void)selectAddressNote:(NSNotification *)notification
 {
-    _str_Name = [notification.userInfo objectForKey:@"name"];
-    _str_telephone = [notification.userInfo objectForKey:@"telephone"];
-    _str_address = [notification.userInfo objectForKey:@"address"];
+    _str_Name = [notification.userInfo objectForKey:@"consignee"];
+    _str_telephone = [notification.userInfo objectForKey:@"mobile"];
+    _str_address = [notification.userInfo objectForKey:@"assemble_site"];
+    _str_site_id = [notification.userInfo objectForKey:@"site_id"];
     [self.myTableView reloadData];
 }
 
@@ -128,9 +130,10 @@
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
     if ([_info_classType isEqualToString:@"秒杀"]) {
         [infos setObject:uid forKey:@"user_id"];
-        [infos setObject:_str_address forKey:@"assemble_site"];
-        [infos setObject:_str_Name forKey:@"consignee"];
-        [infos setObject:_str_telephone forKey:@"mobile"];
+//        [infos setObject:_str_address forKey:@"assemble_site"];
+//        [infos setObject:_str_Name forKey:@"consignee"];
+//        [infos setObject:_str_telephone forKey:@"mobile"];
+        [infos setObject:_str_site_id forKey:@"address_id"];
         [infos setObject:_str_info_id forKey:@"id"];
         [infos setObject:_str_Num forKey:@"num"];
         [infos setObject:_str_type forKey:@"norm"];
@@ -139,9 +142,10 @@
     else  if ([_info_classType isEqualToString:@"拼团"])
     {
         [infos setObject:uid forKey:@"user_id"];
-        [infos setObject:_str_address forKey:@"assemble_site"];
-        [infos setObject:_str_Name forKey:@"consignee"];
-        [infos setObject:_str_telephone forKey:@"mobile"];
+//        [infos setObject:_str_address forKey:@"assemble_site"];
+//        [infos setObject:_str_Name forKey:@"consignee"];
+//        [infos setObject:_str_telephone forKey:@"mobile"];
+        [infos setObject:_str_site_id forKey:@"address_id"];
         [infos setObject:_str_group_info_id forKey:@"id"];
         [infos setObject:_str_Num forKey:@"num"];
         [infos setObject:_str_type forKey:@"norm"];
@@ -153,6 +157,7 @@
         [infos setObject:_str_address forKey:@"assemble_site"];
         [infos setObject:_str_Name forKey:@"consignee"];
         [infos setObject:_str_telephone forKey:@"mobile"];
+//        [infos setObject:_str_site_id forKey:@"address_id"];
         [infos setObject:_str_goodsId forKey:@"id"];
         [infos setObject:_str_Num forKey:@"num"];
         [infos setObject:_str_type forKey:@"norm"];

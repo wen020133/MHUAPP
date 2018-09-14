@@ -188,7 +188,7 @@
         [userDefaults synchronize];
         NSMutableDictionary *infos = [NSMutableDictionary dictionary];
         [infos setValue:uid forKey:@"user_id"];
-        [infos setValue:[self.records objectAtIndex:sender.tag].region_id forKey:@"site_id"];
+        [infos setValue:[NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].site_id] forKey:@"site_id"];
         [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSAddressChangeDefault] andInfos:infos];
 //        for (int kkk=0; kkk<4; kkk++) {
 //
@@ -223,7 +223,7 @@
             [userDefaults synchronize];
             NSMutableDictionary *infos = [NSMutableDictionary dictionary];
             [infos setValue:uid forKey:@"uid"];
-            [infos setValue:[self.records objectAtIndex:sender.tag].region_id forKey:@"site_id"];
+            [infos setValue:[NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].site_id] forKey:@"site_id"];
             [infos setValue:@"delete" forKey:@"type"];
             [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSAddressChangeType] andInfos:infos];
         }
@@ -257,7 +257,7 @@
     deliverVC.str_cityName = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].city];
     deliverVC.str_district = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].district];
     deliverVC.str_address = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].address];
-    deliverVC.str_id = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].region_id];
+    deliverVC.str_id = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].site_id];
 //    deliverVC.str_postCode = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].zip_code];
     deliverVC.str_mobile = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].mobile];
     deliverVC.str_consignee = [NSString stringWithFormat:@"%@",[self.records objectAtIndex:sender.tag].consignee];
@@ -270,16 +270,13 @@
 {
    
     if (self.selectCellIndexpathYES) {
-        NSMutableDictionary  *infodic = [NSMutableDictionary dictionary];
-        [infodic setValue:[self.records objectAtIndex:indexPath.row].mobile forKey:@"telephone"];
-        [infodic setValue:[self.records objectAtIndex:indexPath.row].consignee forKey:@"name"];
-        [infodic setValue:[self.records objectAtIndex:indexPath.row].assemble_site forKey:@"address"];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"selectAddressNote" object:self userInfo:infodic];
-        
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
         [dic setValue:[self.records objectAtIndex:indexPath.row].mobile forKey:@"mobile"];
         [dic setValue:[self.records objectAtIndex:indexPath.row].consignee forKey:@"consignee"];
         [dic setValue:[self.records objectAtIndex:indexPath.row].assemble_site forKey:@"assemble_site"];
+        [dic setValue:[NSString stringWithFormat:@"%@",[self.records objectAtIndex:indexPath.row].site_id] forKey:@"site_id"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"selectAddressNote" object:self userInfo:dic];
+        
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setObject:dic forKey:@"userAddress"];
         [userDefaults synchronize];

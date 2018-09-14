@@ -69,6 +69,15 @@
 
         self.lab_market_price.frame = CGRectMake(self.priceLabel.Right+3, 72, 60, 20);
     }
+    
+    if([model.is_use_bonus integerValue]==1)
+    {
+        _hongbaoLabel.alpha = 1.0f;
+    }
+    else
+    {
+        _hongbaoLabel.alpha = 0.0f;
+    }
 
 }
 
@@ -192,7 +201,7 @@
 
     //数量显示
     UILabel* numberLabel = [[UILabel alloc]init];
-    numberLabel.frame = CGRectMake(addBtn.x - 30, addBtn.y, 30, 25);
+    numberLabel.frame = CGRectMake(addBtn.x - 40, addBtn.y, 40, 25);
     numberLabel.textAlignment = NSTextAlignmentCenter;
     numberLabel.text = @"1";
     numberLabel.font = [UIFont systemFontOfSize:15];
@@ -206,6 +215,16 @@
     [cutBtn setImage:[UIImage imageNamed:@"cart_cutBtn_highlight"] forState:UIControlStateHighlighted];
     [cutBtn addTarget:self action:@selector(cutBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:cutBtn];
+    
+    _hongbaoLabel = LabelInit(self.width-35, _nameLabel.Bottom, 30, 15);
+    _hongbaoLabel.textColor = kMSCellBackColor;
+    _hongbaoLabel.backgroundColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
+    _hongbaoLabel.font = Font(11);
+    _hongbaoLabel.textAlignment = NSTextAlignmentCenter;
+    _hongbaoLabel.layer.cornerRadius = 5;
+    _hongbaoLabel.layer.masksToBounds = YES;//设置圆角
+    _hongbaoLabel.text = @"红包";
+    [self.contentView addSubview:_hongbaoLabel];
 }
 
 -(void)refreshUIWithTitle:(NSString *)title{

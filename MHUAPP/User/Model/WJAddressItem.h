@@ -15,8 +15,10 @@
 @property (nonatomic, strong) NSString *mobile;
 
 @property (nonatomic,copy) NSString * region_name;//名称
+@property (nonatomic,copy) NSString * region_id;
 
-@property (nonatomic, strong) NSString *region_id; //地址id
+
+@property (nonatomic, strong) NSString *site_id; //地址id
 
 /** 固定号码 */
 @property (nonatomic, strong) NSString *phone;

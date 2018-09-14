@@ -17,9 +17,6 @@
 
 
 
-/* 收藏 */
-@property (strong , nonatomic) UIButton *btnSeeAll;
-
 
 @end
 

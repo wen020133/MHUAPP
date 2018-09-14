@@ -76,6 +76,8 @@
 #define   kMSGetGoodsDesc          @"getGoodsDesc"                 //商品的详细描述
 #define   kMSGetCartList          @"getCart"                 //购物车列表数据
 #define   kMSDeleteCart          @"deleteCart"                 //删除购车商品
+#define   kMSOrderCheckOut          @"/v1/checkOut"                 //提交订单初始化
+
 #define   kMSPlaceAnOrder          @"/v1/placeAnOrder"                 //添加订单
 #define   kMSWholeOrder          @"wholeOrder"                 //全部订单
 
@@ -85,7 +87,7 @@
 #define   kMSGetDelivery          @"getDelivery"                 //待发货列表
 #define   kMSGetReceive          @"getReceive"                 //待收货列表
 #define   kMSMiYoMeipay        @"/v1/pay"                 //生产支付宝签名
-#define   kMSMiYoMeiWXpay        @"/v1/wxPay"                 //微信s支付宝签名
+#define   kMSMiYoMeiWXpay        @"/v1/wxPay"                 //微信支付签名
 
 #define   kMSGetIntegralList       @"getList"                 //积分商品列表
 #define   kMSGetIntegral       @"getIntegral"                 //用户积分

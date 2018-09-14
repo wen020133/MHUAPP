@@ -42,8 +42,10 @@
 
 -(void)addServiceListData
 {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
     _serviceType = 2;
-    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetBestSeller,_storeId]];
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%@&user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetBestSeller,_storeId,uid]];
 }
 -(void)getProcessData
 {
@@ -55,12 +57,14 @@
         }
         else
         {
-            id arr = [self.results objectForKey:@"data"];
+            id arr = [[self.results objectForKey:@"data"] objectForKey:@"goods_list"];
             if([arr isKindOfClass:[NSArray class]])
             {
                 self.goodsImageArr =   [WJGoodsDataModel mj_objectArrayWithKeyValuesArray:arr];
                 [self.collectionV reloadData];
             }
+            self.is_attention = [self.results objectForKey:@"is_attention"];
+            
         }
 
     }
@@ -97,10 +101,23 @@
         WJStoreHeadCollectionView *head = [self.collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJStoreHeadCollectionView" forIndexPath:indexPath];
         head.lab_allGood.text = [NSString stringWithFormat:@"%@",_str_addGoodsNum];
         head.titleLabel.text = _storeName;
+        if([self.is_attention integerValue]==1)
+        {
+            [head.btnSeeAll setBackgroundImage:[UIImage imageNamed:@"commit_star"] forState:UIControlStateNormal];
+            [SVProgressHUD showSuccessWithStatus:@"该店铺已收藏"];
+            [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+            [SVProgressHUD dismissWithDelay:1.0];
+        }
+        else
+        {
+            [head.btnSeeAll setBackgroundImage:[UIImage imageNamed:@"jxdp_shoucang"] forState:UIControlStateNormal];
+            head.goToTuijianGoodBlock = ^{
+                [self initgetFollowData];
+            };
+        }
+        
         [head.headImageView sd_setImageWithURL:[NSURL URLWithString:_storeLogo] placeholderImage:[UIImage imageNamed:@"ic_no_heardPic.png"]];
-        head.goToTuijianGoodBlock = ^{
-            [self initgetFollowData];
-        };
+        
         reusableview = head;
     }
     return reusableview;
@@ -122,6 +139,7 @@
         [SVProgressHUD showSuccessWithStatus:@"收藏成功"];
             [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
             [SVProgressHUD dismissWithDelay:1.0];
+        self.is_attention = @"1";
 
     }
     else

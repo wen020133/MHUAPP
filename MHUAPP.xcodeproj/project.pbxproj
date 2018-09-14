@@ -64,6 +64,7 @@
 		17C96B54210AB16D00A655BD /* WJDistributionHeadTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17C96B53210AB16D00A655BD /* WJDistributionHeadTypeView.m */; };
 		17C96B5D210B001500A655BD /* WJClassificationCollectionHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17C96B5C210B001500A655BD /* WJClassificationCollectionHeadView.m */; };
 		17C96B60210B149900A655BD /* WJKeFenxiaoListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 17C96B5F210B149900A655BD /* WJKeFenxiaoListCell.m */; };
+		17D32C182147919B00D84C17 /* user_jifenguize.png in Resources */ = {isa = PBXBuildFile; fileRef = 17D32C172147919B00D84C17 /* user_jifenguize.png */; };
 		17D6D4FA20AFBE7B00674875 /* WJIntegralOrderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17D6D4F920AFBE7B00674875 /* WJIntegralOrderListViewController.m */; };
 		17DF7BE81FCCFF7100FBD9DC /* UIView+UIViewFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 17DF7BE61FCCFF7100FBD9DC /* UIView+UIViewFrame.m */; };
 		17DF7BE91FCCFF7100FBD9DC /* UIButton+LZCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 17DF7BE71FCCFF7100FBD9DC /* UIButton+LZCategory.m */; };
@@ -552,6 +553,7 @@
 		17C96B5C210B001500A655BD /* WJClassificationCollectionHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJClassificationCollectionHeadView.m; sourceTree = "<group>"; };
 		17C96B5E210B149900A655BD /* WJKeFenxiaoListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJKeFenxiaoListCell.h; sourceTree = "<group>"; };
 		17C96B5F210B149900A655BD /* WJKeFenxiaoListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJKeFenxiaoListCell.m; sourceTree = "<group>"; };
+		17D32C172147919B00D84C17 /* user_jifenguize.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user_jifenguize.png; sourceTree = "<group>"; };
 		17D6D4F820AFBE7B00674875 /* WJIntegralOrderListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJIntegralOrderListViewController.h; sourceTree = "<group>"; };
 		17D6D4F920AFBE7B00674875 /* WJIntegralOrderListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJIntegralOrderListViewController.m; sourceTree = "<group>"; };
 		17DF7BE51FCCFF7100FBD9DC /* UIButton+LZCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+LZCategory.h"; sourceTree = "<group>"; };
@@ -3114,6 +3116,7 @@
 				177CC8712139105D000E214B /* text_backimage.png */,
 				177CC87321391261000E214B /* user_fenxiaoUP.png */,
 				177CC87B21392B56000E214B /* hongBao_icon.png */,
+				17D32C172147919B00D84C17 /* user_jifenguize.png */,
 				17FE1FBA213D1BC7006C9AB0 /* search_history_icon@2x.png */,
 				17FE1FB9213D1BC4006C9AB0 /* search_history_icon@3x.png */,
 				17FE1FBD213D1BD9006C9AB0 /* delete_icon@2x.png */,
@@ -3404,6 +3407,7 @@
 				3456C1B91FD7C3B200B5AEB8 /* MyBuyFlow.plist in Resources */,
 				34D5075F1FDB7E5A00EA1AC5 /* login_weibo.png in Resources */,
 				34FBC1DC209C50EA004C0F84 /* img_paysuccess.png in Resources */,
+				17D32C182147919B00D84C17 /* user_jifenguize.png in Resources */,
 				17FE1FBB213D1BC7006C9AB0 /* search_history_icon@3x.png in Resources */,
 				344EDDAB206A2D3100E283DA /* main_sspt_haowuyiqipin.jpg in Resources */,
 				17E2049A2136819700374D99 /* home_sound.png in Resources */,

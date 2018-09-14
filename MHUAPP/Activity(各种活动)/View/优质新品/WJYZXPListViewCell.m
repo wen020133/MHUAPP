@@ -52,15 +52,28 @@
 //        [_grayView addSubview:_lab_count];
 
 
+        _hongbaoLabel = LabelInit(self.width-40,_lab_describe.Bottom, 30, 15);
+        _hongbaoLabel.textColor = kMSCellBackColor;
+        _hongbaoLabel.backgroundColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
+        _hongbaoLabel.font = Font(11);
+        _hongbaoLabel.textAlignment = NSTextAlignmentCenter;
+        _hongbaoLabel.layer.cornerRadius = 5;
+        _hongbaoLabel.layer.masksToBounds = YES;//设置圆角
+        _hongbaoLabel.text = @"红包";
+        [_grayView addSubview:_hongbaoLabel];
+        
         _btn_price = [UIButton buttonWithType:UIButtonTypeCustom];
         [_btn_price setBackgroundColor:[RegularExpressionsMethod ColorWithHexString:BASEPINK]];
         _btn_price.frame = CGRectMake(10, _lab_count.Bottom+1, _grayView.width-20, 30);
         _btn_price.titleLabel.font = PFR15Font;
         _btn_price.titleLabel.textColor = kMSCellBackColor;
         [_btn_price setTitle:@"立即购买" forState:UIControlStateNormal];
-        _btn_price.layer.cornerRadius = 2;
+        _btn_price.layer.cornerRadius = 5;
         _btn_price.layer.masksToBounds = YES;//设置圆角
+        _btn_price.userInteractionEnabled = NO;
         [_grayView addSubview:_btn_price];
+        
+        
     }
     return self;
 }
@@ -80,7 +93,14 @@
 //    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:oldprice
 //                                                                                attributes:@{NSStrikethroughStyleAttributeName : @(NSUnderlineStyleSingle)}];
 //    _oldPriceLabel.attributedText = attrStr;
-
+    if([model.is_use_bonus integerValue]==1)
+    {
+        _hongbaoLabel.alpha = 1.0f;
+    }
+    else
+    {
+        _hongbaoLabel.alpha = 0.0f;
+    }
 
     _lab_count.text = [NSString stringWithFormat:@"已售%@",_model.shop_num];
 

@@ -33,42 +33,44 @@
 #pragma mark - UI
 - (void)setUpUI
 {
+    self.backgroundColor = kMSCellBackColor;
+    
     _contentImg = [[UIImageView alloc] initWithFrame:CGRectMake(DCMargin, 5, TAG_Height-10, TAG_Height-10)];
-    [self.contentView addSubview:_contentImg];
+    [self addSubview:_contentImg];
 
     _title = [[UILabel alloc] init];
     _title.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
     _title.numberOfLines = 2;
     _title.textAlignment = NSTextAlignmentLeft;
     _title.font = Font(16);
-    [self.contentView addSubview:_title];
+    [self addSubview:_title];
 
     _price = [[UILabel alloc] init];
     _price.textAlignment = NSTextAlignmentRight;
     _price.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
     _price.font = Font(15);
-    [self.contentView addSubview:_price];
+    [self addSubview:_price];
 
     _oldprice = [[UILabel alloc] init];
     _oldprice.textAlignment = NSTextAlignmentRight;
     _oldprice.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
     _oldprice.font = Font(13);
-    [self.contentView addSubview:_oldprice];
+    [self addSubview:_oldprice];
 
     _Num = [[UILabel alloc] init];
     _Num.textAlignment = NSTextAlignmentRight;
     _Num.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
     _Num.font = Font(15);
-    [self.contentView addSubview:_Num];
+    [self addSubview:_Num];
 
     _type = [[UILabel alloc] init];
     _type.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
     _type.font = Font(12);
-    [self.contentView addSubview:_type];
+    [self addSubview:_type];
 
     self.imageLine = ImageViewInit(self.contentImg.Right + 5, 0, kMSScreenWith-self.contentImg.Right -15, 1);
     self.imageLine.backgroundColor = [[UIColor lightGrayColor]colorWithAlphaComponent:0.4];
-    [self.contentView addSubview:self.imageLine];
+    [self addSubview:self.imageLine];
 }
 -(void)setListModel:(WJCartGoodsModel *)listModel
 {
@@ -90,7 +92,7 @@
     _price.text = price;
 
     NSString *oldprice = [NSString stringWithFormat:@"￥%@",_listModel.market_price];
-    _oldprice.frame = CGRectMake(kMSScreenWith-width-10, _price.Bottom+5, width, 20);
+    _oldprice.frame = CGRectMake(kMSScreenWith-width-15, _price.Bottom+5, width+5, 20);
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:oldprice
                                                                                 attributes:@{NSStrikethroughStyleAttributeName : @(NSUnderlineStyleSingle)}];
     _oldprice.attributedText = attrStr;

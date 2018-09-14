@@ -119,21 +119,18 @@
 {
     if (!_historyTBView) {
         _historyTBView = [[CJSearchTbView alloc] initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight-kMSNaviHight) style:UITableViewStyleGrouped];
-        _historyTBView.type = @"0";
         _historyTBView.backgroundColor = [UIColor whiteColor];
         _historyTBView.separatorColor = [RegularExpressionsMethod ColorWithHexString:@"0xf0f0f0"];
         _historyTBView.rowHeight = 44;
         _historyTBView.tableHeaderView = self.hotHeadView;
-        __weak typeof(self) weakSelf = self;
+        WEAKSELF
         _historyTBView.clickResultBlock = ^(NSString *key){
-            __strong typeof(weakSelf) strongSelf = weakSelf;
-            [strongSelf.searchBar resignFirstResponder]; strongSelf.searchBar.searchBarTextField.text = key;
-            [strongSelf getGoodsOrShopDataList:key];
+            [weakSelf.searchBar resignFirstResponder]; weakSelf.searchBar.searchBarTextField.text = key;
+            [weakSelf getGoodsOrShopDataList:key];
         };
         
         _historyTBView.clickDeleteBlock = ^(){
-            __strong typeof(weakSelf)  strongSelf = weakSelf;
-            [strongSelf deleteHistoryData];
+            [weakSelf deleteHistoryData];
         };
     }
     
@@ -347,12 +344,11 @@
 //热门视图搜索
 - (CJSearchHotView *)hotHeadView {
     if (!_hotHeadView) {
-        __weak typeof(self) weakSelf = self;
+        WEAKSELF
         _hotHeadView = [[CJSearchHotView alloc] initWithFrame:CGRectMake(0, 0, kMSScreenWith, 0) tagColor:[RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR] tagBlock:^(NSString *key) {
             NSLog(@"点击热搜%@",key);
-            __strong typeof(weakSelf) strongSelf = weakSelf;
-            [strongSelf saveHistoryKeyWord:key];
-            [strongSelf.searchBar resignFirstResponder];
+            [weakSelf saveHistoryKeyWord:key];
+            [weakSelf.searchBar resignFirstResponder];
         }];
         _hotHeadView.hotKeyArr = @[@"染发剂",@"吹风机",@"直发器",@"美甲",@"香水",@"面膜",@"去屑",@"脱毛器"];
     }

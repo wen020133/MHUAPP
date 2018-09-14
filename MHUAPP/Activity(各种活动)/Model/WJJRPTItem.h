@@ -30,4 +30,8 @@
 @property (nonatomic, copy ,readonly) NSString *goods_id;
 /** shop_num  */
 @property (nonatomic, copy ,readonly) NSString *shop_num;
+
+/* 红包提示 */
+@property (strong, nonatomic) NSString *bonus_tips;
+@property (strong, nonatomic) NSString *is_use_bonus;
 @end

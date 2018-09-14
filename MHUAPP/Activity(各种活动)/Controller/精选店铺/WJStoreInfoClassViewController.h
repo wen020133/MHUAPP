@@ -14,4 +14,6 @@
 @property (assign ,nonatomic) NSString *storeId;
 @property (assign ,nonatomic) NSString *storeLogo;
 @property (assign ,nonatomic) NSString *storeName;
+
+@property (strong ,nonatomic) NSString *is_attention;
 @end

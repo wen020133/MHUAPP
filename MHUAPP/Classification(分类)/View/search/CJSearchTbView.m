@@ -44,7 +44,7 @@
         cell.backgroundColor = [UIColor whiteColor];
         cell.textLabel.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
         cell.textLabel.font = [UIFont systemFontOfSize:14];
-        NSString *imageName = [_type isEqualToString:@"0"] ? @"search_history_icon":@"xj_alert_succeed";
+        NSString *imageName = @"search_history_icon";
         cell.imageView.image = [UIImage imageNamed:imageName];
         cell.textLabel.font = [UIFont systemFontOfSize:13];
         cell.textLabel.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
@@ -58,24 +58,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if ([_type isEqualToString:@"0"]) {
-        
         NSString *keyword = nil;
-        
         keyword = self.sourceData[indexPath.row];
-        //
-        
-        self.userInteractionEnabled = NO;
-        
-        
+
         if (self.clickResultBlock) {
             self.clickResultBlock(keyword);
             
         }
 
-    } else if ([_type isEqualToString:@"1"]) {
-        NSLog(@"点击了----:%@",self.sourceData[indexPath.row]);
-    }
+    
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -88,14 +79,10 @@
         [cell setLayoutMargins:UIEdgeInsetsZero];
     }
 }
-- (void)setType:(NSString *)type {
-    _type = type;
-}
+
 #pragma mark -- groupHeadView
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
-    if ([self.type isEqualToString:@"0"]) {
-        
         NSArray *originData = [[NSUserDefaults standardUserDefaults] objectForKey:kHistroySearchData];
         if (originData.count == 0) return nil;
         
@@ -117,15 +104,13 @@
         [deleteBtn addTarget:self action:@selector(deleteAction) forControlEvents:UIControlEventTouchUpInside];
         
         return view;
-    }
-    return [UIView new];
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     return [UIView new];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     NSArray *originData = [[NSUserDefaults standardUserDefaults] objectForKey:kHistroySearchData];
-    return [self.type isEqualToString:@"0"] ? (originData.count == 0 ? 0.01 : 30.f) : 0.01;
+    return  originData.count == 0 ? 0.01 : 30.f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {

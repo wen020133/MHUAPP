@@ -19,5 +19,5 @@
 @property (nonatomic, strong) UILabel *priceLabel;
 @property (nonatomic, strong) WJJRPTItem *model;
 
-
+@property (nonatomic, strong) UILabel *hongbaoLabel;
 @end

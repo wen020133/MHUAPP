@@ -25,4 +25,8 @@
 @property (copy,nonatomic) NSString *goods_attr;
 @property (copy,nonatomic) NSString *goods_attr_id;
 @property (copy,nonatomic) NSString *is_group_buy;   //当为2时是积分商城订单
+
+/* 红包提示 */
+@property (strong, nonatomic) NSString *bonus_tips;
+@property (strong, nonatomic) NSString *is_use_bonus;
 @end

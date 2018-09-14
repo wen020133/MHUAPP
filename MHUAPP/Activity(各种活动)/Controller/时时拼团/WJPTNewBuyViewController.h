@@ -13,6 +13,7 @@
 
 @property (strong,nonatomic) NSString *str_telephone;
 @property (strong,nonatomic) NSString *str_address;
+@property (strong,nonatomic) NSString *str_site_id;
 @property (strong,nonatomic) NSString *str_Name;
 
 @property (assign,nonatomic) NSString *str_contentImg;

@@ -29,6 +29,7 @@
         _str_Name = [[userDefaults objectForKey:@"userAddress"] objectForKey:@"consignee"];
         _str_address = [[userDefaults objectForKey:@"userAddress"] objectForKey:@"assemble_site"];
         _str_telephone = mobile;
+        _str_site_id = [[userDefaults objectForKey:@"userAddress"] objectForKey:@"site_id"];
     }
     else
     {
@@ -116,9 +117,9 @@
     NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
     [infos setObject:uid forKey:@"user_id"];
-    [infos setObject:_str_address forKey:@"assemble_site"];
-    [infos setObject:_str_Name forKey:@"consignee"];
-    [infos setObject:_str_telephone forKey:@"mobile"];
+    [infos setObject:_str_site_id forKey:@"address_id"];
+//    [infos setObject:_str_Name forKey:@"consignee"];
+//    [infos setObject:_str_telephone forKey:@"mobile"];
     [infos setObject:_listItem.goods_id forKey:@"id"];
     [infos setObject:_str_goods_sn forKey:@"norm"];
     [infos setObject:@"1" forKey:@"num"];

@@ -27,4 +27,9 @@
 @property (strong , nonatomic)UILabel *lab_fuwuNum;
 /* 物流速度 */
 @property (strong , nonatomic)UILabel *lab_wlSuduNum;
+
+
+/* 收藏 */
+@property (strong , nonatomic) UIButton *btnSeeAll;
+
 @end

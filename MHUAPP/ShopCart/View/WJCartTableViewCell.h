@@ -46,4 +46,7 @@ typedef void(^LZCellSelectedBlock)(BOOL select);
 - (void)numberCutWithBlock:(LZNumberChangedBlock)block;
 - (void)cellSelectedWithBlock:(LZCellSelectedBlock)block;
 
+@property (nonatomic, strong) UILabel *hongbaoLabel;
+
+
 @end

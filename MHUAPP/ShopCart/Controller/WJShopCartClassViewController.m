@@ -47,7 +47,7 @@ static NSInteger lz_CartRowHeight = 100;
     NSString *loginState = [userDefaults objectForKey:@"loginState"];
     if(![loginState isEqualToString:@"1"])
     {
-        [self setupCustomNavigationBar];
+         [self setupCustomNavigationBar];
         _myTableView.hidden = YES;
         UIView *view = [self.view viewWithTag:TAG_CartEmptyView];
         [view removeFromSuperview];
@@ -82,6 +82,8 @@ static NSInteger lz_CartRowHeight = 100;
         [self getGoodsInfoCreatData];
 
     }
+   
+    
     for (WJCartGoodsModel *model in _selectedArray) {
         model.select = NO;
     }
@@ -154,6 +156,7 @@ static NSInteger lz_CartRowHeight = 100;
                     if ([dataArr  count]<1 ) {
                         [self changeView];
                         [self.myTableView reloadData];
+                        [self setupCustomNavigationBar];
                         return;
                     }
 
@@ -201,6 +204,7 @@ static NSInteger lz_CartRowHeight = 100;
     else
     {
          [self.myTableView.mj_header endRefreshing];
+        [self requestFailed:[self.results objectForKey:@"msg"]];
         return;
     }
 }
@@ -239,7 +243,7 @@ static NSInteger lz_CartRowHeight = 100;
         }
         else
         {
-            self.navigationItem.rightBarButtonItem = nil;
+             [self initSendReplyWithTitle:@"购物车" andLeftButtonName:nil andRightButtonName:nil andTitleLeftOrRight:NO];
         }
 
     }
@@ -250,7 +254,7 @@ static NSInteger lz_CartRowHeight = 100;
         }
         else
         {
-            self.navigationItem.rightBarButtonItem = nil;
+             [self initSendReplyWithTitle:@"购物车" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:NO];
         }
     }
 }
@@ -737,6 +741,7 @@ static NSInteger lz_CartRowHeight = 100;
         }
         WJWirteOrderClassViewController *writeVC = [[WJWirteOrderClassViewController alloc]init];
         writeVC.dataArray = _selectedArray;
+        writeVC.is_cart = @"1";
         self.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:writeVC animated:YES];
         self.hidesBottomBarWhenPushed = NO;

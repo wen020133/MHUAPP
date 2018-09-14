@@ -47,17 +47,21 @@
     if([[self.results objectForKey:@"code"] integerValue] == 200)
     {
         [self.arr_dataList removeAllObjects];
-        NSArray *data =[self.results objectForKey:@"data"];
-        if (data.count>0) {
-            id arr_data = [[data objectAtIndex:0] objectForKey:@"order_info"];;
-            if ([arr_data isKindOfClass:[NSArray class]]) {
-                _arr_dataList = [WJCartGoodsModel mj_objectArrayWithKeyValuesArray:arr_data];
-            }
-            [_myTableView reloadData];
+        id data =[self.results objectForKey:@"data"];
+        if ([data isKindOfClass:[NSArray class]])
+        {
+            return;
+        }
+        else if ([data isKindOfClass:[NSDictionary class]])
+        {
+            NSArray *arr_data = [data objectForKey:@"order_info"];;
+             _arr_dataList = [WJCartGoodsModel mj_objectArrayWithKeyValuesArray:arr_data];
+             [_myTableView reloadData];
         }
         else
         {
             [SVProgressHUD showErrorWithStatus:@"获取数据失败！"];
+            return;
         }
 
     }
@@ -198,13 +202,13 @@
         if (cell == nil) {
             cell = [[WJWaitPayThridTableCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"WJWaitPayThridTableCell"];
         }
-        NSString *addTime = [[[self.results objectForKey:@"data"] objectAtIndex:0] objectForKey:@"add_time"];
+        NSString *addTime = [[self.results objectForKey:@"data"] objectForKey:@"add_time"];
         NSDateFormatter *stampFormatter = [[NSDateFormatter alloc] init]; [stampFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
         NSDate *stampDate2 = [NSDate dateWithTimeIntervalSince1970:[addTime doubleValue]];
         cell.lab_time.text = [stampFormatter stringFromDate:stampDate2];
         cell.str_orderNo = _str_orderId;
 
-        cell.totalPayPrice.text = [NSString stringWithFormat:@"共%ld件商品 合计：￥%@",_arr_dataList.count,[[[self.results objectForKey:@"data"] objectAtIndex:0] objectForKey:@"goods_amount"]];
+        cell.totalPayPrice.text = [NSString stringWithFormat:@"共%ld件商品 合计：￥%@",_arr_dataList.count,[[self.results objectForKey:@"data"] objectForKey:@"goods_amount"]];
         return cell;
     }
 }

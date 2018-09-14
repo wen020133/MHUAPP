@@ -64,6 +64,14 @@
     CGFloat width = [RegularExpressionsMethod widthOfString:price font:Font(15) height:20];
     _lab_price.frame = CGRectMake(10, _title.Bottom+5, width, 20);
     _lab_price.text = price;
+    if([item.is_use_bonus integerValue]==1)
+    {
+        _hongbaoLabel.alpha = 1.0f;
+    }
+    else
+    {
+        _hongbaoLabel.alpha = 0.0f;
+    }
 }
 
 -(void)refreshUIWithTitle:(NSString *)title{
