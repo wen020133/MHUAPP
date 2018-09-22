@@ -20,9 +20,6 @@
 
 @property (strong , nonatomic) UITableView *myTableView;
 
-@property NSInteger page_Information;
-
-
 
 @end
 
@@ -41,7 +38,7 @@
 {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
-     [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%ld&user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetFootmark,_page_Information,uid]];
+     [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetFootmark,uid]];
 }
 -(NSMutableArray *)chuliQianArr{
     if (!_chuliQianArr) {
@@ -63,16 +60,12 @@
     if([[self.results objectForKey:@"code"] integerValue] == 200)
     {
 
-        NSArray *arr_Datalist = [[self.results objectForKey:@"data"] objectForKey:@"data"];
+        NSArray *arr_Datalist = [self.results objectForKey:@"data"];
         if (arr_Datalist&&arr_Datalist.count>0) {
-            if(_page_Information==1)
-            {
-                NSMutableArray *mutableObject = [arr_Datalist mutableCopy];
-                self.chuliQianArr = mutableObject;
-            }else
-            {
-                [self.chuliQianArr addObjectsFromArray:arr_Datalist];
-            }
+            
+            NSMutableArray *mutableObject = [arr_Datalist mutableCopy];
+            self.chuliQianArr = mutableObject;
+            
             [self editTheArray:_chuliQianArr];
             [_myTableView reloadData];
             if(arr_Datalist.count<[kMSPULLtableViewCellNumber integerValue])
@@ -106,8 +99,6 @@
 
         for (NSString *nowTim in allTimeNewArr) {
             NSMutableArray *arr = [[NSMutableArray alloc] init];
-
-
             for (NSDictionary *ordersDicTwo in chuliqianArr) {
               //第一个for循环 取某个值和总数据（chuliqianArr）的比较相同就丢ordersDicTwo进arr
                 NSString *twoTim = [self timeStamp2Date:ordersDicTwo[@"add_time"]];
@@ -115,7 +106,6 @@
                     [arr addObject:ordersDicTwo];
                 }
             }
-
             [tempArray addObject:@{@"dateTitle":nowTim,@"goodsInfo":arr}];
          //第二个for循环把对应某个dateTitle的值 加入对应的数组
         }
@@ -165,7 +155,7 @@
 
         self.myTableView.mj_header = [WJHomeRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRereshingCirclefoot)];
         [_myTableView.mj_header beginRefreshing];
-          self.myTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshingCirclefoot)];
+//          self.myTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshingCirclefoot)];
     }
     return _myTableView;
 }
@@ -173,15 +163,13 @@
 
 -(void)headerRereshingCirclefoot
 {
-    _page_Information = 1;
     [self initGetFootmarkClassData];
 }
 
--(void)footerRereshingCirclefoot
-{
-    _page_Information ++;
-    [self initGetFootmarkClassData];
-}
+//-(void)footerRereshingCirclefoot
+//{
+//    [self initGetFootmarkClassData];
+//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSArray *arrAllkeys = _setItem[section][@"goodsInfo"];
@@ -209,6 +197,15 @@
             
             NSString *saleCount = [NSString stringWithFormat:@"%@",[[[arrAllkeys objectAtIndex:indexPath.row] objectForKey:@"goods"] objectForKey:@"goods_name"]];
             cell.title.text  = saleCount;
+            
+            if([[[[arrAllkeys objectAtIndex:indexPath.row] objectForKey:@"goods"] objectForKey:@"is_use_bonus"] integerValue]==1)
+            {
+                cell.hongbaoLabel.hidden = NO;
+            }
+            else
+            {
+                cell.hongbaoLabel.hidden = YES;
+            }
         }
     }
     

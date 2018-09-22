@@ -60,7 +60,7 @@
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     [self initSendReplyWithTitle:@"评价" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
 
-    self.arr_Type = [NSArray arrayWithObjects:@" 桑身",@" 一般",@" 灰常棒",nil];
+    self.arr_Type = [NSArray arrayWithObjects:@" 伤身",@" 一般",@" 非常棒",nil];
     [self.view addSubview:self.mianScrollView];
     noteTextHeight = 100;
     self.showInView = _mianScrollView;

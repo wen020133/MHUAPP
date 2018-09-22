@@ -73,6 +73,8 @@
 #define   kMSGetDetailed           @"getDetailed"                 //商品详情页面
 
 #define   kMSPostCart          @"/v1/postCart"                 //向购物车添加数据
+#define   kMSUpdateCartNum          @"/v1/updateCartNum"                 //修改购物车商品数量
+
 #define   kMSGetGoodsDesc          @"getGoodsDesc"                 //商品的详细描述
 #define   kMSGetCartList          @"getCart"                 //购物车列表数据
 #define   kMSDeleteCart          @"deleteCart"                 //删除购车商品
@@ -126,7 +128,7 @@
 
 
 #define   kMSGetFollow        @"/v1/getFollow"                 //关注店铺
-#define   kMSDeleteSupplier        @"deleteSupplier"                 //删除关注的店铺
+#define   kMSDeleteSupplier        @"/v1/deleteSupplier"                 //删除关注的店铺
 #define   kMSGetSupplierGuanzhu        @"getSupplierGuanzhu"              //关注店铺列表
 
 
@@ -147,6 +149,7 @@
 #define   kMSDetailList       @"detailList"  //分销明细表
 #define   kMSDepositCate       @"depositCate"  //分销商品分类
 #define   kMSDepositMoney       @"depositMoney"  //分销资金管理
+#define   kMSAccountDeposit       @"/v1/accountDeposit"  //分销资金
 
 
 /* 聊天记录好友列表 */

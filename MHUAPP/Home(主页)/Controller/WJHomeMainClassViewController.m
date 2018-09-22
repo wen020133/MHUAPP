@@ -42,6 +42,8 @@
 #import "WJNewTuiJianCell.h"
 #import "HWScanViewController.h"
 #import "WJMainWebClassViewController.h"
+#import "WJProductsRecommendedViewController.h"
+
 
 #import <MJRefresh.h>
 #import "WJHomeRefreshGifHeader.h"
@@ -853,7 +855,8 @@
             }
             
             self.hidesBottomBarWhenPushed = YES;
-            WJIntegralListViewController *dcVc = [[WJIntegralListViewController alloc] init];
+//            WJIntegralListViewController *dcVc = [[WJIntegralListViewController alloc] init];
+             WJProductsRecommendedViewController *dcVc = [[WJProductsRecommendedViewController alloc] init];
             [self.navigationController pushViewController:dcVc animated:YES];
             self.hidesBottomBarWhenPushed = NO;
         }

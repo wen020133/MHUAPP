@@ -70,7 +70,7 @@
     if (model!=_model) {
         _model = model;
     }
-    NSString *urlStr = [NSString stringWithFormat:@"%@/%@",kMSBaseUserHeadPortURL,_model.goods_thumb] ;
+    NSString *urlStr = [NSString stringWithFormat:@"%@",_model.goods_thumb] ;
     [_img_content sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"default_nomore.png"] completed:nil];
     //    _title.text = _model.goods_name;
     [self refreshUIWithTitle:_model.goods_name];

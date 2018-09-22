@@ -52,7 +52,7 @@ static CGFloat _lastContentOffset;
     _isSwitchGrid = NO;
      _str_type = @"1";
     _type_sort = @"2";
-    _type_market = @"2";
+    _type_market = @"1";
     [self.view addSubview:self.collectionView];
 
     [self setUpSuspendView];

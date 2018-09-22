@@ -158,6 +158,7 @@ static NSInteger num_;
     PPNumberButton *numberButton = [PPNumberButton numberButtonWithFrame:CGRectMake(CGRectGetMaxX(numLabel.frame), numLabel.y, 210, numLabel.height)];
     numberButton.shakeAnimation = YES;
     numberButton.minValue = 1;
+    numberButton.maxValue = _goods_number;
     numberButton.inputFieldFont = 20;
     numberButton.increaseTitle = @"＋";
     numberButton.decreaseTitle = @"－";

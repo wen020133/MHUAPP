@@ -30,7 +30,7 @@
 #import "DCLIRLButton.h"
 #import <WebKit/WebKit.h>
 
-#import "WJPTNewBuyViewController.h"
+#import "WJWirteOrderClassViewController.h"
 
 
 @interface WJGoodBaseViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
@@ -610,6 +610,7 @@ static NSArray *lastSeleIDArray_;
 {
     NSString *result ;
     NSString *resultID ;
+    WEAKSELF
     if (_attributeArray.count>0) {
         result  = [NSString stringWithFormat:@"%@",[lastSeleArray_ componentsJoinedByString:@","]];
         resultID = [NSString stringWithFormat:@"%@",[lastSeleIDArray_ componentsJoinedByString:@","]];
@@ -622,16 +623,6 @@ static NSArray *lastSeleIDArray_;
     if (tagSender==100) {
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
-        NSString *loginState = [userDefaults objectForKey:@"loginState"];
-        if(![loginState isEqualToString:@"1"])
-        {
-            WJLoginClassViewController *land = [[WJLoginClassViewController alloc]init];
-            UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:land];
-            [nav.navigationBar setIsMSNavigationBar];
-            [self presentViewController:nav animated:YES completion:^{
-            }];
-            return;
-        }
 
         NSMutableDictionary *infos = [NSMutableDictionary dictionary];
         [infos setObject:uid forKey:@"user_id"];
@@ -640,19 +631,16 @@ static NSArray *lastSeleIDArray_;
         [infos setObject:lastNum_ forKey:@"num"];
         [infos setObject:result forKey:@"norms"];
         [infos setObject:resultID forKey:@"goods_attr_id"];
-        [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSPostCart] andInfos:infos];
+        [weakSelf requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSPostCart] andInfos:infos];
     }
     else
     {
-        WEAKSELF
-        WJPTNewBuyViewController *newBuyVC = [[WJPTNewBuyViewController alloc]init];
-        newBuyVC.str_contentImg = _goodImageView;
-        newBuyVC.str_title = _goodTitle;
-        newBuyVC.str_type = result;
-        newBuyVC.str_Num = lastNum_;
-        newBuyVC.str_price = _goodPrice;
-        newBuyVC.str_oldprice = _oldPrice;
-        newBuyVC.str_goodsId = _goods_id;
+        
+        WJWirteOrderClassViewController *newBuyVC = [[WJWirteOrderClassViewController alloc]init];
+        newBuyVC.is_cart = @"0";
+        newBuyVC.goods_id = _goods_id;
+        newBuyVC.goods_attr_id = resultID;
+        newBuyVC.goods_number = lastNum_;
         newBuyVC.hidesBottomBarWhenPushed = YES;
         [weakSelf.navigationController pushViewController:newBuyVC animated:YES];
         weakSelf.hidesBottomBarWhenPushed = YES;

@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseNetworkViewController.h"
 
-@interface WJZijinManagerViewController : UIViewController
+@interface WJZijinManagerViewController : BaseNetworkViewController
+
 @property (weak, nonatomic) IBOutlet UIView *tab_headNumView;
 @property (weak, nonatomic) IBOutlet UILabel *lab_Num;
 @property (weak, nonatomic) IBOutlet UILabel *lab_keTiXian;
+
+@property (strong, nonatomic) NSString *str_distributionMoney;
 
 @end

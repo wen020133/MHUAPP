@@ -16,4 +16,8 @@
 @property (strong, nonatomic) UIButton *btn_WX;
 @property (strong, nonatomic) UIButton *btn_ZFB;
 @property (weak, nonatomic) IBOutlet UIView *view_downUp;
+- (IBAction)allDraw:(id)sender;
+
+@property (weak, nonatomic) NSString *str_distributionMoney;
+
 @end

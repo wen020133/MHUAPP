@@ -28,9 +28,34 @@
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     NSString *path = [[NSBundle mainBundle] pathForResource:@"fenXiaoTableListItem" ofType:@"plist" inDirectory:nil];
     _arr_typeName = [[NSArray alloc]initWithContentsOfFile:path];
-    
+   [self getZijinManager];
     [self.view addSubview:self.infoTableView];
+    
     // Do any additional setup after loading the view from its nib.
+}
+-(void)getZijinManager
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
+    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+    [infos setValue:uid forKey:@"user_id"];
+    [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSAccountDeposit] andInfos:infos];
+}
+-(void)processData
+{
+    if([[self.results objectForKey:@"code"] integerValue] == 200)
+    {
+        self.lab_Num.text = self.results[@"data"][@"distributionMoney"];
+       self.lab_keTiXian.text = self.results[@"data"][@"user_money"];
+        self.str_distributionMoney = self.lab_keTiXian.text;
+        }
+    else
+    {
+        [SVProgressHUD showSuccessWithStatus:self.results[@"msg"]];
+        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+        [SVProgressHUD dismissWithDelay:1.0];
+        return;
+    }
 }
 
 -(UITableView *)infoTableView

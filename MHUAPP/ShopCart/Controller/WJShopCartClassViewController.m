@@ -482,11 +482,9 @@ static NSInteger lz_CartRowHeight = 100;
         }
        NSMutableDictionary *infos = [NSMutableDictionary dictionary];
         [infos setObject:uid forKey:@"user_id"];
-        [infos setObject:model.goods_id forKey:@"goods_id"];
-        [infos setObject:model.goods_price forKey:@"price"];
-        [infos setObject:[NSString stringWithFormat:@"%ld",number] forKey:@"num"];
-        [infos setObject:model.goods_attr forKey:@"norms"];
-        [infos setObject:model.goods_attr_id forKey:@"goods_attr_id"];
+        [infos setObject:@"plus" forKey:@"op"];
+        [infos setObject:@"1" forKey:@"num"];
+        [infos setObject:model.rec_id forKey:@"rec_id"];
         [self changeGoodsNumberWithServer:infos];
          [self countPrice];
     }];
@@ -506,11 +504,9 @@ static NSInteger lz_CartRowHeight = 100;
         }
         NSMutableDictionary *infos = [NSMutableDictionary dictionary];
         [infos setObject:uid forKey:@"user_id"];
-        [infos setObject:model.goods_id forKey:@"goods_id"];
-        [infos setObject:model.goods_price forKey:@"price"];
-        [infos setObject:[NSString stringWithFormat:@"%ld",number] forKey:@"num"];
-        [infos setObject:model.goods_attr forKey:@"norms"];
-         [infos setObject:model.goods_attr_id forKey:@"goods_attr_id"];
+        [infos setObject:@"minus" forKey:@"op"];
+        [infos setObject:@"1" forKey:@"num"];
+        [infos setObject:model.rec_id forKey:@"rec_id"];
         [self changeGoodsNumberWithServer:infos];
          [self countPrice];
     }];
@@ -558,7 +554,7 @@ static NSInteger lz_CartRowHeight = 100;
 }
 -(void)changeGoodsNumberWithServer:(NSMutableDictionary *)infos
 {
-    [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSPostCart] andInfos:infos];
+    [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSUpdateCartNum] andInfos:infos];
 }
 -(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
     return @"删除";

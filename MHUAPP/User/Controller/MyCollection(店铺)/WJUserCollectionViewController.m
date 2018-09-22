@@ -124,7 +124,7 @@
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.backgroundColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
     btn.frame = CGRectMake(kMSScreenWith - 80, 0, 80, 49);
-    [btn setTitle:@"取消关注" forState:UIControlStateNormal];
+    [btn setTitle:@"取消收藏" forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(cancelTheAttention:) forControlEvents:UIControlEventTouchUpInside];
     [backgroundView addSubview:btn];
 
@@ -166,7 +166,15 @@
         }
         NSString *attString =  [arr_recId componentsJoinedByString:@","];
 
-        [self requestDeleteAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@&str=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDeleteSupplier,uid,attString]];
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
+        NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+        [infos setValue:uid forKey:@"user_id"];
+        [infos setValue:attString forKey:@"str"];
+        [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSDeleteSupplier] andInfos:infos];
+        
+        
+//        [self requestDeleteAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@&str=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDeleteSupplier,uid,attString]];
 
     } else {
         [SVProgressHUD showErrorWithStatus:@"你还没有选择任何店铺"];
@@ -313,16 +321,20 @@
 
 {
     [tableView setEditing:NO animated:YES];
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSString *attString = _dataArr[indexPath.row].guanzhu_id;
-        [self requestDeleteAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@&str=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDeleteSupplier,uid,attString]];
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
+        NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+        [infos setValue:uid forKey:@"user_id"];
+        [infos setValue:attString forKey:@"str"];
+        [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSDeleteSupplier] andInfos:infos];
+//        [self requestDeleteAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@&str=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDeleteSupplier,uid,attString]];
 
     }
 
 }
--(void)deleteProcessData
+-(void)processData
 {
     if([[self.results objectForKey:@"code"] integerValue] == 200)
     {

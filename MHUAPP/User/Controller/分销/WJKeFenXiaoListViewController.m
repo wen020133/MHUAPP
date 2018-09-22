@@ -48,8 +48,10 @@
 
 -(void)getDepositCateCategory
 {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
     _serverType = 1;
-    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDepositCate]];
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDepositCate,uid]];
 }
 -(void)getProcessData
 {
@@ -120,18 +122,20 @@
 
 -(void)getfenXiaoListGoods:(NSInteger)tag
 {
-   
+ 
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
     _serverType = 2;
     if (_type_com.length>0) {
-         [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%@&com=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDistributionList,_arr_TypeID[tag],_type_com]];
+         [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%@&com=%@&user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDistributionList,_arr_TypeID[tag],_type_com,uid]];
     }
     else if (_type_price.length>0)
     {
-         [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%@&price=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDistributionList,_arr_TypeID[tag],_type_price]];
+         [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%@&price=%@&user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDistributionList,_arr_TypeID[tag],_type_price,uid]];
     }
     else
     {
-       [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDistributionList,_arr_TypeID[tag]]];
+       [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%@&user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDistributionList,_arr_TypeID[tag],uid]];
     }
 }
 - (void)didSelectedButtonWithTag:(NSInteger)currTag

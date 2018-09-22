@@ -61,10 +61,10 @@
             if([arr isKindOfClass:[NSArray class]])
             {
                 self.goodsImageArr =   [WJGoodsDataModel mj_objectArrayWithKeyValuesArray:arr];
-                [self.collectionV reloadData];
+                
             }
             self.is_attention = [self.results objectForKey:@"is_attention"];
-            
+            [self.collectionV reloadData];
         }
 
     }

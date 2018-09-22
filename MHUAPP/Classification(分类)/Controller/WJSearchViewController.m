@@ -375,7 +375,7 @@
             cell = [[WJMyFootprintCollectionCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"WJMyFootprintCollectionCell"];
         }
        
-      NSString *str_url = [NSString stringWithFormat:@"%@%@",kMSBaseUserHeadPortURL,[[self.arr_items objectAtIndex:indexPath.row] objectForKey:@"original_img"]];
+      NSString *str_url = [NSString stringWithFormat:@"%@",[[self.arr_items objectAtIndex:indexPath.row] objectForKey:@"original_img"]];
         [cell.contentImg sd_setImageWithURL:[NSURL URLWithString:str_url] placeholderImage:[UIImage imageNamed:@"default_nomore.png"] completed:nil];
         NSString *price = [NSString stringWithFormat:@"%@",[[self.arr_items objectAtIndex:indexPath.row] objectForKey:@"shop_price"]];
         cell.price.text = price;

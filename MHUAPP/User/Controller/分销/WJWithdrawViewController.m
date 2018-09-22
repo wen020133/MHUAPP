@@ -90,4 +90,6 @@
 }
 */
 
+- (IBAction)allDraw:(id)sender {
+}
 @end

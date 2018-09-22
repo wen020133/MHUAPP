@@ -35,7 +35,6 @@
 
 
 - (void)initView;
-- (void)show;
 - (void)hide;
 
 @end

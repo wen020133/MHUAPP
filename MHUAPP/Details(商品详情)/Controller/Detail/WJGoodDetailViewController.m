@@ -671,6 +671,18 @@
 
 - (void)bottomButtonClick:(UIButton *)button
 {
+    WEAKSELF
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *loginState = [userDefaults objectForKey:@"loginState"];
+    if(![loginState isEqualToString:@"1"])
+    {
+        WJLoginClassViewController *land = [[WJLoginClassViewController alloc]init];
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:land];
+        [nav.navigationBar setIsMSNavigationBar];
+        [weakSelf presentViewController:nav animated:YES completion:^{
+        }];
+        return;
+    }
     if (button.tag == 0) {
         NSLog(@"店铺");
         button.selected = !button.selected;
@@ -683,19 +695,19 @@
         self.hidesBottomBarWhenPushed = YES;
     }else if(button.tag == 1){
         NSLog(@"客服");
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        
-        NSString *loginState = [userDefaults objectForKey:@"loginState"];
-        if(![loginState isEqualToString:@"1"])
-        {
-            WJLoginClassViewController *land = [[WJLoginClassViewController alloc]init];
-            UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:land];
-            [nav.navigationBar setIsMSNavigationBar];
-            [self presentViewController:nav animated:YES completion:^{
-            }];
-        }
-        else
-        {
+//        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//
+//        NSString *loginState = [userDefaults objectForKey:@"loginState"];
+//        if(![loginState isEqualToString:@"1"])
+//        {
+//            WJLoginClassViewController *land = [[WJLoginClassViewController alloc]init];
+//            UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:land];
+//            [nav.navigationBar setIsMSNavigationBar];
+//            [self presentViewController:nav animated:YES completion:^{
+//            }];
+//        }
+//        else
+//        {
             if (![_supplierUserId isEqual:[NSNull null]]) {
                 if (_supplierUserId.length>0) {
             NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
@@ -713,12 +725,12 @@
             conversationVC.str_title = _supplier_name;
             self.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:conversationVC animated:YES];
-        }
-        else
-        {
-            [self requestFailed:@"获取客服信息失败！"];
-            return;
-        }
+//        }
+//        else
+//        {
+//            [self requestFailed:@"获取客服信息失败！"];
+//            return;
+//        }
     }
     else
     {
@@ -783,8 +795,7 @@
         NSLog(@"关注");
         [self initPostCollectGoodsData];
     }else  if (button.tag == 3 || button.tag == 4) {
-
-
+        
          dispatch_sync(dispatch_get_global_queue(0, 0), ^{
             NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%ld",button.tag],@"buttonTag", nil];
             [[NSNotificationCenter defaultCenter]postNotificationName:@"ClikAddOrBuy" object:nil userInfo:dict];
