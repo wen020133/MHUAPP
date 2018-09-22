@@ -148,9 +148,9 @@
 #define   kMSDistributionList       @"distributionList"  //可分销商品列表
 #define   kMSDetailList       @"detailList"  //分销明细表
 #define   kMSDepositCate       @"depositCate"  //分销商品分类
-#define   kMSDepositMoney       @"depositMoney"  //分销资金管理
+#define   kMSAccountLog       @"/v1/accountLog"  //分销提现记录
 #define   kMSAccountDeposit       @"/v1/accountDeposit"  //分销资金
-
+#define   kMSDeposit       @"/v1/deposit"  //分销提现
 
 /* 聊天记录好友列表 */
 #define   kMSGetChatMsg          @"chat/getChatMsg"                 //好友列表

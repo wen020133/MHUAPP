@@ -641,6 +641,7 @@ static NSArray *lastSeleIDArray_;
         newBuyVC.goods_id = _goods_id;
         newBuyVC.goods_attr_id = resultID;
         newBuyVC.goods_number = lastNum_;
+        newBuyVC.rec_type = @"0";
         newBuyVC.hidesBottomBarWhenPushed = YES;
         [weakSelf.navigationController pushViewController:newBuyVC animated:YES];
         weakSelf.hidesBottomBarWhenPushed = YES;

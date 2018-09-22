@@ -9,7 +9,7 @@
 #import "WJWithdrawViewController.h"
 #import "UIView+UIViewFrame.h"
 
-@interface WJWithdrawViewController ()
+@interface WJWithdrawViewController ()<UIImagePickerControllerDelegate,UIPrintInteractionControllerDelegate,UINavigationControllerDelegate>
 
 @property (nonatomic,strong) UIButton *selectedBtn;
 
@@ -68,11 +68,13 @@
     if (sender.tag==1000) {
         _btn_WX.selected = !_btn_WX.selected;
         _btn_ZFB.selected = NO;
+        _payment = @"2";
     }
     else
     {
         _btn_ZFB.selected = !_btn_ZFB.selected;
         _btn_WX.selected = NO;
+        _payment = @"1";
     }
 }
 - (void)didReceiveMemoryWarning {
@@ -91,5 +93,163 @@
 */
 
 - (IBAction)allDraw:(id)sender {
+    self.textF_money.text =self.str_distributionMoney;
 }
+- (IBAction)depositDrow:(id)sender {
+    if(self.payment.length==0)
+    {
+        [self requestFailed:@"请选择收款方式！"];
+        return;
+    }
+    if (self.textF_money.text.length==0) {
+        [self requestFailed:@"请填写金额"];
+        return;
+    }
+    if (self.textF_account.text.length==0) {
+        [self requestFailed:@"请填写收款账号"];
+        return;
+    }
+    if (self.textV_message.text.length==0) {
+        [self requestFailed:@"请填写备注"];
+        return;
+    }
+    if (![RegularExpressionsMethod validateMobile:self.textF_moble.text]) {
+        [self requestFailed:@"请填写正确的手机号"];
+        return;
+    }
+    if (self.textF_realName.text.length==0) {
+        [self requestFailed:@"请填写真实姓名"];
+        return;
+    }
+    UIImage *imageplus= [UIImage imageNamed:@"plus"];
+    if ([UIImagePNGRepresentation(_img_moneyContent.image) isEqual:UIImagePNGRepresentation(imageplus)])
+    {
+        [self requestFailed:@"请上传收款二维码！"];
+        return;
+    }
+//    if (UIImagePNGRepresentation(self.img_moneyContent.image) == nil&&UIImageJPEGRepresentation(self.img_moneyContent.image, 1)==nil) {
+//    }
+    NSString *str_ext;
+    if (UIImagePNGRepresentation(_img_moneyContent.image))
+    {
+        str_ext = @"png";
+    }else{
+        str_ext = @"jpg";
+    }
+    NSData *data = [self resetSizeOfImageData:_img_moneyContent.image maxSize:256];
+    [self initCircleClassDataCount:data addImageSuffix:str_ext];
+
+}
+- (IBAction)upImagePhoto:(id)sender {
+    
+    [self jxt_showActionSheetWithTitle:@"选择图片" message:@"" appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
+        alertMaker.
+        addActionCancelTitle(@"取消").
+        addActionDestructiveTitle(@"相册选取").
+        addActionDefaultTitle(@"拍照");
+    } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, JXTAlertController * _Nonnull alertSelf) {
+        
+        if ([action.title isEqualToString:@"取消"]) {
+            NSLog(@"cancel");
+        }
+        else if ([action.title isEqualToString:@"相册选取"]) {
+            if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary])
+            {
+                NSUInteger sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                UIImagePickerController *picker=[[UIImagePickerController alloc] init];
+                picker.delegate=self;
+                picker.allowsEditing=NO;
+                sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                picker.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
+                [self presentViewController:picker animated:YES completion:^{}];
+            }
+            else
+            {
+                [SVProgressHUD showErrorWithStatus:@"请在设置-隐私-照片对APP授权"];
+            }
+        }
+        else if ([action.title isEqualToString:@"拍照"]) {
+            NSLog(@"拍照");
+            UIImagePickerController *picker=[[UIImagePickerController alloc] init];
+            picker.delegate=self;
+            picker.allowsEditing=NO;
+            NSUInteger sourceType = UIImagePickerControllerSourceTypeCamera;
+            // 判断是否支持相机
+            if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+            {
+                sourceType = UIImagePickerControllerSourceTypeCamera;
+                picker.sourceType=UIImagePickerControllerSourceTypeCamera;
+                [self presentViewController:picker animated:YES completion:^{}];
+            }
+            else
+            {
+                [SVProgressHUD showErrorWithStatus:@"请在设置-隐私-照片对APP授权"];
+            }
+        }
+        
+    }];
+    
+    
+}
+
+
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+}
+#pragma mark -
+#pragma mark UIImagePickerController Method
+//完成拍照
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [picker dismissViewControllerAnimated:YES completion:^{}];
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    
+    
+    [self.img_moneyContent setImage:image];
+//    NSData *data = [self resetSizeOfImageData:image maxSize:256];
+//    [self initCircleClassDataCount:data addImageSuffix:str_ext];
+}
+
+-(void)initCircleClassDataCount:(NSData *)data addImageSuffix:(NSString *)ext
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
+    NSArray *arr= [NSArray arrayWithObject:data];
+    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+    [infos setValue:uid forKey:@"user_id"];
+    [infos setValue:_payment forKey:@"payment"];
+    [infos setValue:@"1" forKey:@"surplus_type"];
+    [infos setValue:self.textF_realName.text forKey:@"real_name"];
+    [infos setValue:self.textF_account.text forKey:@"account_name"];
+    [infos setValue:self.textV_message.text forKey:@"user_note"];
+    [infos setValue:self.textF_money.text forKey:@"amount"];
+    [infos setValue:self.textF_moble.text forKey:@"phone"];
+    
+     [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSDeposit] andInfos:infos andImageDataArr:arr andImageName:@"pic"];
+}
+-(void)processData
+{
+    if([[self.results objectForKey:@"code"] integerValue] == 200)
+    {
+        [self jxt_showActionSheetWithTitle:@"提现申请成功" message:@"请等待工作人审核" appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
+            alertMaker.
+            addActionCancelTitle(@"确定");
+        } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, JXTAlertController * _Nonnull alertSelf) {
+            
+            if ([action.title isEqualToString:@"确定"]) {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+        }];
+    }
+    else
+    {
+        [self requestFailed:self.results[@"msg"]];
+        return;
+    }
+}
+
 @end

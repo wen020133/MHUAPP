@@ -90,7 +90,7 @@
     }
     else
     {
-        [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"data"]];
+        [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"msg"]];
         return;
     }
 }

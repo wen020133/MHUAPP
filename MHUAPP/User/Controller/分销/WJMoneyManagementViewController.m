@@ -25,13 +25,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
-    [self initSendReplyWithTitle:@"资金明细" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
+    [self initSendReplyWithTitle:@"提现记录" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
     [self.view addSubview:self.infoTableView];
-    self.btn_tiXian.layer.borderColor = [[UIColor whiteColor] CGColor];
-    self.btn_tiXian.layer.cornerRadius = 3;
-    self.btn_tiXian.layer.masksToBounds = YES;//设置圆角
-    self.btn_tiXian.layer.borderWidth = 1.0f;
-    self.arr_infoListData = [NSMutableArray array];
+//    self.btn_tiXian.layer.borderColor = [[UIColor whiteColor] CGColor];
+//    self.btn_tiXian.layer.cornerRadius = 3;
+//    self.btn_tiXian.layer.masksToBounds = YES;//设置圆角
+//    self.btn_tiXian.layer.borderWidth = 1.0f;
+//    self.arr_infoListData = [NSMutableArray array];
     [self getMoneyManData];
     // Do any additional setup after loading the view from its nib.
 }
@@ -57,35 +57,39 @@
 {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
-    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDepositMoney,uid]];
+    NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+    [infos setValue:uid forKey:@"user_id"];
+    [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSAccountLog] andInfos:infos];
 }
--(void)getProcessData
+-(void)processData
 {
     if([[self.results objectForKey:@"code"] integerValue] == 200)
     {
-    
+        
         [_arr_infoListData removeAllObjects];
-            NSArray *arr_Datalist = [NSArray array];
-            arr_Datalist = [self.results objectForKey:@"data"];
-            if (arr_Datalist&&arr_Datalist.count>0) {
-                [self.noMoreView hide];
-                _arr_infoListData=[WJMoneyListItem mj_objectArrayWithKeyValuesArray:arr_Datalist];
-            }
-            else
-            {
-                [self.noMoreView hide];
-                self.noMoreView = [[NOMoreDataView alloc]initWithFrame:CGRectMake(0, self.view_tabHead.height+44, kMSScreenWith, 80) withContent:@"暂无可分销商品." withNODataImage:@"noMore_bg.png"];
-                [self.infoTableView addSubview:self.noMoreView];
-            }
-            [self.infoTableView reloadData];
+        NSArray *arr_Datalist = [NSArray array];
+        arr_Datalist = [self.results objectForKey:@"data"];
+        if (arr_Datalist&&arr_Datalist.count>0) {
+            [self.noMoreView hide];
+            _arr_infoListData=[WJMoneyListItem mj_objectArrayWithKeyValuesArray:arr_Datalist];
+        }
+        else
+        {
+            [self.noMoreView hide];
+            self.noMoreView = [[NOMoreDataView alloc]initWithFrame:CGRectMake(0, self.view_tabHead.height+44, kMSScreenWith, 80) withContent:@"暂无提现记录." withNODataImage:@"noMore_bg.png"];
+            [self.infoTableView addSubview:self.noMoreView];
+        }
+        [self.infoTableView reloadData];
         
     }
     else
     {
-        [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"data"]];
+        [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"msg"]];
         return;
     }
 }
+
+
 #pragma mark - UITableViewDelegate UITableViewDataSource Methods
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

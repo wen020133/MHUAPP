@@ -231,6 +231,10 @@
     
     _serverType = 2;
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
+    if([_is_cart isEqualToString:@"0"])
+    {
+        [infos setObject:_rec_type forKey:@"rec_type"];
+    }
     [infos setObject:uid forKey:@"user_id"];
 //    [infos setObject:_str_address forKey:@"assemble_site"];
 //    [infos setObject:_str_Name forKey:@"consignee"];

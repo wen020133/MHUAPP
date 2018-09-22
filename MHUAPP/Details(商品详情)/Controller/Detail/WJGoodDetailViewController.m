@@ -205,9 +205,7 @@
         NSLog(@"加入足迹---%@！",self.results[@"data"]);
         if (_postDataType == 2 )
         {
-            [SVProgressHUD showSuccessWithStatus:self.results[@"data"]];
-            [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
-            [SVProgressHUD dismissWithDelay:1.0];
+            [self requestFailed:self.results[@"msg"]];
         }
         return;
     }

@@ -51,9 +51,7 @@
         }
     else
     {
-        [SVProgressHUD showSuccessWithStatus:self.results[@"msg"]];
-        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
-        [SVProgressHUD dismissWithDelay:1.0];
+       [self requestFailed:self.results[@"msg"]];
         return;
     }
 }
@@ -109,6 +107,7 @@
     
         if (indexPath.row==0) {
             WJWithdrawViewController *AddressVC = [[WJWithdrawViewController alloc]init];
+            AddressVC.str_distributionMoney = self.lab_keTiXian.text;
             AddressVC.hidesBottomBarWhenPushed = YES;
             self.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:AddressVC animated:YES];

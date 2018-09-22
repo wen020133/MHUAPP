@@ -146,10 +146,7 @@
     {
         NSLog(@"加入足迹---%@！",self.results[@"data"]);
 
-        [SVProgressHUD showSuccessWithStatus:self.results[@"data"]];
-            [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
-            [SVProgressHUD dismissWithDelay:1.0];
-
+       [self requestFailed:self.results[@"data"]];
         return;
     }
 }

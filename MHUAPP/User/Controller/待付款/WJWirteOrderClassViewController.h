@@ -19,6 +19,7 @@
 @property (strong,nonatomic) NSString *str_Name;
 @property (strong,nonatomic) NSString *str_site_id;
 @property (strong,nonatomic) NSString *is_cart;
+@property (strong,nonatomic) NSString *rec_type;
 @property (strong,nonatomic)UILabel *totlePriceLabel;
 @property (strong,nonatomic)UILabel *youhuiPriceLabel;
 @property double totlePrice;
