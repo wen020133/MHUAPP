@@ -191,13 +191,12 @@
         
         NSLog(@"service====%@",service);
         
-        
-        NSDate* dat = [NSDate dateWithTimeIntervalSinceNow:0];
-        NSTimeInterval a=[dat timeIntervalSince1970];  //  *1000 是精确到毫秒，不乘就是精确到秒
-        NSString *timeString = [NSString stringWithFormat:@"%.0f",a ]; //转为字符型
-        
-        [infos setValue:[[NSString stringWithFormat:@"mhupro_%@_mhupro",[timeString md5]] md5] forKey:@"token"];
-        [infos setValue:timeString forKey:@"time"];
+//        NSDate* dat = [NSDate dateWithTimeIntervalSinceNow:0];
+//        NSTimeInterval a=[dat timeIntervalSince1970];  //  *1000 是精确到毫秒，不乘就是精确到秒
+//        NSString *timeString = [NSString stringWithFormat:@"%.0f",a ]; //转为字符型
+//
+//        [infos setValue:[[NSString stringWithFormat:@"mhupro_%@_mhupro",[timeString md5]] md5] forKey:@"token"];
+//        [infos setValue:timeString forKey:@"time"];
         NSLog(@"parameters====%@",infos);
 		AFSecurityPolicy *securityPolicy = [[AFSecurityPolicy alloc] init];
         [securityPolicy setAllowInvalidCertificates:YES];

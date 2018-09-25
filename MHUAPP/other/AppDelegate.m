@@ -79,7 +79,7 @@ NSString * const UpLoadNoti = @"uploadInfo";
 }
 -(void)initLogin{
     
-    [[RCDataManager shareManager] getUserInfoWithMiYouMei];
+    [[RCDataManager shareManager] getUserInfoWithMiYouMei];  //自动登录
 }
 /**
  * 推送处理2

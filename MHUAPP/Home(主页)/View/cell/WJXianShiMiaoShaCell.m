@@ -41,13 +41,13 @@
         [_grayView addSubview:_hongbaoLabel];
 
 
-        _oldPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.width-65, _lab_title.Bottom, 50, 15)];
+        _oldPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.width-65, _lab_title.Bottom+8, 50, 15)];
         _oldPriceLabel.font = PFR11Font;
         _oldPriceLabel.textAlignment = NSTextAlignmentRight;
         _oldPriceLabel.textColor = [UIColor darkGrayColor];
         [_grayView addSubview:_oldPriceLabel];
         
-        _lab_price = [[UILabel alloc]initWithFrame:CGRectMake(2, _oldPriceLabel.Bottom, self.width-45, 23)];
+        _lab_price = [[UILabel alloc]initWithFrame:CGRectMake(2, _lab_title.Bottom, self.width-45, 23)];
         _lab_price.font = PFR15Font;
         _lab_price.textColor = [RegularExpressionsMethod ColorWithHexString:BASEPINK];
         _lab_price.textAlignment = NSTextAlignmentLeft;

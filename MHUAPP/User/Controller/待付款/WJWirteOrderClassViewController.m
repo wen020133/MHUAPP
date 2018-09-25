@@ -213,6 +213,8 @@
         [self requestFailed:@"请选择收货地址！"];
         return;
     }
+    [SVProgressHUD showWithStatus:@"正在提交订单..."];
+
     NSMutableArray *arr_recId = [NSMutableArray array];
     if([_is_cart isEqualToString:@"1"])
     {

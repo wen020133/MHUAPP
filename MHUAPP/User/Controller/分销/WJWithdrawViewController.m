@@ -216,6 +216,7 @@
 
 -(void)initCircleClassDataCount:(NSData *)data addImageSuffix:(NSString *)ext
 {
+     [SVProgressHUD showWithStatus:@"正在提交申请..."];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
     NSArray *arr= [NSArray arrayWithObject:data];
@@ -229,7 +230,7 @@
     [infos setValue:self.textF_money.text forKey:@"amount"];
     [infos setValue:self.textF_moble.text forKey:@"phone"];
     
-     [self requestAPIWithServe:[kMSBaseLargeCollectionPortURL stringByAppendingString:kMSDeposit] andInfos:infos andImageDataArr:arr andImageName:@"pic"];
+     [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSDeposit] andInfos:infos andImageDataArr:arr andImageName:@"pic"];
 }
 -(void)processData
 {
