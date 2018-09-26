@@ -18,6 +18,10 @@
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = kMSCellBackColor;
     
+        _img_content = [[UIImageView alloc]initWithFrame:CGRectMake(10, 5, 64, 64)];
+        _img_content.backgroundColor = kMSCellBackColor;
+        _img_content.contentMode = UIViewContentModeScaleAspectFit;
+        [self.contentView addSubview:_img_content];
         
         _lab_price= [[UILabel alloc]initWithFrame:CGRectMake(DCMargin, 10, kMSScreenWith-40, 20)];
         _lab_price.font = PFR13Font;

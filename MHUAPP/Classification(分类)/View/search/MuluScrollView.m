@@ -32,12 +32,12 @@
     if (self.titles.count >= 4)
         width = kMSScreenWith / 4;
     else
-        width = kMSScreenWith / 2;
+        width = kMSScreenWith / self.titles.count;
     
     for(int i = 0; i < [self.titles count]; i++)
     {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setFrame:CGRectMake(kMSScreenWith/2 * i, 0, kMSScreenWith/2, 44)];
+        [button setFrame:CGRectMake(width * i, 0, width, 44)];
         [button addTarget:self action:@selector(menuSelected:) forControlEvents:UIControlEventTouchUpInside];
         [button.titleLabel setFont:[UIFont systemFontOfSize:13]];
         [button setTitle:[_titles objectAtIndex:i] forState:UIControlStateNormal];

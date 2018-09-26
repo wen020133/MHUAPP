@@ -4,7 +4,7 @@
 <array>
 	<dict>
 		<key>flow_title</key>
-		<string>优惠券</string>
+		<string>红包</string>
 		<key>flowImageView</key>
 		<string>user_icon_youhuiquan</string>
 	</dict>

@@ -50,7 +50,7 @@
     _textLabel.textColor = [UIColor whiteColor];
     _textLabel.font = [UIFont systemFontOfSize:9.0];
     [self.leftView addSubview:_textLabel];
-    self.textLabel.text = [NSString stringWithFormat:@"%.f",currentSliderValue];
+//    self.textLabel.text = [NSString stringWithFormat:@"%.f",currentSliderValue];
 }
 
 -(void)setShowTouchView:(BOOL)showTouchView{

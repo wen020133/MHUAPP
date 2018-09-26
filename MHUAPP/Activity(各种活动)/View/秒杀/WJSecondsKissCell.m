@@ -73,7 +73,7 @@
     _btn_action = [UIButton buttonWithType:UIButtonTypeCustom];
     _btn_action.frame = CGRectMake(kMSScreenWith-100, 45, 90, 30);
     [_btn_action setBackgroundColor:[UIColor redColor]];
-    _btn_action.layer.cornerRadius = 2.0f;
+    _btn_action.layer.cornerRadius = 10.0f;
     _btn_action.layer.masksToBounds = YES;
     [_btn_action setTitle:@"立即抢购" forState:UIControlStateNormal];
     _btn_action.titleLabel.font = Font(14);
@@ -120,12 +120,12 @@
 
     [_oldPriceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         [make.left.mas_equalTo(_gridImageView.mas_right)setOffset:10];
-        make.top.mas_equalTo(_priceLabel.mas_bottom);
+        [make.top.mas_equalTo(_priceLabel.mas_bottom)setOffset:5];
     }];
 
     [_lab_count mas_makeConstraints:^(MASConstraintMaker *make) {
-        [make.left.mas_equalTo(_oldPriceLabel.mas_right)setOffset:50];
-        make.top.mas_equalTo(_priceLabel.mas_bottom);
+        [make.right.mas_equalTo(_btn_action.mas_left)setOffset:-DCMargin];
+        [make.top.mas_equalTo(_priceLabel.mas_bottom) setOffset:5];
     }];
 }
 //-(void)setGoodsItem:(WJSecondsKillItem *)goodsItem

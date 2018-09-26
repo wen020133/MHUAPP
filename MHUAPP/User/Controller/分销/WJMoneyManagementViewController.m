@@ -11,13 +11,20 @@
 #import "WJMoneyListItem.h"
 #import "NOMoreDataView.h"
 #import "UIView+UIViewFrame.h"
+#import "MuluScrollView.h"
 
 
-@interface WJMoneyManagementViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface WJMoneyManagementViewController ()<UITableViewDelegate,UITableViewDataSource,MuluBtnDelegate>
 
 @property (strong, nonatomic) UITableView *infoTableView;
 @property (strong, nonatomic)  NSMutableArray <WJMoneyListItem *> *arr_infoListData;
+@property (strong, nonatomic) MuluScrollView *menu_ScrollView; //分类ScrollView
 @property (strong, nonatomic) NOMoreDataView *noMoreView;
+
+@property (strong, nonatomic) NSArray *arr_Type;
+
+@property (strong, nonatomic) NSString *str_Type;
+
 @end
 
 @implementation WJMoneyManagementViewController
@@ -32,14 +39,29 @@
 //    self.btn_tiXian.layer.masksToBounds = YES;//设置圆角
 //    self.btn_tiXian.layer.borderWidth = 1.0f;
 //    self.arr_infoListData = [NSMutableArray array];
-    [self getMoneyManData];
+
+
+    self.arr_Type = [NSArray arrayWithObjects:@"全部",@"待审核",@"已完成", nil];
+    [self addAccountLog];
     // Do any additional setup after loading the view from its nib.
 }
+
+-(void)addAccountLog
+{
+    _menu_ScrollView = [[MuluScrollView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 44) withTitles:_arr_Type];
+    _menu_ScrollView.delegate = self;
+    [self.view addSubview:_menu_ScrollView];
+
+    self.str_Type = @"2";
+     [self getMoneyManData];
+
+}
+
 
 -(UITableView *)infoTableView
 {
     if (!_infoTableView) {
-        _infoTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, kMSScreenHeight-kMSNaviHight) style:UITableViewStyleGrouped];
+        _infoTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 44, kMSScreenWith, kMSScreenHeight-kMSNaviHight-44) style:UITableViewStyleGrouped];
         _infoTableView.delegate = self;
         _infoTableView.dataSource = self;
         _infoTableView.backgroundColor =[UIColor clearColor];
@@ -52,13 +74,30 @@
     }
     return _infoTableView;
 }
-
+- (void)didSelectedButtonWithTag:(NSInteger)currTag
+{
+    switch (currTag) {
+        case 0:
+            self.str_Type = @"2";
+            break;
+        case 1:
+            self.str_Type = @"0";
+            break;
+        case 2:
+            self.str_Type = @"1";
+            break;
+        default:
+            break;
+    }
+    [self getMoneyManData];
+}
 -(void)getMoneyManData
 {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
     NSMutableDictionary *infos = [NSMutableDictionary dictionary];
     [infos setValue:uid forKey:@"user_id"];
+    [infos setValue:self.str_Type forKey:@"is_complete"];
     [self requestAPIWithServe:[kMSBaseMiYoMeiPortURL stringByAppendingString:kMSAccountLog] andInfos:infos];
 }
 -(void)processData
@@ -106,7 +145,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 44.f;
+    return 80.f;
 }
 
 

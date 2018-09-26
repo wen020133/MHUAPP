@@ -11,6 +11,7 @@
 
 @interface WJMoneyListTableCell : UITableViewCell
 
+@property (nonatomic, strong) UIImageView *img_content;
 @property (nonatomic, strong) UILabel *lab_price;
 @property (nonatomic, strong) UILabel *lab_date;
 @property (nonatomic, strong) UILabel *lab_num;  

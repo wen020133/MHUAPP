@@ -31,32 +31,62 @@
     headBV.backgroundColor = kMSNavBarBackColor;
     [self.scr_withdraw addSubview:headBV];
     
-    UILabel *labZHYE = LabelInit(DCMargin, 20, 200, 20);
+    UILabel *labZHYE = LabelInit(DCMargin, DCMargin, 200, 20);
     labZHYE.textColor = [UIColor whiteColor];
     labZHYE.text = @"可提现金额";
     labZHYE.font = Font(13);
     [self.scr_withdraw addSubview:labZHYE];
     
-    self.labAmount = LabelInit(DCMargin, 50, 200, 40);
+    self.labAmount = LabelInit(DCMargin, DCMargin*2+20, 200, 40);
     self.labAmount.textColor = kMSCellBackColor;
     self.labAmount.font = Font(30);
     self.labAmount.text = @"0.00元";
     [self.scr_withdraw addSubview:self.labAmount];
+
+    UILabel *labMSG = LabelInit(DCMargin, 76, kMSScreenWith-20, 20);
+    labMSG.textColor = [UIColor whiteColor];
+    labMSG.text = @"温馨提示：每次提现金额必须大于等于100元，业务办理时间为每周星期三";
+    labMSG.adjustsFontSizeToFitWidth = YES;
+    [self.scr_withdraw addSubview:labMSG];
     
     _btn_WX = [[UIButton alloc]initWithFrame:CGRectMake(kMSScreenWith/9, headBV.Bottom+20, kMSScreenWith/3, kMSScreenWith/9+3)];
     _btn_WX.tag = 1000;
-    [_btn_WX setBackgroundImage:[UIImage imageNamed:@"user_fenxiaoWX.png"] forState:UIControlStateNormal];
-    [_btn_WX setBackgroundImage:[UIImage imageNamed:@"user_fenxiaoWXSelect.png"] forState:UIControlStateSelected];
+    [_btn_WX setBackgroundImage:[UIImage imageNamed:@"user_fenxiaoUnSelect.png"] forState:UIControlStateNormal];
+    [_btn_WX setBackgroundImage:[UIImage imageNamed:@"user_fenxiaoSelect.png"] forState:UIControlStateSelected];
     [_btn_WX addTarget:self action:@selector(titleBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.scr_withdraw addSubview:_btn_WX];
+
+    UIImageView *imaWX = ImageViewInit(_btn_WX.x+15, _btn_WX.y+_btn_WX.height/2-13, 26, 26);
+    imaWX.image = [UIImage imageNamed:@"user_fenxiaoWX.png"];
+    [self.scr_withdraw addSubview:imaWX];
+
+    UILabel *labWX = LabelInit(imaWX.Right+10, _btn_WX.y+_btn_WX.height/2-13, kMSScreenWith/3-40, 26);
+    labWX.text = @"微信钱包";
+    labWX.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
+    labWX.font = Font(15);
+    labWX.textAlignment = NSTextAlignmentLeft;
+    [self.scr_withdraw addSubview:labWX];
     
     _btn_ZFB = [[UIButton alloc]initWithFrame:CGRectMake(kMSScreenWith/9*5, headBV.Bottom+20, kMSScreenWith/3, kMSScreenWith/9+3)];
     _btn_ZFB.tag = 1001;
-    [_btn_ZFB setBackgroundImage:[UIImage imageNamed:@"user_fenxiaoZFB.png"] forState:UIControlStateNormal];
-    [_btn_ZFB setBackgroundImage:[UIImage imageNamed:@"user_fenxiaoZFBSelect.png"] forState:UIControlStateSelected];
+    [_btn_ZFB setBackgroundImage:[UIImage imageNamed:@"user_fenxiaoUnSelect.png"] forState:UIControlStateNormal];
+    [_btn_ZFB setBackgroundImage:[UIImage imageNamed:@"user_fenxiaoSelect.png"] forState:UIControlStateSelected];
     [_btn_ZFB addTarget:self action:@selector(titleBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.scr_withdraw addSubview:_btn_ZFB];
-  
+
+
+    UIImageView *imaZFB = ImageViewInit(_btn_ZFB.x+15, _btn_ZFB.y+_btn_ZFB.height/2-13, 26, 26);
+    imaZFB.image = [UIImage imageNamed:@"user_fenxiaoZFB.png"];
+    [self.scr_withdraw addSubview:imaZFB];
+
+    UILabel *labZFB = LabelInit(imaZFB.Right+10, _btn_WX.y+_btn_WX.height/2-13, kMSScreenWith/3-40, 26);
+    labZFB.text = @"支付宝";
+    labZFB.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
+     labZFB.font = Font(15);
+    labZFB.textAlignment = NSTextAlignmentLeft;
+    [self.scr_withdraw addSubview:labZFB];
+
+
     self.view_downUp.frame = CGRectMake(0, _btn_ZFB.Bottom+10, kMSScreenWith, 564);
     [self.scr_withdraw addSubview:self.view_downUp];
     
