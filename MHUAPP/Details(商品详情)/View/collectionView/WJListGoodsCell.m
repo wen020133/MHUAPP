@@ -107,7 +107,7 @@
 -(void)setGoodsItem:(WJGoodsListItem *)goodsItem
 {
     _goodsItem = goodsItem;
-    [_gridImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",_goodsItem.goods_thumb]]];
+    [_gridImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",_goodsItem.original_img]]];
     NSString *stringPrice = [NSString stringWithFormat:@"¥ %.2f",[_goodsItem.shop_price floatValue]];
     NSMutableAttributedString *LZString = [[NSMutableAttributedString alloc]initWithString:stringPrice];
     [LZString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, 2)];

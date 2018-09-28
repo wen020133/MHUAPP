@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-//#import "WJJRPTItem.h"
+#import "WJJRPTItem.h"
 
 @interface WJSSPTTypeCollectionViewCell : UICollectionViewCell
 
@@ -17,7 +17,11 @@
 @property (nonatomic, strong) UIButton *btn_price;
 @property (nonatomic, strong) UILabel *lab_count;
 @property (nonatomic, strong) UILabel *priceLabel;
-//@property (nonatomic, strong) WJJRPTItem *model;
+
+@property (nonatomic, strong) UILabel *lab_market_price;
+@property (nonatomic, strong) UILabel *lab_start_num;
+
+@property (nonatomic, strong) WJJRPTItem *model;
 
 
 @end

@@ -9,39 +9,75 @@
 #import "WJSSPTTypeViewController.h"
 #import "WJSSPTTypeHeadView.h"
 #import "WJSSPTTypeCollectionViewCell.h"
-#import <UIImageView+WebCache.h>
 #import "WJSSPTDetailClassViewController.h"
-
+#import "MJRefresh.h"
 
 @interface WJSSPTTypeViewController ()
-@property (strong, nonatomic) NSArray *arr_PTdata;
+
+@property (strong, nonatomic) NSMutableArray *arr_PTdata;
+@property NSInteger page_Information;
+
 @end
 
 @implementation WJSSPTTypeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initSendReplyWithTitle:@"时时批发" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
+    [self initSendReplyWithTitle:@"采购批发" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     [self.view addSubview:self.collectionV];
+    self.arr_PTdata = [NSMutableArray array];
+    _page_Information = 1;
     [self getGetGroupList];
     // Do any additional setup after loading the view.
 }
 
+-(void)headerRereshingPifa
+{
+    _page_Information = 1;
+    [self getGetGroupList];
+}
+-(void)footerRereshingPifa
+{
+    _page_Information ++;
+    [self getGetGroupList];
+}
+
 -(void)getGetGroupList
 {
-    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetGroupList]];
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?page=%ld",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetGroupList,_page_Information]];
 }
 
 -(void)getProcessData
 {
+    [_collectionV.mj_header endRefreshing];
+    [_collectionV.mj_footer endRefreshing];
+
     if([[self.results objectForKey:@"code"] integerValue] == 200)
     {
         NSArray *dataArr = [self.results objectForKey:@"data"];
-        if (dataArr&&dataArr.count>0) {
-            _arr_PTdata = dataArr;
+        NSMutableArray *entities = [NSMutableArray array];
+       if (dataArr&&dataArr.count>0) {
+
+            entities = [WJJRPTItem mj_objectArrayWithKeyValuesArray:dataArr];
+
+            if(_page_Information==1)
+            {
+                _arr_PTdata= entities;
+            }else
+            {
+                [_arr_PTdata addObjectsFromArray:entities];
+            }
             [_collectionV reloadData];
-        }
+
+           if(entities.count<[kMSPULLtableViewCellNumber integerValue])
+           {
+               [_collectionV.mj_footer endRefreshingWithNoMoreData];
+           }
+           else{
+               _collectionV.mj_footer.hidden = NO;
+           }
+       }
     }
     else
     {
@@ -49,6 +85,8 @@
         return;
     }
 }
+
+
 -(UICollectionView *)collectionV
 {
     if (!_collectionV) {
@@ -61,6 +99,8 @@
         _collectionV.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
         [_collectionV registerClass:[WJSSPTTypeHeadView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJSSPTTypeHeadView"];
         [_collectionV registerClass:[WJSSPTTypeCollectionViewCell class] forCellWithReuseIdentifier:@"WJSSPTTypeCollectionViewCell"];
+        _collectionV.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRereshingPifa)];
+        _collectionV.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshingPifa)];
     }
     return _collectionV;
 }
@@ -120,34 +160,24 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     WJSSPTTypeCollectionViewCell *cell = [self.collectionV dequeueReusableCellWithReuseIdentifier:@"WJSSPTTypeCollectionViewCell" forIndexPath:indexPath];
-    NSArray *arrGoods = [[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"goods"];
-    if (arrGoods.count>0) {
-        NSString *urlStr = [NSString stringWithFormat:@"%@",[[arrGoods objectAtIndex:0]objectForKey:@"original_img"]] ;
-        [cell.img_content sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"default_nomore.png"] completed:nil];
-    }
-    
-    cell.lab_title.text = [NSString stringWithFormat:@"%@",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"goods_name"]] ;
-//    cell.lab_describe.text = [NSString stringWithFormat:@"%@",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"goods_content"]];
-    cell.priceLabel.text = [NSString stringWithFormat:@"批发价：¥%@~￥%@元",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"group_price_one"],[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"group_price_three"]];
-    cell.lab_count.text = [NSString stringWithFormat:@"已售%@件",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"num"]];
+    cell.model = self.arr_PTdata[indexPath.row];
     return cell;
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    WJSSPTDetailClassViewController *storeInfo = [[WJSSPTDetailClassViewController alloc]init];
-    storeInfo.goods_id = [NSString stringWithFormat:@"%@",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"goods_id"]];
-    storeInfo.group_numb_one = [NSString stringWithFormat:@"%@",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"group_numb_one"]];
-    storeInfo.group_numb_two = [NSString stringWithFormat:@"%@",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"group_numb_two"]];
-    storeInfo.group_numb_three = [NSString stringWithFormat:@"%@",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"group_numb_three"]];
-    storeInfo.group_price_one = [NSString stringWithFormat:@"%@",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"group_price_one"]];
-    storeInfo.group_price_two = [NSString stringWithFormat:@"%@",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"group_price_two"]];
-    storeInfo.group_price_three = [NSString stringWithFormat:@"%@",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"group_price_three"]];
-    storeInfo.endTimeStr = [[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"end_time"];
-    storeInfo.group_info_id = [[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"group_info_id"];
-    storeInfo.info_classType = @"拼团";
-    storeInfo.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:storeInfo animated:YES];
-    self.hidesBottomBarWhenPushed = YES;
+//    WJSSPTDetailClassViewController *storeInfo = [[WJSSPTDetailClassViewController alloc]init];
+//    storeInfo.goods_id = [NSString stringWithFormat:@"%@",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"goods_id"]];
+//    storeInfo.group_numb_one = [NSString stringWithFormat:@"%@",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"group_numb_one"]];
+//    storeInfo.group_numb_two = [NSString stringWithFormat:@"%@",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"group_numb_two"]];
+//    storeInfo.group_numb_three = [NSString stringWithFormat:@"%@",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"group_numb_three"]];
+//    storeInfo.group_price_one = [NSString stringWithFormat:@"%@",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"group_price_one"]];
+//    storeInfo.group_price_two = [NSString stringWithFormat:@"%@",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"group_price_two"]];
+//    storeInfo.group_price_three = [NSString stringWithFormat:@"%@",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"group_price_three"]];
+//    storeInfo.endTimeStr = [[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"end_time"];
+//    storeInfo.group_info_id = [[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"group_info_id"];
+//    storeInfo.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:storeInfo animated:YES];
+//    self.hidesBottomBarWhenPushed = YES;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

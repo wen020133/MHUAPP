@@ -26,9 +26,9 @@
     bgView.backgroundColor = [UIColor clearColor];
     [[UIApplication sharedApplication].keyWindow addSubview:bgView];
     // 名字
-    float nameWidth = [RegularExpressionsMethod widthOfString:message font:[UIFont systemFontOfSize:13] height:20];
+    float nameWidth = [RegularExpressionsMethod widthOfString:message font:[UIFont systemFontOfSize:13] height:20]+2;
      NSString *stringSub = [NSString stringWithFormat:@" 在%u秒前成功下单",1+arc4random() % 59];
-    float strSubWidth = [RegularExpressionsMethod widthOfString:stringSub font:[UIFont systemFontOfSize:13] height:20];
+    float strSubWidth = [RegularExpressionsMethod widthOfString:stringSub font:[UIFont systemFontOfSize:13] height:20]+2;
     
     UIImageView *backImag = ImageViewInit(DCMargin, 0, nameWidth+strSubWidth+82, 30);
     backImag.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.7];

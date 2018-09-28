@@ -43,6 +43,7 @@
 
     self.arr_Type = [NSArray arrayWithObjects:@"全部",@"待审核",@"已完成", nil];
     [self addAccountLog];
+    [self getMoneyManData];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -51,30 +52,23 @@
     _menu_ScrollView = [[MuluScrollView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 44) withTitles:_arr_Type];
     _menu_ScrollView.delegate = self;
     [self.view addSubview:_menu_ScrollView];
-
     self.str_Type = @"2";
-     [self getMoneyManData];
-
 }
 
 
 -(UITableView *)infoTableView
 {
     if (!_infoTableView) {
-        _infoTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 44, kMSScreenWith, kMSScreenHeight-kMSNaviHight-44) style:UITableViewStyleGrouped];
+        _infoTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 44, kMSScreenWith, kMSScreenHeight-kMSNaviHight-44) style:UITableViewStylePlain];
         _infoTableView.delegate = self;
         _infoTableView.dataSource = self;
         _infoTableView.backgroundColor =[UIColor clearColor];
         _infoTableView.showsHorizontalScrollIndicator = NO;
-        _infoTableView.separatorStyle=UITableViewCellSeparatorStyleNone;
-        [_infoTableView registerClass:[WJMoneyListTableCell class] forCellReuseIdentifier:@"WJMoneyListTableCell"];
-        
-        _infoTableView.tableHeaderView = self.view_tabHead;
-        
+    _infoTableView.separatorStyle=UITableViewCellSeparatorStyleNone;
     }
     return _infoTableView;
 }
-- (void)didSelectedButtonWithTag:(NSInteger)currTag
+- (void)didSelectedMuluBtnWithTag:(NSInteger)currTag
 {
     switch (currTag) {
         case 0:
@@ -90,7 +84,12 @@
             break;
     }
     [self getMoneyManData];
+    [UIView animateWithDuration:0.5 animations:^{
+        [self.infoTableView setContentOffset:CGPointMake(0, 44)];
+    }];
+
 }
+
 -(void)getMoneyManData
 {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -135,13 +134,6 @@
     return self.arr_infoListData.count;
 }
 
-//section头部视图
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    UIView *view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 5)];
-    view.backgroundColor = [UIColor clearColor];
-    return view;
-}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -150,8 +142,10 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *CellIndentifier = @"WJMoneyListTableCell";
-    WJMoneyListTableCell *cell = (WJMoneyListTableCell *)[tableView dequeueReusableCellWithIdentifier:CellIndentifier];
+    WJMoneyListTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WJMoneyListTableCell"];
+    if (cell == nil) {
+        cell = [[WJMoneyListTableCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"WJMoneyListTableCell"];
+    }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.model = self.arr_infoListData[indexPath.row];
     return cell;

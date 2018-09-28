@@ -79,7 +79,7 @@
                     {
                         [_dataArray removeAllObjects];
                         [self.noMoreView hide];
-                        self.noMoreView = [[NOMoreDataView alloc]initWithFrame:CGRectMake(0, 44, kMSScreenWith, 80) withContent:@"暂无数据." withNODataImage:@"noMore_bg.png"];
+                        self.noMoreView = [[NOMoreDataView alloc]initWithFrame:CGRectMake(0, 44, kMSScreenWith, 80) withContent:@"暂无消息." withNODataImage:@"noMore_bg.png"];
                         [self.myTableView addSubview:self.noMoreView];
                     }
                 }
@@ -87,7 +87,7 @@
                 {
                     [_dataArray removeAllObjects];
                     [self.noMoreView hide];
-                    self.noMoreView = [[NOMoreDataView alloc]initWithFrame:CGRectMake(0, 44, kMSScreenWith, 80) withContent:@"暂无数据." withNODataImage:@"noMore_bg.png"];
+                    self.noMoreView = [[NOMoreDataView alloc]initWithFrame:CGRectMake(0, 44, kMSScreenWith, 80) withContent:@"暂无消息." withNODataImage:@"noMore_bg.png"];
                     [self.myTableView addSubview:self.noMoreView];
                 }
                 

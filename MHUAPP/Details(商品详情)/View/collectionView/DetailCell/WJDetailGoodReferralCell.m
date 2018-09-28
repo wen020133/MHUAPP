@@ -73,7 +73,7 @@
 
 
     _goodPriceLabel.text = [NSString stringWithFormat:@"¥%@",_goodPrice];
-    _goodPriceLabel.frame = CGRectMake(DCMargin, _goodTitleLabel.Bottom+2, [RegularExpressionsMethod widthOfString:_goodPriceLabel.text font:Font(20) height:30], 30);
+    _goodPriceLabel.frame = CGRectMake(DCMargin, _goodTitleLabel.Bottom+2, [RegularExpressionsMethod widthOfString:_goodPriceLabel.text font:Font(20) height:30]+5, 30);
 
     if (_oldPrice&&_oldPrice.length>0) {
         NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:_oldPrice

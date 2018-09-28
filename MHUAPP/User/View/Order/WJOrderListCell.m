@@ -84,7 +84,7 @@
 
     }
     CGFloat width = [RegularExpressionsMethod widthOfString:price font:Font(14) height:23];
-    _price.frame = CGRectMake(kMSScreenWith-width-10, 5, width, 23);
+    _price.frame = CGRectMake(kMSScreenWith-width-10, 5, width+2, 23);
     _price.text = price;
 
     NSString *oldprice = [NSString stringWithFormat:@"￥%@",_listModel.market_price];
@@ -114,7 +114,7 @@
     price = [NSString stringWithFormat:@"￥%@",_item.count_price];
 
     CGFloat width = [RegularExpressionsMethod widthOfString:price font:Font(14) height:23];
-    _price.frame = CGRectMake(kMSScreenWith-width-10, 5, width, 23);
+    _price.frame = CGRectMake(kMSScreenWith-width-10, 5, width+2, 23);
     _price.text = price;
 
     NSString *oldprice = [NSString stringWithFormat:@"￥%@",_item.market_price];

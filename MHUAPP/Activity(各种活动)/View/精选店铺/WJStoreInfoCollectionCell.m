@@ -62,7 +62,7 @@
 
     NSString *price = [NSString stringWithFormat:@"￥%@",_item.shop_price];
     CGFloat width = [RegularExpressionsMethod widthOfString:price font:Font(15) height:20];
-    _lab_price.frame = CGRectMake(10, _title.Bottom+5, width, 20);
+    _lab_price.frame = CGRectMake(10, _title.Bottom+5, width+2, 20);
     _lab_price.text = price;
     if([item.is_use_bonus integerValue]==1)
     {

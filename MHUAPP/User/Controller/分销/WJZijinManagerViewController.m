@@ -46,7 +46,9 @@
     if([[self.results objectForKey:@"code"] integerValue] == 200)
     {
         self.lab_Num.text = self.results[@"data"][@"distributionMoney"];
+        self.lab_Num.adjustsFontSizeToFitWidth = YES;
        self.lab_keTiXian.text = self.results[@"data"][@"user_money"];
+        self.lab_keTiXian.adjustsFontSizeToFitWidth = YES;
         self.str_distributionMoney = self.lab_keTiXian.text;
         }
     else

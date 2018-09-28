@@ -262,6 +262,7 @@
 		342C82661FFE252D00F1ECCC /* WJButtonNewlineScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 342C82651FFE252D00F1ECCC /* WJButtonNewlineScrollView.m */; };
 		342CDEEE1FE35F8500625F23 /* noMore_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 342CDEED1FE35F8400625F23 /* noMore_bg.png */; };
 		342CDEF11FE3610500625F23 /* WJAddressItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 342CDEF01FE3610500625F23 /* WJAddressItem.m */; };
+		3430BB12215DB12500C9C1D5 /* WJBillDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3430BB11215DB12500C9C1D5 /* WJBillDetailViewController.m */; };
 		3433F2A220E0ED3F0079ABB5 /* WJUnLoginStateTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3433F2A120E0ED3F0079ABB5 /* WJUnLoginStateTypeView.m */; };
 		34341C2A208DCE9200ABF73D /* WJHomeRefreshGifHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 34341C29208DCE9200ABF73D /* WJHomeRefreshGifHeader.m */; };
 		3435D7B02004A28800F2FE46 /* WJFeatureItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3435D7AF2004A28800F2FE46 /* WJFeatureItemCell.m */; };
@@ -929,6 +930,8 @@
 		342CDEED1FE35F8400625F23 /* noMore_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noMore_bg.png; sourceTree = "<group>"; };
 		342CDEEF1FE3610500625F23 /* WJAddressItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJAddressItem.h; sourceTree = "<group>"; };
 		342CDEF01FE3610500625F23 /* WJAddressItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJAddressItem.m; sourceTree = "<group>"; };
+		3430BB10215DB12500C9C1D5 /* WJBillDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJBillDetailViewController.h; sourceTree = "<group>"; };
+		3430BB11215DB12500C9C1D5 /* WJBillDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJBillDetailViewController.m; sourceTree = "<group>"; };
 		3433F2A020E0ED3F0079ABB5 /* WJUnLoginStateTypeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJUnLoginStateTypeView.h; sourceTree = "<group>"; };
 		3433F2A120E0ED3F0079ABB5 /* WJUnLoginStateTypeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WJUnLoginStateTypeView.m; sourceTree = "<group>"; };
 		34341C28208DCE9200ABF73D /* WJHomeRefreshGifHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJHomeRefreshGifHeader.h; sourceTree = "<group>"; };
@@ -1288,6 +1291,8 @@
 				1729D70F211052540057B6EA /* WJMoneyManagementViewController.h */,
 				1729D714211052580057B6EA /* WJMoneyManagementViewController.m */,
 				1729D709211052500057B6EA /* WJMoneyManagementViewController.xib */,
+				3430BB10215DB12500C9C1D5 /* WJBillDetailViewController.h */,
+				3430BB11215DB12500C9C1D5 /* WJBillDetailViewController.m */,
 				1729D70A211052500057B6EA /* WJMyFenxiaoViewController.h */,
 				1729D70E211052540057B6EA /* WJMyFenxiaoViewController.m */,
 				1729D70B211052510057B6EA /* WJZijinManagerViewController.h */,
@@ -2387,7 +2392,7 @@
 				34804A0D206F5F3200A94CA9 /* 优质新品 */,
 				34804A02206F08A600A94CA9 /* 热卖 */,
 				341B51AC206C78F00074492C /* 活动专题 */,
-				344EDD9B2069D99E00E283DA /* 时时拼团 */,
+				344EDD9B2069D99E00E283DA /* 批发 */,
 				34273C5F1FFCA6530075A1B0 /* SecondsKill秒杀 */,
 			);
 			path = Controller;
@@ -2464,7 +2469,7 @@
 			path = "精选店铺";
 			sourceTree = "<group>";
 		};
-		344EDD9B2069D99E00E283DA /* 时时拼团 */ = {
+		344EDD9B2069D99E00E283DA /* 批发 */ = {
 			isa = PBXGroup;
 			children = (
 				344EDD9E2069E39600E283DA /* WJShiShiPinTuanMainViewController.h */,
@@ -2480,7 +2485,7 @@
 				3402430120BFEDED0033E864 /* WJPTNewBuyViewController.h */,
 				3402430220BFEDED0033E864 /* WJPTNewBuyViewController.m */,
 			);
-			path = "时时拼团";
+			path = "批发";
 			sourceTree = "<group>";
 		};
 		344EDD9C2069D9B400E283DA /* 秒杀 */ = {
@@ -3848,6 +3853,7 @@
 				17C617CF20CBD34A001F47A1 /* WJOrderSuccessViewController.m in Sources */,
 				1729D71A211052580057B6EA /* WJKeFenXiaoListViewController.m in Sources */,
 				34E9C84120CA7DC7003A592E /* MShowGroupAllSet.m in Sources */,
+				3430BB12215DB12500C9C1D5 /* WJBillDetailViewController.m in Sources */,
 				340BB08A20818E8400B1C1A4 /* WJADThirdItem.m in Sources */,
 				3456C19F20BE929B002A6566 /* WJPostBackOrderViewController.m in Sources */,
 				3456C1981FD787CD00B5AEB8 /* WJUserMainTabelCell.m in Sources */,

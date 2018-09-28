@@ -71,7 +71,7 @@
 
     NSString *price = [NSString stringWithFormat:@"￥%@",_model.shop_price];
     CGFloat width = [RegularExpressionsMethod widthOfString:price font:Font(15) height:20];
-    _lab_price.frame = CGRectMake(10, _hongbaoLabel.Bottom+5, width, 20);
+    _lab_price.frame = CGRectMake(10, _hongbaoLabel.Bottom+5, width+5, 20);
     _lab_price.text = price;
     
     NSString *saleCount = [NSString stringWithFormat:@"%@人已付款",_model.num];

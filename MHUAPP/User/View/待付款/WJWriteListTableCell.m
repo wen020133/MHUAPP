@@ -88,7 +88,7 @@
 
     }
     CGFloat width = [RegularExpressionsMethod widthOfString:price font:Font(15) height:23];
-    _price.frame = CGRectMake(kMSScreenWith-width-10, 5, width, 23);
+    _price.frame = CGRectMake(kMSScreenWith-width-10, 5, width+2, 23);
     _price.text = price;
 
     NSString *oldprice = [NSString stringWithFormat:@"￥%@",_listModel.market_price];

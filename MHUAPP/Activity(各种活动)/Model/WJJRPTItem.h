@@ -30,6 +30,14 @@
 @property (nonatomic, copy ,readonly) NSString *goods_id;
 /** shop_num  */
 @property (nonatomic, copy ,readonly) NSString *shop_num;
+/** 图片  */
+@property (nonatomic, copy ,readonly) NSString *original_img;
+/** 起批价  */
+@property (nonatomic, copy ,readonly) NSString *stat_price;
+/** 已售数量  */
+@property (nonatomic, copy ,readonly) NSString *num;
+
+
 
 /* 红包提示 */
 @property (strong, nonatomic) NSString *bonus_tips;

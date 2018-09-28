@@ -8,7 +8,7 @@
 
 #import "WJSSPTTypeCollectionViewCell.h"      //240
 #import "UIView+UIViewFrame.h"
-//#import <UIImageView+WebCache.h>
+#import <UIImageView+WebCache.h>
 
 @implementation WJSSPTTypeCollectionViewCell
 
@@ -107,24 +107,16 @@
 
 
 
-//-(void)setModel:(WJJRPTItem *)model
-//{
-//    if (model!=_model) {
-//        _model = model;
-//    }
-//    NSString *urlStr = [NSString stringWithFormat:@"%@",_model.goods_thumb] ;
-//    [_img_content sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"default_nomore.png"] completed:nil];
-//    _lab_title.text = _model.goods_name;
-//    _lab_describe.text = _model.goods_brief;
-//    [_btn_price setTitle:[NSString stringWithFormat:@"五人团：￥%@",_model.shop_price] forState:UIControlStateNormal];
-//
-//    NSString *oldprice = [NSString stringWithFormat:@"￥%@",_model.market_price];
-//    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:oldprice
-//                                                                                attributes:@{NSStrikethroughStyleAttributeName : @(NSUnderlineStyleSingle)}];
-//    _oldPriceLabel.attributedText = attrStr;
-//
-//
-//    _lab_count.text = [NSString stringWithFormat:@"已售%@",_model.sales];
-//
-//}
+-(void)setModel:(WJJRPTItem *)model
+{
+    if (model!=_model) {
+        _model = model;
+    }
+        NSString *urlStr = [NSString stringWithFormat:@"%@",model.original_img] ;
+        [_img_content sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"default_nomore.png"] completed:nil];
+
+    _lab_title.text = [NSString stringWithFormat:@"%@",model.goods_name] ;
+    _priceLabel.text = [NSString stringWithFormat:@"¥%@元",model.stat_price];
+    _lab_count.text = [NSString stringWithFormat:@"已售%@件",model.num];
+}
 @end

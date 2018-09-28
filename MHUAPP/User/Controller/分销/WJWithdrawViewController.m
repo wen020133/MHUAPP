@@ -40,7 +40,7 @@
     self.labAmount = LabelInit(DCMargin, DCMargin*2+20, 200, 40);
     self.labAmount.textColor = kMSCellBackColor;
     self.labAmount.font = Font(30);
-    self.labAmount.text = @"0.00元";
+    self.labAmount.text = [NSString stringWithFormat:@"%@元",self.str_distributionMoney];
     [self.scr_withdraw addSubview:self.labAmount];
 
     UILabel *labMSG = LabelInit(DCMargin, 76, kMSScreenWith-20, 20);
@@ -55,6 +55,8 @@
     [_btn_WX setBackgroundImage:[UIImage imageNamed:@"user_fenxiaoSelect.png"] forState:UIControlStateSelected];
     [_btn_WX addTarget:self action:@selector(titleBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.scr_withdraw addSubview:_btn_WX];
+    _payment = @"2";
+    _btn_WX.selected = YES;
 
     UIImageView *imaWX = ImageViewInit(_btn_WX.x+15, _btn_WX.y+_btn_WX.height/2-13, 26, 26);
     imaWX.image = [UIImage imageNamed:@"user_fenxiaoWX.png"];
@@ -266,14 +268,18 @@
 {
     if([[self.results objectForKey:@"code"] integerValue] == 200)
     {
-        [self jxt_showActionSheetWithTitle:@"提现申请成功" message:@"请等待工作人审核" appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
+        NSString *msg = [self.results objectForKey:@"msg"];
+        [self jxt_showAlertWithTitle:@"消息提示" message:msg appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
             alertMaker.
             addActionCancelTitle(@"确定");
         } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, JXTAlertController * _Nonnull alertSelf) {
-            
-            if ([action.title isEqualToString:@"确定"]) {
-                [self.navigationController popViewControllerAnimated:YES];
+            if (buttonIndex == 0) {
+                if ([action.title isEqualToString:@"确定"]) {
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
             }
+
+            NSLog(@"%@--%@", action.title, action);
         }];
     }
     else

@@ -203,7 +203,7 @@
 		
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
-        manager.requestSerializer.timeoutInterval = 60.f;
+        manager.requestSerializer.timeoutInterval = 20;
         [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
         [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/xml",@"text/plain", nil ];
@@ -220,12 +220,14 @@
         } progress:^(NSProgress * _Nonnull uploadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id _Nullable responseObject) { // 成功，关闭网络指示器
+             [SVProgressHUD dismiss];
             NSLog(@"responseObject====%@",responseObject);
             self.results = responseObject;
             [self processData];
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) { // 失败，关闭网络指示器
             NSLog(@"ada===%@",error);
             NSString *adasa = [NSString stringWithFormat:@"%@", error];
+            [SVProgressHUD dismiss];
             [self requestFailed:adasa];
             [self requestFailedDisMJFoot];
         }];

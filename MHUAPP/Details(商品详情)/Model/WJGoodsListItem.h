@@ -10,7 +10,7 @@
 
 @interface WJGoodsListItem : NSObject
 /** 图片URL */
-@property (nonatomic, copy ,readonly) NSString *goods_thumb;
+@property (nonatomic, copy ,readonly) NSString *original_img;
 /** 商品标题 */
 @property (nonatomic, copy ,readonly) NSString *goods_name;
 ///** 商品小标题 */

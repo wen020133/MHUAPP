@@ -89,7 +89,7 @@
 
     NSString *stringPrice =
     [NSString stringWithFormat:@"¥ %@",_goodPrice];
-    _goodPriceLabel.frame = CGRectMake(DCMargin, 6, [RegularExpressionsMethod widthOfString:stringPrice font:Font(30) height:30], 30);
+    _goodPriceLabel.frame = CGRectMake(DCMargin, 6, [RegularExpressionsMethod widthOfString:stringPrice font:Font(30) height:30]+2, 30);
      NSMutableAttributedString *LZString = [[NSMutableAttributedString alloc]initWithString:stringPrice];
     [LZString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:16] range:NSMakeRange(0, 2)];
     _goodPriceLabel.attributedText = LZString;

@@ -201,7 +201,7 @@
         
         NSString *price = [NSString stringWithFormat:@"￥%@",_count_price];
         CGFloat width = [RegularExpressionsMethod widthOfString:price font:Font(15) height:23];
-        cell.price.frame = CGRectMake(kMSScreenWith-width-10, 5, width, 23);
+        cell.price.frame = CGRectMake(kMSScreenWith-width-10, 5, width+2, 23);
         cell.price.text = price;
         
         NSString *oldprice = [NSString stringWithFormat:@"￥%@",_market_price];

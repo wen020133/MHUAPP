@@ -60,7 +60,7 @@
     self.numberLabel.text = [NSString stringWithFormat:@"%ld",(long)model.goods_number];
     self.selectBtn.selected = model.select;
     self.priceLabel.text = [NSString stringWithFormat:@"¥%@",model.goods_price];
-    self.priceLabel.frame = CGRectMake(self.lzImageView.Right + 10, 65, [RegularExpressionsMethod widthOfString:self.priceLabel.text font:Font(16) height:30], 30);
+    self.priceLabel.frame = CGRectMake(self.lzImageView.Right + 10, 65, [RegularExpressionsMethod widthOfString:self.priceLabel.text font:Font(16) height:30]+2, 30);
 
     if (model.market_price.length>0) {
         NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:model.market_price
