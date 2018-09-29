@@ -66,7 +66,8 @@
         
         switch (_serverType) {
             case KGetChatMsg :
-            {[_dataArray removeAllObjects];
+            {
+                [_dataArray removeAllObjects];
                 id arr_data = [self.results objectForKey:@"data"];
                 if ([arr_data isKindOfClass:[NSArray class]]) {
                     NSArray *dataArr = arr_data;
@@ -81,6 +82,7 @@
                         [self.noMoreView hide];
                         self.noMoreView = [[NOMoreDataView alloc]initWithFrame:CGRectMake(0, 44, kMSScreenWith, 80) withContent:@"暂无消息." withNODataImage:@"noMore_bg.png"];
                         [self.myTableView addSubview:self.noMoreView];
+                        [self.myTableView reloadData];
                     }
                 }
                 else
@@ -89,6 +91,7 @@
                     [self.noMoreView hide];
                     self.noMoreView = [[NOMoreDataView alloc]initWithFrame:CGRectMake(0, 44, kMSScreenWith, 80) withContent:@"暂无消息." withNODataImage:@"noMore_bg.png"];
                     [self.myTableView addSubview:self.noMoreView];
+                    [self.myTableView reloadData];
                 }
                 
                 

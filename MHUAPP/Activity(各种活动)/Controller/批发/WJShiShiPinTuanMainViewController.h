@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "MenuScrollView.h"
+#import "BaseNetworkViewController.h"
 
-@interface WJShiShiPinTuanMainViewController : UIViewController<MenuBtnDelegate,UIPageViewControllerDataSource,UIPageViewControllerDelegate>
+@interface WJShiShiPinTuanMainViewController : BaseNetworkViewController<MenuBtnDelegate,UIPageViewControllerDataSource,UIPageViewControllerDelegate>
 {
     UIPageViewController *_pageViewCtrl;
     NSMutableArray *_viewControllers;

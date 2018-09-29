@@ -13,8 +13,8 @@
 
 #import "WJGoodDetailViewController.h"
 #import "WJSSPTDetailClassViewController.h"
-//#import "WJShiShiPinTuanMainViewController.h"  //有分类的拼团
-#import "WJSSPTTypeViewController.h"    //没有分类的拼团
+#import "WJShiShiPinTuanMainViewController.h"  //有分类的拼团
+//#import "WJSSPTTypeViewController.h"    //没有分类的拼团
 
 #import "WJHuoDongZhuanTiMainViewController.h"
 #import "WJHotSellingViewController.h"
@@ -792,7 +792,7 @@
         case 1001:
         {
             self.hidesBottomBarWhenPushed = YES;
-            WJSSPTTypeViewController *dcVc = [[WJSSPTTypeViewController alloc] init];
+            WJShiShiPinTuanMainViewController *dcVc = [[WJShiShiPinTuanMainViewController alloc] init];
             [self.navigationController pushViewController:dcVc animated:YES];
             self.hidesBottomBarWhenPushed = NO;
         }

@@ -28,10 +28,14 @@
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     NSString *path = [[NSBundle mainBundle] pathForResource:@"fenXiaoTableListItem" ofType:@"plist" inDirectory:nil];
     _arr_typeName = [[NSArray alloc]initWithContentsOfFile:path];
-   [self getZijinManager];
     [self.view addSubview:self.infoTableView];
     
     // Do any additional setup after loading the view from its nib.
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self getZijinManager];
+    [super viewWillAppear:YES];
 }
 -(void)getZijinManager
 {

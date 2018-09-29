@@ -12,7 +12,7 @@
 #import "NOMoreDataView.h"
 #import "UIView+UIViewFrame.h"
 #import "MuluScrollView.h"
-
+#import "WJBillDetailViewController.h"
 
 @interface WJMoneyManagementViewController ()<UITableViewDelegate,UITableViewDataSource,MuluBtnDelegate>
 
@@ -151,7 +151,13 @@
     return cell;
 }
 
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    WJBillDetailViewController *addressV = [[WJBillDetailViewController alloc]init];
+    addressV.billItem = self.arr_infoListData[indexPath.row];;
+    self.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:addressV animated:YES];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

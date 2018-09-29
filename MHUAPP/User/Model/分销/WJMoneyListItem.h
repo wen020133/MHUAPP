@@ -22,5 +22,7 @@
 @property (copy,nonatomic) NSString *log_id;
 @property (copy,nonatomic) NSString *account_name;
 @property (copy,nonatomic) NSString *phone;
+@property (copy,nonatomic) NSString *admin_note;
 @property (copy,nonatomic) NSString *admin_user;
+@property (copy,nonatomic) NSString *user_note;
 @end

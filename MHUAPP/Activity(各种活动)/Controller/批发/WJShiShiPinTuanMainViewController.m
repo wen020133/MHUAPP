@@ -14,7 +14,9 @@
 {
     NSInteger ph_currentIndex;
 }
-@property (strong, nonatomic) NSArray *arr_PTType;
+
+@property (strong, nonatomic) NSMutableArray *arr_PTType;
+@property (strong, nonatomic) NSMutableArray *arr_TypeID;
 
 @end
 
@@ -25,11 +27,42 @@
 
     [self initSendReplyWithTitle:@"采购批发" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
-    self.arr_PTType = [NSArray arrayWithObjects:@"全部",@"电吹风机",@"直卷发器",@"洗发定型",@"染发烫发",@"染发烫发",@"染发烫发", nil];
-    [self addInformationSegmentedControlView];
-    [self addPageVC];
+    _arr_PTType = [NSMutableArray array];
+    _arr_TypeID = [NSMutableArray array];
+    [self getDepositCateCategory];
 // Do any additional setup after loading the view.
 }
+
+-(void)getDepositCateCategory
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDepositCate,uid]];
+}
+-(void)getProcessData
+{
+    if([[self.results objectForKey:@"code"] integerValue] == 200)
+    {
+            NSMutableArray *arrType = [self.results objectForKey:@"data"];
+            if (arrType&&arrType.count>0) {
+                //倒序
+                arrType=  (NSMutableArray *)[[arrType reverseObjectEnumerator]allObjects];
+                for (NSDictionary *dic in arrType) {
+                    [_arr_PTType addObject:dic[@"cat_name"]];
+                    [_arr_TypeID addObject:dic[@"cat_id"]];
+                }
+                [self addInformationSegmentedControlView];
+                [self addPageVC];
+            }
+
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"msg"]];
+        return;
+    }
+}
+
 -(void)addInformationSegmentedControlView
 {
     _menu_PTScrollView = [[MenuScrollView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 44) withTitles:self.arr_PTType withScrollViewWidth:kMSScreenWith];
