@@ -7,12 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HXSearchBar.h"
 
-@interface WJSSPTAllClassHeadView : UICollectionReusableView
+
+@interface WJSSPTAllClassHeadView : UICollectionReusableView<UISearchBarDelegate>
+
+@property (strong, nonatomic) HXSearchBar *searchBar;
 
 /* 图片 */
 @property (strong , nonatomic) UIImageView *img_content;
 
+
+/** 点击搜索 */
+@property (nonatomic , copy) void(^userChickSearch)(NSString *searchText);
 ///* 今日必拼 */
 //@property (strong , nonatomic)UILabel *titleLabel;
 //

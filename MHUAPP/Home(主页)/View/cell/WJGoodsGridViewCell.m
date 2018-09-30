@@ -39,7 +39,7 @@
     
     self = [super initWithFrame:frame];
     if (self) {
-        _defaultImgArr = @[@"Home_icon_xianshimiaosha",@"Home_icon_shishipintuan",@"Home_icon_huodongzhuanqu",@"Home_icon_jingxuandianpu",@"Home_icon_remaishangpin",@"Home_icon_youzhixinpin",@"Home_icon_jifenshangcheng",@"Home_icon_quanbushangpin"];
+        _defaultImgArr = @[@"Home_icon_xianshimiaosha",@"Home_icon_shishipintuan",@"Home_icon_xianshizhekou",@"Home_icon_jingxuandianpu",@"Home_icon_remaishangpin",@"Home_icon_youzhixinpin",@"Home_icon_jifenshangcheng",@"Home_icon_quanbushangpin"];
         _defaultTitleArr = @[@"限时秒杀",@"采购批发",@"限时折扣",@"精选店铺",@"热卖商品",@"优质新品",@"精品推荐",@"全部商品"];
         _itemCounts = _defaultImgArr.count;
         _lineNumber = 2;

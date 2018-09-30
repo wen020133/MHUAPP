@@ -15,8 +15,7 @@
 #import "WJSSPTDetailClassViewController.h"
 #import "WJShiShiPinTuanMainViewController.h"  //有分类的拼团
 //#import "WJSSPTTypeViewController.h"    //没有分类的拼团
-
-#import "WJHuoDongZhuanTiMainViewController.h"
+#import "WJDiscountMainViewController.h"
 #import "WJHotSellingViewController.h"
 #import "WJIntegralListViewController.h"
 #import "WJYouZhiXinPinViewController.h"
@@ -799,20 +798,20 @@
             break;
         case 1002:
         {
-            [self jxt_showAlertWithTitle:@"消息提示" message:@"活动暂未开放。敬请期待！" appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
-                alertMaker.
-                addActionCancelTitle(@"确定");
-            } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, JXTAlertController * _Nonnull alertSelf) {
-                if (buttonIndex == 0) {
-                    NSLog(@"cancel");
-                }
-
-                NSLog(@"%@--%@", action.title, action);
-            }];
-//            self.hidesBottomBarWhenPushed = YES;
-//            WJHuoDongZhuanTiMainViewController *dcVc = [[WJHuoDongZhuanTiMainViewController alloc] init];
-//            [self.navigationController pushViewController:dcVc animated:YES];
-//            self.hidesBottomBarWhenPushed = NO;
+//            [self jxt_showAlertWithTitle:@"消息提示" message:@"活动暂未开放。敬请期待！" appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
+//                alertMaker.
+//                addActionCancelTitle(@"确定");
+//            } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, JXTAlertController * _Nonnull alertSelf) {
+//                if (buttonIndex == 0) {
+//                    NSLog(@"cancel");
+//                }
+//
+//                NSLog(@"%@--%@", action.title, action);
+//            }];
+            self.hidesBottomBarWhenPushed = YES;
+            WJDiscountMainViewController *dcVc = [[WJDiscountMainViewController alloc] init];
+            [self.navigationController pushViewController:dcVc animated:YES];
+            self.hidesBottomBarWhenPushed = NO;
         }
             break;
         case 1003:

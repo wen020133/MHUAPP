@@ -1,59 +1,63 @@
 //
-//  WJShiShiPingTuanMainViewController.m
+//  WJDiscountMainViewController.m
 //  MHUAPP
 //
-//  Created by jinri on 2018/3/27.
+//  Created by jinri on 2018/9/30.
 //  Copyright © 2018年 wenchengjun. All rights reserved.
 //
 
-#import "WJShiShiPinTuanMainViewController.h"
-#import "WJSSPTFirstViewController.h"
-#import "WJSSPTTypeViewController.h"
+#import "WJDiscountMainViewController.h"
+#import "MenuScrollView.h"
+#import "WJXSZKTypeViewController.h"
+#import "WJXSZKFristViewController.h"
 
-@interface WJShiShiPinTuanMainViewController ()
+
+@interface WJDiscountMainViewController ()<MenuBtnDelegate,UIPageViewControllerDataSource,UIPageViewControllerDelegate>
 {
+    UIPageViewController *_pageViewCtrl;
+    NSMutableArray *_viewControllers;
     NSInteger ph_currentIndex;
 }
+
+@property (strong, nonatomic) MenuScrollView *menu_ZKScrollView; //折扣分类ScrollView
 
 @property (strong, nonatomic) NSMutableArray *arr_PTType;
 @property (strong, nonatomic) NSMutableArray *arr_TypeID;
 
 @end
 
-@implementation WJShiShiPinTuanMainViewController
+@implementation WJDiscountMainViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    [self initSendReplyWithTitle:@"采购批发" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
+    [self initSendReplyWithTitle:@"限时折扣" andLeftButtonName:@"ic_back.png" andRightButtonName:nil andTitleLeftOrRight:YES];
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     _arr_PTType = [NSMutableArray array];
     _arr_TypeID = [NSMutableArray array];
     [self getDepositCateCategory];
-// Do any additional setup after loading the view.
+    // Do any additional setup after loading the view.
 }
-
 -(void)getDepositCateCategory
 {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *uid = [[userDefaults objectForKey:@"userList"] objectForKey:@"uid" ];
-    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSWholesaleCat,uid]];
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?user_id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDiscountCat,uid]];
 }
 -(void)getProcessData
 {
     if([[self.results objectForKey:@"code"] integerValue] == 200)
     {
-            NSMutableArray *arrType = [self.results objectForKey:@"data"];
-            if (arrType&&arrType.count>0) {
-                //倒序
-//                arrType=  (NSMutableArray *)[[arrType reverseObjectEnumerator]allObjects];
-                for (NSDictionary *dic in arrType) {
-                    [_arr_PTType addObject:dic[@"cat_name"]];
-                    [_arr_TypeID addObject:dic[@"cat_id"]];
-                }
-                [self addInformationSegmentedControlView];
-                [self addPageVC];
+        NSMutableArray *arrType = [self.results objectForKey:@"data"];
+        if (arrType&&arrType.count>0) {
+            //倒序
+//            arrType=  (NSMutableArray *)[[arrType reverseObjectEnumerator]allObjects];
+            for (NSDictionary *dic in arrType) {
+                [_arr_PTType addObject:dic[@"cat_name"]];
+                [_arr_TypeID addObject:dic[@"cat_id"]];
             }
+            [self addInformationSegmentedControlView];
+            [self addPageVC];
+        }
 
     }
     else
@@ -65,9 +69,9 @@
 
 -(void)addInformationSegmentedControlView
 {
-    _menu_PTScrollView = [[MenuScrollView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 44) withTitles:self.arr_PTType withScrollViewWidth:kMSScreenWith];
-    _menu_PTScrollView.delegate = self;
-    [self.view addSubview:_menu_PTScrollView];
+    _menu_ZKScrollView = [[MenuScrollView alloc]initWithFrame:CGRectMake(0, 0, kMSScreenWith, 44) withTitles:self.arr_PTType withScrollViewWidth:kMSScreenWith];
+    _menu_ZKScrollView.delegate = self;
+    [self.view addSubview:_menu_ZKScrollView];
 }
 
 -(void)addPageVC
@@ -76,13 +80,13 @@
     for (int i = 0; i < [self.arr_PTType count]; i++)
     {
         if (i==0) {
-            WJSSPTFirstViewController *firstVC  = [WJSSPTFirstViewController alloc];
-            firstVC.str_catId = [_arr_TypeID objectAtIndex:i];
+            WJXSZKFristViewController *firstVC  = [WJXSZKFristViewController alloc];
+            firstVC.str_catId = [_arr_TypeID objectAtIndex:0];
             [_viewControllers addObject:firstVC];
         }
         else
         {
-        WJSSPTTypeViewController *healthVC = [[WJSSPTTypeViewController alloc]init];
+            WJXSZKTypeViewController *healthVC = [[WJXSZKTypeViewController alloc]init];
             healthVC.str_catId = [_arr_TypeID objectAtIndex:i];
             [_viewControllers addObject:healthVC];
         }
@@ -147,7 +151,7 @@
 - (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray<UIViewController *> *)previousViewControllers transitionCompleted:(BOOL)completed {
 
     if (completed) {
-        [self.menu_PTScrollView changeMenuState:ph_currentIndex];
+        [self.menu_ZKScrollView changeMenuState:ph_currentIndex];
     }
 }
 

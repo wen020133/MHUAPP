@@ -9,6 +9,7 @@
 #import "WJSSPTAllClassHeadView.h"    //height 120+44
 #import "UIView+UIViewFrame.h"
 
+
 @implementation WJSSPTAllClassHeadView
 
 
@@ -25,12 +26,40 @@
 
 - (void)setUpUI
 {
-    self.backgroundColor = [UIColor clearColor];
+    self.backgroundColor = [UIColor whiteColor];
 
     _img_content  = ImageViewInit(0, 0, kMSScreenWith, 120);
     _img_content.image = [UIImage imageNamed:@"main_sspt_haowuyiqipin.jpg"];
     [self addSubview:_img_content];
 
+    //加上 搜索栏
+    self.searchBar = [[HXSearchBar alloc] initWithFrame:CGRectMake(20, 127, kMSScreenWith -40, 30)];
+    self.searchBar.backgroundColor = [UIColor whiteColor];
+    //输入框提示
+    self.searchBar.hideSearchBarBackgroundImage = YES;
+    self.searchBar.searchBarTextField.placeholder = @"大家都在搜:";
+    //光标颜色
+    self.searchBar.cursorColor = [UIColor redColor];
+    self.searchBar.delegate = self;
+    //TextField
+    self.searchBar.searchBarTextField.layer.cornerRadius = 20;
+    self.searchBar.searchBarTextField.layer.masksToBounds = YES;
+    self.searchBar.searchBarTextField.backgroundColor  = [RegularExpressionsMethod ColorWithHexString:@"faf5f5"];
+    self.searchBar.searchBarTextField.font = Font(14);
+
+    if (@available(iOS 11.0, *))
+    {
+        [self.searchBar.heightAnchor constraintLessThanOrEqualToConstant:kEVNScreenNavigationBarHeight].active = YES;
+    }
+    else
+    {
+
+    }
+    [self addSubview: self.searchBar];
+
+    UIImageView *line3 = ImageViewInit(0, 163, kMSScreenWith, 1);
+    line3.backgroundColor = [RegularExpressionsMethod ColorWithHexString:@"E6E6E6"];
+    [self addSubview:line3];
 //    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 120, 80, 44)];
 //    _titleLabel.text = @"今日必拼";
 //    _titleLabel.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
@@ -119,6 +148,19 @@
 //    }
 //
 //}
+//编辑文字改变的回调
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    NSLog(@"searchText:%@",searchText);
+    if (searchText.length==0) {
+        !_userChickSearch ? : _userChickSearch(@"");
+        [self.searchBar resignFirstResponder];
+    }
 
-
+}
+//搜索按钮
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    NSLog(@"searchText开始了");
+   !_userChickSearch ? : _userChickSearch(searchBar.text);
+    [searchBar resignFirstResponder];
+}
 @end

@@ -99,10 +99,20 @@
 #define   kMSGetSupplierNum      @"getSupplierNum"                 //某个店铺的商品总数
 #define   kMSGetBestSeller      @"newGoods"                 //某个店铺热销商品
 #define   kMSPostOrderIntegral      @"/v1/postOrderIntegral"                 //积分商城用户下单
-#define   kMSGetGroupList      @"wholesaleList"                 //采购列表
+#define   kMSGetGroupList      @"wholesaleList"                 //采购批发列表
 #define   kMSGetOrderIntegral      @"getOrderIntegral"                 //积分订单
 #define   kMSMiYoMeiGetNum      @"getNum"                 //获取某个商品的销售数量
 #define   kMSGETCategoryId      @"categoryId"                 //获取分类商品列表
+
+/* 批发 */
+#define   kMSWholesaleCat     @"wholesaleCat"                 //批发分类接口
+
+
+
+/* 折扣 */
+#define   kMSDiscountList     @"discountList"                 //折扣商品列表
+#define   kMSDiscountCat     @"discountCat"                 //折扣分类接口
+
 
 #define   kMSMiYoMeiQuery        @"/v1/query"                 //物流详情
 #define   kMSPostBackOrder        @"/v1/postBackOrder"                 //申请退款

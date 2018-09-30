@@ -64,7 +64,7 @@
     _countDownLabel.font = PFR16Font;
     [self addSubview:_countDownLabel];
 
-     _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeHeadle) userInfo:nil repeats:YES];
+    
 
 }
 - (void)timeHeadle{
@@ -90,6 +90,13 @@
         [_timer invalidate];
         _timer = nil;
     }
+}
+-(void)setEnd_time:(NSString *)end_time
+{
+    if (end_time!=_end_time) {
+        _end_time = end_time;
+    }
+     _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeHeadle) userInfo:nil repeats:YES];
 }
 #pragma mark - 布局
 - (void)layoutSubviews

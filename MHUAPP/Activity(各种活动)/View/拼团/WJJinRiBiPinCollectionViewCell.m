@@ -56,8 +56,9 @@
         _btn_price.frame = CGRectMake(10, _lab_count.Bottom+1, _grayView.width-10, 30);
         _btn_price.titleLabel.font = PFR15Font;
         _btn_price.titleLabel.textColor = kMSCellBackColor;
-        _btn_price.layer.cornerRadius = 15;
+        _btn_price.layer.cornerRadius = 7;
         _btn_price.layer.masksToBounds = YES;//设置圆角
+        _btn_price.userInteractionEnabled = NO;
         [_grayView addSubview:_btn_price];
     }
     return self;

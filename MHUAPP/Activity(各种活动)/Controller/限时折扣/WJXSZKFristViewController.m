@@ -1,20 +1,23 @@
 //
-//  WJSSPTFirstViewController.m
+//  WJXSZKFristViewController.m
 //  MHUAPP
 //
-//  Created by jinri on 2018/3/27.
+//  Created by jinri on 2018/9/30.
 //  Copyright © 2018年 wenchengjun. All rights reserved.
 //
 
-#import "WJSSPTFirstViewController.h"
-#import "WJSSPTAllClassHeadView.h"
-#import "WJSSPTMRHHCollectionCell.h"
+#import "WJXSZKFristViewController.h"
+#import "WJXSZKAllMainHeadView.h"
+#import "WJXSZKTypeListCell.h"
 #import "MJRefresh.h"
 #import "NOMoreDataView.h"
+#import "WJXSZKListItem.h"
 
-@interface WJSSPTFirstViewController ()
 
-@property (strong, nonatomic) NSMutableArray *arr_PTHomeList;
+@interface WJXSZKFristViewController ()<UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource>
+
+@property (strong, nonatomic) UICollectionView *collectionV;
+@property (strong, nonatomic) NSMutableArray *arr_ZKHomeList;
 @property NSInteger page_Information;
 @property (strong, nonatomic) NSString *str_keywords;
 
@@ -22,22 +25,21 @@
 
 @end
 
-@implementation WJSSPTFirstViewController
+@implementation WJXSZKFristViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     _page_Information = 1;
     _str_keywords = @"";
-    self.arr_PTHomeList = [NSMutableArray array];
+    self.arr_ZKHomeList = [NSMutableArray array];
     [self getGetGroupListHome];
     [self.view addSubview:self.collectionV];
     // Do any additional setup after loading the view.
 }
-
 -(void)getGetGroupListHome
 {
-    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?cat_id=%@&page=%ld&keywords=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetGroupList,self.str_catId,_page_Information,self.str_keywords]];
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?cat_id=%@&page=%ld&keywords=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSDiscountList,self.str_catId,_page_Information,self.str_keywords]];
 }
 -(void)headerRereshingGrouphome
 {
@@ -59,11 +61,11 @@
         _collectionV.delegate = self;
         _collectionV.dataSource = self;
         _collectionV.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-        [_collectionV registerClass:[WJSSPTAllClassHeadView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJSSPTAllClassHeadView"];
-         [_collectionV registerClass:[WJSSPTMRHHCollectionCell class] forCellWithReuseIdentifier:@"WJSSPTMRHHCollectionCell"];
+        [_collectionV registerClass:[WJXSZKAllMainHeadView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJXSZKAllMainHeadView"];
+        [_collectionV registerClass:[WJXSZKTypeListCell class] forCellWithReuseIdentifier:@"WJXSZKTypeListCell"];
         _collectionV.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRereshingGrouphome)];
         _collectionV.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshingGrouphome)];
-         _collectionV.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+        _collectionV.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     }
     return _collectionV;
 }
@@ -78,15 +80,15 @@
         NSMutableArray *entities = [NSMutableArray array];
         if (dataArr&&dataArr.count>0) {
             [self.noMoreView hide];
-            entities = [WJJRPTItem mj_objectArrayWithKeyValuesArray:dataArr];
+            entities = [WJXSZKListItem mj_objectArrayWithKeyValuesArray:dataArr];
 
             if(_page_Information==1)
             {
-                [_arr_PTHomeList removeAllObjects];
-                _arr_PTHomeList= entities;
+                [_arr_ZKHomeList removeAllObjects];
+                _arr_ZKHomeList= entities;
             }else
             {
-                [_arr_PTHomeList addObjectsFromArray:entities];
+                [_arr_ZKHomeList addObjectsFromArray:entities];
             }
             [_collectionV reloadData];
 
@@ -103,7 +105,7 @@
             [self.noMoreView hide];
             self.noMoreView = [[NOMoreDataView alloc]initWithFrame:CGRectMake(0, 200, kMSScreenWith, 80) withContent:@"暂无数据." withNODataImage:@"noMore_bg.png"];
             [_collectionV addSubview:self.noMoreView];
-            [_arr_PTHomeList removeAllObjects];
+            [_arr_ZKHomeList removeAllObjects];
             [_collectionV reloadData];
         }
     }
@@ -121,7 +123,7 @@
     {
         if(indexPath.section == 0)// 顶部滚动广告
         {
-            WJSSPTAllClassHeadView *head = [self.collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJSSPTAllClassHeadView" forIndexPath:indexPath];
+            WJXSZKAllMainHeadView *head = [self.collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJXSZKAllMainHeadView" forIndexPath:indexPath];
             WEAKSELF
             head.userChickSearch = ^(NSString *searchText) {
                 _page_Information = 1;
@@ -131,20 +133,20 @@
             reusableview = head;
         }
 
-       
-//        else
-//        {
-//            UICollectionReusableView *common = [self.collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"common" forIndexPath:indexPath];
-//            common.backgroundColor = kMSCellBackColor;
-//
-//            UILabel *more = LabelInit(kMSScreenWith/2-40, 0, 80, 40);
-//            more.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
-//            more.text = @"每日好货";
-//            [common addSubview:more];
-//            more.font = PFR14Font;
-//
-//            reusableview = common;
-//        }
+
+        //        else
+        //        {
+        //            UICollectionReusableView *common = [self.collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"common" forIndexPath:indexPath];
+        //            common.backgroundColor = kMSCellBackColor;
+        //
+        //            UILabel *more = LabelInit(kMSScreenWith/2-40, 0, 80, 40);
+        //            more.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
+        //            more.text = @"每日好货";
+        //            [common addSubview:more];
+        //            more.font = PFR14Font;
+        //
+        //            reusableview = common;
+        //        }
 
     }
     return reusableview;
@@ -169,12 +171,7 @@
 }
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
-//    if (section == 0) {
-        return CGSizeMake(kMSScreenWith, 164);
-//    }
-//    else
-//        return CGSizeMake(kMSScreenWith, 40);  //推荐适合的宽高
-
+    return CGSizeMake(kMSScreenWith, 164);
 }
 
 
@@ -184,25 +181,19 @@
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.arr_PTHomeList.count;
+    return self.arr_ZKHomeList.count;
 }
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-//    if (indexPath.section == 0)
-//    {
-//        return CGSizeMake(kMSScreenWith, 200);
-//    }
-//    else
-//    {
-        return CGSizeMake(kMSScreenWith, 110);
-//    }
-
+    return CGSizeMake(kMSScreenWith, 110);
 }
+
+
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    WJSSPTMRHHCollectionCell *cell = [self.collectionV dequeueReusableCellWithReuseIdentifier:@"WJSSPTMRHHCollectionCell" forIndexPath:indexPath];
-    cell.model = self.arr_PTHomeList[indexPath.row];
+    WJXSZKTypeListCell *cell = [self.collectionV dequeueReusableCellWithReuseIdentifier:@"WJXSZKTypeListCell" forIndexPath:indexPath];
+    cell.model = self.arr_ZKHomeList[indexPath.row];
     return cell;
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -213,8 +204,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
 
 /*
 #pragma mark - Navigation

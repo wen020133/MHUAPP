@@ -1,14 +1,14 @@
 //
-//  WJJRPTItem.h
+//  WJXSZKListItem.h
 //  MHUAPP
 //
-//  Created by jinri on 2018/3/28.
+//  Created by jinri on 2018/9/30.
 //  Copyright © 2018年 wenchengjun. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-@interface WJJRPTItem : NSObject
+@interface WJXSZKListItem : NSObject
 
 /** 图片  */
 @property (nonatomic, copy ,readonly) NSString *goods_thumb;
@@ -18,29 +18,27 @@
 @property (nonatomic, copy ,readonly) NSString *goods_brief;
 /** 价格  */
 @property (nonatomic, copy ,readonly) NSString *integral;
-/** 原价  */
+/** 市场价  */
 @property (nonatomic, copy ,readonly) NSString *market_price;
 /** 原价  */
-@property (nonatomic, copy ,readonly) NSString *shop_price;
+@property (nonatomic, copy ,readonly) NSString *org_price;
 /** 销量  */
 @property (nonatomic, copy ,readonly) NSString *sales;
-/** 积分ID  */
-@property (nonatomic, copy ,readonly) NSString *integral_id;
+/** 结束时间  */
+@property (nonatomic, copy ,readonly) NSString *promote_end_date;
 /** goods_id  */
 @property (nonatomic, copy ,readonly) NSString *goods_id;
-/** shop_num  */
-@property (nonatomic, copy ,readonly) NSString *shop_num;
+/** 开始时间  */
+@property (nonatomic, copy ,readonly) NSString *promote_start_date;
 /** 图片  */
 @property (nonatomic, copy ,readonly) NSString *original_img;
-/** 起批价  */
-@property (nonatomic, copy ,readonly) NSString *stat_price;
+/** 折扣价  */
+@property (nonatomic, copy ,readonly) NSString *promote_price;
 /** 已售数量  */
 @property (nonatomic, copy ,readonly) NSString *num;
-/** 起批量  */
-@property (nonatomic, copy ,readonly) NSString *start_num;
+/** 折扣*/
+@property (nonatomic, copy ,readonly) NSString *zhekou;
 
 
-/* 红包提示 */
-@property (strong, nonatomic) NSString *bonus_tips;
-@property (strong, nonatomic) NSString *is_use_bonus;
+
 @end
