@@ -48,24 +48,24 @@
 
     UILabel *labelNum = LabelInit(DCMargin, 12, 60, 20);
     labelNum.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
-    labelNum.font = Font(14);
-    labelNum.text = @"批发数量";
+    labelNum.font = Font(13);
+    labelNum.text = @"批发数量:";
     [self addSubview:labelNum];
 
     _lab_NumScope1 = LabelInit(labelNum.Right+30, 12, 60, 20);;
-    _lab_NumScope1.font = PFR14Font;
+    _lab_NumScope1.font = PFR13Font;
     _lab_NumScope1.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
     _lab_NumScope1.textAlignment = NSTextAlignmentCenter;
     [self addSubview:_lab_NumScope1];
 
     _lab_NumScope2 = LabelInit(_lab_NumScope1.Right+30, 12, 60, 20);
-    _lab_NumScope2.font = PFR14Font;
+    _lab_NumScope2.font = PFR13Font;
     _lab_NumScope2.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
     _lab_NumScope2.textAlignment = NSTextAlignmentCenter;
     [self addSubview:_lab_NumScope2];
 
     _lab_NumScope3 = LabelInit(_lab_NumScope2.Right+30, 12, 60, 20);;
-    _lab_NumScope3.font = PFR14Font;
+    _lab_NumScope3.font = PFR13Font;
     _lab_NumScope3.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
     _lab_NumScope3.textAlignment = NSTextAlignmentCenter;
     [self addSubview:_lab_NumScope3];
@@ -77,24 +77,24 @@
 
     UILabel *labelPrice = LabelInit(DCMargin, 47, 60, 20);
     labelPrice.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
-    labelPrice.font = Font(14);
-    labelPrice.text = @"批发价格";
+    labelPrice.font = Font(13);
+    labelPrice.text = @"批发价格:";
     [self addSubview:labelPrice];
 
     _lab_PriceScope1 = LabelInit(labelNum.Right+30, 47, 60, 20);
-    _lab_PriceScope1.font = PFR14Font;
+    _lab_PriceScope1.font = PFR13Font;
     _lab_PriceScope1.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
     _lab_PriceScope1.textAlignment = NSTextAlignmentCenter;
     [self addSubview:_lab_PriceScope1];
 
     _lab_PriceScope2 = LabelInit(_lab_NumScope1.Right+30, 47, 60, 20);
-    _lab_PriceScope2.font = PFR14Font;
+    _lab_PriceScope2.font = PFR13Font;
     _lab_PriceScope2.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
     _lab_PriceScope2.textAlignment = NSTextAlignmentCenter;
     [self addSubview:_lab_PriceScope2];
 
     _lab_PriceScope3 = LabelInit(_lab_PriceScope2.Right+30, 47, 60, 20);;
-    _lab_PriceScope3.font = PFR14Font;
+    _lab_PriceScope3.font = PFR13Font;
     _lab_PriceScope3.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
     _lab_PriceScope3.textAlignment = NSTextAlignmentCenter;
     [self addSubview:_lab_PriceScope3];
@@ -102,6 +102,10 @@
 -(void)setGroup_numb_one:(NSString *)group_numb_one
 {
     _group_numb_one = group_numb_one;
+}
+-(void)setStart_num:(NSString *)start_num
+{
+    _start_num = start_num;
 }
 -(void)setGroup_numb_two:(NSString *)group_numb_two
 {
@@ -126,9 +130,9 @@
 }
 - (void)reloadDataAllLabel
 {
-    _lab_NumScope1.text = [NSString stringWithFormat:@"1-%d",[_group_numb_one intValue]];
-    _lab_NumScope2.text = [NSString stringWithFormat:@"%d-%@",[_group_numb_one intValue]+1,_group_numb_two];
-    _lab_NumScope3.text = [NSString stringWithFormat:@"%d-%@",[_group_numb_two intValue]+1,_group_numb_three];
+    _lab_NumScope1.text = [NSString stringWithFormat:@"%@件 起批",_start_num];
+    _lab_NumScope2.text = [NSString stringWithFormat:@"%d-%@件",[_group_numb_one intValue]+1,_group_numb_two];
+    _lab_NumScope3.text = [NSString stringWithFormat:@"%d-%@件",[_group_numb_two intValue]+1,_group_numb_three];
 
     _lab_PriceScope1.text = [NSString stringWithFormat:@"￥%@",_group_price_one];
     _lab_PriceScope2.text = [NSString stringWithFormat:@"￥%@",_group_price_two];

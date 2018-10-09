@@ -1,8 +1,8 @@
 //
-//  WJSSPTDetailClassViewController.h
+//  WJXSZKDetailClassViewController.h
 //  MHUAPP
 //
-//  Created by jinri on 2018/5/22.
+//  Created by jinri on 2018/10/8.
 //  Copyright © 2018年 wenchengjun. All rights reserved.
 //
 
@@ -16,7 +16,9 @@ typedef NS_ENUM(NSInteger, KGetSSPTDetailClassType) {
     KGetPTSupplierUserId = 3,
 };
 
-@interface WJSSPTDetailClassViewController : BaseNetworkViewController<UIScrollViewDelegate>
+
+
+@interface WJXSZKDetailClassViewController : BaseNetworkViewController<UIScrollViewDelegate>
 
 /* 商品标题 */
 @property (strong , nonatomic)NSString *goodTitle;
@@ -29,7 +31,7 @@ typedef NS_ENUM(NSInteger, KGetSSPTDetailClassType) {
 @property (strong , nonatomic)NSString *oldPrice;
 /* 商品图片 */
 @property (strong , nonatomic)NSString *goodImageView;
-/* 拼团ID */
+/* 折扣ID */
 @property (assign , nonatomic) NSString *group_info_id;
 /* 秒杀ID */
 @property (assign , nonatomic) NSString *info_id;
@@ -54,13 +56,6 @@ typedef NS_ENUM(NSInteger, KGetSSPTDetailClassType) {
 /* 店铺名 */
 @property (strong , nonatomic) NSString *supplier_name;
 
-@property (strong , nonatomic)NSString *start_num;
-@property (strong , nonatomic)NSString *group_numb_one;
-@property (strong , nonatomic)NSString *group_numb_two;
-@property (strong , nonatomic)NSString *group_numb_three;
-@property (strong , nonatomic)NSString *group_price_one;
-@property (strong , nonatomic)NSString *group_price_two;
-@property (strong , nonatomic)NSString *group_price_three;
 
 /* 结束时间 */
 @property (assign , nonatomic)NSString *endTimeStr;

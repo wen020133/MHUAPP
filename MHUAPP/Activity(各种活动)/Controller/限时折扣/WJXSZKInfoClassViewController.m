@@ -1,27 +1,26 @@
 //
-//  WJSSPTInfoClassViewController.m
+//  WJXSZKInfoClassViewController.m
 //  MHUAPP
 //
-//  Created by jinri on 2018/5/21.
+//  Created by jinri on 2018/10/8.
 //  Copyright © 2018年 wenchengjun. All rights reserved.
 //
 
-#import "WJSSPTInfoClassViewController.h"
+#import "WJXSZKInfoClassViewController.h"
 #import "UIView+UIViewFrame.h"
 #import "WJDetailShufflingHeadView.h"
 #import "WJDetailPartCommentHeadView.h"
 
-#import "WJDetailGoodReferralCell.h"
-#import "WJPTPriceCollectionCell.h"
+#import "WJSSPTInfoCollectionCell.h"
 #import "WJShowTypeCouponCell.h"
 #import "WJShowTypeGoodsPropertyCell.h"
 #import "WJShowTypeFreightCell.h"
 #import "WJDetailPartCommentCell.h"
-#import "WJCGPFFeatureSelectionViewController.h"
+#import "WJFeatureSelectionViewController.h"
 #import "WJDetailOverFooterView.h"
 #import "WJLoginClassViewController.h"
 #import <MJRefresh.h>
-
+#import <WebKit/WebKit.h>
 #import "XWDrawerAnimator.h"
 #import "UIViewController+XWTransition.h"
 
@@ -30,7 +29,7 @@
 #import "WJPTNewBuyViewController.h"
 
 
-@interface WJSSPTInfoClassViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
+@interface WJXSZKInfoClassViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
 @property (strong, nonatomic) UIScrollView *scrollerView;
 @property (strong, nonatomic) UICollectionView *collectionView;
@@ -41,6 +40,10 @@
 /* 通知 */
 @property (weak ,nonatomic) id dcObj;
 
+@property (strong, nonatomic) WKWebView *webView;
+
+@property NSInteger PostCount;
+
 @end
 
 static NSString *lastNum_;
@@ -48,7 +51,7 @@ static NSArray *lastSeleArray_;
 static NSArray *lastSeleIDArray_;
 
 
-@implementation WJSSPTInfoClassViewController
+@implementation WJXSZKInfoClassViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -56,13 +59,24 @@ static NSArray *lastSeleIDArray_;
     [self setUpInit];
 
     [self setUpSuspendView];
-    lastNum_ = @"1"; 
+    [self setUpGoodsWKWebView];
+    [self setUpViewScroller];
+    lastNum_ = @"1";
     [self acceptanceNote];
-    [self toGetPTGoodNum];
+    [self getGoodsDescData];
     // Do any additional setup after loading the view.
 }
+
+-(void)getGoodsDescData
+{
+    _PostCount =0;
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetGoodsDesc,self.goods_id]];
+}
+
+
 -(void)toGetPTGoodNum
 {
+    _PostCount =1;
     [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?id=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSMiYoMeiGetNum,_goods_id]];
 }
 
@@ -70,15 +84,26 @@ static NSArray *lastSeleIDArray_;
 {
     if([[self.results objectForKey:@"code"] integerValue] == 200)
     {
-        _soldNum = [self.results objectForKey:@"data"];
-        [_collectionView reloadData];
+        if (self.PostCount==0) {
+            NSString *goods_desc = [[self.results objectForKey:@"data"] objectForKey:@"goods_desc"];
+
+            NSString *str1 = [RegularExpressionsMethod htmlEntityDecode:goods_desc];
+            [_webView loadHTMLString:str1 baseURL:nil];
+             [self toGetPTGoodNum];
+        }
+        else
+        {
+            _soldNum = [self.results objectForKey:@"data"];
+            [_collectionView reloadData];
+        }
     }
     else
     {
-        [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"data"]];
+        [SVProgressHUD showErrorWithStatus:[self.results objectForKey:@"msg"]];
         return;
     }
 }
+
 #pragma mark - LazyLoad
 - (UIScrollView *)scrollerView
 {
@@ -111,9 +136,8 @@ static NSArray *lastSeleIDArray_;
         [_collectionView registerClass:[WJDetailPartCommentHeadView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJDetailPartCommentHeadView"];
 
         //注册Cell
-        [_collectionView registerClass:[WJDetailGoodReferralCell class] forCellWithReuseIdentifier:@"WJDetailGoodReferralCell"];
+        [_collectionView registerClass:[WJSSPTInfoCollectionCell class] forCellWithReuseIdentifier:@"WJSSPTInfoCollectionCell"];
         //注册Cell
-        [_collectionView registerClass:[WJPTPriceCollectionCell class] forCellWithReuseIdentifier:@"WJPTPriceCollectionCell"];
         [_collectionView registerClass:[WJShowTypeCouponCell class] forCellWithReuseIdentifier:@"WJShowTypeCouponCell"];
         [_collectionView registerClass:[WJShowTypeGoodsPropertyCell class] forCellWithReuseIdentifier:@"WJShowTypeGoodsPropertyCell"];
         //        [_collectionView registerClass:[WJShowTypeAddressCell class] forCellWithReuseIdentifier:@"WJShowTypeAddressCell"];
@@ -155,8 +179,8 @@ static NSArray *lastSeleIDArray_;
 
     //父类加入购物车，立即购买通知
     _dcObj = [[NSNotificationCenter defaultCenter]addObserverForName:@"PTAddMiaoshaClikAddOrBuy" object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
-       if ([note.userInfo[@"buttonTag"] isEqualToString:@"3"]){//立即购买（父类）
-              [weakSelf isSelectAlretOrGetData];
+        if ([note.userInfo[@"buttonTag"] isEqualToString:@"3"]){//立即购买（父类）
+            [weakSelf isSelectAlretOrGetData];
         }
     }];
 
@@ -214,43 +238,28 @@ static NSArray *lastSeleIDArray_;
     if (_commentArray&&_commentArray.count>0) {
         kk++;
     }
-//    else if (_attributeArray&&_attributeArray.count>0)
-//    {
-//        kk++;
-//    }
+    //    else if (_attributeArray&&_attributeArray.count>0)
+    //    {
+    //        kk++;
+    //    }
     return kk;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     if (section==0) {
-        if ([_info_classType isEqualToString:@"秒杀"]) {
-            return 2;
-        }
-        else
-        return 3;
+        return 2;
     }
     else if(section==1)
     {
-//        if(_attributeArray&&_attributeArray.count>0)
-//        {
-            return 1;
-//        }
-//        else
-//        {
-//            if (_commentArray.count>1) {
-//                return 2;
-//            }
-//            else
-//                return 1;
-//        }
+        return 1;
     }
     else if(section==2)
     {
-            if (_commentArray.count>1) {
-                return 2;
-            }
-            else
-                return 1;
+        if (_commentArray.count>1) {
+            return 2;
+        }
+        else
+            return 1;
     }
     return 0;
 }
@@ -260,29 +269,22 @@ static NSArray *lastSeleIDArray_;
     UICollectionViewCell *gridcell = nil;
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            WJDetailGoodReferralCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJDetailGoodReferralCell" forIndexPath:indexPath];
+            WJSSPTInfoCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJSSPTInfoCollectionCell" forIndexPath:indexPath];
             cell.goodTitle = _goodTitle;
-            cell.goodPrice = _group_price_one;
-            cell.oldPrice = _oldPrice;
+//            if ([_info_classType isEqualToString:@"秒杀"]) {
+                cell.goodPrice = _goodPrice;
+//            }
+
+            cell.endTimeStr = _endTimeStr;
             cell.soldNum = _soldNum;
+            cell.oldPrice = _oldPrice;
             [cell assignmentAllLabel];
             gridcell = cell;
         }else if (indexPath.row == 1){
             WJShowTypeCouponCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJShowTypeCouponCell" forIndexPath:indexPath];
             gridcell = cell;
         }
-        else if (indexPath.row == 2){
-            WJPTPriceCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJPTPriceCollectionCell" forIndexPath:indexPath];
-            cell.start_num = _start_num;
-            cell.group_numb_one = _group_numb_one;
-            cell.group_numb_two = _group_numb_two;
-            cell.group_numb_three = _group_numb_three;
-            cell.group_price_one = _group_price_one;
-            cell.group_price_two = _group_price_two;
-            cell.group_price_three = _group_price_three;
-            [cell reloadDataAllLabel];
-            gridcell = cell;
-        }
+
     }
     else if (indexPath.section == 1)
     {
@@ -308,15 +310,15 @@ static NSArray *lastSeleIDArray_;
             return cell;
 
         }
-//        else if (_commentArray.count>0){
-//            WJDetailPartCommentCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJDetailPartCommentCell" forIndexPath:indexPath];
-//            cell.model = _commentArray[indexPath.row];
-//            return cell;
-//        }
-//        else {
-//
-//            return gridcell;
-//        }
+        //        else if (_commentArray.count>0){
+        //            WJDetailPartCommentCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJDetailPartCommentCell" forIndexPath:indexPath];
+        //            cell.model = _commentArray[indexPath.row];
+        //            return cell;
+        //        }
+        //        else {
+        //
+        //            return gridcell;
+        //        }
     }
     else if (indexPath.section == 2){
         WJDetailPartCommentCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WJDetailPartCommentCell" forIndexPath:indexPath];
@@ -335,18 +337,18 @@ static NSArray *lastSeleIDArray_;
             headerView.shufflingArray = _shufflingArray;
             reusableview = headerView;
         }
-//        else if (indexPath.section == 1) {
-//            if(_attributeArray.count<1&&_commentArray.count>0){
-//                WJDetailPartCommentHeadView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJDetailPartCommentHeadView" forIndexPath:indexPath];
-//                headerView.moreClickBlock = ^{
-//                    dispatch_sync(dispatch_get_global_queue(0, 0), ^{
-//                        [[NSNotificationCenter defaultCenter]postNotificationName:@"scrollToCommentsPage" object:nil];
-//                    });
-//                };
-//                reusableview = headerView;
-//            }
-//
-//        }
+        //        else if (indexPath.section == 1) {
+        //            if(_attributeArray.count<1&&_commentArray.count>0){
+        //                WJDetailPartCommentHeadView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJDetailPartCommentHeadView" forIndexPath:indexPath];
+        //                headerView.moreClickBlock = ^{
+        //                    dispatch_sync(dispatch_get_global_queue(0, 0), ^{
+        //                        [[NSNotificationCenter defaultCenter]postNotificationName:@"scrollToCommentsPage" object:nil];
+        //                    });
+        //                };
+        //                reusableview = headerView;
+        //            }
+        //
+        //        }
         else if (indexPath.section == 2){
             WJDetailPartCommentHeadView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WJDetailPartCommentHeadView" forIndexPath:indexPath];
             headerView.moreClickBlock = ^{
@@ -380,7 +382,7 @@ static NSArray *lastSeleIDArray_;
                 return CGSizeMake(kMSScreenWith, [RegularExpressionsMethod dc_calculateTextSizeWithText:_goodTitle WithTextFont:16 WithMaxW:kMSScreenWith - DCMargin * 2].height + 47);
                 break;
             case 1:
-              return  CGSizeMake(kMSScreenWith, 35);
+                return  CGSizeMake(kMSScreenWith, 35);
                 break;
             case 2:
                 return  CGSizeMake(kMSScreenWith, 75);
@@ -391,10 +393,10 @@ static NSArray *lastSeleIDArray_;
     }
     else  if(indexPath.section == 1)
     {
-//        if (_attributeArray>0)
-            return CGSizeMake(kMSScreenWith, 60);
-//        else
-//            return CGSizeMake(kMSScreenWith, 80);
+        //        if (_attributeArray>0)
+        return CGSizeMake(kMSScreenWith, 60);
+        //        else
+        //            return CGSizeMake(kMSScreenWith, 80);
     }
     else if(indexPath.section == 2)
     {
@@ -410,10 +412,10 @@ static NSArray *lastSeleIDArray_;
     if (section ==0) {
         return  CGSizeMake(kMSScreenWith, kMSScreenHeight * 0.55);
     }
-//    else  if (section ==1){
-//        if(_attributeArray.count<1&&_commentArray.count>0)
-//            return  CGSizeMake(kMSScreenWith, 40);
-//    }
+    //    else  if (section ==1){
+    //        if(_attributeArray.count<1&&_commentArray.count>0)
+    //            return  CGSizeMake(kMSScreenWith, 40);
+    //    }
     else if (section ==2)
     {
         return  CGSizeMake(kMSScreenWith, 40);
@@ -423,24 +425,26 @@ static NSArray *lastSeleIDArray_;
 
 #pragma mark - foot宽高
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
-//    if (_attributeArray.count>0) {
-        return (section == 2) ? CGSizeMake(kMSScreenWith, 35) : CGSizeMake(kMSScreenWith, DCMargin);
-//    }
-//    else
-//    {
-//        return (section == 1) ? CGSizeMake(kMSScreenWith, 35) : CGSizeMake(kMSScreenWith, DCMargin);
-//    }
+    //    if (_attributeArray.count>0) {
+    return (section == 2) ? CGSizeMake(kMSScreenWith, 35) : CGSizeMake(kMSScreenWith, DCMargin);
+    //    }
+    //    else
+    //    {
+    //        return (section == 1) ? CGSizeMake(kMSScreenWith, 35) : CGSizeMake(kMSScreenWith, DCMargin);
+    //    }
 
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-  if (indexPath.section == 1){ //属性选择
-        WJCGPFFeatureSelectionViewController *dcFeaVc = [WJCGPFFeatureSelectionViewController new];
+    if (indexPath.section == 1){ //属性选择
+        WJFeatureSelectionViewController *dcFeaVc = [WJFeatureSelectionViewController new];
+        dcFeaVc.lastNum = lastNum_;
+        dcFeaVc.goods_number = _goods_number;
+        dcFeaVc.str_IsmiaoshaPT = @"秒杀拼团";
+        dcFeaVc.lastSeleArray = [NSMutableArray arrayWithArray:lastSeleArray_];
         dcFeaVc.arr_fuckData = _attributeArray;
-        dcFeaVc.goods_name = _goodTitle;
-      dcFeaVc.offer_price_one = _group_price_one;
-      dcFeaVc.offer_price_three = _group_price_three;
-      dcFeaVc.start_num = _start_num;
+        dcFeaVc.arr_goodImage = _shufflingArray;
+        dcFeaVc.goodPrice = _goodPrice;
         dcFeaVc.goodImageView = _goodImageView;
         WEAKSELF
         [weakSelf setUpAlterViewControllerWith:dcFeaVc WithDistance:kMSScreenHeight * 0.8 WithDirection:XWDrawerAnimatorDirectionBottom WithParallaxEnable:YES WithFlipEnable:YES];
@@ -448,6 +452,65 @@ static NSArray *lastSeleIDArray_;
 }
 
 
+
+#pragma mark - 视图滚动
+- (void)setUpViewScroller{
+    WEAKSELF
+    self.collectionView.mj_footer = [MJRefreshBackFooter footerWithRefreshingBlock:^{
+        [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionLayoutSubviews animations:^{
+            !weakSelf.changeTitleBlock ? : weakSelf.changeTitleBlock(YES);
+            weakSelf.scrollerView.contentOffset = CGPointMake(0, kMSScreenHeight);
+        } completion:^(BOOL finished) {
+            [weakSelf.collectionView.mj_footer endRefreshing];
+        }];
+    }];
+
+    self.webView.scrollView.mj_header = [MJRefreshHeader headerWithRefreshingBlock:^{
+        [UIView animateWithDuration:0.8 animations:^{
+            !weakSelf.changeTitleBlock ? : weakSelf.changeTitleBlock(NO);
+            weakSelf.scrollerView.contentOffset = CGPointMake(0, 0);
+        } completion:^(BOOL finished) {
+            [weakSelf.webView.scrollView.mj_header endRefreshing];
+        }];
+
+    }];
+}
+- (WKWebView *)webView
+{
+    if (!_webView) {
+        _webView = [[WKWebView alloc] initWithFrame:CGRectZero];
+        _webView.frame = CGRectMake(0,kMSScreenHeight , kMSScreenWith, kMSScreenHeight - 50-kMSNaviHight);
+        _webView.scrollView.contentInset = UIEdgeInsetsMake(kMSNaviHight, 0, 0, 0);
+        _webView.scrollView.scrollIndicatorInsets = _webView.scrollView.contentInset;
+        [self.scrollerView addSubview:_webView];
+    }
+    return _webView;
+}
+#pragma mark - 记载图文详情
+- (void)setUpGoodsWKWebView
+{
+    //下拉返回商品详情View
+    UIView *topHitView = [[UIView alloc] init];
+    topHitView.frame = CGRectMake(0, -35, kMSScreenWith, 35);
+    DCLIRLButton *topHitButton = [DCLIRLButton buttonWithType:UIButtonTypeCustom];
+    topHitButton.imageView.transform = CGAffineTransformRotate(topHitButton.imageView.transform, M_PI); //旋转
+    [topHitButton setImage:[UIImage imageNamed:@"Details_Btn_Up"] forState:UIControlStateNormal];
+    [topHitButton setTitle:@"下拉返回商品详情" forState:UIControlStateNormal];
+    topHitButton.titleLabel.font = PFR12Font;
+    [topHitButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    [topHitView addSubview:topHitButton];
+    topHitButton.frame = topHitView.bounds;
+
+    [self.webView.scrollView addSubview:topHitView];
+}
+
+#pragma mark - 滚动到详情页面
+- (void)scrollToDetailsPage
+{
+    dispatch_sync(dispatch_get_global_queue(0, 0), ^{
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"scrollToDetailsPage" object:nil];
+    });
+}
 
 #pragma mark - collectionView滚回顶部
 - (void)ScrollToTop
@@ -462,9 +525,8 @@ static NSArray *lastSeleIDArray_;
             [weakSelf.collectionView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
         }];
     }
-
 }
-#pragma mark - 视图滚动
+
 
 #pragma mark - <UIScrollViewDelegate>
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -472,6 +534,8 @@ static NSArray *lastSeleIDArray_;
     //判断回到顶部按钮是否隐藏
     _backTopButton.hidden = (scrollView.contentOffset.y > kMSScreenHeight) ? NO : YES;
 }
+
+
 -(void)isSelectAlretOrGetData
 {
     WEAKSELF
@@ -482,12 +546,14 @@ static NSArray *lastSeleIDArray_;
             [weakSelf setUpWithAddSuccess];
         }
         else {
-            WJCGPFFeatureSelectionViewController *dcFeaVc = [WJCGPFFeatureSelectionViewController new];
+            WJFeatureSelectionViewController *dcFeaVc = [WJFeatureSelectionViewController new];
+            dcFeaVc.lastNum = lastNum_;
+            dcFeaVc.goods_number = _goods_number;
+            dcFeaVc.str_IsmiaoshaPT = @"秒杀拼团";
+            dcFeaVc.lastSeleArray = [NSMutableArray arrayWithArray:lastSeleArray_];
             dcFeaVc.arr_fuckData = _attributeArray;
-            dcFeaVc.goods_name = _goodTitle;
-            dcFeaVc.offer_price_one = _group_price_one;
-            dcFeaVc.offer_price_three = _group_price_three;
-            dcFeaVc.start_num = _start_num;
+            dcFeaVc.arr_goodImage = _shufflingArray;
+            dcFeaVc.goodPrice = _goodPrice;
             dcFeaVc.goodImageView = _goodImageView;
             [weakSelf setUpAlterViewControllerWith:dcFeaVc WithDistance:kMSScreenHeight * 0.8 WithDirection:XWDrawerAnimatorDirectionBottom WithParallaxEnable:YES WithFlipEnable:YES];
         }
@@ -500,47 +566,36 @@ static NSArray *lastSeleIDArray_;
 
 - (void)setUpWithAddSuccess
 {
+    WEAKSELF
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    
+
     NSString *loginState = [userDefaults objectForKey:@"loginState"];
     if(![loginState isEqualToString:@"1"])
     {
         WJLoginClassViewController *land = [[WJLoginClassViewController alloc]init];
         UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:land];
         [nav.navigationBar setIsMSNavigationBar];
-        [self presentViewController:nav animated:YES completion:^{
+        [weakSelf presentViewController:nav animated:YES completion:^{
         }];
         return;
     }
     if ([_info_classType isEqualToString:@"秒杀"]) {
-        [self goToPTNEwBuyClassView];
+        [weakSelf goToPTNEwBuyClassView];
     }
     else
     {
-    [self jxt_showAlertWithTitle:@"批发规则" message:@" 1、批发买家支付呼模式：参与批发的买家需要先支付第一梯度对应的最高价格，批发结束后产生对应批发梯度价格， 卖家按照最后的批发达成价格获取相应收益；如果最后批发达成的梯度价格小于买家参与批发支付的价格，商城按差价额按支付途经原路返还买家多支出的费用。\n2、恶意批发：如果参与批发的买家最后不想参与批发，卖家没有发货，扣除买家参与批发支付费用的10%作为惩罚， 扣除金额归平台所有；如遇到卖家发货途中退货，以恶意批发处理，扣除参与批发支付费用的10%作为惩罚。扣除金额归商家所有\n3、成功参与批发的买家：参与拼在收到货物后，在不影响二次销售的情况下，享有平台的无理由退货权利，部分商品除外 （洗发/定型、染发/烫发、美妆/个户、美甲/纹绣）不在无理由退货的范围内的商品进行退货由商家和卖家自行沟通解决。 " appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
-        alertMaker.
-        addActionCancelTitle(@"取消").
-        addActionDestructiveTitle(@"立即购买");
-    } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, JXTAlertController * _Nonnull alertSelf) {
-        if (buttonIndex == 0) {
-            NSLog(@"cancel");
-        }
-        else
-        {
-            [self goToPTNEwBuyClassView];
-        }
         
-    }];
     }
 
 }
 
 -(void)goToPTNEwBuyClassView
 {
+    WEAKSELF
     NSString *result ;
     if (_attributeArray.count>0) {
         result  = [NSString stringWithFormat:@"%@",[lastSeleArray_ componentsJoinedByString:@","]];
-        
+
     }
     else
     {
@@ -551,21 +606,16 @@ static NSArray *lastSeleIDArray_;
     newBuyVC.str_title = _goodTitle;
     newBuyVC.str_type = result;
     newBuyVC.str_Num = lastNum_;
-    if ([_info_classType isEqualToString:@"秒杀"]) {
+//    if ([_info_classType isEqualToString:@"秒杀"]) {
         newBuyVC.str_price = _goodPrice;
-    }
-    else
-    {
-        newBuyVC.str_price = _group_price_one;
-    }
+
     newBuyVC.str_oldprice = _oldPrice;
     newBuyVC.str_goodsId = _goods_id;
     newBuyVC.info_classType = _info_classType;
-    newBuyVC.str_group_info_id = _group_info_id;
     newBuyVC.str_info_id = _info_id;
     newBuyVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:newBuyVC animated:YES];
-    self.hidesBottomBarWhenPushed = YES;
+    [weakSelf.navigationController pushViewController:newBuyVC animated:YES];
+    weakSelf.hidesBottomBarWhenPushed = YES;
 }
 
 #pragma mark - 加入购物车成功

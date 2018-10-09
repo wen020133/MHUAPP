@@ -11,10 +11,12 @@
 #import "WJSSPTMRHHCollectionCell.h"
 #import "MJRefresh.h"
 #import "NOMoreDataView.h"
+#import "WJJRPTItem.h"
+#import "WJSSPTDetailClassViewController.h"
 
 @interface WJSSPTFirstViewController ()
 
-@property (strong, nonatomic) NSMutableArray *arr_PTHomeList;
+@property (strong, nonatomic) NSMutableArray <WJJRPTItem *> *arr_PTHomeList;
 @property NSInteger page_Information;
 @property (strong, nonatomic) NSString *str_keywords;
 
@@ -37,7 +39,9 @@
 
 -(void)getGetGroupListHome
 {
-    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?cat_id=%@&page=%ld&keywords=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetGroupList,self.str_catId,_page_Information,self.str_keywords]];
+
+    NSString *encodedString =[RegularExpressionsMethod encodeString:self.str_keywords];
+    [self requestGetAPIWithServe:[NSString stringWithFormat:@"%@/%@/%@?cat_id=%@&page=%ld&keywords=%@",kMSBaseMiYoMeiPortURL,kMSappVersionCode,kMSGetGroupList,self.str_catId,_page_Information,encodedString]];
 }
 -(void)headerRereshingGrouphome
 {
@@ -131,21 +135,6 @@
             reusableview = head;
         }
 
-       
-//        else
-//        {
-//            UICollectionReusableView *common = [self.collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"common" forIndexPath:indexPath];
-//            common.backgroundColor = kMSCellBackColor;
-//
-//            UILabel *more = LabelInit(kMSScreenWith/2-40, 0, 80, 40);
-//            more.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
-//            more.text = @"每日好货";
-//            [common addSubview:more];
-//            more.font = PFR14Font;
-//
-//            reusableview = common;
-//        }
-
     }
     return reusableview;
 
@@ -207,7 +196,11 @@
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    WJSSPTDetailClassViewController *storeInfo = [[WJSSPTDetailClassViewController alloc]init];
+    storeInfo.goods_id = [NSString stringWithFormat:@"%@",self.arr_PTHomeList[indexPath.row].goods_id];
+    storeInfo.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:storeInfo animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

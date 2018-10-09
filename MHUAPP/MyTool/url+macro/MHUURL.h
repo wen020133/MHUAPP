@@ -70,7 +70,7 @@
 #define   kMSGetSupplierUserId            @"getSupplierUserId"                 //客服userID
 #define   kMSAddComment          @"/v1/addComment"                 //用户添加评论
 
-#define   kMSGetDetailed           @"getDetailed"                 //商品详情页面
+#define   kMSGetDetailed           @"getDetailed"                 //普通商品详情
 
 #define   kMSPostCart          @"/v1/postCart"                 //向购物车添加数据
 #define   kMSUpdateCartNum          @"/v1/updateCartNum"                 //修改购物车商品数量
@@ -106,12 +106,15 @@
 
 /* 批发 */
 #define   kMSWholesaleCat     @"wholesaleCat"                 //批发分类接口
+#define   kMSWholesaleDetail     @"wholesaleDetail"                 //批发商品详情
 
 
 
 /* 折扣 */
 #define   kMSDiscountList     @"discountList"                 //折扣商品列表
 #define   kMSDiscountCat     @"discountCat"                 //折扣分类接口
+#define   kMSDiscountDetail     @"discountDetail"                 //折扣商品详情
+
 
 
 #define   kMSMiYoMeiQuery        @"/v1/query"                 //物流详情

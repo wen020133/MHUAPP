@@ -276,9 +276,7 @@
     // CharactersToBeEscaped = @":/?&=;+!@#$()~',*";
     
     // CharactersToLeaveUnescaped = @"[].";
-    
-    
-    
+
     NSString *encodedString = (NSString *)
     
  CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
@@ -288,10 +286,8 @@
                                                               NULL,
                                                               
                                                               (CFStringRef)@"!*'();:@&=+$,/?%#[]",
-                                                              
                                                               kCFStringEncodingUTF8));
-    
-    
+
     
     return encodedString;
     

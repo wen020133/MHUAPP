@@ -13,11 +13,12 @@
 #import "NOMoreDataView.h"
 #import "WJXSZKListItem.h"
 
+#import "WJXSZKDetailClassViewController.h"
 
 @interface WJXSZKFristViewController ()<UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property (strong, nonatomic) UICollectionView *collectionV;
-@property (strong, nonatomic) NSMutableArray *arr_ZKHomeList;
+@property (strong, nonatomic)  NSMutableArray <WJXSZKListItem *> *arr_ZKHomeList;
 @property NSInteger page_Information;
 @property (strong, nonatomic) NSString *str_keywords;
 
@@ -32,7 +33,6 @@
     self.view.backgroundColor = [RegularExpressionsMethod ColorWithHexString:kMSVCBackgroundColor];
     _page_Information = 1;
     _str_keywords = @"";
-    self.arr_ZKHomeList = [NSMutableArray array];
     [self getGetGroupListHome];
     [self.view addSubview:self.collectionV];
     // Do any additional setup after loading the view.
@@ -133,21 +133,6 @@
             reusableview = head;
         }
 
-
-        //        else
-        //        {
-        //            UICollectionReusableView *common = [self.collectionV dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"common" forIndexPath:indexPath];
-        //            common.backgroundColor = kMSCellBackColor;
-        //
-        //            UILabel *more = LabelInit(kMSScreenWith/2-40, 0, 80, 40);
-        //            more.textColor = [RegularExpressionsMethod ColorWithHexString:BASELITTLEBLACKCOLOR];
-        //            more.text = @"每日好货";
-        //            [common addSubview:more];
-        //            more.font = PFR14Font;
-        //
-        //            reusableview = common;
-        //        }
-
     }
     return reusableview;
 
@@ -198,6 +183,12 @@
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    WJXSZKDetailClassViewController *storeInfo = [[WJXSZKDetailClassViewController alloc]init];
+    storeInfo.goods_id = [NSString stringWithFormat:@"%@",self.arr_ZKHomeList[indexPath.row].goods_id];
+    storeInfo.endTimeStr = [NSString stringWithFormat:@"%@",self.arr_ZKHomeList[indexPath.row].promote_end_date];
+    storeInfo.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:storeInfo animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
 
 }
 - (void)didReceiveMemoryWarning {

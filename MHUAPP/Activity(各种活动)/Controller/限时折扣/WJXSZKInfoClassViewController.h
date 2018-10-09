@@ -1,15 +1,16 @@
 //
-//  WJSSPTInfoClassViewController.h
+//  WJXSZKInfoClassViewController.h
 //  MHUAPP
 //
-//  Created by jinri on 2018/5/21.
+//  Created by jinri on 2018/10/8.
 //  Copyright © 2018年 wenchengjun. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import "BaseNetworkViewController.h"
 
-@interface WJSSPTInfoClassViewController : BaseNetworkViewController
+
+@interface WJXSZKInfoClassViewController : BaseNetworkViewController
 
 /* 商品标题 */
 @property (assign , nonatomic)NSString *goodTitle;
@@ -29,7 +30,6 @@
 /* 商品ID */
 @property (assign , nonatomic) NSString *goods_id;
 
-@property (assign , nonatomic) NSString *group_info_id;  //拼团ID
 /* 秒杀ID */
 @property (assign , nonatomic) NSString *info_id;
 
@@ -38,17 +38,14 @@
 /* 结束时间 */
 @property (assign , nonatomic) NSString *endTimeStr;
 
-@property (assign , nonatomic)NSString *start_num;
-@property (assign , nonatomic)NSString *group_numb_one;
-@property (assign , nonatomic)NSString *group_numb_two;
-@property (assign , nonatomic)NSString *group_numb_three;
-@property (assign , nonatomic)NSString *group_price_one;
-@property (assign , nonatomic)NSString *group_price_two;
-@property (assign , nonatomic)NSString *group_price_three;
 
 @property (assign, nonatomic) NSString *info_classType;
 
 /* 商品库存 */
 @property  NSInteger goods_number;
+
+/** 更改标题 */
+@property (nonatomic , copy) void(^changeTitleBlock)(BOOL isChange);
+
 
 @end

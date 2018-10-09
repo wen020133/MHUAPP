@@ -30,6 +30,8 @@
     _arr_PTType = [NSMutableArray array];
     _arr_TypeID = [NSMutableArray array];
     [self getDepositCateCategory];
+
+     self.hidesBottomBarWhenPushed = YES;
 // Do any additional setup after loading the view.
 }
 

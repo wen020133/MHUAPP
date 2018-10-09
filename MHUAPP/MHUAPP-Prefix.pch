@@ -19,7 +19,6 @@
 #import "NSString+WJExtensions.h"
 #import "SVProgressHUD.h"
 #import "MHUURL.h"
-#import "AppDelegate.h"
 #import "JXTAlertController.h"
 #import <IQKeyboardManager.h>
 // Include any system framework and library headers here that should be included in all compilation units.

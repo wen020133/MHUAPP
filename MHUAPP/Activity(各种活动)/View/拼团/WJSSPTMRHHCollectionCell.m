@@ -90,7 +90,7 @@
     _lab_title.text = _model.goods_name;
 //    _lab_describe.text = _model.goods_brief;
 
-    _priceLabel.text = [NSString stringWithFormat:@"¥%@",_model.stat_price];
+    _priceLabel.text = [NSString stringWithFormat:@"¥%@",_model.start_price];
     _priceLabel.frame = CGRectMake(_img_content.Right+DCMargin, self.height-62, [RegularExpressionsMethod widthOfString:_priceLabel.text font:Font(17) height:21]+5, 21);
 
     if (_model.shop_price.length>0) {

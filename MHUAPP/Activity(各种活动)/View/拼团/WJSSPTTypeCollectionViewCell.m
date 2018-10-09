@@ -116,7 +116,7 @@
         [_img_content sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"default_nomore.png"] completed:nil];
 
     _lab_title.text = [NSString stringWithFormat:@"%@",model.goods_name] ;
-    _priceLabel.text = [NSString stringWithFormat:@"¥%@元",model.stat_price];
+    _priceLabel.text = [NSString stringWithFormat:@"¥%@元",model.start_price];
     _lab_count.text = [NSString stringWithFormat:@"已售%@件",model.num];
 }
 @end

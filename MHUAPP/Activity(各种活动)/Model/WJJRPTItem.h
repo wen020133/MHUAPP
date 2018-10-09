@@ -33,11 +33,18 @@
 /** 图片  */
 @property (nonatomic, copy ,readonly) NSString *original_img;
 /** 起批价  */
-@property (nonatomic, copy ,readonly) NSString *stat_price;
+@property (nonatomic, copy ,readonly) NSString *start_price;
 /** 已售数量  */
 @property (nonatomic, copy ,readonly) NSString *num;
 /** 起批量  */
 @property (nonatomic, copy ,readonly) NSString *start_num;
+
+@property (nonatomic, copy ,readonly) NSString *offer_numb_one;
+@property (nonatomic, copy ,readonly) NSString *offer_numb_two;
+@property (nonatomic, copy ,readonly) NSString *offer_numb_three;
+@property (nonatomic, copy ,readonly) NSString *offer_price_one;
+@property (nonatomic, copy ,readonly) NSString *offer_price_two;
+@property (nonatomic, copy ,readonly) NSString *offer_price_three;
 
 
 /* 红包提示 */

@@ -10,6 +10,7 @@
 
 @interface WJPTPriceCollectionCell : UICollectionViewCell
 
+@property (assign , nonatomic)NSString *start_num;
 @property (assign , nonatomic)NSString *group_numb_one;
 @property (assign , nonatomic)NSString *group_numb_two;
 @property (assign , nonatomic)NSString *group_numb_three;

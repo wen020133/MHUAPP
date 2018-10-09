@@ -11,11 +11,11 @@
 #import "WJSSPTDetailClassViewController.h"
 #import "MJRefresh.h"
 #import "NOMoreDataView.h"
-
+#import "WJJRPTItem.h"
 
 @interface WJSSPTTypeViewController ()
 
-@property (strong, nonatomic) NSMutableArray *arr_PTdata;
+@property (strong, nonatomic) NSMutableArray <WJJRPTItem *> *arr_PTdata;
 @property NSInteger page_Information;
 
 @property (strong, nonatomic) NSString *str_keywords;
@@ -158,19 +158,18 @@
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-//    WJSSPTDetailClassViewController *storeInfo = [[WJSSPTDetailClassViewController alloc]init];
-//    storeInfo.goods_id = [NSString stringWithFormat:@"%@",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"goods_id"]];
-//    storeInfo.group_numb_one = [NSString stringWithFormat:@"%@",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"group_numb_one"]];
-//    storeInfo.group_numb_two = [NSString stringWithFormat:@"%@",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"group_numb_two"]];
-//    storeInfo.group_numb_three = [NSString stringWithFormat:@"%@",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"group_numb_three"]];
-//    storeInfo.group_price_one = [NSString stringWithFormat:@"%@",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"group_price_one"]];
-//    storeInfo.group_price_two = [NSString stringWithFormat:@"%@",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"group_price_two"]];
-//    storeInfo.group_price_three = [NSString stringWithFormat:@"%@",[[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"group_price_three"]];
-//    storeInfo.endTimeStr = [[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"end_time"];
-//    storeInfo.group_info_id = [[_arr_PTdata objectAtIndex:indexPath.row] objectForKey:@"group_info_id"];
-//    storeInfo.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:storeInfo animated:YES];
-//    self.hidesBottomBarWhenPushed = YES;
+    WJSSPTDetailClassViewController *storeInfo = [[WJSSPTDetailClassViewController alloc]init];
+    storeInfo.goods_id = [NSString stringWithFormat:@"%@",self.arr_PTdata[indexPath.row].goods_id];
+//    storeInfo.group_numb_one = self.arr_PTdata[indexPath.row].offer_numb_one;
+//    storeInfo.group_numb_two = self.arr_PTdata[indexPath.row].offer_numb_two;
+//    storeInfo.group_numb_three = self.arr_PTdata[indexPath.row].offer_numb_three;
+//    storeInfo.group_price_one = self.arr_PTdata[indexPath.row].offer_price_one;
+//    storeInfo.group_price_two = self.arr_PTdata[indexPath.row].offer_price_two;
+//    storeInfo.group_price_three = self.arr_PTdata[indexPath.row].offer_price_three;
+    storeInfo.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:storeInfo animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
+
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

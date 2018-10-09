@@ -30,7 +30,7 @@
     float width = kMSScreenWith/4-20;
     for (int kk=0; kk<self.arr_type.count; kk++) {
 
-        UIImageView *imageState =ImageViewInit(10+kMSScreenWith/4*kk, 15, 10, 10);
+        UIImageView *imageState =ImageViewInit(5+kMSScreenWith/4*kk, 15, 10, 10);
         imageState.contentMode = UIViewContentModeScaleAspectFit;
         if ([[self.arr_state objectAtIndex:kk] isEqualToString:@"1"]) {
             imageState.image = [UIImage imageNamed:@"goodInfo_select"];
@@ -41,7 +41,7 @@
         }
         [self addSubview:imageState];
 
-        UILabel *label = LabelInit(imageState.Right+5, 10, width-10, 20);
+        UILabel *label = LabelInit(imageState.Right+5, 10, width-5, 20);
         label.font = Font(12);
         label.text = [self.arr_type objectAtIndex:kk];
         [self addSubview:label];

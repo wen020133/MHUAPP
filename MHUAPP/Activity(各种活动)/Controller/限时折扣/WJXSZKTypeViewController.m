@@ -12,11 +12,13 @@
 #import "NOMoreDataView.h"
 #import "WJXSZKListItem.h"
 
+#import "WJXSZKDetailClassViewController.h"
+
 
 @interface WJXSZKTypeViewController ()<UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property (strong, nonatomic) UICollectionView *collectionV;
-@property (strong, nonatomic) NSMutableArray *arr_PTdata;
+@property (strong, nonatomic) NSMutableArray <WJXSZKListItem *> *arr_PTdata;
 @property NSInteger page_Information;
 
 @property (strong, nonatomic) NSString *str_keywords;
@@ -152,7 +154,12 @@
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    WJXSZKDetailClassViewController *storeInfo = [[WJXSZKDetailClassViewController alloc]init];
+    storeInfo.goods_id = [NSString stringWithFormat:@"%@",self.arr_PTdata[indexPath.row].goods_id];
+    storeInfo.endTimeStr = [NSString stringWithFormat:@"%@",self.arr_PTdata[indexPath.row].promote_end_date];
+    storeInfo.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:storeInfo animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
 }
 
 - (void)didReceiveMemoryWarning {
