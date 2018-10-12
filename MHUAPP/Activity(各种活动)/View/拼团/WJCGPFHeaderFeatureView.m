@@ -25,12 +25,14 @@
     UILabel *valueLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 10, kMSScreenWith/2, 24)];
     valueLabel.text = @"商品属性";
     valueLabel.font = [UIFont systemFontOfSize:14];
+    valueLabel.textAlignment = NSTextAlignmentCenter;
     valueLabel.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
     [self addSubview:valueLabel];
 
     UILabel *numLabel = [[UILabel alloc]initWithFrame:CGRectMake(kMSScreenWith/2, 10, kMSScreenWith/2, 24)];
     numLabel.text = @"数量";
     numLabel.font = [UIFont systemFontOfSize:14];
+    numLabel.textAlignment = NSTextAlignmentCenter;
     numLabel.textColor = [RegularExpressionsMethod ColorWithHexString:BASEBLACKCOLOR];
     [self addSubview:numLabel];
 

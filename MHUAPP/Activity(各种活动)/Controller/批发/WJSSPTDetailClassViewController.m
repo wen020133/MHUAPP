@@ -181,7 +181,7 @@
                 _goods_brief =[NSString stringWithFormat:@"%@", self.results[@"data"][@"goods_brief"]];
                 _goodPrice = self.results[@"data"][@"shop_price"];
                 _oldPrice = self.results[@"data"][@"market_price"];
-                _goodImageView = self.results[@"data"][@"goods_thumb"];
+                _goodImageView = self.results[@"data"][@"original_img"];
                 _shufflingArray = self.results[@"data"][@"gallery"];
                 _attributeArray = self.results[@"data"][@"attr"];
                 _supplier_id = self.results[@"data"][@"supplier_id"];

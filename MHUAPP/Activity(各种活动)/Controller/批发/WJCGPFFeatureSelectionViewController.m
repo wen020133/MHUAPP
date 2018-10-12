@@ -34,7 +34,6 @@
 
 @end
 
-static NSInteger num_;
 
 @implementation WJCGPFFeatureSelectionViewController
 
@@ -48,6 +47,7 @@ static NSInteger num_;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         [self.tableView registerClass:[WJCGPFHeaderFeatureView class] forHeaderFooterViewReuseIdentifier:@"WJCGPFHeaderFeatureView"];
+        [self.tableView registerClass:[WJCGPFFeatureTopCell class] forCellReuseIdentifier:@"WJCGPFFeatureTopCell"];
         [self.view addSubview:_tableView];
     }
     return _tableView;
@@ -140,15 +140,30 @@ static NSInteger num_;
     return _featureAttr.count;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    WJCGPFHeaderFeatureView *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"WJCGPFHeaderFeatureView"];
-    return view;
+    if(section==0)
+        return nil;
+
+    else
+    {
+     WJCGPFHeaderFeatureView *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"WJCGPFHeaderFeatureView"];
+     return view;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
 
+    if(section==0)
+        return 0;
+    else
     return 44;
 }
-
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(indexPath.section==0)
+        return 100;
+    else
+        return 100;
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(indexPath.section==0)
